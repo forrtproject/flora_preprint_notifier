@@ -1,0 +1,27 @@
+repository:
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: false
+  allow_auto_merge: false
+  delete_branch_on_merge: true
+
+branches:
+  - name: main
+    protection:
+      enforce_admins: true
+
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        require_code_owner_reviews: true
+        dismiss_stale_reviews: true
+        require_last_push_approval: true  # blocks self-approving your own fresh push
+
+      required_status_checks:
+        strict: true
+        contexts: []  # add CI names later, e.g. ["build", "test"]
+
+      restrictions:
+        users:
+          - Keegan-Vaz   # only you can push directly to main
+        teams: []
+        apps: []
