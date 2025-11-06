@@ -1,12 +1,15 @@
 import os
 from celery import Celery
 from celery.schedules import crontab
+from dotenv import load_dotenv
+
+OPENALEX_EMAIL = os.environ["OPENALEX_EMAIL"]
 
 app = Celery(
     "osf_sync",
     broker=os.getenv("CELERY_BROKER_URL", "redis://redis:6379/0"),
     backend=os.getenv("CELERY_RESULT_BACKEND", "redis://redis:6379/0"),
-    include=["osf_sync.tasks"],            
+    include=["osf_sync.tasks", "osf_sync.augmentation"],            
 )
 
 app.conf.update(
@@ -45,5 +48,20 @@ app.conf.beat_schedule.update({
         "task": "osf_sync.tasks.enqueue_grobid",
         "schedule": crontab(minute=30, hour=4),
         "args": [200],   # process up to 200 per day; adjust as you like
+    },
+})
+
+app.conf.beat_schedule.update({
+    "enrich-crossref-daily": {
+        "task": "osf_sync.tasks.enrich_crossref",
+        "schedule": crontab(minute=30, hour=4),  # 04:30 Europe/Berlin
+        "args": [400],  # limit
+        "kwargs": {"threshold": 78, "ua_email": OPENALEX_EMAIL},
+    },
+    "enrich-openalex-daily": {
+        "task": "osf_sync.tasks.enrich_openalex",
+        "schedule": crontab(minute=0, hour=5),   # run after Crossref
+        "args": [400],
+        "kwargs": {"threshold": 75, "mailto": OPENALEX_EMAIL},
     },
 })

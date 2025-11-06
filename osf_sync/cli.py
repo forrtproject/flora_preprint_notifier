@@ -26,6 +26,21 @@ def cmd_enqueue_pdf(args):
                       kwargs={"limit": args.limit})
     print("enqueued:", r.id)
 
+def cmd_enqueue_extraction(args):
+    from osf_sync.celery_app import app
+    r = app.send_task("osf_sync.tasks.enqueue_extraction", kwargs={"limit": args.limit})
+    print("enqueued:", r.id)
+
+def cmd_enrich_crossref(args):
+    from osf_sync.celery_app import app
+    r = app.send_task("osf_sync.tasks.enrich_crossref", kwargs={"limit": args.limit})
+    print("enqueued:", r.id)
+
+def cmd_enrich_openalex(args):
+    from osf_sync.celery_app import app
+    r = app.send_task("osf_sync.tasks.enrich_openalex", kwargs={"limit": args.limit})
+    print("enqueued:", r.id)
+
 def main():
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -49,6 +64,18 @@ def main():
     g.add_argument("--doi", help="DOI or https://doi.org/... link")
     p4.add_argument("--metadata-only", action="store_true", help="Only upsert metadata; skip PDF & GROBID")
     p4.set_defaults(func=cmd_fetch_one)
+
+    p5 = sub.add_parser("enqueue-extraction", help="Queue TEI extraction for preprints with tei.xml and not yet extracted")
+    p5.add_argument("--limit", type=int, default=200)
+    p5.set_defaults(func=cmd_enqueue_extraction)
+
+    p6 = sub.add_parser("enrich-crossref", help="Enrich missing reference DOIs via Crossref")
+    p6.add_argument("--limit", type=int, default=200)
+    p6.set_defaults(func=cmd_enrich_crossref)
+
+    p7 = sub.add_parser("enrich-openalex", help="Enrich remaining missing reference DOIs via OpenAlex")
+    p7.add_argument("--limit", type=int, default=200)
+    p7.set_defaults(func=cmd_enrich_openalex)
 
     args = p.parse_args()
     args.func(args)

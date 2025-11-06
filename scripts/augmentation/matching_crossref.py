@@ -1,249 +1,309 @@
-import json
-import csv
+from __future__ import annotations
+import logging
+import time
+from typing import Dict, List, Optional, Tuple
+
 import requests
-from time import sleep, time
+from requests.adapters import HTTPAdapter, Retry
 from thefuzz import fuzz
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 
-# =============================================================================
-# SETTINGS
-# =============================================================================
-# Define file paths, Crossref endpoint, and matching parameters.
+from ..db import engine
 
-INPUT_FILE = "data/preprints_with_references.json"
-OUTPUT_FILE = "data/first_preprint_references_with_doi_crossref.json"
-CSV_REPORT = "data/crossref_comparison_report.csv"
-UNMATCHED_JSON = "data/first_preprint_references_without_doi_crossref.json"
-UNMATCHED_CSV = "data/first_preprint_references_without_doi_crossref.csv"
+# -------------------
+# Tunables
+# -------------------
+CROSSREF_BASE = "https://api.crossref.org/works"
+DEFAULT_THRESHOLD = 78            # a bit stricter than OpenAlex
+DEFAULT_MAX_RESULTS = 40
+DEFAULT_SLEEP = 0.3
+DEFAULT_ROWS = 20                 # per page
+DEFAULT_UA_EMAIL = "you@example.com"
 
-CROSSREF_URL = "https://api.crossref.org/works"
-MAILTO = "cruzersoulthrender@gmail.com"
-SLEEP_SECONDS = 0.7  # pause between queries (polite use)
-YEAR_TOLERANCE = 1   # enforce ±1 year difference
-# =============================================================================
+logger = logging.getLogger(__name__)
+if not logger.handlers:
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
+    )
+logger.setLevel(logging.INFO)
 
 
-def query_crossref(entry):
-    """Query Crossref by title and year (±1 year tolerance)."""
+# -------------------
+# HTTP session
+# -------------------
+def make_session(user_email: str) -> requests.Session:
+    s = requests.Session()
+    retries = Retry(
+        total=5,
+        backoff_factor=0.5,
+        status_forcelist=(429, 500, 502, 503, 504),
+        allowed_methods=("GET",),
+        raise_on_status=False,
+    )
+    s.mount("https://", HTTPAdapter(max_retries=retries))
+    # Crossref requests a descriptive UA incl. email
+    s.headers.update({
+        "User-Agent": f"osf_sync-crossref/1.0 (mailto:{user_email})"
+    })
+    return s
+
+
+# -------------------
+# Crossref helpers
+# -------------------
+def parse_crossref_results(payload: Dict) -> List[Dict]:
+    items = payload.get("message", {}).get("items", []) or []
+    parsed: List[Dict] = []
+    for it in items:
+        title = (it.get("title") or [None])[0]
+        journal = (it.get("container-title") or [None])[0]
+        year = None
+        issued = it.get("issued", {}).get("date-parts")
+        if isinstance(issued, list) and issued and isinstance(issued[0], list) and issued[0]:
+            # first element of first date-parts array, e.g. [[2021, 5, 20]]
+            year = issued[0][0]
+
+        authors = []
+        for a in (it.get("author") or []):
+            name = " ".join([p for p in [a.get("given"), a.get("family")] if p])
+            if not name:
+                name = a.get("name") or ""
+            authors.append(name)
+
+        parsed.append({
+            "doi": it.get("DOI"),
+            "title": title,
+            "journal": journal,
+            "year": year,
+            "authors": authors,
+        })
+    return parsed
+
+
+def crossref_search(
+    session: requests.Session,
+    *,
+    title: str,
+    year: Optional[int],
+    journal: Optional[str],
+    authors: List[str],
+    rows: int = DEFAULT_ROWS,
+    max_results: int = DEFAULT_MAX_RESULTS,
+) -> List[Dict]:
+    """
+    Query Crossref with a bibliographic string. We bias the query with
+    title + first author + journal (if present) to improve precision.
+    """
+    parts = [title]
+    if authors:
+        parts.append(authors[0])
+    if journal:
+        parts.append(journal)
+    biblio = " ".join([p for p in parts if p]).strip()
+
     params = {
-        "query.title": entry.get("title", ""),
-        "rows": 8,
-        "mailto": MAILTO
+        "query.bibliographic": biblio,
+        "rows": rows,
+        "select": "DOI,title,container-title,author,issued",
     }
+    if year:
+        # Restrict by pub-year range around the target year
+        params["filter"] = f"from-pub-date:{year}-01-01,until-pub-date:{year}-12-31"
 
-    year = entry.get("year")
-    if isinstance(year, int):
-        params["filter"] = f"from-pub-date:{year-1}-01-01,until-pub-date:{year+1}-12-31"
+    results: List[Dict] = []
+    cursor = "*"
+    while len(results) < max_results:
+        p = dict(params)
+        p["cursor"] = cursor
+        try:
+            r = session.get(CROSSREF_BASE, params=p, timeout=30)
+            data = r.json()
+        except Exception as e:
+            logger.warning("Crossref query failed", extra={"error": str(e), "title": title[:120]})
+            break
 
-    try:
-        r = requests.get(CROSSREF_URL, params=params, timeout=10)
-        r.raise_for_status()
-        return r.json().get("message", {}).get("items", [])
-    except Exception as e:
-        print(f"⚠️  Query failed for '{entry.get('title', '')[:60]}': {e}")
-        return []
+        batch = parse_crossref_results(data)
+        results.extend(batch)
+
+        cursor = data.get("message", {}).get("next-cursor")
+        if not cursor:
+            break
+
+        if len(results) < max_results:
+            time.sleep(DEFAULT_SLEEP)
+
+    return results[:max_results]
 
 
-def best_crossref_match(entry):
-    """Find the best Crossref match using fuzzy title, author, and journal similarity."""
-    items = query_crossref(entry)
-    if not items:
-        return None
-
-    input_title = (entry.get("title") or "").lower()
-    input_authors = [a.lower() for a in entry.get("authors", [])]
-    input_journal = (entry.get("journal") or "").lower()
-    input_year = entry.get("year")
-
-    best_item, best_score, scores = None, 0, {}
-
-    for item in items:
-        cross_year = item.get("issued", {}).get("date-parts", [[None]])[0][0]
-        if input_year and cross_year:
-            try:
-                if abs(int(cross_year) - int(input_year)) > YEAR_TOLERANCE:
-                    continue
-            except Exception:
-                pass
-
-        cross_title = (item.get("title", [""])[0] or "").lower()
-        title_score = fuzz.token_set_ratio(input_title, cross_title)
-
-        cross_authors = [
-            f"{a.get('given', '')} {a.get('family', '')}".strip().lower()
-            for a in item.get("author", [])
-        ] if "author" in item else []
-        author_score = fuzz.token_set_ratio(
-            " ".join(input_authors), " ".join(cross_authors))
-
-        cross_journal = (item.get("container-title", [""])[0] or "").lower()
-        journal_score = fuzz.token_set_ratio(
-            input_journal, cross_journal) if input_journal else 0
-
-        combined = 0.6 * title_score + 0.3 * author_score + 0.1 * journal_score
-
-        if combined > best_score:
-            best_score = combined
-            best_item = item
-            scores = {
-                "title": title_score,
-                "author": author_score,
-                "journal": journal_score,
-                "combined": combined
-            }
-
-    if not best_item or scores.get("title", 0) < 80:
-        return None
-
-    conf = (
-        "high" if scores["combined"] >= 85
-        else "medium" if scores["combined"] >= 75
-        else "low"
+# -------------------
+# Fuzzy scoring
+# -------------------
+def score_journal(cand: Optional[str], target: Optional[str]) -> int:
+    if not cand or not target:
+        return 0
+    return max(
+        fuzz.ratio(cand, target),
+        fuzz.token_set_ratio(cand, target),
     )
 
-    return {
-        "doi": best_item.get("DOI"),
-        "title_crossref": best_item.get("title", [None])[0],
-        "year_crossref": best_item.get("issued", {}).get("date-parts", [[None]])[0][0],
-        "journal_crossref": best_item.get("container-title", [None])[0],
-        "authors_crossref": best_item.get("author", []),
-        "scores": scores,
-        "confidence": conf
-    }
+
+def score_authors(cand: List[str], target: List[str]) -> int:
+    if not cand or not target:
+        return 0
+    scores = []
+    for ta in target:
+        best = max(fuzz.token_set_ratio(ta or "", ca or "") for ca in cand)
+        scores.append(best)
+    return int(sum(scores) / len(scores)) if scores else 0
 
 
-def main():
-    """Process the first 15 preprints and enrich missing DOIs."""
-    start_time = time()
+def pick_best(
+    candidates: List[Dict],
+    *,
+    target_journal: Optional[str],
+    target_authors: List[str],
+    threshold: int,
+) -> Optional[Dict]:
+    best, best_score = None, -1
+    for c in candidates:
+        js = score_journal(c.get("journal"), target_journal)
+        ascore = score_authors(c.get("authors") or [], target_authors or [])
+        # Crossref: put a bit more weight on authors (often precise)
+        combined = int(0.65 * ascore + 0.35 * js)
+        if combined > best_score:
+            best, best_score = c, combined
+    if best and best.get("doi") and best_score >= threshold:
+        return best
+    return None
 
-    with open(INPUT_FILE, "r", encoding="utf-8") as f:
-        data = json.load(f)
 
-    subset = data[:15]
-    processed_preprints = []
-    csv_rows = []
-    unmatched_refs = []
+# -------------------
+# DB queries
+# -------------------
+SEL_MISSING = text("""
+SELECT osf_id, ref_id, title, authors, journal, year
+FROM preprint_references
+WHERE doi IS NULL
+ORDER BY osf_id, ref_id
+LIMIT :limit
+""")
 
-    print(f"📚 Processing the first {len(subset)} preprints\n")
+# Only set DOI if it's still NULL → idempotent and plays nice with fallback steps
+UPD_CROSSREF = text("""
+UPDATE preprint_references
+SET doi = :doi,
+    doi_source = 'crossref',
+    updated_at = now()
+WHERE osf_id = :osf_id AND ref_id = :ref_id AND doi IS NULL
+""")
 
-    for i, preprint in enumerate(subset, start=1):
-        refs = preprint.get("references", [])
-        print("------------------------------------------------------------")
-        print(f"📘 Preprint {i}/{len(subset)} — {len(refs)} references")
-        print(f"Title: {preprint.get('title', '[Untitled]')}")
-        print("------------------------------------------------------------\n")
 
-        total_refs = len(refs)
-        refs_with_doi_before = sum(1 for r in refs if r.get("doi"))
-        new_dois_found = 0
-        conf_stats = {"high": 0, "medium": 0, "low": 0}
-        query_times = []
+# -------------------
+# Orchestrator
+# -------------------
+def enrich_missing_with_crossref(
+    *,
+    limit: int = 300,
+    threshold: int = DEFAULT_THRESHOLD,
+    ua_email: str = DEFAULT_UA_EMAIL,
+) -> Dict[str, int]:
+    """
+    Fill missing DOIs in preprint_references using Crossref.
+    Only updates rows where doi IS NULL, leaving any existing value intact.
 
-        for ref in refs:
-            if ref.get("doi"):
-                continue
+    Returns: {"updated": X, "failed": Y, "checked": Z}
+    """
+    session = make_session(ua_email)
+    updated = failed = 0
 
-            title = (ref.get("title") or "").strip()
-            if not title:
-                continue
+    with engine.begin() as conn:
+        rows = conn.execute(SEL_MISSING, {"limit": limit}).mappings().all()
 
-            t0 = time()
-            match = best_crossref_match(ref)
-            elapsed = time() - t0
-            query_times.append(elapsed)
+    for r in rows:
+        osf_id, ref_id = r["osf_id"], r["ref_id"]
+        title = r.get("title")
+        authors = r.get("authors") or []
+        journal = r.get("journal")
+        year = r.get("year")
 
-            if match:
-                ref["doi"] = match["doi"]
-                ref["doi_confidence"] = match["confidence"]
-                ref["doi_match_status"] = "added"
-                ref["match_scores"] = match["scores"]
-                new_dois_found += 1
-                conf_stats[match["confidence"]] += 1
+        if not title:
+            continue
 
-                print(
-                    f"🆕  [{match['confidence'].upper()}] {title[:60]} → {match['doi']} ({elapsed:.2f}s)")
+        logger.info(
+            "Crossref lookup start",
+            extra={"osf_id": osf_id, "ref_id": ref_id, "title": (title or "")[:120]},
+        )
 
-                csv_rows.append({
-                    "preprint_index": i,
-                    "title_input": title,
-                    "title_crossref": match["title_crossref"],
-                    "doi_crossref": match["doi"],
-                    "year_input": ref.get("year"),
-                    "year_crossref": match["year_crossref"],
-                    "journal_input": ref.get("journal"),
-                    "journal_crossref": match["journal_crossref"],
-                    "authors_input": "; ".join(ref.get("authors", [])),
-                    "authors_crossref": "; ".join(
-                        [f"{a.get('given', '')} {a.get('family', '')}".strip()
-                         for a in match.get("authors_crossref", [])]
-                    ),
-                    "title_score": match["scores"]["title"],
-                    "author_score": match["scores"]["author"],
-                    "journal_score": match["scores"]["journal"],
-                    "combined_score": match["scores"]["combined"],
-                    "confidence": match["confidence"]
-                })
+        try:
+            cands = crossref_search(
+                session,
+                title=title,
+                year=year if isinstance(year, int) else None,
+                journal=journal,
+                authors=authors,
+            )
+            best = pick_best(cands, target_journal=journal, target_authors=authors, threshold=threshold)
+            if best and best.get("doi"):
+                with engine.begin() as conn:
+                    res = conn.execute(
+                        UPD_CROSSREF,
+                        {"doi": best["doi"], "osf_id": osf_id, "ref_id": ref_id},
+                    )
+                    # If someone filled DOI between SELECT and UPDATE, rowcount==0 — treat as non-failure
+                    if res.rowcount:
+                        updated += 1
+                        logger.info(
+                            "DOI matched via Crossref",
+                            extra={"osf_id": osf_id, "ref_id": ref_id, "doi": best["doi"]},
+                        )
+                    else:
+                        logger.info(
+                            "Skipped update (doi already set by another step)",
+                            extra={"osf_id": osf_id, "ref_id": ref_id},
+                        )
             else:
-                print(f"❌  No match for: {title[:80]} ({elapsed:.2f}s)")
-                ref.setdefault("doi_match_status", "not_found")
-                unmatched_refs.append({
-                    "preprint_index": i,
-                    "title": title,
-                    "year": ref.get("year"),
-                    "journal": ref.get("journal"),
-                    "authors": "; ".join(ref.get("authors", []))
-                })
+                failed += 1
+                logger.info(
+                    "No good Crossref match",
+                    extra={"osf_id": osf_id, "ref_id": ref_id, "title": (title or '')[:120]},
+                )
 
-            sleep(SLEEP_SECONDS)
+        except SQLAlchemyError as db_e:
+            failed += 1
+            logger.error(
+                "DB error during Crossref enrichment",
+                extra={"osf_id": osf_id, "ref_id": ref_id, "error": str(db_e)},
+            )
+        except Exception as e:
+            failed += 1
+            logger.error(
+                "Error in Crossref enrichment",
+                extra={"osf_id": osf_id, "ref_id": ref_id, "error": str(e)},
+            )
 
-        refs_with_doi_after = sum(1 for r in refs if r.get("doi"))
-        processed_preprints.append(preprint)
+        time.sleep(DEFAULT_SLEEP)
 
-        avg_query_time = sum(query_times) / \
-            len(query_times) if query_times else 0
-        print("\n------------------------------------------------------------")
-        print(f"Preprint {i} summary:")
-        print(f"DOIs before: {refs_with_doi_before}")
-        print(f"New DOIs added: {new_dois_found}")
-        print(f"Final DOIs: {refs_with_doi_after}")
-        print(
-            f"Confidence: High={conf_stats['high']} | Medium={conf_stats['medium']} | Low={conf_stats['low']}")
-        print(f"Avg query time: {avg_query_time:.2f}s\n")
-
-    elapsed_total = time() - start_time
-    m, s = divmod(elapsed_total, 60)
-    print("============================================================")
-    print(f"✅ Processed {len(subset)} preprints in {m:.0f} min {s:.1f} sec")
-    print(f"💾 Total unmatched refs: {len(unmatched_refs)}")
-    print("============================================================\n")
-
-    # --- Save JSON with only the first 15 preprints ---
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(processed_preprints, f, indent=2, ensure_ascii=False)
-    print(f"💾  JSON output saved to: {OUTPUT_FILE}")
-
-    # --- Save CSV report for matches ---
-    if csv_rows:
-        with open(CSV_REPORT, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=list(csv_rows[0].keys()))
-            writer.writeheader()
-            writer.writerows(csv_rows)
-        print(f"📑  Comparison report saved to: {CSV_REPORT}")
-
-    # --- Save unmatched refs in JSON and CSV ---
-    with open(UNMATCHED_JSON, "w", encoding="utf-8") as f:
-        json.dump(unmatched_refs, f, indent=2, ensure_ascii=False)
-
-    if unmatched_refs:
-        with open(UNMATCHED_CSV, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(
-                f, fieldnames=list(unmatched_refs[0].keys()))
-            writer.writeheader()
-            writer.writerows(unmatched_refs)
-    print(f"🚫  Unmatched refs saved to: {UNMATCHED_JSON} and {UNMATCHED_CSV}")
+    logger.info("Crossref enrichment complete", extra={"updated": updated, "failed": failed, "checked": len(rows)})
+    return {"updated": updated, "failed": failed, "checked": len(rows)}
 
 
-# =============================================================================
-# ENTRY POINT
-# =============================================================================
+# -------------------
+# CLI entry
+# -------------------
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    ap = argparse.ArgumentParser(description="Enrich missing DOIs via Crossref and update DB.")
+    ap.add_argument("--limit", type=int, default=300, help="Max refs to process")
+    ap.add_argument("--threshold", type=int, default=DEFAULT_THRESHOLD, help="Fuzzy acceptance threshold")
+    ap.add_argument("--ua-email", default=DEFAULT_UA_EMAIL, help="Contact email to include in User-Agent")
+    args = ap.parse_args()
+
+    stats = enrich_missing_with_crossref(
+        limit=args.limit,
+        threshold=args.threshold,
+        ua_email=args.ua_email,
+    )
+    print(f"✅ Crossref Enrichment Done → {stats}")

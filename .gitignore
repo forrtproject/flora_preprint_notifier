@@ -1,3 +1,4 @@
 .env
 /venv
 *.DS_Store
+/scripts/augmentation/__pycache__

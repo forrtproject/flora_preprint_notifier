@@ -1,0 +1,1706 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">How might a dislike option affect how people evaluate and engage with online content?</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Nicolas</forename><surname>Fay</surname></persName>
+							<email>nicolas.fay@gmail.com</email>
+							<affiliation key="aff0">
+								<orgName type="department">School of Psychological Science</orgName>
+								<orgName type="institution">University of Western Australia</orgName>
+								<address>
+									<settlement>Perth</settlement>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Bradley</forename><surname>Walker</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">School of Psychological Science</orgName>
+								<orgName type="institution">University of Western Australia</orgName>
+								<address>
+									<settlement>Perth</settlement>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Toby</forename><surname>Prike</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="department">School of Psychology</orgName>
+								<orgName type="institution">University of Adelaide</orgName>
+								<address>
+									<settlement>Adelaide</settlement>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Ullrich</forename><surname>Ecker</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">School of Psychological Science</orgName>
+								<orgName type="institution">University of Western Australia</orgName>
+								<address>
+									<settlement>Perth</settlement>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Lucy</forename><surname>Butler</surname></persName>
+							<affiliation key="aff2">
+								<orgName type="department" key="dep1">Department of Psychology</orgName>
+								<orgName type="department" key="dep2">Department of Political Science</orgName>
+								<orgName type="institution" key="instit1">Network Science Institute</orgName>
+								<orgName type="institution" key="instit2">Northeastern University</orgName>
+								<address>
+									<settlement>Boston</settlement>
+									<region>Massachusetts</region>
+									<country key="US">United States</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Piers</forename><surname>Howe</surname></persName>
+							<affiliation key="aff3">
+								<orgName type="department">School of Psychological Sciences</orgName>
+								<orgName type="institution">University of Melbourne</orgName>
+								<address>
+									<settlement>Melbourne</settlement>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Mengbin</forename><surname>Ye</surname></persName>
+							<affiliation key="aff4">
+								<orgName type="department">School of Computer and Mathematical Sciences</orgName>
+								<orgName type="institution">University of Adelaide</orgName>
+								<address>
+									<settlement>Adelaide</settlement>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff5">
+								<orgName type="department">School of Psychological Science</orgName>
+								<orgName type="institution">University of Western Australia</orgName>
+								<address>
+									<addrLine>35 Stirling Highway</addrLine>
+									<postCode>6009</postCode>
+									<settlement>Crawley</settlement>
+									<region>WA</region>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">How might a dislike option affect how people evaluate and engage with online content?</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">3BF4DAF533A694DFD3854B59F7DEAECA</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-03T14:39+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Social Influence</term>
+					<term>Social Endorsement</term>
+					<term>Veracity</term>
+					<term>Misinformation</term>
+					<term>Information Sharing</term>
+					<term>Social Media</term>
+					<term>Engagement Metrics</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>This research investigated how people respond to true and false news, and how the type of social endorsement associated with news posts influences belief and engagement intentions. Across three experiments (total N = 1084), participants viewed true and false news accompanied by varying levels of positive (likes) and negative (dislikes) endorsement. Participants were sensitive to post veracity, rating true news as more believable (large effect), and showing greater willingness to like true content, dislike false content and share true content (small effects). Positive social endorsement by others reliably increased belief, like and share intentions and decreased dislike intentions (small effects). Negative endorsement reduced belief (Experiment 1) and like intentions and increased dislike intentions (small effects), but had no detectable impact on share intentions. When negative endorsement was presented alongside high positive endorsement, this reduced belief and like intentions, but only when the negative endorsement level was high, signalling divided opinion. These findings demonstrate that: 1) veracity has a strong effect on beliefs, and a small effect on engagement and 2) social cues-positive and negative-have a small but significant role in shaping how people evaluate and interact with online news. Our findings suggest that incorporating a dislike option on social media platforms could improve content evaluation by signalling epistemic rejection, though safeguards may be needed to mitigate risks of misuse.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The introduction of the 'Like' button in 2009 and the later addition of the 'Re-Share' function fundamentally changed social media by incentivising rapid, emotionally charged engagement at the expense of reasoned discourse <ref type="bibr" target="#b27">(Haidt, 2022</ref><ref type="bibr" target="#b28">(Haidt, , 2025))</ref>. Today, nearly all major social media platforms-from Facebook and Instagram to TikTok and X (formerly Twitter)-allow users to publicly endorse posts through likes, hearts, or equivalent signals.</p><p>Rarely do they provide users with the option to publicly express disapproval, such as a ' <ref type="bibr">Dislike' option (e.g., Reddit)</ref>. This asymmetry in user feedback may contribute to the influence and spread of false information and other harmful content <ref type="bibr" target="#b33">(Juul &amp; Ugander, 2021;</ref><ref type="bibr" target="#b57">Vosoughi et al., 2018)</ref>, which platform algorithms often amplify based on engagement metrics rather than accuracy or social value <ref type="bibr" target="#b18">(Cinelli et al., 2021;</ref><ref type="bibr" target="#b38">McLoughlin &amp; Brady, 2024)</ref>. This paper investigates whether introducing a negative endorsement mechanism-allowing users to visibly express disapproval-affects how people evaluate and engage with online content, and whether such a mechanism may help curb the impact of harmful content by providing users and algorithms with more balanced signals of content quality.</p><p>Cultural evolutionary theory has identified a range of evolved cognitive biases that shape human social learning, broadly categorised as content-dependent and context-dependent biases <ref type="bibr" target="#b13">(Boyd &amp; Richerson, 1985;</ref><ref type="bibr" target="#b34">Kendal et al., 2018)</ref>. Of particular relevance to this study are two well-established biases: a content bias favouring negative information <ref type="bibr" target="#b9">(Baumeister et al., 2001;</ref><ref type="bibr" target="#b48">Rozin &amp; Royzman, 2001</ref>) and a context bias favouring majority opinion <ref type="bibr" target="#b3">(Asch, 1951</ref>; see also the bandwagon effect; <ref type="bibr" target="#b11">Bindra et al., 2022)</ref>. That is, people tend to believe, remember, and share negative information more readily than positive information <ref type="bibr" target="#b10">(Bebbington et al., 2017;</ref><ref type="bibr" target="#b23">Fessler et al., 2014)</ref>, and often conform to majority opinions, even when those opinions are objectively incorrect <ref type="bibr" target="#b4">(Asch, 1955;</ref><ref type="bibr" target="#b24">Franzen &amp; Mader, 2023)</ref>, an effect also observed in non-human primates <ref type="bibr" target="#b29">(Haun et al., 2012)</ref>. These biases may reflect evolutionarily conserved, adaptive mechanisms that support threat detection and social cohesion, and their interaction may be especially potent in online environments. On social media, a negative endorsement metric showing the number of dislikes associated with a post could exploit both biases, with its inherent negativity attracting engagement and the number of dislikes signalling oppositional consensus and amplifying the influence of the negative endorsement. In this way, a negative endorsement mechanism may have a powerful influence on how people evaluate and engage with online content.</p><p>Reflecting the design of most social media platforms, researchers have primarily investigated how positive social endorsement-through likes and shares-influences belief formation and sharing behaviour. The general finding is that positive endorsement from many unknown others carries as much persuasive weight as endorsement from expert sources <ref type="bibr" target="#b32">(Jucks &amp; Thon, 2017)</ref>; high levels of positive endorsement increase belief in and sharing of false information <ref type="bibr" target="#b5">(Avram et al., 2020;</ref><ref type="bibr" target="#b15">Butler et al., 2022;</ref><ref type="bibr" target="#b37">Luo et al., 2022;</ref><ref type="bibr" target="#b50">Shin, 2022)</ref> and enhance the effectiveness of corrections to false information <ref type="bibr" target="#b56">(Vlasceanu &amp; Coman, 2022)</ref>. Related work suggests these effects are explained by the perceived consensus implied by visible positive endorsement <ref type="bibr" target="#b36">(Lewandowsky et al., 2019;</ref><ref type="bibr" target="#b55">Traberg et al., 2024)</ref>. By contrast, research on the impact of negative social endorsement (e.g., dislikes) is limited. To date, only one study has examined how relative endorsement affects belief in false information and its correction <ref type="bibr">(Butler, Fay, et al., 2024)</ref>. It found that posts accompanied by high relative positive endorsement (i.e., many likes and few dislikes) increased belief in false information compared to those accompanied by high relative negative endorsement (i.e., few likes and many dislikes), with minimal effect on correction effectiveness.</p><p>While these studies prioritise ecological validity by focusing on common features of social media platforms, it is important to note that negative endorsement options-though currently rare-would be simple to implement on social media platforms and could improve individual decision-making and promote a healthier information ecosystem. This possibility is tested across three experiments 1 that examine how people evaluate and engage with true and false news content, and how their responses are influenced by positive and negative social endorsement. In each experiment, we queried participants' real-world social media use, in part to validate our measure of online sharing intentions. We then examined participants' belief in and engagement intentions toward true and false information. Research shows that message veracity exerts a strong influence on persuasion, but a weak influence on sharing behaviour, which is primarily driven by social connection rather than by truth <ref type="bibr" target="#b22">(Fay et al., 2025)</ref>. This pattern aligns with the concept of epistemic vigilance <ref type="bibr" target="#b53">(Sperber et al., 2010)</ref>-that people are equipped with a suite of cognitive mechanisms to evaluate the credibility of information and guard against being misinformed by others. We therefore predict that veracity will have a large effect on belief but a small effect on sharing intentions. While the effect of veracity on endorsement intentions is less clear, sharing and liking show a strong positive correlation <ref type="bibr" target="#b54">(Tenenboim, 2022)</ref>. We therefore predicted that people would be more inclined to like true content and dislike false content. Finally, in each experiment, we tested the extent to which others' positive (likes) and negative (dislikes) endorsement impacts individual belief and engagement intentions. Here, the focus shifts from message veracity to the broader influence of social endorsement on belief and engagement with online content.</p><p>To investigate how different types of social endorsement influence belief and engagement intentions, we conducted three experiments that examine the distinct and combined effects of the positive (likes) and negative (dislikes) endorsements of others. Experiment 1 isolated the separate effects of positive and negative endorsement on belief and sharing intentions. Experiment 2 replicated this design and extended the investigation to include intentions to actively like or dislike the content. Experiment 3 examined the 1 The series of experiments reported was preceded by a pilot study conducted with undergraduate student participants, which helped refine the experiment design and materials. The data and R Notebook associated with the pilot study are available on the Open Science Framework: <ref type="url" target="https://osf.io/7n3jg/">https://osf.io/7n3jg/</ref> combined effects of positive and negative endorsement on belief and intentions to like, dislike, and share. By presenting the positive and negative endorsement metrics together, we tested if negative endorsement is capable of attenuating or eliminating the influence of positive endorsement by signaling that opinion is divided (Experiment 3).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experiment 1</head><p>Message veracity has a strong effect on persuasion, but a weak effect on sharing behaviour <ref type="bibr" target="#b22">(Fay et al., 2025)</ref>. Experiment 1 provided a replication of this finding, testing the prediction that participants' belief in news content will be strongly influenced by its veracity, whereas veracity will exert a weaker effect on sharing intentions. Experiment 1 also replicated and extended prior studies showing that high levels of positive social endorsement increase belief in and intention to share false information <ref type="bibr" target="#b5">(Avram et al., 2020;</ref><ref type="bibr" target="#b15">Butler et al., 2022;</ref><ref type="bibr" target="#b37">Luo et al., 2022;</ref><ref type="bibr" target="#b50">Shin, 2022;</ref><ref type="bibr" target="#b56">Vlasceanu &amp; Coman, 2022)</ref>. It extended this research by examining the effects of negative social endorsement. In addition, rather than focus narrowly on false information, the experiment tested how positive and negative endorsement influence belief in and engagement with information more generally (i.e., true and false information). We predicted that a high level of positive social endorsement-operationalised as a high number of likes, indicated by a "thumbs up" icon-would increase belief in and intention to share the post.</p><p>Conversely, we predicted that a high level of negative social endorsement-operationalised as a high number of dislikes, indicated by a "thumbs down" icon-would reduce belief in and intention to share the content.</p><p>Using a social media simulator similar to <ref type="bibr" target="#b17">Butler, Lamont et al. (2024)</ref>, participants were shown true and false posts paired with a high or low level of positive or negative social endorsement. They then rated their belief in each post and their intention to share it. We examined positive and negative social endorsement separately to isolate their independent effects on belief and sharing intentions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head><p>Each experiment received approval from the University of Western Australia Ethics Committee. Participants viewed an information sheet before giving consent to take part in the experiment. All methods were performed in accordance with the guidelines from the National Health and Medical Research Council/Australian Research Council/University Australia's National Statement on Ethical Conduct in Human Research.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Design</head><p>The experiment used a 2 × 2 within-subjects factorial design with endorsement valence (Positive, Negative) and endorsement level (Low, High) fully crossed, plus a control condition with no endorsements. This resulted in five conditions: low positive endorsement (1-50 likes, 0 dislikes), high positive endorsement (51-100 likes, 0 dislikes), low negative endorsement (0, 1-50 dislikes), high negative endorsement (0 likes, 51-100 dislikes), and no-endorsement control (0 likes, 0 dislikes). The number of endorsements was randomly sampled from the appropriate range (including endpoints). Each participant received 40 posts in total, constituting 8 posts for each condition (4 true and 4 false). The same 40 posts were used for all participants, with allocation of post to endorsement conditions counterbalanced. In the final data from 355 participants, each post appeared 67-75 times in each condition, M = 71.0, SD = 1.5. The order in which participants received posts/conditions was randomised, but with the restriction that each quarter of the task (e.g., posts 1-10 being the first quarter) contained two posts from each condition. Distributing the conditions in this way ensured that participants had a sense of the range of endorsement possibilities from early on.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Participants</head><p>A convenience sample of 360 participants was recruited from the crowdsourcing platform Prolific (<ref type="url" target="https://www.prolific.com">https://www.prolific.com</ref>), pre-screened to have US nationality and current US residence, and to use social media at least once per month. Testing took place on 7-8 August 2023. The most commonly used social media platforms were YouTube (324, 90.0%), <ref type="bibr">Facebook (274,</ref><ref type="bibr">76.1%),</ref><ref type="bibr">Instagram (237,</ref><ref type="bibr">65.8%),</ref><ref type="bibr">Twitter (235,</ref><ref type="bibr">65.3%) and Reddit (221,</ref><ref type="bibr">61.4%)</ref>.</p><p>Participants were aged 19-94 (M = 38.3, SD = 12.7), with 165 (45.8%) self-identifying as women, 186 (51.7%) as men, and 8 (2.2%) as non-binary (1 preferred not to respond). Most participants (270, 75.0%) reported receiving some form of tertiary education (including 52, 14.4%, with graduate or doctoral degrees), alongside 84 (23.3%) reporting secondary education only and 3 (0.8%) reporting no formal education (3 preferred not to respond). Participants were paid £1.95 (approximately US$2.50) on completion of the experiment. Five participants were excluded from the analysis for failing attention checks.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Materials</head><p>Each participant viewed 40 mock social media posts, which took the form of news headlines paired with images (see Figure <ref type="figure" target="#fig_0">1</ref> for an example and Supplement 1 for the full list of the headlines used). Half of the posts were true (e.g., "Americans are using Apple AirTags to track loved ones with dementia", "Dominican Republic starts work on border wall with Haiti") and half were false (e.g., "Bill Clinton brought his teenage daughter to Epstein island", "ATTENTION MEN: Iceland is giving $5000 PER MONTH to immigrants who marry Icelandic women!"). These headlines were collated from fact-checking websites, news websites, and materials used in previous studies. Headlines were selected to ensure they spanned a range of news topics, including US politics, world politics, human interest, health, and science.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Procedure</head><p>Participants began by providing their age, gender and education level, and responded to five multiple-choice questions about their social media use, adapted from past research <ref type="bibr" target="#b14">(Brunborg &amp; Andreas, 2019;</ref><ref type="bibr" target="#b19">Coyne et al., 2020;</ref><ref type="bibr" target="#b39">Mess et al., 2019;</ref><ref type="bibr" target="#b49">Scott et al., 2017)</ref>. The questions concerned how much time participants spend on social media each day, how often they access social media, whether social media is part of their daily routine, how often they share news content on social media, and how often they share content in general on social media.</p><p>Participants then completed the main task. They were asked to imagine that they were using a new social media platform, and were presented with a series of 40 news headlines as social media posts on the platform (see Figure <ref type="figure" target="#fig_0">1</ref> for an example). The number of post likes (positive endorsement) was presented next to a thumbs up icon, and the number of dislikes (negative endorsement) next to a thumbs down icon, ostensibly based on the behaviour of past users on the social media platform. Participants were told that no number meant 0 likes or dislikes (depending on the icon). After viewing the post, participants clicked a "Next" button to respond to three questions: "How believable is the information in the above post?", "How likely would you be to share the above post online (e.g., on social media)?", and "How likely would you be to share the above post offline (e.g., during conversation)?". Responses to all three questions were given on a 5-point scale (1 = Not at all, 2 = Slightly, 3 = Somewhat, 4 = Very much, 5 = Extremely). Participants then clicked "Next" to proceed to the next post. As an attention check, after every ten posts (i.e., four times across the experiment) participants were asked to identify the previous page's headline from a list of four options (the correct answer plus three headlines not used in the experiment); we excluded participants with less than 75% accuracy on the attention checks. After responding to all posts, participants indicated whether they consented to their data being used for research purposes, and were then debriefed. The median completion time was 11 minutes. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Statistical Analysis</head><p>The data were analyzed using linear mixed effects modeling. For each analysis, the maximal random effects structure justified by the experiment design was specified where possible <ref type="bibr" target="#b7">(Barr et al., 2013)</ref>. All analyses were performed and all figures were created in R (R Core Team, 2013). Statistical models were estimated using the lmer() function of the lmerTest package <ref type="bibr" target="#b8">(Bates et al., 2015;</ref><ref type="bibr" target="#b35">Kuznetsova et al., 2017)</ref>. We also report the variance accounted for by the fixed effects using Marginal R². The data, R Notebooks and Supplementary Materials associated with Experiments 1-3 are provided on the Open Science Framework: <ref type="url" target="https://osf.io/7n3jg/">https://osf.io/7n3jg/</ref> </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>We begin by presenting descriptive statistics on participants' real-world social media use, and then examine the validity of the experimental task by testing the relationship between self-reported online sharing behaviour (i.e., in the real world) and intentions to share the news content in the task. Next, we examine the correlations between the outcomes of interest and assess participants' belief in the true and false news content, along with their intentions to share the true and false news content. Finally, we investigate the influence of positive and negative social endorsement on participants' belief in and intention to share news content.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Social Media Use and the Validity of Online Sharing Intentions</head><p>Participants reported frequently using social media, but infrequently sharing content on social media. Most spent one to two hours per day on social media, accessed social media multiple times per day and considered it a regular part of their daily routine. Despite this high usage, content sharing was rare: the most common response was never sharing content (Figure <ref type="figure">2 Panels A-E</ref>). There was a medium-to-large correlation between self-reported online news sharing and participants' intention to share news content in the experimental task, r(353) = .59, p &lt; .001, suggesting that sharing intentions in the experimental task serve as a robust proxy for actual online sharing behaviour.</p><p>Figure 2. Self-reported measures of social media use and sharing behaviour: (A) time spent on social media per day, (B) frequency of accessing social media, (C) extent to which social media is part of a daily routine, (D) frequency of sharing news content, and (E) frequency of sharing content in general. The final panel (F) shows the relationship between self-reported online news sharing and the self-reported intention to share news in the experimental task.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Belief in and Engagement with True and False News Content</head><p>The belief and sharing outcomes were positively correlated, with correlations ranging from medium to large in size (Figure <ref type="figure" target="#fig_2">3</ref> Panel A; ps &lt; .001). The correlations between belief and sharing intentions indicate that participants were more willing to share news content they believed to be true. Participants discriminated between true and false news content, rating the true news as more believable than the false news (β = 1.06, t = 7.42, p &lt; .001; Marginal R 2 = .17). They were also more willing to share true news online and offline compared to false news (β = 0.16, t = 2.99, p = .003; Marginal R 2 &lt; .01; β = 0.22, t = 3.08, p = .002; Marginal R 2 = .01; Figure <ref type="figure" target="#fig_2">3</ref>   </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The Effect of Positive and Negative Endorsement on Belief in and Sharing of News Content</head><p>For each outcome, we first analysed the data in a 2×2 factorial design (Endorsement Valence: Positive/Negative by Endorsement Level: High/Low) that excluded the no-endorsement control condition. Any effects were then analysed in the context of the control condition. In each analysis news veracity (true, false) was entered as a covariate.</p><p>For the belief ratings, there was a significant effect of Endorsement Valence (β = 0.12, t = 4.24, p &lt; .001), but no evidence for an effect of Endorsement Level (p = .376) or interaction between Valence and Level (p = .855; Marginal R 2 &lt; .01). The effect of Valence indicates that positively endorsed news content was believed more than negatively endorsed content. Whereas positive endorsement increased belief relative to the no-endorsement control condition (β = 0.06, t = 2.65, p = .008), negative endorsement decreased belief relative to the no-endorsement control condition (β = -0.06, t = -2.45, p = .014; Figure <ref type="figure" target="#fig_6">7 Panel A</ref>).</p><p>For the online sharing ratings, there was a significant effect of Endorsement Valence (β = 0.06, t = 3.25, p = .001), but no evidence for an effect of Endorsement Level (p = .508) or interaction between Valence and Level (p = .465; Marginal R 2 &lt; .01). The effect of Valence indicates that participants were more willing to share positively endorsed news content online than negatively endorsed news content. Positive endorsement increased online sharing intentions relative to the no-endorsement control condition (β = 0.05, t = 2.80, p = .008), but negative endorsement did not differ from the control (p = .711; Figure <ref type="figure" target="#fig_6">7</ref> Panel B). Unsurprisingly, given the high correlation between online and offline sharing intentions (r = .81), the same pattern of results was observed for offline sharing (Figure <ref type="figure" target="#fig_6">7</ref> Panel C).</p><p>The Experiment 1 findings show that news veracity had a large effect on belief, explaining over 17% of the variance in belief ratings. News veracity also influenced online and offline sharing intentions, but the effect was small, explaining 1% or less of the variance in sharing ratings. This asymmetry between believing and sharing replicates <ref type="bibr" target="#b22">Fay et al. (2025)</ref>. Positive social endorsement increased belief in and willingness to share the news content. Negative social endorsement reduced belief in the content, but had no detectable effect on sharing intentions. The variance explained by the endorsement effects was small, accounting for less than 1% of the outcome variance. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experiment 2</head><p>Experiment 2 replicated the design of Experiment 1 but also measured participants' intentions to like or dislike the content. This allowed us to examine how people use positive and negative social endorsements to respond to true and false news, and how others' endorsements directly influence participants' own endorsement intentions, as well as their belief in and intention to share the content. We also modified the level of social endorsement, such that the number of likes/dislikes across Endorsement Levels (high vs. low) was more pronounced than in Experiment 1, consistent with <ref type="bibr" target="#b15">Butler et al. (2022)</ref> and more realistic for some platforms (especially for "viral" posts). We reasoned that amplifying the difference between high and low levels of social endorsement would strengthen the salience of the manipulation, making any effects on belief, like/dislike and sharing intentions easier to detect.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Design</head><p>Experiment 2 used the same design same as Experiment 1, but the number of endorsements was changed so that the low number of endorsements was sampled from a normal distribution with M = 10 and SD = 4 (instead of ranging 1-50), and the high number of endorsements was sampled from a normal distribution with M = 1000 and SD = 200 (instead of ranging 51-100). In both cases the normal distribution was truncated so the minimum number of endorsements (when intended to be more than 0) was 1. In the final data from 359 participants, each post appeared 68-76 times in each condition, M = 71.8, SD = 1.6.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Participants</head><p>A convenience sample of 362 participants was recruited from Prolific, pre-screened (as per Experiment 2) to have US nationality and current US residence, and to use social media at least once per month. Participants from Experiment 1 were not permitted to take part in Experiment 2. Testing took place on 28-29 September 2023. The most commonly used social media platforms were YouTube (330, 91.2%), Facebook (265, 73.2%), Instagram (239, 66.0%), Twitter (211, 58.3%) and Reddit (208, 57.5%). Participants were aged 18-76 (M = 41.1, SD = 14.0), with 183 (50.6%) self-identifying as women, 174 (48.1%) as men, and 4 (1.1%) as non-binary (1 preferred not to respond). Most participants (266, 73.5%) reported receiving some form of tertiary education (including 57, 15.7%, with graduate or doctoral degrees), alongside 89 (24.6%) reporting secondary education only and 5 (1.4%) reporting no formal education (2 preferred not to respond). Participants were paid £1.95 (approximately US$2.50) on completion of the experiment. Three participants were excluded from analysis for failing attention checks.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Materials and Procedure</head><p>The materials and procedure were the same as in Experiment 1 except that participants were asked two additional questions for each post: "How likely would you be to like the above post?" and "How likely would you be to dislike the above post?". These questions used the same 5-point response scale as the other questions. The median completion time was 15 minutes.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Social Media Use and the Validity of Online Sharing Intentions</head><p>Like the Experiment 1 participants, the Experiment 2 participants frequently used social media but rarely shared content (Figure <ref type="figure" target="#fig_4">5 Panels A-E</ref>). There was a medium-to-large correlation between self-reported online news sharing and intention to share news content in the experimental task, r(353) = .57, p &lt; .001, suggesting that sharing intentions in the experimental task serve as a robust proxy for actual online sharing behaviour. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Belief in and Engagement with True and False News Content</head><p>The belief, like/dislike, and sharing outcomes were positively correlated, with correlations ranging from medium to large in size (Figure <ref type="figure" target="#fig_5">6</ref>, Panel A; ps &lt; .001). As per Experiment 1, the correlations between belief and sharing intentions indicate that participants were more willing to share news content they believed to be true. The correlations between belief and liking/disliking indicate that participants were more willing to like or dislike content they believed to be true, although this relationship was stronger for liking. A similar pattern is observed for sharing.</p><p>Participants discriminated between true and false news content, rating true news as more believable than false news (β = 1.02, t = 7.35, p &lt; .001; Marginal R 2 = .15). They were also more willing to like true news (β = 0.18, t = 2.57, p = .010; Marginal R 2 = .01), dislike false news (β = -0.17, t = -2.54, p = .011; Marginal R 2 &lt; .01), share true news online (β = 0.09, t = 2.19, p = .028; Marginal R 2 &lt; .01) and share true news offline (β = 0.13, t = 2.07, p = .039; Marginal R 2 &lt; .01; Figure <ref type="figure" target="#fig_5">6</ref> Panels B-F respectively). </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The Effect of Positive and Negative Endorsement on Belief in and Engagement with News Content</head><p>For the belief ratings, there was a significant effect of Endorsement Valence (β = 0.11, t = 3.63, p &lt; .001), but no evidence for an effect of Endorsement Level (p = .905) or interaction between Valence and Level (p = .099; Marginal R 2 &lt; .01). The effect of Valence indicates that positively endorsed news content was believed more than negatively endorsed news content. Whereas positive endorsement increased belief relative to the no-endorsement control condition (β = 0.06, t = 2.39, p = .017), belief ratings in the negative endorsement condition did not differ from the control (p = .239; Figure <ref type="figure" target="#fig_6">7 Panel A</ref>).</p><p>For the like ratings, there was a significant effect of Endorsement Valence (β = 0.14, t = 6.36, p &lt; .001), no evidence for an effect of Endorsement Level (p = .660) and a significant interaction between Valence and Level (β = -0.06, t = -2.37, p = .018; Marginal R 2 &lt; .01). The effect of Valence indicates that participants were more willing to like positively endorsed news content than negatively endorsed news content. The interaction was driven by a significant effect of Endorsement Level in the Positive Endorsement condition (High &gt; Low; p = .005), but not in the Negative Endorsement condition (p = .635). High and low levels of positive social endorsement increased participants' intention to like the news content relative to the no-endorsement control condition (ps &lt; .007). High levels of negative endorsement decreased participants' intention to like the news content relative to the no-endorsement control (p = .028), but low levels of negative endorsement did not (p = .085; Figure <ref type="figure" target="#fig_6">7</ref> Panel B). The dislike ratings returned a similar pattern of results: a significant main effect of Endorsement Valence (β = -0.19, t = -5.91, p &lt; .001) and Endorsement Level (β = -0.07, t = -3.11, p = .002) and an interaction between Valence and Level (β = 0.07, t = 2.12, p = .034; Marginal R 2 &lt; .01). The effect of Valence indicates that negatively endorsed news content increased participants' intention to dislike the news content relative to positively endorsed news content. The interaction was driven by a significant effect of Endorsement Level in the Negative Endorsement condition (High &gt; Low; p = .003), but not in the Positive Endorsement condition (p = .904). High and low levels of negative social endorsement increased participants' intention to dislike the news content relative to the no-endorsement control condition (ps &lt; .039). By contrast, high and low levels of positive endorsement decreased participants' intention to dislike the content relative to the no-endorsement control (p = .001; Figure <ref type="figure" target="#fig_6">7 Panel C</ref>).</p><p>For the online sharing ratings, there was a significant effect of Endorsement Valence (β = 0.06, t = 3.21, p = .001), but no evidence for an effect of Endorsement Level (p = .498) or interaction between Valence and Level (p = .465; Marginal R 2 &lt; .01). The effect of Valence indicates that participants were more willing to share positively endorsed news content online than negatively endorsed news content. Positive endorsement increased online sharing intentions relative to the no-endorsement control condition (β = 0.03, t = 2.15, p = .032), but negative endorsement did not differ from the control (p = .331; Figure <ref type="figure" target="#fig_6">7</ref> Panel D). For offline sharing, there was a significant effect of Endorsement Valence (β = 0.10, t = 4.56, p &lt; .001), no evidence for an effect of Endorsement Level (p = .998) and a significant interaction between Valence and Level (β = -0.07, t = -2.19, p = .029; Marginal R 2 &lt; .01). The effect of Valence indicates that participants were more willing to share positively endorsed news content offline than negatively endorsed news content. The interaction was driven by a significant effect of Endorsement Level in the Positive Endorsement condition (High &gt; Low; p = .002), but not in the Negative Endorsement condition (p &gt; .999). High levels of positive social endorsement increased offline sharing intentions relative to the no-endorsement control condition (p = .002), but low levels of positive endorsement did not (p = .989). Offline sharing intentions in the negative endorsement conditions (high and low) did not differ from the control (ps &gt; .101; Figure <ref type="figure" target="#fig_6">7 Panel E</ref>).</p><p>Replicating Experiment 1, news veracity had a large effect on belief, accounting for over 15% of the variance in belief ratings. By contrast, its effect on online and offline sharing intentions was small, explaining less than 1% of the variance. Veracity also influenced endorsement intentions: participants were more willing to like true news and dislike false news. These effects were also small, explaining 1% or less of the variance in endorsement ratings.</p><p>As in Experiment 1, positive social endorsement increased belief in the news content. Contrary to Experiment 1, negative endorsement had no detectable effect on belief. Participants were more willing to like content that received positive endorsement, particularly when the endorsement level was high. Conversely, high levels of negative endorsement decreased participants' intention to like the content. A complementary pattern was observed for disliking: participants were more willing to dislike content with negative endorsement, especially at high levels, and less willing to dislike content with positive endorsement. Replicating Experiment 1, positive social endorsement increased online and offline sharing intentions, with high levels of positive endorsement further boosting offline sharing. Negative social endorsement, once again, had no detectable effect on sharing intentions. Across outcomes, the effects of social endorsement were small, accounting for less than 1% of the variance. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experiment 3</head><p>Experiment 3 examined the consequences of contested social endorsement-that is, news posts that received both positive and negative social endorsement. While people often conform to majority opinions, research shows that the presence of even a single dissenter can significantly reduce conformity to the majority <ref type="bibr" target="#b0">(Allen &amp; Levine, 1969;</ref><ref type="bibr" target="#b4">Asch, 1955)</ref>. In Experiments 1-2, positive social endorsement consistently increased belief in and intention to share posts, whereas the effect of negative endorsement was inconsistent. Experiment 3 tested whether negative social endorsement exerts more influence not in isolation, but by attenuating the impact of positive endorsement. To examine this, belief, like/dislike and sharing intentions were compared across four conditions: (1) high positive endorsement only, representing an uncontested opinion condition, (2) high positive endorsement with low negative endorsement, representing a contested opinion condition, (3) high positive endorsement with high negative endorsement, representing a highly contested opinion condition, and (4) a no-endorsement control condition.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Design</head><p>Experiment 3 had four within-subjects conditions (high positive endorsement only, high positive and low negative endorsement, high positive and high negative endorsement, no-endorsement control). Participants received 10 posts in each condition. In the final data from 354 participants, each post appeared 83-93 times in each condition, M = 88.5, SD = 1.9. The order in which participants received posts/conditions was randomised with a similar restriction to that in Experiments 1-2, whereby each fifth of the task (e.g., posts 1-8 being the first fifth) contained two posts from each condition. The number of endorsements corresponding to the high and low conditions was calculated as per Experiment 2.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Participants</head><p>A convenience sample of 362 participants was recruited from Prolific, pre-screened (as per Experiments 1 and 2) to have US nationality and current US residence, and to use social media at least once per month. Participants from Experiments 1 and 2 were not permitted to take part in Experiment 3. Testing took place on 18-21 March 2024. The most commonly used social media platforms were YouTube (324, 89.5%), Facebook (291, 80.4%), Instagram (238, 65.7%), Twitter (211, 58.3%) and Reddit (211, 58.3%). Participants were aged 20-75 (M = 40.9, SD = 12.2), with 184 (50.8%) self-identifying as women, 173 (47.8%) as men, and 3 (0.8%) as non-binary (2 preferred not to respond). Most participants (280, 77.3%) reported receiving some form of tertiary education (including 67, 18.5%, with graduate or doctoral degrees), alongside 80 (22.1%) reporting secondary education only (2 preferred not to respond). Participants were paid £1.95 (approximately US$2.50) on completion of the experiment. Eight participants were excluded from analysis for failing attention checks.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Materials and Procedure</head><p>The materials and procedure were the same as in Experiment 2. The median completion time was 15 minutes.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Social Media Use and the Validity of Online Sharing Intentions</head><p>As per Experiments 1-2, the Experiment 3 participants frequently consumed content on social media but rarely shared content (Figure <ref type="figure" target="#fig_7">8 Panels A-E</ref>). There was a medium-to-large correlation between self-reported online news sharing and intention to share news in the experimental task, r(352) = .47, p &lt; .001, suggesting that sharing intentions in the experimental task serve as a robust proxy for actual online sharing behaviour. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Belief in and Engagement with True and False News Content</head><p>The belief, like/dislike, and sharing outcomes were positively correlated, with correlations ranging from medium to large in size (Figure <ref type="figure" target="#fig_8">9</ref> Panel A; ps &lt; .001). Replicating Experiment 1 and 2, the correlations between belief and sharing intentions indicate that participants were more willing to share news content they believed to be true. Replicating Experiment 2, the correlations between belief and liking/disliking indicate that participants were more willing to like or dislike content they believed to be true, although this relationship was stronger for liking. A similar pattern was again observed for sharing.</p><p>Participants discriminated between true and false news content, rating true news as more believable than false news content (β = 0.97, t = 6.97, p &lt; .001; Marginal R 2 = .14). They were also more likely to like true news (β = 0.21, t = 2.58, p = .010; Marginal R 2 = .01), dislike false news (β = -0.22, t = -2.85, p = .004; Marginal R 2 &lt; .01) and share true news online (β = 0.10, t = 2.19, p = .028; Marginal R 2 &lt; .01), but not offline, although this effect was marginal (p = .070; Figure <ref type="figure" target="#fig_8">9</ref> Panels B-F respectively). These results replicate those from Experiment 1 and 2. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The Effect of Combining Positive and Negative Endorsement on Belief in and Engagement with News Content</head><p>For the belief ratings, news content associated with exclusively high positive endorsement was believed more than news content with high positive and high negative social endorsement (β = -0.07, t = -2.92, p = .004; Marginal R 2 &lt; .01). News content with high positive endorsement and low negative endorsement was rated to be as believable as news content with exclusively high positive endorsement (p = .803). There was no statistical evidence of a difference between the experimental conditions and the no-endorsement control condition (ps &gt; .105; Figure <ref type="figure" target="#fig_9">10 Panel A</ref>).</p><p>For the like ratings, participants were more willing to like news content with exclusively high positive endorsement than content with high positive and high negative endorsement (β = -0.07, t = -3.90, p &lt; .001; Marginal R 2 &lt; .01). Participants were similarly willing to like news content with exclusively high positive endorsement and content with high positive and low negative endorsement (p = .862). Participants were more willing to like news content in the exclusively high positive endorsement condition and the high positive with low negative endorsement condition compared to the no-endorsement control condition (β = 0.05, t = 2.43, p = .015; β = 0.05, t = 2.60, p = .009 respectively; Marginal R 2 = .01). There was no statistical evidence of a difference between the high positive and high negative endorsement condition and the no-endorsement control condition (p = .141; Figure <ref type="figure" target="#fig_9">10 Panel B</ref>). The opposite pattern was observed for the dislike ratings. Here, participants were more willing to dislike news content with high positive and high negative endorsement compared to news content with exclusively high positive endorsement (β = 0.13, t = 5.88, p &lt; .001; Marginal R 2 &lt; .01). Participants were similarly willing to dislike news content with exclusively high positive endorsement and content with high positive and low negative endorsement (p = .165). Participants were more willing to dislike news content in the high positive and high negative endorsement condition compared to the no-endorsement control condition (β = 0.10, t = 4.65, p &lt; .001; Marginal R 2 = .01). There was no statistical evidence of a difference between either the exclusively high positive endorsement condition or the high positive and high negative endorsement condition when compared to the no-endorsement control condition (ps &gt; .213; Figure <ref type="figure" target="#fig_9">10 Panel C</ref>).</p><p>For the online sharing ratings, there was no statistical evidence of a difference between the experimental conditions, or between the experimental conditions and the no-endorsement control condition (ps &gt; .055; Figure <ref type="figure" target="#fig_9">10 Panel D</ref>). The same pattern of null results was observed for the offline sharing ratings (ps &gt; .261; Figure <ref type="figure" target="#fig_9">10 Panel E</ref>).</p><p>Replicating Experiment 1 and 2, news veracity had a large effect on belief, accounting for over 14% of the variance in belief ratings. Veracity also influenced endorsement intentions: participants were more willing to like true news and dislike false news, replicating Experiment 2. Again, the effects were small, explaining 1% or less of the variance in endorsement ratings. Replicating Experiment 1 and 2, veracity influenced online and offline sharing intentions, again with a small effect that accounted for less than 1% of the variance. Contrary to Experiment 1 and 2, there was no statistical evidence that news veracity affected offline sharing.</p><p>The primary purpose of Experiment 3 was to examine the effects of contested social endorsement. News content paired with exclusively high positive endorsement was believed more than content paired with both high positive and high negative endorsement. However, introducing a low level of negative endorsement alongside high positive endorsement did not reduce belief. A similar pattern emerged for liking intentions: participants were more willing to like content with exclusively high positive endorsement than content paired with both high positive and high negative endorsement. Including a low level of negative endorsement did not reduce participants' intention to like the content. For disliking, the pattern was reversed: participants were more willing to dislike content paired with high positive and high negative endorsement than exclusively high positive endorsement. Again, including a low level of negative endorsement did not increase participants' intention to dislike the content. In each case, the effects were small, accounting for 1% or less of the variance in the outcomes. Unlike Experiments 1 and 2, positive social endorsement did not increase participants' willingness to share the news content online or offline-in Experiment 3, sharing intentions did not differ across endorsement conditions or relative to the no-endorsement control. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Discussion</head><p>The experiments reported make three distinct contributions: 1) an examination of people's social media use, 2) how people evaluate and engage with true and false online news content, and 3) how others' positive and negative social endorsements impact individual belief, endorsement intentions, and sharing behaviour. Across all three experiments, participants reported high levels of social media use but low levels of content sharing. Most participants accessed social media multiple times a day and regarded it as an established part of their daily routine, yet the most common response was never sharing content. This highlights a discrepancy between consumption and production on social media: users frequently engage as passive consumers rather than active disseminators of content. This is consistent with the finding that 75-90% of people on social media are passive users (known as lurkers; <ref type="bibr" target="#b2">Antelmi et al., 2019;</ref><ref type="bibr" target="#b6">Baqir et al., 2025;</ref><ref type="bibr" target="#b26">Gong et al., 2015)</ref>. Self-reported sharing frequency was moderately to strongly correlated with participants' sharing intentions in the experimental task (rs = .47-.59), indicating the task provided a valid proxy for real-world sharing behaviour. This supports the ecological validity of our experimental measure and suggests that, despite the low base rate of sharing, the task captured meaningful individual differences in participants' propensity to share content online.</p><p>In each experiment, participants reliably distinguished between true and false news content, rating true news as more believable than false news and showing greater willingness to engage with it. The engagement measures-like, dislike, and share-tended to be strongly correlated (rs = .48-.88), replicating <ref type="bibr" target="#b54">Tenenboim (2022)</ref>, and indicating a general engagement factor. Belief was positively correlated with each engagement measure, with correlations ranging from medium to large in size (rs = .47-.59), indicating that participants were more inclined to endorse-positively or negatively-and share content they believed to be true and not engage with content they regarded as false. This relationship was especially pronounced for liking, suggesting that belief functions as a stronger driver of positive endorsement than negative endorsement. While the effects of perceived news veracity on engagement were small, they were robust across experiments, replicating prior findings that veracity has a large influence on belief (Marginal R² = .14-.17) and a weaker influence on sharing behaviour (Marginal R² &lt; .01) <ref type="bibr" target="#b22">(Fay et al., 2025</ref>; see also <ref type="bibr" target="#b42">Pfänder &amp; Altay, 2025)</ref>. These findings align with the literature on epistemic vigilance <ref type="bibr" target="#b53">(Sperber et al., 2010)</ref> and accuracy-motivated sharing <ref type="bibr" target="#b30">(Howe et al., 2024;</ref><ref type="bibr" target="#b41">Pennycook &amp; Rand, 2022;</ref><ref type="bibr" target="#b45">Rathje et al., 2023)</ref>, which propose that people selectively attend to content veracity and are more likely to share information they consider credible. Together, these findings underscore the role of belief as a key psychological mediator of online engagement.</p><p>The final contribution is to simulate how others' positive and negative social endorsement might guide individual beliefs and engagement with online content. In each experiment, social endorsement consistently influenced participants' belief in and engagement with online news content, though the effects were small. Positive endorsement increased belief, like and share intentions and decreased dislike intentions. By contrast, negative endorsement reduced belief (Experiment 1, but not Experiment 2) and like intentions and increased dislike intentions, but had no detectable impact on share intentions. Experiment 3 extended these findings by examining contested endorsement, showing that the presence of high negative endorsement alongside high positive endorsement reduced belief and like intentions relative to exclusively high positive endorsement (or high positive endorsement alongside low negative endorsement). A complementary pattern was observed for dislike intentions, with participants more willing to dislike content under high contested endorsement. Across all experiments, the variance explained by the endorsement effects was consistently small (Marginal R² &lt; 1%). Our results demonstrate that social endorsement functions as a subtle but reliable moderator of belief and engagement, with positive cues generally enhancing acceptance and endorsement of content, replicating past research <ref type="bibr" target="#b5">(Avram et al., 2020;</ref><ref type="bibr" target="#b15">Butler et al., 2022;</ref><ref type="bibr" target="#b32">Jucks &amp; Thon, 2017;</ref><ref type="bibr" target="#b37">Luo et al., 2022;</ref><ref type="bibr" target="#b51">Shin et al., 2022)</ref>. By contrast, negative cues were capable of dampening belief and eliciting disapproval when sufficiently salient (see also <ref type="bibr">Butler, Fay, et al., 2024)</ref>.</p><p>Taken together, our findings highlight that while social endorsement influences belief and engagement with online content, its effects are consistently small relative to the impact of veracity. In isolation, this suggests the impact of online information is governed less by social consensus signals than by epistemic vigilance, with belief serving as the key factor linking endorsement and dissemination. However, the limited effects of social endorsement at the individual level must be considered in the context of recommender systems which play a central role in determining what online content is visible <ref type="bibr" target="#b31">(Jannach et al., 2010)</ref>. Virtually every social media platform employs a recommender system algorithm that decides what content each user is presented with, and these algorithms are optimised to maximise content engagement and consumption <ref type="bibr" target="#b25">(Germano et al., 2022;</ref><ref type="bibr" target="#b40">Narayan, 2023)</ref>. Content that is popular right now (measured for example by the total number of likes or by the like-dislike ratio) will be more likely to be shown in the future while heavily disliked content may be hidden or not actively promoted, creating a "rich-get-richer" feedback loop. In addition, a user is more likely to be shown content that is popular among other users fitting a similar profile. The findings of this paper may be more consequential once recommender systems are taken into account. Even small behavioural differences in liking, disliking, or sharing can become substantial as, iteratively, the recommender system presents users with increasingly personalised and likeable content and then takes the content engagement as information to be fed back into the algorithm. Modest endorsement effects may scale to yield substantial shifts in content visibility and diffusion when filtered through recommender systems. Recently, mathematical models have been proposed to study the closed-loop between recommender systems on user beliefs and engagement, and our findings can help to improve these models <ref type="bibr" target="#b20">(Davidson &amp; Ye, 2025;</ref><ref type="bibr" target="#b47">Rossi et al., 2022)</ref>.</p><p>Our results highlight that dislikes serve different psychological functions depending on the type of content being evaluated. In the experiments reported, participants used dislikes in response to bad news (e.g., reports of harmful events), with a medium effect size (rs = .33-.35), as well as to reject content they considered untrue, where the effect was small (Marginal R² &lt; .01). This dual role highlights that negative endorsement can signal both a reaction to undesirable information and epistemic rejection. To clearly distinguish between these functions-and to better signal when content may be false-it may be valuable for social media platforms to pair negative endorsement with community annotation features that clarify whether a post is being disliked because it is upsetting, misleading, or false (see <ref type="bibr" target="#b12">Bond &amp; Garretta, 2023;</ref><ref type="bibr" target="#b21">Drolsbach et al., 2024;</ref><ref type="bibr" target="#b52">Slaughter et al., 2025;</ref><ref type="bibr" target="#b58">Wirtschafter &amp; Majumder, 2023)</ref>. Nonetheless, negative endorsement may still have larger cumulative effects on the sharing of false information than our results show. Participants within our experiments did not have to worry about negative endorsement (i.e., dislikes) of posts they shared. However, if dislikes were implemented then the potential for receiving negative social feedback after sharing false information may have stronger cumulative effects on behavior (e.g., <ref type="bibr" target="#b1">Altay et al., 2022;</ref><ref type="bibr" target="#b43">Prike et al., 2024)</ref>. When applied outside the domain of news, the dislike button may also provide a straightforward mechanism for signalling social disapproval of individuals rather than content. In this way, it risks being co-opted as a tool for online bullying, enabling collective targeting or ostracism through aggregated negative feedback <ref type="bibr" target="#b46">(Ray et al., 2024)</ref>. Thus, while dislikes can serve a functional role in regulating the credibility of information, their potential to facilitate harmful interpersonal dynamics underscores the need to carefully weigh their broader social impact. Future research is required to establish how negative endorsement might be used in practice, and whether it poses risks of cyberbullying.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>Across three experiments, we show that people's responses to online news are shaped most strongly by content veracity, with social endorsements exerting small but consistent additional effects. These findings extend prior work by demonstrating that belief functions as a central mediator of online engagement, while also clarifying the subtle yet reliable role of social cues. Importantly, because recommender systems amplify engagement signals, even modest differences in liking, disliking, or sharing can accumulate into substantial shifts in visibility and diffusion. Our results highlight the distinctive role of dislikes, which capture both epistemic rejection and moral condemnation. While this dual function suggests that a dislike option could enrich users' evaluative toolkit and improve content curation, it also raises the risk of misuse as a tool for online bullying.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 .</head><label>1</label><figDesc>Figure 1. Screenshots from the task: (A) a post as initially shown to participants in all experiments (89 likes, 0 dislikes, as in the High Positive Endorsement condition of Experiment 1); (B) the same post after clicking "Next" in Experiment 1, with questions about belief and sharing (0 likes, 12 dislikes, as in the Low Negative Endorsement condition of Experiment 1); (C) the same post after clicking "Next" in Experiment 2 or 3, with questions about belief, liking, disliking and sharing (1245 likes, 990 dislikes, as in the High Negative Endorsement condition of Experiment 3).</figDesc><graphic coords="8,73.50,73.50,451.50,206.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><figDesc>Panels B-D respectively).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 .</head><label>3</label><figDesc>Figure 3. Correlation between outcomes (A). True versus false news: Belief (B), Share Online (C) and Share Offline (D). In panels B-D the coloured bars indicate the mean score for each condition and the violins provide distributional information. Error bars are the bootstrapped 95% CIs.</figDesc><graphic coords="10,73.50,73.50,451.50,188.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 .</head><label>4</label><figDesc>Figure 4. The effect of high and low levels of positive and negative social endorsement on: Belief (A), Sharing Online (B) and Sharing Offline (C). The red dashed horizontal line conveys the mean score for the no-endorsement control condition. The coloured bars indicate the mean score for each condition and the violins provide distributional information. Error bars are the bootstrapped 95% CIs.</figDesc><graphic coords="11,73.50,174.57,451.50,188.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 5 .</head><label>5</label><figDesc>Figure 5. Self-reported measures of social media use and sharing behaviour: (A) time spent on social media per day, (B) frequency of social media access, (C) extent to which social media is part of the daily routine, (D) frequency of sharing news content, and (E) frequency of sharing content in general. The final panel (F) shows the relationship between self-reported online news sharing and the self-reported intention to share news in the experimental task.</figDesc><graphic coords="13,73.50,73.50,451.50,231.75" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 6 .</head><label>6</label><figDesc>Figure 6. Correlation between outcomes (A). True versus false news: Belief (B), Like (C), Dislike (D), Share Online (E) and Share Offline (F). In panels B-F the coloured bars indicate the mean score for each condition and the violins provide distributional information. Error bars are the bootstrapped 95% CIs.</figDesc><graphic coords="14,73.50,73.50,451.50,263.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Figure 7 .</head><label>7</label><figDesc>Figure 7. The effect of high and low levels of positive and negative social endorsement on: Belief (A), Liking (B), Disliking (C), Sharing Online (D) and Sharing Offline (E). The red dashed horizontal line conveys the mean score for the no-endorsement control condition. The coloured bars indicate the mean score for each condition and the violins provide distributional information. Error bars are the bootstrapped 95% CIs.</figDesc><graphic coords="16,73.50,208.27,451.50,263.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Figure 8 .</head><label>8</label><figDesc>Figure 8. Self-reported measures of social media use and sharing behaviour: (A) time spent on social media per day, (B) frequency of social media access, (C) extent to which social media is part of the daily routine, (D) frequency of sharing news content, and (E) frequency of sharing content in general. The final panel (F) shows the relationship between self-reported online news sharing and the self-reported intention to share news in the experimental task.</figDesc><graphic coords="18,73.50,73.50,451.50,231.75" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head>Figure 9 .</head><label>9</label><figDesc>Figure 9. Correlation between outcomes (A). True versus false news: Belief (B), Like (C), Dislike (D), Share Online (E) and Share Offline (F). In panels B-F the coloured bars indicate the mean score for each condition and the violins provide distributional information. Error bars are the bootstrapped 95% CIs.</figDesc><graphic coords="19,73.50,73.50,451.50,263.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>Figure 10 .</head><label>10</label><figDesc>Figure 10. The effect of combining positive and negative (high or low) social endorsement on: Belief (A), Liking (B), Disliking (C), Sharing Online (D) and Sharing Offline (E). The red dashed horizontal line conveys the mean score for the no-endorsement control condition. The coloured bars indicate the mean score for each condition and the violins provide distributional information. Error bars are the bootstrapped 95% CIs.</figDesc><graphic coords="21,73.50,73.50,451.50,258.00" type="bitmap" /></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Consensus and conformity</title>
+		<author>
+			<persName><forename type="first">V</forename><forename type="middle">L</forename><surname>Allen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Levine</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/0022-1031(69)90032-8</idno>
+		<ptr target="https://doi.org/10.1016/0022-1031(69)90032-8" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Experimental Social Psychology</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="389" to="399" />
+			<date type="published" when="1969">1969</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Why do so few people share fake news? It hurts their reputation</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Altay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A.-S</forename><surname>Hacquin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Mercier</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1461444820969893</idno>
+		<ptr target="https://doi.org/10.1177/1461444820969893" />
+	</analytic>
+	<monogr>
+		<title level="j">New Media &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1303" to="1324" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Characterizing the Behavioral Evolution of Twitter Users and The Truth Behind the 90-9-1 Rule</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Antelmi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Malandrino</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Scarano</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/3308560.3316705</idno>
+		<ptr target="https://doi.org/10.1145/3308560.3316705" />
+	</analytic>
+	<monogr>
+		<title level="m">Companion Proceedings of The 2019 World Wide Web Conference</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="1035" to="1038" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Effects of group pressure upon the modification and distortion of judgments</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">E</forename><surname>Asch</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Organizational Influence Processes</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="page" from="295" to="303" />
+			<date type="published" when="1951">1951</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Opinions and Social Pressure</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">E</forename><surname>Asch</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Scientific American</title>
+		<imprint>
+			<biblScope unit="volume">193</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="31" to="35" />
+			<date type="published" when="1955">1955</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Exposure to social engagement metrics increases vulnerability to misinformation</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Avram</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Micallef</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Patil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Menczer</surname></persName>
+		</author>
+		<idno type="DOI">10.37016/mr-2020-033</idno>
+		<ptr target="https://doi.org/10.37016/mr-2020-033" />
+	</analytic>
+	<monogr>
+		<title level="j">Harvard Kennedy School Misinformation Review</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Unveiling the drivers of active participation in social media discourse</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Baqir</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Diaz-Diaz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kiyak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Louf</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Morini</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Pansanella</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Torricelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Galeazzi</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41598-025-88117-x</idno>
+		<ptr target="https://doi.org/10.1038/s41598-025-88117-x" />
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Reports</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">4906</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Random effects structure for confirmatory hypothesis testing: Keep it maximal</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">J</forename><surname>Barr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Levy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Scheepers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">J</forename><surname>Tily</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jml.2012.11.001</idno>
+		<ptr target="https://doi.org/10.1016/j.jml.2012.11.001" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Memory and Language</title>
+		<imprint>
+			<biblScope unit="volume">68</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="255" to="278" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Fitting Linear Mixed-Effects Models Using lme4</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Bates</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Mächler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Bolker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Walker</surname></persName>
+		</author>
+		<idno type="DOI">10.18637/jss.v067.i01</idno>
+		<ptr target="https://doi.org/10.18637/jss.v067.i01" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Statistical Software</title>
+		<imprint>
+			<biblScope unit="volume">67</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Bad is Stronger than Good</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">F</forename><surname>Baumeister</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Bratslavsky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Finkenauer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">D</forename><surname>Vohs</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/1089-2680.5.4.323</idno>
+		<ptr target="https://doi.org/10.1037/1089-2680.5.4.323" />
+	</analytic>
+	<monogr>
+		<title level="j">Review of General Psychology</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="323" to="370" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">The sky is falling: Evidence of a negativity bias in the social transmission of information</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bebbington</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Macleod</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">M</forename><surname>Ellison</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fay</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.evolhumbehav.2016.07.004</idno>
+		<ptr target="https://doi.org/10.1016/j.evolhumbehav.2016.07.004" />
+	</analytic>
+	<monogr>
+		<title level="j">Evolution and Human Behavior</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="92" to="101" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Bandwagon effect revisited: A systematic review to develop future research agenda</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Bindra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Sharma</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Parameswar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dhir</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Paul</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jbusres.2022.01.085</idno>
+		<ptr target="https://doi.org/10.1016/j.jbusres.2022.01.085" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Business Research</title>
+		<imprint>
+			<biblScope unit="volume">143</biblScope>
+			<biblScope unit="page" from="305" to="317" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Engagement with fact-checked posts on Reddit</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Bond</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">K</forename><surname>Garretta</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/pnasnexus/pgad018</idno>
+		<ptr target="https://doi.org/10.1093/pnasnexus/pgad018" />
+	</analytic>
+	<monogr>
+		<title level="j">PNAS Nexus</title>
+		<imprint>
+			<biblScope unit="page">18</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+		<author>
+			<persName><forename type="first">R</forename><surname>Boyd</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">J</forename><surname>Richerson</surname></persName>
+		</author>
+		<title level="m">Culture and the evolutionary process</title>
+		<imprint>
+			<publisher>University of Chicago Press</publisher>
+			<date type="published" when="1985">1985</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Increase in time spent on social media is associated with modest increase in depression, conduct problems, and episodic heavy drinking</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">S</forename><surname>Brunborg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">B</forename><surname>Andreas</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.adolescence.2019.06.013</idno>
+		<ptr target="https://doi.org/10.1016/j.adolescence.2019.06.013" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Adolescence</title>
+		<imprint>
+			<biblScope unit="volume">74</biblScope>
+			<biblScope unit="page" from="201" to="209" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Social Endorsement Influences the Continued Belief in Corrected Misinformation</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">H</forename><surname>Butler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><forename type="middle">K H</forename><surname>Ecker</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/mac0000080</idno>
+		<ptr target="https://doi.org/10.1037/mac0000080" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Applied Research in Memory and Cognition</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Others (dis-)endorse this so it must (not) be true: High relative endorsement increases perceived misinformation veracity but not correction effectiveness</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">H</forename><surname>Butler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><forename type="middle">K H</forename><surname>Ecker</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/acp.4146</idno>
+		<ptr target="https://doi.org/10.1002/acp.4146" />
+	</analytic>
+	<monogr>
+		<title level="j">Applied Cognitive Psychology</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">4146</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">The (Mis)Information Game: A social media simulator</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">H</forename><surname>Butler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Lamont</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">L Y</forename><surname>Wan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Prike</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Nasim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Walker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><forename type="middle">K H</forename><surname>Ecker</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13428-023-02153-x</idno>
+		<ptr target="https://doi.org/10.3758/s13428-023-02153-x" />
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">The echo chamber effect on social media</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Cinelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>De Francisci Morales</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Galeazzi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Quattrociocchi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Starnini</surname></persName>
+		</author>
+		<idno type="DOI">10.1073/pnas.2023301118</idno>
+		<ptr target="https://doi.org/10.1073/pnas.2023301118" />
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<imprint>
+			<biblScope unit="volume">118</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page">2023301118</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Does time spent using social media impact mental health?: An eight year longitudinal study</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">M</forename><surname>Coyne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Rogers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Zurcher</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Stockdale</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Booth</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.chb.2019.106160</idno>
+		<ptr target="https://doi.org/10.1016/j.chb.2019.106160" />
+	</analytic>
+	<monogr>
+		<title level="j">Computers in Human Behavior</title>
+		<imprint>
+			<biblScope unit="volume">104</biblScope>
+			<biblScope unit="page">106160</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Modelling the Closed Loop Dynamics Between a Social Media Recommender System and Users</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">C</forename><surname>Davidson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ye</surname></persName>
+		</author>
+		<idno type="DOI">10.48550/arXiv.2507.19792</idno>
+		<idno type="arXiv">arXiv:2507.19792</idno>
+		<ptr target="https://doi.org/10.48550/arXiv.2507.19792" />
+	</analytic>
+	<monogr>
+		<title level="j">Opinions</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Community notes increase trust in fact-checking on social media</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">P</forename><surname>Drolsbach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Solovev</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Pröllochs</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/pnasnexus/pgae217</idno>
+		<ptr target="https://doi.org/10.1093/pnasnexus/pgae217" />
+	</analytic>
+	<monogr>
+		<title level="j">PNAS Nexus</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page">e217</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Truth Over Falsehood: Experimental Evidence on What Persuades and Spreads</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Ransom</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Walker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Howe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Perfors</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Kashima</surname></persName>
+		</author>
+		<idno type="DOI">10.31234/osf.io/9ezx8</idno>
+		<ptr target="https://doi.org/10.31234/osf.io/9ezx8" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Negatively-Biased Credulity and the Cultural Evolution of Beliefs</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">M T</forename><surname>Fessler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">C</forename><surname>Pisor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">D</forename><surname>Navarrete</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0095167</idno>
+		<ptr target="https://doi.org/10.1371/journal.pone.0095167" />
+	</analytic>
+	<monogr>
+		<title level="j">PLOS ONE</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">95167</biblScope>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">The power of social influence: A replication and extension of the Asch experiment</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Franzen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mader</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0294325</idno>
+		<ptr target="https://doi.org/10.1371/journal.pone.0294325" />
+	</analytic>
+	<monogr>
+		<title level="j">PLOS ONE</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page">294325</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<monogr>
+		<title level="m" type="main">Ranking for Engagement: How Social Media Algorithms Fuel Misinformation and Polarization</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Germano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Gómez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Sobbrio</surname></persName>
+		</author>
+		<idno type="DOI">10.2139/ssrn.4257210</idno>
+		<idno>No. 4257210</idno>
+		<ptr target="https://doi.org/10.2139/ssrn.4257210" />
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+		<respStmt>
+			<orgName>Social Science Research Network</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">SSRN Scholarly Paper</note>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Characterizing Silent Users in Social Media Communities</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Gong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E.-P</forename><surname>Lim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Zhu</surname></persName>
+		</author>
+		<idno type="DOI">10.1609/icwsm.v9i1.14582</idno>
+		<ptr target="https://doi.org/10.1609/icwsm.v9i1.14582" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the International AAAI Conference on Web and Social Media</title>
+		<meeting>the International AAAI Conference on Web and Social Media</meeting>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="page" from="140" to="149" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<monogr>
+		<title level="m" type="main">Why the Past 10 Years of American Life Have Been Uniquely Stupid</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Haidt</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<publisher>The Atlantic</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<monogr>
+		<title level="m" type="main">Life After Babel: Adapting to a World We May Never Share Again</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Haidt</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+			<publisher>Penguin Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Majority-Biased Transmission in Chimpanzees and Human Children, but Not Orangutans</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">M</forename><surname>Haun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Rekers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Tomasello</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Current Biology : CB</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="727" to="731" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Self-certification: A novel method for increasing sharing discernment on social media</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">D L</forename><surname>Howe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Perfors</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">J</forename><surname>Ransom</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Walker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Kashima</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Saletta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dong</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0303025</idno>
+		<ptr target="https://doi.org/10.1371/journal.pone.0303025" />
+	</analytic>
+	<monogr>
+		<title level="j">PLOS ONE</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page">303025</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<monogr>
+		<title level="m" type="main">Recommender Systems: An Introduction</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Jannach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Zanker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Felfernig</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Friedrich</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/CBO9780511763113</idno>
+		<ptr target="https://doi.org/10.1017/CBO9780511763113" />
+		<imprint>
+			<date type="published" when="2010">2010</date>
+			<publisher>Cambridge University Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Better to have many opinions than one from an expert? Social validation by one trustworthy source versus the masses in online health forums</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Jucks</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">M</forename><surname>Thon</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.chb.2017.01.019</idno>
+		<ptr target="https://doi.org/10.1016/j.chb.2017.01.019" />
+	</analytic>
+	<monogr>
+		<title level="j">Computers in Human Behavior</title>
+		<imprint>
+			<biblScope unit="volume">70</biblScope>
+			<biblScope unit="page" from="375" to="381" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Comparing information diffusion mechanisms by matching on cascade size</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">L</forename><surname>Juul</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Ugander</surname></persName>
+		</author>
+		<idno type="DOI">10.1073/pnas.2100786118</idno>
+		<ptr target="https://doi.org/10.1073/pnas.2100786118" />
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<imprint>
+			<biblScope unit="volume">118</biblScope>
+			<biblScope unit="issue">46</biblScope>
+			<biblScope unit="page">2100786118</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Social Learning Strategies: Bridge-Building between Fields</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">L</forename><surname>Kendal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">J</forename><surname>Boogert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Rendell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">N</forename><surname>Laland</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Webster</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">L</forename><surname>Jones</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.tics.2018.04.003</idno>
+		<ptr target="https://doi.org/10.1016/j.tics.2018.04.003" />
+	</analytic>
+	<monogr>
+		<title level="j">Trends in Cognitive Sciences</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="651" to="665" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">lmerTest Package: Tests in Linear Mixed Effects Models</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kuznetsova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">B</forename><surname>Brockhoff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">H B</forename><surname>Christensen</surname></persName>
+		</author>
+		<idno type="DOI">10.18637/jss.v082.i13</idno>
+		<ptr target="https://doi.org/10.18637/jss.v082.i13" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Statistical Software</title>
+		<imprint>
+			<biblScope unit="volume">82</biblScope>
+			<biblScope unit="page" from="1" to="26" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Science by social media: Attitudes towards climate change are mediated by perceived social consensus</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Lewandowsky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Cook</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">E</forename><surname>Gignac</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13421-019-00948-y</idno>
+		<ptr target="https://doi.org/10.3758/s13421-019-00948-y" />
+	</analytic>
+	<monogr>
+		<title level="j">Memory &amp; Cognition</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="1445" to="1456" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Credibility Perceptions and Detection Accuracy of Fake News Headlines on Social Media: Effects of Truth-Bias and Endorsement Cues</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Luo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">T</forename><surname>Hancock</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">M</forename><surname>Markowitz</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0093650220921321</idno>
+		<ptr target="https://doi.org/10.1177/0093650220921321" />
+	</analytic>
+	<monogr>
+		<title level="j">Communication Research</title>
+		<imprint>
+			<biblScope unit="volume">49</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="171" to="195" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Human-algorithm interactions help explain the spread of misinformation</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">L</forename><surname>Mcloughlin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">J</forename><surname>Brady</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.copsyc.2023.101770</idno>
+		<ptr target="https://doi.org/10.1016/j.copsyc.2023.101770" />
+	</analytic>
+	<monogr>
+		<title level="j">Current Opinion in Psychology</title>
+		<imprint>
+			<biblScope unit="volume">56</biblScope>
+			<biblScope unit="page">101770</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">To Post or Not to Post: Plastic Surgery Practice Marketing, Websites, and Social Media?</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Mess</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Bharti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Newcott</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">E</forename><surname>Chaffin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">W</forename><surname>Van Natta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Momeni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Swanson</surname></persName>
+		</author>
+		<idno type="DOI">10.1097/GOX.0000000000002331</idno>
+		<ptr target="https://doi.org/10.1097/GOX.0000000000002331" />
+	</analytic>
+	<monogr>
+		<title level="j">Plastic and Reconstructive Surgery Global Open</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page">2331</biblScope>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<monogr>
+		<author>
+			<persName><forename type="first">A</forename><surname>Narayan</surname></persName>
+		</author>
+		<ptr target="http://knightcolumbia.org/content/understanding-social-media-recommendation-algorithms" />
+		<title level="m">Understanding Social Media Recommendation Algorithms</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note>Knight First Amendment Institute</note>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Accuracy prompts are a replicable and generalizable approach for reducing the spread of misinformation</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Pennycook</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">G</forename><surname>Rand</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41467-022-30073-5</idno>
+		<ptr target="https://doi.org/10.1038/s41467-022-30073-5" />
+	</analytic>
+	<monogr>
+		<title level="j">Nature Communications</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">2333</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Spotting false news and doubting true news: A systematic review and meta-analysis of news judgements</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Pfänder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Altay</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41562-024-02086-1</idno>
+		<ptr target="https://doi.org/10.1038/s41562-024-02086-1" />
+	</analytic>
+	<monogr>
+		<title level="j">Nature Human Behaviour</title>
+		<imprint>
+			<biblScope unit="page" from="1" to="12" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Source-credibility information and social norms improve truth discernment and reduce engagement with misinformation online</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Prike</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">H</forename><surname>Butler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><forename type="middle">K H</forename><surname>Ecker</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41598-024-57560-7</idno>
+		<ptr target="https://doi.org/10.1038/s41598-024-57560-7" />
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Reports</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2024">2024. 6900</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">R: A Language and Environment for Statistical Computing</title>
+		<author>
+			<persName><forename type="first">Team</forename><surname>Core</surname></persName>
+		</author>
+		<ptr target="http://www.R-project.org/" />
+	</analytic>
+	<monogr>
+		<title level="m">R Foundation for Statistical Computing</title>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+	<note>Computer software</note>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Accuracy and social motivations shape judgements of (mis)information</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Rathje</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Roozenbeek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">J</forename><surname>Van Bavel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Van Der Linden</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41562-023-01540-w</idno>
+		<ptr target="https://doi.org/10.1038/s41562-023-01540-w" />
+	</analytic>
+	<monogr>
+		<title level="j">Nature Human Behaviour</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="892" to="903" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Cyberbullying on Social Media: Definitions, Prevalence, and Impact Challenges</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Ray</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">D</forename><surname>Mcdermott</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Nicho</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/cybsec/tyae026</idno>
+		<ptr target="https://doi.org/10.1093/cybsec/tyae026" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cybersecurity</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">26</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">The Closed Loop Between Opinion Formation and Personalized Recommendations</title>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">S</forename><surname>Rossi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">W</forename><surname>Polderman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Frasca</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/TCNS.2021.3105616</idno>
+		<ptr target="https://doi.org/10.1109/TCNS.2021.3105616" />
+	</analytic>
+	<monogr>
+		<title level="j">IEEE Transactions on Control of Network Systems</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1092" to="1103" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">Negativity Bias, Negativity Dominance, and Contagion</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Rozin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">B</forename><surname>Royzman</surname></persName>
+		</author>
+		<idno type="DOI">10.1207/S15327957PSPR0504_2</idno>
+		<ptr target="https://doi.org/10.1207/S15327957PSPR0504_2" />
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Social Psychology Review</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="296" to="320" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">Time spent online: Latent profile analyses of emerging adults&apos; social media use</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">F</forename><surname>Scott</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">Y</forename><surname>Bay-Cheng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Prince</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">H</forename><surname>Nochajski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">L</forename><surname>Collins</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.chb.2017.05.026</idno>
+		<ptr target="https://doi.org/10.1016/j.chb.2017.05.026" />
+	</analytic>
+	<monogr>
+		<title level="j">Computers in Human Behavior</title>
+		<imprint>
+			<biblScope unit="volume">75</biblScope>
+			<biblScope unit="page" from="311" to="319" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<monogr>
+		<title level="m" type="main">Twitter and Endorsed (Fake) News: The Influence of Endorsement by Strong Ties, Celebrities, and a User Majority on Credibility of Fake News During the COVID-19 Pandemic</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Shin</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">Twitter and endorsed (fake) news: The influence of endorsement by strong ties, celebrities, and a user majority on credibility of fake news during the COVID-19 pandemic</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Shin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y.-T</forename><surname>Lu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Communication</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="page" from="2573" to="2595" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">Community notes reduce engagement with and diffusion of false information online</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Slaughter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Peytavin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Ugander</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Saveski</surname></persName>
+		</author>
+		<idno type="DOI">10.1073/pnas.2503413122</idno>
+		<ptr target="https://doi.org/10.1073/pnas.2503413122" />
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<imprint>
+			<biblScope unit="volume">122</biblScope>
+			<biblScope unit="issue">38</biblScope>
+			<biblScope unit="page">2503413122</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Epistemic Vigilance</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Sperber</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Clément</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Heintz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Mascaro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Mercier</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Origgi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Wilson</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1468-0017.2010.01394.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1468-0017.2010.01394.x" />
+	</analytic>
+	<monogr>
+		<title level="j">Mind &amp; Language</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="359" to="393" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<analytic>
+		<title level="a" type="main">Comments, Shares, or Likes: What Makes News Posts Engaging in Different Ways</title>
+		<author>
+			<persName><forename type="first">O</forename><surname>Tenenboim</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/20563051221130282</idno>
+		<ptr target="https://doi.org/10.1177/20563051221130282" />
+	</analytic>
+	<monogr>
+		<title level="j">Social Media + Society</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">20563051221130282</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<analytic>
+		<title level="a" type="main">The persuasive effects of social cues and source effects on misinformation susceptibility</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">S</forename><surname>Traberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Harjani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Roozenbeek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Van Der Linden</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41598-024-54030-y</idno>
+		<ptr target="https://doi.org/10.1038/s41598-024-54030-y" />
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Reports</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<analytic>
+		<title level="a" type="main">The impact of social norms on health-related belief update</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Vlasceanu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Coman</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/aphw.12313</idno>
+		<ptr target="https://doi.org/10.1111/aphw.12313" />
+	</analytic>
+	<monogr>
+		<title level="j">Applied Psychology: Health and Well-Being</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="453" to="464" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<analytic>
+		<title level="a" type="main">The spread of true and false news online</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Vosoughi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Roy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Aral</surname></persName>
+		</author>
+		<idno type="DOI">10.1126/science.aap9559</idno>
+		<ptr target="https://doi.org/10.1126/science.aap9559" />
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">359</biblScope>
+			<biblScope unit="issue">6380</biblScope>
+			<biblScope unit="page" from="1146" to="1151" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">Future Challenges for Online, Crowdsourced Content Moderation: Evidence from Twitter&apos;s Community Notes</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Wirtschafter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Majumder</surname></persName>
+		</author>
+		<idno type="DOI">10.54501/jots.v2i1.139</idno>
+		<ptr target="https://doi.org/10.54501/jots.v2i1.139" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Online Trust and Safety</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

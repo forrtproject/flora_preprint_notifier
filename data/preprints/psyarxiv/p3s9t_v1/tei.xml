@@ -1,0 +1,1419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 1 Maintenance of Subliminal Facial Expressions in Working Memory and Its Subsequent Bias on Facial Judgement</title>
+				<funder ref="#_4ec7BFW">
+					<orgName type="full">National Social Science Foundation of China</orgName>
+				</funder>
+				<funder>
+					<orgName type="full">Opening Project of Philosophy and Social Science Laboratory of Reading and Development in Children and Adolescents (South China Normal University)</orgName>
+				</funder>
+				<funder ref="#_GMRrrTS #_e3xKK7w">
+					<orgName type="full">National Natural Science Foundation of China</orgName>
+				</funder>
+				<funder ref="#_drY5rRa">
+					<orgName type="full">Ministry of Education, the Science and Technology Planning Project of Guangdong Province</orgName>
+				</funder>
+				<funder ref="#_5CRhqSY">
+					<orgName type="full">Sun Yatsen University</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Ru</forename><surname>Meng</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Center for Brain and Mental Well-being</orgName>
+								<orgName type="department" key="dep2">Department of Psychology</orgName>
+								<orgName type="laboratory">Guangdong Provincial Key Laboratory of Brain Function and Disease</orgName>
+								<orgName type="institution">Sun Yat-sen University</orgName>
+								<address>
+									<settlement>Guangzhou</settlement>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Lu</forename><surname>Nie</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Center for Brain and Mental Well-being</orgName>
+								<orgName type="department" key="dep2">Department of Psychology</orgName>
+								<orgName type="laboratory">Guangdong Provincial Key Laboratory of Brain Function and Disease</orgName>
+								<orgName type="institution">Sun Yat-sen University</orgName>
+								<address>
+									<settlement>Guangzhou</settlement>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Ximeng</forename><surname>Li</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Center for Brain and Mental Well-being</orgName>
+								<orgName type="department" key="dep2">Department of Psychology</orgName>
+								<orgName type="laboratory">Guangdong Provincial Key Laboratory of Brain Function and Disease</orgName>
+								<orgName type="institution">Sun Yat-sen University</orgName>
+								<address>
+									<settlement>Guangzhou</settlement>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+						</author>
+						<author role="corresp">
+							<persName><forename type="first">Yixuan</forename><surname>Ku</surname></persName>
+							<email>kuyixuan@mail.sysu.edu.cn</email>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Center for Brain and Mental Well-being</orgName>
+								<orgName type="department" key="dep2">Department of Psychology</orgName>
+								<orgName type="laboratory">Guangdong Provincial Key Laboratory of Brain Function and Disease</orgName>
+								<orgName type="institution">Sun Yat-sen University</orgName>
+								<address>
+									<settlement>Guangzhou</settlement>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="institution">Peng Cheng Laboratory</orgName>
+								<address>
+									<settlement>Shenzhen</settlement>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 1 Maintenance of Subliminal Facial Expressions in Working Memory and Its Subsequent Bias on Facial Judgement</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">D9CDBCB16099848DF451CDF6E0DB8774</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-03T14:41+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>affect-as-information</term>
+					<term>unconscious working memory</term>
+					<term>affective misattribution</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Affective states implicitly bias evaluations of unrelated stimuli, even in the absence of conscious awareness of the affective source. According to affect-as-information theory, this originates from affective misattribution: individuals erroneously attribute affect elicited by one stimulus to a distinct, unrelated stimulus, thereby causing perception of the latter to adopt the emotional valence of the former. Although robust evidence shows that subliminal affective stimuli bias emotional perception, social behavior, and decision-making through transient priming, it remains unknown whether these influences persist beyond the immediate exposure period. Across four experiments (N = 105) utilizing delayed facial discrimination tasks, we demonstrate that subliminal affective information is not only stored in nonconscious working memory (Experiment 1), but also actively maintained against suprathreshold interference (Experiment 2). This representation retains abstract affective content rather than precise identity details (Experiment 3). Crucially, these latent affective trace drive valencecongruent misattribution onto subsequently encountered neutral faces (Experiment 4), establishing affective misattribution as a consequence of nonconscious working memory. This study provides a novel mechanism for affect-as-information theory, revealing the continuous influence of subliminal affective information on supraliminal processing. It also deepens our understanding of the irrational underpinnings in behavioral economics by tracing their origins to latent biases in affective memory.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 4</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Maintenance of Subliminal Facial Expressions in Working Memory and Its Subsequent Bias on</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Facial Judgement</head><p>Human cognition and behavior are pervasively shaped by affective states, often without individuals being consciously aware of this influence. For instance, individuals report higher life satisfaction on sunny days compared to rainy days (N. <ref type="bibr">Schwarz &amp; G. Clore, 1983)</ref>, illustrating how affect triggered by one source (e.g., weather) automatically biases unrelated judgments (e.g., life satisfaction). Such affective misattribution-the erroneous attribution of feelings to irrelevant stimuliis central to affect-as-information theory <ref type="bibr" target="#b4">(Clore &amp; Huntsinger, 2007;</ref><ref type="bibr" target="#b29">N. Schwarz &amp; G. L. Clore, 1983)</ref>.</p><p>While this theory has traditionally framed these effects as transient priming phenomena, emerging evidence indicates the subliminal affective influences may persist beyond immediate exposure. For instance, subliminally induced affective responses (indexed by skin conductance) can predict behavioral preferences after 7-second delays <ref type="bibr" target="#b15">(Lapate et al., 2014)</ref> ,challenging the assumption that unconscious affect is ephemeral.</p><p>Critically, the mechanisms underlying such persistence remain unresolved. Most studies on subliminal affect focus on short-term effects within milliseconds <ref type="bibr" target="#b16">(Li et al., 2007;</ref><ref type="bibr">Sheila T. Murphy &amp; R. B. Zajonc, 1993)</ref>, leaving a theoretical gap: How can unconscious emotions sustain influence in realworld settings, where interference and delays are ubiquitous? This limitation constrains the theory's applicability to domains where delayed biases are consequential-particularly in fields where subliminal affective stimuli have been empirically demonstrated to exert influence, such as social interactions <ref type="bibr" target="#b6">(Eric et al., 2012)</ref> ， consumer decision-making <ref type="bibr" target="#b42">(Winkielman et al., 2005)</ref>, and attitude formation toward unrelated objects like Chinese ideographs (S. T. <ref type="bibr">Murphy &amp; R. B. Zajonc, 1993)</ref> We propose that working memory (WM; <ref type="bibr" target="#b1">Baddeley, 2012;</ref><ref type="bibr" target="#b39">van Ede, 2020)</ref>, a system for temporarily storing and manipulating sensory information, may serve as a covert reservoir for subliminal affective information. Recent studies provide three key findings supporting our hypothesis.</p><p>First, behavioral <ref type="bibr" target="#b31">(Soto et al., 2011)</ref> and neural evidence demonstrates that unconsciously perceived information can be maintained <ref type="bibr" target="#b2">(Bergstrom &amp; Eriksson, 2018;</ref><ref type="bibr" target="#b35">Trübutschek et al., 2017;</ref><ref type="bibr" target="#b36">Trübutschek et al., 2019)</ref>. Second, affective content may be stored independently of cognitive representations <ref type="bibr" target="#b5">(Davidson &amp; Irwin, 1999;</ref><ref type="bibr" target="#b21">Mikels &amp; Reuter-Lorenz, 2019;</ref><ref type="bibr" target="#b22">Mikels et al., 2008)</ref>. Finally, WM not only RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 5 temporarily stores information but also exerts a sustained influence on subsequent perception <ref type="bibr" target="#b19">(Liu et al., 2016;</ref><ref type="bibr" target="#b34">Teng &amp; Kravitz, 2019)</ref>, providing a plausible pathway for subliminal affective information to bias later processing. If unconscious affect persists in WM, it could bridge the divide between transient priming and enduring biases, offering a mechanistic account for real-world affective misattribution.</p><p>Here, we introduce a delayed facial discrimination test <ref type="bibr" target="#b31">(Soto et al., 2011)</ref> to examine the persistence and mechanisms underlying affective misattribution. Across four experiments, we have consistently demonstrated that participants could encode subliminal affective information into WM (Experiment 1), and maintain it even in the presence of visible distractors (Experiment 2). These findings suggest that neither iconic memory nor a priming effect can account for our results.</p><p>Furthermore, Experiment 3 indicates that these unconscious memory representations were specific to facial expressions rather than facial identities. Notably, Experiment 4 reveals that unconscious affective representations can alter participants' affective judgments of a neutral face after a few seconds, illustrating the affective misattribution effect through memory. Altogether, our findings contribute new evidence to the ongoing debate on whether WM necessitates conscious involvement, highlighting the existence of unconscious affective WM and its consequential affective misattribution effect.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experiment 1</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Transparency and Openness</head><p>We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study, and the study follows JARS <ref type="bibr">(Kazak, 2018)</ref>. All data, analysis code, and research materials are available at the Open Science Framework <ref type="url" target="https://osf.io/p974j/">https://osf.io/p974j/</ref>. Data were analyzed using SPSS v27 and JASP Version 0.19.0. This study's design and its analysis were not pre-registered.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Participants</head><p>The target sample size for Experiment 1 was established through a power analysis using G*Power <ref type="bibr" target="#b7">(Faul et al., 2007)</ref>. This determination was informed by a prior study on unconscious WM RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 6 <ref type="bibr" target="#b31">(Soto et al., 2011)</ref> and a related meta-analysis <ref type="bibr" target="#b8">(Gambarota et al., 2022)</ref>. The power analysis indicated that to detect an effect size of Hedges's g = 1 for the memory condition with an 80% probability and a significance level of alpha = .05, a minimum of 19 participants would be necessary. A sample of twenty-three healthy college students (12 females; M = 21.2; SD = 1.4) was recruited. All participants were right-handed, had normal or corrected-to-normal vision, and reported no history of mental disorders. Each participant provided written informed consent and were compensated for their participation. The present study was approved by the Institutional Review Board and adhered to the Declaration of Helsinki.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stimuli and apparatus</head><p>This study employed face images obtained from the Tsinghua Facial Expression Database <ref type="bibr" target="#b44">(Yang et al., 2020)</ref>. We selected photos of six Asian models with happy, fearful, and neutral expressions. There were no significant differences (p &gt; .1) in arousal between the happy faces (M ± SD: 4.42 ± 0.11) and the fearful faces (M ± SD: 4.28 ± 0.14). To minimize potential interference arising from low-level features, all emotional facial images were processing using Photoshop 2022. This processing involved removing facial hair and other extraneous elements, resulting in images that retained only the internal facial features. Furthermore, all images were adjusted to maintain consistent grayscale and brightness levels and were cropped to a uniform size of 208×250 pixels. All face stimuli were rotated 180°to generate an inverted version. For the masking mosaic images, we segmented and rearranged the neutral faces corresponding to each model, ensuring other features remained consistent with the memory face images. This approach ensured that any observed differences in the experiments were specifically related to the emotional content of the images and not due to variations in low-level features.</p><p>The experimental stimuli were displayed on an AOC 23-inch monitor with a resolution of 1920×1080 and a refresh rate of 60 Hz. The experimental program was programmed using PsychoPy2 <ref type="bibr" target="#b25">(Peirce et al., 2019)</ref>. Throughout the experiment, participants were instructed to maintain a consistent distance of 60 cm from the screen, ensuring that the visual angle of the presented materials measured 8°× 9.6°, in accordance with the guidelines provided by <ref type="bibr" target="#b11">Heeks and Azzopardi (2015)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 7</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Procedure</head><p>As shown in Fig. <ref type="figure" target="#fig_0">1</ref>, each trial began with a white fixation cross presented in the center of the screen for 1000 ms, followed by a memory face shown for 33 ms and masked by a mosaic image lasting for 100 ms. In every block, the memory face was randomly selected from one model with different facial expressions (happiness, fear, or neutral) and orientations (inverted or upright). Then, a white fixation cross appeared and lasted for 3000 ms, during which the participants were instructed to briefly maintain the affective information conveyed by the memory face, even if they could not consciously perceive it. After the delay period, a probe face that was selected from the same model's emotional face (happiness, fear, or neutral) was presented. Participants were asked to judge whether the emotion conveyed by the probe face matched that of the memory face irrespective of the face orientation through the 'F' (mismatch) or 'J' (match) key, using their left and right index fingers respectively as fast and accurate as possible. They were then asked to report their level of awareness of the presence of the memory face through the Perceptual Awareness Scale (PAS), where 1 indicated that they did not perceive anything, 2 indicated some perception but lacked clarity, 3 indicated a blurred face, and 4 indicated a clear face <ref type="bibr" target="#b26">(Ramsøy &amp; Overgaard, 2004)</ref>. Throughout the experiment, participants were encouraged to focus on memorizing the emotional content of the memory face while disregarding other features. If they failed to perceive the memory face, they were encouraged to provide their best guess.</p><p>The formal experiment consisted of 672 trials, divided into four blocks of 168 trials each, with 144 main trials and 24 catch trials per block. In each block, the main trials involved one of the three types of emotional faces (happiness, neutral, or fear) from one model as both the memory face and probe face, with two different face orientations (upright or inverted), presented randomly. Each of the three expressions with two facial orientations was repeated 48 times, with upright and inverted conditions each occurring 24 times. In 50% of the trials, the expressions of the memory face and probe face were matched, while in the other 50% of trials, the probe face was chosen randomly with equal probability from the two remaining expressions. It is important to note that the orientation of the probe face was always consistent with that of the memory face (i.e., if the memory face was upright, the probe face was upright; if the memory face was inverted, the probe face was inverted).</p><p>Additionally, 24 catch trials were included to measure the participant's perception sensitivity to the RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 8 memory face. The catch trials and main trials had an identical trial structure, except that the catch trials did not present any memory faces but a black screen. In this case, participants were still required to make memory judgments for the probe face (4 trials for each combination of face orientations and expressions were presented randomly). Before the experiment, all participants completed a practice session with 24 trials to familiarize themselves with the procedure, including 18 main trials (3 trials for each combination of facial expressions and orientations were presented randomly) and 6 catch trials. The face images in the practice session were not used in the formal experiment. Participants were given breaks after completing each block. RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 9</p><p>Experiment 2, a visible distractor face was added, presented after the first delay. The rest of the procedure was the same as in Experiments1 and 3. Experiment 4 consisted of two tasks: a memory task (same as in Experiment 3) and a memory-affect rating task. The only difference between the memory-affect rating task and the memory task was in the test section. In the memory-affect rating task, the to-be-rated face was presented after a delay of three seconds. Participants had to rate the valence of affective properties of this to-be-rated face and then rate their confidence in the affective rating.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data analysis</head><p>To assess participants' perceptual sensitivity (d') to the memory face, we conducted a signal detection theory analysis following the approach of <ref type="bibr" target="#b31">Soto et al. (2011)</ref>. Hits were calculated as the ratio of trials where participants reported 'nothing seen' when the memory face was absent, relative to the total number of trials where the memory face was absent. False alarms were determined as the ratio of trials where participants reported 'nothing seen' when the memory face was present, relative to the total number of trials where the memory face was present. We then used the probability of hits and false alarms at an individual level to calculate d'. According to <ref type="bibr" target="#b31">Soto et al. (2011)</ref>, when participants reported that they did not see the memory face at all (i.e., only in trials with PAS=1), the correlation between the sensitivity of the memory face and memory accuracy can serve as an indicator unconsciousness. If d' is not correlated with memory accuracy, it suggests that participants' perception of the memory face is in an unconscious state. Besides, we employed signal detection theory to investigate whether the participants exhibited a response bias toward different types of probe faces. Specifically, hits were defined as the proportion of trials in which the participant correctly reported a match between the memory face and probe face, while false alarms were defined as the proportion of trials in which the participant incorrectly reported a match when the memory face and probe face did not match <ref type="bibr" target="#b2">(Bergstrom &amp; Eriksson, 2018)</ref>. We used the likelihood ratio (β) as the dependent variable to measure whether participants showed a bias in response to the probe faces in different orientations and different emotional types combinations when they reported that they did not see the memory faces at all (i.e., only in trials with PAS = 1). To ensure that the participants were truly unconscious at the trial level, only trials with a PAS score of 1 were included when calculating memory accuracy and reaction times (RTs).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 10</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Statistical inference</head><p>All statistical analyses in this study were performed using SPSS v27 (IBM, Armonk, NY), with Bayesian analyses conducted in JASP <ref type="bibr" target="#b20">(Love et al., 2019)</ref>.</p><p>We tested whether the difference between the memory performance and the chance level (0.5) was significant for each experimental condition separately using a one-sample two-sided t-test.</p><p>Furthermore, a repeated-measures analysis of variance (ANOVA) was used for RTs, with the emotion types of the memory face (fear, happiness, neutral), the emotion types of the probe face (fearful, happy, neutral), and orientations (upright, invert) as within-subject factors. For response bias, we first conducted a one-sample two-sided t-test to test whether the response bias (β) was significantly different from 1 for different probe faces with different orientations. Then a two-factor repeated measures ANOVA (Emotion types of the probe faces × Orientation) was performed.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>A one-sample two-sided t-test showed that the perceptual sensitivity (d') for the memory face was significantly greater than 0 (t(19) = 4.68, p &lt;.001; BF10 = 180.20). However, regardless of the emotion expressed by the memory face or its orientation, no significant correlation was found between d' and memory accuracies (all BF10 &lt; 0.41, except inverted happy face BF10 = 1.02), indicating that memory performance was independent of participants' perception of the memory face. The results of the response bias on the unconscious trials (PAS=1) showed that β did not significantly differ from 1, regardless of the emotion types or orientations of the probe face (ps &gt; .1, all BF10 &lt; 0.55). Moreover, the Emotion Types × Orientations ANOVA did not reveal any significant results (ps &gt; .2, all BF10 &lt; 0.31). Taken together, these results suggest response bias could not account for the differences observed in memory performance across experimental conditions. Furthermore, we examined whether the memory accuracies of unconscious trials (PAS = 1) were significantly different from chance (0.5). The results revealed a similar pattern across different face orientations (see Fig. <ref type="figure" target="#fig_1">2</ref>). Specifically, regardless of face orientation, memory accuracy of fearful faces was significantly above chance when the probe face was happy (upright: t(22) = 5.17, p &lt; .001,; invert: t(22) = 4.58, p &lt; .001; all BF10 &gt;192.00). However, no memory performance significantly above chance was observed when the probe faces displayed a neutral expression, irrespective of orientation (ps &gt; .3, all BF10 &lt; 0.34). Furthermore, memory accuracy for a happy face was above chance when the probe face displayed a fearful expression, which was not influenced by the face orientation (upright: t(22) = 3.31, p = .003; invert: t(22) = 3.09, p = .005; all BF10 &gt; 8.24). However, this effect was not observed when the probe face was neutral, both in the upright and inverted conditions (ps &gt; .2; all BF10 &lt; 0.38). Similarly, the memory performance for a neutral face was above chance when the probe face was either happy (upright: t(22) = 6.89, p &lt; .001; invert: t( <ref type="formula">22</ref> &lt; .001; all BF10 &gt;52.25), memory accuracies were significantly lower than chance in upright and inverted orientations. In contrast, the memory accuracies of upright and inverted neutral face remained at chance level when probed with a neutral face (ps &gt; .1; all BF10 &lt; 0.59).</p><p>RTs data did not reveal any significant main effects of emotion types of or orientations, nor any significant interactions between these factors (ps ＞.1; all BF10 &lt; 0.17).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experiment 2</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Transparency and Openness</head><p>We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study, and the study follows JARS <ref type="bibr">(Kazak, 2018)</ref>. All data, analysis code, and research materials are available at the Open Science Framework <ref type="url" target="https://osf.io/p974j/">https://osf.io/p974j/</ref>. Data were analyzed using SPSS v27 and JASP Version 0.19.0. This study's design and its analysis were not pre-registered</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Participants</head><p>The power analysis indicated that to detect the effect size determined for Experiment 1 with an 80% probability and a significance level of alpha = .05, a minimum of 24 participants would be necessary <ref type="bibr" target="#b7">(Faul et al., 2007)</ref>. Twenty-seven right-handed healthy college students with normal or corrected-to-normal vision (23 females; M = 21.61; SD = 1.59) were recruited. All participants provided written informed consent and were compensated for their participation. The study was approved by the Institutional Review Board and adhered to the Declaration of Helsinki.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stimuli and apparatus</head><p>The stimuli and apparatus used in Experiment 2 were the same as those used in Experiment 1.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Procedure</head><p>The task in Experiment 2 was similar to that of Experiment 1, except that a distractor face was added after the first delay (Fig. <ref type="figure" target="#fig_0">1</ref>). This distractor face was presented for 217 ms, followed by a mosaic image for 100 ms, and then another delay for 3000 ms. The task participants needed to RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 13 perform in Experiment 2 was identical to that in Experiment 1. To ensure that participants attended to the face distractor, they were informed prior the experiment that the distractor face might appear as a red oval in one trial. Participants were required to report whether they saw the red oval after the experiment, although the red oval did not appear in any trials. All participants passed this attention screening test.</p><p>The formal experiment comprised 180 trials divided into 4 blocks, each containing 36 main trials and 9 catch trials (which differed from the main trials only in that no memory faces were shown).</p><p>In each block, one model's face was used with 12 repetitions of each emotion type (happy, fearful, or neutral), presented randomly. For the main trials, the distractor face and the probe face were identical to the memory face in half of the trials (6 times, presented randomly). In the other half, the distractor and the probe faces were randomly selected from the remaining two emotional faces of the same model (3 times for each expression). For the catch trials, the probe face and distractor face were randomly selected from happy, fearful, and neutral images of the model used in the main trials of that block (3 times for each emotion type). Participants were required to complete a keystroke response to the probe face in both the catch trials and the main trials, as in Experiment 1. Before the formal experiment began, participants completed a practice session with 6 catch trials and 12 experimental trials (randomly presenting a model's fearful, happy, or neutral face as the memory face, with each emotion type appearing three times). The faces used in the practice session were not used in the formal experiment. Participants were given a break after each block.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data analysis</head><p>In Experiment 2, we used the same method as in Experiment 1 to calculate participants' perceptual sensitivity(d') to the memory face and response bias (β) to the different emotion types of the probe face. It should be noted that the response bias (β), memory accuracies, and the correlation between individual perceptual sensitivity (d') of the memory face and memory accuracy were calculated only in trials with PAS = 1, as in Experiment 1, to ensure participants were at an unconscious level on a trial-by-trial basis.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Statistical inference</head><p>All statistical analyses in this study were performed using SPSS v27 (IBM, Armonk, NY), with Bayesian analyses conducted in JASP <ref type="bibr" target="#b20">(Love et al., 2019)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 14</head><p>Due to the limited numbers of trials with PAS = 1 for different types of distractors, we combined all types of distractor faces for the analysis. We performed a single-sample two-sided t-test to compare the difference between the memory performance and the chance level (0.5) for all experimental conditions, similar to Experiment 1. For the response bias, we first conducted a onesample two-sided t-test to determine whether the response bias (β) was significantly different from 1 for different emotion types of probe faces, followed by a one-factor three-way repeated measures ANOVA (emotion types of probe face as the within-subject factor).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>First, the result of a one-sample t-test on the participants' average perceptual sensitivity (d') to the memory face showed that d' was significantly greater than 0 (t(24) = 6.735, p &lt; .001; BF10 &gt;1000). However, when trials with PAS = 1 were selected for later analysis, we did not find any significant correlation between d' and the memory accuracies across different emotion types of the memory face, indicating that memory accuracy was not correlated with d' regardless of the memory face's emotion type (ps &gt; .05, all BF10 &lt; 0.27, except happy probe face BF10 = 1.48). The results of ttest on the response bias (β) for different emotion types of the probe face showed that β was significantly greater than 1 when the probe face was a happy face (t(20) = 2.70 ; p = .014, BF10 = 3.96), but there were no differences in other conditions (ps &gt; .2, BF10 &lt; 0.39). The results of the one way repeated-measures ANOVA showed that the main effect of the emotion types of the probe face was not significant (F(2, 34) = 0.63, p = .54, ηp 2 = .04, BF10 &lt; 0.25). Therefore, the above results suggest that the memory performance could not be attributed to participants' response bias across all experimental conditions. The results of the one-sample t-test examining whether participants' memory performance for different emotional memory faces differed from the chance (0.5) are shown in Fig. <ref type="figure" target="#fig_3">3</ref>. The participants could recall the emotional face only when they probe with one of the other two expressions.</p><p>Specifically, above-chance memory performance for fearful faces was detected only when the probe face was happy (t(25) = 6.68, p &lt; .001, BF10 &gt; 1000) or neutral (t(26) = 2.56, p = .017, BF10 = 3.05).</p><p>When the memory face was happy, participants showed above chance accuracy only when the probe face was fearful (t(25) = 2.53, p = .018, BF10 = 2.89) or neutral (t(26) = 2.28, p = .031, BF10 = 1.83).</p><p>Similarly, memory accuracy for a neutral face was above chance only when the probe face was fearful (t(25) = 3.13, p = .004, BF10 = 9.38) or happy (t(25) = 5.60, p &lt; .00, BF10 &gt; 1000). When both the memory face and the probe face were either fearful (t(26) = -5.69, p &lt; .001, BF10 &gt; 1000) or happy (t(26) = -4.26, p &lt; .00, BF10 = 122.67), memory accuracy was significantly lower than the chance.</p><p>However, when both the memory face and the probe face were neutral, memory accuracy was at chance level (p &gt; .05, BF10 = 1.21).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 16</head><p>Experiment 3</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Transparency and Openness</head><p>We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study, and the study follows JARS <ref type="bibr">(Kazak, 2018)</ref>. All data, analysis code, and research materials are available at the Open Science Framework <ref type="url" target="https://osf.io/p974j/">https://osf.io/p974j/</ref>. Data were analyzed using SPSS v27 and JASP Version 0.19.0. This study's design and its analysis were not pre-registered</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Participants</head><p>The power analysis <ref type="bibr" target="#b7">(Faul et al., 2007)</ref> revealed that to detect the effect size established in </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stimuli and apparatus</head><p>The memory face images used in Experiment 3 were the same as those used in Experiment 1.</p><p>We also selected 2 male and 2 female new models (each model had a fearful, happy, and neutral face) from the Tsinghua Facial Expression Database <ref type="bibr" target="#b44">(Yang et al., 2020)</ref> to serve as probe faces. All new face images were rotated 180°to generate an inverted version. We performed the same operations on these newly selected emotional face pictures as in Experiment 1 to ensure that all pictures used in Experiment 3 were consistent in the visual features. All apparatus settings were the same as in Experiment 1.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>Firstly, when analyzing all trials of to-be-rated faces, the main effect of the emotional type of memory faces was significant (See Fig. <ref type="figure" target="#fig_5">5</ref>), F(2, 52) = 53.00, p &lt; .001, η² = .67, BF10 &gt; 1000. Post hoc comparisons revealed that after maintaining a fearful face, participants perceived the to-be-rated faces as more negative compared to those following happy (p &lt; .001) or neutral memory faces (p &lt; .001). After remembering happy faces, participants rated the to-be-rated faces as more positive compared to those following neutral memory faces (p = .021). When focusing on trials with neutral tobe-rated faces, the repeated-measures ANOVA also found a significant main effect of the emotion type of memory faces, F(2, 52) = 24.99, p &lt; .001, η² = .49, BF10 &gt; 1000. Post hoc comparisons showed that following fearful memory faces, participants rated neutral to-be-rated faces as more negative compared to those following happy memory faces (p &lt; .001) and neutral memory faces (p = .003). After maintaining happy faces, participants rated neutral to-be-rated faces as more positive compared to those following neutral memory faces (p = .002).</p><p>The repeated-measures analysis of confidence ratings showed no significant differences, whether considering all types of to-be-rated faces (F(2, 52) = 2.19, p = .122, η² = .078, BF10 = 0.57) or focusing solely on neutral to-be-rated faces (F(2, 52) = 1.02, p = .366, η² = .038, BF10 = 0.23). RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 24 Discussion The present study aimed to investigate whether ambiguous-source affective information, such as unseen affective faces, could exert a sustained influence on perceptual judgments and to elucidate the mechanisms underlying this effect. Across a series of four studies (N = 105), we employed a delayed facial discrimination test with trial-by-trial online awareness checks to demonstrate the encoding of unseen affective faces into WM (Experiment 1 &amp; Experiment 3), the formation of stable and interference-resistant representations (Experiment 2), and the influence of these affective representations on subsequent affective judgments of neutral faces (Experiment 4). These findings enrich the affect-as-information theory by suggesting that affective representations stored in WM can bias subsequent perception and behavior, distinct from the traditionally emphasized priming or immediate influences.</p><p>This study is the first to examine the impact of unconscious emotions from a temporal perspective, showing that unconscious WM may serve as a mechanism for the sustained influence of emotional information. Prior research has primarily emphasized priming effects <ref type="bibr" target="#b16">(Li et al., 2007;</ref><ref type="bibr">Sheila T. Murphy &amp; R. B. Zajonc, 1993)</ref>, which are short-lived and easily disrupted, thus limiting their practical applicability in real-life situations. In contrast, our study demonstrates that unconscious emotional representations in WM show resilience to interference, suggesting that the affective misattribution effect can endure over time. These findings underscore the need for heightened vigilance. Unconscious affective memories can escape from top-down cognitive control <ref type="bibr" target="#b16">(Li et al., 2007;</ref><ref type="bibr">Sheila T. Murphy &amp; R. B. Zajonc, 1993)</ref>, yielding impactful consequences. While classical economics assumes entirely rational and self-interested decision-making, our study aligns with behavioral economic theories (e.g., <ref type="bibr" target="#b38">Tversky &amp; Kahneman, 1974)</ref>, indicating that people often rely on intuitive cognitive modes influenced by emotional information in situations of uncertainty, such as the unknown emotional sources explored in this study. Hence, individuals might benefit from improving interoceptive accuracy and mindfulness to mitigate biases triggered by affective memories and reduce affective misattribution risks.</p><p>Second, the current study consistently demonstrated that it was affective information that was maintained in unconscious WM. By manipulations of changing the identities of the memory and probe faces, we observed that participants' memory representations relied more on facial expressions than RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 25 on facial identities (Experiment 3). This highlights the specificity of WM representations for emotions.</p><p>Notably, no face inversion effect (FIE; <ref type="bibr" target="#b45">Yin, 1969)</ref> was observed (i.e., face inversion did not influence memory performance), suggesting that unconscious affective WM is driven by local features related to emotional information (e.g., eyes; <ref type="bibr" target="#b41">Whalen et al., 2004)</ref>. Although the FIE remains controversial in studies focusing on the unconscious processing of faces <ref type="bibr" target="#b10">(Gray et al., 2013;</ref><ref type="bibr" target="#b43">Yang et al., 2007)</ref>, Experiment 4 provided compelling evidence that the emotional information was stored in WM. This is evidenced by the fact that biased affective judgments of visible neutral facers toward the valence of memory faces would not occur if memory representations were not based on emotional information.</p><p>Finally, the relationship between WM and conscious awareness has sparked a persistent debate <ref type="bibr" target="#b8">(Gambarota et al., 2022;</ref><ref type="bibr" target="#b14">King et al., 2016;</ref><ref type="bibr" target="#b33">Soto &amp; Silvanto, 2016;</ref><ref type="bibr" target="#b35">Trübutschek et al., 2017;</ref><ref type="bibr" target="#b40">Velichkovsky, 2017;</ref><ref type="bibr" target="#b46">Yu et al., 2023)</ref>. Our study employed rigorous trial-by-trial consciousness checks, revealing that participants consistently exhibited memory performance above chance levels even during unaware trials (Experiment 1). Furthermore, Experiment 2 demonstrated the stability of unconscious affective memory representations despite the presence of visible distracting stimuli, ruling out explanations based on iconic memory or unconscious priming <ref type="bibr" target="#b17">(Lin &amp; Murray, 2014)</ref>. Recent meta-analytical findings <ref type="bibr" target="#b8">(Gambarota et al., 2022)</ref> highlighted significant heterogeneity in the effects of different psychophysical manipulations of consciousness. While attentional blink and metacontrast masking suggested the existence of unconscious WM, other methods like backward masking and continuous flash suppression did not support this notion. Critically, our study reliably detected unconscious WM in the backward masking paradigm using emotionally laden faces with social significance <ref type="bibr" target="#b12">(Hu et al., 2022;</ref><ref type="bibr" target="#b13">Jiang &amp; He, 2006)</ref>. These collective findings suggest that consciousness is not always essential for WM, implying a relative independence between WM and consciousness <ref type="bibr" target="#b32">(Soto &amp; Silvanto, 2014;</ref><ref type="bibr" target="#b35">Trübutschek et al., 2017;</ref><ref type="bibr" target="#b40">Velichkovsky, 2017)</ref>.</p><p>In conclusion, our findings extend the literature by demonstrating that subliminal emotional information could be maintained in WM and exert influence on individuals' affective evaluations over time. Introducing the concept of WM-based affective misattribution enriches the affect-as-information theory and challenges the traditional view that consciousness is necessary for WM.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 1 .</head><label>1</label><figDesc>Fig.1. Sample trial sequence from Experiment 1-4. In Experiments 1 and 3, participants were required to remember the emotion conveyed by the masked face (i.e., memory face) and perform a recognition test based on the emotion conveyed by the probe face after a 3-second delay. Finally, they needed to complete a four-point scale rating how well they perceived the memory cue. The only difference between Experiment 1 and Experiment 3 was that in Experiment 1, both the memory face and the probe face were emotional face pictures of the same model. In Experiment 3, the memory faces and probe faces were selected from models of the same gender but with different models. In</figDesc><graphic coords="8,107.40,312.00,451.44,250.32" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Fig. 2 .</head><label>2</label><figDesc>Fig. 2. Memory accuracy of Experiment 1 for different types of memory and probe faces is shown under the upright condition (a) and the inverted condition (b). The horizontal axis represents the type of memory face used in the experiment. Whiskers in box plots indicate the range of values from the minimum to the maximum within the dataset. The vertical axis shows the memory accuracy for trials in which participants reported unconsciousness (*** p &lt; .001, **p &lt; .01, *p &lt; .05).</figDesc><graphic coords="11,107.40,105.00,406.80,183.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><figDesc>) =6.93, p &lt; .001; all BF10 &gt;100.00) or fearful (t(22) = 6.70, p &lt; .001; invert: t(22) = 3.31, p = .003; all BF10 &gt;12.85), regardless of face orientation. When both the memory face and the probe face were fearful (upright: t(22) = -3.97, p &lt; .001; invert: t(22) = -5.83, p &lt; .001) or happy (upright: t(22) = -4.27, p &lt; .001; invert: t(22) = -5.32, p RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 12</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Fig. 3 .</head><label>3</label><figDesc>Fig. 3. Memory accuracy of Experiment 2 under different types of memory and probe faces. The horizontal axis represents the type of face used as the memory face. Whiskers in box plots indicate the range of values from the minimum to the maximum within the dataset. The vertical axis shows the accuracy of the task in trials where participants reported unconsciousness (*** p &lt; .001, **p &lt; .01, *p &lt; .05).</figDesc><graphic coords="15,107.40,105.00,290.16,238.68" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Experiment 1 and</head><label>1</label><figDesc>Experiment 2 with an 80% probability and a significance level of alpha = .05, at least 26 participants would be needed. A sample of twenty-eight healthy college students (16 females; M = 21.19; SD = 1.98) was recruited. The sample size was confirmed in the same way as in Experiment 1. All participants were right-handed, had normal or corrected to normal vision, and reported no history of mental disorders. All participants provided written informed consent and were paid ¥40 for their participation. The study was approved by the Institutional Review Board and adhered to the Declaration of Helsinki.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Fig. 5 .</head><label>5</label><figDesc>Fig. 5. Experiment 4: Mean affective ratings of neutral faces by emotion types of memory faces. Error bars represent standard errors. Ratings in graph were centered on individuals' grand mean. All means were statistically different at p &lt; .05 (*** p &lt; .001, **p &lt; .01, *p &lt; .05).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="18,107.40,381.00,411.96,185.40" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="22,107.40,495.96,291.72,227.88" type="bitmap" /></figure>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><p>Funding This work was supported by the <rs type="funder">National Natural Science Foundation of China</rs> (<rs type="grantNumber">32171082</rs>, <rs type="grantNumber">32471136</rs>), the <rs type="funder">National Social Science Foundation of China</rs> (<rs type="grantNumber">17ZDA323</rs>), the <rs type="funder">Opening Project of Philosophy and Social Science Laboratory of Reading and Development in Children and Adolescents (South China Normal University)</rs>, <rs type="funder">Ministry of Education, the Science and Technology Planning Project of Guangdong Province</rs> (<rs type="grantNumber">2023B1212060018</rs>), and the <rs type="programName">Leading talent program</rs> (<rs type="grantNumber">31620016</rs>) at <rs type="funder">Sun Yatsen University</rs>.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_GMRrrTS">
+					<idno type="grant-number">32171082</idno>
+				</org>
+				<org type="funding" xml:id="_e3xKK7w">
+					<idno type="grant-number">32471136</idno>
+				</org>
+				<org type="funding" xml:id="_4ec7BFW">
+					<idno type="grant-number">17ZDA323</idno>
+				</org>
+				<org type="funding" xml:id="_drY5rRa">
+					<idno type="grant-number">2023B1212060018</idno>
+					<orgName type="program" subtype="full">Leading talent program</orgName>
+				</org>
+				<org type="funding" xml:id="_5CRhqSY">
+					<idno type="grant-number">31620016</idno>
+				</org>
+			</listOrg>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Procedure</head><p>The process and trials arrangement of Experiment 3 were similar to those of Experiment 1 (see Fig. <ref type="figure">1</ref>), with just one modification: In Experiment 3, the memory face and probe face were selected from different models, whereas in Experiment 1, these two faces were photos of the same model.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data analysis</head><p>In Experiment 3, we employed the same approach as in Experiment 1 to calculate participants' perceptual sensitivity <ref type="bibr">(d')</ref> to the memory face, response bias (β) to different emotion types and orientations of the probe face, and memory accuracies across all conditions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Statistical inference</head><p>All statistical analyses in this study were performed using SPSS v27 (IBM, Armonk, NY), with Bayesian analyses conducted in JASP <ref type="bibr" target="#b20">(Love et al., 2019)</ref>.</p><p>The data analysis for Experiment 3 was performed in the same manner as Experiment 1.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>The one-sample t-test for the participants' average perceptual sensitivity (d') revealed that the d' was significantly different from 0 (t(26) = 3.83, p &lt; .001, BF10 = 45.06). Further analysis of trials with PAS = 1 showed that the d' was not related to the memory accuracies (ps &gt; .05, all BF10 &lt; 0.77, except upright neutral face BF10 = 1.30) across all combinations of emotional types and orientations of the memory face, except for the inverted neutral memory face (person's = 0.54, p = .004, BF10 = 12.47). The one-sample t-test for response bias (β) indicated that β was significantly greater than 1 when the probe face was an upright happy face (t(25) = 2.36, p = .027, BF10 = 2.10), but not for other conditions (ps &gt; .05, all BF10 &lt; 0.67). Moreover, the Emotion types × Orientations ANOVA revealed a significant interaction between the emotion types of the probe face and orientations (F(2, 34) = 3.94， p = .029, ηp 2 = .188, while all BF10 &lt; 0.44), although post-hoc comparisons did not yield significant effects (ps &gt; .09). All other effects were not significant (ps &gt; .3).</p><p>Moreover, the one-sample two-sided t-test comparing memory accuracies to chance level (0.5) showed a pattern similar to Experiment 1, regardless of identity change (see Fig. <ref type="figure">4</ref>). When the memory face was fearful, memory accuracy was significantly above chance with a happy probe face in both upright (t(27) = 4.29, p &lt; .001, BF10 = 137.48) and inverted condition (t(27) = 4.84, p &lt; .001, RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 18 BF10 = 519.63). This effect was also observed with an inverted neutral probe face (t(27) = 2.96, p = .006, BF10 = 6.72), but not with an upright neutral probe face (p = .093, BF10 = 0.76). Memory performance for a happy face was significantly above chance only with a fearful probe face (upright: t(27) = 3.82, p &lt;.001; invert: t(27) = 4.94, p &lt; .001, all BF10 &gt; 45.98) or a neutral probe face (upright: t(27) = 3.05, p = .005; invert: t(27) = 3.12, p = .004, all BF10 &gt; 8.11), regardless of the orientations.</p><p>Similarly, memory performance for a neutral face was significantly above chance only when the probe face was a fearful (upright: t( <ref type="formula">27</ref>  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Transparency and Openness</head><p>We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study, and the study follows JARS <ref type="bibr">(Kazak, 2018)</ref>. All data, analysis code, and research materials are available at the Open Science Framework <ref type="url" target="https://osf.io/p974j/">https://osf.io/p974j/</ref>. Data were analyzed using SPSS v27 and JASP Version 0.19.0. This study's design and its analysis were not pre-registered</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Participants</head><p>The sample size was determined based on our previous Experiment 1-Experiment 3. Twentyseven healthy college students (18 females; M = 22.7; SD = 1.4) with normal or corrected-to-normal visual acuity were recruited and compensated monetarily. All participants were right-handed and reported no history of mental disorders. The study was approved by the Institutional Review Board and adhered to the Declaration of Helsinki. Informed consent was obtained from all participants.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stimuli and apparatus</head><p>We selected forty-two young Asian models (21 men) with fearful, happy, and neutral expressions from the same facial expression database used in previous experiments. We chose images of six models with these three expressions as memorized faces, and images of six other models as memory probe images (two for the practice phase and four for the formal experiment).</p><p>There were no significant differences (p &gt; .1) in arousal between the happy memory faces (M ± SD:</p><p>3.95 ± 0.33) and the fearful memory faces (M ± SD: 4.13 ± 0.45). Similarly, six mosaic pictures corresponding to the memorized faces were created using the same method as in previous experiments. For the remaining 30 faces (15 men), we used Abrosoft Fantamorph software (<ref type="url" target="www.fantamorph.com">www.fantamorph.com</ref>) to blend fearful and neutral faces, and happy and neutral faces, creating images with 15% fear (85% neutral) and 15% happy (85% neutral) expressions, resulting in 64 blended face images. Out of these, 28 models' neutral and blend-emotion faces (14 men) were used as the to-be-rated face image in the memory-perception rating task during the formal experiment.</p><p>Images from two additional models (including both blended-emotion and neutral faces) were used in the practice session. All images were processed to ensure consistency in visual features, and the RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 20 apparatus settings were identical to those in previous experiments. The experimental procedure was programmed using Psychophysics Toolbox <ref type="bibr" target="#b3">(Brainard, 1997)</ref> based on Matlab 2020a (Mathworks, Natick, MA, USA).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Procedure</head><p>Experiment 4 comprised two tasks (see Fig. <ref type="figure">1</ref>): a memory-perception rating task (88.8% of trials) and a memory task (11.2% of trials). The memory task followed the same procedure as Experiment 3. In the memory-perception rating task, participants completed affective and confidence ratings. Since participants could not anticipate whether the memory test would occur, they were required to remember the masked memory face.</p><p>Participants began each trial by fixating on a central cross for 1000 ms, followed by a 33 ms presentation of a memory face with happy, fearful, or neutral expressions. This face was then masked with a mosaic image for 100 ms. After a delay of 3000 ms, in the memory-perception rating tasks, a to-be-rated face appeared (15% fear, neutral, or 15% happy) for 500 ms. Participants rated this face using a 4-point scale ranging from negative to positive, and then reported their confidence in their affective rating on a scale from 1 (not at all) to 4 (very strong), with a 3-second time limit for each response. In the memory tasks, a memory probe face appeared and participants were asked to report whether the facial expression conveyed by the probe face matched that of the memory face. At the end of each trial, participants reported their awareness level using the Perceptual Awareness Scale (PAS). In both tasks, 1/7 of the trials (None trials) showed only a blank screen for the same duration as the other trials.</p><p>Additionally, following previous research, the transparency (alpha) of memory faces was adjusted based on participant's PAS responses. The initial alpha value was set at 0.8. After three consecutive trials presenting memory faces, alpha was adjusted based on the PAS score: decrease by 20% if none reported a score of 1, decrease by 10% if one reported, keep unchanged if two reported, or increase by 10% if three reported.</p><p>The 168 trials in the memory-perception rating task included 144 memory-perception rating trials (48 trials each for happy, fearful, and neutral memory faces, matched with 16 trials each for 15% fear, 15% happy, or neutral to-be-rated faces) and 24 None trials. The 21 trials in the memory task included 18 memory trials (6 trials each for happy, fearful, and neutral memory faces) and 3 None RUNNING HEAD SUBLIMINAL EXPRESSIONS IN WM AND JUDGEMENT BIAS 21 trials. Both tasks were presented randomly. During the practice session, the memory-perception rating task included 12 trials (three random presentations of each memory face type, plus three None trials, and four random presentations of each to-be-rated face type), and the memory task included 3 trials (one random presentation of each memory face type). There were 28 models' facial images were used for the rated faces in the formal experiment, with 4 models used for the None trials and 24 models used for the main trials (i.e., trials involving the presentations of memory face). For the main trials, 8 models were paired with each type of memory face (fear, neutral, happiness) <ref type="bibr" target="#b0">(Anderson et al., 2012;</ref><ref type="bibr" target="#b30">Siegel et al., 2018)</ref>. The gender of memory faces matched the gender of probe faces and to-be-rated faces.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data analysis</head><p>To investigate whether subliminal emotional representations bias affective ratings, we analyzed trials where participants reported not seeing the memory faces at all (PAS = 1). Initially, we combined the data from trials where to-be-rated faces included blend-emotion (15% fear, 15% happiness) and neutral faces. Subsequently, we focused on trials where the to-be-rated faces were neutral to examine if subliminal emotional representations influenced perceptions of neutral faces.</p><p>Confidence ratings were also analyzed exclusively from trials with PAS = 1. We first checked whether participants had completed the affective rating; if not, the confidence rating for that trial was excluded from further analysis (resulting in a deletion rate of 1.12%). The approach for analyzing confidence ratings mirrored that for affective ratings. We began by combining all types of to-be-rated faces for analysis, and then specifically examined trials where the to-be-rated faces were neutral.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Statistical inference</head><p>All statistical analyses in this study were performed using SPSS v27 (IBM, Armonk, NY), with Bayesian analyses conducted in JASP <ref type="bibr" target="#b20">(Love et al., 2019)</ref>.</p><p>A one-factor repeated-measures analysis of variance (ANOVA) was used to examine the impact of subliminal emotional representations on individuals' affective ratings and confidence ratings, with the type of emotional expression of the memory faces (fear vs. neutral vs. happiness) as the within-subject factor.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Out of sight but not out of mind: Unseen affective faces influence evaluations and social impressions</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Anderson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Siegel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>White</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">F</forename><surname>Barrett</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/a0027514</idno>
+		<ptr target="https://doi.org/10.1037/a0027514" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1210" to="1221" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Working memory: theories, models, and controversies</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Baddeley</surname></persName>
+		</author>
+		<idno type="DOI">10.1146/annurev-psych-120710-100422</idno>
+		<ptr target="https://doi.org/10.1146/annurev-psych-120710-100422" />
+	</analytic>
+	<monogr>
+		<title level="j">Annu Rev Psychol</title>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="page" from="1" to="29" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Neural Evidence for Non-conscious Working Memory</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Bergstrom</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Eriksson</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/cercor/bhx193</idno>
+		<ptr target="https://doi.org/10.1093/cercor/bhx193" />
+	</analytic>
+	<monogr>
+		<title level="j">Cereb Cortex</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="3217" to="3228" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">The Psychophysics Toolbox</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">H</forename><surname>Brainard</surname></persName>
+		</author>
+		<idno type="DOI">10.1163/156856897X00357</idno>
+		<ptr target="https://doi.org/https://doi.org/10.1163/156856897X00357" />
+	</analytic>
+	<monogr>
+		<title level="j">Spatial Vision</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="page" from="433" to="436" />
+			<date type="published" when="1997">1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">How emotions inform judgment and regulate thought</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">L</forename><surname>Clore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Huntsinger</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.tics.2007.08.005</idno>
+		<ptr target="https://doi.org/10.1016/j.tics.2007.08.005" />
+	</analytic>
+	<monogr>
+		<title level="j">Trends in Cognitive Sciences</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="393" to="399" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">The functional neuroanatomy of emotion and affective style</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Davidson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Irwin</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/S1364-6613(98)01265-0</idno>
+		<ptr target="https://doi.org/https://doi.org/10.1016/S1364-6613(98)01265-0" />
+	</analytic>
+	<monogr>
+		<title level="j">Trends in Cognitive Sciences</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="11" to="21" />
+			<date type="published" when="1999">1999</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Out of Sight but Not Out of Mind: Unseen Affective Faces Influence Evaluations and Social Impressions</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Eric</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Siegel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>White</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">F</forename><surname>Barrett</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/a0027514.supp</idno>
+		<ptr target="https://doi.org/10.1037/a0027514.supp" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion</title>
+		<imprint>
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">G*Power 3: A flexible statistical power analysis program for the social, behavioral, and biomedical sciences</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Faul</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Erdfelder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A.-G</forename><surname>Lang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Buchner</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/BF03193146</idno>
+		<ptr target="https://doi.org/10.3758/BF03193146" />
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="175" to="191" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Unconscious Visual Working Memory: A critical review and Bayesian meta-analysis</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Gambarota</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Tsuchiya</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Pastore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Di Polito</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Sessa</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neubiorev.2022.104618</idno>
+		<ptr target="https://doi.org/10.1016/j.neubiorev.2022.104618" />
+	</analytic>
+	<monogr>
+		<title level="j">Neurosci Biobehav Rev</title>
+		<imprint>
+			<biblScope unit="volume">136</biblScope>
+			<biblScope unit="page">104618</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title/>
+		<author>
+			<persName><forename type="first">Running</forename><surname>Head</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Subliminal Expressions In Wm And Judgement</forename><surname>Bias</surname></persName>
+		</author>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Faces and awareness: Low-level, not emotional factors determine perceptual dominance</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">L H</forename><surname>Gray</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">J</forename><surname>Adams</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Hedger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">E</forename><surname>Newton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Garner</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/a0031403</idno>
+		<ptr target="https://doi.org/10.1037/a0031403" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="537" to="544" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Thresholds for detection and awareness of masked facial stimuli</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Heeks</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Azzopardi</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.concog.2014.09.009</idno>
+		<ptr target="https://doi.org/10.1016/j.concog.2014.09.009" />
+	</analytic>
+	<monogr>
+		<title level="j">Consciousness and Cognition</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="page" from="68" to="78" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Similar brains blend emotion in similar ways: Neural representations of individual difference in emotion profiles</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Hu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Zhang</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neuroimage.2021.118819</idno>
+		<ptr target="https://doi.org/https://doi.org/10.1016/j.neuroimage.2021.118819" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuroimage</title>
+		<imprint>
+			<biblScope unit="volume">247</biblScope>
+			<biblScope unit="page">118819</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Cortical Responses to Invisible Faces: Dissociating Subsystems for Facial-Information Processing</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Jiang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>He</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cub.2006.08.084</idno>
+		<ptr target="https://doi.org/10.1016/j.cub.2006.08.084" />
+	</analytic>
+	<monogr>
+		<title level="j">Current Biology</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">20</biblScope>
+			<biblScope unit="page" from="2023" to="2029" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Brain Mechanisms Underlying the Brief Maintenance of Seen and Unseen Sensory Information</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>King</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Pescetelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dehaene</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neuron.2016.10.051</idno>
+		<ptr target="https://doi.org/10.1016/j.neuron.2016.10.051" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuron</title>
+		<imprint>
+			<biblScope unit="volume">92</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1122" to="1134" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Nonconscious Emotional Activation Colors First Impressions: A Regulatory Role for Conscious Awareness</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">C</forename><surname>Lapate</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Rokers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">Y</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Davidson</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0956797613503175</idno>
+		<ptr target="https://doi.org/10.1177/0956797613503175" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="349" to="357" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Subliminal Smells can Guide Social Preferences</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Moallem</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">A</forename><surname>Paller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Gottfried</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1467-9280.2007.02023.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1467-9280.2007.02023.x" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="1044" to="1049" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Priming of awareness or how not to measure visual awareness</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Lin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">O</forename><surname>Murray</surname></persName>
+		</author>
+		<idno type="DOI">10.1167/14.1.27</idno>
+		<ptr target="https://doi.org/10.1167/14.1.27" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Vision</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="27" to="27" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<title/>
+		<author>
+			<persName><forename type="first">Running</forename><surname>Head</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Subliminal Expressions In Wm And Judgement</forename><surname>Bias</surname></persName>
+		</author>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Conscious Access to Suppressed Threatening Information Is Modulated by Working Memory</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Jiang</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0956797616660680</idno>
+		<ptr target="https://doi.org/10.1177/0956797616660680" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="1419" to="1427" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">JASP: Graphical Statistical Software for Common Statistical Designs</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Love</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Selker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Marsman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Jamil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Dropmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Verhagen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">.</forename><forename type="middle">.</forename><surname>Wagenmakers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E.-J</forename></persName>
+		</author>
+		<idno type="DOI">10.18637/jss.v088.i02</idno>
+		<ptr target="https://doi.org/10.18637/jss.v088.i02" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Statistical Software</title>
+		<imprint>
+			<biblScope unit="volume">88</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="1" to="17" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Affective Working Memory: An Integrative Psychological Construct</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Mikels</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">A</forename><surname>Reuter-Lorenz</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1745691619837597</idno>
+		<ptr target="https://doi.org/10.1177/1745691619837597" />
+	</analytic>
+	<monogr>
+		<title level="j">Perspect Psychol Sci</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="543" to="559" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Emotion and working memory: Evidence for domain-specific processes for affective maintenance</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Mikels</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">A</forename><surname>Reuter-Lorenz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Beyer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">L</forename><surname>Fredrickson</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/1528-3542.8.2.256</idno>
+		<ptr target="https://doi.org/10.1037/1528-3542.8.2.256" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="256" to="266" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Affect, cognition, and awareness: Affective priming with optimal and suboptimal stimulus exposures</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">T</forename><surname>Murphy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">B</forename><surname>Zajonc</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0022-3514.64.5.723</idno>
+		<ptr target="https://doi.org/10.1037/0022-3514.64.5.723" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<imprint>
+			<biblScope unit="volume">64</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="723" to="739" />
+			<date type="published" when="1993">1993</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Affect, cognition, and awareness: affective priming with optimal and suboptimal stimulus exposures</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">T</forename><surname>Murphy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">B</forename><surname>Zajonc</surname></persName>
+		</author>
+		<idno type="DOI">10.1037//0022-3514.64.5.723</idno>
+		<ptr target="https://doi.org/10.1037//0022-3514.64.5.723" />
+	</analytic>
+	<monogr>
+		<title level="j">J Pers Soc Psychol</title>
+		<imprint>
+			<biblScope unit="volume">64</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="723" to="739" />
+			<date type="published" when="1993">1993</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">PsychoPy2: Experiments in behavior made easy</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Peirce</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Gray</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Simpson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Macaskill</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Höchenberger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Sogo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">.</forename><forename type="middle">.</forename><surname>Lindeløv</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">K</forename></persName>
+		</author>
+		<idno type="DOI">10.3758/s13428-018-01193-y</idno>
+		<ptr target="https://doi.org/10.3758/s13428-018-01193-y" />
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">51</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="195" to="203" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Introspection and Subliminal Perception</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">Z</forename><surname>Ramsøy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Overgaard</surname></persName>
+		</author>
+		<idno type="DOI">10.1023/B:PHEN.0000041900.30172.e8</idno>
+		<ptr target="https://doi.org/10.1023/B:PHEN.0000041900.30172.e8" />
+	</analytic>
+	<monogr>
+		<title level="j">Phenomenology and the Cognitive Sciences</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="page" from="1" to="23" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<monogr>
+		<title/>
+		<author>
+			<persName><forename type="first">Running</forename><surname>Head</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Subliminal Expressions In Wm And Judgement</forename><surname>Bias</surname></persName>
+		</author>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Mood, Misattribution, and Judgments of Well-Being: Informative and Directive Functions of Affective States</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Schwarz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Clore</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0022-3514.45.3.513</idno>
+		<ptr target="https://doi.org/10.1037/0022-3514.45.3.513" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<imprint>
+			<biblScope unit="volume">45</biblScope>
+			<biblScope unit="page" from="513" to="523" />
+			<date type="published" when="1983">1983</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Mood, Misattribution, and Judgments of Well-Being: Informative and Directive Functions of Affective States</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Schwarz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">L</forename><surname>Clore</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<imprint>
+			<biblScope unit="volume">45</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="513" to="523" />
+			<date type="published" when="1983">1983</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Seeing What You Feel: Affect Drives Visual Perception of Structurally Neutral Faces</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">H</forename><surname>Siegel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">B</forename><surname>Wormwood</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">S</forename><surname>Quigley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">F</forename><surname>Barrett</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0956797617741718</idno>
+		<ptr target="https://doi.org/10.1177/0956797617741718" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="496" to="503" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Working memory without consciousness</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Soto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Mantyla</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Silvanto</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cub.2011.09.049</idno>
+		<ptr target="https://doi.org/10.1016/j.cub.2011.09.049" />
+	</analytic>
+	<monogr>
+		<title level="j">Current Biology</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">22</biblScope>
+			<biblScope unit="page" from="912" to="R913" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Reappraising the relationship between working memory and conscious awareness</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Soto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Silvanto</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.tics.2014.06.005</idno>
+		<ptr target="https://doi.org/https://doi.org/10.1016/j.tics.2014.06.005" />
+	</analytic>
+	<monogr>
+		<title level="j">Trends in Cognitive Sciences</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="520" to="525" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Is conscious awareness needed for all working memory processes?</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Soto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Silvanto</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/nc/niw009</idno>
+		<ptr target="https://doi.org/10.1093/nc/niw009" />
+	</analytic>
+	<monogr>
+		<title level="j">Neurosci Conscious</title>
+		<imprint>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">9</biblScope>
+			<date type="published" when="2016">2016. 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Visual working memory directly alters perception</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Teng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">J</forename><surname>Kravitz</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41562-019-0640-4</idno>
+		<ptr target="https://doi.org/10.1038/s41562-019-0640-4" />
+	</analytic>
+	<monogr>
+		<title level="j">Nature Human Behaviour</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="827" to="836" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">A theory of working memory without consciousness or sustained activity</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Trübutschek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Marti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ojeda</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J.-R</forename><surname>King</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Mi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Tsodyks</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dehaene</surname></persName>
+		</author>
+		<idno type="DOI">10.7554/eLife.23871</idno>
+		<ptr target="https://doi.org/10.7554/eLife.23871" />
+	</analytic>
+	<monogr>
+		<title level="j">eLife</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page">23871</biblScope>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Probing the limits of activity-silent non-conscious working memory</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Trübutschek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Marti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Ueberschär</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dehaene</surname></persName>
+		</author>
+		<idno type="DOI">10.1073/pnas.1820730116</idno>
+		<ptr target="https://doi.org/10.1073/pnas.1820730116" />
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<imprint>
+			<biblScope unit="volume">116</biblScope>
+			<biblScope unit="issue">28</biblScope>
+			<biblScope unit="page" from="14358" to="14367" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title/>
+		<author>
+			<persName><forename type="first">Running</forename><surname>Head</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Subliminal Expressions In Wm And</forename><surname>Judgement</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">BIAS</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Judgment under uncertainty: Heuristics and biases</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Tversky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Kahneman</surname></persName>
+		</author>
+		<idno type="DOI">10.1126/science.185.4157.1124</idno>
+		<ptr target="https://doi.org/10.1126/science.185.4157.1124" />
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">185</biblScope>
+			<biblScope unit="issue">4157</biblScope>
+			<biblScope unit="page" from="1124" to="1131" />
+			<date type="published" when="1974">1974</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Visual working memory and action: Functional links and bi-directional influences</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Van Ede</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/13506285.2020.1759744</idno>
+		<ptr target="https://doi.org/10.1080/13506285.2020.1759744" />
+	</analytic>
+	<monogr>
+		<title level="j">Visual Cognition</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">5-8</biblScope>
+			<biblScope unit="page" from="401" to="413" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Consciousness and working memory: Current trends and research perspectives</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">B</forename><surname>Velichkovsky</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.concog.2017.07.005</idno>
+		<ptr target="https://doi.org/10.1016/j.concog.2017.07.005" />
+	</analytic>
+	<monogr>
+		<title level="j">Consciousness and Cognition</title>
+		<imprint>
+			<biblScope unit="volume">55</biblScope>
+			<biblScope unit="page" from="35" to="45" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Human Amygdala Responsivity to Masked Fearful Eye Whites</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">J</forename><surname>Whalen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Kagan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">G</forename><surname>Cook</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">C</forename><surname>Davis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Polis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">.</forename><forename type="middle">.</forename><surname>Johnstone</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename></persName>
+		</author>
+		<idno type="DOI">10.1126/science.1103617</idno>
+		<ptr target="https://doi.org/doi:10.1126/science.1103617" />
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">306</biblScope>
+			<biblScope unit="issue">5704</biblScope>
+			<biblScope unit="page" from="2061" to="2061" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Unconscious affective reactions to masked happy versus angry faces influence consumption behavior and judgments of value</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Winkielman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">C</forename><surname>Berridge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">L</forename><surname>Wilbarger</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0146167204271309</idno>
+		<ptr target="https://doi.org/10.1177/0146167204271309" />
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Social Psychology Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="121" to="135" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Fearful expressions gain preferential access to awareness during continuous flash suppression</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">H</forename><surname>Zald</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Blake</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/1528-3542.7.4.882</idno>
+		<ptr target="https://doi.org/10.1037/1528-3542.7.4.882" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="882" to="886" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Tsinghua facial expression database -A database of facial expressions in Chinese young and older women and men: Development and validation [Article</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><forename type="middle">Y</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">Z</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">L</forename><surname>Gao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><forename type="middle">H</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">.</forename><forename type="middle">.</forename><surname>Sun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0231304</idno>
+		<ptr target="https://doi.org/10.1371/journal.pone.0231304" />
+	</analytic>
+	<monogr>
+		<title level="j">Plos One</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">231304</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Looking at upside-down faces</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">K</forename><surname>Yin</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/h0027474</idno>
+		<ptr target="https://doi.org/10.1037/h0027474RUNNINGHEADSUBLIMINALEXPRESSIONSINWMANDJUDGEMENTBIAS31" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Experimental Psychology</title>
+		<imprint>
+			<biblScope unit="volume">81</biblScope>
+			<biblScope unit="page" from="141" to="145" />
+			<date type="published" when="1969">1969</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">The linear impact of visual working memory load on visual awareness: Evidence from motion-induced blindness</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Fu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Shen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Chen</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.concog.2023.103520</idno>
+		<ptr target="https://doi.org/10.1016/j.concog.2023.103520" />
+	</analytic>
+	<monogr>
+		<title level="j">Consciousness and Cognition</title>
+		<imprint>
+			<biblScope unit="volume">111</biblScope>
+			<biblScope unit="page">103520</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

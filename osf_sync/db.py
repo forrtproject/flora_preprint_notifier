@@ -30,9 +30,48 @@ CREATE TABLE IF NOT EXISTS preprints (
     pdf_downloaded      boolean DEFAULT false,
     pdf_downloaded_at   timestamptz,
     pdf_path            text,
-    updated_at          timestamptz DEFAULT now()
+    updated_at          timestamptz DEFAULT now(),
+    tei_extracted       boolean DEFAULT FALSE,
+    tei_generated       boolean DEFAULT FALSE,
+    tei_generated_at    timestamptz,
+    tei_path            text
+
 );
 
+CREATE TABLE IF NOT EXISTS preprint_tei (
+  osf_id           TEXT PRIMARY KEY REFERENCES preprints(osf_id) ON DELETE CASCADE,
+  title            TEXT,
+  doi              TEXT,
+  authors          jsonb,          -- ["A B", "C D"]
+  published_date   TEXT,            -- keep as text; some TEI values are partial
+  has_title        BOOLEAN,
+  has_doi          BOOLEAN,
+  has_authors      BOOLEAN,
+  has_published_date BOOLEAN,
+  extracted_at     TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS preprint_references (
+  osf_id           TEXT REFERENCES preprints(osf_id) ON DELETE CASCADE,
+  ref_id           TEXT,            -- TEI @xml:id (e.g., "b1")
+  title            TEXT,
+  authors          jsonb,
+  journal          TEXT,
+  year             INTEGER,
+  doi              TEXT,            -- DOI from TEI or later enrichment
+  has_doi          BOOLEAN,
+  has_title        BOOLEAN,
+  has_authors      BOOLEAN,
+  has_journal      BOOLEAN,
+  has_year         BOOLEAN,
+  doi_source       TEXT,            -- 'tei' | 'crossref' | 'openalex'
+  doi_confidence   TEXT,            -- 'high' | 'medium' | 'low' (from Crossref stage)
+  match_scores     JSONB,           -- {title, author, journal, combined}
+  updated_at       TIMESTAMPTZ DEFAULT now(),
+  PRIMARY KEY (osf_id, ref_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_preprint_refs_missing_doi ON preprint_references (osf_id) WHERE doi IS NULL;
 CREATE INDEX IF NOT EXISTS idx_preprints_date_modified ON preprints (date_modified);
 CREATE INDEX IF NOT EXISTS idx_preprints_provider ON preprints (provider_id);
 CREATE INDEX IF NOT EXISTS idx_preprints_tags_gin ON preprints USING GIN (tags);
@@ -51,6 +90,7 @@ MIGRATIONS = [
     "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS pdf_downloaded    boolean DEFAULT false",
     "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS pdf_downloaded_at timestamptz",
     "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS pdf_path          text",
+    "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS tei_extracted boolean DEFAULT FALSE;"
     # Optional: helpful index if you’ll query by download status
     "CREATE INDEX IF NOT EXISTS idx_preprints_pdf_needed ON preprints (pdf_downloaded) WHERE pdf_downloaded = false",
 
@@ -58,6 +98,7 @@ MIGRATIONS = [
     "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS tei_generated_at timestamptz",
     "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS tei_path         text",
     "CREATE INDEX IF NOT EXISTS idx_preprints_tei_needed ON preprints (tei_generated) WHERE tei_generated = false",
+    "CREATE INDEX IF NOT EXISTS idx_preprints_tei_flags ON preprints (tei_generated, tei_extracted);",
 ]
 
 def init_db():

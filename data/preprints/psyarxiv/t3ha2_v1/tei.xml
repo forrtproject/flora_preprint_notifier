@@ -1,0 +1,2941 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">to Inform Evidenced Action Plans for International Pharmaceutical Companies</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Riccardo</forename><surname>Maira</surname></persName>
+							<email>@gmail.com</email>
+						</author>
+						<title level="a" type="main">to Inform Evidenced Action Plans for International Pharmaceutical Companies</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">672939A581E13BBBEFC4AEAAF3611EEF</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-03T14:39+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>personality assessment</term>
+					<term>employee recruitment</term>
+					<term>employee retention</term>
+					<term>ethical AI implementation</term>
+					<term>OCEAN personality model</term>
+					<term>VUCA markets</term>
+					<term>workplace challenges</term>
+					<term>Artificial Intelligence</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>The challenges faced by international pharmaceutical companies and their Human Resources departments involving eKective recruitment, selection, and retention of employees have become a central focus in competitive international VUCA markets. Personality-informed interventions may be critical in international companies' eKorts to optimize selection and recruitment, as well as addressing work and well-being-related challenges faced by current employees in order to achieve sustainable retention. However, caution should be exercised when implementing personality assessment models, particularly when automated with the use of technology. This case study provides (1) an evaluation of strengths and weaknesses of OCEAN personality testing in critical areas of employment, such as recruitment, selection, and retention; (2) an exploration of key workplace challenges, opportunities, personality traits, and domains; and (3) considerations of workplace-level adoption of novel technologies, such as Artificial Intelligence, Machine Learning, and Large Language Models, in employment practices and ethical considerations for their fair implementation, with the goal to inform evidence-driven action plans.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Challenges in International Markets</head><p>The challenges of international pharmaceutical companies and their Human Resources (HR) departments toward eKective recruitment (the active process of searching for prospective employees and encouraging them to apply for the oKered job positions; <ref type="bibr" target="#b67">Mahmood, 2014;</ref><ref type="bibr" target="#b78">Pandey &amp; Kshirsagar, 2024)</ref>, selection (the process of identification and nomination, customarily through a job oKer, of suitable candidates; <ref type="bibr" target="#b6">Babapour et al., 2018)</ref>, and retention (the ability to maintain employees for a prolonged period of time; <ref type="bibr" target="#b27">Das, 2013;</ref><ref type="bibr" target="#b47">Hejase et al., 2016;</ref><ref type="bibr" target="#b54">Kalyanamitra et al., 2020;</ref><ref type="bibr" target="#b71">Memon et al., 2023;</ref><ref type="bibr" target="#b100">Shenoy &amp; Sharma, 2022)</ref> of employees, particularly in entry-level sales divisions, have become a central focus in competitive international VUCA (volatility, uncertainty, complexity, and ambiguity; the acronym has been used to describe such characteristics and challenges, as encountered in today's world; see <ref type="bibr">Mack et al., 2016)</ref> markets <ref type="bibr" target="#b103">(Suksod &amp; Cruthaka, 2020)</ref>.</p><p>Such challenges have extended to the international pharmaceutical company and working employees of DF, an HR Executive. For example, DF's international pharmaceutical company has seen a rise in staK turnover, particularly in the sales division, and a report by DF's assistant revealed that company employees have been struggling with their workplace well-being, namely the overall quality of an employee's life as it occurs in the working environment, which may include aspects such as mental health <ref type="bibr" target="#b98">(Schulte &amp; Vainio, 2010)</ref>. Reported burnout, emotional exhaustion, high job pressure, and disengagement were listed by employees as reasons for leaving the company, hence DF's interest in an evidenced action plan which would be informed by personality.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Personality and Assessment Tools</head><p>Personality is defined as a stable set of traits and styles representing an individual's dispositions and uniqueness <ref type="bibr" target="#b9">(Bergner, 2020;</ref><ref type="bibr" target="#b87">Roberts &amp; Yoon, 2022)</ref>. As a potential antidote to VUCA-related challenges, personality and its representative traits are relatively stable and enduring across an individual's adult life <ref type="bibr" target="#b9">(Bergner, 2020;</ref><ref type="bibr" target="#b10">Bleidorn et al., 2022;</ref><ref type="bibr" target="#b22">Cobb-Clark &amp; Schurer, 2012;</ref><ref type="bibr" target="#b85">Rantanen et al., 2007)</ref>. Therefore, personality-informed interventions may provide DF's international pharmaceutical company with a valuable methodology to overcome the uncertain processes of selection and recruiting, as well as address work and well-being-related challenges experienced by current employees.</p><p>Key areas for discussion in business recruitment and personality psychological research, which DF's HR department as well as the company's board of directors should consider, include the eKicacy, selection, and benefits of personality assessment methods and tools. Benefits may include the achievement of a more accurate fit between job requirements and applicants, more eKective and personalized mental health and well-being interventions to maximize current employees' well-being and performance, and support for long-term retention by addressing employees' specific needs <ref type="bibr" target="#b12">(Bouton &amp; Moore, 2011;</ref><ref type="bibr" target="#b40">Goodstein &amp; Lanyon, 1999;</ref><ref type="bibr" target="#b73">Nirmala et al., 2023;</ref><ref type="bibr">Preedy &amp; Watson, 2010;</ref><ref type="bibr" target="#b90">Rothstein &amp; GoKin, 2006;</ref><ref type="bibr" target="#b111">Wilsher, 2015)</ref>.</p><p>Personality assessment tools that should be considered by DF's international pharmaceutical company include those leveraging technological advancements in Artificial Intelligence (AI, "the science and engineering of creating intelligent machines" <ref type="bibr" target="#b45">[Hamet &amp; Tremblay, 2017;</ref><ref type="bibr" target="#b68">McCarthy et al., 1955]</ref>) and Machine Learning (ML, an AI subdomain which makes use of data and algorithms to produce statistical inferences and emulate human learning <ref type="bibr" target="#b1">[Algren et al., 2021;</ref><ref type="bibr" target="#b5">Awad &amp; Khanna, 2015]</ref>), which may oKer a higher predictive computational power, precision, and eKiciency when handling personality data. For example, this technology may be used to facilitate and streamline personality-based assessments in recruitment by predicting outcomes through profiling personality data as it relates to the job role and prerequisite criteria, as well as for personality-informed conflict prediction among employees and as an aid for processes such as conflict resolution <ref type="bibr" target="#b72">(MozaKari et al., 2023)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>An Employee-Centered Approach</head><p>On the other hand, employees have dealt with disengagement <ref type="bibr" target="#b97">(Sawasdee et al., 2020;</ref><ref type="bibr" target="#b109">Tirastittam et al., 2020)</ref>, burnout <ref type="bibr" target="#b44">(Haghani et al., 2022;</ref><ref type="bibr" target="#b96">Santos et al., 2022)</ref>, and emotional exhaustion <ref type="bibr" target="#b105">(Syarief &amp; Pramitha, 2020)</ref>, which have aKected their emotional wellbeing and may have contributed toward the high turnover rates, as described in DF's case. Preventive measures and interventions to support employees' well-being may benefit from the use of personality assessment tools, providing DF's HR department with the ability to make informed intervention decisions using empirical measures of personality traits and individual needs <ref type="bibr" target="#b4">(Anglim et al., 2020;</ref><ref type="bibr" target="#b11">Boult et al., 2018;</ref><ref type="bibr" target="#b76">Oswald &amp; Hough, 2011)</ref>. These interventions could be implemented to help HR departments provide more sustainable working arrangements by accounting for employees' personality traits to adopt thoughtful employee allocation strategies through personality-informed conflict predictions and applying ad-hoc solutions to situations that are interpersonal and/or within the individual's organizational role.</p><p>Ultimately, personality-oriented psychometric assessments could provide an eKective modality for DF's international pharmaceutical company to optimize and facilitate the management of complex, employee-centric, and role-specific processes (e.g., employees' recruitment, selection, retention, and performance enhancement). Such assessments have already been positively received by HR professionals for ease of use, practicality, and positive outcomes <ref type="bibr" target="#b37">(Furnham, 2008)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Background The Five-Factor Model of Personality</head><p>The Five-Factor Model (FFM) of personality <ref type="bibr" target="#b23">(Costa &amp; McCrae, 1996;</ref><ref type="bibr" target="#b28">Digman, 1990)</ref> has been defined by its authors as "an empirical generalization about the covariation of personality traits" <ref type="bibr" target="#b24">(Costa &amp; McCrae, 2008)</ref> and has been widely employed in the domains of business, HR, and management <ref type="bibr" target="#b33">(Fetvadjiev &amp; van de Vijver, 2015;</ref><ref type="bibr" target="#b49">Hodgkinson &amp; Gill, 2015;</ref><ref type="bibr" target="#b80">Pareke &amp; Hayu, 2016)</ref>. The FFM is commonly known as the Big Five or under the acronym OCEAN, which describes the five factors, namely openness (the propensity toward pursuing novelty and challenging predetermined information; <ref type="bibr" target="#b13">Boyd, 2020)</ref>, conscientiousness (the inclination toward being goal directed, planning, and conforming to and abiding by socially prescribed norms; <ref type="bibr" target="#b86">Roberts et al., 2009)</ref>, extraversion (the proclivity toward active social engagement and the outgoing pursuit of social settings and activities; <ref type="bibr" target="#b106">Taylor &amp; BroKman, 2011)</ref>, agreeableness (the disposition for positive cooperation and empathic prosocial behavior; <ref type="bibr" target="#b18">Caprara et al., 2010;</ref><ref type="bibr" target="#b43">Habashi et al., 2016)</ref>, and neuroticism (the propensity to experience negative emotions; <ref type="bibr" target="#b64">Liu et al., 2021;</ref><ref type="bibr" target="#b110">Widiger &amp; Oltmanns, 2017)</ref>.</p><p>Personality assessments based on the FFM may provide DF's company with a robust basis for long-term growth through the identification of relevant job-specific personality traits and personality-informed long-term development plans focused on enhancing the potential of employees and maximizing their performance while supporting their well-being <ref type="bibr" target="#b39">(Giannoukou, 2023;</ref><ref type="bibr" target="#b61">Li, 2023;</ref><ref type="bibr" target="#b101">Silvestre, 2022;</ref><ref type="bibr" target="#b108">Thoresen et al., 2004)</ref>. Furthermore, such assessments may oKer essential aid in overcoming the obstacles met by companies and their employees-prospective and senior alike-in today's VUCA world.</p><p>Action plans and interventions based on FFM personality assessments, as applied in organizational psychology, may be used to assist companies in addressing HR challenges <ref type="bibr" target="#b12">(Bouton &amp; Moore, 2011;</ref><ref type="bibr" target="#b111">Wilsher, 2015)</ref>, such as those faced by DF and her company (see Introduction section for case study summary), and pertain to the domains of recruitment, selection, and retention in the workplace. Understanding personality traits as they apply to diKerent domains and sub-domains, such as recruitment, job performance (the combined behaviors of one or more employees as they pertain to their work and to the employing organization's goals; <ref type="bibr" target="#b15">Brandão &amp; Jordão, 2011;</ref><ref type="bibr" target="#b35">Fogaça et al., 2018)</ref>, job engagement (the synthesis of behaviors and attitudes as they pertain to high motivation, dedication, and enthusiasm at work; <ref type="bibr" target="#b31">Eacock &amp; Barber, 2022;</ref><ref type="bibr" target="#b116">Zeidan &amp; Itani, 2020)</ref>, job satisfaction (the sum total of positive and negative emotions as they pertain to diKerent aspects of one's work; <ref type="bibr" target="#b0">Adhikari, 2022;</ref><ref type="bibr" target="#b20">Cebotari, 2022)</ref>, and workplace well-being-as well as exploring the relationship between personality traits and discussed domains of interest-would be necessary for DF to lay the foundations of an evidenced personality-informed action plan or intervention.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Analysis and Intervention Strategies</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Employee Recruitment and Selection</head><p>Available resources for employee selection and recruitment may be limited; hence, eKicient and cost-eKective solutions would be highly desirable for DF's company so that resources can be swiftly reallocated based on more urgent and specific needs (i.e., to support employees' retention and well-being). The use of modern psychometric tools in the context of online recruiting has been found to substantially lower costs associated with hiring <ref type="bibr" target="#b12">(Bouton &amp; Moore, 2011)</ref> and concurrently preserve time and other resources while providing valuable candidate insights <ref type="bibr" target="#b73">(Nirmala et al., 2023;</ref><ref type="bibr">Preedy &amp; Watson, 2010)</ref>.</p><p>Opportunities and challenges for companies such as DF's have been instated in recent times in the domains of recruitment and selection by the rise of new technology <ref type="bibr" target="#b62">(Lievens &amp; Chapman, 2019)</ref>. Hence, companies and HR departments alike now have to adapt to the rise of AI, ML, and Large Language Models (LLMs; i.e., AI systems able to learn from large volumes of text data; <ref type="bibr" target="#b63">Lin et al., 2023)</ref>, as well as all positive and negative aspects derived from the use of such technological tools. New opportunities include access to larger pools of applicants, faster delivery of recruitment questionnaires, and deeper insights into potential candidates' suitability. New challenges for DF's company include ensuring data protection of potential candidates from data breaches and hacking <ref type="bibr" target="#b60">(Lareo, 2024)</ref>, managing additional ethical responsibilities arising from the use of technology, and addressing the eventuality of LLMs' implicit biases <ref type="bibr" target="#b7">(Bai et al., 2024;</ref><ref type="bibr" target="#b38">Gallegos et al., 2024)</ref> and consequential errors in the assessment of potential employees.</p><p>However, DF's company should bear in mind that any adoption and administration of psychometric tests-particularly when enriched with the use of novel technologies already mentioned-would require recognition and adoption of ethical and legal responsibilities, such as engaging in bias awareness, practicing attentiveness and proactivity toward employees' mental health and well-being, and ensuring data protection and privacy compliance while addressing employees' privacy concerns regarding personal data storage and handling, as detailed by local and state legislations and professional psychological bodies which set ethical guidelines for the use of psychometric assessments. These include the British Psychological Society (BPS; <ref type="bibr" target="#b8">Baron &amp; Bartram, 2006</ref>; Code of Good Practice for Psychological Testing, n.d.; Guidelines on Testing and Test Use, n.d.; Using Online Assessment Tools for Recruitment, 2010) in the United Kingdom and the American Psychological Association (APA; American Psychological Association, 2020) in the United States.</p><p>The FFM personality traits most pertinent to and positively associated with common recruitment and selection criteria include conscientiousness and extraversion <ref type="bibr" target="#b30">(Dunn et al., 1995;</ref><ref type="bibr" target="#b42">Gridwichai et al., 2020;</ref><ref type="bibr" target="#b89">Rothmann &amp; Coetzer, 2003;</ref><ref type="bibr" target="#b93">Salgado, 1997;</ref><ref type="bibr" target="#b108">Thoresen et al., 2004)</ref>. The use of FFM-based inventories for employee recruitment and selection, as they pertain to DF's circumstances, is thus recommended <ref type="bibr" target="#b94">(Salgado, 2003)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Employee Retention</head><p>The issue of retention is central to DF's case. Dependent psychological sub-domains of retention include job performance, job engagement, job satisfaction, and workplace wellbeing. Since variations in well-being may aKect other workplace domains (e.g., job performance, job satisfaction, and job engagement), well-being can also be considered a meta-domain. Therefore, particular importance and resources should be allocated to ensure adequate care and support for employees' workplace well-being. The subsequent section in the present case study discusses workplace well-being, while the relationships between FFM traits and the sub-domains of job performance, engagement, and satisfaction are addressed in this section.</p><p>The relationship between personality traits and work performance has been examined using the FFM, and the two have been found to be consistently associated <ref type="bibr" target="#b55">(Kaushik &amp; Koul, 2018;</ref><ref type="bibr" target="#b74">Oh et al., 2011;</ref><ref type="bibr" target="#b94">Salgado, 2003;</ref><ref type="bibr" target="#b101">Silvestre, 2022;</ref><ref type="bibr" target="#b107">Tett et al., 1991)</ref>. In the domain of job performance as it relates to burnout, relevant in the case of DF, <ref type="bibr" target="#b61">Li (2023)</ref> suggested that employee burnout has been negatively associated with extraversion, conscientiousness, and openness, positively associated with neuroticism, and has not been significantly correlated with agreeableness. <ref type="bibr" target="#b88">Robins et al. (2018)</ref> supported the direct relationship between burnout and neuroticism while acknowledging that mediating factors could render such a relationship complex and hinting at another direct relationship, namely between extraversion, conscientiousness, and engagement. <ref type="bibr" target="#b36">Fukuzaki and Iwata (2021)</ref> conducted a meta-analysis to examine the relationship between FFM personality traits and job engagement and determined that conscientiousness was the strongest positively associated trait. Extraversion, openness, and agreeableness were found to be positively associated as well, while a negative association was found with neuroticism (also supported, in large measure, by <ref type="bibr" target="#b51">Janssens et al., 2019;</ref><ref type="bibr" target="#b84">Prokesova et al., 2019)</ref>. The authors concluded by stating the necessity to consider multiple dimensions of the psychosocial work environment in order to enhance job engagement, certainly an advisable direction for DF's evidence action plan, as the company has faced multiple challenges.</p><p>Personality traits such as extraversion and conscientiousness were found to positively influence employees' work performance and satisfaction, while neuroticism was found to have a negative impact on the two <ref type="bibr" target="#b39">(Giannoukou, 2023)</ref>. In regards to the broader domain of career satisfaction, <ref type="bibr" target="#b99">Seibert and Kraimer (2001)</ref> suggested that extraversion is positively related to satisfaction, while a negative correlation, particularly strong in peopleoriented occupations, was found with neuroticism and agreeableness.</p><p>Information related to the relationship between FFM traits and domains (e.g., recruitment and selection sub-domains) may be used by DF to compile ad-hoc inventory items for specific employee questionnaires. For guidance on questionnaire length, see <ref type="bibr" target="#b57">Kost and de Rosa (2018)</ref>, <ref type="bibr" target="#b92">Sahlqvist et al. (2011), and</ref><ref type="bibr" target="#b100">Shenoy and</ref><ref type="bibr" target="#b100">Sharma (2022)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Workplace Well-Being</head><p>According to the World Economic Forum, two billion people in the workforce worldwide are aKected by mental health challenges, and the cost of such challenges amounts to $1 trillion per year <ref type="bibr" target="#b65">(Loh et al., 2023)</ref>. Well-being and mental health support are fundamental to ensuring the maximization of a workforce's productivity, output, and job performance <ref type="bibr" target="#b50">(Isham et al., 2020;</ref><ref type="bibr" target="#b98">Schulte &amp; Vainio, 2010;</ref><ref type="bibr" target="#b112">Wright &amp; Cropanzano, 2000)</ref>. Factors negatively impacting well-being to be taken into account may be categorized as (1) from within the workplace (e.g., job insecurity <ref type="bibr" target="#b26">[Darvishmotevali &amp; Ali, 2020]</ref> and workplace discrimination <ref type="bibr" target="#b113">[Xu &amp; Chopik, 2020]</ref>) and (2) from outside of the workplace (e.g., world events such as the COVID-19 pandemic <ref type="bibr" target="#b115">[Yu et al., 2021]</ref>). While organizations may have a limited understanding of what occurs outside of oKice hours, initiatives can be taken to provide assessments of well-being and mental health, as well as employees' support needs, and tailor personality-informed interventions to reduce workplace stressors. Therefore, HR supervisor-guided strategies and interventions focused on employees' engagement and well-being should be encouraged <ref type="bibr" target="#b48">(Heyns et al., 2022)</ref> and can benefit from and be supported and informed by the current understanding of personality.</p><p>Personal states such as individual well-being can be measured with self-reported questionnaires or inferred, with great caution, respect, and thoughtfulness, to avoid making incorrect and biased assumptions (see Limitations section) through associated personality traits <ref type="bibr" target="#b81">(Parent-Lamarche &amp; Marchand, 2019;</ref><ref type="bibr" target="#b104">Sun et al., 2018)</ref>. Well-being can be measured using a variety of constructs (e.g., subjective well-being and psychological well-being); therefore, it is important to identify which construct(s) would be the most relevant to the context in which the measurement is set to take place.</p><p>The relationship between personality traits and well-being was explored by the FFM authors, who stated that dispositions of personality seem to aKect psychological well-being <ref type="bibr" target="#b70">(McCrae &amp; Costa, 1991)</ref>. Psychological well-being has been defined as the "inter-and intraindividual levels of positive functioning that can include one's relatedness with others and self-referent attitudes that include one's sense of mastery and personal growth" <ref type="bibr" target="#b16">(Burns, 2017)</ref>. Subjective well-being, also referred to as self-reported well-being, is understood as the self-evaluation of an individual's life and feelings <ref type="bibr" target="#b59">(Krueger &amp; Stone, 2014</ref>; Panel on Measuring Subjective Well-Being in a <ref type="bibr">Policy-Relevant Framework et al., 2013)</ref> and can be subdivided into three components, namely life satisfaction, positive aKect, and negative aKect <ref type="bibr" target="#b3">(Andrews &amp; Withey, 1976;</ref><ref type="bibr" target="#b83">Proctor, 2014)</ref>, while psychological well-being can be subdivided into six components, namely autonomy, self-acceptance, personal growth, positive relations with others, purpose in life, and environmental mastery <ref type="bibr" target="#b91">(RyK, 1989)</ref>. Thus, psychological well-being is considered a more stable predictor of future well-being than subjective well-being <ref type="bibr" target="#b52">(Joshanloo, 2019)</ref>. Furthermore, there is evidence for a stronger relationship between psychological well-being and personality factors than the latter and subjective well-being <ref type="bibr" target="#b41">(Grant et al., 2009)</ref>. The purported mutual influence, as well as distinctiveness, of well-being constructs has been tested and, although it is actively debated, the proposition of relative substantial independence appears to have a higher prevalence <ref type="bibr" target="#b21">(Chen et al., 2013)</ref>. It is recommended, however, to consider the ways in which the psychological constructs pertaining to employee well-being can work together, as new and more eKicient models may arise to the benefit of employees and organizations alike (see <ref type="bibr" target="#b77">Page &amp; Vella-Brodrick, 2009)</ref>.</p><p>Regarding psychological well-being, according to <ref type="bibr" target="#b70">McCrae and Costa (1991)</ref>, the personality traits of extraversion, neuroticism, and openness were identified as having systematically aKected well-being, with neuroticism having a negative association and extraversion having a positive association to psychological well-being. Similar conclusions regarding extraversion and neuroticism have been drawn by other studies (see <ref type="bibr" target="#b56">Kokko et al., 2015)</ref>.</p><p>In discussing subjective well-being, according to <ref type="bibr" target="#b117">Zhai et al. (2013)</ref>, extraversion would be the strongest predictor of subjective well-being (and a prime Big Five factor for job satisfactions), with conscientiousness and neuroticism being prominent traits also aKecting well-being (see also <ref type="bibr" target="#b14">Brajša-Žganec et al., 2011;</ref><ref type="bibr" target="#b32">Fadda &amp; Scalas, 2016)</ref>. The identified relationship between extraversion, neuroticism, and conscientiousness and employees' well-being can be found in other research studies <ref type="bibr" target="#b41">(Grant et al., 2009;</ref><ref type="bibr" target="#b81">Parent-Lamarche &amp; Marchand, 2019)</ref>. While the study was conducted in China, the authors' findings suggest that the relationship between these three Big Five traits and subjective well-being may be transferrable across cultures (a similar conclusion was also drawn by <ref type="bibr" target="#b69">McCrae et al., 1998)</ref>. <ref type="bibr" target="#b102">Soto (2015)</ref> conducted a study in Australia and concluded that subjective well-being is positively associated with extraversion, agreeableness, and conscientiousness and negatively associated with neuroticism. This study also suggests that elements of well-being and personality traits may aKect each other over time, supporting the presence of a stable relationship between personality and well-being.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Limitations</head><p>It is worth mentioning one of the main criticisms of Western personality assessment models, namely the cultural limitations in the personality inventory (e.g., missing traits from other cultures). Furthermore, provided that measures and conceptualizations of well-being and personality may vary across cultures and populations, companies such as DF's should be mindful when setting a standard for well-being and personality-based assessments and company policies <ref type="bibr" target="#b46">(Haybron &amp; Tiberius, 2015;</ref><ref type="bibr" target="#b114">Youngman, 2017)</ref> and ensure the fair treatment of every candidate and employee, including respecting everyone's rights, personal information, and dignity, in accordance with the law <ref type="bibr" target="#b17">(Calvasina &amp; Calvasina, 2016;</ref><ref type="bibr" target="#b19">Cavico et al., 2015;</ref><ref type="bibr" target="#b75">Olšovská &amp; Švec, 2017)</ref>.</p><p>Other limitations include (1) the inability to ensure that individuals do not impersonate traits nor inauthentically respond to personality questionnaires and, in accordance with the position's perceived requirements, to meet demand characteristics <ref type="bibr" target="#b34">(Fleeson &amp; Wilt, 2010;</ref><ref type="bibr" target="#b53">Judge et al., 2008)</ref>, (2) the bandwidth-fidelity dilemma (namely, the need for equity between the number of questions investigated and the accuracy of answers collected <ref type="bibr" target="#b25">[Cronbach, 1990]</ref>; <ref type="bibr" target="#b58">Kroeck &amp; Brown, 2004;</ref><ref type="bibr" target="#b76">Ones &amp; Viswesvaran, 1996;</ref><ref type="bibr" target="#b95">Salgado et al., 2015)</ref>, and (3) novel technology challenges, such as LLMs' implicit biases <ref type="bibr" target="#b7">(Bai et al., 2024;</ref><ref type="bibr" target="#b38">Gallegos et al., 2024)</ref> and data breaches <ref type="bibr" target="#b60">(Lareo, 2024)</ref>, which may cause assessment errors and data protection and privacy risks aKecting current and prospective employees.</p><p>Despite limitations and acknowledgements of the insuKiciencies presented <ref type="bibr" target="#b29">(Dimitriou &amp; Galanakis, 2022)</ref>, the Big Five personality model is still considered one of the best models available today and can provide a valuable basis for informed, company-level, employee-focused action plans and interventions for DF's pharmaceutical company.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>In conclusion, DF's company's need for an evidenced action plan is evident by virtue of its employees' struggles. The development of such action plan should be an informed process that begins with the selection of a personality measurement model and the development of model applications primarily focused on understanding and addressing employees' individual diKerences and psychological needs through data collection (e.g., through online questionnaires), analysis, and consequent actionable data-driven insights.</p><p>The FFM framework provides a substantial theoretical basis for data collection, analysis, and decision-making as it applies to DF's case and the company's needs, and it may be accompanied by other assessment tools. However, caution should be exercised when implementing personality assessment models, particularly when automated with the use of technology, and ethical and legal considerations should be addressed prior to their deployment. Explored constructs, findings, limitations, and relationships between FFM personality traits, novel technologies, and the domains of employees' recruitment, selection, retention, and workplace well-being should be considered in order to compile inventory item questionnaires aimed at understanding employees' individual diKerences and needs and provide an evidenced basis for both imminent and future interventions.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="2,0.00,0.00,612.00,183.60" type="bitmap" /></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Satisfaction as the moderator between discrimination and stress at work</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Adhikari</surname></persName>
+		</author>
+		<idno type="DOI">10.3126/tuj.v37i1.48207</idno>
+		<ptr target="https://doi.org/10.3126/tuj.v37i1.48207" />
+	</analytic>
+	<monogr>
+		<title level="j">Tribhuvan University Journal</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="15" to="29" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Machine learning in life cycle assessment</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Algren</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Fisher</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">E</forename><surname>Landis</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/B978-0-12-817976-5.00009-7</idno>
+		<ptr target="https://doi.org/10.1016/B978-0-12-817976-5.00009-7" />
+	</analytic>
+	<monogr>
+		<title level="m">Data Science Applied to Sustainability Analysis</title>
+		<editor>
+			<persName><forename type="first">J</forename><surname>Dunn</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">P</forename><surname>Balaprakash</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Elsevier</publisher>
+			<date type="published" when="2021">2021</date>
+			<biblScope unit="page" from="167" to="190" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">APA guidelines for psychological assessment and evaluation</title>
+		<author>
+			<persName><forename type="first">American</forename><surname>Psychological Association</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">T F</forename></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">A</forename></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">G</forename></persName>
+		</author>
+		<idno type="DOI">10.1037/e510142020-001</idno>
+		<ptr target="https://doi.org/10.1037/e510142020-001" />
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Social indicators of well-being</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">M</forename><surname>Andrews</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">B</forename><surname>Withey</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-1-4684-2253-5</idno>
+		<ptr target="https://doi.org/10.1007/978-1-4684-2253-5" />
+		<imprint>
+			<date type="published" when="1976">1976</date>
+			<publisher>Springer US</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Predicting psychological and subjective well-being from personality: A meta-analysis</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Anglim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Horwood</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">D</forename><surname>Smillie</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Marrero</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">K</forename><surname>Wood</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/bul0000226</idno>
+		<ptr target="https://doi.org/10.1037/bul0000226" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">146</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="279" to="323" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Machine learning</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Awad</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Khanna</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-1-4302-5990-9_1</idno>
+		<ptr target="https://doi.org/10.1007/978-1-4302-5990-9_1" />
+	</analytic>
+	<monogr>
+		<title level="m">EJicient Learning Machines</title>
+		<editor>
+			<persName><forename type="first">M</forename><surname>Awad</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">R</forename><surname>Khanna</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Apress</publisher>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="1" to="18" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Human resource management challenges to develop pharmaceutical industry: Evidence from developing countries</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Babapour</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Gholipourb</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Mehralian</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Iranian Journal of Pharmaceutical Research</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">Suppl2</biblScope>
+			<biblScope unit="page" from="224" to="238" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<author>
+			<persName><forename type="first">X</forename><surname>Bai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Sucholutsky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">L</forename><surname>Grikiths</surname></persName>
+		</author>
+		<idno type="DOI">10.48550/arXiv.2402.04105</idno>
+		<idno type="arXiv">arXiv:2402.04105</idno>
+		<ptr target="https://doi.org/10.48550/arXiv.2402.04105" />
+		<title level="m">Measuring implicit bias in explicitly unbiased large language models</title>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Using online assessment tools for recruitment</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Baron</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Bartram</surname></persName>
+		</author>
+		<ptr target="https://cms.bps.org.uk/sites/default/files/2022-07/using_online_assessment_tools_for_recruitment.pdf" />
+	</analytic>
+	<monogr>
+		<title level="j">The British Psychological Society</title>
+		<imprint>
+			<date type="published" when="2006">2006</date>
+			<publisher>BPS</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">What is personality? Two myths and a definition</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Bergner</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.newideapsych.2019.100759</idno>
+		<ptr target="https://doi.org/10.1016/j.newideapsych.2019.100759" />
+	</analytic>
+	<monogr>
+		<title level="j">New Ideas in Psychology</title>
+		<imprint>
+			<biblScope unit="volume">57</biblScope>
+			<biblScope unit="page">100759</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Personality stability and change: A meta-analysis of longitudinal studies</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Bleidorn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Schwaba</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Zheng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">J</forename><surname>Hopwood</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">S</forename><surname>Sosa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">W</forename><surname>Roberts</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">A</forename><surname>Briley</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">148</biblScope>
+			<biblScope unit="issue">7-8</biblScope>
+			<biblScope unit="page" from="588" to="619" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Wellbeing and personality type in the workplace: An international comparison</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Boult</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Schaubhut</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Thompson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Dost</surname></persName>
+		</author>
+		<idno type="DOI">10.53841/bpsadm.2018.10.4.7</idno>
+		<ptr target="https://doi.org/10.53841/bpsadm.2018.10.4.7" />
+	</analytic>
+	<monogr>
+		<title level="j">Assessment and Development Matters</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="7" to="11" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">The cult of personality testing: Why assessments are essential for employee selection</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bouton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Moore</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Medical Practice Management: MPM</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="144" to="149" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Openness</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Boyd</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-319-24612-3_1258</idno>
+		<ptr target="https://doi.org/10.1007/978-3-319-24612-3_1258" />
+	</analytic>
+	<monogr>
+		<title level="m">Encyclopedia of Personality and Individual DiJerences</title>
+		<editor>
+			<persName><forename type="first">V</forename><surname>Zeigler-Hill</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">T</forename><forename type="middle">K</forename><surname>Shackelford</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Springer International Publishing</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="3333" to="3340" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Personality traits and social desirability as predictors of subjective well-being</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Brajša-Žganec</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Ivanović</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">K</forename><surname>Lipovčan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psihologijske Teme</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="261" to="276" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">The individual performance of top managers in the public sector</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Brandão</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Jordão</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">European Association of Work and Organizational Psychology</title>
+		<meeting><address><addrLine>Maastricht, The Netherlands</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Psychosocial Well-Being</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Burns</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-981-287-082-7_251</idno>
+		<ptr target="https://doi.org/10.1007/978-981-287-082-7_251" />
+	</analytic>
+	<monogr>
+		<title level="m">Encyclopedia of Geropsychology</title>
+		<editor>
+			<persName><forename type="first">N</forename><forename type="middle">A</forename><surname>Pachana</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2017">2017</date>
+			<biblScope unit="page" from="1977" to="1984" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<title level="m" type="main">Using personality testing as part of the employee selection process: Legal and policy issues for employers</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Calvasina</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">V</forename><surname>Calvasina</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page" from="112" to="120" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">The contribution of agreeableness and self-eKicacy beliefs to prosociality</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">V</forename><surname>Caprara</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Alessandri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Di Giunta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Panerai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Eisenberg</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/per.739</idno>
+		<ptr target="https://doi.org/10.1002/per.739" />
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Personality</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="36" to="55" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Personality tests in employment: A continuing legal, ethical, and practical quandary</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">J</forename><surname>Cavico</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">G</forename><surname>Mujtaba</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Lawrence</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">C</forename><surname>Mukler</surname></persName>
+		</author>
+		<idno type="DOI">10.14738/assrj.24.1004</idno>
+		<ptr target="https://doi.org/10.14738/assrj.24.1004" />
+	</analytic>
+	<monogr>
+		<title level="j">Advances in Social Sciences Research Journal</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="60" to="84" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">The importance of managing the psychosocial potential of human resources for employee job satisfaction</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Cebotari</surname></persName>
+		</author>
+		<idno type="DOI">10.54481/ecosoen.2022.3-4</idno>
+		<ptr target="https://doi.org/10.54481/ecosoen.2022.3-4" />
+	</analytic>
+	<monogr>
+		<title level="j">Economics, Social and Engineering Sciences</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="172" to="184" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Two concepts or two approaches? A bifactor analysis of psychological and subjective well-being</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">F</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Jing</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Hayes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Lee</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10902-012-9367-x</idno>
+		<ptr target="https://doi.org/10.1007/s10902-012-9367-x" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Happiness Studies</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1033" to="1068" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">The stability of big-five personality traits</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">A</forename><surname>Cobb-Clark</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Schurer</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.econlet.2011.11.015</idno>
+		<ptr target="https://doi.org/10.1016/j.econlet.2011.11.015" />
+	</analytic>
+	<monogr>
+		<title level="j">Economics Letters</title>
+		<imprint>
+			<biblScope unit="volume">115</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="11" to="15" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<monogr>
+		<title level="m" type="main">The five factor model of personality: Theoretical perspective</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">T</forename><surname>Costa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">R</forename><surname>Mccrae</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1996">1996</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">The five-factor theory of personality</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">T</forename><surname>Costa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">R</forename><surname>Mccrae</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Handbook of personality: Theory and research</title>
+		<imprint>
+			<publisher>The Guilford Press</publisher>
+			<date type="published" when="2008">2008</date>
+			<biblScope unit="page" from="159" to="181" />
+		</imprint>
+	</monogr>
+	<note>3rd ed.</note>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<monogr>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">J</forename><surname>Cronbach</surname></persName>
+		</author>
+		<ptr target="https://books.google.it/books?id=AwQlAQAAIAAJ" />
+		<title level="m">Essentials of psychological testing</title>
+		<imprint>
+			<publisher>Harper &amp; Row</publisher>
+			<date type="published" when="1990">1990</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Job insecurity, subjective well-being and job performance: The moderating role of psychological capital</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Darvishmotevali</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Ali</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.ijhm.2020.102462</idno>
+		<ptr target="https://doi.org/10.1016/j.ijhm.2020.102462" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Hospitality Management</title>
+		<imprint>
+			<biblScope unit="volume">87</biblScope>
+			<biblScope unit="page">102462</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Employee retention: A review of literature</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Das</surname></persName>
+		</author>
+		<idno type="DOI">10.9790/487X-1420816</idno>
+		<ptr target="https://doi.org/10.9790/487X-1420816" />
+	</analytic>
+	<monogr>
+		<title level="j">IOSR Journal of Business and Management</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="page" from="8" to="16" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Personality structure: Emergence of the five-factor model</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Digman</surname></persName>
+		</author>
+		<idno type="DOI">10.1146/annurev.ps.41.020190.002221</idno>
+		<ptr target="https://doi.org/10.1146/annurev.ps.41.020190.002221" />
+	</analytic>
+	<monogr>
+		<title level="j">Annual Review of Psychology</title>
+		<imprint>
+			<biblScope unit="volume">41</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="417" to="440" />
+			<date type="published" when="1990">1990</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Organizational psychology re-invented-The big five personality traits model as a reliable behavior framework in the workplace</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Dimitriou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Galanakis</surname></persName>
+		</author>
+		<idno type="DOI">10.4236/psych.2022.135053</idno>
+		<ptr target="https://doi.org/10.4236/psych.2022.135053" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychology</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">05</biblScope>
+			<biblScope unit="page" from="798" to="804" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Relative importance of personality and general mental ability in managers&apos; judgments of applicant qualifications</title>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">S</forename><surname>Dunn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">K</forename><surname>Mount</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">R</forename><surname>Barrick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">S</forename><surname>Ones</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0021-9010.80.4.500</idno>
+		<ptr target="https://doi.org/10.1037/0021-9010.80.4.500" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Applied Psychology</title>
+		<imprint>
+			<biblScope unit="volume">80</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="500" to="509" />
+			<date type="published" when="1995">1995</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">The science of assessing and cultivating work engagement in organizations</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Eacock</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Barber</surname></persName>
+		</author>
+		<idno type="DOI">10.4324/9780367198459-REPRW214-1</idno>
+		<ptr target="https://doi.org/10.4324/9780367198459-REPRW214-1" />
+	</analytic>
+	<monogr>
+		<title level="m">The Science of Assessing and Cultivating Work Engagement in Organizations</title>
+		<imprint>
+			<publisher>Routledge</publisher>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Neuroticism as a moderator of direct and mediated relationships betwee n introversion-extraversion and well-being</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Fadda</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">F</forename><surname>Scalas</surname></persName>
+		</author>
+		<idno type="DOI">10.5964/ejop.v12i1.985</idno>
+		<ptr target="https://doi.org/10.5964/ejop.v12i1.985" />
+	</analytic>
+	<monogr>
+		<title level="j">Europe&apos;s Journal of Psychology</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="49" to="67" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Five factor model of personality, universality of</title>
+		<author>
+			<persName><forename type="first">V</forename><forename type="middle">H</forename><surname>Fetvadjiev</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">J R</forename><surname>Van De Vijver</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/B978-0-08-097086-8.25067-8</idno>
+		<ptr target="https://doi.org/10.1016/B978-0-08-097086-8.25067-8" />
+	</analytic>
+	<monogr>
+		<title level="m">International Encyclopedia of the Social &amp; Behavioral Sciences (Second Edition)</title>
+		<editor>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Wright</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Elsevier</publisher>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="249" to="253" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">The relevance of Big Five trait content in behavior to subjective authenticity: Do high levels of within-person behavioral variability undermine or enable authenticity achievement</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Fleeson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Wilt</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1467-6494.2010.00653.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1467-6494.2010.00653.x" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality</title>
+		<imprint>
+			<biblScope unit="volume">78</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1353" to="1382" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Job performance analysis: Scientific studies in the main journals of management and psychology from 2006 to 2015</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fogaça</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">C B</forename><surname>Rego</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">C C</forename><surname>Melo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">P</forename><surname>Armond</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">A</forename><surname>Coelho</surname><genName>Jr</genName></persName>
+		</author>
+		<idno type="DOI">10.1002/piq.21248</idno>
+		<ptr target="https://doi.org/10.1002/piq.21248" />
+	</analytic>
+	<monogr>
+		<title level="j">Performance Improvement Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="231" to="247" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Association between the five-factor model of personality and work engagement: A meta-analysis</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Fukuzaki</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Iwata</surname></persName>
+		</author>
+		<idno type="DOI">10.2486/indhealth.2021-0051</idno>
+		<ptr target="https://doi.org/10.2486/indhealth.2021-0051" />
+	</analytic>
+	<monogr>
+		<title level="j">Industrial Health</title>
+		<imprint>
+			<biblScope unit="volume">60</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="154" to="163" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">HR professionals&apos; beliefs about, and knowledge of, assessment techniques and psychometric tests</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Furnham</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1468-2389.2008.00436.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1468-2389.2008.00436.x" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Selection and Assessment</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="300" to="305" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">O</forename><surname>Gallegos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Rossi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Barrow</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">M</forename><surname>Tanjim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Dernoncourt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">K</forename><surname>Ahmed</surname></persName>
+		</author>
+		<idno type="DOI">10.48550/arXiv.2309.00770</idno>
+		<idno type="arXiv">arXiv:2309.00770</idno>
+		<ptr target="https://doi.org/10.48550/arXiv.2309.00770" />
+		<title level="m">Bias and fairness in large language models: A survey</title>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">The role of employees&apos; personality characteristics in job performance and satisfaction during digitization years</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Giannoukou</surname></persName>
+		</author>
+		<idno type="DOI">10.47577/business.v6i.9579</idno>
+		<ptr target="https://doi.org/10.47577/business.v6i.9579" />
+	</analytic>
+	<monogr>
+		<title level="j">Technium Business and Management</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="126" to="135" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Applications of personality assessment to the workplace: A review</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">D</forename><surname>Goodstein</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">I</forename><surname>Lanyon</surname></persName>
+		</author>
+		<idno type="DOI">10.1023/A:1022941331649</idno>
+		<ptr target="https://doi.org/10.1023/A:1022941331649" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Business and Psychology</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="291" to="322" />
+			<date type="published" when="1999">1999</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">The big five traits as predictors of subjective and psychological well-being</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Grant</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Langan-Fox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Anglim</surname></persName>
+		</author>
+		<idno type="DOI">10.2466/pr0.105.1.205-231</idno>
+		<ptr target="https://doi.org/10.2466/pr0.105.1.205-231" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Reports</title>
+		<imprint>
+			<biblScope unit="volume">105</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="205" to="231" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<monogr>
+		<title level="m" type="main">Role of personality traits on employees job performance in pharmaceutical industry in thailand</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Gridwichai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kulwanich</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Piromkam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Kwanmuangvanich</surname></persName>
+		</author>
+		<idno type="DOI">10.5530/srp.2020.3.21</idno>
+		<ptr target="https://doi.org/10.5530/srp.2020.3.21" />
+		<imprint>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="volume">11</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Searching for the prosocial personality: A big five approach to linking personality and prosocial behavior</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">M</forename><surname>Habashi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">G</forename><surname>Graziano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">E</forename><surname>Hoover</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0146167216652859</idno>
+		<ptr target="https://doi.org/10.1177/0146167216652859" />
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Social Psychology Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="1177" to="1192" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Burnout in the nigerian pharmaceutical industry: A study on impact on creativity, commitment, and turnover intentions due to &apos;Japa&apos; syndrome</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Haghani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">M</forename><surname>Moosivand</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Gilan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Interdisciplinary Research Journal of Management and Social Sciences</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="44" to="55" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Artificial intelligence in medicine</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Hamet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Tremblay</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.metabol.2017.01.011</idno>
+		<ptr target="https://doi.org/10.1016/j.metabol.2017.01.011" />
+	</analytic>
+	<monogr>
+		<title level="j">Metabolism</title>
+		<imprint>
+			<biblScope unit="volume">69</biblScope>
+			<biblScope unit="page" from="36" to="S40" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Well-Being Policy: What Standard of Well-Being</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">M</forename><surname>Haybron</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Tiberius</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/apa.2015</idno>
+		<ptr target="https://doi.org/10.1017/apa.2015" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the American Philosophical Association</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="712" to="733" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Employee retention in the pharmaceutical companies: Case of lebanon</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">J</forename><surname>Hejase</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">E</forename><surname>Dirani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Hamdar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Hazimeh</surname></persName>
+		</author>
+		<idno type="DOI">10.9790/487X-1804015875</idno>
+		<ptr target="https://doi.org/10.9790/487X-1804015875" />
+	</analytic>
+	<monogr>
+		<title level="j">IOSR Journal of Business and Management (IOSR-JBM)</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="58" to="75" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">The role of supervisor support and basic psychological needs in predicting work engagement, burnout and turnover intentions in a medical contract research service setting</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">M</forename><surname>Heyns</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mccallaghan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">H</forename><surname>De Wet</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.sapharm.2021.07.009</idno>
+		<ptr target="https://doi.org/10.1016/j.sapharm.2021.07.009" />
+	</analytic>
+	<monogr>
+		<title level="j">Research in Social and Administrative Pharmacy</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="2981" to="2988" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">Five-factor model of personality</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">P</forename><surname>Hodgkinson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M H D</forename><surname>Gill</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/9781118785317.weom110101</idno>
+		<ptr target="https://doi.org/10.1002/9781118785317.weom110101" />
+	</analytic>
+	<monogr>
+		<title level="m">Wiley Encyclopedia of Management</title>
+		<imprint>
+			<publisher>John Wiley &amp; Sons, Ltd</publisher>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="1" to="3" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">Wellbeing and productivity: A review of the literature (22</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Isham</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mair</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Jackson</surname></persName>
+		</author>
+		<ptr target="https://bradscholars.brad.ac.uk/bitstream/handle/10454/18268/pp-wellbeing-report.pdf?sequence=2" />
+	</analytic>
+	<monogr>
+		<title level="m">Centre for the Understanding of Sustainable Prosperity</title>
+		<title level="s">CUSP Working Paper Series</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">Do personality traits determine work engagement? Results from a Belgian study</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Janssens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>De Zutter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Geens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Vogt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Braeckman</surname></persName>
+		</author>
+		<idno type="DOI">10.1097/JOM.0000000000001458</idno>
+		<ptr target="https://doi.org/10.1097/JOM.0000000000001458" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Occupational &amp; Environmental Medicine</title>
+		<imprint>
+			<biblScope unit="volume">61</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="29" to="34" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">Investigating the relationships between subjective well-being and psychological well-being over two decades</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Joshanloo</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/emo0000414</idno>
+		<ptr target="https://doi.org/10.1037/emo0000414" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="183" to="187" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">The contributions of personality to organizational behavior and psychology: Findings, criticisms, and future research directions</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">A</forename><surname>Judge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Klinger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">S</forename><surname>Simon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">W F</forename><surname>Yang</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1751-9004.2008.00136.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1751-9004.2008.00136.x" />
+	</analytic>
+	<monogr>
+		<title level="j">Social and Personality Psychology Compass</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1982" to="2000" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<analytic>
+		<title level="a" type="main">Impact of training facilities, benefits and compensation, and performance appraisal on the a job satisfaction</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Kalyanamitra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Saengchai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Jermsittiparsert</surname></persName>
+		</author>
+		<idno type="DOI">10.5530/srp.2020.3.19</idno>
+		<ptr target="https://doi.org/10.5530/srp.2020.3.19" />
+	</analytic>
+	<monogr>
+		<title level="j">Systematic Reviews in Pharmacy</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="166" to="175" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<monogr>
+		<title level="m" type="main">Evaluation of personality characteristics on employee performance: A study in pharmaceutical knowledge process outsourcing companies</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kaushik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Koul</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<analytic>
+		<title level="a" type="main">Associations between mental well-being and personality from a life span perspective</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Kokko</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Rantanen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Pulkkinen</surname></persName>
+		</author>
+		<idno type="DOI">10.1057/9781137439963_8</idno>
+		<ptr target="https://doi.org/10.1057/9781137439963_8" />
+	</analytic>
+	<monogr>
+		<title level="m">Personality and Well-being Across the Life-Span</title>
+		<imprint>
+			<publisher>Palgrave Macmillan UK</publisher>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="134" to="159" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<analytic>
+		<title level="a" type="main">Impact of survey length and compensation on validity, reliability, and sample characteristics for ultrashort-, short-, and long-research participant perception surveys</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">G</forename><surname>Kost</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">C</forename><surname>De Rosa</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/cts.2018</idno>
+		<ptr target="https://doi.org/10.1017/cts.2018" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Clinical and Translational Science</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="31" to="37" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">Work applications of the big five model of personality</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">G</forename><surname>Kroeck</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">W</forename><surname>Brown</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Comprehensive handbook of psychological assessment</title>
+		<imprint>
+			<date type="published" when="2004">2004</date>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page" from="109" to="129" />
+		</imprint>
+	</monogr>
+	<note>Industrial and organizational assessment</note>
+</biblStruct>
+
+<biblStruct xml:id="b59">
+	<analytic>
+		<title level="a" type="main">Measuring subjective wellbeing: Progress and challenges</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">B</forename><surname>Krueger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Stone</surname></persName>
+		</author>
+		<idno type="DOI">10.1126/science.1256392</idno>
+		<ptr target="https://doi.org/10.1126/science.1256392" />
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">346</biblScope>
+			<biblScope unit="page" from="42" to="43" />
+			<date type="published" when="2014">2014. 6205</date>
+			<pubPlace>New York, N.Y.</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b60">
+	<analytic>
+		<author>
+			<persName><forename type="first">X</forename><surname>Lareo</surname></persName>
+		</author>
+		<ptr target="https://www.edps.europa.eu/data-protection/technology-monitoring/techsonar/large-language-models-llm" />
+	</analytic>
+	<monogr>
+		<title level="m">Large language models (LLM)</title>
+		<title level="s">European Data Protection Supervisor</title>
+		<imprint>
+			<date type="published" when="2024-09-03">2024, September 3</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b61">
+	<analytic>
+		<title level="a" type="main">The impact of personality traits on work performance</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Li</surname></persName>
+		</author>
+		<idno type="DOI">10.1051/shsconf/202318003018</idno>
+		<ptr target="https://doi.org/10.1051/shsconf/202318003018" />
+	</analytic>
+	<monogr>
+		<title level="j">SHS Web of Conferences</title>
+		<imprint>
+			<biblScope unit="volume">180</biblScope>
+			<biblScope unit="page">3018</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b62">
+	<analytic>
+		<title level="a" type="main">Recruitment and selection</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Lievens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Chapman</surname></persName>
+		</author>
+		<ptr target="https://ink.library.smu.edu.sg/lkcsb_research/5988" />
+	</analytic>
+	<monogr>
+		<title level="m">The SAGE Handbook of Human Resource Management</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="123" to="150" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b63">
+	<analytic>
+		<title level="a" type="main">Medical visual question answering: A survey</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Lin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Tao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Shi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Hakari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>He</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Ge</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.artmed.2023.102611</idno>
+		<ptr target="https://doi.org/10.1016/j.artmed.2023.102611" />
+	</analytic>
+	<monogr>
+		<title level="j">Artificial Intelligence in Medicine</title>
+		<imprint>
+			<biblScope unit="volume">143</biblScope>
+			<biblScope unit="page">102611</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b64">
+	<analytic>
+		<title level="a" type="main">Personality and perceived stress during COVID-19 pandemic: Testing the mediating role of perceived threat and eKicacy</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Lithopoulos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C.-Q</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Garcia-Barrera</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">E</forename><surname>Rhodes</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.paid.2020.110351</idno>
+		<ptr target="https://doi.org/10.1016/j.paid.2020.110351" />
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Individual DiJerences</title>
+		<imprint>
+			<biblScope unit="volume">168</biblScope>
+			<biblScope unit="page">110351</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b65">
+	<analytic>
+		<author>
+			<persName><forename type="first">E</forename><surname>Loh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Bhargava</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">C</forename><surname>Way</surname></persName>
+		</author>
+		<ptr target="https://www.weforum.org/agenda/2023/10/mental-health-collaborative-well-being-healthier-workforce/" />
+	</analytic>
+	<monogr>
+		<title level="m">World mental health day: How a collaborative approach to well-being can lead to a healthier workforce</title>
+		<imprint>
+			<date type="published" when="2023-10-10">2023, October 10</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b66">
+	<monogr>
+		<title level="m" type="main">Managing in a VUCA world</title>
+		<idno type="DOI">10.1007/978-3-319-16889-0</idno>
+		<ptr target="https://doi.org/10.1007/978-3-319-16889-0" />
+		<editor>Mack, O., Khare, A., Krämer, A., &amp; Burgartz, T.</editor>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+			<publisher>Springer International Publishing</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b67">
+	<analytic>
+		<title level="a" type="main">Strategy, structure, and HRM policy orientation: Employee recruitment and selection practices in multinational subsidiaries</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Mahmood</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/1744-7941.12057</idno>
+		<ptr target="https://doi.org/10.1111/1744-7941.12057" />
+	</analytic>
+	<monogr>
+		<title level="j">Asia Pacific Journal of Human Resources</title>
+		<imprint>
+			<biblScope unit="volume">53</biblScope>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b68">
+	<monogr>
+		<title level="m" type="main">A proposal for the dartmouth summer research project on artificial intelligence</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Mccarthy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">L</forename><surname>Minsky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Rochester</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">B M</forename><surname>Corporation</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">E</forename><surname>Shannon</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1955">1955</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b69">
+	<analytic>
+		<title level="a" type="main">Crosscultural assessment of the five-factor model: The revised NEO personality inventory</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">R</forename><surname>Mccrae</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">T</forename><surname>Costa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">H</forename><surname>Del Pilar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J.-P</forename><surname>Rolland</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">D</forename><surname>Parker</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0022022198291009</idno>
+		<ptr target="https://doi.org/10.1177/0022022198291009" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cross-Cultural Psychology</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="171" to="188" />
+			<date type="published" when="1998">1998</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b70">
+	<analytic>
+		<title level="a" type="main">Adding liebe und arbeit: The full five-factor model and well-being</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">R</forename><surname>Mccrae</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">T</forename><surname>Costa</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Jr</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/014616729101700217</idno>
+		<ptr target="https://doi.org/10.1177/014616729101700217" />
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Social Psychology Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="227" to="232" />
+			<date type="published" when="1991">1991</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b71">
+	<analytic>
+		<title level="a" type="main">Employee turnover due to job stress: National versus multinational pharmaceutical companies in pakistan</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">B G</forename><surname>Memon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Pitafi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Khaskhely</surname></persName>
+		</author>
+		<idno type="DOI">10.24018/ejbmr.2023.8.6.809</idno>
+		<ptr target="https://doi.org/10.24018/ejbmr.2023.8.6.809" />
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Business and Management Research</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b72">
+	<analytic>
+		<title level="a" type="main">Employee attrition prediction in a pharmaceutical company using both machine learning approach and qualitative data</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Mozakari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rahimi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Yazdani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Sohrabi</surname></persName>
+		</author>
+		<idno type="DOI">10.1108/BIJ-11-2021-0664</idno>
+		<ptr target="https://doi.org/10.1108/BIJ-11-2021-0664" />
+	</analytic>
+	<monogr>
+		<title level="j">Benchmarking: An International Journal</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="4140" to="4173" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b73">
+	<analytic>
+		<title level="a" type="main">Survey on personality detection for recruitment</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Nirmala</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Rajalakshmi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mandava</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">R M</forename><surname>Sarvepally</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Megana</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/ICONAT57137.2023.10080507</idno>
+		<ptr target="https://doi.org/10.1109/ICONAT57137.2023.10080507" />
+	</analytic>
+	<monogr>
+		<title level="m">International Conference for Advancement in Technology (ICONAT)</title>
+		<imprint>
+			<date type="published" when="2023">2023. 2023</date>
+			<biblScope unit="page" from="1" to="5" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b74">
+	<analytic>
+		<title level="a" type="main">Validity of observer ratings of the five-factor model of personality traits: A meta-analysis</title>
+		<author>
+			<persName><forename type="first">I.-S</forename><surname>Oh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">K</forename><surname>Mount</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/a0021832</idno>
+		<ptr target="https://doi.org/10.1037/a0021832" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Applied Psychology</title>
+		<imprint>
+			<biblScope unit="volume">96</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="762" to="773" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b75">
+	<analytic>
+		<title level="a" type="main">Use of psychological examinations of employees and job applicants in personnel management</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Olšovská</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Švec</surname></persName>
+		</author>
+		<idno type="DOI">10.5772/67868</idno>
+		<ptr target="https://doi.org/10.5772/67868" />
+	</analytic>
+	<monogr>
+		<title level="s">Issues of Human Resource Management</title>
+		<editor>
+			<persName><forename type="first">L</forename><surname>Mura</surname></persName>
+		</editor>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+			<publisher>InTech</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b76">
+	<analytic>
+		<title level="a" type="main">Personality and its assessment in organizations: Theoretical and empirical developments</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">S</forename><surname>Ones</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Viswesvaran</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">L</forename><surname>Oswald</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">M</forename><surname>Hough</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/(SICI)1099-1379(199611)17:6&lt;609</idno>
+		<ptr target="https://doi.org/10.1037/12170-005" />
+	</analytic>
+	<monogr>
+		<title level="m">APA handbook of industrial and organizational psychology</title>
+		<imprint>
+			<publisher>American Psychological Association</publisher>
+			<date type="published" when="1996">1996. 2011</date>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="page" from="153" to="184" />
+		</imprint>
+	</monogr>
+	<note>Bandwidth-fidelity dilemma in personality measurement for personnel selection Selecting and developing members for the organization</note>
+</biblStruct>
+
+<biblStruct xml:id="b77">
+	<analytic>
+		<title level="a" type="main">The &apos;What&apos;, &apos;Why&apos; and &apos;How&apos; of employee wellbeing: A new model</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">M</forename><surname>Page</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">A</forename><surname>Vella-Brodrick</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11205-008-9270-3</idno>
+		<ptr target="https://doi.org/10.1007/s11205-008-9270-3" />
+	</analytic>
+	<monogr>
+		<title level="j">Social Indicators Research</title>
+		<imprint>
+			<biblScope unit="volume">90</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="441" to="458" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b78">
+	<analytic>
+		<title level="a" type="main">Review paper -recruitment and selection at ACE Human Capital Ltd</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Pandey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kshirsagar</surname></persName>
+		</author>
+		<idno type="DOI">10.55041/IJSREM28083</idno>
+		<ptr target="https://doi.org/10.55041/IJSREM28083" />
+	</analytic>
+	<monogr>
+		<title level="j">Interantional Journal of Scientific Research in Engineering and Management</title>
+		<imprint>
+			<biblScope unit="volume">08</biblScope>
+			<biblScope unit="issue">01</biblScope>
+			<biblScope unit="page" from="1" to="13" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b79">
+	<analytic>
+		<title level="a" type="main">Panel on Measuring Subjective Well-Being in a Policy-Relevant Framework</title>
+		<ptr target="https://www.ncbi.nlm.nih.gov/books/NBK179225/" />
+	</analytic>
+	<monogr>
+		<title level="m">Subjective well-being: Measuring happiness, suJering, and other dimensions of experience</title>
+		<editor>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Stone</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">C</forename><surname>Mackie</surname></persName>
+		</editor>
+		<meeting><address><addrLine>US</addrLine></address></meeting>
+		<imprint>
+			<publisher>National Academies Press</publisher>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+		<respStmt>
+			<orgName>Division on Behavioral and Social Sciences and Education, &amp; National Research Council</orgName>
+		</respStmt>
+	</monogr>
+	<note>Introduction Committee on National Statistics internet</note>
+</biblStruct>
+
+<biblStruct xml:id="b80">
+	<analytic>
+		<title level="a" type="main">Empirical investigation of five-factor model of personality</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">J</forename><surname>Pareke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">S</forename><surname>Hayu</surname></persName>
+		</author>
+		<idno type="DOI">10.47312/ambr.v1i1</idno>
+		<ptr target="https://doi.org/10.47312/ambr.v1i1" />
+	</analytic>
+	<monogr>
+		<title level="j">AFEBI Management and Business Review</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">29</biblScope>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b81">
+	<analytic>
+		<title level="a" type="main">Well-being at work from a multilevel perspective: What is the role of personality traits</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Parent-Lamarche</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Marchand</surname></persName>
+		</author>
+		<idno type="DOI">10.1108/IJWHM-05-2019-0066</idno>
+		<ptr target="https://doi.org/10.1108/IJWHM-05-2019-0066" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Workplace Health Management</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="page" from="298" to="317" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b82">
+	<analytic>
+		<title level="a" type="main">Psychometric testing</title>
+		<idno type="DOI">10.1007/978-0-387-78665-0_6471</idno>
+		<ptr target="https://doi.org/10.1007/978-0-387-78665-0_6471" />
+	</analytic>
+	<monogr>
+		<title level="m">Handbook of Disease Burdens and Quality of Life Measures</title>
+		<editor>
+			<persName><forename type="first">V</forename><forename type="middle">R</forename><surname>Preedy</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">R</forename><forename type="middle">R</forename><surname>Watson</surname></persName>
+		</editor>
+		<meeting><address><addrLine>New York</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2010">2010</date>
+			<biblScope unit="page" from="4300" to="4300" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b83">
+	<analytic>
+		<title level="a" type="main">Subjective well-being (SWB)</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Proctor</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-94-007-0753-5_2905</idno>
+		<ptr target="https://doi.org/10.1007/978-94-007-0753-5_2905" />
+	</analytic>
+	<monogr>
+		<title level="m">Encyclopedia of Quality of Life and Well-Being Research</title>
+		<editor>
+			<persName><forename type="first">A</forename><forename type="middle">C</forename><surname>Michalos</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Netherlands</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="page" from="6437" to="6441" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b84">
+	<analytic>
+		<title level="a" type="main">An integrated model of work engagement: How the satisfaction of basic psychological needs explains the relationship between personality and work engagement</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Prokesova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Vaculik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Kasparkova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Prochazka</surname></persName>
+		</author>
+		<idno type="DOI">10.2298/PSI181204004P</idno>
+		<ptr target="https://doi.org/10.2298/PSI181204004P" />
+	</analytic>
+	<monogr>
+		<title level="j">Psihologija</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="265" to="284" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b85">
+	<analytic>
+		<title level="a" type="main">Long-term stability in the big five personality traits in adulthood</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Rantanen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R.-L</forename><surname>Metsäpelto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Feldt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Pulkkinen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Kokko</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1467-9450.2007.00609.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1467-9450.2007.00609.x" />
+	</analytic>
+	<monogr>
+		<title level="j">Scandinavian Journal of Psychology</title>
+		<imprint>
+			<biblScope unit="volume">48</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="511" to="518" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b86">
+	<monogr>
+		<title level="m" type="main">Conscientiousness. In Handbook of individual diJerences in social behavior</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">W</forename><surname>Roberts</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">J</forename><surname>Jackson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">V</forename><surname>Fayard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Edmonds</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Meints</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+			<publisher>The Guilford Press</publisher>
+			<biblScope unit="page" from="369" to="381" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b87">
+	<analytic>
+		<title level="a" type="main">Personality psychology</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">W</forename><surname>Roberts</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">J</forename><surname>Yoon</surname></persName>
+		</author>
+		<idno type="DOI">10.1146/annurev-psych-020821-114927</idno>
+		<ptr target="https://doi.org/10.1146/annurev-psych-020821-114927" />
+	</analytic>
+	<monogr>
+		<title level="j">Annual Review of Psychology</title>
+		<imprint>
+			<biblScope unit="volume">73</biblScope>
+			<biblScope unit="page" from="489" to="516" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b88">
+	<analytic>
+		<title level="a" type="main">Understanding how personality impacts exhaustion and engagement: The role of job demands, and job and personal resources as mediators</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">G</forename><surname>Robins</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Roberts</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sarris</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/ap.12310</idno>
+		<ptr target="https://doi.org/10.1111/ap.12310" />
+	</analytic>
+	<monogr>
+		<title level="j">Australian Psychologist</title>
+		<imprint>
+			<biblScope unit="volume">53</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="253" to="262" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b89">
+	<analytic>
+		<title level="a" type="main">The big five personality dimensions and job performance</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Rothmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">P</forename><surname>Coetzer</surname></persName>
+		</author>
+		<idno type="DOI">10.4102/sajip.v29i1</idno>
+		<ptr target="https://doi.org/10.4102/sajip.v29i1" />
+	</analytic>
+	<monogr>
+		<title level="j">SA Journal of Industrial Psychology</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b90">
+	<analytic>
+		<title level="a" type="main">The use of personality measures in personnel selection: What does current research support?</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">G</forename><surname>Rothstein</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Gokin</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.hrmr.2006.03.004</idno>
+		<ptr target="https://doi.org/10.1016/j.hrmr.2006.03.004" />
+	</analytic>
+	<monogr>
+		<title level="j">Human Resource Management Review</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="155" to="180" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b91">
+	<analytic>
+		<title level="a" type="main">Happiness is everything, or is it? Explorations on the meaning of psychological well-being</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">D</forename><surname>Ryk</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0022-3514.57.6.1069</idno>
+		<ptr target="https://doi.org/10.1037/0022-3514.57.6.1069" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality and Social Psychology</title>
+		<imprint>
+			<biblScope unit="volume">57</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1069" to="1081" />
+			<date type="published" when="1989">1989</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b92">
+	<analytic>
+		<title level="a" type="main">EKect of questionnaire length, personalisation and reminder type on response rate to a complex postal survey: Randomised controlled trial</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Sahlqvist</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Song</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Bull</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Adams</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Preston</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Ogilvie</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/1471-2288-11-62</idno>
+		<ptr target="https://doi.org/10.1186/1471-2288-11-62" />
+	</analytic>
+	<monogr>
+		<title level="j">BMC Medical Research Methodology</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">62</biblScope>
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b93">
+	<analytic>
+		<title level="a" type="main">The five factor model of personality and job performance in the european community</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">F</forename><surname>Salgado</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0021-9010.82.1.30</idno>
+		<ptr target="https://doi.org/10.1037/0021-9010.82.1.30" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Applied Psychology</title>
+		<imprint>
+			<biblScope unit="volume">82</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="30" to="43" />
+			<date type="published" when="1997">1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b94">
+	<analytic>
+		<title level="a" type="main">Predicting job performance using FFM and non-FFM personality measures</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">F</forename><surname>Salgado</surname></persName>
+		</author>
+		<idno type="DOI">10.1348/096317903769647201</idno>
+		<ptr target="https://doi.org/10.1348/096317903769647201" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Occupational and Organizational Psychology</title>
+		<imprint>
+			<biblScope unit="volume">76</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="323" to="346" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b95">
+	<analytic>
+		<title level="a" type="main">Validity of the five-factor model and their facets: The impact of performance measure and facet residualization on the bandwidth-fidelity dilemma</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">F</forename><surname>Salgado</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Moscoso</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">I</forename><surname>Sanchez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Alonso</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Choragwicka</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Berges</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/1359432X.2014.903241</idno>
+		<ptr target="https://doi.org/10.1080/1359432X.2014.903241" />
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Work and Organizational Psychology</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="325" to="349" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b96">
+	<analytic>
+		<title level="a" type="main">Burnout in the pharmaceutical activity: The impact of COVID-19</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">M D</forename><surname>Santos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">R D</forename><surname>Silva</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Costa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Torre</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/fpsyt.2021.771462</idno>
+		<ptr target="https://doi.org/10.3389/fpsyt.2021.771462" />
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="page">771462</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b97">
+	<analytic>
+		<title level="a" type="main">The role of emotional demands, supervisor support and training opportunities towards work engagement among employees in pharmaceutical companies of thailand</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sawasdee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Saengchai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Jermsittiparsert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Systematic Reviews in Pharmacy</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="176" to="184" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b98">
+	<analytic>
+		<title level="a" type="main">Well-being at work -overview and perspective</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Schulte</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Vainio</surname></persName>
+		</author>
+		<idno type="DOI">10.5271/sjweh.3076</idno>
+		<ptr target="https://doi.org/10.5271/sjweh.3076" />
+	</analytic>
+	<monogr>
+		<title level="j">Scandinavian Journal of Work, Environment &amp; Health</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="422" to="429" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b99">
+	<analytic>
+		<title level="a" type="main">The five-factor model of personality and career success</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">E</forename><surname>Seibert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">L</forename><surname>Kraimer</surname></persName>
+		</author>
+		<idno type="DOI">10.1006/jvbe.2000.1757</idno>
+		<ptr target="https://doi.org/10.1006/jvbe.2000.1757" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Vocational Behavior</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="21" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b100">
+	<analytic>
+		<title level="a" type="main">Why do employees leave? A study on employee&apos; psychology and its influence on engagement and organizational politics</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Shenoy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Sharma</surname></persName>
+		</author>
+		<idno type="DOI">10.18137/cardiometry.2022.23.423432</idno>
+		<ptr target="https://doi.org/10.18137/cardiometry.2022.23.423432" />
+	</analytic>
+	<monogr>
+		<title level="j">Cardiometry</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="page" from="423" to="432" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b101">
+	<analytic>
+		<title level="a" type="main">Personality traits, motivation, and performance of employees in a pharmaceutical company in the philippines: Basis for performance improvement plan</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Silvestre</surname></persName>
+		</author>
+		<idno type="DOI">10.5281/ZENODO.6547994</idno>
+		<ptr target="https://doi.org/10.5281/ZENODO.6547994" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychology and Education: A Multidisciplinary Journal</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b102">
+	<analytic>
+		<title level="a" type="main">Is happiness good for your personality? Concurrent and prospective relations of the big five with subjective well-being</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">J</forename><surname>Soto</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/jopy.12081</idno>
+		<ptr target="https://doi.org/10.1111/jopy.12081" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality</title>
+		<imprint>
+			<biblScope unit="volume">83</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="45" to="55" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b103">
+	<analytic>
+		<title level="a" type="main">The relationship between human resources practices and organizational performance in pharmaceutical industry of thailand</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Suksod</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Cruthaka</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Systematic Reviews in Pharmacy</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="67" to="76" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b104">
+	<analytic>
+		<title level="a" type="main">Unique associations between big five personality aspects and multiple dimensions of well-being</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Sun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">B</forename><surname>Kaufman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">D</forename><surname>Smillie</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/jopy.12301</idno>
+		<ptr target="https://doi.org/10.1111/jopy.12301" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Personality</title>
+		<imprint>
+			<biblScope unit="volume">86</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="158" to="172" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b105">
+	<analytic>
+		<title level="a" type="main">Emotional labor in the indonesian pharmaceutical sector and organizational deviance by employees: Role of surface acting, emotional exhaustion, and job burnout</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Syarief</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">R</forename><surname>Pramitha</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Systematic Reviews in Pharmacy</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="714" to="724" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b106">
+	<analytic>
+		<title level="a" type="main">Psychosocial resources: Functions, origins, and links to mental and physical health</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">E</forename><surname>Taylor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">I</forename><surname>Brokman</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/B978-0-12-385522-0.00001-9</idno>
+		<ptr target="https://doi.org/10.1016/B978-0-12-385522-0.00001-9" />
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Experimental Social Psychology</title>
+		<editor>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Olson</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">M</forename><forename type="middle">P</forename><surname>Zanna</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Academic Press</publisher>
+			<date type="published" when="2011">2011</date>
+			<biblScope unit="volume">44</biblScope>
+			<biblScope unit="page" from="1" to="57" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b107">
+	<analytic>
+		<title level="a" type="main">Personality measures as predictors of job performance: A meta-analytic review</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">P</forename><surname>Tett</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">N</forename><surname>Jackson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rothstein</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1744-6570.1991.tb00696.xTheBritish</idno>
+		<ptr target="https://www.bps.org.uk/guideline/using-online-assessment-tools-recruitment" />
+	</analytic>
+	<monogr>
+		<title level="m">Using online assessment tools for recruitment</title>
+		<imprint>
+			<publisher>The British Psychological Society (BPS</publisher>
+			<date type="published" when="1991-06-26">1991. 26 June 2024. 26 June 2024. 2010, March 31</date>
+			<biblScope unit="volume">44</biblScope>
+			<biblScope unit="page" from="703" to="742" />
+		</imprint>
+	</monogr>
+	<note>Code of good practice for psychological testing Guidelines on testing and test use</note>
+</biblStruct>
+
+<biblStruct xml:id="b108">
+	<analytic>
+		<title level="a" type="main">The big five personality traits and individual job performance growth trajectories in maintenance and transitional job stages</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">J</forename><surname>Thoresen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">C</forename><surname>Bradley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">D</forename><surname>Bliese</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Thoresen</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0021-9010.89.5.835</idno>
+		<ptr target="https://doi.org/10.1037/0021-9010.89.5.835" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Applied Psychology</title>
+		<imprint>
+			<biblScope unit="volume">89</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="835" to="853" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b109">
+	<analytic>
+		<title level="a" type="main">The influence of workrelated supports on employee engagement in the pharmaceutical industry in thailand</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Tirastittam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Sirikamonsin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Aun-A-Nan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Systematic Reviews in Pharmacy</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="576" to="585" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b110">
+	<analytic>
+		<title level="a" type="main">Neuroticism is a fundamental domain of personality with enormous public health implications</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">A</forename><surname>Widiger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Oltmanns</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/wps.20411</idno>
+		<ptr target="https://doi.org/10.1002/wps.20411" />
+	</analytic>
+	<monogr>
+		<title level="j">World Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="144" to="145" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b111">
+	<analytic>
+		<title level="a" type="main">Behavior profiling: Implications for recruitment and team building</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Wilsher</surname></persName>
+		</author>
+		<idno type="DOI">10.1108/SD-02-2015-0023</idno>
+		<ptr target="https://doi.org/10.1108/SD-02-2015-0023" />
+	</analytic>
+	<monogr>
+		<title level="j">Strategic Direction</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="1" to="5" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b112">
+	<analytic>
+		<title level="a" type="main">Psychological well-being and job satisfaction as predictors of job performance</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">A</forename><surname>Wright</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Cropanzano</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/1076-8998.5.1</idno>
+		<ptr target="https://doi.org/10.1037/1076-8998.5.1" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Occupational Health Psychology</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="84" to="94" />
+			<date type="published" when="2000">2000</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b113">
+	<analytic>
+		<title level="a" type="main">Identifying moderators in the link between workplace discrimination and health/well-being</title>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">E</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">J</forename><surname>Chopik</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/fpsyg.2020.00458</idno>
+		<ptr target="https://doi.org/10.3389/fpsyg.2020.00458" />
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Psychology</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="page">458</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b114">
+	<analytic>
+		<title level="a" type="main">The use and abuse of pre-employment personality tests</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">F</forename><surname>Youngman</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.bushor.2016.11.010</idno>
+		<ptr target="https://doi.org/10.1016/j.bushor.2016.11.010" />
+	</analytic>
+	<monogr>
+		<title level="j">Business Horizons</title>
+		<imprint>
+			<biblScope unit="volume">60</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="261" to="269" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b115">
+	<analytic>
+		<title level="a" type="main">Impacts of the COVID-19 pandemic on employees&apos; work stress, well-being, mental health, organizational citizenship behavior, and employee-customer identification</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Park</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">S</forename><surname>Hyun</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/19368623.2021.1867283</idno>
+		<ptr target="https://doi.org/10.1080/19368623.2021.1867283" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Hospitality Marketing &amp; Management</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="529" to="548" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b116">
+	<analytic>
+		<title level="a" type="main">Cultivating employee engagement in organizations: Development of a conceptual framework</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Zeidan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Itani</surname></persName>
+		</author>
+		<idno type="DOI">10.7206/cemj.2658-0845</idno>
+		<ptr target="https://doi.org/10.7206/cemj.2658-0845" />
+	</analytic>
+	<monogr>
+		<title level="j">Central European Management Journal</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="99" to="118" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b117">
+	<analytic>
+		<title level="a" type="main">Big Five personality traits, job satisfaction and subjective wellbeing in China</title>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Zhai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Willis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>O'shea</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Zhai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Yang</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/00207594.2012.732700</idno>
+		<ptr target="https://doi.org/10.1080/00207594.2012.732700" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Psychology</title>
+		<imprint>
+			<biblScope unit="volume">48</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1099" to="1108" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

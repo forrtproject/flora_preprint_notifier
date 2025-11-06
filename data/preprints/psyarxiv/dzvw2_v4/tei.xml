@@ -1,0 +1,1123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">The Interval Consensus Model: Aggregating Continuous Bounded Interval Responses</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Matthias</forename><surname>Kloft</surname></persName>
+							<email>kloft@uni-marburg.de</email>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="laboratory">Psychological Methods Lab</orgName>
+								<orgName type="institution" key="instit1">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit2">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit3">Philipps-Universität Marburg</orgName>
+								<address>
+									<addrLine>Gutenbergstr. 18</addrLine>
+									<postCode>35032</postCode>
+									<settlement>Marburg</settlement>
+								</address>
+							</affiliation>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="laboratory">Psychological Methods Lab</orgName>
+								<orgName type="institution" key="instit1">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit2">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit3">Philipps-Universität Marburg</orgName>
+								<address>
+									<addrLine>Gutenbergstr. 18</addrLine>
+									<postCode>35032</postCode>
+									<settlement>Marburg</settlement>
+								</address>
+							</affiliation>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="laboratory">Psychological Methods Lab</orgName>
+								<orgName type="institution" key="instit1">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit2">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit3">Philipps-Universität Marburg</orgName>
+								<address>
+									<addrLine>Gutenbergstr. 18</addrLine>
+									<postCode>35032</postCode>
+									<settlement>Marburg</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Philipps-Universität</forename><surname>Marburg</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="laboratory">Psychological Methods Lab</orgName>
+								<orgName type="institution" key="instit1">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit2">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit3">Philipps-Universität Marburg</orgName>
+								<address>
+									<addrLine>Gutenbergstr. 18</addrLine>
+									<postCode>35032</postCode>
+									<settlement>Marburg</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Björn</forename><forename type="middle">S</forename><surname>Siepe</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="laboratory">Psychological Methods Lab</orgName>
+								<orgName type="institution" key="instit1">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit2">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit3">Philipps-Universität Marburg</orgName>
+								<address>
+									<addrLine>Gutenbergstr. 18</addrLine>
+									<postCode>35032</postCode>
+									<settlement>Marburg</settlement>
+								</address>
+							</affiliation>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="laboratory">Psychological Methods Lab</orgName>
+								<orgName type="institution" key="instit1">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit2">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit3">Philipps-Universität Marburg</orgName>
+								<address>
+									<addrLine>Gutenbergstr. 18</addrLine>
+									<postCode>35032</postCode>
+									<settlement>Marburg</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Daniel</forename><forename type="middle">W</forename><surname>Heck</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="laboratory">Psychological Methods Lab</orgName>
+								<orgName type="institution" key="instit1">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit2">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit3">Philipps-Universität Marburg</orgName>
+								<address>
+									<addrLine>Gutenbergstr. 18</addrLine>
+									<postCode>35032</postCode>
+									<settlement>Marburg</settlement>
+								</address>
+							</affiliation>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="laboratory">Psychological Methods Lab</orgName>
+								<orgName type="institution" key="instit1">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit2">Philipps-Universität Marburg</orgName>
+								<orgName type="institution" key="instit3">Philipps-Universität Marburg</orgName>
+								<address>
+									<addrLine>Gutenbergstr. 18</addrLine>
+									<postCode>35032</postCode>
+									<settlement>Marburg</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">The Interval Consensus Model: Aggregating Continuous Bounded Interval Responses</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">6646C6C979A9694DB7D5D64D2AC7E4FD</idno>
+					<idno type="DOI">10.32614/CRAN.package.intervalpsych</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-03T14:41+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>conceptualization</term>
+					<term>formal analysis</term>
+					<term>methodology</term>
+					<term>investigation</term>
+					<term>data curation</term>
+					<term>writing - conceptualization</term>
+					<term>formal analysis</term>
+					<term>methodology</term>
+					<term>investigation</term>
+					<term>writing -original draft</term>
+					<term>conceptualization</term>
+					<term>formal analysis</term>
+					<term>methodology</term>
+					<term>Continuous bounded responses</term>
+					<term>cultural consensus theory</term>
+					<term>interval responses</term>
+					<term>Bayesian modeling</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>contains a table of contents describing where specific materials mentioned in the article are located. We have also implemented the methods used in this article in an R package called intervalpsych, which is available on CRAN:</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">Introduction</head><p>In psychological research, it is common practice to pose questions to respondents for which the correct answer is not known. This may be a forecast of the occurrence of some future event, for example "that same-sex marriage will be federally recognized by the end of Obama's term ( <ref type="formula">2017</ref>)" <ref type="bibr" target="#b0">(Anders et al., 2014)</ref>, where the correct answer can in principle be known or will reveal itself eventually. Correct answers are also unavailable in scenarios where the correct answer can change based on the context or the particular group of respondents. For example, one might be interested in judgments of affective valence regarding stimulus words like "accident" <ref type="bibr" target="#b6">(Bradley &amp; Lang, 1999)</ref> or in judgments of probabilities assigned to verbal quantifiers like "seldom" or "likely." Such judgments can often be ambiguous and may systematically vary between groups or individuals, or even within a single individual, depending on the context in which the particular word is used <ref type="bibr" target="#b18">(Karelitz &amp; Budescu, 2004</ref>). In such scenarios, it is often of interest to estimate the shared consensus of a certain group by aggregating the given responses.</p><p>Cultural consensus theory (CCT) was developed to solve this problem <ref type="bibr" target="#b4">(Batchelder &amp; Romney, 1988;</ref><ref type="bibr" target="#b33">Romney et al., 1986)</ref>. It is based on the assumption that respondents belong to the same group or subpopulation and share common knowledge about a particular knowledge domain, which is termed the cultural consensus. However, respondents may not all have the same level of expertise or background knowledge, and thus, the quality of answers may vary among different respondents. The theory further assumes that weighting responses by expertise will improve the overall accuracy of the aggregated judgments. CCT builds on these assumptions to estimate the cultural consensus by (a) aggregating all responses and (b) weighting each response by the inferred expertise of the respective respondent. To estimate the expertise of the respondents along with the cultural consensus, it is necessary to collect responses to multiple items in the same knowledge domain for each respondent. This can typically be done in a design in which respondents and items are fully crossed, but also in a non-fully crossed design. The consistency of a respondent's answers across multiple items, relative to the answer patterns of other respondents, is then used to estimate their expertise in the respective domain. Additionally, the discernibility of each item's cultural consensus is estimated across respondents and incorporated into the estimation of the cultural consensus.</p><p>Different consensus models for various combinations of response formats and modalities of the latent consensus have been proposed. The initial consensus model, the general Condorcet model <ref type="bibr" target="#b4">(Batchelder &amp; Romney, 1988)</ref>, used dichotomous responses to estimate binary consensus values, for instance, for answers on a true-false general knowledge test. Following this, several model extensions have been proposed. The latent truth model <ref type="bibr" target="#b3">(Batchelder &amp; Anders, 2012</ref>) also accommodates dichotomous responses, but assumes that the latent consensus values of interest are continuous and lie between zero and one. For instance, respondents were asked for dichotomous judgments indicating whether a disease is contagious <ref type="bibr" target="#b3">(Batchelder &amp; Anders, 2012)</ref>. While judgments about the perceived contagiousness of a disease can be assessed in a dichotomous response format, true contagiousness is more accurately represented in terms of probability, that is, by a continuous value between zero and one. The latent consensus values thus have a probabilistic meaning, while the observable responses are discrete, binary values of either zero or one. The continuous response model <ref type="bibr" target="#b0">(Anders et al., 2014)</ref> extends this model to the case where responses are no longer dichotomous, but rather given on a continuous bounded response scale between zero and one. The model assumes that consensus values are continuous in a latent, unbounded space and are mapped onto the bounded response scale by a logit link function. One application of this model concerns the forecasting of probabilities of future events, such as a large tsunami hitting the coast of a particular country <ref type="bibr" target="#b0">(Anders et al., 2014)</ref>. <ref type="bibr" target="#b0">Anders et al. (2014)</ref> also incorporated a method for estimating multiple cultural consensuses for qualitatively different groups by combining CCT with latent class analysis. Another extension of the latent truth model, the latent truth rater model <ref type="bibr" target="#b1">(Anders &amp; Batchelder, 2015)</ref>, maps continuous latent consensus values to categorical responses. An example application could be ratings of the grammatical acceptability of English phrases on a seven-point scale <ref type="bibr" target="#b1">(Anders &amp; Batchelder, 2015)</ref>.</p><p>All models described above are uni-dimensional, as only a single attribute is rated for each item. However, consensus models can also be applied to multidimensional ratings. <ref type="bibr" target="#b27">Mayer and Heck (2023)</ref> proposed a model for two-dimensional estimates of geographical locations on maps, where respondents had to estimate the location of cities such as London. In this case, both responses and latent consensus values refer to longitude and latitude and are thus continuous, two-dimensional vectors. In this specific example, the model assumes unbounded coordinates while actual locations are bounded due to geographic constraints such as oceans.</p><p>All of the above models assume a single (uni-or two-dimensional) point as the latent, unknown consensus for each item. However, in some domains, a point consensus is too constraining and a range or interval of values may be more appropriate to represent a group's consensus. One example is the judgment of risks, for example, in cyber-security <ref type="bibr" target="#b9">(Ellerby et al., 2020)</ref>. When organizations want to determine the attack risk regarding their cyber-physical systems, one way to do this is to have experts estimate these risks for specific system components. The overall estimated risk for a component depends on both the variability of judgments among experts, as well as the subjective uncertainty within each expert. While the uncertainty between experts can already be inferred from point judgments, an interval response format provides the opportunity to also incorporate the within-expert uncertainty of a particular risk judgment. In this case, an interval judgment can be conceptualized as an interval of risk estimates ranging from the best-case scenario to the worst-case scenario, that is, a lower and an upper bound of the attack risk of a particular system component. Since every value in such an interval is already a probability, the interval is a range of plausible risks. The consensus on plausible risks shared by experts can be of interest to stakeholders, and therefore, plausible risks should be assessed <ref type="bibr" target="#b9">(Ellerby et al., 2020)</ref>.</p><p>Another example concerns verbal quantifiers like "difficult" <ref type="bibr" target="#b28">(Navarro et al., 2016)</ref> or "likely" <ref type="bibr" target="#b18">(Karelitz &amp; Budescu, 2004)</ref>, which might be used to indicate how frequently or with which probability particular events such as extreme heat waves are happening <ref type="bibr" target="#b16">(Harris et al., 2017)</ref>. The use of such quantifiers is ambiguous, since there is no clear-cut convention in terms of numerical probabilities that should be assigned to particular quantifiers (except for words like "always" or "never"). An interval consensus could 56% 23%</p><p>Note. Screenshot of the noUiSlider JavaScript range slider <ref type="bibr" target="#b14">(Gersen, 2024)</ref> used in the empirical study (see Section 4). The scale ranges from 0% to 100%. represent a range of permissible probabilities that a particular word stands for in its pragmatic use.</p><p>Interval response formats such as the dual range slider (DRS) shown in Figure <ref type="figure">1</ref> may be a suitable solution for these types of applications. Two sliders allow respondents to judge the lower and the upper bound of a range of values. <ref type="bibr" target="#b10">Ellerby et al. (2022)</ref> found that respondents could adequately indicate the variability of different stimuli with an interval response format. In a multi-trait multi-method study, <ref type="bibr">Kloft et al. (2024)</ref> found good test-retest reliability of personality scores concerning interval location (reflecting differences in traits between individuals) and interval width (reflecting variability of states within an individual). However, the factor scores for interval widths did not show discriminant validity for the two personality scales used (Extraversion and Conscientiousness). This finding was replicated in another study by <ref type="bibr">Kloft and Heck (2024)</ref> in which the DRS response format was applied to different task domains such as personality adjectives, forecasting of votes, estimation of visual stimuli, estimation of health risks, and judgments of verbal quantifiers. The authors analyzed participants' interval-width responses in an exploratory factor analysis. Replicating previous results, the discriminant validity of interval widths was low for the two personality scales, as indicated by a common factor for the respective items. However, interval-width responses for the other tasks roughly followed a simple structure with the items of each task loading on a separate factor, suggesting that respondents are sensitive to the requirements of a particular task. Overall, these findings indicate that interval responses are suitable for estimation tasks in which some objectively quantifiable probability or frequency has to be rated. Although various methods for the aggregation of interval ratings have been proposed <ref type="bibr" target="#b11">(Gaba et al., 2017;</ref><ref type="bibr" target="#b25">Lyon et al., 2015;</ref><ref type="bibr" target="#b30">Park &amp; Budescu, 2015)</ref>, a consensus model, which infers the latent expertise of participants, has not yet been developed for this type of response format. As a remedy, the present article aims to develop a consensus model that can be used to estimate weighted consensus intervals based on ratings collected via continuous bounded interval response formats like the DRS.</p><p>We focus on the case where the latent consensus is an interval itself. As discussed by <ref type="bibr" target="#b3">Batchelder and Anders (2012)</ref> for uni-dimensional, dichotomous responses, different kinds of latent consensuses can be mapped onto the same response format used to collect observable ratings. In the case of dichotomous responses, the latent consensus can either be binary, that is, true or false, or continuous, that is, a probability between zero and one of being true or false. Similarly, in the case of collecting interval responses with the DRS response format on a scale from zero to one, the latent consensus can be a single point in [0, 1] such as the consensus probability of an event happening. However, the latent consensus can also be a consensus interval in [0, 1] if a range of values is permissible. For instance, in the example of verbal quantifiers, the word "often" could be associated with a consensus interval of <ref type="bibr">[.60, .80</ref>]. Which type of latent consensus is more appropriate depends on the substantive application and the psychological constructs of interest (see also <ref type="bibr">Kloft &amp; Heck, 2024</ref>, for a discussion of relevant domains and psychological constructs). Regarding models with a point consensus, interval responses are assumed to reflect respondents' uncertainty around their best guess for the unknown value.</p><p>Regarding models with a latent interval-valued consensus, interval responses are assumed to represent participants' judgments of the plausibility of a range of values (e.g., the consensus range of appropriate probabilities in the example of verbal quantifiers). Also, in the example of judgments of risks, the plausible range of a particular risk might be of interest. If we aim at inferring experts' consensus on the range of plausible risks for a particular event, the desired consensus is an interval.</p><p>To facilitate the estimation of consensus intervals, we developed the Interval Consensus Model (ICM), which combines and extends three previous contributions to the literature. The core of the model is the uni-dimensional consensus model by <ref type="bibr" target="#b0">Anders et al. (2014)</ref>, which uses a logit-normal distribution to model continuous bounded responses in (0, 1). We extend this model to two dimensions via a bivariate normal distribution, as previously implemented for unbounded responses by <ref type="bibr" target="#b27">Mayer and Heck (2023)</ref>. Moreover, we use the isometric log-ratio (ILR) transformation function <ref type="bibr" target="#b35">(Smithson &amp; Broomell, 2024)</ref> as an appropriate link function that connects the bivariate-normal model to the observed, bounded interval responses.</p><p>We explain the mathematical details of the ICM along with a Bayesian estimation method in Section 2 and present a simulation study for the computational evaluation of the model in Section 3. Next, we apply the model in a reanalysis of judgments of verbal quantifiers collected by <ref type="bibr">Kloft and Heck (2024)</ref> in Section 4. Lastly, we discuss implications, limitations, and directions for future research in Section 5.</p><p>We have implemented the methods presented in this article in the R-package intervalpsych <ref type="bibr" target="#b21">(Kloft &amp; Siepe, 2025)</ref>. It features functions for data transformation, model fitting and visualization, as well as the dataset containing judgments of verbal quantifiers.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">Theory</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.1">The Interval Consensus Model</head><p>In this section, we will introduce the notation for the data and the parameters.</p><p>Appendix A provides an overview of these definitions, along with short explanations. We assume that interval responses are measured on a response scale from 0 to 1 so that the lower and upper interval bounds are given as 0 ≤ X L ≤ X U ≤ 1. We first transform the data into a more generalizable compositional form, namely, a simplex with three components that sum to one:</p><formula xml:id="formula_0">X =   X L , X U -X L , 1 -X U   ⊤ .</formula><p>(1)</p><p>Since any of the three components in X can be zero, we add a padding constant c to all components to ensure that we can later apply a log-ratio transformation. After adding the constant, the compositional form is restored by dividing each element of the vector by the sum of all its elements.</p><formula xml:id="formula_1">Y = 1 1 + 3c (X + c 1) with c = 0.01, (<label>2</label></formula><formula xml:id="formula_2">)</formula><p>where 1 is a vector of three ones. Other methods have been proposed to remove zero-components, some of which have properties that are more optimal for compositional analysis, like the preservation of the original ratios of non-zero components for a particular interval response <ref type="bibr" target="#b26">(Martín-Fernández et al., 2003)</ref>. However, the rescaling method used here has the advantage of preserving the original ratios of non-zero components across all responses, which is important for estimating consensus values across items and participants. The rescaling essentially creates a hypothetical response scale for which the extreme values determining the scale's minimum and maximum cannot occur in the data. The particular choice of c = 0.01 is arbitrary. We conducted a sensitivity analysis (see the supplementary materials in the OSF repository), which indicated that this value is a sensible choice. The results in our empirical example (see Section 4) did not change substantially when choosing slightly different values. If none of the components is zero for all responses, we can skip this step in the analysis.</p><p>Next, we need to convert interval responses into a format better suited for our modeling framework, which assumes a bivariate normal distribution. For this purpose, we apply a specific version of the isometric log-ratio (ILR) transformation function to Y .</p><p>This link function is tailored to the compositional form of interval responses <ref type="bibr" target="#b35">(Smithson &amp; Broomell, 2024)</ref>:</p><formula xml:id="formula_3">Z = Z loc , Z wid ⊤ =   1 2 log Y 1 Y 3 , 2 3 log Y 2 √ Y 1 Y 3   ⊤ . (<label>3</label></formula><formula xml:id="formula_4">)</formula><p>The transformation yields a vector Z ∈ R 2 with two elements, Z loc and Z wid , which correspond to the unbounded interval location and width, respectively. The unbounded interval location Z loc compares the size of the left component Y 1 , defined by the left response scale limit and the lower bound of the response interval, against the size of the right component Y 3 , defined by the upper bound of the response interval and the right response scale limit. The unbounded interval width Z wid compares the middle component Y 2 , that is, the observed interval width, to the geometric mean of the left and the right</p><formula xml:id="formula_5">component √ Y 1 Y 3 .</formula><p>The geometric mean in the denominator is used to scale the interval width relative to the interval location in the unbounded space. Therefore, a response interval of a particular width will be transformed into an unbounded interval of a greater width if the interval location is closer to the lower or upper limit of the response scale, compared to being near its center. For example, the response interval <ref type="bibr">[.80, .90</ref>] has a mean of the interval bounds of .85 and a width of .10 on the bounded scale, which corresponds to a transformed location of Z loc = 1.47 and a transformed width of Z wid = -0.85. Placing an interval with the same observed width near the center of the bounded scale -for example, the interval <ref type="bibr">[.40, .50</ref>] with a mean of interval bounds of .45 -will yield a considerably smaller transformed width Z wid = -1.23 (Z loc = -0.16). This scaling of the transformed, unbounded width, conditional on the interval's proximity to the response scale limits, accounts for the boundedness of the response scale. To illustrate this, consider a respondent who wants to move the interval location toward one of the response scale limits. Eventually, one of the interval bounds will touch the corresponding response scale limit and it becomes necessary to lower the interval width to move the interval location even closer to the respective response scale limit. The transformation counteracts this effect of the bounded response scale. This is a pragmatic solution that does not necessarily reflect a hypothesized true mapping of a latent response to an observed one.</p><p>Rather, it is just an assumption similar to the S-shaped item response curves in classical item response models. Figure 2 Illustration of the Multivariate Logit Transformation Note. The five observed response intervals are: Interval 1 = [.05, .20], Interval 2 = [.10, .90], Interval 3 = 1 3 , 2 3 , Interval 4 = [.50, .80], Interval 5 = [.90, .95]. values of zero correspond to response intervals that are centered on the response scale, containing an equal amount of support for values to the left and the right of the scale's center (e.g., the same proportion of negative and positive values on a bipolar scale). In contrast, the origin of the width dimension (y-axis) in the unbounded space does not have such a clear, substantive interpretation. For example, the origin corresponds to a width of one-third when the interval is placed on the center of the response scale. As the interval's location moves away from the scale's center, the value zero will correspond to different widths on the bounded response scale. Therefore, the width dimension has slightly different properties than the location dimension, which we will consider below in the parameterization of our model. Interval 2 is also placed on the center of the bounded response scale, but it is much wider, which places it in the center of the x-axis and at the upper quarter of the y-axis of Panel 2B and C. The other three intervals illustrate how shifts to the left (Interval 1) or to the right (Intervals 4 and 5) on the bounded response scale result in transformed values left and right from the center of the x-axis in the unbounded space. As these intervals are relatively small, they have negative values on the y-axis in the unbounded space.</p><p>The specific form of the isometric log-ratio transformation that we use here is one of many log-ratio functions described in the compositional analysis literature <ref type="bibr" target="#b15">(Greenacre et al., 2021)</ref>. In some of these applications, the data have a certain natural meaning (e.g., when studying compositions of chemicals), which is not the case for interval responses.</p><p>Therefore, not all approaches proposed for compositional data analysis are directly applicable in our case. We need a transformation that yields two conceptually independent and interpretable dimensions, corresponding to the location and the width of response intervals. We know of two log-ratios (described by <ref type="bibr" target="#b35">Smithson and Broomell, 2024)</ref> that satisfy these requirements and can thus be applied to interval responses. The first option, the isometric log-ratio, was presented above. The second option is an amalgamation log-ratio <ref type="bibr" target="#b15">(Greenacre et al., 2021)</ref>. We tested both log-ratios against each other in a preliminary simulation study (see Section 3) and finally chose the isometric log-ratio as it performed better. Contrary to the amalgamation approach, the isometric log-ratio takes the extremity of the interval location into account when determining the transformed interval width, as described above. This is favorable especially in applications with a bipolar response scale featuring a neutral point at the center of the scale, such as a scale ranging from negative to positive values. This may also be a probability scale ranging from 0 to 1. Here, 0.5 is the neutral point of complete uncertainty, while 0 and 1 indicate complete certainty about an event not happening or happening, respectively.</p><p>Using the isometric log-ratio transformation as a link function, we can extend the model by <ref type="bibr" target="#b0">Anders et al. (2014)</ref> to the two-dimensional case, similar to the model for geographical judgments by <ref type="bibr" target="#b27">Mayer and Heck (2023)</ref>. We decided to rely on a logit link because it provides more flexibility than the alternative approach of assuming a Dirichlet distribution for the compositional data (see <ref type="bibr" target="#b19">Kloft et al., 2023</ref>, for an IRT model using the latter approach). Whereas the Dirichlet approach offers only one common variance parameter for both dimensions, the bivariate logit-normal distribution allows us to assume separate variance parameters for the location and the width dimensions in the unbounded space.</p><p>Next, we consider the bivariate, logit-transformed response Z ij of respondent i = 1, . . . , I (number of respondents) to item j = 1, . . . , J (number of items). We assume the following data-generating mechanism for Z ij : Respondent i makes a latent appraisal,</p><formula xml:id="formula_6">[A loc ij , A wid ij ] ⊤ ∈ R 2 , for the item j based on the latent cultural consensus interval, [T loc j , T wid j ] ⊤ ∈ R 2 .</formula><p>This latent appraisal contains some error, which depends on the proficiency of the person, [E loc i , E wid i ] ⊤ ∈ R 2 + , and on the discernibility of the latent consensus for the particular item, [λ loc j , λ wid j ] ⊤ ∈ R 2 + . Departing from previously developed CCT models (e.g., <ref type="bibr" target="#b0">Anders et al., 2014)</ref>, we inverted these parameters. Hence, higher values of proficiency and discernibility lead to higher precision of the latent appraisal, and thus, to observed response intervals that are closer to the latent consensus interval. Moreover, we assume an item-specific correlation ω j between the errors on the two dimensions <ref type="bibr" target="#b27">(Mayer &amp; Heck, 2023)</ref>. Assuming a bivariate normal distribution of errors, the appraisal is centered on the latent cultural consensus with an added disturbance governed by person and item characteristics:</p><formula xml:id="formula_7">    A loc ij A wid ij     ∼ N     T loc j T wid j     , Σ A ij with Σ A ij = diag(σ A ij ) Ω j diag(σ A ij ), σ A ij =     1 E loc i λ loc j 1 E wid i λ wid j     , Ω j =     1 ω j ω j 1     . (4)</formula><p>The latent appraisal is further influenced by the respondent's scaling bias,</p><formula xml:id="formula_8">a loc i ∈ R 2 + , and shifting biases, [b loc i , b wid i ] ⊤ ∈ R 2</formula><p>, which yields the final response:</p><formula xml:id="formula_9">Z ij = A loc ij a loc i + b loc i , A wid ij + b wid i ⊤ . (<label>5</label></formula><formula xml:id="formula_10">)</formula><p>The two shifting biases are directional response biases and add a constant to each dimension of the latent appraisal -or, more technically, to the expected location and width. This corresponds to a respondent's tendency to systematically under-or overestimate all locations or all widths of the consensus intervals. The scaling bias corresponds to an extremity response bias, which pushes all observed responses of a person away from zero if a loc i &gt; 1 or pulls them towards zero if a loc i &lt; 1. For the bounded response scale, this means that interval locations are either pushed away from or pulled towards its center. As explained above, the origin of the width dimension, T wid j = 0, is not a substantively meaningful anchor, as it depends on the location of a particular interval.</p><p>It would not be meaningful to let the interval width scale around such an ambiguous, arbitrary value of zero. We thus specify a scaling bias only for the location dimension.</p><p>Since the appraisal of the interval location A loc ij consists of the consensus location plus an error, the scaling bias does not only influence the expected interval location, but also the residual variance, that is, the precision of the latent appraisal. In the full model, it is therefore necessary to ensure that the scaling bias parameter is included not only in the mean but also in the variance of the normal distribution:</p><formula xml:id="formula_11">Z ij ∼ N (µ ij , Σ ij ), µ ij = T loc j a loc i + b loc i , T wid j + b wid i ⊤ , Σ ij = diag(σ ij ) Ω j diag(σ ij ), σ ij =     a loc i E loc i λ loc j 1 E wid i λ wid j     , Ω j =     1 ω j ω j 1     .</formula><p>(6)</p><p>The model can easily be modified by omitting bias parameters that are not relevant for certain applications (see also Section 4.1). Our own workflow involves first fitting the full model and then examining the parameter estimates for any problems. For example, if all respondents have a similar estimate for the location shift bias, b loc i , we remove this parameter from the model. = 0.5), Panel 3E shows that the widths of response intervals become less similar to the widths of the latent consensus intervals. Inducing a large scaling bias (a i = 1.5) for interval locations shifts response intervals away from the center of the scale (Panel 3D). A positive shifting bias (b loc i = 2) for locations, shown in Panel 3B, moves all response intervals to the right. Similarly, for a positive shifting bias concerning interval widths (b wid i Next, we simulated the response intervals in Panel A by setting respondent proficiency as well as item discernibility to 1 and assuming no response biases. In the remaining panels, we adopted the hypothetical responses from Panel A while manipulating different person parameters (e.g., shifting and scaling biases) to illustrate their effect on response behavior. We lowered the respondent's proficiencies by factor 1 6 (Panels C and E), increased the shifting bias by adding a constant of 2 (Panels B and F), and increased the scaling bias by factor 1.5 (Panel D).</p><p>shows that all response intervals are greatly expanded in width.</p><p>It is difficult to interpret the estimate for the latent consensus interval, [T loc j , T wid j ] ⊤ , on the transformed, unbounded scale. To facilitate a substantively meaningful interpretation of this estimate, we convert the unbounded interval back to the original, bounded response scale. First, we transform the two-dimensional logit values to the compositional format via the inverse of the isometric log-ratio function, and second, we undo the padding initially applied in Equation <ref type="formula" target="#formula_1">2</ref>:</p><formula xml:id="formula_12">T * j = (1 + 3c)   exp √ 2 T loc j Σ , exp 3 2 T wid j + T loc j √ 2 Σ , 1 Σ   ⊤ -c 1, with Σ = exp √ 2 T loc j + exp   3 2 T wid j + T loc j √ 2   + 1,<label>(7)</label></formula><p>where, again, c = .01 and 1 is the vector of ones. If no padding was applied before fitting the model, we set c = 0. Third, we compute the actual interval boundaries on the bounded scale from 0 to 1:</p><formula xml:id="formula_13">T * L j , T * U j ⊤ = T * j1 , T * j1 + T * j2 , (<label>8</label></formula><formula xml:id="formula_14">)</formula><p>with T * j1 being the first and T * j2 the second component of the simplex T * j . The interval formed by [T * L j , T * U j ] ⊤ is the estimated consensus for the specific item, which we are ultimately interested in.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">Bayesian Estimation</head><p>We estimate the model in a Bayesian hierarchical modeling framework <ref type="bibr" target="#b23">(Kruschke &amp; Vanpaemel, 2015)</ref>. An illustration of the prior distributions can be found in the supplementary materials in the OSF repository and an example comparison of prior and posterior distributions is displayed in Section 4. The main parameters we are interested in are the latent consensus location and width, [T loc j , T wid j ] ⊤ . The priors for these parameters will partly serve to identify the model. To facilitate the specification of these priors, we first specify them on the bounded scale. Then, we transform the values back to the unbounded scale via the isometric log-ratio function to use them in the model. With this approach, there is no need to define priors on the transformed scale, that is, normal distributions, that align with our assumptions about the implied priors on the bounded scale. From a practical standpoint, we also experienced sampling to be more stable with priors on the bounded instead of the unbounded scale. For the other parameters, which are more flexible due to their hyperpriors, we specify the priors directly on the unbounded scale.</p><p>First, based on common applications of interval responses (e.g., in <ref type="bibr" target="#b10">Ellerby et al., 2022;</ref><ref type="bibr">Kloft &amp; Heck, 2024)</ref>, we assume that consensus intervals with a very large width spanning the entire response scale are highly unlikely. Wide intervals are also not relevant or meaningful in most scenarios, as they would not provide any additional information.</p><p>Typically, we would exclude items for which we anticipate this to be the case. Therefore, we assign a weakly informative prior to the widths of consensus intervals on the bounded scale:</p><formula xml:id="formula_15">T wid(0,1) j ∼ Beta(1.2, 3). (<label>9</label></formula><formula xml:id="formula_16">)</formula><p>This prior has an expected value of .29 and a mode of .09 and therefore reflects our beliefs about the marginal width of true intervals more adequately than a uniform prior.</p><p>However, interval responses of full width (ranging from zero to one) are still possible and not ruled out by our prior choice. Instead, we merely assume that the latent consensus interval itself is unlikely to span the entire response scale. Researchers who want an uninformative uniform prior on the consensus of the interval width may change the prior to T wid(0,1) j ∼ Beta(1, 1).</p><p>Second, conditional on a particular width of a consensus interval, we do not assume that particular locations of the consensus interval are more likely than others.</p><p>This assumption makes the prior choice more generalizable across different use cases (more informative alternatives are mentioned below). Therefore, we assign an uninformative prior to an auxiliary, multiplicative parameter s j , which is subsequently used to compute the actual interval bounds on the bounded scale:</p><formula xml:id="formula_17">s j ∼ Beta(1, 1), T L j = s j (1 -T wid(0,1) j</formula><p>),</p><formula xml:id="formula_18">T U j = s j (1 -T wid(0,1) j ) + T wid(0,1) j . (<label>10</label></formula><formula xml:id="formula_19">)</formula><p>This means that, for a given interval width, we take what is left of the response scale and multiply it by s j , which results in the lower bound for this particular interval. To arrive at the upper bound, we add the interval width to the lower bound. In the location dimension, we could also choose alternative priors that would be more informative. If theory or prior knowledge suggests that locations in the center of the response scale are more probable, we might choose s j ∼ Beta(2, 2). If we think that locations to the extreme ends of the response scale are more probable, we might choose s j ∼ Beta(0.5, 0.5). Such prior knowledge may be informed, for example, by the selected items. For judgments of verbal quantifiers, for example, when only selecting low-probability words like "seldom"</p><p>or "unlikely," we can incorporate prior knowledge by giving more weight to consensus locations on the left side of the response scale, for example, s j ∼ Beta(1.2, 3).</p><p>Third, we transform the consensus interval from the bounded simplex to the unbounded bivariate scale via the isometric log-ratio function in Equation (3):</p><formula xml:id="formula_20">T j = [T loc j , T wid j ] ⊤ = ILR   T L j , T wid(0,1) j , 1 -T U j ⊤   . (<label>11</label></formula><formula xml:id="formula_21">)</formula><p>Alternatively, we could have also applied an uninformative prior directly on the simplex via a Dirichlet distribution (an implementation of this prior can also be found in the OSF repository):</p><formula xml:id="formula_22">ILR -1 (T j ) ∼ Dirichlet(1, 1, 1). (<label>12</label></formula><formula xml:id="formula_23">)</formula><p>The person proficiency parameters, [E loc i , E wid i ] ⊤ , have weakly informative priors on both the means and the variances (see Table <ref type="table">1</ref>, column 1). The priors are specified on the log-scale to ensure positive values. We are also interested in the relationship between a respondent's proficiency in the location dimension and their proficiency in the width dimension, and therefore assign a bivariate normal prior with correlation parameter ρ E instead of two independent normal priors. Similarly, we assign the same priors to the item discernibilities, [λ loc j , λ wid j ] ⊤ (Table <ref type="table">1</ref>, column 2). The only difference is that we fix the mean vector µ λ to zero to render the person proficiency parameters identifiable <ref type="bibr" target="#b0">(Anders et al., 2014)</ref>.</p><p>For the remaining person parameters, namely, the scaling and the shifting biases, we also assign weakly informative priors. In doing so, we impose certain restrictions on</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 1</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Default Prior Distributions for the Interval Consensus Model</head><p>Person proficiency</p><formula xml:id="formula_24">E i Item discernibility λ j [log(E loc i ), log(E wid i )] ⊤ ∼ N (µ E , Σ E ) µ E ∼ N (0, 1</formula><p>)</p><formula xml:id="formula_25">Σ E = diag(σ E ) Ω E diag(σ E</formula><p>)</p><formula xml:id="formula_26">Ω E = Ω EL Ω T EL =     1 ρ E 1     Ω EL ∼ LKJ-Cholesky(2) log(σ E ) ∼ N (log[0.5], 0.5) [log(λ loc j ), log(λ wid j )] ⊤ ∼ N (µ λ , Σ λ ) µ λ = 0 Σ λ = diag(σ λ ) Ω λ diag(σ λ ) Ω λ = Ω λL Ω T λL =     1 ρ λ 1     Ω λL ∼ LKJ-Cholesky(2) log(σ λ ) ∼ N (log[0.5], 0.5)</formula><p>the means for reasons of identifiability <ref type="bibr" target="#b0">(Anders et al., 2014)</ref>:</p><formula xml:id="formula_27">log(a loc i ) ∼ N (0, σ a loc ), b loc i ∼ N (0, σ b loc ), b wid i ∼ N (0, σ b wid ), log(σ a loc ) ∼ N (log[0.5], 0.5), log(σ b loc ), log(σ b wid ) i.i.d.</formula><p>∼ N (log[0.5], 1).</p><p>(</p><formula xml:id="formula_28">)<label>13</label></formula><p>The mean vector of the shifting bias parameters, [b loc i , b wid i ] ⊤ , is fixed to zero to make the model identifiable with respect to the estimated mean of the latent consensus locations and widths. Analogously, the mean vector of the scaling bias parameters, a loc i , is fixed to one to render the model identifiable regarding the estimated mean of the proficiency parameters, [E loc i , E wid i ] ⊤ . Finally, we assign weakly informative priors to the residual correlation between interval location and width via a scaled beta distribution:</p><formula xml:id="formula_29">ω j + 1 2 ∼ Beta(2, 2). (<label>14</label></formula><formula xml:id="formula_30">)</formula></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">Simulation Study</head><p>The simulation study was preregistered at the Open Science Framework (<ref type="url" target="https://osf.io/nd5wg">https://osf.io/nd5wg</ref>) using the ADEMP preregistration template by <ref type="bibr" target="#b34">Siepe et al. (2023)</ref> to specify the Aims, Data-generating mechanisms, Estimands, Methods, and Performance measures. After running the simulation with the pre-registered settings, we found that some conditions resulted in many problematic model fits with divergent transitions of the sampler. We therefore decided to re-work the parameterization and priors of the model for more stable model estimation, and subsequently re-ran the simulation. We indicate deviations from the preregistered settings where applicable. We further provide a list of all deviations and their justification as well as all results of the original simulation study </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Aims</head><p>The simulation study aimed to explore the estimation performance of the interval consensus model (ICM) concerning bias and mean-squared error of parameter estimates in realistic scenarios of use. The main target estimates were the latent consensus interval location and width, [T loc j , T wid j ] ⊤ . We also tracked the performance of the other parameters, except for the hyperparameters. We compared the model estimates of the latent consensus intervals for each item against simple means and medians (only means in the pre-registration) of the logit-transformed responses as a simple competitor model (i.e., wisdom of crowds; <ref type="bibr" target="#b38">Surowiecki, 2004)</ref>. Given that the data were generated from our model, we expected the model estimates to perform better than simple means and medians. If that was not the case, the added complexity of our model may not be worth the effort compared to relying on simpler descriptive aggregation strategies. We further expected that larger numbers of respondents would lead to better performance of item parameters, and, vice versa, that larger numbers of items would lead to better performance of person parameters.</p><p>In addition to the main simulation study, we conducted a preliminary simulation study to test the isometric log-ratio function against an alternative amalgamation log-ratio transformation, which is based on a stick-breaking procedure (see <ref type="bibr" target="#b35">Smithson &amp; Broomell, 2024)</ref>. We were interested in checking the robustness of the two link functions regarding model misspecification. We generated data with one fixed combination of 200 respondents and 30 items and only varied the link function used to simulate the data, resulting in two conditions. Each model was fitted to the data using the data-generating link function as well as the non-data-generating link function. We report the full results of this preliminary simulation study in the supplementary materials in the OSF repository.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Data Generation</head><p>We randomly generated data from the model described in Section 2.1. We varied the following factors in a fully factorial manner:</p><p>• Number of respondents: {10, 50, 100, 200},</p><p>• Number of items: {5, 10, 20, 40}.</p><p>This yielded 16 conditions. The numbers of respondents and items were selected to cover a range of practically relevant applications. There may be scenarios with only a few items and few expert raters, for instance, when a company has ten expert employees judging the risk of a security breach for five software components. In other scenarios, large numbers of raters and items might be available, for instance, in a forecasting challenge.</p><p>In all conditions, the true, data-generating parameters were randomly drawn for each repetition. We used the model described in Section 2.1 as the data-generating mechanism for each interval response Z ij of respondent i to item j on the unbounded scale. To obtain manifest interval responses in the bounded simplex space, we first transformed the unbounded interval response Z ij using the inverse isometric log-ratio function <ref type="bibr" target="#b35">(Smithson &amp; Broomell, 2024</ref>). In the model estimation step, the data were then transformed back to the unbounded space using the isometric log-ratio function (Equation <ref type="formula" target="#formula_12">7</ref>with c = 0, see also <ref type="bibr" target="#b35">Smithson &amp; Broomell, 2024)</ref>. This back-and-forth transformation is a redundant step for fitting the model in our main simulation study, where the same transformation was used for data generation and model estimation.</p><p>However, for our preliminary simulation study investigating the performance of different link functions, this is a crucial step required to cross-fit a model version with one link function to the data generated with the respective other link function.</p><p>Table <ref type="table" target="#tab_0">2</ref> lists all hyperparameter values used for generating person-and item-specific model parameters. The preregistration protocol contains a detailed justification of these values (see also the corresponding script in the supplementary materials in the OSF repository). Overall, we aimed to generate plausible distributions of manifest response intervals. We derived the hyperparameters from theoretical response intervals representing typical or extreme responses. For the true mean of consensus interval location and width, we used the values resulting from the logit-transformed interval <ref type="bibr">[.40, .60</ref>]. For the standard deviation of the true consensus interval location, we used the interval [.98, .99] transformed to the bivariate space. We declared the resulting unbounded value as the point that is four standard deviations away from the unbounded mean location, that is, an extreme value in the unbounded space. We further calculated the standard deviation for the unbounded true consensus location by dividing the difference between this extreme value and the mean of the true consensus location by four. Analogously, for the standard deviation of the true consensus width, we used the Note. For the parameters E j and λ j we defined the distributions on the negative log scale to facilitate an interpretation in terms of the variance instead of the precision.</p><p>interval <ref type="bibr">[.495, .505</ref>]. We simulated the true consensus location and width parameters from normal distributions since all parameters were defined on the unbounded scale. The hyperparameters for the bias parameters were then chosen to yield plausible distributions of the simulated response intervals.</p><p>Due to the large computational demand of our simulation study, we determined the number of repetitions as follows: We aimed for a Monte Carlo standard error (MCSE) of ≤ .05 for our primary performance measure (the absolute bias for the latent consensus interval location and width) in all conditions. We deemed 500 (pre-registration: 1, 000) repetitions computationally reasonable. After 500 repetitions, we checked the MCSEs in all conditions. If they had not met the above criterion, we would have incrementally added repetitions in steps of 250 until they did. The MCSEs in all conditions had met the criterion after 500 repetitions, with the largest MCSE of the absolute bias being 0.005 in one condition.</p><p>Further details can be found in the preregistration and in the supplementary materials in the OSF repository, where we illustrate the distributions of parameters and responses as well as the recovery of one set of data-generating parameters.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Method</head><p>We estimated the same model for all generated data sets in a Bayesian framework using Stan (Stan Development Team, 2023) in R (R Core Team, 2023) via rstan <ref type="bibr">(Stan Development Team, 2024)</ref>. For the Bayesian estimation, we used the priors described in Section 2.2, which we did not preregister. The only deviation from the model described above was that we used independent univariate prior distributions instead of a multivariate prior for [E loc i , E wid i ] ⊤ and [λ loc j , λ wid j ] ⊤ , meaning that we did not estimate the correlations ρ E and ρ λ in the simulation. For each repetition, we ran four chains of Stan's Hamiltonian Monte Carlo sampler <ref type="bibr" target="#b5">(Betancourt, 2018)</ref> with 500 warm-up samples not used for analyses and 500 (preregistration: 1, 000) samples for the computation of parameter estimates, which yielded 2, 000 samples per parameter. Given the results for the convergence diagnostics shown below, we deemed this number sufficient. The adapt_delta parameter was set to 0.999 for conditions with a number of total simulated responses ≤ 2, 000, and to 0.9 for the conditions with a greater number (preregistration: 0.9 for all conditions). We changed this setting because in our earlier simulations we had encountered issues with divergent transitions in conditions with low numbers of responses.</p><p>The range of the initial values of the sampling algorithm for the unbounded parameters was set to [-0.1, 0.1].</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.4">Performance Measures</head><p>Our primary performance measure was the absolute bias of both the latent, unbounded consensus interval location and the width jointly, [T loc j , T wid j ] ⊤ , which we defined as follows:</p><formula xml:id="formula_31">AbsBias = N n=1 J j=1 0.5 T loc nj -T loc nj + T wid nj -T wid nj N × J , (<label>15</label></formula><formula xml:id="formula_32">)</formula><p>where J is the number of items in a specific condition and N is the number of repetitions of the simulation. We computed the mean of the (absolute) bias of location and width jointly because we expected that there could be a compensatory effect concerning the accuracy of estimates. We also computed the absolute bias for both dimensions separately for illustration purposes below (see the supplementary materials in the OSF repository for a plot of the joint biases).</p><p>We additionally calculated the mean squared error (MSE) for the bivariate vector [T loc j , T wid j ] ⊤ of the latent, unbounded consensus intervals:</p><formula xml:id="formula_33">MSE = N n=1 J j=1 0.5 T loc nj -T loc nj 2 + T wid nj -T wid nj 2 N × J . (<label>16</label></formula><formula xml:id="formula_34">)</formula><p>We also calculated the MSE for the location and width individually.</p><p>As a measure of parameter recovery, we also computed the average Pearson correlation between the estimated and the true values of the parameters:</p><formula xml:id="formula_35">ρ = 1 N N n=1 K k=1 ( θnk -θn )(θ nk -θn ) K k=1 ( θnk -θn ) 2 K k=1 (θ nk -θn ) 2 , (<label>17</label></formula><formula xml:id="formula_36">)</formula><p>where θi and θ i represent the estimated and true values respectively, θ and θ are their respective means, and K represents either the number of items or number of persons, depending on the type of parameter.</p><p>We estimated the MCSE of these performance measures via bootstrapping. We further tallied the number of non-converged simulation repetitions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5">Results</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5.1">Preliminary Study: Link Functions</head><p>Our preliminary simulation that compared two alternative link functions showed the superiority of the isometric log-ratio transformation over the amalgamation log-ratio transformation. Especially in the case of cross-fitting the model to the data generated by the respective other link function, the isometric log-ratio transformation was more robust to this specific type of model misspecification.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5.2">Main Study: Recovery of Latent Consensus Intervals</head><p>All repetitions of the simulation study finished without error. The average R across all repetitions and conditions was 1.002. In 13 of 16 simulation conditions, we observed no divergent transitions. In the "worst" condition with ten respondents and five items, 1.2% of all models contained at least one divergent transition. The models with divergent transitions in this condition contained on average 26.7 divergent transitions.</p><p>Overall, these results imply good convergence in almost all repetitions. This indicates that the model can even be estimated in edge cases with a low number of items and respondents, where the performance benefit compared to the aggregation via simple means or medians is particularly large. Additional results on convergence metrics are available in the supplementary materials in the OSF repository.</p><p>We visualized the absolute bias of the latent interval location and width in Figure <ref type="figure" target="#fig_4">4</ref>. The true consensus locations had a higher standard deviation (0.81) compared to the true consensus widths (0.65). Therefore, we divided the absolute bias by the true standard deviations of the respective parameters for ease of interpretation in the figure.</p><p>The unstandardized performance measures are available in the supplementary materials in the OSF repository. In all simulation conditions, the ICM has a lower absolute bias averaged over location and width parameters than the simple means and medians. As expected, there is a notable effect of the number of respondents, with a considerably lower bias for higher sample sizes. Increasing the number of respondents from 10 to 50 roughly corresponds to halving the absolute bias for all conditions. The size of the performance difference between the ICM and the simple means and medians remains fairly similar for sample sizes from 50 to 200. Interestingly, the medians performed better than the means for the location dimension, but not for the width dimension. A larger number of items slightly improves the performance of the ICM regarding the recovery of consensus intervals, but this effect is weaker than the effect of the number of respondents. Note. This figure shows the standardized absolute bias (y-axis) of the consensus interval location (upper row) and width (lower row) for different numbers of items (columns) and respondents (x-axis). The standardized absolute bias was obtained by dividing the condition-wise absolute bias by the true standard deviation of the location or width. Error bars indicate ±1 MCSE. Some MCSEs are so small that the upper and lower error bars are indiscernible.</p><p>The standardized absolute bias is very similar for the location and width dimensions, which means that both dimensions can be estimated similarly well. We chose to plot both dimensions separately here to illustrate this point. The combined absolute bias, which we defined above in Equation <ref type="formula" target="#formula_31">15</ref>, shows a virtually identical pattern of results. Even in the condition with the lowest number of items and respondents (5 items, 10 respondents), the smallest correlation between the estimated consensus locations and the true parameter values is still ρ = .92 (MCSE = .006). This estimate is the same for the consensus widths.</p><p>In conclusion, the model may be used for the aggregation of interval judgments, even in small samples.</p><p>In the supplementary materials in the OSF repository, we present additional simulation results for all model parameters. These show that the MSE follows a qualitatively very similar pattern to the results of the absolute bias. For all conditions, the ICM had a better performance concerning the MSE than the simple means and medians. Further, in simulation repetitions with a higher bias of the location, the bias of the width tended to be higher as well. Thus, we did not observe evidence for compensatory behavior, where an accurate estimation of one dimension would be associated with a poorer estimation of the respective other dimension.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5.3">Recovery of Other Model Parameters</head><p>Although the main focus of the model is estimating the consensus intervals, the person and/or item parameters may also be of interest in some cases. We visualized the correlation between the true, data-generating parameters and the corresponding model estimates for all parameters in Figure <ref type="figure" target="#fig_4">4</ref>. If the focus is on the proficiency parameters for the respondents, it is advisable to collect data for more than 20 items. The correlation between estimated and true parameters for the location proficiency, for example, was ρ = .71 (MCSE = .012) with 10 respondents and 20 items, and ρ = .80 (MCSE = .006)</p><p>with 10 respondents and 40 items. Recovery of the other parameters was generally better than for respondents' location proficiency, so 20 items should provide a useful lower bound in such cases. If higher reliability is needed, 40 items would be more appropriate. Note. This figure shows the correlations (y-axis) between the true, data-generating parameters and the corresponding model estimates for all parameters (rows) for different numbers of items (columns) and respondents (x-axis). Error bars indicate ±1 MCSE.</p><p>Some MCSEs are so small that the upper and lower error bars are indiscernible.</p><p>On the other hand, researchers who are primarily interested in the item parameters can achieve good recovery with 50 respondents, even when using only 5 items.</p><p>For example, the correlation between estimates and true parameters for the location discernibility was ρ = .89 (MCSE = .007). Recovery might still be acceptable with less than 50 respondents. However, the next smallest condition in our simulation had 10 respondents, where a correlation of ρ = .70 (MCSE = .009) was achieved with 10 items.</p><p>If the recovery performance for such small sample sizes is of interest, the analysis scripts available in the supplementary materials in the OSF repository allow readers to adapt and re-run our simulation study for other scenarios.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5.4">Summary</head><p>The results of our simulation study indicate that the ICM performed better than simple means and medians in all conditions we studied. The absolute difference between both approaches became smaller with a larger number of respondents. The number of items did not have a strong influence on the results regarding the consensus intervals. This is not surprising because our performance measures are aggregated across the item parameters. However, the small increases in performance can be explained by the increased precision of person parameter estimates in conditions with larger numbers of items, which in turn helps to estimate the item parameters more precisely. As we standardized the absolute bias, the results can be interpreted as fractions of the true standard deviation, indicating a satisfactory performance of the ICM.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">Empirical Example: Verbal Quantifiers</head><p>To demonstrate the application of the interval consensus model (ICM), we reanalyze judgments on verbal quantifiers collected by <ref type="bibr">Kloft and Heck (2024)</ref>. We use the already cleaned data (accessible from <ref type="url" target="https://osf.io/7azbr">https://osf.io/7azbr</ref>). The sample consists of 209 respondents (female: 145, male: 62, diverse: 2), mainly psychology students, with a mean age of 25.5 years (SD = 8.5).</p><p>Participants provided judgments for 16 verbal quantifiers such as "seldom" or Note. Black horizontal interval: Consensus interval estimated by the interval consensus model. Gray horizontal bar: Typical interval based on the median location and median width of the observed, logit-transformed response intervals.</p><p>The "fifty-fifty chance" item (top) was one of the control items in the study, for which respondents were expected to answer with narrow intervals placed in the center of the response scale. The estimated consensus interval is centered on the correct reference value of 50% and very narrow, reflecting the high precision of the verbal statement "fifty-fifty chance." A substantial proportion of response intervals are wider, as indicated by the density. However, the consensus is still that a "fifty-fifty chance" is a probability very close to 50%. Also, the simple median interval in this case gives a similar estimate of the consensus. The two other control items were "never" (middle left) and "always" (middle right). Figure <ref type="figure" target="#fig_6">6</ref> shows that their consensus intervals were close to the extreme ends of the response scale, as expected for these words. In contrast, the intervals based on the medians are strongly influenced by a skewness of response intervals towards the center of the scale. Overall, the three control items demonstrate that the ICM provided more meaningful estimates of the interval consensus than simple aggregation via the median.</p><p>The item "potentially" (bottom right) provides an example of a typical pattern found for most of the verbal quantifiers. The simple median interval was more strongly influenced by the concavely shaped longer tail of the distribution of response intervals, while the consensus interval estimated by the model was more representative of the convexly skewed shorter tail. This trend also appeared for the item "hardly" (bottom left). The model-based estimate of the consensus interval was more representative of the empirical distribution, while the simple median interval was shifted towards the center of the scale, demonstrating a stronger influence of the inwardly skewed outliers of the empirical responses. Overall, the model estimates provided a better representation of where the bulk of response intervals were located. quantifiers can be found in the supplementary materials in the OSF repository). The plot includes the three control items "never," "fifty-fifty chance," and "always" at the bottom, reflecting a shared consensus that the meaning of these quantifiers in terms of probabilities is clear (i.e., the width on the y-axis is estimated to be very small). The other quantifiers have larger widths, indicating a consensus that using these words comes with more ambiguity. While the posterior distributions for most control items are relatively peaked and precise, more vague quantifiers such as "potentially" also show higher estimation uncertainty. The model allows us to distinguish two types of uncertainty: First, the increased width, as shown by large values on the y-axis, of the item "potentially" indicates a latent consensus that the item has a wider range of plausible meanings. Second, the wider posterior distribution, as shown by the distribution of posterior samples, indicates that the estimation certainty for this inference is lower than that for the remaining items. Furthermore, the prior density in the background of Figure <ref type="figure" target="#fig_7">7</ref> also illustrates that our weakly informative prior was an Note. Orange points: 1, 000 posterior draws for each verbal quantifier. Purple to yellow density in the background: prior density estimated from 1,000,000 samples and standardized to a maximum density of 1. The prior on the marginal distribution of interval widths is Beta(1.2, 3). The prior on the marginal distribution of interval locations, conditional on the interval width, is Beta(1, 1). Note. Black horizontal bars: Empirical response intervals. Blue dots: Estimated proficiencies, computed per person as the mean of the standardized posterior medians for the location and the width proficiency, transformed to normal quantiles.</p><p>appropriate choice for this application, as most posterior distributions are located in areas of relatively high prior probability.</p><p>The estimated correlation of respondents' proficiencies for the location and the width dimension (see also Table <ref type="table">1</ref>, column 1) was ρE = .63 (95% HDI <ref type="bibr">[.51, .73]</ref>).</p><p>Substantively, this means that respondents who answered highly consistent with respect to interval locations were also highly consistent regarding interval widths, that is, when judging the variability in how the quantifiers are being used. "fifty-fifty chance" (black intervals) are shown jointly with the corresponding individual proficiency estimates (blue points). For illustration, the two-dimensional proficiency estimates are collapsed within each individual by taking the mean of the location and the width parameter. Respondents are ordered by their proficiencies from high (top) to low</p><p>(bottom). The respondents with the highest proficiencies (upper half of the y-axis) mostly provided relatively narrow intervals located at the center of the response scale. In the lower half of the y-axis, respondents provided much wider response intervals, some of which were necessarily located at the center of the scale due to their large width. Those respondents with the lowest proficiency at the bottom of the y-axis mostly failed to place the interval at the center of the response scale. This shows that the proficiency estimates may be useful for diagnosing non-effortful responding. The model also enables us to automatically downweight the responses of unreliable respondents. This is achieved by the person proficiency parameters, which assign higher error variances to respondents providing inconsistent response patterns (see Section 2.1). Consequently, we do not have to exclude respondents from the data based on possibly arbitrary filtering criteria.</p><p>Regarding item parameters, the discernibilities of consensus locations and widths (see also Table <ref type="table">1</ref>, Column 2) were correlated negatively with ρλ = -.47 (95% HDI <ref type="bibr">[-.77, -.06]</ref>). This correlation should be considered with caution since it is driven by the control items ("never," "always," "fifty-fifty chance"). These had especially high location discernibility estimates, above the mean, and especially low width discernibility estimates.</p><p>At the same time, all other items' location discernibility estimates were below the mean, and their width discernibility estimates were above the mean. We initially selected these verbal quantifiers as control items because they have a clear implication regarding the probability assigned to them, that is, "never" = 0%, "always" = 100%, and "fifty-fifty chance" = 50%. The high location discernibility indicates that respondents overall interpreted these quantifiers in the assumed way.</p><p>To check whether the negative correlation between location and width discernibilities was just due to the control items' influence, we re-fitted the model, excluding the three control items. As expected, the correlation was no longer negative and even changed to a large positive value with ρλ = .80 (95% HDI <ref type="bibr">[.43, .98]</ref>). This means that items with an easy-to-detect consensus location also tended to have a consensus width that was easier to detect. At the same time, the correlation for respondents' location and width proficiencies was reduced to ρE = .50 (95% HDI <ref type="bibr">[.34, .64]</ref>). Since respondents who participated seriously were likely able to set a reasonably accurate location and width for the control items, these items might have artificially inflated the correlation between person proficiencies. Therefore, the lower correlation provides a more conservative, and arguably more appropriate, estimate. In conclusion, our empirical example shows that item parameters, such as discernibility, can facilitate manipulation checks or may be used to exclude poorly performing items.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">Discussion</head><p>We proposed the Interval Consensus Model (ICM) as a means of estimating the shared consensus of a group of individuals regarding continuous, bounded intervals. In a simulation study, the consensus model outperformed the descriptive approach of simply averaging the response intervals or taking the median. We also showed that the model can be estimated with as little data as five items and ten respondents. We further illustrated the application of the proposed model to empirical data in the case of interval judgments for verbal quantifiers such as "rarely" or "frequently." The model-based analysis led to valid conclusions for control items such as "always" and allowed us to detect and downweight the responses of unreliable respondents.</p><p>The results of a preliminary simulation study showed that our choice of the isometric log-ratio transformation over the amalgamation log-ratio transformation was justified, as the former was more robust to model misspecification (i.e., when using a different transformation for model fitting than for data-generation). The ICM showed good convergence and a better performance in terms of absolute bias and MSE than aggregation via simple means and medians. Even in the "hardest" conditions with small numbers of respondents and items, divergent transitions occurred only in a small proportion of models. If such divergences occur in empirical research, one may need to specify more informative prior distributions. The possibility of defining prior distributions is a strength of the Bayesian approach, which allows for incorporating expectations and knowledge about the consensus intervals, thereby facilitating robust estimation even in small datasets <ref type="bibr" target="#b24">(Krypotos et al., 2017)</ref>. However, not all parameters may be necessary, nor can they always be estimated with sufficient precision in every use case. Issues may emerge due to low variance between respondents, as in our empirical example, or due to noisy data. Under such circumstances, auxiliary parameters for person biases may be removed as needed. Moreover, even if the proficiency parameters cannot be estimated precisely, the model reduces to estimating an unweighted mean consensus interval for each item.</p><p>In our empirical example, estimated consensus intervals were centered on the factually true value in the case of "fifty-fifty chance," and on the mode of the distribution in the case of the item "hardly." Compared to computing simple means or medians, the model-estimated consensuses appeared to be more robust against extreme responses from individuals with low proficiency. The model can therefore be used to obtain higher-quality estimates of a latent consensus interval. While simple trim-and-average heuristics <ref type="bibr" target="#b11">(Gaba et al., 2017;</ref><ref type="bibr" target="#b25">Lyon et al., 2015;</ref><ref type="bibr" target="#b30">Park &amp; Budescu, 2015)</ref> could be useful in this regard, our model-based approach offers the advantage of providing estimates for the proficiency of respondents and the discernibility of items. These estimates may be used for diagnostic purposes, as illustrated by the analysis of control items in the empirical example. Further, the ICM could be extended to an explanatory model, for example, by incorporating latent regressions for the item or person parameters (for an example of how this might be implemented, see <ref type="bibr" target="#b17">Heck et al., 2018)</ref>. This might be relevant for researchers investigating potential predictors of the respondents' proficiency or the discernibility of items.</p><p>We confined ourselves to studying a specific version of a consensus model for interval responses, but there are several possibilities for extensions of this model, which we did not cover in the present article. We chose the isometric log-ratio as the link function for our model and investigated one alternative link function <ref type="bibr" target="#b35">(Smithson &amp; Broomell, 2024)</ref>. However, there might be other appropriate link functions that we are not aware of. Further research might focus on developing alternative link functions to find an optimal match between different link functions and certain types of applications of the interval response format <ref type="bibr" target="#b10">(Ellerby et al., 2022;</ref><ref type="bibr">Kloft &amp; Heck, 2024)</ref>, or explore model versions that do not require a link function at all (e.g., by relying on the Dirichlet distribution; <ref type="bibr" target="#b19">Kloft et al., 2023)</ref>.</p><p>The model assumes a single, shared consensus interval for each item. However, in some applications, it is plausible to assume more than one latent consensus for different unknown groups, in other words, latent classes of respondents (see <ref type="bibr" target="#b0">Anders et al., 2014)</ref>.</p><p>We also did not cover the case where the latent consensus is a single point, for example a specific risk probability, while responses are collected with an interval format, for example by judging the range of plausible probabilities, as in forecasting <ref type="bibr" target="#b11">(Gaba et al., 2017;</ref><ref type="bibr" target="#b31">Peeters &amp; Wolk, 2017)</ref>. This Regardless of the specific model being used, when researchers are interested in a latent underlying point quantity but still ask participants to provide interval responses, it is important to provide clear instructions about the meaning of the interval bounds. For example, the interval bounds could represent the lower and upper bounds of plausible values or, alternatively, a symmetric interval of uncertainty around the best guess <ref type="bibr">(Kloft &amp; Heck, 2024)</ref>. A simpler alternative solution might be to provide participants with three response values: one for their best guess, and two for the lower and upper bounds of the interval. In this case, the ICM and the isometric log-ratio function can be extended to a third dimension, representing the asymmetry of the best guess relative to the encompassing interval bounds. The development of such extended models is beyond the scope of our article and provides promising avenues for future research.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><figDesc>Figure 1Dual Range Slider(DRS)    </figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 Figure 2</head><label>22</label><figDesc>Figure 2 illustrates the isometric log-ratio transformation for five response intervals. Panel A shows raw response intervals, Panel B represents these intervals in the ternary space, and Panel C illustrates their location in the unbounded, transformed space. Interval 3 divides the response scale into a composition of three equally sized components (Panel A) and corresponds to the origin of the transformed, unbounded space (Panel C). Regarding the location dimension (x-axis), the origin in the unbounded space in Panel C maps to the center of the bounded response scale in Panel B. Hence, unbounded location</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 Figure 3</head><label>33</label><figDesc>Figure 3 shows the isolated influence of each person parameter when all remaining parameters are held constant (see the Figure note for more details on the simulation of the shown response patterns). For a person with a low proficiency concerning interval locations (E loc i = 0.5), Panel 3C shows that response intervals move away from the latent consensus interval unsystematically due to increased error variance. Similarly, for a person with a low proficiency concerning interval widths (E wid i</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><figDesc>in the supplementary materials in the OSF repository. The main results did not change, as both the best-performing model per condition and the overall trends of the performance measures remained the same. The simulation study was carried out in the programming environment R Version 4.5.0 (R Core Team, 2023) on a Linux machine with an Ubuntu 22.04.5 LTS distribution. We provide a Dockerfile to facilitate full reproducibility of our main results. We used the following R packages in their most recent versions at the time of running the simulation: SimDesign (Chalmers &amp; Adkins, 2020) for setting up and conducting the simulation study, cmdstanr<ref type="bibr" target="#b12">(Gabry et al., 2023)</ref> as the R interface to Stan(Stan Development Team, 2023), and the posterior<ref type="bibr" target="#b7">(Bürkner et al., 2023)</ref> and bayesplot packages<ref type="bibr" target="#b13">(Gabry &amp; Mahr, 2024)</ref> for handling and visualizing MCMC output. The specific package version numbers and additional packages used for data wrangling and minor tasks are provided in the supplementary materials in the OSF repository.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 4 Absolute</head><label>4</label><figDesc>Figure 4Absolute Bias of Consensus Interval Location and Width.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 5 Correlation</head><label>5</label><figDesc>Figure 5Correlation Between True and Estimated Parameters</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Figure 6 Estimated</head><label>6</label><figDesc>Figure 6Estimated Consensus Intervals for Verbal Quantifiers</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Figure 7</head><label>7</label><figDesc>Figure 7 displays posterior draws of the consensus intervals for a selection of verbal quantifier items, jointly with the prior density of the model (a plot of all verbal</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head>Figure 7</head><label>7</label><figDesc>Figure 7Prior and Posterior Distributions for the Cultural Consensus Intervals</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>Figure 8 Empirical</head><label>8</label><figDesc>Figure 8Empirical Interval Responses and Estimated Proficiencies for the Item "Fifty-Fifty Chance"</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head>Figure 8</head><label>8</label><figDesc>Figure 8 provides insights into how the estimated proficiencies relate to empirical interval responses. The empirical responses of all participants to the verbal quantifier</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_11"><figDesc>case warrants the development of a new model which estimates this point consensus based on interval responses. Such a model requires further assumptions about where the best guess of a respondent is located within an observed response interval. Alternatively, one may fit the ICM proposed in the present work to derive a consensus interval for the point truth and then judge forecasting performance based on the coverage of the target value. However, the model will not provide a single best guess within the estimated consensus interval. The estimated consensus intervals differ conceptually from confidence intervals for point estimates in a classical consensus model because they reflect the subjective (meta-)uncertainty within respondents rather than the estimation uncertainty between respondents.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 2</head><label>2</label><figDesc>Values of the Hyperparameters Used for Data Generation</figDesc><table><row><cell>Interpretation</cell><cell>Parameter</cell><cell>Distribution / Constant</cell></row><row><cell>Items</cell><cell></cell><cell></cell></row><row><cell>Consensus location</cell><cell>T loc j</cell><cell>N (0, 0.81)</cell></row><row><cell>Consensus width</cell><cell>T wid j</cell><cell>N (-0.57, 0.65)</cell></row><row><cell>Location discernibility</cell><cell>-log(λ loc j )</cell><cell>N (0, 0.3)</cell></row><row><cell>Width discernibility</cell><cell>-log(λ wid j )</cell><cell>N (0, 0.3)</cell></row><row><cell>Residual correlation</cell><cell>ω j</cell><cell>0</cell></row><row><cell>Respondents</cell><cell></cell><cell></cell></row><row><cell>Location proficiency</cell><cell>-log(E loc i )</cell><cell>N (log[0.81], 0.3)</cell></row><row><cell>Width proficiency</cell><cell>-log(E wid i )</cell><cell>N (log[0.65], 0.3)</cell></row><row><cell>Location scaling bias</cell><cell>log(a loc i )</cell><cell>N (0, 0.3)</cell></row><row><cell>Location shifting bias</cell><cell>b loc i</cell><cell>N (0, 0.27)</cell></row><row><cell>Width shifting bias</cell><cell>b wid i</cell><cell>N (0, 0.22)</cell></row></table></figure>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><p>Funding Statement. This research received no specific grant funding from any funding agency, commercial, or not-for-profit sectors. (Kloft &amp; Heck, 2024). This study was performed in line with the guidelines of the <rs type="institution">German Psychological Society</rs> (</p></div>
+			</div>
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>All data and analysis scripts as well as the preregistration of the simulation study are available at the Open Science Framework (OSF): <ref type="url" target="https://osf.io/r32by/">https://osf.io/r32by/</ref>. The README file of this repository (see the "Github" tab on the "Files" page<ref type="url" target="https://doi.org/10.32614/CRAN.package.intervalpsych">https://doi.org/10.32614/CRAN.package.intervalpsych</ref> (for the development version, see <ref type="url" target="https://github.com/matthiaskloft/intervalpsych">https://github.com/matthiaskloft/intervalpsych</ref>).</p><p>We reanalyzed empirical data collected in a previous study</p></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>"often" using the dual range slider response format (see Figure <ref type="figure">1</ref>). For each verbal quantifier, respondents had to assign an interval of probabilities ranging from 0% to 100% according to the probability that an event described in this way would occur. The full analysis is available in the supplementary materials in the OSF repository.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">Model Modification and Estimation</head><p>Not all parameters described in Section 2 yielded useful estimates in an initial fit of the full model. Specifically, the estimates for the respondents' response bias parameters b loc i (i.e., systematic shifts in the location dimension) did not differ meaningfully between individuals, as indicated by a variance close to zero. We therefore simplified the model by excluding these parameters.</p><p>We estimated the model using the same software as in the simulation study but on a Windows machine. Information on the computational environment is provided in the session info at the end of the analysis script, rendered as an HTML report in the supplementary materials in the OSF repository. For Bayesian inference, we used the priors described in Section 2.2. We ran four chains of Stan's Hamiltonian Monte Carlo sampler <ref type="bibr" target="#b5">(Betancourt, 2018)</ref> with 500 warm-up samples, which were not used for analyses, and 1, 000 samples for the computation of parameter estimates. This yielded 4, 000 samples per parameter. The adapt_delta parameter was set to 0.8 and the range of initial values of the sampling algorithm for the unbounded parameters was set to [-0.1, 0.1]. Convergence was assessed via the R statistic <ref type="bibr" target="#b39">(Vehtari et al., 2021)</ref>, which was below 1.011 for all parameters. We provide posterior predictive checks in the online supplementary materials in the OSF repository. -X L , X U : Lower and upper bound of interval response </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">Model Results</head></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Cultural consensus theory for continuous responses: A latent appraisal model for information pooling</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Anders</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Oravecz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">H</forename><surname>Batchelder</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jmp.2014.06.001</idno>
+		<ptr target="https://doi.org/10.1016/j.jmp.2014.06.001" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mathematical Psychology</title>
+		<imprint>
+			<biblScope unit="volume">61</biblScope>
+			<biblScope unit="page" from="1" to="13" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Cultural consensus theory for the ordinal data case</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Anders</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">H</forename><surname>Batchelder</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11336-013-9382-9</idno>
+		<ptr target="https://doi.org/10.1007/s11336-013-9382-9" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychometrika</title>
+		<imprint>
+			<biblScope unit="volume">80</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="151" to="181" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Claude [Large language model</title>
+		<ptr target="https://claude.ai" />
+		<imprint>
+			<date type="published" when="2025">2025</date>
+			<publisher>Anthropic</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Cultural consensus theory: Comparing different concepts of cultural truth</title>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">H</forename><surname>Batchelder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Anders</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jmp.2012.06.002</idno>
+		<ptr target="https://doi.org/10.1016/j.jmp.2012.06.002" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mathematical Psychology</title>
+		<imprint>
+			<biblScope unit="volume">56</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="316" to="332" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Test theory without an answer key</title>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">H</forename><surname>Batchelder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Romney</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/BF02294195</idno>
+		<ptr target="https://doi.org/10.1007/BF02294195" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychometrika</title>
+		<imprint>
+			<biblScope unit="volume">53</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="71" to="92" />
+			<date type="published" when="1988">1988</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">A conceptual introduction to Hamiltonian Monte Carlo</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Betancourt</surname></persName>
+		</author>
+		<idno type="DOI">10.48550/arXiv.1701.02434</idno>
+		<ptr target="https://doi.org/10.48550/arXiv.1701.02434" />
+		<imprint>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">Affective norms for english words (anew): Instruction manual and affective ratings</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">M</forename><surname>Bradley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">J</forename><surname>Lang</surname></persName>
+		</author>
+		<idno>C-1</idno>
+		<imprint>
+			<date type="published" when="1999">1999</date>
+		</imprint>
+		<respStmt>
+			<orgName>The Center for Research in Psychophysiology, University of Florida</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Technical report</note>
+	<note>tech. rep</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">Posterior: Tools for working with posterior distributions</title>
+		<author>
+			<persName><forename type="first">P.-C</forename><surname>Bürkner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Gabry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Vehtari</surname></persName>
+		</author>
+		<ptr target="https://mc-stan.org/posterior/" />
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note>Version 1.5.0 Software R package</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Writing effective and reliable Monte Carlo simulations with the SimDesign package</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">P</forename><surname>Chalmers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">C</forename><surname>Adkins</surname></persName>
+		</author>
+		<idno type="DOI">10.20982/tqmp.16.4.p248</idno>
+		<ptr target="https://www.deepl.com" />
+	</analytic>
+	<monogr>
+		<title level="j">The Quantitative Methods for Psychology</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="248" to="280" />
+			<date type="published" when="2020">2020. 2025</date>
+		</imprint>
+	</monogr>
+	<note>Online translation service</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Exploring how component factors and their uncertainty affect judgements of risk in cyber-security</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Ellerby</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Mcculloch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wilson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Wagner</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-3-030-37670-3_3</idno>
+		<ptr target="https://doi.org/10.1007/978-3-030-37670-3_3" />
+	</analytic>
+	<monogr>
+		<title level="m">Critical information infrastructures security</title>
+		<editor>
+			<persName><forename type="first">S</forename><surname>Nadjm-Tehrani</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Springer International Publishing</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="31" to="42" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Capturing richer information: On establishing the validity of an interval-valued survey response mode</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Ellerby</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Wagner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">B</forename><surname>Broomell</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13428-021-01635-0</idno>
+		<ptr target="https://doi.org/10.3758/s13428-021-01635-0" />
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">54</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1240" to="1262" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Combining interval forecasts</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Gaba</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Tsetlin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">L</forename><surname>Winkler</surname></persName>
+		</author>
+		<idno type="DOI">10.1287/deca.2016.0340</idno>
+		<ptr target="https://doi.org/10.1287/deca.2016.0340" />
+	</analytic>
+	<monogr>
+		<title level="j">Decision Analysis</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="20" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">Cmdstanr: R interface to &apos;cmdstan</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Gabry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Češnovar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Johnson</surname></persName>
+		</author>
+		<ptr target="https://mc-stan.org/cmdstanr/" />
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note>Version 0.8.1 Software R package</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+		<title level="m" type="main">Bayesplot: Plotting for bayesian models</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Gabry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Mahr</surname></persName>
+		</author>
+		<ptr target="https://mc-stan.org/bayesplot/" />
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note>Version 1.11.1) Software R package</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<title level="m" type="main">Leongersen/noUiSlider [Software</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Gersen</surname></persName>
+		</author>
+		<ptr target="https://gemini.google.com/" />
+		<imprint>
+			<date type="published" when="2024">2024. 2025</date>
+		</imprint>
+	</monogr>
+	<note>Large language model</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">A comparison of isometric and amalgamation logratio balances in compositional data analysis</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Greenacre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Grunsky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Bacon-Shone</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cageo.2020.104621</idno>
+		<ptr target="https://doi.org/10.1016/j.cageo.2020.104621" />
+	</analytic>
+	<monogr>
+		<title level="j">Computers &amp; Geosciences</title>
+		<imprint>
+			<biblScope unit="volume">148</biblScope>
+			<biblScope unit="page">104621</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Anchoring climate change communications</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">J L</forename><surname>Harris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H.-H</forename><surname>Por</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">B</forename><surname>Broomell</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10584-016-1859-y</idno>
+		<ptr target="https://doi.org/10.1007/s10584-016-1859-y" />
+	</analytic>
+	<monogr>
+		<title level="j">Climatic Change</title>
+		<imprint>
+			<biblScope unit="volume">140</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="387" to="398" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">TreeBUGS: An R package for hierarchical multinomial-processing-tree modeling</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Heck</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">R</forename><surname>Arnold</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Arnold</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13428-017-0869-7</idno>
+		<ptr target="https://doi.org/10.3758/s13428-017-0869-7" />
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">50</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="264" to="284" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">You say &quot;Probable&quot; and I say &quot;Likely&quot;: Improving interpersonal communication with verbal probability phrases</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">M</forename><surname>Karelitz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">V</forename><surname>Budescu</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/1076-898X.10.1.25</idno>
+		<ptr target="https://doi.org/10.1037/1076-898X.10.1.25" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Experimental Psychology: Applied</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="25" to="41" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">The Dirichlet dual response model: An item response model for continuous bounded interval responses</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kloft</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Hartmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Voss</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Heck</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11336-023-09924-7</idno>
+		<ptr target="https://doi.org/10.1007/s11336-023-09924-7" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychometrika</title>
+		<imprint>
+			<biblScope unit="volume">88</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="888" to="916" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Discriminant validity of interval responses: Investigating the dimensional structure of interval response widths using a novel multivariate-logit transformation</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kloft</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Heck</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/00131644241283400</idno>
+		<ptr target="https://doi.org/10.1177/00131644241283400" />
+	</analytic>
+	<monogr>
+		<title level="j">Educational and Psychological Measurement</title>
+		<imprint>
+			<biblScope unit="volume">0</biblScope>
+			<biblScope unit="issue">0</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<monogr>
+		<title level="m" type="main">intervalpsych: Analyzing interval data in psychometrics (Version 0.1</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kloft</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">S</forename><surname>Siepe</surname></persName>
+		</author>
+		<idno type="DOI">10.32614/CRAN.package.intervalpsych</idno>
+		<ptr target="https://doi.org/10.32614/CRAN.package.intervalpsych" />
+		<imprint>
+			<date type="published" when="2025-07-08">2025, July 8</date>
+		</imprint>
+	</monogr>
+	<note>Software</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Measuring the variability of personality traits with interval responses: Psychometric properties of the dual-range slider response format</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kloft</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J.-P</forename><surname>Snijder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Heck</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13428-024-02394-4</idno>
+		<ptr target="https://doi.org/10.3758/s13428-024-02394-4" />
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">56</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="3469" to="3486" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<monogr>
+		<title level="m" type="main">Bayesian estimation in hierarchical models</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">K</forename><surname>Kruschke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Vanpaemel</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/oxfordhb/9780199957996.013.13</idno>
+		<ptr target="https://doi.org/10.1093/oxfordhb/9780199957996.013" />
+		<editor>J. R. Busemeyer, Z. Wang, J. T. Townsend, &amp; A. Eidels</editor>
+		<imprint>
+			<date type="published" when="2015-12">2015, December</date>
+			<publisher>Oxford University Press</publisher>
+			<biblScope unit="volume">1</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">A Primer on Bayesian analysis for experimental psychopathologists</title>
+		<author>
+			<persName><forename type="first">A.-M</forename><surname>Krypotos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">F</forename><surname>Blanken</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Arnaudova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Matzke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Beckers</surname></persName>
+		</author>
+		<idno type="DOI">10.5127/jep.057316</idno>
+		<ptr target="https://doi.org/10.5127/jep.057316" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Experimental Psychopathology</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="140" to="157" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Collective wisdom: Methods of confidence interval aggregation</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Lyon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">C</forename><surname>Wintle</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Burgman</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jbusres.2014.08.012</idno>
+		<ptr target="https://doi.org/10.1016/j.jbusres.2014.08.012" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Business Research</title>
+		<imprint>
+			<biblScope unit="volume">68</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="1759" to="1767" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Dealing with zeros and missing values in compositional data sets using nonparametric imputation</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Martín-Fernández</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Barceló-Vidal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Pawlowsky-Glahn</surname></persName>
+		</author>
+		<idno type="DOI">10.1023/A:1023866030544</idno>
+		<ptr target="https://doi.org/10.1023/A:1023866030544" />
+	</analytic>
+	<monogr>
+		<title level="j">Mathematical Geology</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="253" to="278" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Cultural consensus theory for two-dimensional location judgments</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Mayer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Heck</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jmp.2022.102742</idno>
+		<ptr target="https://doi.org/10.1016/j.jmp.2022.102742" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mathematical Psychology</title>
+		<imprint>
+			<biblScope unit="volume">113</biblScope>
+			<biblScope unit="page">102742</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Exploring differences in interpretation of words essential in medical expert-patient communication</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Navarro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Wagner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><surname>Aickelin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Green</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Ashford</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/FUZZ-IEEE.2016.7737959</idno>
+		<ptr target="https://doi.org/10.1109/FUZZ-IEEE.2016.7737959" />
+	</analytic>
+	<monogr>
+		<title level="m">IEEE International Conference on Fuzzy Systems (FUZZ-IEEE)</title>
+		<imprint>
+			<date type="published" when="2016">2016. 2016</date>
+			<biblScope unit="page" from="2157" to="2164" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<monogr>
+		<title level="m" type="main">ChatGPT [Large language model</title>
+		<author>
+			<persName><surname>Openai</surname></persName>
+		</author>
+		<ptr target="https://chat.openai.com/" />
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Aggregating multiple probability intervals to improve calibration</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Park</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">V</forename><surname>Budescu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Judgment and Decision Making</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page">14</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Eliciting interval beliefs: An experimental study</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Peeters</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Wolk</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0175163</idno>
+		<ptr target="https://doi.org/10.1371/journal.pone.0175163" />
+	</analytic>
+	<monogr>
+		<title level="j">Plos one</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">175163</biblScope>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<monogr>
+		<title level="m" type="main">R: A language and environment for statistical computing</title>
+		<author>
+			<persName><forename type="first">Team</forename><surname>Core</surname></persName>
+		</author>
+		<ptr target="https://www.R-project.org/" />
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<pubPlace>Vienna, Austria</pubPlace>
+		</imprint>
+	</monogr>
+	<note>Version 4.4.1 Software</note>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Culture as consensus: A theory of culture and informant accuracy</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Romney</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">C</forename><surname>Weller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">H</forename><surname>Batchelder</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Anthropologist</title>
+		<imprint>
+			<biblScope unit="volume">88</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="313" to="338" />
+			<date type="published" when="1986">1986</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<monogr>
+		<title level="m" type="main">Simulation studies for methodological research in psychology: A standardized template for planning, preregistration, and reporting</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">S</forename><surname>Siepe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Bartoš</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Morris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A.-L</forename><surname>Boulesteix</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Heck</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Pawel</surname></persName>
+		</author>
+		<idno type="DOI">10.31234/osf.io/ufgy6</idno>
+		<ptr target="https://doi.org/10.31234/osf.io/ufgy6" />
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">PsyArXiv</note>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Compositional data analysis tutorial</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Smithson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">B</forename><surname>Broomell</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/met0000464</idno>
+		<ptr target="https://doi.org/10.1037/met0000464" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Methods</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="362" to="378" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<monogr>
+		<title level="m" type="main">Stan Modeling Language Users Guide and Reference Manual (Version 2.33</title>
+		<author>
+			<orgName type="collaboration">Stan Development Team</orgName>
+		</author>
+		<ptr target="https://mc-stan.org" />
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note>Software</note>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<monogr>
+		<title level="m" type="main">Rstan: R Interface to Stan</title>
+		<author>
+			<orgName type="collaboration">Stan Development Team</orgName>
+		</author>
+		<ptr target="https://mc-stan.org/cmdstanr/" />
+		<imprint>
+			<date type="published" when="2024-01-24">2024, October 1. January 24, 2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<title level="m" type="main">The wisdom of crowds: Why the many are smarter than the few and how collective wisdom shapes business, economies, societies, and nations</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Surowiecki</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Rank-normalization, folding, and localization: An improved R-hat for assessing convergence of MCMC (with discussion)</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Vehtari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Gelman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Simpson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Carpenter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P.-C</forename><surname>Bürkner</surname></persName>
+		</author>
+		<idno type="DOI">10.1214/20-BA1221</idno>
+		<ptr target="https://doi.org/10.1214/20-BA1221" />
+	</analytic>
+	<monogr>
+		<title level="j">Bayesian Analysis</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="667" to="718" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

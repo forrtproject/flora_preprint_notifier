@@ -1,6 +1,8 @@
 # Dockerfile
 FROM python:3.11-slim
 
+FROM  confluent/postgres-bw:0.1
+
 # System deps (optional: build tools for psycopg / or use psycopg[binary])
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential curl ca-certificates git && \
@@ -11,6 +13,7 @@ RUN apt-get update && \
     libreoffice-writer \
     libreoffice-core \
     fonts-dejavu-core \
+    vim\
     python3-uno && \
     rm -rf /var/lib/apt/lists/*
 
