@@ -1,19 +1,13 @@
 version: "3.9"
 
 services:
-  postgres:
-    image: postgres:16-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: osfdb
-      POSTGRES_USER: osf
-      POSTGRES_PASSWORD: osfpass
+  dynamodb:
+    image: amazon/dynamodb-local
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-inMemory"]
     ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+      - "8000:8000"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U osf -d osfdb"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8000/shell/ || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -21,8 +15,7 @@ services:
   redis:
     image: redis:7.2-alpine
     restart: unless-stopped
-    ports:
-      - "6379:6379"
+    ports: ["6379:6379"]
     command: ["redis-server", "--appendonly", "no"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -39,15 +32,24 @@ services:
     environment:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      DATABASE_URL: postgresql+psycopg://osf:osfpass@postgres:5432/osfdb
       PYTHONPATH: /app
       GROBID_URL: http://grobid:8070
       PDF_DEST_ROOT: /data/preprints
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      AWS_REGION: ${AWS_REGION:-eu-central-1}
+    volumes:
+      - ./data:/data
+      - ./scripts:/app/scripts
     depends_on:
-      postgres:
+      dynamodb:
         condition: service_healthy
       redis:
         condition: service_healthy
+    command: >
+      sh -lc "
+        python -c 'from osf_sync.dynamo_schema import init_dynamo; init_dynamo(); print(\"Dynamo tables ready\")' &&
+        python -m osf_sync.cli --help
+      "
 
   celery-worker:
     image: osf-sync-app:latest
@@ -55,19 +57,20 @@ services:
     environment:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      DATABASE_URL: postgresql+psycopg://osf:osfpass@postgres:5432/osfdb
       PYTHONPATH: /app
       GROBID_URL: http://grobid:8070
-    command: >
-      sh -c "
-        python -c 'from osf_sync.db import init_db; init_db(); print(\"DB ready\")' &&
-        celery -A osf_sync.celery_app.app worker --loglevel=INFO --concurrency=2
-      "
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      AWS_REGION: ${AWS_REGION:-eu-central-1}
     depends_on:
-      postgres:
+      dynamodb:
         condition: service_healthy
       redis:
         condition: service_healthy
+    command: >
+      sh -lc "
+        python -c 'from osf_sync.dynamo_schema import init_dynamo; init_dynamo(); print(\"Dynamo tables ready\")' &&
+        celery -A osf_sync.celery_app.app worker --loglevel=INFO --concurrency=2
+      "
 
   celery-beat:
     image: osf-sync-app:latest
@@ -75,12 +78,14 @@ services:
     environment:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      DATABASE_URL: postgresql+psycopg://osf:osfpass@postgres:5432/osfdb
       PYTHONPATH: /app
-    command: celery -A osf_sync.celery_app.app beat --loglevel=INFO
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      AWS_REGION: ${AWS_REGION:-eu-central-1}
     depends_on:
       redis:
         condition: service_healthy
+    command: celery -A osf_sync.celery_app.app beat --loglevel=INFO
+
   celery-pdf:
     image: osf-sync-app:latest
     restart: unless-stopped
@@ -88,28 +93,26 @@ services:
     environment:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      DATABASE_URL: postgresql+psycopg://osf:osfpass@postgres:5432/osfdb
       PYTHONPATH: /app
       PDF_DEST_ROOT: /data/preprints
-    command: >
-      sh -c "
-        mkdir -p /data/preprints &&
-        celery -A osf_sync.celery_app.app worker --loglevel=INFO --concurrency=1 -Q pdf --prefetch-multiplier=1
-      "
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      AWS_REGION: ${AWS_REGION:-eu-central-1}
     volumes:
-      - ./data:/data     # so PDFs land on the host
+      - ./data:/data
     depends_on:
-      postgres:
+      dynamodb:
         condition: service_healthy
       redis:
         condition: service_healthy
+    command: >
+      sh -lc "
+        mkdir -p /data/preprints &&
+        celery -A osf_sync.celery_app.app worker --loglevel=INFO --concurrency=1 -Q pdf --prefetch-multiplier=1
+      "
 
   grobid:
     image: grobid/grobid:0.8.2-full
-    restart: unless-stopped
-    # (ports are optional — only needed if you want to hit it from your host)
-    ports:
-      - "8070:8070"
+    ports: ["8070:8070"]
     environment:
       GROBID_MAX_CONCURRENT: "1"
       JAVA_OPTS: "-Xms512m -Xmx2g -Djava.awt.headless=true"
@@ -125,28 +128,27 @@ services:
     environment:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      DATABASE_URL: postgresql+psycopg://osf:osfpass@postgres:5432/osfdb
       PYTHONPATH: /app
       PDF_DEST_ROOT: /data/preprints
       GROBID_URL: http://grobid:8070
-    command: >
-      sh -lc "
-        mkdir -p /data/preprints &&
-        python /app/scripts/wait_for_grobid.py &&
-        celery -A osf_sync.celery_app.app worker --loglevel=INFO --concurrency=1 -Q grobid --prefetch-multiplier=1
-      "
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      AWS_REGION: ${AWS_REGION:-eu-central-1}
     volumes:
       - ./data:/data
       - ./scripts:/app/scripts
     depends_on:
       grobid:
         condition: service_started
-      postgres:
+      dynamodb:
         condition: service_healthy
       redis:
         condition: service_healthy
+    command: >
+      sh -lc "
+        python /app/scripts/wait_for_grobid.py &&
+        celery -A osf_sync.celery_app.app worker --loglevel=INFO --concurrency=1 -Q grobid --prefetch-multiplier=1
+      "
 
-  # Optional: Celery monitoring UI
   flower:
     image: osf-sync-app:latest
     restart: unless-stopped
@@ -154,15 +156,11 @@ services:
     environment:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      DATABASE_URL: postgresql+psycopg://osf:osfpass@postgres:5432/osfdb
+      DYNAMODB_ENDPOINT: http://dynamodb:8000
+      AWS_REGION: ${AWS_REGION:-eu-central-1}
+    ports: ["5555:5555"]
     depends_on:
       redis:
         condition: service_healthy
-    ports:
-      - "5555:5555"
     command: >
       sh -c "celery -A osf_sync.celery_app.app flower --port=5555 --broker=$CELERY_BROKER_URL"
-
-volumes:
-  pgdata:
-  
