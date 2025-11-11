@@ -2,12 +2,13 @@ version: "3.9"
 
 services:
   dynamodb:
-    image: amazon/dynamodb-local
-    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-inMemory"]
+    image: amazon/dynamodb-local:2.5.2
+    restart: unless-stopped
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-inMemory", "-port", "8000"]
     ports:
       - "8000:8000"
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:8000/shell/ || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8000/shell/ >/dev/null || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -30,24 +31,21 @@ services:
     image: osf-sync-app:latest
     env_file: [.env]
     environment:
+      PYTHONPATH: /app
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      PYTHONPATH: /app
-      GROBID_URL: http://grobid:8070
-      PDF_DEST_ROOT: /data/preprints
-      DYNAMODB_ENDPOINT: http://dynamodb:8000
-      AWS_REGION: ${AWS_REGION:-eu-central-1}
     volumes:
       - ./data:/data
+      - ./certs:/certs:ro
       - ./scripts:/app/scripts
     depends_on:
-      dynamodb:
-        condition: service_healthy
       redis:
+        condition: service_healthy
+      dynamodb:
         condition: service_healthy
     command: >
       sh -lc "
-        python -c 'from osf_sync.dynamo_schema import init_dynamo; init_dynamo(); print(\"Dynamo tables ready\")' &&
+        python -c 'from osf_sync.db import init_db; init_db(); print(\"Dynamo tables ready\")' &&
         python -m osf_sync.cli --help
       "
 
@@ -55,20 +53,21 @@ services:
     image: osf-sync-app:latest
     env_file: [.env]
     environment:
+      PYTHONPATH: /app
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      PYTHONPATH: /app
-      GROBID_URL: http://grobid:8070
-      DYNAMODB_ENDPOINT: http://dynamodb:8000
-      AWS_REGION: ${AWS_REGION:-eu-central-1}
+    volumes:
+      - ./data:/data
+      - ./certs:/certs:ro
+      - ./scripts:/app/scripts
     depends_on:
-      dynamodb:
-        condition: service_healthy
       redis:
+        condition: service_healthy
+      dynamodb:
         condition: service_healthy
     command: >
       sh -lc "
-        python -c 'from osf_sync.dynamo_schema import init_dynamo; init_dynamo(); print(\"Dynamo tables ready\")' &&
+        python -c 'from osf_sync.db import init_db; init_db(); print(\"Dynamo tables ready\")' &&
         celery -A osf_sync.celery_app.app worker --loglevel=INFO --concurrency=2
       "
 
@@ -76,13 +75,15 @@ services:
     image: osf-sync-app:latest
     env_file: [.env]
     environment:
+      PYTHONPATH: /app
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      PYTHONPATH: /app
-      DYNAMODB_ENDPOINT: http://dynamodb:8000
-      AWS_REGION: ${AWS_REGION:-eu-central-1}
+    volumes:
+      - ./certs:/certs:ro
     depends_on:
       redis:
+        condition: service_healthy
+      dynamodb:
         condition: service_healthy
     command: celery -A osf_sync.celery_app.app beat --loglevel=INFO
 
@@ -91,33 +92,31 @@ services:
     restart: unless-stopped
     env_file: [.env]
     environment:
+      PYTHONPATH: /app
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      PYTHONPATH: /app
-      PDF_DEST_ROOT: /data/preprints
-      DYNAMODB_ENDPOINT: http://dynamodb:8000
-      AWS_REGION: ${AWS_REGION:-eu-central-1}
-    volumes:
-      - ./data:/data
-    depends_on:
-      dynamodb:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
     command: >
       sh -lc "
         mkdir -p /data/preprints &&
         celery -A osf_sync.celery_app.app worker --loglevel=INFO --concurrency=1 -Q pdf --prefetch-multiplier=1
       "
+    volumes:
+      - ./data:/data
+      - ./certs:/certs:ro
+    depends_on:
+      redis:
+        condition: service_healthy
+      dynamodb:
+        condition: service_healthy
 
   grobid:
     image: grobid/grobid:0.8.2-full
+    restart: unless-stopped
     ports: ["8070:8070"]
     environment:
       GROBID_MAX_CONCURRENT: "1"
       JAVA_OPTS: "-Xms512m -Xmx2g -Djava.awt.headless=true"
       consolidate: "true"
-    runtime: nvidia
     volumes:
       - ./grobid-home/config/grobid.yaml:/opt/grobid/grobid-home/config/grobid.yaml:ro
 
@@ -126,28 +125,26 @@ services:
     restart: unless-stopped
     env_file: [.env]
     environment:
+      PYTHONPATH: /app
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      PYTHONPATH: /app
-      PDF_DEST_ROOT: /data/preprints
-      GROBID_URL: http://grobid:8070
-      DYNAMODB_ENDPOINT: http://dynamodb:8000
-      AWS_REGION: ${AWS_REGION:-eu-central-1}
-    volumes:
-      - ./data:/data
-      - ./scripts:/app/scripts
-    depends_on:
-      grobid:
-        condition: service_started
-      dynamodb:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
     command: >
       sh -lc "
+        mkdir -p /data/preprints &&
         python /app/scripts/wait_for_grobid.py &&
         celery -A osf_sync.celery_app.app worker --loglevel=INFO --concurrency=1 -Q grobid --prefetch-multiplier=1
       "
+    volumes:
+      - ./data:/data
+      - ./scripts:/app/scripts
+      - ./certs:/certs:ro
+    depends_on:
+      grobid:
+        condition: service_started
+      redis:
+        condition: service_healthy
+      dynamodb:
+        condition: service_healthy
 
   flower:
     image: osf-sync-app:latest
@@ -156,11 +153,9 @@ services:
     environment:
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
-      DYNAMODB_ENDPOINT: http://dynamodb:8000
-      AWS_REGION: ${AWS_REGION:-eu-central-1}
-    ports: ["5555:5555"]
     depends_on:
       redis:
         condition: service_healthy
+    ports: ["5555:5555"]
     command: >
       sh -c "celery -A osf_sync.celery_app.app flower --port=5555 --broker=$CELERY_BROKER_URL"
