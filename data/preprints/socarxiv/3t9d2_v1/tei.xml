@@ -1,0 +1,1446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Can I use TA? Should I use TA? Should I&lt;i&gt;not&lt;/i&gt;use TA? Comparing reflexive thematic analysis and other pattern‐based qualitative analytic approaches</title>
+				<funder ref="#_ZeFT9VT">
+					<orgName type="full">unknown</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher>Wiley</publisher>
+				<availability  status="unknown">
+					<licence/>
+				</availability>
+				<date type="published" when="2020-10-18">2020-10-18</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Virginia</forename><surname>Braun</surname></persName>
+							<idno type="ORCID">0000-0002-3435-091X</idno>
+						</author>
+						<author>
+							<persName><forename type="first">Victoria</forename><surname>Clarke</surname></persName>
+							<idno type="ORCID">0000-0001-9405-7363</idno>
+						</author>
+						<title level="a" type="main">Can I use TA? Should I use TA? Should I&lt;i&gt;not&lt;/i&gt;use TA? Comparing reflexive thematic analysis and other pattern‐based qualitative analytic approaches</title>
+					</analytic>
+					<monogr>
+						<title level="j" type="main">Counselling and Psychotherapy Research</title>
+						<title level="j" type="abbrev">Couns and Psychother Res</title>
+						<idno type="ISSN">1473-3145</idno>
+						<idno type="eISSN">1746-1405</idno>
+						<imprint>
+							<publisher>Wiley</publisher>
+							<biblScope unit="volume">21</biblScope>
+							<biblScope unit="issue">1</biblScope>
+							<biblScope unit="page" from="37" to="47"/>
+							<date type="published" when="2020-10-18" />
+						</imprint>
+					</monogr>
+					<idno type="MD5">A30D339A1B4B4A95A909F483D9AFACF9</idno>
+					<idno type="DOI">10.1002/capr.12360</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:18+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract xml:lang="it">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>intelligenza-artificiale-generativa-italiana-AF5Dc8RC?refresh_ce=1 4 https:</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>In the past few years, the Italian government has made enormous investments to develop the Italian Strategy for Artificial Intelligence 2024-2026. Among others, it funneled about 1 billion euros from national investment funds dedicated to technology towards CINECA -a public consortium of 70 Italian universities, two ministries, and 46 public institutions -that provide technological services to its members. CINECA is located at the outskirts of Bologna and hosts Leonardo, one of the largest supercomputers in Europe. Recently, one of the Leonardo tasks has been training three Italian Large Language Models (LLMs), including Modello Italia, which is trained in collaboration with the Italian startup iGenius 3 , and a French one. The overarching purpose of this endeavor is building an Italian LLM. It is not by chance, hence, that during the Italian presidency of the G7, the G7 Science and Technology summit took place in Bologna, in July 2024, and saw CINECA and the projects related to LLMs and Generative Artificial Intelligence supported by the Leonardo supercomputer as protagonists 4 .</p><p>At the same time as the G7 Science and Technology summit, another gathering took place in Bologna, just four kilometers from Leonardo, amid signs that read "G7 not welcome" and "We are technology, you are 7 big boomers". This was some sort of activist counter-summit organized to criticize the official one. Lamenting the closeness and secrecy of the G7 meetings, activists from various movements set up an open assembly in Piazza Maggiore, the city's main square, bustling with tourists and locals at that time of the year. Activists considered the peculiar choice of the gathering location as an antithesis to the "being closed in one room" of the official summit. Passers-by were invited to participate in the assembly, while the event was broadcast live on a Telegram channel.</p><p>As often happens on the occasion of official, governmental, and international organizations' summits and the related activist counter-summits, these two simultaneous events bring with them opposing understandings of the topics they cover. In the case of the G7 Science and Technology summit, the matter at stake was the development of emerging digital technologies and, more prominently, of Artificial Intelligence and its role in societies. On one hand, there was a mainstream understanding of Artificial Intelligence sustained by the Italian government and the research organizations it funds.</p><p>Overall, it stated a clear relationship between technology and society in which innovation supports third imaginary, we illustrate how, on one hand, activists delineate a state of undesirable AI present by discussing AI errors produced by the current sociotechnical infrastructure; on the other hand, we discuss how they prefiguratively attempt to exert agency from the grassroots, through practices of federation, creation and regulation, to steer this present towards desirable AI futures. In the conclusions we further discuss how the imaginary developed by the movement relates to a broader discussion about AI Errors.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">The Sociotechnical Imaginaries of Artificial Intelligence</head><p>As any technology, being it still emergent or already established, Artificial Intelligence (from now on AI) is embedded in larger visions about its role in, and implications for, societies <ref type="bibr" target="#b16">(Crawford, 2021)</ref>.</p><p>Such visions are plural, despite some dominating over others, and are developed also by those actors that are not behind technology creation in the first place, but recognize its disruptive potential, the threats that it might pose to human beings, as well as the novel opportunities it can create in many societal sectors. In short, the meanings of AI for societies are not a given and they rather develop dynamically due to the intersection of different viewpoints, often visible in public discourses and subject to negotiations and contestations. For this reason, AI shall be understood as proper sociotechnical artifacts <ref type="bibr">(Bijker et al., 2012)</ref>, in which technological materiality is embedded in dense social interactions among a variety of social actors, each of them coming with specific understandings, discourses, and visions about this emerging technology.</p><p>These visions can be understood through the analytical lens of sociotechnical imaginaries <ref type="bibr">(Jasanoff &amp; Kim, 2009;</ref><ref type="bibr">Jasanoff &amp; Kim, 2015)</ref> and, most importantly, the narratives that constitute them, amongst which we also do have understandings of AI that are alternative and aim at destabilizing those held by institutions <ref type="bibr" target="#b15">(Cave et al., 2020)</ref>. The recognition of the presence of alternative visions and narratives within sociotechnical imaginaries allows us to see them not as monolithic collective interpretations of what technology is and should be, but to see at work the presence and encounters of "multiple and contested" visions <ref type="bibr">(Mager &amp; Katzenbach, 2021, p. 226)</ref>. As pointed out already above, the contested nature of sociotechnical imaginaries means they develop along a mainstreamalternative axis, that rests on the unequal distribution of power and resources in societies <ref type="bibr" target="#b19">(Delina, 2018)</ref>: actors occupying positions of power and influence are primary producers of mainstream sociotechnical imaginaries that have a dominant position in public discourses, reinforcing existing power structures and policy paradigms. With this regard, state actors' national AI strategies have been defined as a combination of policy tools and public discourses, in which imaginaries play a relevant role in setting the rules of, and allocating resources to, AI <ref type="bibr" target="#b6">(Bareis &amp; Katzenbach, 2022)</ref>. In contrast, marginalized actors and, among them, activist groups that mobilize through social movements, may offer alternative sociotechnical imaginaries that challenge the dominant frameworks and demand concrete societal transformation towards increased social justice and reduced inequalities. Dominant sociotechnical imaginaries of AI have received attention from research in the past years, with studies focusing on industry imaginaries and their pervasive utopian views of AI <ref type="bibr" target="#b28">(Mager &amp; Katzenbach, 2021)</ref>, imaginaries of AI in academia <ref type="bibr" target="#b47">(Sartori &amp; Bocca, 2023)</ref>, industry-biased agenda setting of AI in mainstream media <ref type="bibr" target="#b21">(Elish &amp; boyd, 2018;</ref><ref type="bibr" target="#b11">Brennen et al, 2018)</ref>, and the imagination of AI futures in the popular discourse <ref type="bibr" target="#b24">(Goode, 2018)</ref>. Most relevant to this work, for they are directly elaborated and sponsored in the context of the most political part of the state, governments around the world <ref type="bibr">(Chatterjee, 2020;</ref><ref type="bibr">Daly et al., 2019;</ref><ref type="bibr">Niklas &amp; Dencik, 2020;</ref><ref type="bibr" target="#b6">Bareis &amp; Katzenbach, 2022;</ref><ref type="bibr">Hoff, 2023)</ref> elaborated AI strategies which envision the role of AI in achieving a desirable future, one framed as good for a collectivity as large as the nation-state that the government claims representation over. These strategies are carriers of dominant imaginaries of AI, which normalize <ref type="bibr" target="#b19">(Delina, 2018)</ref> the goodness of AI technological pathways, in at least three ways.</p><p>First, mainstream sociotechnical imaginaries are tied to the discourses and visions produced within the industries that design, create and implement emergent technologies. The so-called industry utopias <ref type="bibr">(Marčetić &amp; Nolin, 2023)</ref>, that come with promises for a bright future in which Artificial Intelligence and its applications will be fruitfully applied in a variety of sectors, are often absorbed uncritically by those actors that regulate the AI industry. This makes it so that the regulation of companies that produce AI applications passively and uncritically reproduces the utopian imaginaries elaborated within the AI industry, regardless of the potentially instrumental nature of those narratives.</p><p>Promises made by corporate developers about the value of their AI products are uncritically bought and implemented in many infrastructures, such as health, education and decision making.</p><p>Industry utopias are coupled with a discursive closure, according to which it is difficult, when not impossible, for lay individuals, but also for policymakers, to address emerging digital technologies without reproducing "current ideological trends or to cede control to external, often corporate stakeholders" <ref type="bibr">(Mager &amp; Katzenbach, 2021, p. 231)</ref>. In this regard, <ref type="bibr">Markham's work (2021)</ref> provides an ethnographic illustration of the reproduction and stickiness of dominant imaginaries even in critical contexts: She looks at the discursive closure of technology that lets industry naturalize, neutralize, and legitimize hegemonic views, making undesirable features of sociotechnical futures (such as surveillance) appear as inevitable.</p><p>Finally, the combined presence of industry utopias and discursive closure is tied to yet another feature of mainstream sociotechnical imaginaries, that is a sense of technological sublime, through which the normalization of an AI myth passes <ref type="bibr" target="#b6">(Bareis &amp; Katzenbach, 2022)</ref>. The concept, developed by <ref type="bibr" target="#b38">Nye (1994)</ref>, describes a sentiment of awe and terror towards technology which "reduce(s) complexity and decouple(s) developments from their social contexts and power structures. (…) Embodies the celebration of technological progress and conceals its problems and contradictions" <ref type="bibr">(Bareis &amp; Katzenbach 2022, pp. 859-860)</ref>. The actual materiality of AI is assimilated to "magic", increasing its closeness to utopian and dystopian visions of the future. As Mosco (2005) discussed for the "cyberspace myth", technological myths are tied to visions of a new world, immune to categories of true or false. The diffusion of new, "mythical" technologies such as AI, thus, is not the product of a mere assessment of their affordances and benefits but is sustained by collective beliefs in their revolutionary nature. Integral to the considerations of this work is also the pre-political nature of cyberspace myths <ref type="bibr">(Mosco, 2005, p. 16</ref>): as myths can depoliticize speech, they have the potential to instrumentally depict certain agendas as natural and unavoidable.</p><p>The simultaneous, and interlaced, presence of industry utopias, discursive closure, and technological sublime brings further a mainstream, and dominant, sociotechnical imaginary that revolves around a utopic, and almost magical, vision of AI nurtured by the companies that create AI applications and uncritically absorbed by state actors and policymakers, one that some refer to as "AI Hype" <ref type="bibr">(Bareis, 2025;</ref><ref type="bibr" target="#b30">Markelius et al., 2024;</ref><ref type="bibr" target="#b20">Duarte et al., 2024)</ref>. However, as already stressed above, this is just one side of the coin: sociotechnical imaginaries often become a site of contention in different arenas, including the policy one, in which dominant and subaltern actors compete for the definition, recognition and handling of AI failures <ref type="bibr" target="#b3">(Barassi, 2024)</ref>, intended not as specific mistakes that AI systems might produce, but rather as more structural, encompassing, ensembles of errors that travel from AI system to AI system. These failures are not there by chance. Instead, they are due to the interconnected array of economic, social, and political elements, and interactions, that are inscribed in AI technologies (ibidem).<ref type="foot" target="#foot_0">foot_0</ref> These failures, while potentially harmful, are also revelatory in that when seen out there in the visible surface of AI systems they can give hints on the interconnections of the elements that make them possible, revealing biases in their development for instance, and in so doing might contribute to turn AI systems into carriers and producers of social problems <ref type="bibr">(Ananny, 2022)</ref>. As such, they might become subject to public scrutiny and, also, contestation. In this line, scholarly work on Artificial Intelligence Controversies looks at AI through the lense of science and technology studies to understand how different kinds of publics participate in shaping AI through controversy <ref type="bibr" target="#b50">(Shaffer Shane, 2023;</ref><ref type="bibr" target="#b51">Sloane, 2024;</ref><ref type="bibr">Gourlet et al., 2024)</ref>. The extant literature that focuses on the contestation of sociotechnical imaginaries, primarily produced in energy and sustainability research, has evidenced how grassroots social movements can fosterer alternative visions of the future that inform, problematize, and politicize dominant ones <ref type="bibr" target="#b19">(Delina, 2018;</ref><ref type="bibr" target="#b32">Marquardt &amp; Delina, 2019;</ref><ref type="bibr">Jasanoff &amp; Simmet, 2021;</ref><ref type="bibr" target="#b18">Deciancio &amp; Siegel, 2023)</ref>. More in general, the role of social movements appears fundamental "to understand the multiple ways in which different sections of society are responding, negotiating, and finding solutions to AI failures" <ref type="bibr">(Barassi, 2024, p. 7)</ref>.</p><p>Indeed, activists involved in civil society organizations and social movements that mobilize and campaign on digital technologies develop alternative systems of meanings <ref type="bibr" target="#b34">(Melucci, 1996)</ref> on AI, also through their collective actions. By doing so, activists also engage with the mainstream imaginaries embedded in the commercial technologies that have spread widely over the past few decades, including social media platforms, and that are linked to the visions of digital capitalism embraced by companies involved in AI development (i.e. <ref type="bibr" target="#b23">Ferrari, 2024;</ref><ref type="bibr">Treré, 2019;</ref><ref type="bibr" target="#b53">Treré et al., 2017;</ref><ref type="bibr" target="#b2">Barassi, 2015)</ref>. Despite often being marginal and less visible, at least at their inception, positioned at the fringes of public discourses, the alternative systems of meaning that activists produce about AI put into question and in some cases even contest mainstream sociotechnical imaginaries revolving around utopian visions of AI. At the same time, activists also reach beyond them by imagining alternative desirable futures, engaging in a work of resignification that renders AI an object of political contention and bringing in a critical perspective that instead casts light on present, problematic aspects of this emerging digital technology. These alternative visions of newly emerging technologies might matter not only in the coproduction of their present shape, but also in their futuremaking capacity <ref type="bibr" target="#b43">(Pentzold et al., 2020)</ref>, as they contribute to the enactment and accomplishment of specific technological pathways: we might well say, then, that current visions of AI come with a relevant performative potential in that they participate in the production of AI futures <ref type="bibr" target="#b14">(Cave et al., 2018)</ref>.</p><p>Which alternative visions of AI activists develop to contest mainstream sociotechnical imaginaries and how they do so is, however, still underinvestigated. This might be partially due to the fact that such imaginaries often remain at the margin of the public debate and are more difficult to access than mainstream visions related to Artificial Intelligence. Indeed, while the latter are present in official documents, public statements and news articles, activist understandings of Artificial Intelligence are more difficult to grasp, because they are often given meaning from the grassroots and developed around contentious collective actions, in informal, emergent contexts such as social movements.</p><p>Works like <ref type="bibr" target="#b54">Velkova and Kaun (2019)</ref> and <ref type="bibr" target="#b9">Treré and Bonini (2024)</ref> have shed light on how activists can reclaim agency to resist automation processes based on moral economies that are alternative to those of the owners and designers of platforms. And the work of <ref type="bibr">Scharenberg and Barassi (2025, pp. 472-474)</ref> has illustrated how civil society actors resist algorithmic profiling also by problematizing its very epistemological premises and dominant imaginaries, unveiled as Western-centric and discriminatory, by carrying forward marginalized and decolonial perspectives. We aim to contribute to this discussion by further investigating how activists develop strategies of resistance, introduce marginalized perspectives into dominant AI imaginaries, and prefigure desirable technological futures in the present based on the alternative perspectives they elaborate through their struggle for social justice. In this article, we explore activists' visions of AI examining how they address, reshape and revise the dominant, mainstream sociotechnical imaginaries surrounding this technology. By doing so, we will show that recognizing problematic aspects of AI enables activists to cast light on the potential and actual failures of this emerging technology. At the same time, we will illustrate how activists imagine and experiment with ways of addressing these failures by elaboration on desirable futures related to AI, its features and its role in societies, with a specific focus on GenAI. Before addressing this question, in what follows we outline the research design and methods used to carry out the empirical investigation on which this article rests.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">Research Design and Methods</head><p>The empirical contribution of this article rests on the explorative investigation of a pilot case study:</p><p>an Italian social movement network that has been active between the cities of Bologna and Naples since 2023. This social movement network keeps together various movement organizations and individual activists with diverse political backgrounds and mobilizing on different contentious issues, getting together for their shared critique of the neoliberal sociotechnical order and data capitalism.</p><p>Participants have backgrounds that span from environmental and transfeminist movements' organizations, like Extinction Rebellion and Non Una di Meno, local social centers and political collectives, to individual free software and Fediverse activism, as well as union-like organizations such as Tech Workers Coalition.<ref type="foot" target="#foot_1">foot_1</ref> Other than activists and organizers, the network is participated by academics, journalists and tech workers. The network has an online community on Telegram, meets periodically at festivals and laboratories that it organizes in the two Italian cities, and on specific occasions also engages in the organization of public protests, like the gathering briefly discussed at the beginning of this article on the occasion of the G7 Science and Technology summit.</p><p>To investigate the social movement network, we conducted participant observation throughout 2024, participating in the public events organized by the network, such as seminars and workshops about Artificial Intelligence, a three-day technology festival organized in the city of Bologna, local assemblies, as well as protest events. Additionally, the participant observation took place online in the Telegram channel of the social movement network, from May to December 2024. In all cases, participant observation was overt: the author who engaged in it disclosed her presence as a researcher and sought the consent of the main organizers of the social movement network, including the administrator of the Telegram channel<ref type="foot" target="#foot_2">foot_2</ref> , while at the same time disclosing her research activities to the participants whenever necessary.</p><p>Along with participant observation, one of the two authors also collected and analyzed most material published by the social movement network through its website, including reports from the 2023 edition of the festival, and conducted in-depth, semi-structured interviews with eight activists involved in the social movement network, including public events organizers, workshop speakers, and developers of grassroots tech projects that the social movement network supported.</p><p>The semi-structured interviews lasted about one hour, and were conducted in Italian, the mother tongue of all participants, in half of the cases face-to-face and in the other half online. The interview guide revolved around four questions: the interviewee's activist background, uses of AI by the interviewee (individual AI practices), how AI is discussed and used in the context of the participant's movement affiliations (collective AI practices), and how AI collocates with respect to the imagined desirable futures of the interviewee. All interviews were fully transcribed and then anonymized, and this manuscript will not explicitly reference the interviewee's role when it might reveal sensitive information.</p><p>We coded field notes taken during participant observation, documents, and interview transcripts through Reflexive Thematic Analysis <ref type="bibr" target="#b10">(Braun &amp; Clarke, 2019</ref><ref type="bibr">, 2021a)</ref> using the software MAXQDA.</p><p>The coding strategy, mostly inductive, involved three main stages as exemplified in Table <ref type="table" target="#tab_0">1</ref> First, we coded all the data segments that made a reference, either implicit or explicit, to some aspects related to sociotechnical imaginaries of Artificial Intelligence, including for instance perceptions, evaluations, meanings and practices attached to Artificial Intelligence, both desirable and undesirable, linked to the present moment or evoking a distant future. Then, we combined the first phase codes into candidate sub-themes and clustered them around central organizing concepts, the themes. Finally, we merged themes that overlapped semantically and split those that combined more dimensions, organizing these final themes around three distinct AI sociotechnical imaginaries -AI Utopia, AI Dystopia and Solarpunk AI -that we introduce in the next section.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Three alternative sociotechnical imaginaries of Artificial Intelligence</head><p>Both what we call AI Utopia and AI Dystopia are imaginaries that conceive a momentous social change contingent on the materiality of AI technologies, inherent in its affordances. Although showcasing varying levels of hardness and softness, these are both techno-determinist views. These two imaginaries consider distant futures and how specific technologies make or do not make them possible, without taking into consideration the current stage of AI development and the consequences it already has on the currently existing world and its inhabitants. We may visualize these two imaginaries as follows:</p><p>The first sociotechnical imaginary, which we named AI Utopia, revolves around the core idea that AI technologies afford better futures, a feature that we have observed in what <ref type="bibr">Marčetić and Nolin (2023)</ref> refer to as industry utopias. In deeming a future desirable, some interviewees are informed by political goals of automation and freedom from work, while others showcase an apolitical reproduction of techno-solutionist AI narratives. In an example of the latter, one interviewee, an individual coding literacy advocate and volunteer, talks about AI development as inevitable and positive: "It is stupid, in my opinion, to oppose this. This is just the beginning. We have not yet seen all that we can accomplish with these tools. (...) The trends also tell us that there will come a time when technology will be very helpful for the elderly, people over 60. Artificial intelligence will</p><p>Techno-determinism (the idea that technological progress determines social futures) Optimism (conceiving the future as desirable) UTOPIA (Ecomodernism, Transhumanism) Pessimism (conceiving the future as undesirable) DYSTOPIA (Cyberpunk)</p><p>be widely used for that, but also for mental health. That's why I say we haven't seen anything yet. It is useless even to oppose it." (I1)</p><p>The former type of AI Utopia is more politically oriented and revolves around the idea that AI innovation affords revolutionary claims that would be impossible otherwise. In these views, desirable futures (in this case, socialist utopias) are made possible by current AI, and the actualization of these futures is only stalled by the lack of political initiative towards social change. One of the interviewees, an organizer in the network, laments the absence in movements of radical demands, which, according to him, would today be possible with the advent of AI technologies: "I like automation, so. It is a labor-related issue. This point here makes you realize how much revolution today is happening from the top, and not from the bottom. Because there were times when we were talking about full income, less work, full automation...if you want from the late 1800s, but certainly from the 1970s. Today that we have the technology, it's directed from the top. But it's not like it's directed from the top and they're just bad guys, but because from the bottom...you don't make certain discourse anymore, when there would be all the context to be able to make them in a radical and disruptive way. (...) There is politics to be done. But this is a fact here, which is that people are not talking enough about full automation, and there is no political horizon of using these technologies to free people from… let's call it anxiety and stress, but aka work, basically. Work, the concept of income." (I8).</p><p>Interestingly, both these perspectives discuss AI for healthcare and automation and do not take into account existing technological configurations that are already available to the public, such as GenAI, focusing instead on technologies that do not yet exist but are the subject of AI Hype <ref type="bibr">(Bareis, 2025;</ref><ref type="bibr">Duarte et al., 2025;</ref><ref type="bibr" target="#b30">Markelius et al., 2024)</ref>.</p><p>That said, the sociotechnical imaginary of AI Utopia is certainly not the most prominent that emerges from the data analysis. Indeed, in the social movement network, perceptions of AI as an epochal change frequently match feelings of pessimism and anxiety over its disruptive, when not destructive, potential for the environment, for democracies, and for human cognition. There are, hence, dystopian views of a future in which AI will be central and, yet, unable to bring positive changes for humanity.</p><p>This sociotechnical imaginary, that we labelled AI Dystopia, expresses the idea that AI technology affords worse futures. It also puts Generative AI (from now on GenAI) under more scrutiny. In this case, the focus is on the ability of GenAI to generate textual and audiovisual content indiscernible from that human generated. For instance, one interviewee, programmer in a free software project, expresses this sense of anxiety for an undesirable future through the idea that GenAI will become smarter than the human publics of its generated contents, creating a climate of permanent post-truth: "It will be difficult to understand, know, or have the truth. As the AI becomes smarter than you, knowing whether it is lying or not...well, it will be quite difficult." (I6)</p><p>Dystopian imaginaries hold views of the process of social reproduction as a "completely coherent, pervasively integrated system" with "little possibility for deliberate strategies of social transformation" <ref type="bibr">(Wright, 2010, p. 18)</ref>. In this context, the dystopian imaginary sees the diffusion of AI in societies as a destructive and epochal change that is already underway, with unimpeded and pervasive capabilities of reproduction of data and surveillance capitalism. In this view, there may be hope only in the rejection and boycotting of emerging AI technologies. Granted that this imaginary includes an element of diagnosis of an undesirable present, it lacks a plan and hope for meaningful social change. Recalling Markham's study (2021), we evidence how in our case too there is a degree of stickiness of ideas and concepts deriving from techno-deterministic Big Tech imaginaries that are also in line with what a recent study found in public debates around ChatGPT and GenAI chatbots in Italian social media, in which either utopian or dystopian views prevails <ref type="bibr" target="#b0">(Acampa, 2025)</ref>. However, like in the case of AI Utopia imaginaries, also the AI Dystopia ones are not the most prevalent imaginary in the social movement network, that hence proves to be different than what we can found in more mainstream debates about AI technologies. Indeed, being dedicated to bringing about social change and creating a more desirable sociotechnical future, the social movement network is home to a third, more common sociotechnical vision. Rather than focusing solely on utopian or dystopian futures, this imaginary takes into account the current state of AI, particularly GenAI, and understands it as being deeply embedded within the framework of digital and surveillance capitalism. As such, activists examine current implementations of AI and GenAI, highlighting the structural marginalization of those actors that do not align with the interests of big tech companies when it comes to technological advancements. This diagnostic focus allows the social movement network to take a normative, critical position with regard to currently existing AI. However, that is not all: it also provides the basis for imagining and experimenting with alternatives, exerting agency towards AI and GenAI from the bottom up. The present is conceived as a critical juncture <ref type="bibr" target="#b12">(Capoccia &amp; Kelemen, 2007)</ref> in which activists have chances to counterbalance technological development and regulations that are top-down imposed by the digital tech industry with the support of policymakers.</p><p>Drawing on the words used by one of the activists interviewed, a tech worker, we label this sociotechnical imaginary as Solarpunk AI: "If I had to answer you with one word, I would say a Solarpunk imaginary. The world I would like is a world that makes use of technology. I'm not a primitivist. Certainly, it's a world where our relationship with nature and the planet, with the environment, is completely different."</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>(I5)</head><p>The Solarpunk imaginary recognizes technology as valuable and positions it within societies where human beings have been able to develop a different type of relationship in connection to the world they inhabit and their roles in it. The term Solarpunk originates from a literary and artistic genre that refers to stories of actualization and aesthetics of a post-capitalist, technologically enabled, and environmentally sustainable future. A genre explicitly different from utopia in its stress on the present, DIY construction of an achievable better future, and different from dystopia in conceiving agency and opportunity for change through struggle <ref type="bibr" target="#b55">(Verso, 2024)</ref>. This third imaginary differs from AI Dystopia and AI Utopia in two main ways. Firstly, the understanding of the relationship between technology and society expressed in this imaginary follows an opposite direction from that of technological determinism. It represents a world in which the social actors and power relations that co-participate in technological production influence it, its affordances, and consequently on the value and impact it has in society. In this conception, there is social agency in the process of technological innovation. However, being a contentious imaginary, it moves from the recognition of how this agency is presently in the domain of tech firms, venture capital, and policymakers that reproduce their narratives, the main social powers involved in the development and regulation of AI technologies. For this reason, present AI is seen as a set of affordances that reproduce This stress on agency leads to a fundamental reconceptualization of negative AI consequences. Rather than viewing these issues as mere "technical faults" of a complex emerging technology in the early stages, that hence will eventually be overcome through technical fixes, the imaginary envisions such faults as inherently tied to the sociotechnical choices embedded within AI technologies stemming from the specific political economy of the actors that have power in their development. This perspective aligns with <ref type="bibr" target="#b5">Barassi's (2022;</ref><ref type="bibr">2024)</ref>  Secondly, and relatedly, this imaginary does not start from an a priori optimistic or pessimistic position toward AI technologies, because it only concerns itself with imagining the future after diagnosing the problems to be in the present. If existing AI affordances are configured by the logics of data capitalism, then new AI technologies can be imagined starting from a radical awareness of the kind of social and economic relationships one wants to materialize. And, after imagining, it is also possible to practically experiment in the present, tinkering, hacking, and modifying currently available AI technologies to sustain such a framing of the future. It is in this sense that the AI related practices of the movement are prefigurative: as we will see in the next two sections, they move from a critique of the existing order to actualize alternative practices-in this case, technological-that materialize desired societal transformations on a micro scale.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">Solarpunk AI as a sociotechnical imaginary to reveal AI errors in the present</head><p>As outlined above, the first step in the discursive mechanism of the Solarpunk AI imaginary is the diagnosis of an undesirable present. This occurs with the identification of AI Errors, emerging from the present configuration of AI technologies. Through different assemblies, thematic tables and workshops, the social movement diagnosed AI errors in four specific domains -labor, information, human rights and environmental impact -as discussed in what follows.</p><p>Concerning labor, AI technologies are discussed in their capacity of devaluing human work through automation, replacement and a submerged increase of workload, particularly affecting, presently, creative professionals and education workers. Furthermore, differential access to AI tools is seen as a new form of workplace stratification, potentially exacerbating existing inequalities in various professional sectors. Finally, AI-driven performance evaluation and monitoring systems create new forms of worker and student surveillance. Overall, AI errors in labor can be summarized by the reproduction and exacerbation of class inequalities: "Not everyone can afford to accept the change because AI will replace many jobs. So, it is always a struggle, as I always say, a class struggle. (…) People who are working today, and tomorrow will not be working because of artificial intelligence, will be very hurt." (I1) Furthermore, the Solarpunk AI sociotechnical imaginary sees AI systems as interacting with and amplifying existing challenges in digital information environments. For instance, the problem of posttruth and the difficulty of finding reliable information are relevant errors linked to Generative AI: "Generative AI has an impact on information. "Political" deepfakes, hard-to-find sources of images and texts produced by AI tools, are apparent, for example, for the conflict in Gaza."</p><formula xml:id="formula_0">(Report 3)</formula><p>Besides journalism, the imaginary considered how AI technologies interact with existing content moderation systems on social media platforms. AI implementations compound the limitations and biases already present in algorithmic content moderation, potentially reducing the effectiveness of existing verification mechanisms. Concerning GenAI, the AI-generated content, particularly in the form of political and pornographic deepfakes, and bot-generated comments, introduces new complexities into social media platforms. These technological capabilities create additional barriers to establishing content authenticity, as well as posit specific dangers towards women and LGBTQIA+ people on social media platforms. Overall, GenAI in social media platforms is seen as integrating and accelerating already existing problematic platform logics: "The economy of attention, the economy of dopamine, is actually an extremely real thing. I mean, the dopamine scrolling, the algorithm that makes you see news that you never had any kind of relationship with. The comments that are generated by artificial intelligence...It's a phenomenon, in my opinion, that has an appeal. It's not positive, but it has an appeal." (I6)</p><p>The discussion also evidenced how AI-generated content, including both images and text, can reproduce and amplify existing stereotypes in racial and gender discrimination. Cases of deepfake technology to produce intimate content without consent, disproportionately hurting women, are discussed. Regarding social media platforms, the imaginary discussed how AI-driven targeting mechanisms hurt user identity, expression and safety: current AI systems may enforce restrictive binary categorizations that particularly impact LGBTQIA+ users. Feminist workshops on AI, specifically GenAI and AI in platforms, were specifically dedicated to these issues in both editions of the festival. One example comes from this working group of the second edition: "In the "identity theft" group, the conversation started from the consequences that these actions can have on mental health. Deep fakes were discussed, how damaging this can result to a person's career and life. Generative AI, and how it develops stereotypical images, generating misinformation through the manipulation of information, was discussed. Also identified were a strong objectification and fetishization (experienced particularly by women, lesbian couples and trans people), and an extremely binary and homo-bi-transphobic social profiling that only worsens the emotional and mental state of those being affected." (Report</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>2)</head><p>The discussion extended to the application of AI in surveillance, particularly focusing on biometric systems and border control. These technologies, when implemented in immigration procedures and legal processes, can hurt migrants and racialized communities. The Solarpunk AI sociotechnical imaginary identified specific concerns regarding how these systems might influence judicial outcomes and immigration decisions, integrating worries about AI in the experience and background of migration justice movements. Algorithmic and biometric discriminations against racialized people are discussed both in their existing concrete effects and in their origin, identified in technological design itself: "In the US...now I can't really describe the event, but AI had recognized a black person as a criminal when, in fact, they were not. It's a whole problem there." (I1) "You would put the AI-powered camera in front of a black person's face, and it wouldn't follow it, you know? Because most likely the development team were all super healthy 35-year-old white males and so...in that sense, for sure, if you don't reason it out first, you put some politics in it even without meaning to." (I5) Finally, highlighting how the current AI infrastructure carries significant environmental costs in terms of energy and water consumption, the imaginary emphasizes the need for cost-benefit analyses of AI implementations, noting that such evaluations are inadequately performed by both governmental and corporate actors. Considerations about lack of awareness are also present in this theme, for which a disproportionate and needless use of AI by individuals contributes to the issue. While acknowledging that AI can be a useful tool, their reflections stress that the current big scale infrastructure supporting AI systems, as well as future tendencies towards large, encompassing models, is not environmentally sustainable nor the most desirable from a user standpoint. As expressed by one participant, a programmer and tech activist: "These are things that we can't produce sustainably at the moment, we can't use sustainably.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>They consume a lot, they don't work, you have no guarantee that what comes out is what it's</head><p>supposed to, so I honestly found very few uses for them except... you have to make a visual?</p><p>Yes, you generate one on ChatGPT, but it's like pouring a liter of water on the ground in Sicily.</p><p>I mean, at what price is this timesaving? I don't know if it's really sustainable, so I don't have a really... killer application in mind." (I5)</p><p>Through the discussion of these AI errors, the social movement network under investigation outlines an undesirable AI present that affects several domains, amplifying pre-existing inequalities and creating new ones. This work of analysis reached conclusions about the impact and value of AI in societies similar to those discussed in academic literature, for example, by <ref type="bibr" target="#b7">Benjamin (2019</ref><ref type="bibr">), Madianou (2024</ref><ref type="bibr" target="#b16">), and Crawford (2021)</ref>, who have illustrated how AI technologies intervene to systematize racial discrimination and human rights violations, and are steeped in socially and environmentally unsustainable infrastructures. However, as we will see in the following section, the Solarpunk AI sociotechnical imaginary extends beyond the discussion of an undesirable present marked by substantial, systematic, and structural failures caused by AI and GenAI. In this going beyond, the movement engages in prefiguration.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.">Fixing AI errors through federation, regulation and creation</head><p>From this diagnosis, which identifies in the current technical configuration of AI the unnecessary and fallacious realization of AI-based capitalism, the movement develops experimental practices aimed at prefiguring the existence of alternative AIs. AI technologies that aim to reject, fix from the bottom up, and deny the naturalness of, the AI errors produced by the dominant sociotechnical order. This prefigurative intention is also suggested by one of the main claims that appears in most documents released by the movement on its website, in which the community is described as a collective actor "within, against and beyond" data capitalism. We identified three forms of experimentation.</p><p>First, practices of federation. In the Solarpunk AI sociotechnical imaginary, different AIs are possible and more desirable: these are small-scale, specialized and decentralized AIs that are federated Federating small-scale AI models is seen as a remedy to the dangers of big encompassing models, which are often claimed to be the only technological structure that allows the expected efficiency and performance of AI. The sociotechnical imaginary evokes a future in which, by federating smaller AI models specialized in different tasks, performativity is kept while significantly reducing problems of environmental impact, privacy, surveillance, and monopoly.</p><p>In these cases, the focus is on chatbots and the LLMs supporting them. A workshop called "Designing participatory, inclusive, and community-based technologies alternative to capitalist platforms" was specifically dedicated, during the 2023 edition of the festival, to imagining such federated AIs through the platforming of a grassroots tech project working towards them: "The need addressed by this project is to reduce the scale of the database available to AIs and to have multiple "federated" AIs, each specializing in a task and based on data provided by users. <ref type="bibr">Each</ref> user can manage his or her data, making it public or private according to his or her wishes. By federating data, AI models have good responsiveness while still being able to use data and training managed directly by the user according to his or her needs." (Report 4) Smaller, open-source models are also perceived as more efficient than the insulated, generalist models of mainstream AI firms: "There is this interface on which you can put open-source text-based models. They are less powerful, but they are more sustainable and more reliable because they are on a friend's computer and not on a Californian server. And you can work with them in a more... you can put your hands into them more, you know. You can set more specific datasets and inputs, without also risking censorship, as there is...censorship or moderation, call it what you will, as when you rely on models of US industry, mainly." (I8)</p><p>Second, practices of creation. Once the AI myth based on the belief of a magical AI is broken, new futures can also be experimented with, through laboratory moments and hands-on activities uniting experts in AI technologies and non-experts. The great majority of interviewees individually have used, and regularly use, GenAI, because it helps alleviate the burden of volunteer work, as all of them are part of resource-poor collectivities. Nonetheless, they recognize the existence of fallacies in GenAI, and sense the opportunity of a political act in exposing them: "I realized that in a technology that was being perfected so much, the interesting thing was to find the holes, the fallacies, the failures, the short-circuits…ways, I won't say to deceive but to "hack" this kind of technology to which we are subject. (…) All this interest in AI made me want to say, 'OK, since we're knee-deep in this thing here, let's figure out if there's a way to hack it, shall we?" (I8) This exposition passes, in the movement, by practices of experimentation of alternatives, defined as "practical workshops on technopolitical experimentation with artificial intelligence" (Report 2). In the second edition of the festival, specific workshops saw moments dedicated to training models with data "biased" towards specific languages. To prefigure "transfeminist digital spaces free from online violence" (Report 9), feminists in the movement held labs to develop open source chatbots implementing inclusive and non-violent language, and discussed plans to undertake actions of collectively feeding proprietary LLMs from the grassroots with data to counter the gender stereotypes they reproduce. GenAI has also been experimented with through projects of political art, with the recreation of practices from past social movements, such as free radio: "I presented this radio as a radio that tells the truth, which is powered by a very powerful AI, but by training this AI on the counter-information media of the 1970s, I thought it was an interesting loophole. Between the presentation of absurd things and the fact that these absurd things were true." (I8) Beyond GenAI, the movement has also engaged in the development of automation models to support climate activism at the local level. A collaboration between local climate activists and a collective of programmers has resulted in an automated real-time climate data processing model that uses sensors mounted on the roof of a social center in Bologna to generate maps of urban heat islands: "We mounted a monitoring unit on the roof that produces climate data in real-time. From there, a group has also started creating a code that uses satellite data to produce maps of their city on urban heat islands. To automate the process, let's say. We are working with this multidisciplinary group of activists and scientists on writing the code to automate the production of urban heat island maps." (I7) By experimenting with smaller, open-source models, or addressing the errors of big models from the grassroots, the social movement network has certainly not yet achieved the permanent diffusion of desirable AIs, but it has performed a prefigurative rewiring, rupturing inevitability frames of dominant sociotechnical imaginaries of AI, by showing that futures in which AI errors are "fixed" are possible and desirable. It is important to point out that these moments of collective experimentation of alternatives were not participated exclusively by experts in the tech field, and thus limited to discussing existing infrastructure, but neither were they speculative exercises. The network organizers have intentionally created these discursive moments based on the co-participation of activists with varied backgrounds in social movements, and professionals such as programmers, designers, and tech researchers. Here, the affordances of possible existing AI infrastructures are reconsidered, integrated and adjusted from a radical perspective, abstracted from individual projects and recombined to imagine new and desirable ones.</p><p>Finally, the practices employed by the movement are not exclusively prefigurative, as they also involve confrontational moments-such as that described in the introduction, and plan confrontational moments for the future. Activists in the movement emphasized the need for a process of grassroots protest to achieve a desirable AI future inspired by the Solarpunk imaginary. The stress is on AI regulation more than anything else: "Even for those who raise the issue of self-government, it means regulation. It cannot be a mechanism that does not involve regulation. Here again, Europe comes back as an interesting battleground. Because AI regulation is a field of contention that needs to be experienced, that needs to be investigated, on which also to go. We should, in a few years, when the opportunity comes, go by train to Brussels and demonstrate there. With new practices, not things already seen, ritual things." (I7) Extant literature on algorithmic resistance <ref type="bibr">(Scharenberg &amp; Barassi, 2025, pp. 474-475)</ref> has already shown how the regulatory space is a particularly relevant field of contention at the European level, with civil society actors recognizing collective action over regulation as a primary venue for reclaiming agency. Although via protest repertoires typical of informal and bottom-up actors, attention to European venues of legislation on technology is an element that emerges as relevant also in our findings.</p><p>As highlighted in the previous section, this sociotechnical imaginary has shed light on the industry utopias implicitly absorbed in regulatory frameworks that currently exist. It has outlined AI errors and lamented the absence of legal protections against them, as well as the lack of foresight regarding the possible negative consequences of indiscriminate applications of AI in public life, not yet realized but seen as imminent. In light of these reflections, this sociotechnical imaginary stands as a contentious one, in which a desirable AI future necessarily involves contentious collective action, prefigurative experimentation, and public protest, over AI regulation.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusions</head><p>In this article, we presented an exploratory investigation of an Italian social movement network that mobilized around the issue of digital technologies and technological innovation. In so doing, we discussed the elaboration of an activist alternative sociotechnical imaginary related to AI and GenAI that we labelled, drawing on the words of one of the activists that we interviewed, Solarpunk AI. We illustrated how, through the development of such sociotechnical imaginary, the movement network under investigation contests dominant AI visions and seeks to prefiguratively fix the AI related errors that are prominent in current forms of AI. It does so through a discursive mechanism that sheds light on an undesirable AI present and attempts to prefigure a desirable AI future, passing by the exertion of agency to steer AI development and regulation from the grassroots. First, it opposes dominant AI imaginaries-characterized by longtermism and techno-solutionism-by delineating an undesirable AI present, the context of AI-based capitalism in which policy, infrastructure and culture concur to produce AI errors in different sectors of societies. Having diagnosed the present, it then imagines and to some extent experiments with a desirable AI future, in which federation, creation and regulation practices address the currently existing AI errors. Opposing the techno-determinism of utopian and dystopian visions shrouded in hype, the Solarpunk AI imaginary identifies the present "cracks" through which it is possible to reclaim agency from below, rejecting the apolitical conception of AI innovation as an unstoppable process to which one can only adapt-one often absorbed by policymakers.</p><p>Image 1.1 -Discursive mechanism of the Solarpunk AI sociotechnical imaginary Through the elaboration of a Solarpunk AI imaginary, the social movement network operates a repoliticization of AI and GenAI, addressing their flaws in a way that is radically different from a purely technical one, as its premises are explicitly socio-technical and thus point to the multifaceted nature of such emergent technologies <ref type="bibr">(Ananny, 2022)</ref>. In doing so, the social movement network underscores how the potential for AI flaws to become systemic and structurally pervasive in every aspect of public life increases if governmental national AI strategies do not reflect on the problem of the indefinite reproduction of current societies' inequalities -at the economic, social, and political levels-that are then crystallized in technology. In opposition to dominant socio-technical imaginaries of AI, the social movement network thus engages in a work of signification that becomes a strong claim regarding the present and future role of AI and GenAI in societies.</p><p>Acknowledging the limitations arising from the small scale of this case study, which does not allow us to offer a generalizable conclusion, we invite future research to broaden the focus to include other</p><p>Delineating an undesirable AI present ______________ Discussing AI Errors • Labor • Information • Human Rights • Environment Prefiguring a desirable AI future _______________ Experimentation and Imagination • Federation • Creation • Regulation</p><p>actors and their alternative AI imaginaries, especially those that arise directly from marginalized voices in mainstream AI discourse. As activists are already doing, research must continue to closely observe-and disclose-the political and economic interests embedded in the dominant narratives of AI. However, our study also points towards the need to uplift the alternative AI practices that emerge, in the present, from subaltern actors. As we have observed, these are not just practices of resistance, but of prefiguration, and as such they have the potential to negate the inevitability of the AI futures outlined by the actors with greater resources and power over the trajectories of emergent technologies.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>(</head><figDesc>and in part perfect) the logics of data and surveillance capitalism. As highlighted by one participant, this top-down agency is concealed by what<ref type="bibr" target="#b38">Nye (1994)</ref> called technological sublime, hiding the political economy of AI development:"I think the level of danger of technologies is directly proportional to how close they are approximated to magic. With AI, it's very easy to bring it close to magic, right? So it's easier to distance oneself from understanding the socioeconomic dimension underneath." (I3)</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><figDesc>framework of AI Errors, which similarly frames AI problems in their social and political dimensions. Discussing these choices constitutes what we have previously referred to as the moment of diagnosis: AI-based capitalism is an exacerbation of digital capitalism; as such, its errors are "cracks" through which to intervene towards transformative social change (and not mere technical change).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 1 .</head><label>1</label><figDesc>.1 below.1 -Codes, Themes and Imaginary resulting from the inductive reflexive thematic analysis</figDesc><table><row><cell>CODES 9</cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="6" xml:id="foot_0"><p>For a more in-depth discussion of the concept of AI failures, some concrete examples, and a review of the literature on this topic see<ref type="bibr" target="#b3">Barassi (2024)</ref>.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="7" xml:id="foot_1"><p>The expression 'social centres' translates the Italian expression 'centri sociali' commonly used to refer to abandoned buildings squatted by activists' groups, mostly in the urban environment, to have a stable space were to carry out their political activities, organized cultural events, and provide services<ref type="bibr" target="#b36">(Mudu, 2004)</ref>. While the first social centres were established towards the end of the 1970s, their momentum was between the 1980s and the early 200s, when they became one of the relevant backbones that sustained the global justice movement in Italy and Europe<ref type="bibr" target="#b37">(Mudu, 2012)</ref>. Many social centres still exist today in the country.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="8" xml:id="foot_2"><p>As the online observation was disclosed through a broadcast channel, we did not extract individual quotes from the Telegram channel; the observation was only treated as aggregated data through field notes. All quotes presented in the following text originate from interviews for which individual explicit consent was obtained, and reports that are publicly available on the network website.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="9" xml:id="foot_3"><p>The codes presented in this table are a selection of the most frequent codes for each imaginary. The full codebook can be made available upon request.</p></note>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><p><rs type="grantNumber">1ffe446a0c04</rs>.html</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_ZeFT9VT">
+					<idno type="grant-number">1ffe446a0c04</idno>
+				</org>
+			</listOrg>
+
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>//<ref type="url" target="https://www.cineca.it/it/g7-riunione-dei-ministri-scienza-e-tecnologia">www.cineca.it/it/g7</ref></p></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0" />			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Imagining AI: Exploring Narratives and Sociotechnical Imaginaries between Utopias and Dystopias</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Acampa</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s43545-025-01130-9</idno>
+		<ptr target="https://doi.org/10.1007/s43545-025-01130-9" />
+	</analytic>
+	<monogr>
+		<title level="j">SN Social Sciences</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page">90</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Making Generative Artificial Intelligence a Public Problem. Seeing Publics and Sociotechnical Problem-Making in Three Scenes of AI Failure</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ananny</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/13183222.2024.2319000</idno>
+		<ptr target="https://doi.org/10.1080/13183222.2024.2319000" />
+	</analytic>
+	<monogr>
+		<title level="j">Javnost -The Public</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="89" to="105" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Activism on the Web: Everyday Struggles against Digital Capitalism</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Barassi</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<publisher>Routledge</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Toward a Theory of AI Errors: Making Sense of Hallucinations, Catastrophic Failures, and the Fallacy of Generative AI</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Barassi</surname></persName>
+		</author>
+		<idno type="DOI">10.1162/99608f92.ad8ebbd4</idno>
+		<ptr target="https://doi.org/10.1162/99608f92" />
+	</analytic>
+	<monogr>
+		<title level="j">Harvard Data Science Review</title>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note>Special Issue 5</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title/>
+		<idno type="DOI">10.1162/99608f92.ad8ebbd4</idno>
+		<imprint>
+			<biblScope unit="page" from="8" to="12" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">AI errors and the profiling of humans: Mapping the debate in European news media</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Barassi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Scharenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Poux-Berthe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Patra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Di Salvo</surname></persName>
+		</author>
+		<ptr target="https://thehumanerrorproject.ch/ai-errors-mapping-debateeuropean-media-report/" />
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<pubPlace>Switzerland</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>School of Humanities and Social Sciences and MCM Institute University of St. Gallen</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Research Report</note>
+	<note>I) The Human Error Project : AI, human rights and the conflict over algorithmic profiling</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Talking AI into Being: The Narratives and Imaginaries of National AI Strategies and Their Performative Politics</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Bareis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Katzenbach</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/01622439211030007</idno>
+		<ptr target="https://doi.org/10.1177/01622439211030007" />
+	</analytic>
+	<monogr>
+		<title level="j">Science, Technology, &amp; Human Values</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="855" to="881" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Assessing risk, automating racism</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Benjamin</surname></persName>
+		</author>
+		<idno type="DOI">10.1126/science.aaz3873</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">366</biblScope>
+			<biblScope unit="page" from="421" to="422" />
+			<date type="published" when="2019">2019. 6464</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">The Social Construction of Technological Systems: New Directions in the Sociology and History of Technology</title>
+		<ptr target="https://www.jstor.org/stable/j.ctt5vjrsq" />
+		<editor>Bijker, W. E., Hughes, T. P., &amp; Pinch, T.</editor>
+		<imprint>
+			<date type="published" when="2012">2012</date>
+			<publisher>The MIT Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">Algorithms of Resistance: The Everyday Fight against Platform Power</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Bonini</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Treré</surname></persName>
+		</author>
+		<idno type="DOI">10.7551/mitpress/14329.001.0001</idno>
+		<ptr target="https://doi.org/10.7551/mitpress/14329.001.0001" />
+		<imprint>
+			<date type="published" when="2024">2024</date>
+			<publisher>The MIT Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Thematic Analysis</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Braun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Clarke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Hayfield</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Terry</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-981-10-5251-4_103</idno>
+		<ptr target="https://doi.org/10.1007/978-981-10-5251-4_103" />
+	</analytic>
+	<monogr>
+		<title level="m">Handbook of Research Methods in Health Social Sciences</title>
+		<editor>
+			<persName><forename type="first">A</forename><forename type="middle">C</forename><surname>Di</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Singapore</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="843" to="860" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">An Industry-led Debate: How UK Media Cover Artificial Intelligence</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">S</forename><surname>Brennen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">H</forename><surname>Philip</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">K</forename><surname>Nielsen</surname></persName>
+		</author>
+		<idno type="DOI">10.60625/risj-v219-d676</idno>
+		<ptr target="https://doi.org/10.60625/risj-v219-d676" />
+	</analytic>
+	<monogr>
+		<title level="j">Reuters Institute for the Study of Journalism</title>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+			<pubPlace>Oxford, UK</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">The Study of Critical Junctures: Theory, Narrative, and Counterfactuals in Historical Institutionalism</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Capoccia</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Kelemen</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S0043887100020852</idno>
+		<ptr target="https://doi.org/10.1017/S0043887100020852" />
+	</analytic>
+	<monogr>
+		<title level="j">World Politics</title>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="341" to="369" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Scary Robots»: Examining Public Responses to AI</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Cave</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Coughlan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Dihal</surname></persName>
+		</author>
+		<idno type="DOI">10.1145/3306618.3314232</idno>
+		<ptr target="https://doi.org/10.1145/3306618.3314232" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2019 AAAI/ACM Conference on AI, Ethics, and Society</title>
+		<meeting>the 2019 AAAI/ACM Conference on AI, Ethics, and Society</meeting>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="331" to="337" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<author>
+			<persName><forename type="first">S</forename><surname>Cave</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Craig</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Dihal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dillon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Montgomery</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Singler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Taylor</surname></persName>
+		</author>
+		<ptr target="https://royalsociety.org/~/media/policy/projects/ai-narratives/AI-narratives-workshop-findings.pdf" />
+		<title level="m">Portrayals and Perceptions of AI and Why They Matter</title>
+		<meeting><address><addrLine>London</addrLine></address></meeting>
+		<imprint>
+			<publisher>The Royal Society</publisher>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<monogr>
+		<title level="m" type="main">AI Narratives: A History of Imaginative Thinking about Intelligent Machines</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Cave</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Dihal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dillon</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/oso/9780198846666.001.0001</idno>
+		<ptr target="https://doi.org/10.1093/oso/9780198846666.001.0001" />
+		<imprint>
+			<date type="published" when="2020-04-23">2020. 23 Apr. 2020</date>
+			<publisher>Oxford Academic</publisher>
+			<pubPlace>Oxford</pubPlace>
+		</imprint>
+	</monogr>
+	<note>online edn</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<title level="m" type="main">The Atlas of AI: Power, Politics, and the Planetary Costs of Artificial Intelligence</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Crawford</surname></persName>
+		</author>
+		<idno type="DOI">10.2307/j.ctv1ghv45t</idno>
+		<ptr target="https://doi.org/10.2307/j.ctv1ghv45t" />
+		<imprint>
+			<date type="published" when="2021">2021</date>
+			<publisher>Yale University Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Imagining machine vision: Four visual registers from the Chinese AI industry</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>De Seta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Shchetvina</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s00146-023-01733-x</idno>
+		<ptr target="https://doi.org/10.1007/s00146-023-01733-x" />
+	</analytic>
+	<monogr>
+		<title level="j">AI &amp; SOCIETY</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="2267" to="2284" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">The Emergence of Alternative Sociotechnical Imaginaries in Argentina&apos;s Agricultural Sector: Lessons for Democracy and Sustainability</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Deciancio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">M</forename><surname>Siegel</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11615-023-00502-1</idno>
+		<ptr target="https://doi.org/10.1007/s11615-023-00502-1" />
+	</analytic>
+	<monogr>
+		<title level="j">Politische Vierteljahresschrift</title>
+		<imprint>
+			<biblScope unit="volume">64</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="741" to="762" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Whose and what futures? Navigating the contested coproduction of Thailand&apos;s energy sociotechnical imaginaries</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">L</forename><surname>Delina</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.erss.2017.10.045</idno>
+		<ptr target="https://doi.org/10.1016/j.erss.2017.10.045" />
+	</analytic>
+	<monogr>
+		<title level="j">Energy Research &amp; Social Science</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="page" from="48" to="56" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Editorial: The ethical implications of AI hype</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Duarte</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Barrow</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bakayeva</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s43681-024-00539-x</idno>
+		<ptr target="https://doi.org/10.1007/s43681-024-00539-x" />
+	</analytic>
+	<monogr>
+		<title level="j">AI Ethics</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page" from="649" to="651" />
+			<date type="published" when="2024">2024. 2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Situating Methods in the Magic of Big Data and AI</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">C</forename><surname>Elish</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/03637751.%202017.1375130</idno>
+		<ptr target="https://doi.org/10.1080/03637751.2017.1375130" />
+	</analytic>
+	<monogr>
+		<title level="j">Communication Monographs</title>
+		<imprint>
+			<biblScope unit="volume">85</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="57" to="80" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Activists in the dark: Social media algorithms and collective action in two social movement organizations</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Etter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><forename type="middle">B</forename><surname>Albu</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1350508420961532(Originalwork</idno>
+		<ptr target="https://doi.org/10.1177/1350508420961532(Originalwork" />
+	</analytic>
+	<monogr>
+		<title level="j">Organization</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="68" to="91" />
+			<date type="published" when="2020">2020. 2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<monogr>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">E</forename><surname>Ferrari</surname></persName>
+		</author>
+		<title level="m">Appropriate, Negotiate, Challenge: Activist Imaginaries and the Politics of Digital Technologies</title>
+		<imprint>
+			<publisher>University of California Press</publisher>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Life, but not as we know it: A.I. and the popular imagination</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Goode</surname></persName>
+		</author>
+		<idno type="DOI">10.3384/cu.2000.1525.2018102185</idno>
+		<ptr target="https://doi.org/10.3384/cu.2000.1525.2018102185" />
+	</analytic>
+	<monogr>
+		<title level="j">Culture Unbound</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="185" to="207" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Spectrum of AI futures imaginaries by AI practitioners in Finland and Singapore: The unimagined speed of AI progress</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hautala</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Heino</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.futures.2023.103247</idno>
+		<ptr target="https://doi.org/10.1016/j.futures.2023.103247" />
+	</analytic>
+	<monogr>
+		<title level="j">Futures</title>
+		<imprint>
+			<biblScope unit="volume">153</biblScope>
+			<biblScope unit="page">103247</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">ChatGPT, LaMDA, and the Hype Around Communicative AI: The Automation of Communication as a Field of Research in Media and Communication Studies</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Hepp</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Loosen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dreyer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Jarke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kannengießer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Katzenbach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Malaka</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">P</forename><surname>Pfadenhauer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Puschmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Schulz</surname></persName>
+		</author>
+		<idno type="DOI">10.30658/hmc.6.4</idno>
+		<ptr target="https://doi.org/10.30658/hmc.6" />
+	</analytic>
+	<monogr>
+		<title level="j">Human-Machine Communication</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="41" to="63" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Publics as Threats? Integrating Science and Technology Studies and Social Movement Studies</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">J</forename><surname>Hess</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/09505431.2014.986319</idno>
+		<ptr target="https://doi.org/10.1080/09505431.2014.986319" />
+	</analytic>
+	<monogr>
+		<title level="j">Science as Culture</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="69" to="82" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Future imaginaries in the making and governing digital technology: Multiple, contested, commodified</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Mager</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Katzenbach</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1461444820929321</idno>
+		<ptr target="https://doi.org/10.1177/1461444820929321" />
+	</analytic>
+	<monogr>
+		<title level="j">New Media &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="223" to="236" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Utopian and Dystopian Sociotechnical Imaginaries of Big Data</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Marcetic</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Nolin</surname></persName>
+		</author>
+		<idno type="DOI">10.33621/jdsr.v5i4.180</idno>
+		<ptr target="https://doi.org/10.33621/jdsr.v5i4.180" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Digital Social Research</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="93" to="125" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">The mechanisms of AI hype and its planetary and social costs</title>
+		<author>
+			<persName><forename type="first">Wright</forename><surname>Markelius</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Kuiper</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename></persName>
+		</author>
+		<idno type="DOI">10.1007/s43681-024-00461-2</idno>
+		<ptr target="https://doi.org/10.1007/s43681-024-00461-2" />
+	</analytic>
+	<monogr>
+		<title level="j">AI Ethics</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page" from="727" to="742" />
+			<date type="published" when="2024">2024. 2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">The limits of the imaginary: Challenges to intervening in future speculations of memory, data, and algorithms</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Markham</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1461444820929322</idno>
+		<ptr target="https://doi.org/10.1177/1461444820929322" />
+	</analytic>
+	<monogr>
+		<title level="j">New Media &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="382" to="405" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Reimagining energy futures: Contributions from community sustainable energy transitions in Thailand and the Philippines</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Marquardt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">L</forename><surname>Delina</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.erss.2018.10.028</idno>
+		<ptr target="https://doi.org/10.1016/j.erss.2018.10.028" />
+	</analytic>
+	<monogr>
+		<title level="j">Energy Research &amp; Social Science</title>
+		<imprint>
+			<biblScope unit="volume">49</biblScope>
+			<biblScope unit="page" from="91" to="102" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">AI and Cyberpunk Networks</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Mcfarlane</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/oso/9780198846666.003.0013</idno>
+		<ptr target="https://doi.org/10.1093/oso/9780198846666.003.0013" />
+	</analytic>
+	<monogr>
+		<title level="m">AI Narratives</title>
+		<editor>
+			<persName><forename type="first">S</forename><surname>Cave</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">K</forename><surname>Dihal</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">&amp;</forename><forename type="middle">S</forename><surname>Dillon (a C</surname></persName>
+		</editor>
+		<editor>
+			<persName><surname>Di</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Oxford University PressOxford</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="284" to="308" />
+		</imprint>
+	</monogr>
+	<note>1a ed.</note>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<monogr>
+		<title level="m" type="main">Challenging codes: Collective action in the information age</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Melucci</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1996">1996</date>
+			<publisher>Cambridge University Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Science and neoliberal globalization: A political sociological approach</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Moore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">L</forename><surname>Kleinman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Hess</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Frickel</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11186-011-9147-3</idno>
+		<ptr target="https://doi.org/10.1007/s11186-011-9147-3" />
+	</analytic>
+	<monogr>
+		<title level="j">Theory and Society</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="505" to="532" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Resisting and Challenging Neoliberalism: The Development of Italian Social Centers</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mudu</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1467-8330.2004.00461.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1467-8330.2004.00461.x" />
+	</analytic>
+	<monogr>
+		<title level="j">Antipode</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="917" to="941" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">I Centri Sociali Italiani : Verso Tre Decadi Di Occupazioni e Di Spazi Autogestiti</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mudu</surname></persName>
+		</author>
+		<idno type="DOI">10.3280/PACO2012-001004</idno>
+		<ptr target="https://doi.org/10.3280/PACO2012-001004" />
+	</analytic>
+	<monogr>
+		<title level="j">Partecipazione e Conflitto</title>
+		<imprint>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="69" to="92" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<title level="m" type="main">American Technological Sublime</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">E</forename><surname>Nye</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1994">1994</date>
+			<publisher>MIT</publisher>
+			<pubPlace>Cambridge, MA</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">The political imaginary of National AI Strategies</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Paltieli</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s00146-021-01258-1</idno>
+		<ptr target="https://doi.org/10.1007/s00146-021-01258-1" />
+	</analytic>
+	<monogr>
+		<title level="j">AI &amp; SOCIETY</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1613" to="1624" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Radical infrastructure: Building beyond the failures of past imaginaries for networked communication</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">S</forename><surname>Paris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Cath</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">M</forename><surname>West</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/14614448231152546</idno>
+		<ptr target="https://doi.org/10.1177/14614448231152546" />
+	</analytic>
+	<monogr>
+		<title level="j">New Media &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="6366" to="6393" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">How we can create the global agreement on generative AI bias: Lessons from climate justice</title>
+		<author>
+			<persName><forename type="first">Y</forename><forename type="middle">J</forename><surname>Park</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s00146-023-01679-0</idno>
+		<ptr target="https://doi.org/10.1007/s00146-023-01679-0" />
+	</analytic>
+	<monogr>
+		<title level="j">AI &amp; SOCIETY</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="2149" to="2151" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">When data became big: Revisiting the rise of an obsolete keyword</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Pentzold</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Knorr</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/1369118X.2023.2227673</idno>
+		<ptr target="https://doi.org/10.1080/1369118X.2023.2227673" />
+	</analytic>
+	<monogr>
+		<title level="j">Information, Communication &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="600" to="617" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Imagining and instituting future media: Introduction to the special issue</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Pentzold</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kaun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Lohmeier</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1354856520938584</idno>
+		<ptr target="https://doi.org/10.1177/1354856520938584" />
+	</analytic>
+	<monogr>
+		<title level="j">Convergence: The International Journal of Research into New Media Technologies</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="705" to="715" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Choose your own future: The sociotechnical imaginaries of virtual reality</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Preece</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Whittaker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Janes</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/0267257X.2022.2112610</idno>
+		<ptr target="https://doi.org/10.1080/0267257X.2022.2112610" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Marketing Management</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">15-16</biblScope>
+			<biblScope unit="page" from="1777" to="1795" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Imaginaries of artificial intelligence</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Richter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Katzenbach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">S</forename><surname>Schäfer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Handbook of Critical Studies of Artificial Intelligence</title>
+		<editor>
+			<persName><forename type="first">S</forename><surname>Lindgren</surname></persName>
+		</editor>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page" from="209" to="224" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">The shape of the cloud: Contesting date centre construction in North Holland</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Rone</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/14614448221145928</idno>
+		<ptr target="https://doi.org/10.1177/14614448221145928(Originalwork" />
+	</analytic>
+	<monogr>
+		<title level="j">New Media &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="5999" to="6018" />
+			<date type="published" when="2023">2023. 2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Minding the gap(s): Public perceptions of AI and sociotechnical imaginaries</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Sartori</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Bocca</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s00146-022-01422-1</idno>
+		<ptr target="https://doi.org/10.1007/s00146-022-01422-1" />
+	</analytic>
+	<monogr>
+		<title level="j">AI &amp; SOCIETY</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="443" to="458" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">Algorithmic resistance in Europe and the question of collective agency</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Scharenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Barassi</surname></persName>
+		</author>
+		<idno type="DOI">10.4337/9781800880641.00038</idno>
+		<ptr target="https://doi.org/10.4337/9781800880641.00038" />
+	</analytic>
+	<monogr>
+		<title level="m">Handbook of Progressive Politics</title>
+		<meeting><address><addrLine>Cheltenham, UK</addrLine></address></meeting>
+		<imprint>
+			<publisher>Edward Elgar Publishing</publisher>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<monogr>
+		<title level="m" type="main">) The Human Error Project: AI, human rights and the conflict over algorithmic profiling</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Scharenberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Barassi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Di Salvo</surname></persName>
+		</author>
+		<ptr target="https://thehumanerrorproject.ch/civil-society-struggle-algorithmic-injustice-ai-errors-europe-report/" />
+		<imprint>
+			<date type="published" when="2024">2024</date>
+			<pubPlace>Switzerland</pubPlace>
+		</imprint>
+		<respStmt>
+			<orgName>School of Humanities and Social Sciences and MCM Institute University of St. Gallen</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Research Report</note>
+	<note>II Civil Society&apos;s Struggle Against Algorithmic Injustice in Europe</note>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">AI incidents and &apos;networked trouble&apos;: The case for a research agenda</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Shaffer Shane</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/20539517231215360</idno>
+		<ptr target="https://doi.org/10.1177/20539517231215360" />
+	</analytic>
+	<monogr>
+		<title level="j">Big Data &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">Controversies, contradiction, and &quot;participation</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sloane</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/20539517241235862</idno>
+		<ptr target="https://doi.org/10.1177/20539517241235862" />
+	</analytic>
+	<monogr>
+		<title level="j">AI. Big Data &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">This is not how we imagined it&quot;: Technological affordances, economic drivers, and the Internet architecture imaginary</title>
+		<author>
+			<persName><forename type="first">Ten</forename><surname>Oever</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename></persName>
+		</author>
+		<idno type="DOI">10.1177/1461444820929320</idno>
+		<ptr target="https://doi.org/10.1177/1461444820929320" />
+	</analytic>
+	<monogr>
+		<title level="j">New Media &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="344" to="362" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Comparing Digital Protest Media Imaginaries: Anti-Austerity Movements in Greece, Italy &amp; Spain. tripleC: Communication, Capitalism &amp; Critique</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Treré</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Jeppesen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Mattoni</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Open Access Journal for a Global Sustainable Information Society</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="404" to="422" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<analytic>
+		<title level="a" type="main">Algorithmic resistance: media practices and the politics of repair</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Velkova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kaun</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/1369118X.2019.1657162</idno>
+		<ptr target="https://doi.org/10.1080/1369118X.2019.1657162" />
+	</analytic>
+	<monogr>
+		<title level="j">Information, Communication &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="523" to="540" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<analytic>
+		<title level="a" type="main">Solarpunk: Short Stories from Many Futures</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Verso</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Flame Tree Press (Beyond &amp; Within</title>
+		<imprint>
+			<biblScope unit="page" from="978" to="979" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<analytic>
+		<title level="a" type="main">AI anxiety? Comparing the sociotechnical imaginaries of artificial intelligence in UK, Chinese and Indian newspapers</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Downey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Yang</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/20594364231196547</idno>
+		<ptr target="https://doi.org/10.1177/20594364231196547" />
+	</analytic>
+	<monogr>
+		<title level="j">Global Media and China</title>
+		<imprint>
+			<biblScope unit="page">20594364231196547</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<analytic>
+		<title level="a" type="main">Sociotechnical imaginaries of algorithmic governance in EU policy on online disinformation and FinTech</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wijermars</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Makhortykh</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/14614448221079033</idno>
+		<ptr target="https://doi.org/10.1177/14614448221079033" />
+	</analytic>
+	<monogr>
+		<title level="j">New Media &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="942" to="963" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">Introduction to the Special Issue: Foregrounding social movement futures: collective action, imagination, and methodology</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Yates</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Daniel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Gerharz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Feldman</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/14742837.2024.2343683</idno>
+		<ptr target="https://doi.org/10.1080/14742837.2024.2343683" />
+	</analytic>
+	<monogr>
+		<title level="j">Social Movement Studies</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="429" to="445" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b59">
+	<analytic>
+		<title level="a" type="main">Drivers behind the public perception of artificial intelligence: Insights from major Australian cities</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Yigitcanlar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Degirmenci</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Inkinen</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s00146-022-01566-0</idno>
+		<ptr target="https://doi.org/10.1007/s00146-022-01566-0" />
+	</analytic>
+	<monogr>
+		<title level="j">AI &amp; SOCIETY</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="833" to="853" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

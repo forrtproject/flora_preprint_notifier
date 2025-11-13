@@ -38,7 +38,10 @@ def cmd_enrich_crossref(args):
 
 def cmd_enrich_openalex(args):
     from osf_sync.celery_app import app
-    r = app.send_task("osf_sync.tasks.enrich_openalex", kwargs={"limit": args.limit})
+    r = app.send_task(
+        "osf_sync.tasks.enrich_openalex",
+        kwargs={"limit": args.limit, "threshold": args.threshold, "mailto": args.mailto},
+    )
     print("enqueued:", r.id)
 
 def main():
@@ -75,6 +78,8 @@ def main():
 
     p7 = sub.add_parser("enrich-openalex", help="Enrich remaining missing reference DOIs via OpenAlex")
     p7.add_argument("--limit", type=int, default=200)
+    p7.add_argument("--threshold", type=int, default=70, help="Score threshold for OpenAlex matches.")
+    p7.add_argument("--mailto", default=None, help="Override OpenAlex contact email.")
     p7.set_defaults(func=cmd_enrich_openalex)
 
     args = p.parse_args()

@@ -1,0 +1,1076 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Analyzing &apos;Difficult Vocabulary&apos; for Japanese Learners of English: Evaluating Materials Using the SVL as a Practical and Widely Accessible Vocabulary List</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Noboru</forename><surname>Sakai</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Tamagawa University</orgName>
+								<orgName type="institution" key="instit2">Kitasato University</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Analyzing &apos;Difficult Vocabulary&apos; for Japanese Learners of English: Evaluating Materials Using the SVL as a Practical and Widely Accessible Vocabulary List</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">B149A3CBE7336610E85C9AB0A78F6C84</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:15+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Vocabulary builders</term>
+					<term>advanced vocabulary</term>
+					<term>Standard Vocabulary List (SVL)</term>
+					<term>English proficiency tests</term>
+					<term>CEFR</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>This paper investigates how English learners appropriately select a vocabulary builder through analyzing several English-based builders and some books written in Japanese for those who seek upper-advanced vocabulary as research on this topic is limited. The analysis shows that some English-based books and Japanese books have similar difficult words for Eiken 1, and those to prepare for GRE collect more advanced words. In addition, since various types of books regarding the target vocabulary are available both in Japanese and English, learners can choose books most suited to their learning style. This may help advisers when consulting students who are studying for the SAT, GRE and Eiken Level 1.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>I. Introduction</head><p>This study investigates which vocabulary books, i.e. vocabulary builders, should be recommended for English learners in Japan who seek information regarding advanced vocabulary to prepare for undergraduate/graduate school in English medium institutions or for application in a professional setting. It also intends to elucidate when ESP-based vocabulary materials<ref type="foot" target="#foot_0">foot_0</ref> become necessary in step-by-step vocabulary building through an academic curriculum.</p><p>In Japan, to increase global competitiveness, practical uses of English have been more emphasized such as the concept of English as an International Language, World Englishes, and English as a Lingua Franca <ref type="bibr" target="#b27">(Marlina, 2014)</ref>, and some educational institutes have come to conduct their English curriculum based on those concepts (e.g., <ref type="bibr" target="#b48">Sakai, 2019;</ref><ref type="bibr">2018a;</ref><ref type="bibr" target="#b21">Hino, 2018)</ref>. The importance of English education in Japan clearly appears in the curriculum guidelines promulgated by the Ministry of Education, Culture, Sports, Science and Technology (MEXT). According to the curriculum guidelines in 2018, English education should be focused more on the ability to use English, and so to accomplish this, vocabulary taught by the graduation of high school will be around 5,000 words, which is an increase of roughly 2,000 words compared to the previous guidelines. Beyond academic settings, the English vocabulary people see or hear daily has increased due to dynamic changes in society (e.g., <ref type="bibr" target="#b45">Sakai 2017;</ref><ref type="bibr">2018a;</ref><ref type="bibr" target="#b53">Shioda, 2022)</ref>. Japanese people have to increase their English vocabulary for various requirements more than before.</p><p>Under such circumstances, selecting an appropriate reference for vocabulary acquisition and building is a critical issue among learners as well as teachers who need to support various levels of learners. There are a wide variety of English vocabulary builders in bookstores and an increased number of textbooks have appeared in Japan. However, the colorful variation of vocabulary builders written in Japanese disappears past a certain threshold. The actual vocabulary size of the border will be discussed later, but first, the existence of such a boundary could be argued for. The largest group of English professionals in Japan, i.e. high school English teachers, aim to pass Eiken<ref type="foot" target="#foot_1">foot_1</ref> pre-1 level and 72% of them have achieved this goal <ref type="bibr">(MEXT, 2019)</ref>, so it could easily be imagined that the vocabulary required to attain this level would be a boundary for many books. This is the author's anecdote, but it was difficult to find a vocabulary book for GRE tests in the early 2000s.</p><p>In that period, information was scarce, and the author was at a loss after seeing the daunting word list attached to Barron's preparation kit <ref type="bibr" target="#b20">(Green, et al., 2000)</ref>. Only a few Internet sites introduced how to prepare for the GRE (which have since been closed) and recommended to use 1,100 Words You Need to Know and 601 Words You Need to Know to Pass Your Examwhich were the only titles the author found. The author believed many Japanese English learners who prepared for the GRE or other tests for graduate school in this period had difficulty finding resources for help.</p><p>At present, access to information has improved because of Internet infrastructure and purchasing materials has been enhanced by network-based shopping. However, at the same time, some Japanese people may still have difficulty in finding vocabulary builders to study highly advanced vocabulary because of the very small number of books and limited information about them. This study intends to clarify some effective materials for Japanese people who aim to learn higher levels of vocabulary, as well as those who advise those types of students. Another aspect of the study is to find how certain vocabulary builders are used in relation with others, including ESP textbooks since words commonly used in ESP often aren't included in frequency-based word lists, as they're not as frequently used in general English communication.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>II. Types of vocabulary builders and the level of selected vocabulary</head><p>This section first defines a word list that can be referred to in selecting vocabulary builders, the books optimized to increase the number of vocabulary for Japanese learners, as opposed to English corpora word lists based on frequency. The ideal word list would take into consideration manageability of the vocabulary list in terms of size as well as usability for Japanese learners when studying English in Japanese educational contexts including mandatory school education. Next, this section introduces the types of vocabulary builders widely disseminated in Japan with the rationale of how these types of books are applied based on their approaches.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">Analysis of the word level recorded in vocabulary builders</head><p>In language learning, vocabulary is an essential foundation. However, when selecting English textbooks and other resources, it is challenging to find comprehensive references tailored to each learner group. In practice, educators and learners rely on their sense of difficulty, cultivated over time, along with general guidelines provided by book authors, to determine the difficulty, primarily based on frequency. This accurately describes the situation in Japan.</p><p>One issue in selecting vocabulary builders is the fact that a standard vocabulary list for English education is not issued by the Japanese government. In the past, the Japanese government announced which vocabulary should be taught in junior and senior high schools. However, the government now only shows a guideline of how many words should be taught in each grade of education, and the new vocabulary used in school textbooks ultimately depended on the authors of the textbooks. Furthermore, the "frequency lists" of textbook publishers, test companies, and reference book creators are likely kept as trade secrets. This means that Japanese English language professionals have been considering and determining word levels without knowing the complete core of this "black box." Anyone involved in English learning and education in Japan has likely experienced this situation.</p><p>In this regards, Kairyudo (2016) summarizes the vocabulary shown in the major junior high school English textbooks in Japan: Sunshine (Kairyudo), Crown (Sanseido), Horizon (Tokyo Shoseki), Columbus (Mitsumura Tosho), One World (Kyoiku Shuppan) and Total (Gakko Tosho), and revealed that all six textbooks include a group of 625 words. Moreover, 1,003 words are shared in more than 4 textbooks. In fact, 1,000 is a common number of words that Junior high school students are exposed to. This number<ref type="foot" target="#foot_2">foot_2</ref> seems to be widely recognized.</p><p>For example, one of the famous vocabulary builders for high school students (and older learners) Duo 3.0 states "there are about 1,000 to 1,500 basic English vocabulary (I, my, do, go, etc.)" <ref type="bibr" target="#b54">(Suzuki, 2000)</ref>. Another popular series, Eiken High frequency pass vocab, explains that Eiken level 5 often employs 319 words that are studied in the first year of junior high school <ref type="bibr">(Obunsha, 2021c)</ref>; Eiken level 4 employs 349 words that are studied in the first and second years of junior high school <ref type="bibr">(Obunsha, 2021d)</ref>; for Eiken level 3, 300 must words and 300 frequently used words are employed <ref type="bibr">(Obunsha, 2021e)</ref>. Eiken level 3 is used to indicate English proficiency equivalent to a graduate from junior high school in Japan, so if the number of vocabulary words shown above is summed, i.e. 319 + 349 + 300 + (300), the total equals 968 to 1,268 words. If several books share vocabulary, it's reasonable to expect that they introduce more than 1000 words based on the learning levels they target.These approximately 1,000 words can be considered the beginning level for English learners in Japan.</p><p>As referred to above, one of the possible indecies to indicate English proficiency is the Eiken<ref type="foot" target="#foot_3">foot_3</ref> as the Eiken is a test designed to correspond with English education in Japan. Table <ref type="table" target="#tab_0">1</ref> shows Eiken grade levels and the estimated vocabulary sizes of certified people according to <ref type="bibr" target="#b23">Honda (2019)</ref>. Honda claims that at pre-1 level English learners have mastery of about 7,500 words. However, it is difficult to ascertain specifically which 7,500 words. For example, Eiken High frequency pass vocab pre-1 only lists 1,600 words for study. If we try to find a complete set of words, 800 words are missing (i.e. 7,500 words -5,100 words = 2400 words, so even if 1600 words are introduced in the book, there are no information on the remaining 800 words) <ref type="foot" target="#foot_4">5</ref> . Therefore, we need other vocabulary builders to collate the vocabulary.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Figure 1 CEFR and English proficiency tests (MEXT, 2018a)</head><p>To find another reference, collating Figure <ref type="figure">1</ref> and Table <ref type="table" target="#tab_0">1</ref>, it can be seen that CEFR B2 level covers prerequisite English proficiency requirements for non-native speakers of English according to TOEFL or IELTS to enter undergraduate/graduate schools so this will be equivalent to Eiken pre-1 level and the vocabulary size of advanced Japanese learners start from around 7,500 words according to Table <ref type="table" target="#tab_0">1</ref>. Alternately, from another viewpoint, the score prestige universities request, for example IELTS 7, is equivalent to the pass mark on Eiken 1 level, so people would know around 10,000 words in this stage of vocabulary study.</p><p>Here, fundamentally, which words should be included has been decided based on the English corpora that illustrate how frequently each word appears on various occasions. The representative corpora are American National Corpus (ANC) and British National Corpus (BNC). In Japan, there are several lists based on academic research such as the 6,868-word list of CEFR-J <ref type="bibr" target="#b56">(Tono, 2020)</ref> and the JACET 8000 (JACET, 2016). However, the quantity of words provided in these lists is insufficient for examining the vocabulary books tailored for advanced learners, as their sizes are too small.</p><p>Amid such a vague understanding of word levels for high school students and test takers, the SVL (Standard Vocabulary List), developed by ALC, has emerged. The SVL is a comprehensive dataset covering up to 12,000 words, utilizing native frequency lists and data related to Japanese English language learning (ALC, 2023).</p><p>Although not used in rigorous academic research, the SVL has been employed among language learners on forums (such as 5ch and websites offering English learning methods), particularly for exchanging opinions on vocabulary books for levels above Eiken Grade 1 and foreign books. The difficulty is discussed in terms of the inclusion of words outside the SVL. In other words, although it may not be the best option, the SVL serves as a common language in the actual English learning of Japanese people as a de-facto standard. SVL consists of 12,000 words that are selected based on the frequency of use by native speakers together with adjustments for Japanese learners.</p><p>SVL beyond the 12,000-word level is extended by Narishika, covering 12,000 to 35,000 words based on the Corpus of Contemporary American English and Age-of-acquisition ratings (Perc_known_lem) <ref type="bibr">(Narishika, 2018a)</ref>.</p><p>Although his vocabulary research may not be based on the most recent studies, these publications employ general methods using frequency corpora (for details, see <ref type="bibr">Narishika, 2018a)</ref>. It is likely that other vocabulary books have also used these methods, making this extended list a reasonably reliable extension with credible quality. Because of the coverage, this can be a useful list to analyze the difficulty of vocabulary builders to select. In a more precise sense, Narishika's books are not the SVL. However, for the sake of effective discussions in relation to ALC's list, this study refers to Narishika's books as SVL as well.</p><p>Regarding the application of SVL for vocabulary study, concerns may arise about the list's quality. Its creation process lacks transparency, raising doubts about its validity. There's also uncertainty if the authors constructed the list based on rigorous academic theories, especially since it hasn't been published by any institution related to academia.</p><p>While there are valid concerns about using the SVL for vocabulary studies, primarily due to its questionable origin and unclear adherence to rigorous academic theories, its broad accessibility makes it an attractive option for the general public. Certainly, the list may not epitomize the pinnacle of vocabulary research or assimilate the latest findings and corpus data. However, it can be particularly beneficial for those not specializing in vocabulary acquisition who merely want an overarching understanding of vocabulary builders. Referring to original corpus data and incorporating recent studies to analyze vocabulary books can be an excessively demanding task for these individuals.</p><p>Moreover, even if a vocabulary list doesn't meet the highest standards of quality, it is plausible that such lists are formulated from sources similar to those used in creating the most credible ones, although these top-tier lists may not be public. Therefore, a publicly available vocabulary list could potentially exceed a reasonable quality threshold, making it both practical and replicable for a wide audience.</p><p>Additionally, this list is specifically tailored to Japanese speakers' use of English, who are the primary focus of this study. This has led some Japanese users to regard it as a default standard for English vocabulary levels in various online communication platforms. While it would be ideal to rely on more credible sources, we need to wait for specialists to produce and release a more comprehensive, extensive list in the public sphere in the future.</p><p>However, the author does provide a succinct rationale for using the SVL in the material evaluation process.</p><p>Eiken 1 High frequency pass vocab is analyzed here. Eiken High frequency pass vocab is a leading vocabulary book for Eiken whose collection is said to have a high correlation with the vocabulary asked/used in real tests.</p><p>Table <ref type="table" target="#tab_2">2</ref> illustrates the vocabulary shown in these books within four categories: 1) vocabulary below Eiken pre-1 level, 2) vocabulary level 7,000 to 10,000 words which Eiken did not set as a level of either pre-1 and 1, 3) 10,000 to 15,000, what Eiken 1 mentions as their target vocabulary level, 4) 15,000 or more, beyond Eiken 1 level. This</p><p>shows that corresponding with the title of the book, the words whose levels between pre-1 and 1 are included in the same difficulty level shown in SVL -7,000<ref type="foot" target="#foot_5">foot_5</ref> to 15,000. Therefore, the database for them can be quite similar, and applicable to investigate the word level of the vocabulary builders.</p><p>Similar to Eiken 1 High frequency pass vocab, most books only show a limited number of vocabulary within this level range, but SVL enables researchers to analyze the vocabulary level of each book objectively with the same ground. Additionally, in Table <ref type="table" target="#tab_2">2</ref>, the 344 words below the Eiken pre-1 level can be the follow-up of high-frequency words used in the Eiken 1 as well, and the existence of 15,000+ words may be because of simply the fluctuation of vocabulary use in society, as the frequency of these levels of words will be relatively small and easy to change in rank.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">Types of vocabulary builders in Japan</head><p>English vocabulary builders produced in Japan can be categorized by several methods. At first, they can be categorized based on the target readers: school textbook-based (so-called Gaku-san, or Gakushū sankou sho), English proficiency test-based, those designed to pass entrance examinations, particularly university entrance examination (mostly published by famous prep schools) and those written for the general public. However, regardless of whether they are written for students or not, the content is basically the same, particularly in the beginning to intermediate stages. Therefore, this may not be so significant.</p><p>The other type of categorization is the presentation method of the target vocabulary. There are several types of presentations. 1) Some books show a list of words with a definition or equivalent translation. This type of book is likely to present an example sentence as well. This is the most common type of vocabulary builder in Japan. 2)</p><p>Another type adopts text-based vocabulary learning. In these books, target words are used in a composition with several paragraphs. Learning vocabulary through reading improves the retention rate <ref type="bibr" target="#b19">(Fraser, 1999)</ref>, and how to provide a gloss is one of the current issues in this mode of vocabulary learning (e.g., <ref type="bibr" target="#b58">Yanagisawa, et. al., 2020)</ref>.</p><p>Although there are some challenges, text-based vocabulary builders make learning more effective. 3) Information on word roots is gaining increased attention in Japan. A pictorial book on the English etymology series (by <ref type="bibr" target="#b51">Shimizu &amp; Suzuki, 2018</ref><ref type="bibr">, 2019</ref>) is a mega hit in Japan. Not limited to books, many websites on English vocabulary by Japanese hosts introduce "14 master words" by <ref type="bibr" target="#b9">Brown (1949)</ref> as a method to increase vocabulary.</p><p>Books in these three categories mostly occupy the Japanese market, but other types of presentation exist as well. Some books mainly use pictures or illustrations as the main content and others incorporate linear rhyming to support memorizing new words. There are several types of vocabulary builders, but these books can be divided into these 5 basic types: 1) Word List, 2) Text, 3) Etymology, 4) Illustration, and 5) Linear rhyming 7 (In detail, please see the original texts mentioned in Footnote 7). Therefore, it may be sufficient to discuss these types.</p><p>To evaluate vocabulary builders, one essential criterion is the availability of accompanying audio material.</p><p>English vocabulary books in Japan mostly provide this. Since learners will have a listening test as a part of their English proficiency test, it is reasonable that vocabulary books provide audio for the words that they may encounter.</p><p>As a salient difference of vocabulary builders between Japanese based and English based builders, most Japanese builders contain audio material, but many English vocabulary builders do not. This circumstance can be analogized that, for Japanese who study the higher levels of the Japanese Kanji (Chinese characters) Aptitude Test, such as level pre-1 and 1, the texts usually do not contain listening material as sound information is not as</p><p>7 An example title of each type of vocabulary builders: 1) Word List: Eiken 1 High frequency pass vocab; 2) Text:</p><p>Eiken 1 learning vocabulary combinations with sentences; 3) Etymology: Increasing Science vocabulary through their etymology; 4) Illustration: 1,880 English vocabulary to impress upon your brain through remembering illustrations; 5) Linear rhyming: Linear rhyming English vocabulary to pass exams V words important when learning vocabulary in the native language despite the fact that many kanji at this level are not regularly used in daily life. However, when studying higher levels of English, the lack of sound material accompanying English-written vocabulary builders should be a point of caution for Japanese learners. 8</p><p>To discuss vocabulary learning, Computer-assisted language learning (CALL) is worth mentioning.</p><p>Considering the learning environment along with the history of computer technology in Japan, one big news that was reported in 2007 is the educational use of Eigozuke released by Nintendo DS by news sources such as Sankeishinbun. Educators such as <ref type="bibr" target="#b26">Matsufuji (2010)</ref> incorporated Nintendo DS into English programs, and indicated that learner autonomy can be improved with this method.. <ref type="bibr" target="#b6">Ban and Minagawa (2011)</ref> reported the effects of TOEIC study software titles, characterizing them as "convenient" and "compelling". These are important factors for learners to begin and continue learning <ref type="bibr" target="#b44">(Sakai 2007)</ref>.</p><p>Compared with that time, many types of computer-mediated learning and communication are available now,</p><p>and English acquisition research applying these systems have gained attention in this field as well. For example, research studies on a computer game as an English learning tool, report several positive outcomes on vocabulary learning (e.g., <ref type="bibr" target="#b43">Rahman &amp; Angraeni, 2020)</ref>. In addition, smartphone applications for vocabulary learning have also increased and their content extended. For example, Mikan (developed by Mikan Cooperation), a vocabulary learning application through multiple-choice questions, includes many English vocabulary builders in Japan.</p><p>Therefore, more Japanese people have the opportunity to engage in vocabulary learning conveniently, but selecting an appropriate level of material becomes essential.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>III. Method</head><p>This study analyzes the level of vocabulary in several vocabulary builders written in English and Japanese based on SVL (35,000), counting words belonging to each 1,000-word level (as the reason the original book does not distinguish the levels between 24,001-25,000 and 25,001-26,000, the words 24,001 to 26,000 level are counted together). The books are chosen from each category of English vocabulary builders: word list/phrase presentation type, texts type, etymology type, and other presentation types, which represents each type of book.</p><p>The books for the study are as follows:</p><p>Japanese books</p><p>-MBA English Vocabulary -Strategizing the 2,163 essential vocabulary to pass the GRE General Test -The Most Powerful English Vocabulary 1700 (This is the Japanese translation of 'Basic Word List' by Brownstein) -Eiken 1 learning vocabulary combinations with sentences -Speed reading and listening English words Advanced 1100 8 Audio files can be made relatively easily with reasonably good quality speech software, such as Amazon polly. If learners have a motivation to do so, the lack of accompanying audio may not be a disadvantage. English books -1100 Words You Need to Know / 601 Words You Need to Know to Pass the Exam -Verbal Advantage / Word Workout -Merriam-Webster Vocabulary Builder -Vocabulary Cartoon IV. Results and discussion 1. Word list/Phrase-based vocabulary builders First, the famous You Need to Know series is examined. This series has two levels: 1100 Words You Need to Know and 601 Words You Need to Know to Pass the Exam. The former is recommended to use for studying the SAT/ACE, while the latter is for tests such as the GRE. By comparing vocabulary levels of the two books and the SVL, we gain insight as to which would be best for preparing for a particular test. Table 3 compares the range of each book. While 1100 mainly covers from levels 5,000 to 23,000, 601 selects more words at higher levels. If one can master the vocabulary in both books, this will aid in passing difficult exams. For Japanese learners, 1100 could perhaps be used to prepare for Eiken 1 if they want to study vocabulary in English.</p><p>As for Japanese books, Strategizing the 2,163 essential vocabulary to pass the GRE General Test, covers a wide range of vocabulary. Table <ref type="table">4</ref> shows the level of vocabulary for this builder which includes words whose frequency are over 30000 in rank. This book does not provide audio materials, so if the learners seek listening materials, they may need to find a different book that has similar levels of words.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 4</head><p>The difficulty of words in Strategizing the 2,163 essential vocabulary to pass the GRE General Test. SVL N SVL N SVL N SVL N 1000 3 11000 275 21000 61 31000 16 2000 15 12000 269 22000 44 32000 11 3000 15 13000 75 23000 45 33000 4 4000 21 14000 92 24000 30 34000 2 5000 34 15000 90 26000 19 35000 1 6000 39 16000 75 7000 74 17000 69 27000 36 8000 70 18000 57 28000 32 9000 103 19000 57 29000 29 10000 137 20000 53 30000 20</p><p>Another vocabulary book written in Japanese is The Most Powerful English Vocabulary 1700. This is a translation of Basic Word List, so the difficulty of the content is native-speaker level and back when Japanese written vocabulary builders were very rare, this was a precious resource. Table <ref type="table">5</ref> shows that this book has a similar vocabulary level profile as 1100 Words You Need to Know, so this book may also be effective for those studying for Eiken 1 + α.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 5</head><p>The difficulty of words in The Most Powerful English Vocabulary 1700. SVL N SVL N SVL N SVL N 1000 2 11000 293 21000 33 31000 11 2000 2 12000 295 22000 34 32000 3 3000 3 13000 49 23000 21 33000 1 4000 1 14000 107 24000 25 34000 0 5000 5 15000 64 26000 5 35000 14 6000 10 16000 59 7000 55 17000 61 27000 21 8000 63 18000 46 28000 20 9000 94 19000 46 29000 14 10000 160 20000 42 30000 13</p><p>MBA English vocabulary is based on the author's personal vocabulary notebook recorded during his graduate study in the U.S., and many advanced academic words are collected. This book has long been recognized as one of the most difficult vocabulary books written in Japanese and many proficient English learners have praised it.</p><p>Table <ref type="table">6</ref> shows the distribution of words in each difficulty level, and broadly covers from Eiken pre-1 level to 1st level, and beyond. For Eiken 1, this book may be a little overkill, but it may be useful as a second book.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 6</head><p>The difficulty of words in MBA English vocabulary.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>SVL</head><p>N SVL N SVL N SVL N 1000 5 11000 389 21000 61 31000 24 2000 26 12000 343 22000 46 32000 18 3000 48 13000 139 23000 43 33000 12 4000 68 14000 149 24000 33 34000 9 5000 66 15000 131 26000 42 35000 0 6000 102 16000 101 7000 157 17000 85 27000 32 8000 167 18000 84 28000 28 9000 188 19000 80 29000 29 10000 245 20000 69 30000 23</p><p>Several Japanese and English books of this type have been observed in detail. As for the difficulty levels, there seem to be two trends as the word of Japanese learners: books applicable for Eiken 1 study and those that are for beyond Eiken 1 study. In other words, Japanese authors tend to keep in mind Eiken 1 although it may not be stated obviously, and these books may be effective, however, these books do not mention which words are for Eiken 1, so learners need to check this some other way. For some English books, Eiken 1 level is regarded as easy or basic and then introduces the difficult words necessary for exams such as the GRE. Regarding the SAT and GRE, the researcher has also analyzed the comprehensive word list (5000+ words) from Barron's for previous test versions, which relied more heavily on vocabulary knowledge than the current version. A significant portion of the vocabulary in this list is widely distributed across the SVL, ranging from 1000+ to 35000. Therefore, it can be a supporting source to demonstrate that the SVL list is fundamentally applicable for analyzing exams primarily targeted at native English speakers. This may be one of the keys to choosing the most suitable vocabulary builder written in English.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">Text-based vocabulary builders</head><p>As an advanced vocabulary book for those who aim to pass Eiken 1, two famous Japanese books show the target levels of vocabulary within texts, namely Eiken 1 learning vocabulary combinations with sentences and Speed reading and listening English words Advanced 1100.</p><p>Table <ref type="table">7</ref> illustrates the vocabulary shown in these books within four categories: 1) vocabulary below Eiken pre-1, 2) vocabulary level 7000 to 10000 which Eiken did not set as a level of either pre-1 or 1, 3) 10000-15000, what Eiken 1 mentions as their target vocabulary level, and 4) higher than the 15000 word-level, which is beyond Eiken 1 level. This table illustrates that vocabulary among 7000-15000 is most numerous in these books, but the number of words common to both books is quite limited, and how the most essential words within the level were chosen depends on the authors of the book. From another viewpoint, these books on the same level focus on different words, so it may be an advantage for learners to study both books to effectively expand their vocabulary without seeing the same words. These books include audio materials, so learners can study by listening.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 7</head><p>The difficulty level of text-based vocabulary builders written in Japanese.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>SVL</head><p>Eiken 1 learning vocabulary combinations with sentences Speed reading and listening English words Advanced 1100 Common to both books -7000 430 252 27 7000-10000 369 286 32 10000-15000 280 187 11 15000+ 191 141 8</p><p>In terms of English books, Verbal Advantage (VA) and Word Workout (WW) are in this category, which have 1000 headwords, and each word has a definition and is explained in the reading texts, together with extensive synonyms and antonyms. The good point of these two books is the availability of audio material that many other English vocabulary builders do not have, so this matches the English learning style of Japanese people. One comment about the vocabulary in these two books, many other than the headwords are also included in the text as new words, so here the author shows the frequency analysis for all single words in the books, instead of analyzing only the headwords.</p><p>Table <ref type="table">8</ref> shows the coverage of vocabulary is extensive if we study all the words that appear in the text. This is an advantage as we can encounter many words that we may not otherwise have the opportunity to come across.</p><p>At the same time, this may be a disadvantage to those who feel the book may be too linguistically demanding and just want to study for the examinations. An interesting feature of the book series is that it includes many trivia columns such as introducing long words such as floccinaucinihilipilification, so learners can see and hear very rare words, which may give motivation to some learners.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 9</head><p>The difficulty of words in Merriam-Webster's Vocabulary Builder.</p><p>SVL N SVL N SVL N SVL N 1000 1 11000 88 21000 29 31000 10 2000 3 12000 106 22000 34 32000 13 3000 4 13000 64 23000 20 33000 8 4000 11 14000 52 24000 18 34000 4 5000 13 15000 61 26000 24 35000 2 6000 22 16000 48 7000 28 17000 44 27000 16 8000 42 18000 39 28000 14 9000 63 19000 23 29000 12 10000 60 20000 29 30000 13</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">Other types of vocabulary builders</head><p>Some books apply a unique method to introduce vocabulary. One book series in this level is Vocabulary Cartoons I and II. This book, as can be seen in the title, intends to introduce the vocabulary through situational cartoons. Table <ref type="table" target="#tab_0">10</ref> illustrates the vocabulary levels shown in these books.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 10</head><p>The difficulty of words in Vocabulary Cartoons I and II.</p><p>SVL N SVL N SVL N SVL N 1000 1 11000 101 21000 14 31000 7 2000 0 12000 88 22000 10 32000 3 3000 2 13000 13 23000 6 33000 0 4000 4 14000 17 24000 8 34000 0 5000 4 15000 23 26000 2 35000 0 6000 10 16000 14 7000 23 17000 18 27000 9 8000 24 18000 15 28000 5 9000 30 19000 17 29000 6 10000 47 20000 15 30000 4</p><p>Based on the table above, these books are targeted for the SAT, so they contain very difficult words, but the books also widely cover 7,000 to 15,000 level words. In this sense, these books may be recommended to learners who have just begun to study the words beyond Eiken pre-1 or English proficiency tests for just passing the language requirement. One possible difficulty is that the cartoons apply jokes rooted in English cultures and Japanese learners may not have the background to understand them, and therefore the advantage of having the cartoon illustrations may be undermined.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>V. Conclusion</head><p>As a summary, this study investigates 10 vocabulary builders (+1 for Eiken 1) of various presentation types.</p><p>Because the books use different approaches, it may be difficult to discern their difficulty level, but by using the SVL (a large set of word difficulty levels based on frequency lists with adjustments for Japanese uses), the characteristics of these books will become clearer-especially for those who are targeting to pass the Eiken level 1.</p><p>By profiling the vocabulary difficulty level, the appropriate vocabulary builder can be chosen. Table <ref type="table" target="#tab_0">11</ref> is a summary of some of the most pertinent characteristics, and the author hopes this information will be helpful for learners who are seeking a higher level of vocabulary learning.</p><p>Table <ref type="table" target="#tab_0">11</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>List of vocabulary builders</head><p>Title Language Type</p></div><figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="4,56.70,431.07,451.30,256.70" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 1</head><label>1</label><figDesc>Eiken and expected vocabulary size (Source:<ref type="bibr" target="#b23">Honda, 2019)</ref> </figDesc><table><row><cell>Level</cell><cell>Approximated Vocabulary Size</cell><cell>Proficiency</cell></row><row><cell>1</cell><cell>10,000-15,000 words</cell><cell>University -advanced</cell></row><row><cell>Pre-1</cell><cell>7,500 words</cell><cell>University -intermediate</cell></row><row><cell>2</cell><cell>5,100 words</cell><cell>High school -completion</cell></row><row><cell>Pre-2</cell><cell>3,600 words</cell><cell>High school -intermediate</cell></row><row><cell>3</cell><cell>2,100 words</cell><cell>Junior high school -completion</cell></row><row><cell>4</cell><cell>1,300 words</cell><cell>Junior high school -intermediate</cell></row><row><cell>5</cell><cell>600 words</cell><cell>Junior high school -basic</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head>Table 2</head><label>2</label><figDesc>The difficulty of words in 'Eiken 1 High frequency pass vocab'</figDesc><table><row><cell>SVL</cell><cell>N</cell></row><row><cell>-7000</cell><cell>344</cell></row><row><cell>7000-10000</cell><cell>609</cell></row><row><cell>10000-15000</cell><cell>833</cell></row><row><cell>15000+</cell><cell>195</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_4"><head>Table 3</head><label>3</label><figDesc>The difficulty of words in the You Need to Know series.</figDesc><table><row><cell>SVL</cell><cell>1100</cell><cell>601</cell><cell>SVL</cell><cell>1100</cell><cell>601</cell><cell>SVL</cell><cell>1100</cell><cell>601</cell></row><row><cell>1000</cell><cell>0</cell><cell>0</cell><cell>13000</cell><cell>24</cell><cell>13</cell><cell>26000</cell><cell>3</cell><cell>6</cell></row><row><cell>2000</cell><cell>0</cell><cell>2</cell><cell>14000</cell><cell>48</cell><cell>26</cell><cell>27000</cell><cell>11</cell><cell>8</cell></row><row><cell>3000</cell><cell>5</cell><cell>2</cell><cell>15000</cell><cell>27</cell><cell>24</cell><cell>28000</cell><cell>5</cell><cell>16</cell></row><row><cell>4000</cell><cell>7</cell><cell>0</cell><cell>16000</cell><cell>22</cell><cell>29</cell><cell>29000</cell><cell>7</cell><cell>10</cell></row><row><cell>5000</cell><cell>13</cell><cell>1</cell><cell>17000</cell><cell>26</cell><cell>20</cell><cell>30000</cell><cell>6</cell><cell>13</cell></row><row><cell>6000</cell><cell>18</cell><cell>1</cell><cell>18000</cell><cell>16</cell><cell>22</cell><cell>31000</cell><cell>8</cell><cell>13</cell></row><row><cell>7000</cell><cell>26</cell><cell>7</cell><cell>19000</cell><cell>19</cell><cell>12</cell><cell>32000</cell><cell>1</cell><cell>8</cell></row><row><cell>8000</cell><cell>38</cell><cell>6</cell><cell>20000</cell><cell>17</cell><cell>13</cell><cell>33000</cell><cell>0</cell><cell>8</cell></row><row><cell>9000</cell><cell>63</cell><cell>12</cell><cell>21000</cell><cell>20</cell><cell>20</cell><cell>34000</cell><cell>1</cell><cell>7</cell></row><row><cell>10000</cell><cell>87</cell><cell>14</cell><cell>22000</cell><cell>14</cell><cell>15</cell><cell>35000</cell><cell>5</cell><cell>1</cell></row><row><cell>11000</cell><cell>142</cell><cell>37</cell><cell>23000</cell><cell>14</cell><cell>10</cell><cell></cell><cell></cell><cell></cell></row><row><cell>12000</cell><cell>129</cell><cell>43</cell><cell>24000</cell><cell>5</cell><cell>15</cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="1" xml:id="foot_0"><p>The author (2021) introduced the vocabulary building on mathematics with YouTube video as a case lecture of ESP class</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_1"><p>"EIKEN is an abbreviation of Jitsuyo Eigo Gino Kentei (Test in Practical English Proficiency), one of the most widely used English-language testing programs in Japan".(Eiken Foundation, 2021)   </p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="3" xml:id="foot_2"><p>However, the revised edition of the curriculum guidelines suggests teaching 600-700 words in elementary school education so this recognition may be altered in near future.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="4" xml:id="foot_3"><p>Approximately 3 million junior high school and high school students, about 80% in all examinees, applied for the test in 2020 fiscal year(Eiken Foundation, 2021)   </p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="5" xml:id="foot_4"><p>However, several words are contained in several grades, so the number is actually smaller.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="6" xml:id="foot_5"><p>As the SVL difficulty level is set in each 1,000 words, so Eiken pre-1 level is regarded as</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_6"><p>7,000 here, as 7,500 may be those who master this level, beyond average.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="9" xml:id="foot_7"><p>However, for ESP, there are some good Japanese books in this category such as Increasing Science vocabulary through their etymology<ref type="bibr" target="#b50">(Shimizu, 2014)</ref> and Studying the etymology of Medical English 550<ref type="bibr" target="#b22">(Hirai, 2011)</ref>. ESP will be the most effective genre to use etymological knowledge to increase vocabulary.</p></note>
+		</body>
+		<back>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Etymology based vocabulary builders</head><p>For this category, the author only analyzes one English book since the Japanese books for this level are not widely known. 9 Merriam-Webster's Vocabulary Builder is an etymology-based vocabulary builder. This book explains the meaning and formation of the roots of words and then shows representative words used in the root explanation.</p><p>Merriam-Webster's Vocabulary Builder presents etymology-based and topic-based headwords (typically in groups of four), which could serve as the primary vocabulary for enhancement. Table <ref type="table">9</ref> illustrates which levels of words are explained as a headword, and perhaps unexpectedly, the book covers vocabulary beyond Eiken pre-1 to a great extent. One concern for first-time users is that it may not be effective for test preparation purposes in a short period of time since the words are listed based on the roots, so it does not lend itself for quick study.</p><p>Because of space limitations, there is no extra analysis shown here, but in this category, there are also interesting books for vocabulary learning: Instant vocabulary <ref type="bibr" target="#b16">(Ehrlich, 1988)</ref> and The Aldrich Dictionary of Phobias and Other Word Families <ref type="bibr" target="#b5">(Aldrich, 2006</ref>). The latter one seems like a book on psychiatry but contains a large collection of root-derived vocabulary. These books do not introduce phrases, and the definitions of words are simple, so for non-native speakers some creativity may be needed to learn with these books. </p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">常用漢字表</title>
+		<ptr target="https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/pdf/joyokanjihyo_20101130.pdf" />
+		<imprint>
+			<date type="published" when="2010">2010</date>
+			<publisher>Agency for Cultural Affairs</publisher>
+		</imprint>
+	</monogr>
+	<note>List of kanji (Chinese characters) in common use</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">究極の英単語 SVL Vol.1 初級の英単語 3000 語</title>
+	</analytic>
+	<monogr>
+		<title level="j">The ultimate list of English vocabulary SVL</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">0</biblScope>
+			<date type="published" when="2006">2006</date>
+			<publisher>ALC</publisher>
+		</imprint>
+	</monogr>
+	<note>Basic words</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">究極の英単語 SVL Vol.2 中級の英単語 3000 語</title>
+	</analytic>
+	<monogr>
+		<title level="j">The ultimate list of English vocabulary SVL</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">0</biblScope>
+			<date type="published" when="2006">2006</date>
+			<publisher>ALC</publisher>
+		</imprint>
+	</monogr>
+	<note>Intermediate words</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">究極の英単語 SVL Vol.3 上級の英単語 3000 語</title>
+	</analytic>
+	<monogr>
+		<title level="j">The ultimate list of English vocabulary SVL</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">0</biblScope>
+			<date type="published" when="2007">2007</date>
+			<publisher>ALC</publisher>
+		</imprint>
+	</monogr>
+	<note>Advanced words</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">究極の英単語 SVL Vol.4 超上級の英単語 3000 語</title>
+	</analytic>
+	<monogr>
+		<title level="j">The ultimate list of English vocabulary SVL</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">0</biblScope>
+			<date type="published" when="2007">2007</date>
+			<publisher>ALC</publisher>
+		</imprint>
+	</monogr>
+	<note>High-Advanced words</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<author>
+			<persName><forename type="first">C</forename><surname>Aldrich</surname></persName>
+		</author>
+		<title level="m">The Aldrich Dictionary of Phobias and Other Word Families</title>
+		<imprint>
+			<publisher>Trafford Publishing</publisher>
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Consideration on the Evaluation of English Learning Software for Nintendo DS</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Ban</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Minagawa</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">The proceedings on 27th Fuzzy System Symposium</title>
+		<meeting><address><addrLine>Fukui</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2011-09-12">2011. September 12-14</date>
+			<biblScope unit="page" from="868" to="869" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bromberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Gordon</surname></persName>
+		</author>
+		<title level="m">1100 Words You Need to Know</title>
+		<imprint>
+			<publisher>Barrons</publisher>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note>7 th ed.</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">601 Words You to Know to Pass Your Exam</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bromberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Gordon</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+			<publisher>Barrons</publisher>
+		</imprint>
+	</monogr>
+	<note>5 th ed.</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">The construction of a diagnostic test of listening comprehension</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">I</forename><surname>Brown</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Experimental Education</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="139" to="146" />
+			<date type="published" when="1949">1949</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<monogr>
+		<title level="m" type="main">最強の英語ボキャブラリー1700 語 [The Most Powerful English Vocabulary 1700</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">C</forename><surname>Brownstein</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Weiner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">W</forename><surname>Green</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+	<note>Original title: Basic word list</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<monogr>
+		<author>
+			<persName><forename type="first">K</forename><surname>Kojima</surname></persName>
+		</author>
+		<title level="m">Trans). Goken</title>
+		<imprint>
+			<date type="published" when="1997">1997</date>
+		</imprint>
+	</monogr>
+	<note>Original work</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">Vocabulary Cartoons: SAT Word Power</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Burches</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Burches</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2007">2007</date>
+			<publisher>New Monic Books</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+		<title level="m" type="main">Vocabulary Cartoons II: SAT Word Power</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Burches</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Burches</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2007">2007b</date>
+			<publisher>New Monic Books</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<title level="m" type="main">Merriam-Webster&apos;s Vocabulary Builder</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">W</forename><surname>Cornog</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2010">2010</date>
+			<publisher>Merriam Webster Mass Market</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<monogr>
+		<title level="m" type="main">英検の状況</title>
+		<ptr target="https://www.eiken.or.jp/eiken/merit/situation/" />
+		<imprint>
+			<date type="published" when="2021">2021</date>
+			<publisher>Eiken Foundation</publisher>
+		</imprint>
+	</monogr>
+	<note>Eiken test-taking status</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<title level="m" type="main">Instant vocabulary</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Ehrlich</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1988">1988</date>
+			<publisher>Pocket Books</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Verbal Advantage: Ten Easy Steps to a Powerful Vocabulary</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">H</forename><surname>Elster</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Random House Reference</title>
+		<imprint>
+			<date type="published" when="2000">2000</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">H</forename><surname>Elster</surname></persName>
+		</author>
+		<title level="m">Word Workout: Building a Muscular Vocabulary in 10 Easy Steps</title>
+		<imprint>
+			<publisher>St. Martin&apos;s Griffin</publisher>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Lexical processing strategy use and vocabulary learning through reading</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">A</forename><surname>Fraser</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Studies in Second Language Acquisition</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="225" to="241" />
+			<date type="published" when="1999">1999</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<monogr>
+		<title level="m" type="main">Barron&apos;s How to Prepare for the GRE Test : Graduate Record Examination</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Green</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">K</forename><surname>Wolf</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">G</forename><surname>Sharon</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2000">2000</date>
+			<publisher>Barrons</publisher>
+		</imprint>
+	</monogr>
+	<note>14 th ed.</note>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">English as an international language for Japan: historical contexts and future prospects</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Hino</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Asian Englishes</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="27" to="40" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<monogr>
+		<title level="m" type="main">語源で学ぶメディカルイングリッシュ 550 [Studying the etymology of Medical English 550</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Hirai</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011">2011</date>
+			<publisher>Nanundo</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<monogr>
+		<title level="m" type="main">26 回：語彙数を増やそう</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Honda</surname></persName>
+		</author>
+		<ptr target="https://www.ei-navi.jp/news/2108/" />
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+	<note>Increasing vocabulary size</note>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<monogr>
+		<title level="m" type="main">MBA English Vocabulary</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Ishi</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2007">2007</date>
+			<publisher>Beret Publishing</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<monogr>
+		<author>
+			<persName><surname>Jacet</surname></persName>
+		</author>
+		<ptr target="http://www.kairyudo.co.jp/contents/02_chu/eigo/h28/H28-6eitango.xls" />
+		<title level="m">The New JACET List of 8000 Basic Words</title>
+		<meeting><address><addrLine>Kairyudo</addrLine></address></meeting>
+		<imprint>
+			<publisher>Kirihara-shoten</publisher>
+			<date type="published" when="2016">2016. 2016</date>
+		</imprint>
+	</monogr>
+	<note>Junior high school English vocabulary</note>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Toward the Development of a New Effective English Learning Support Program: a comparison of two methods of English self-learning by first-year students in the Department of Food Science and Technology</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Matsufuji</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The bulletin of Nippon Veterinary and Life Science University</title>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="page" from="105" to="112" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">The Pedagogy of English as an International Language (EIL): More Reflections and Dialogues</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Marlina</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">The Pedagogy of English as an International Language. English Language Education</title>
+		<editor>
+			<persName><forename type="first">R</forename><surname>Marlina</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">R</forename><surname>Giri</surname></persName>
+		</editor>
+		<meeting><address><addrLine>Cham</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="page" from="1" to="19" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<monogr>
+		<title level="m" type="main">速読速聴・英単語 Advanced 1100 [Speed reading and listening English words Advanced</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Matsumoto</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1100">2020. 1100</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Ministry of Education</title>
+		<author>
+			<persName><surname>Kai</surname></persName>
+		</author>
+		<ptr target="https://www.mext.go.jp/b_menu/houdou/30/03/__icsFiles/afieldfile/2019/01/15/1402610_1.pdf" />
+	</analytic>
+	<monogr>
+		<title level="s">CEFR and English proficiency tests</title>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+			<publisher>Culture, Sports, Science and Technology</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">15000 語レベル</title>
+		<author>
+			<persName><surname>Narishika</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Extreme English vocabulary</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">15</biblScope>
+			<date type="published" when="2017">2017</date>
+			<publisher>Amazon Services International, Inc</publisher>
+		</imprint>
+	</monogr>
+	<note>極限の英単語 ,000 word level</note>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">18000 語レベル</title>
+		<author>
+			<persName><surname>Narishika</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Extreme English vocabulary</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">18</biblScope>
+			<date type="published" when="2017">2017b</date>
+			<publisher>Amazon Services International, Inc</publisher>
+		</imprint>
+	</monogr>
+	<note>極限の英単語 ,000 word level</note>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">21000 語レベル</title>
+		<author>
+			<persName><surname>Narishika</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Extreme English vocabulary</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">21</biblScope>
+			<date type="published" when="2017">2017c</date>
+			<publisher>Amazon Services International, Inc</publisher>
+		</imprint>
+	</monogr>
+	<note>極限の英単語 ,000 word level</note>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">24000 語レベル</title>
+		<author>
+			<persName><surname>Narishika</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Extreme English vocabulary</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">24</biblScope>
+			<date type="published" when="2017">2017d</date>
+			<publisher>Amazon Services International, Inc</publisher>
+		</imprint>
+	</monogr>
+	<note>極限の英単語 ,000 word level</note>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<monogr>
+		<title level="m" type="main">終極の英単語 Vol.0 一般常識レベル</title>
+		<author>
+			<persName><surname>Narishika</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2017">2017e</date>
+			<publisher>Amazon Services International, Inc</publisher>
+		</imprint>
+	</monogr>
+	<note>Ultimate English vocabulary volume 0 general knowledge level</note>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<monogr>
+		<title level="m" type="main">英単語を科学する ver.1.00</title>
+		<author>
+			<persName><surname>Narishika</surname></persName>
+		</author>
+		<ptr target="http://kanzenmap.nomaki.jp/svb/Narishika." />
+		<imprint>
+			<date type="published" when="2018">2018. 2018</date>
+			<publisher>Amazon Services International, Inc</publisher>
+			<biblScope unit="volume">1</biblScope>
+		</imprint>
+	</monogr>
+	<note>The science of English vocabulary version 1.00 Ultimate English vocabulary volume 1, 28,000 words</note>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">30000 語レベル</title>
+		<author>
+			<persName><surname>Narishika</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Ultimate English vocabulary</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">30</biblScope>
+			<date type="published" when="2018">2018c</date>
+			<publisher>Amazon Services International, Inc</publisher>
+		</imprint>
+	</monogr>
+	<note>終極の英単語</note>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">32000 語レベル</title>
+		<author>
+			<persName><surname>Narishika</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">終極の英単語</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">32</biblScope>
+			<date type="published" when="2018">2018d</date>
+			<publisher>Amazon Services International, Inc</publisher>
+		</imprint>
+	</monogr>
+	<note>Ultimate English vocabulary</note>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">35000 語レベル</title>
+		<author>
+			<persName><surname>Narishika</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Ultimate English vocabulary</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">35</biblScope>
+			<date type="published" when="2018">2018e</date>
+			<publisher>Amazon Services International, Inc</publisher>
+		</imprint>
+	</monogr>
+	<note>終極の英単語</note>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<monogr>
+		<title level="m" type="main">英検 1 級 文で覚える単熟語 (3 rd ed.) [Eiken 1 learning vocabulary combinations with sentences</title>
+		<author>
+			<persName><surname>Obunsha</surname></persName>
+		</author>
+		<editor>Obunsha. Obunsha</editor>
+		<imprint>
+			<date type="published" when="2013">2013. 2021</date>
+		</imprint>
+	</monogr>
+	<note>3 rd ed. 1 級 でる順パス単 (5 th ed.)</note>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<monogr>
+		<title level="m" type="main">Eiken 1 High frequency pass vocab</title>
+		<editor>Obunsha. Obunsha.</editor>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note>5 th ed. 英検準 1 級 でる順パス単 (5 th ed.) [Eiken pre-1 High frequency pass vocab (5 th ed.)]. Obunsha. Obunsha. (2021c). 英検 3 級 でる順パス単 (5 th ed.)</note>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<monogr>
+		<title level="m" type="main">Eiken 3 High frequency pass vocab</title>
+		<editor>Obunsha. Obunsha</editor>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note>5 th ed. 4 級 でる順パス単 (5 th ed.)</note>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<monogr>
+		<title level="m" type="main">Eiken 4 High frequency pass vocab</title>
+		<editor>Obunsha. Obunsha</editor>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+			<publisher>Obunsha</publisher>
+		</imprint>
+	</monogr>
+	<note>5 th ed. 英検 5 級 でる順パス単 (5 th ed.) [Eiken 5 High frequency pass vocab (5 th ed.)</note>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Empowering Learners with Role-Playing Game for Vocabulary Mastery</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Rahman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Angraeni</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Learning, Teaching and Educational Research</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="60" to="73" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">The theoretical study of motivational transfer and entertainment use in self-study CALL</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sakai</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Asian EFL journal</title>
+		<imprint>
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">The roots of the contemporary image of Japanese cults</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sakai</surname></persName>
+		</author>
+		<ptr target="http://www.japanesestudies.org.uk/ejcjs/vol17/Siss2/sakai.html" />
+	</analytic>
+	<monogr>
+		<title level="j">Electronic Journal of Contemporary Japanese Studies</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Hate speech&apos; in Japan as a daily-use word: Its explosive expansion throughout the country</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sakai</surname></persName>
+		</author>
+		<ptr target="http://www.japanesestudies.org.uk/ejcjs/vol18/iss3/sakai.html" />
+	</analytic>
+	<monogr>
+		<title level="j">Electronic Journal of Contemporary Japanese Studies</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Japanese language and the influences of computer-mediated communication: how people feel about their language use</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sakai</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cultural Cognitive Science</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="35" to="44" />
+			<date type="published" when="2018">2018b</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">English as a Lingua Franca: Shared information and perspectives among Japanese</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sakai</surname></persName>
+		</author>
+		<ptr target="http://www.japanesestudies.org.uk/ejcjs/vol19/iss1/sakai.html" />
+	</analytic>
+	<monogr>
+		<title level="j">Electronic Journal of Contemporary Japanese Studies</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">A case study of using YouTube for ESP with Japanese university students: &quot;The map of mathematics</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sakai</surname></persName>
+		</author>
+		<ptr target="https://www.dropbox.com/s/9oqlhgwsvf1j6nd/Annual%20report%20of%20JACET%20SIG%20on%20ESP%202020%20Vol.%2022.pdf?dl=0" />
+	</analytic>
+	<monogr>
+		<title level="m">The Annual Report of JACET-SIG on ESP 22</title>
+		<editor>
+			<persName><forename type="first">Dominic</forename><surname>Walliman</surname></persName>
+		</editor>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+			<biblScope unit="page" from="44" to="49" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<monogr>
+		<title level="m" type="main">語源で増やすサイエンス英単語 [Increasing Science vocabulary through their etymology</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Shimizu</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<monogr>
+		<title level="m" type="main">英単語の語源図鑑 [A pictorial book on the English etymology</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Shimizu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Suzuki</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<monogr>
+		<title level="m" type="main">続・英単語の語源図鑑 [A pictorial book on the English etymology</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Shimizu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Suzuki</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<publisher>Kanki Publishing</publisher>
+			<biblScope unit="volume">2</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Sixty Percent Agree with the Increase of Loanwords: From The 2022 Nationwide Survey on Changes in the Japanese Language [Part I]</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Shioda</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The NHK Monthly Report on Broadcast Research</title>
+		<imprint>
+			<biblScope unit="volume">72</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="22" to="39" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<monogr>
+		<title/>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Suzuki</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2000">2000</date>
+			<biblScope unit="volume">3</biblScope>
+		</imprint>
+	</monogr>
+	<note>ICP publishing</note>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<monogr>
+		<title level="m" type="main">ゴロあわせ合格英単 V ワード [Linear rhyming English vocabulary to pass exams V words</title>
+		<author>
+			<orgName type="collaboration">TKO project</orgName>
+		</author>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+			<publisher>Kadokawa</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<monogr>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Tono</surname></persName>
+		</author>
+		<ptr target="https://www.cefr-j.org/data/CEFRJ_wordlist_ver1.6" />
+		<title level="m">CEFR-J Wordlist</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<monogr>
+		<title level="m" type="main">General Test 攻 略 の た め の 必 須 英 単 語 2163</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<publisher>#back TraProak</publisher>
+		</imprint>
+	</monogr>
+	<note>Strategizing the 2,163 essential vocabulary to pass the GRE General Test Design Egg</note>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">Lexical processing strategy use and vocabulary learning through reading</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Yanagisawa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Webb</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Uchihara</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Studies in Second Language Acquisition</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="411" to="438" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b59">
+	<monogr>
+		<title level="m" type="main">イラスト記憶法で脳に刷り込む英単語 1880 [1,880 English vocabulary to impress upon your brain through remembering illustrations</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Yoshino</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Nagai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Sato</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note>Asa publishing</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

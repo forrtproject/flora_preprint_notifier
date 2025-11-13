@@ -1,0 +1,2167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Computational mechanisms of gratitude practice</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Elizabeth</forename><forename type="middle">L</forename><surname>Fisher</surname></persName>
+							<email>beth.fisher@monash.edu</email>
+							<affiliation key="aff0">
+								<orgName type="department">Monash Centre for Consciousness and Contemplative Studies</orgName>
+								<orgName type="institution">Monash University</orgName>
+								<address>
+									<settlement>Melbourne</settlement>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="department" key="dep1">Brain and Mind Centre and School of Medical Sciences</orgName>
+								<orgName type="department" key="dep2">Faculty of Medicine and Health</orgName>
+								<orgName type="institution">University of Sydney</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Lars</forename><forename type="middle">Sandved</forename><surname>Smith</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Monash Centre for Consciousness and Contemplative Studies</orgName>
+								<orgName type="institution">Monash University</orgName>
+								<address>
+									<settlement>Melbourne</settlement>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Jakob</forename><surname>Hohwy</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Monash Centre for Consciousness and Contemplative Studies</orgName>
+								<orgName type="institution">Monash University</orgName>
+								<address>
+									<settlement>Melbourne</settlement>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Computational mechanisms of gratitude practice</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">648D343DA2A1F74123960E3DAE9DE49A</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:18+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Positive psychology interventions, such as gratitude practice, claim to substantially improve an individual's well-being. By focusing on three things one is grateful for each day, gratitude practice may be a promising simple and scalable intervention to support well-being. However, there is mixed evidence of the efficacy of gratitude practice and we lack a mechanistic understanding of the underlying processes. Here we develop a computational model of gratitude practice to gain insight into the potential mechanisms of the practice. Employing the active inference framework, we present three simulation results. The first is an instantiation of gratitude practice as the deliberate deployment of high precision (i.e. attention) of three good observations throughout the day. We demonstrate theoretically how agents form their beliefs about their world from the environment they are in, and how these beliefs change positively after gratitude practice. To understand the impact on the agent's worldview and to connect the modelling results to the empirical literature, we simulate an optimism assessment task before and after the intervention, showing an increase in optimism after gratitude practice. Finally, we simulate a modified version of the Yarbus eye movement task and find that gratitude practice may affect habitual attention patterns, such that agents attend to more positive elements compared to neutral or negative elements in a painting after gratitude practice. Our model provides a conceptual understanding of gratitude practice that can be used in future research to gain insights into who may benefit from gratitude practice, and why some individuals may not.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>Positive psychology practices are receiving more attention as promising accessible interventions to help symptoms of depression and anxiety. However, research shows mixed evidence in support of such treatments <ref type="bibr" target="#b6">(Bolier et al., 2013;</ref><ref type="bibr" target="#b8">Carr et al., 2021;</ref><ref type="bibr" target="#b9">Casellas-Grau et al., 2014;</ref><ref type="bibr" target="#b11">Chakhssi et al., 2018;</ref><ref type="bibr" target="#b31">Hendriks et al., 2020;</ref><ref type="bibr" target="#b50">Pietrowsky &amp; Mikutta, 2012)</ref>. One such intervention that has been suggested to help well-being is gratitude practice, a simple daily activity where an individual reflects on and records what they are grateful for <ref type="bibr" target="#b66">(Wood et al., 2010)</ref>. Studies on gratitude practice have shown a range of efficacy, from research suggesting gratitude practice can have large benefits and others finding more modest or no improvements to an individual's mental health <ref type="bibr" target="#b15">(Cregg &amp; Cheavens, 2021;</ref><ref type="bibr" target="#b16">Cunha et al., 2019;</ref><ref type="bibr" target="#b17">Davis et al., 2016)</ref>. Suggested beneficial effects of gratitude include reduced symptoms of depression and anxiety, improved sleep quality, increased positive mood and reduced risk of cardiovascular disease among others <ref type="bibr" target="#b14">(Cousin et al., 2021;</ref><ref type="bibr" target="#b29">Hartanto et al., 2022;</ref><ref type="bibr" target="#b30">Heckendorf et al., 2019;</ref><ref type="bibr" target="#b34">Jackowska et al., 2016)</ref>. However, other research shows no significant benefit to gratitude interventions, with some researchers proposing that any effects seen with gratitude interventions may be due to placebo effects <ref type="bibr" target="#b15">(Cregg &amp; Cheavens, 2021;</ref><ref type="bibr" target="#b18">Dickens, 2017;</ref><ref type="bibr" target="#b35">Kerry et al., 2023)</ref>. For gratitude practice to be used as an intervention for helping improve well-being, the efficacy of gratitude practice must be understood to ensure safe and successful treatment plans.</p><p>One approach to understanding the mixed evidence in studies of psychological interventions, such as gratitude practice, and their impact on well-being is to investigate the theoretical mechanisms of gratitude practice through computational modelling <ref type="bibr" target="#b25">(Frässle et al., 2018)</ref>. Computational models of the specific information processing of an individual allow for the investigation of the mechanisms of gratitude practice for that individual <ref type="bibr" target="#b25">(Frässle et al., 2018)</ref>. In these models there is the understanding that gratitude practice may affect different mechanisms at different times or in different individuals and not always result in the same outcomes. The computational models can model both the agent and the environment, where the experimental designs are modelled as the environment. These models allow for insights into the information processing of the agent in that experimental design and may show, for example, instances where the mechanisms involved in gratitude practice are not captured by a given experimental design. Providing a mechanistic understanding of gratitude practice can therefore inform future gratitude intervention methods and experiments.</p><p>Here, we employ the active inference framework <ref type="bibr" target="#b48">(Parr et al., 2022;</ref><ref type="bibr" target="#b52">Sajid et al., 2021;</ref><ref type="bibr" target="#b59">Smith et al., 2022)</ref> to provide a computational model of gratitude practice with the aim of understanding potential mechanisms behind benefits of gratitude and elucidate the contrasting findings in the literature. We reasoned that gratitude practice can be modelled as the deliberate deployment of high precision (i.e. attention) over selected good observations. This equates the act of reflecting on good things throughout the day with an increase in the information gain resulting from those observations. Our simulations then make it possible to investigate how this subtle shift of attention influences how the agent learns about their environment. To understand the impact of gratitude practice in diverse situations we set up a sequence of belief updating scenarios to demonstrate how agents who have learned to model different environments might respond differently to gratitude practice. First, we show how agents learn different beliefs about their world and observations due to the particular environments they are in. We then explore how these different agents experience an average day before and after the gratitude intervention. To measure a potential benefit of gratitude practice, we assess the optimism bias of the agents before and after the intervention using a simulated version of a standard belief updating task used in optimism research, thereby grounding the modelling results in empirical literature <ref type="bibr" target="#b27">(Garrett et al., 2014;</ref><ref type="bibr" target="#b57">Sharot, 2011;</ref><ref type="bibr" target="#b58">Sharot et al., 2012)</ref>. The belief updating task provides a feasible way to connect the gratitude model to an experimental paradigm. It is not possible to collect data throughout the day for an individual to fit to the gratitude model, however one could collect belief updating task data before and after a gratitude intervention to fit to a computational model. Here, we provide the mechanistic link between the belief updating task and the intervention. We reasoned that increasing attention to good observations would increase the agent's optimism bias, as their beliefs change to expect good observations. Additionally, as optimism bias is associated with improved well-being, we hypothesised that it would be an appropriate and informative assessment of the impact of gratitude practice on wellbeing <ref type="bibr" target="#b57">(Sharot, 2011)</ref>. As gratitude practice focuses on good events in one's life, understanding how good and bad observations are perceived before and after intervention, as well as the effect on an agent's worldview, may help demonstrate and understand the benefits of the practice.</p><p>To demonstrate how the changes in beliefs after gratitude practice influence the attention of the agent, we use a modified version of the Yarbus eye movement task <ref type="bibr" target="#b10">(Castelhano et al., 2009;</ref><ref type="bibr" target="#b46">Mirza et al., 2019;</ref><ref type="bibr" target="#b67">Yarbus, 1967)</ref>. Yarbus found that the attention of participants was dependent on the instructions they were given, demonstrating that visual attention is influenced by information <ref type="bibr" target="#b67">(Yarbus, 1967)</ref>. If, over time, gratitude practice increases the baseline attention to good observations, we reasoned that this may shift the attention of agents to good things in the world, where the visual attention of the agent is driven by the belief that the world is good. To test this hypothesis we adapted the Yarbus task, where agents can attend to either neutral, positive, or negative elements in a painting, to explore if the agent's attention changed due to the learning process entailed by the gratitude intervention.</p><p>We then consider these simulation results in the context of the existing empirical findings in the gratitude literature. By providing a computational model of gratitude practice we show theoretically how the mechanisms of gratitude practice may improve well-being. We demonstrate that optimism bias could be a potential mechanism of gratitude practice and offer a foundation for further research on gratitude and optimism.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methods</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Computational Model</head><p>To model gratitude practice we employ the active inference framework, which models the agent-world system as a partially observable Markov decision process (POMDP). In this setting, the agent infers the hidden states of the environment given observable outcomes and their beliefs about their own actions. Active inference agents are optimising a single objective function which drives perception, action and planning; namely the minimisation of variational free energy (VFE). The VFE is an upper bound on the gap between the agent's model of the world and the true generative process that drives the world's dynamics (for a detailed overview of active inference, see <ref type="bibr" target="#b48">Parr et al., 2022)</ref>.</p><p>The simulation design models how a gratitude intervention may be implemented in a human trial, where measurements of the participants' optimism bias are made before and after the intervention to demonstrate the efficacy of gratitude. As the gratitude intervention model cannot easily be fitted to human data itself, due to needing continuous data from the participant across a week, the study is designed in such a way that the belief updating task can be fitted to data. The simulation then provides a theoretical link for how the mechanisms of gratitude practice influence optimism, where the belief updating task can be measured and fitted in participants. Finally, the modified Yarbus task is used as a proof of concept for a link between gratitude and attention. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stage 1: Learning from the world</head><p>In the first stage of the simulation, the agent learns about their world, allowing us to show how events that happen to the agent affect their worldview. The model consists of one hidden state factor (s), with prior beliefs D, with two levels: the agent can believe their world is 'going well' or their world is 'going poorly'. The likelihood matrix (A) maps the hidden states (s) to the three observations (o) generated by the state of the world, which can be 'good', 'neutral', or 'bad'. These observations correspond to events that happen throughout the agent's day. A 'good' event might be seeing a friend or getting positive feedback at work, a neutral event might be catching the train or cooking dinner, and a bad event could be hurting oneself at the gym or having a fight with one's partner. These observations throughout the day provide evidence for the agent to believe their world is going well or going poorly. Note, here we are simulating agents who are in stable environments where there is a possibility of good observations, excluding simulations where agents are exposed to traumatic events or who are in unstable environments. Each agent begins with a flat prior belief, D, about what state they are in, where the confidence that they are in a going well or a going poorly state is the same. The likelihood mapping (A) for each agent begins with a belief that a going well state generates more good observations and a going poorly state generates more bad observations. Throughout the simulation the agent updates their likelihood matrix (A) and prior beliefs (D) through a process of learning from their observations. The agents are distinguished by their 'luckiness', where their luckiness level determines the true transition matrix of the agent's environment. We refer to the agents by their luckiness as this sets out how many good observations they have throughout the day, where the higher luckiness level results in more good observations. The term reflects the colloquial meaning of luck, understood as the chance of good things happening outside the control of the agent. An agent with a lower level of luckiness has a higher probability of their world transitioning into a 'bad' state, which would generate more bad observations that the agent associates with 'going poorly'. An agent with a higher level of luckiness has a higher probability of transitioning to a 'good' world state which generates more good observations that the agent associates with 'going well'.</p><p>The simulation involves 12 time steps (hours) which represents 12 observations throughout the day of the agent and 7 trials which is representative of 7 days in a week. We simulate 1000 agents across the luckiness levels.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stage 2: Behavioural Tasks</head><p>Since gratitude practice focuses on good events in one's life, understanding how good and bad observations are perceived before and after a gratitude intervention, as well as their effect on an agent's worldview, may help demonstrate the potential benefits of the practice. To show how the agents' learning in Stage 1 can result in different beliefs about the world, all the agents are put through the "same day", i.e. a trial where the observations they all receive are the same, implemented through the same transition matrix (B). This allows us to assess their degree of optimism simply in terms of how the agents perceive the same observations based on their various acquired beliefs about the world going well or going poorly, there is no learning in this stage.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Belief Updating Task</head><p>As optimism bias is associated with many improved life outcomes and greater wellbeing, we use the optimism bias to measure the effect of gratitude on well-being <ref type="bibr" target="#b13">(Conversano et al., 2010;</ref><ref type="bibr" target="#b23">Fisher, Whyte, et al., 2024;</ref><ref type="bibr" target="#b47">Newman et al., 2021;</ref><ref type="bibr" target="#b57">Sharot, 2011)</ref>. Optimism bias can be assessed with a belief updating task, where optimists are found to have an asymmetry in their belief updating and update their beliefs more to good news than bad news <ref type="bibr" target="#b27">(Garrett et al., 2014</ref>; for a computational model see <ref type="bibr">Fisher et al., 2024)</ref>. Each agent performs the belief updating task to measure their optimism bias before the gratitude intervention. For this task there are two hidden state factors. The first hidden state factor corresponds to the current belief that the agent has about the probability of a good or bad outcome for the life event in that trial; for example, the trial could be the belief that the agent will not get cancer (probability of good outcome) or get cancer (probability of bad outcome). The second hidden state factor is the going well and going poorly state factor that was learned in Stage 1. The going well and going poorly state factor controls how much the belief is updated to good versus bad news.</p><p>The task has two observation outcomes: good news and bad news which are deterministically generated based on the associated hidden state, regardless of the optimism of the agent. The agent's likelihood mapping A depends on their beliefs about the world, if an agent is in a going well state they have higher precision for a good outcome and lower precision for a bad outcome, whereas for the going poorly state they have higher precision for a bad outcome and lower precision for a good outcome.</p><p>The update to good versus bad news is calculated by the difference in the initial hidden state factor belief (d) likelihood of a good outcome and likelihood of a bad outcome and the hidden state factor after the observation (d_(trial+1)). To calculate the belief updating for good news, the belief updating average is taken from good news trials where the agent receives a good news outcome. To calculate the belief updating for bad news, the belief updating average is taken from bad news trials where the agent receives a bad news outcome. We run the model 70 times for 70 trials. The prior beliefs of likelihoods of good outcomes and likelihoods of bad outcomes are randomly generated.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Yarbus Task</head><p>As a further investigation, the modified Yarbus task is designed as a proof of concept task to explore how gratitude may affect attention. In the task, the likelihood matrix (A) can be modified to demonstrate how the precision allocated to positive, negative, or neutral observations influences the attentional patterns of the agent. Gratitude practice may influence the learned, baseline, precision over good outcomes and the modified Yarbus task allows us to investigate if this change in belief influences what the agent attends to. This may demonstrate one benefit of gratitude practice where even if all the agents are in the same environment (in this task context, the environment is a painting the agent is looking at) they are choosing different elements to focus on. The agent's decision on what elements of their environment they decide to attend to would modulate their perception of their environment (i.e., they would have different experiences of the painting). The task involves the agent attending to a painting, in this case Edward Munch's The Scream to represent a painting consisting of differently valenced elements, where sections of the painting can be conceived as positive, neutral, or negative. The sections of the painting are coded in the generative process where there are 13 hidden states (s) in the painting, 5 positive elements, 5 negative elements, and 3 neutral elements. The likelihood matrix (A) is an identity matrix so that a positive state results in a positive observation, a negative state results in a negative observation, and a neural state results in a neutral observation. The transition matrix (B) allows for the transition from any location in the painting to any other location.</p><p>The agent's prior beliefs (D) begins as a flat matrix where the agent has no specific beliefs about the location of elements in the painting. The transition matrix (B) allows the agent to transition from any location in the painting to any other location. The agent has 13 policies (π) allowing them to move their gaze from any location in the painting to any other. For the preferences (C), the agent has the highest preference for positive observations, then for neutral observations, and lowest preference for negative observations. The likelihood matrix (A) sets the agent's belief for precision over the observations in each state, where the matrix is modified for different precisions corresponding to agent's beliefs before and after gratitude practice. The policy selection is driven by the minimisation of free energy (G) where the agent selects policies that minimise uncertainty and maximise reward when viewing the painting. This means that if an agent has high precision over a belief for a negative observation, it may cause them to attend to negative elements even if they dislike them as they are more salient, i.e. the agent knows that attending to them will greatly reduce uncertainty.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stage 3: Gratitude Practice</head><p>After the agents have learned about their world and the baseline measurements have been recorded, the gratitude intervention is simulated. In this experiment, the gratitude intervention involves writing down three things they are grateful for at the end of the day, every day for a week. For example, 'I am grateful for spending time with my friend today' or 'I am grateful for having time gardening'. In essence, this practice drives an orientation of attention towards a positive moment that may otherwise have been overlooked. To simulate the gratitude practice the agents are put through the same environment they were in for Stage 1, where the transition matrix (B) is defined by their luckiness. At the end of the day, i.e. trial, the time points of three good observations are stored in memory. The model then loops through the stored time points of the good observations and reevaluates the perceptual inference after increasing the precision of the observation. This deployment of attention to the good outcome results in an update of their state inference to full confidence in the 'going well' state, regardless of their beliefs in the previous timestep. For example, if an agent had a good observation but in the moment failed to pay attention to it (i.e. had low precision over this observation) they may have believed there is a 40% probability they are in a going well state, failing to properly account for the observation they received in favour of their current beliefs. The gratitude intervention increases the precision so the agent biases their belief updating towards incoming data, resulting in the belief that they are certainly in a going well state. After updating their perceptual inferences with the increased attention to good observations, the agent then updates their likelihood matrix (A) as they did in Stage 1. This replicates the learning consolidation that occurs during sleep. This final step captures how the agent's baseline perceptual model, or way of perceiving the world, evolves between trials when they practice gratitude.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stage 4: Behavioural Tasks</head><p>For the final stage of the simulation, the belief updating task and Yarbus from Stage 2 is repeated to compare the optimism bias of the agents before and after gratitude practice. Stage 4, like Stage 2, also has identical experiences for all agents on the same day to assess if the gratitude practice has altered how the agents perceive observations throughout the day and therefore their belief that their world is going well or going poorly.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>The simulation presented here explores the mechanisms of gratitude practice in order to provide a theoretical understanding of how gratitude may be beneficial to well-being. Before the gratitude intervention, baseline measures were recorded from each agent to demonstrate the effect of gratitude on these measures. In the simulation, the agent learns both the prior beliefs about the hidden state factor and the likelihood mapping. We select five agents to show an example of different luckiness levels. In Figure <ref type="figure">2</ref>, we plot the agent's beliefs about the world going well or going poorly after the week of learning about their world. The agent's beliefs about the world are shown by the orange line and the generative process, the true hidden state the agent is in, is shown by the orange dots. We define the agents by their luckiness where the luckiness parameter defines their transition matrix in Stage 1, luckiness 0.1 would have a 0.1 probability of transitioning to a going well state, resulting in the agent receiving more bad observations from occupying more going poorly states. Figure <ref type="figure">2</ref> shows that for the 0.1 luckiness agent, they believe they are in a going poorly state even when they are in a going well state, and this belief remains relatively consistent throughout the day. The luckiness 0.3 agent has a slightly less certain belief they are always in a going poorly state compared to the 0.1 agent. The luckiness 0.5 agent varies its belief about the state they are in throughout the day based on the true state they occupy. The highest level of luckiness agents, 0.7 and 0.9, believe they are in a going well state throughout the day regardless of whether they are in a going poorly state.</p><p>Figure 2. Agent's world and agent's belief about the world before gratitude practice. An average day for each agent is plotted, where the agent is defined by their luckiness (B matrix). The x axis plots the time in day. The y axis plots if the agent is in a going well or going poorly state, represented by the orange dot and the orange line represents the belief the agent has about their world going well or going poorly.</p><p>To compare how the agents experience the same day before and after gratitude practice, we plot the hidden state factor for the same luckiness agents, their belief about the world going well or going poorly after the intervention in Figure <ref type="figure">3</ref>. For the luckiness level 0.1 agent, they now believe they are in a going well state when they are in a going well state. This is a change from before gratitude practice when they consistently believed they were in a going poorly state regardless of the true state. The same change in belief is seen for agent 0.3 after the gratitude intervention. Both 0.1 and 0.3 agents still believe they are in a going poorly state when they are in that state. An interesting difference between agents 0.1 and 0.3 after the intervention is that the 0.3 agent is slightly less certain than the 0.1 agent about going well states, where this difference is most clear at hours 4, 6 and 10. For luckiness agent 0.5, it now believes it is in a going well state when it is in that state, whereas before the intervention the belief was less certain. Compared to before the intervention, the luckiness agent 0.5 now has a less certain belief it is a going poorly state when it is in a going poorly state. The highest level luckiness agents, 0.7 and 0.9, have similar beliefs as they had before the intervention where they believe they are always in a going well state. However, for agent 0.7 there is now no small fluctuation in belief when they are in a going poorly state, such that now they have a certain belief they are in a going well state regardless of the true state.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Figure 3.</head><p>Agent's world and agent's belief about the world after gratitude practice. An average day for each agent is plotted after the gratitude practice intervention, where the agent is defined by their luckiness (B matrix). The x axis plots the time in day. The y axis plots if the agent is in a going well or going poorly state, represented by the orange dot and the orange line represent the belief the agent has about their world going well or going poorly.</p><p>To measure the effect of the gratitude intervention on optimism bias, the results of the belief updating task for the different luckiness levels before and after the intervention are plotted in Figure <ref type="figure" target="#fig_1">4</ref>. There is variability across agents in each luckiness level before gratitude practice, with the most variability occurring from levels 0.3 -0.6 Before the gratitude intervention, agents with luckiness levels from 0.1 -0.3 update more to bad than good news, where the lower the level of luckiness the more they updated to bad news and less to good news, a pessimism bias. After the gratitude intervention, agents from 0.1 -0.3 update less to bad news and more to good news, however on average we observe no optimism bias, where optimism bias is updating more to good than bad news, for these agents. Luckiness level agents 0.3 -0.4 after gratitude practice trend towards updating more to good news, where the high variability shows some agents now have an optimism bias and others do not. For luckiness level agents 0.4 -0.5 on average they have an optimism bias after gratitude practice. Belief updating for good news over bad news for luckiness levels 0.5 -0.6 was increased after gratitude practice, where on average the asymmetry in updating was increased. Agents in levels 0.7 -0.9 have similar results, where on average they update more to good than bad news to the same degree before the intervention.  To demonstrate how gratitude practice may shift an individual's perception of the world we simulated a modified version of the Yarbus task when the agent could attend to positive, negative or neutral elements of the painting The Scream. For this simulation we manipulated the precision in the likelihood matrix for the agent that may increase from a result of gratitude practice, as evidenced from our previous simulation results. Figure <ref type="figure" target="#fig_2">5</ref> plots the state trajectory of the agents both as a continuous plot representative of an eye-tracking trajectory and the percentage of each type of state attended to by the agent. For the example of luckiness agent 0.7 they attend to mostly positive states before gratitude practice which is increased slightly after gratitude practice. In contrast, the example of the luckiness agent 0.3 still attends more to positive states than other states but to a lesser extent than luckiness agent 0.7. Luckiness agent 0.3 spends more time in the neutral states than agent 0.7. After gratitude practice, luckiness agent 0.3 spends more time in positive states than before the practice and less time in neutral states.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Discussion</head><p>In this paper, we have proposed a set of computational mechanisms underlying gratitude practice. We posit that gratitude practice can be modelled as the retroactive reassessment of perceptual inferences under increased precision allocated to positive observations. The model presented here demonstrates how gratitude practice could be beneficial to help shift an agent's belief from thinking their world is going poorly to believing it is going well, by simply redirecting their attention to positive experiences repeatedly. We explored how believing the world is going well could lead to an optimism bias measured through a belief updating task. The simulation provided a theoretical, mechanistic link between the gratitude intervention and optimism bias, which suggests that such data can be collected in human participants to measure optimism bias as a way to empirically test the impact of gratitude practice. Additionally, we demonstrated through a modified Yarbus eye movement task how gratitude practice may shift the attention of the agent to automatically focusing on more positive elements in their environments, thereby potentially creating a virtuous cycle. The model lays the groundwork for future work on gratitude practice to understand its efficacy for improving wellbeing from a mechanistic perspective.</p><p>The first and second stage of the simulation demonstrated how the agent's 'luckiness' level, which determined how many good observations the agent received, influenced their belief that the world is going well or going poorly. Agents with lower levels of luck were in more going poorly states during the learning stage which resulted in an increased number of bad observations, this influenced their likelihood matrix at the end of the learning phase to infer they were in a going poorly state even when they were in a going well state. This result is comparable to empirical work on depression where individuals have a negative bias or negative worldview <ref type="bibr" target="#b3">(Beevers et al., 2019;</ref><ref type="bibr" target="#b19">Duque &amp; Vázquez, 2015;</ref><ref type="bibr" target="#b27">Garrett et al., 2014;</ref><ref type="bibr" target="#b41">Lee et al., 2016;</ref><ref type="bibr" target="#b44">Mennen et al., 2019;</ref><ref type="bibr" target="#b49">Peckham et al., 2010)</ref>. The opposite result was found with agents with higher levels of luckiness, where their likelihood matrix at the end of the learning stage led them to infer they were in a going well state even when they were in a going poorly state. Empirical studies have shown individuals who have a high level of well-being often focus on positive elements in their lives and pay less attention to negative aspects <ref type="bibr" target="#b40">(Lazarov et al., 2018;</ref><ref type="bibr" target="#b51">Raila et al., 2015;</ref><ref type="bibr">Sanchez &amp; Vazquez, 2014a;</ref><ref type="bibr" target="#b63">Thoern et al., 2016)</ref>. Since the agents with higher level luckiness consistently believed they were in a going well state, this simulation thus suggests they have similar beliefs to individuals with high levels of well-being, who focus on positive aspects; this further supports the claim that the models presented successfully modelled an agent with high well-being levels.</p><p>The mid-level luckiness agent fluctuated their beliefs from a going well state to a going poorly throughout the day, without being certain of either state. In the simulation presented here, the agent's observations were representative of events in daily life that agents generally can actively manage (for example, a bad event is missing the train, rather than events that are traumatic, such as loss of a loved one), as such it is most adaptive in this setting to believe things are going well-the bad events can be overcome, consistent with a belief that things are going well and that continuing to act in the world is useful. For more serious events, such as loss of a loved one, believing things are going well would not be adaptive as there needs to be grief and processing of the event. Therefore, in this context, although the mid-level agent is changing their going well and going poorly beliefs based on the true state, their well-being would be improved if they had less precise beliefs about the going poorly state. For example, if the agent (before the gratitude intervention) missed the train and changed to believing that the world is going poorly, this will affect how they perceive other events that happen through their day and what actions they decide to take; such an agent might be less inclined to try to catch the next train, retreat home and miss opportunities in life. In other words, even though the mid-level luckiness agent has an accurate representation of their generally not-too-bad world, they would be better served by a slightly biased representation.</p><p>The gratitude intervention altered the agent's learned beliefs about whether they were in a going well or going poorly state. By increasing the precision of the belief over three good observations at the end of the day for one week, the agents' likelihood matrix shifted such that they paid more attention to positive observations, noticing moments when indeed things were going well. These modelling results are in accordance with suggestions that gratitude practice improves well-being by shifting one's attention to the good events in life <ref type="bibr" target="#b60">(Stone et al., 2022;</ref><ref type="bibr" target="#b65">Watkins et al., 2022)</ref>: the increased attention to good observations during the gratitude practice increased the agent's belief about the probability of being in a going well state. The intervention had the greatest effect on the midlevel luckiness agent who changed their beliefs throughout the day before the intervention but more consistently believed they were in a going well state after the intervention. The lower level luckiness agents' beliefs changed, such that they were able to believe they were in a going well state when that was their true state. However, they also maintained a strong belief about being in a going poorly state when in that state, comparable to what they had before the intervention. For these individuals, there may need to be additional treatments alongside gratitude practice to allow them to have a more persistent belief that things are going well. There was no substantial change for the highest-level luckiness agents, which might suggest that if an individual already has a high level of well-being, then gratitude practice may have little to no effect. These findings may thus provide insights about which environments and initial individual beliefs of individuals would be most appropriate to target with a gratitude practice.</p><p>To demonstrate the efficacy of gratitude practice, we measured optimism bias before and after the intervention. Before the intervention, the agents had a range of results on the belief updating task, where the lower-level luckiness agents updated more to bad than good news, indicating a pessimism bias <ref type="bibr" target="#b2">(Bateson, 2016;</ref><ref type="bibr" target="#b28">Gibbs-Dean et al., 2023;</ref><ref type="bibr" target="#b33">Hobbs et al., 2022)</ref>. In contrast, the higher-level luckiness agents had an optimism bias, where they updated more to good than bad news. Since optimism bias is adaptive and associated with improved quality of life, the optimism bias seen in the higher-level luckiness agents suggests that their beliefs that their world is going well leads to improved well-being <ref type="bibr" target="#b5">(Birkeland et al., 2017;</ref><ref type="bibr" target="#b7">Brydon et al., 2009;</ref><ref type="bibr" target="#b13">Conversano et al., 2010;</ref><ref type="bibr" target="#b37">Kotikalapudi et al., 2022;</ref><ref type="bibr" target="#b38">Krittanawong et al., 2022)</ref>. The pessimism bias seen in the low-level luckiness agents suggests that the belief that the world is going poorly leads to diminished overall well-being, as pessimism is associated with conditions such as depression <ref type="bibr" target="#b55">(Schueller &amp; Seligman, 2008;</ref><ref type="bibr" target="#b62">Strunk et al., 2006;</ref><ref type="bibr" target="#b61">Strunk &amp; Adler, 2009)</ref>. The results from the belief updating task showed a high level of variability across agents, with the most variability for the agents at luckiness levels 0.3 -0.6, demonstrating that optimism increased for some agents after gratitude practice but not all. Agents at luckiness levels 0.4 -0.5 had the strongest on average increase in optimism after gratitude practice, which highlights which individuals may have the best chance of a substantial result from gratitude practice. For the lower levels of luckiness, gratitude practice changed belief updating to increase belief updates to good news and decrease to bad news, however not to an extent that resulted in an optimism bias on average for these agents; this may suggest that for individuals in environments that do not afford many positive outcomes, gratitude practice alone may not be a substantially beneficial exercise.</p><p>The variability in the model results is a strength of the model as we expect this variability in human data, where the timing, strength, and number of difficult events will contribute to how an individual has their well-being impacted. The differences in optimism bias for the agents may be due to the timing of good observations or the number of bad or neutral observations they had throughout the day. As the model learns across the simulation, observations presented earlier have more weight to the updating of the model compared to observations presented at a later time point. Individual differences found in the model can help to consider who may best benefit from an intervention and who may not.</p><p>To show how gratitude practice may change an agent's attention to positive elements in their environment, we used a modified version of the Yarbus eye movement task. Research has shown that there is a link between positive mood and attending to positive stimuli <ref type="bibr" target="#b4">(Bennett et al., 2023;</ref><ref type="bibr">Sanchez &amp; Vazquez, 2014b;</ref><ref type="bibr" target="#b64">Wadlinger &amp; Isaacowitz, 2006)</ref>. Given this relationship, we can then conceive of how gratitude practice may improve well-being even when the environment remains unchanged, namely by enabling a shift in the agent's attention to positive elements occurring in their life. The results from the modified Yarbus task accordingly demonstrated how the change in belief over positive observations shifted the attention of the agent to attend to more positive elements in the painting the agents were viewing. This suggests that gratitude practice may be useful for individuals who already have good things in their world, which they are struggling to pay attention to, such that training the belief over good observations may shift their attention.</p><p>For the gratitude intervention to be fruitful, the agent must be in an environment that generates good observations for which to attend. If the agent was in an environment with no or few good observations the intervention would not be successful. Additionally, if after the gratitude practice the agent is placed in an environment where they were only in going poorly states, it would not be beneficial to consistently believe they were in a going well state. As the model found that gratitude practice increased optimism bias, we can consider environments where increased optimism is adaptive for gratitude to be beneficial. Optimism is adaptive as it promotes engagement with the world to minimise an individual's chance of missed opportunity <ref type="bibr" target="#b22">(Fisher, Smith, et al., 2024;</ref><ref type="bibr" target="#b23">Fisher, Whyte, et al., 2024;</ref><ref type="bibr">Fisher &amp; Hohwy, 2024)</ref>. For example, if an agent overestimates the likelihood of having a good time at a party or overestimates the benefits of going on a run, then they will be more likely to go to the party or go on that run. For this behaviour to be adaptive there has to be, for example, parties where there are kind people and safe places to run. If gratitude practice was prescribed to someone in an environment with no good outcomes, then the increased optimism would not be adaptive and could potentially be harmful -in such a world, increased engagement with the world might not afford the good outcomes the agent believed. Additionally, as we saw, if someone is already optimistic or holds a strong belief they are consistently in a going well state, gratitude practice may not be beneficial. Research has suggested that mood and happiness may be associated with the change in prediction errors over time, where a positive mood can be modelled as outcomes that are better than expected consistently over time <ref type="bibr" target="#b12">(Clark, 1973;</ref><ref type="bibr" target="#b20">Eldar et al., 2016;</ref><ref type="bibr" target="#b32">Hesp et al., 2021;</ref><ref type="bibr" target="#b45">Miller et al., 2022)</ref>. If a positive mood is related to a rate of change in belief, this means there must be fluctuations in beliefs to result in a positive mood. Therefore, if the gratitude intervention increases the agent's belief about the world going well to such a high level of certainty that there is no fluctuation in belief, it may not result in a positive mood for the agent.</p><p>An area of research adjacent to our investigation of gratitude practice is research on gratitude as an emotion, which is studied in the field of moral psychology <ref type="bibr" target="#b1">(Algoe, 2012;</ref><ref type="bibr" target="#b43">McCullough et al., 2001)</ref>. There have been links made between gratitude practice and feeling grateful, where one study found that gratitude interventions increased feelings of gratitude toward others <ref type="bibr" target="#b36">(Kini et al., 2016)</ref>. A predictive coding computational model, which was fitted to human data, found that feelings of gratitude were connected to positive prediction errors, outcomes that are better than expected, whereas negative prediction errors, outcomes that are worse than expected, were not associated with feelings of gratitude <ref type="bibr">(Ding et al., 2024)</ref>. This finding is in line with our modelling results, which showed that gratitude practice increases optimism. That is, if gratitude practice increases feelings of gratitude, then this should increase positive prediction error which means updating belief more from good things. The results of the belief updating task show this as gratitude practice increased the updates to good news.</p><p>Another way to ascertain the effectiveness of gratitude practice is to understand its effects at the neuronal level. Research on the neural correlates of gratitude have focused on the feeling of gratitude rather than gratitude practice itself <ref type="bibr" target="#b24">(Fox et al., 2015;</ref><ref type="bibr" target="#b68">Yu et al., 2017</ref><ref type="bibr" target="#b69">Yu et al., , 2018))</ref>. The research on the emotion of gratitude has suggested that grateful feelings are linked to the brain's reward system and may be connected to the neurotransmitter dopamine <ref type="bibr" target="#b24">(Fox et al., 2015;</ref><ref type="bibr" target="#b36">Kini et al., 2016;</ref><ref type="bibr" target="#b68">Yu et al., 2017</ref><ref type="bibr" target="#b69">Yu et al., , 2018))</ref>. Further research on the neurobiology of gratitude interventions would aid in the understanding of how it may be beneficial as an intervention. Computational modelling approaches could be used in future research on the neural mechanisms of gratitude interventions, mediated through the neuronal process theories for active inference <ref type="bibr" target="#b0">(Adams et al., 2020;</ref><ref type="bibr" target="#b26">Friston et al., 2012;</ref><ref type="bibr" target="#b39">Lan &amp; Browning, 2022;</ref><ref type="bibr" target="#b42">Ludvig et al., 2011;</ref><ref type="bibr" target="#b56">Schwartenbeck et al., 2015)</ref>.</p><p>Other future research directions include collecting participant data to fit the optimism model before and after the gratitude intervention; the model presented here is designed with this aim in mind. As our model had the goal of understanding gratitude practice as an intervention, the model simplicity was considered to fit human data and advise clinicians. The model here is relatively abstract but it could inspire future research projects involving more complex models of gratitude. A possible avenue for modelling would be to investigate the connection between the mechanisms of feelings of gratitude and gratitude interventions. The simulation here focused on environments where there were possibilities for good observations, this is as we wished to develop a proof of principle to how the mechanisms of gratitude may work, and future research should investigate environments and conditions where gratitude may not be adaptive.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>Here, we present computational mechanisms of gratitude practice using the active inference framework. Using the belief updating task, we show how gratitude practice increases optimism. Our simulation results show how gratitude can change the agent's world beliefs about their world going poorly to going well and that this may shift attention to good things in the agent's world. The work here aims to lay the groundwork for future work on gratitude practice from a mechanistic perspective.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Graphical depiction of computational models used in the simulation for each stage. Details for each stage are described in the Methods section.</figDesc><graphic coords="4,0.00,336.55,595.30,317.35" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: The bar plot shows the mean percentage of updating beliefs to good versus bad news for agents of each luckiness level. The individual dots are each agent's average belief update to good versus bad news. The left plot is the belief updating task before gratitude intervention and the right plot is the belief updating task after gratitude intervention. Good news is plotted in blue and bad news is plotted in red. Optimism bias is updating more to good versus bad news.</figDesc><graphic coords="11,0.00,127.60,595.30,198.55" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: Yarbus task results plotted before and after gratitude practice as eyetracking trajectory (left panels) and percentage attention of agent in positive, negative and neutral states (right bar plot).</figDesc><graphic coords="12,28.00,71.95,520.50,284.90" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="9,17.00,131.55,549.50,244.30" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="10,7.50,119.70,581.00,272.75" type="bitmap" /></figure>
+		</body>
+		<back>
+
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Code Availability</head><p>The gratitude simulation and belief updating task can be found here: <ref type="url" target="https://colab.research.google.com/drive/1OaYkfpko5RO1JIKgj-Ayb_tNfdTcmt0z">https://colab.research.google.com/drive/1OaYkfpko5RO1JIKgj-Ayb_tNfdTcmt0z</ref> The modified Yarbus task can be found here: <ref type="url" target="https://colab.research.google.com/drive/1D6KJIQgzZhpKOaX4WKgjWl10xG_ZoMdO#scrollTo=oTc3YS55WMOn">https://colab.research.google.com/drive/1D6KJIQgzZhpKOaX4WKgjWl10xG_ZoMd  O#scrollTo=oTc3YS55WMOn</ref> </p></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Funding Information</head><p>The work was supported by a Three Springs Foundation Grant awarded to JH.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Competing Interests</head><p>The authors have no competing interests to declare.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Author's Contributions</head><p>ELF: conceived the study, designed the study, constructed the models, conducted analysis, drafted and wrote the paper. L.S.-S: conceived the study, contributed to design, constructed the models, contributed to writing the paper.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Variability in Action Selection Relates to Striatal Dopamine 2/3 Receptor Availability in Humans: A PET Neuroimaging Study Using Reinforcement Learning and Active Inference Models</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Adams</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Moutoussis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">M</forename><surname>Nour</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Dahoun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Lewis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Illingworth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Veronese</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Mathys</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>De Boer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Guitart-Masip</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">J</forename><surname>Friston</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><forename type="middle">D</forename><surname>Howes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">P</forename><surname>Roiser</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/cercor/bhz327</idno>
+		<ptr target="https://doi.org/10.1093/cercor/bhz327" />
+	</analytic>
+	<monogr>
+		<title level="j">Cerebral Cortex</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="3573" to="3589" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Find, Remind, and Bind: The Functions of Gratitude in Everyday Relationships</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">B</forename><surname>Algoe</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1751-9004.2012.00439.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1751-9004.2012.00439.x" />
+	</analytic>
+	<monogr>
+		<title level="j">Social and Personality Psychology Compass</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="455" to="469" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Optimistic and pessimistic biases: A primer for behavioural ecologists</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bateson</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cobeha.2016.09.013</idno>
+		<ptr target="https://doi.org/10.1016/j.cobeha.2016.09.013" />
+	</analytic>
+	<monogr>
+		<title level="j">Current Opinion in Behavioral Sciences</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="page" from="115" to="121" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Association between negative cognitive bias and depression: A symptom-level approach</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">G</forename><surname>Beevers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">C</forename><surname>Mullarkey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Dainer-Best</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Stewart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Labrada</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">J B</forename><surname>Allen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">E</forename><surname>Mcgeary</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Shumake</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/abn0000405</idno>
+		<ptr target="https://doi.org/10.1037/abn0000405" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Abnormal Psychology</title>
+		<imprint>
+			<biblScope unit="volume">128</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="212" to="227" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Affectcongruent attention modulates generalized reward expectations</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Bennett</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Radulescu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Zorowitz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Felso</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Niv</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pcbi.1011707</idno>
+		<ptr target="https://doi.org/10.1371/journal.pcbi.1011707" />
+	</analytic>
+	<monogr>
+		<title level="j">PLOS Computational Biology</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page">1011707</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Does optimism act as a buffer against posttraumatic stress over time? A longitudinal study of the protective role of optimism after the 2011 Oslo bombing</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">S</forename><surname>Birkeland</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Blix</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ø</forename><surname>Solberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Heir</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/tra0000188</idno>
+		<ptr target="https://doi.org/10.1037/tra0000188" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Trauma: Theory, Research, Practice, and Policy</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="207" to="213" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Positive psychology interventions: A meta-analysis of randomized controlled studies</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Bolier</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Haverman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">J</forename><surname>Westerhof</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Riper</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Smit</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Bohlmeijer</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/1471-2458-13-119</idno>
+		<ptr target="https://doi.org/10.1186/1471-2458-13-119" />
+	</analytic>
+	<monogr>
+		<title level="j">BMC Public Health</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">119</biblScope>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Dispositional optimism and stress-induced changes in immunity and negative mood</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Brydon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Walker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">J</forename><surname>Wawrzyniak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Chart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Steptoe</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.bbi.2009.02.018</idno>
+		<ptr target="https://doi.org/10.1016/j.bbi.2009.02.018" />
+	</analytic>
+	<monogr>
+		<title level="j">Brain, Behavior, and Immunity</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="810" to="816" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Effectiveness of positive psychology interventions: A systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Carr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Cullen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Keeney</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Canning</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Mooney</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Chinseallaigh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>O'dowd</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17439760.2020.1818807</idno>
+		<ptr target="https://doi.org/10.1080/17439760.2020.1818807" />
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Positive Psychology</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="749" to="769" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Positive psychology interventions in breast cancer. A systematic review</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Casellas-Grau</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Font</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Vives</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/pon.3353</idno>
+		<ptr target="https://doi.org/10.1002/pon.3353" />
+	</analytic>
+	<monogr>
+		<title level="j">Psycho-Oncology</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="9" to="19" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Viewing task influences eye movement control during active scene perception</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">S</forename><surname>Castelhano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">L</forename><surname>Mack</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Henderson</surname></persName>
+		</author>
+		<idno type="DOI">10.1167/9.3.6</idno>
+		<ptr target="https://doi.org/10.1167/9.3.6" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Vision</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">6</biblScope>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">The effect of positive psychology interventions on well-being and distress in clinical samples with psychiatric or somatic disorders: A systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Chakhssi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">T</forename><surname>Kraiss</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sommers-Spijkerman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">T</forename><surname>Bohlmeijer</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s12888-018-1739-2</idno>
+		<ptr target="https://doi.org/10.1186/s12888-018-1739-2" />
+	</analytic>
+	<monogr>
+		<title level="j">BMC Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">211</biblScope>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">The language-as-fixed-effect fallacy: A critique of language statistics in psychological research</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">H</forename><surname>Clark</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/S0022-5371(73)80014-3</idno>
+		<ptr target="https://doi.org/10.1016/S0022-5371(73)80014-3" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Verbal Learning and Verbal Behavior</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="335" to="359" />
+			<date type="published" when="1973">1973</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Optimism and Its Impact on Mental and Physical Well-Being</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Conversano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Rotondo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Lensi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Della Vista</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Arpone</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Reda</surname></persName>
+		</author>
+		<idno type="DOI">10.2174/1745017901006010025</idno>
+		<ptr target="https://doi.org/10.2174/1745017901006010025" />
+	</analytic>
+	<monogr>
+		<title level="j">Clinical Practice and Epidemiology in Mental Health : CP &amp; EMH</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page" from="25" to="29" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Effect of gratitude on cardiovascular health outcomes: A state-of-the-science review</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Cousin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Redwine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Bricker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Kip</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Buck</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17439760.2020.1716054</idno>
+		<ptr target="https://doi.org/10.1080/17439760.2020.1716054" />
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Positive Psychology</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="348" to="355" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Gratitude Interventions: Effective Self-help? A Meta-analysis of the Impact on Symptoms of Depression and Anxiety</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">R</forename><surname>Cregg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">S</forename><surname>Cheavens</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10902-020-00236-6</idno>
+		<ptr target="https://doi.org/10.1007/s10902-020-00236-6" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Happiness Studies</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="413" to="445" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Positive Psychology and Gratitude Interventions: A Randomized Clinical Trial</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">F</forename><surname>Cunha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">C</forename><surname>Pellanda</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">T</forename><surname>Reppold</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/fpsyg.2019.00584</idno>
+		<ptr target="https://www.frontiersin.org/articles/10.3389/fpsyg.2019.00584" />
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Psychology</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Thankful for the little things: A meta-analysis of gratitude interventions</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">E</forename><surname>Davis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Choe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Meyers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Wade</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Varjas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Gifford</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Quinn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">N</forename><surname>Hook</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">R</forename><surname>Van Tongeren</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">J</forename><surname>Griffin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">L</forename><surname>Worthington</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/cou0000107</idno>
+		<ptr target="https://doi.org/10.1037/cou0000107" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Counseling Psychology</title>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="20" to="31" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Using Gratitude to Promote Positive Change: A Series of Meta-Analyses Investigating the Effectiveness of Gratitude Interventions</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">R</forename><surname>Dickens</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/01973533.2017.1323638</idno>
+		<ptr target="https://doi.org/10.1080/01973533.2017.1323638" />
+	</analytic>
+	<monogr>
+		<title level="j">Basic and Applied Social Psychology</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="193" to="208" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Double attention bias for positive and negative emotional faces in clinical depression: Evidence from an eye-tracking study</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Duque</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Vázquez</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jbtep.2014.09.005</idno>
+		<ptr target="https://doi.org/10.1016/j.jbtep.2014.09.005" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Behavior Therapy and Experimental Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">46</biblScope>
+			<biblScope unit="page" from="107" to="114" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Mood as Representation of Momentum</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Eldar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">B</forename><surname>Rutledge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Dolan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Niv</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.tics.2015.07.010</idno>
+		<ptr target="https://doi.org/10.1016/j.tics.2015.07.010" />
+	</analytic>
+	<monogr>
+		<title level="j">Trends in Cognitive Sciences</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="15" to="24" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">The Universal Optimism of the Self-Evidencing Mind</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">L</forename><surname>Fisher</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hohwy</surname></persName>
+		</author>
+		<idno type="DOI">10.3390/e26060518</idno>
+		<ptr target="https://doi.org/10.3390/e26060518" />
+	</analytic>
+	<monogr>
+		<title level="j">Entropy</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Psilocybin increases optimistic engagement over time: Computational modelling of behaviour in rats</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">L</forename><surname>Fisher</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Smith</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Conn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">W</forename><surname>Corcoran</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">K</forename><surname>Milton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hohwy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">J</forename><surname>Foldi</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41398-024-03103-7</idno>
+		<ptr target="https://doi.org/10.1038/s41398-024-03103-7" />
+	</analytic>
+	<monogr>
+		<title level="j">Translational Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="10" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">An Active Inference Model of the Optimism Bias</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">L</forename><surname>Fisher</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">J</forename><surname>Whyte</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hohwy</surname></persName>
+		</author>
+		<idno type="DOI">10.31234/osf.io/xfb48</idno>
+		<ptr target="https://doi.org/10.31234/osf.io/xfb48" />
+	</analytic>
+	<monogr>
+		<title level="j">OSF</title>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Neural correlates of gratitude</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">R</forename><surname>Fox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Kaplan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Damasio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Damasio</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/fpsyg.2015.01491</idno>
+		<ptr target="https://doi.org/10.3389/fpsyg.2015.01491" />
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Psychology</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Generative models for clinical applications in computational psychiatry</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Frässle</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Yao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Schöbi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">A</forename><surname>Aponte</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Heinzle</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">E</forename><surname>Stephan</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/wcs.1460</idno>
+		<ptr target="https://doi.org/10.1002/wcs.1460" />
+	</analytic>
+	<monogr>
+		<title level="j">WIREs Cognitive Science</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">1460</biblScope>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Dopamine, Affordance and Active Inference</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">J</forename><surname>Friston</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Shiner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Fitzgerald</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Galea</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Adams</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Brown</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Dolan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Moran</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">E</forename><surname>Stephan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Bestmann</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pcbi.1002327</idno>
+		<ptr target="https://doi.org/10.1371/journal.pcbi.1002327" />
+	</analytic>
+	<monogr>
+		<title level="j">PLoS Computational Biology</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">1002327</biblScope>
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Losing the rose tinted glasses: Neural substrates of unbiased belief updating in depression</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Garrett</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Sharot</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Faulkner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">W</forename><surname>Korn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">P</forename><surname>Roiser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Dolan</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/fnhum.2014.00639</idno>
+		<ptr target="https://www.frontiersin.org/article/10.3389/fnhum.2014.00639" />
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Human Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Belief updating in psychosis, depression and anxiety disorders: A systematic review across computational modelling approaches</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Gibbs-Dean</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Katthagen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Tsenkova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Ali</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Liang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Spencer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Diederen</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neubiorev.2023.105087</idno>
+		<ptr target="https://doi.org/10.1016/j.neubiorev.2023.105087" />
+	</analytic>
+	<monogr>
+		<title level="j">Neuroscience &amp; Biobehavioral Reviews</title>
+		<imprint>
+			<biblScope unit="volume">147</biblScope>
+			<biblScope unit="page">105087</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">A critical examination of the effectiveness of gratitude intervention on well-Being Outcomes: A within-person experimental daily diary approach</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Hartanto</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kaur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">T A S</forename><surname>Kasturiratna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">Y X</forename><surname>Quek</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">M</forename><surname>Majeed</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17439760.2022.2154704</idno>
+		<ptr target="https://doi.org/10.1080/17439760.2022.2154704" />
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Positive Psychology</title>
+		<imprint>
+			<biblScope unit="volume">0</biblScope>
+			<biblScope unit="issue">0</biblScope>
+			<biblScope unit="page" from="1" to="16" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Efficacy of an internet and app-based gratitude intervention in reducing repetitive negative thinking and mechanisms of change in the intervention&apos;s effect on anxiety and depression: Results from a randomized controlled trial</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Heckendorf</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Lehr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">D</forename><surname>Ebert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Freund</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.brat.2019.103415</idno>
+		<ptr target="https://doi.org/10.1016/j.brat.2019.103415" />
+	</analytic>
+	<monogr>
+		<title level="j">Behaviour Research and Therapy</title>
+		<imprint>
+			<biblScope unit="volume">119</biblScope>
+			<biblScope unit="page">103415</biblScope>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">The Efficacy of Multi-component Positive Psychology Interventions: A Systematic Review and Meta-analysis of Randomized Controlled Trials</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Hendriks</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Schotanus-Dijkstra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Hassankhan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>De Jong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Bohlmeijer</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10902-019-00082-1</idno>
+		<ptr target="https://doi.org/10.1007/s10902-019-00082-1" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Happiness Studies</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="357" to="390" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Deeply Felt Affect: The Emergence of Valence in Deep Active Inference</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Hesp</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Smith</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Parr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Allen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">J</forename><surname>Friston</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J D</forename><surname>Ramstead</surname></persName>
+		</author>
+		<idno type="DOI">10.1162/neco_a_01341</idno>
+		<ptr target="https://doi.org/10.1162/neco_a_01341" />
+	</analytic>
+	<monogr>
+		<title level="j">Neural Computation</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="398" to="446" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Is depression associated with reduced optimistic belief updating</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Hobbs</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Vozarova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sabharwal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Shah</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Button</surname></persName>
+		</author>
+		<idno type="DOI">10.1098/rsos.190814</idno>
+		<ptr target="https://doi.org/10.1098/rsos.190814" />
+	</analytic>
+	<monogr>
+		<title level="j">Royal Society Open Science</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page">190814</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">The impact of a brief gratitude intervention on subjective well-being, biology and sleep</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Jackowska</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Brown</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ronaldson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Steptoe</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1359105315572455</idno>
+		<ptr target="https://doi.org/10.1177/1359105315572455" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Health Psychology</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="2207" to="2217" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Being Thankful for What You Have: A Systematic Review of Evidence for the Effect of Gratitude on Life Satisfaction</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Kerry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Chhabra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Clifton</surname></persName>
+		</author>
+		<idno type="DOI">10.2147/PRBM.S372432</idno>
+		<ptr target="https://doi.org/10.2147/PRBM.S372432" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychology Research and Behavior Management</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="page" from="4799" to="4816" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">The effects of gratitude expression on neural activity</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Kini</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Wong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mcinnis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Gabana</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">W</forename><surname>Brown</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neuroimage.2015.12.040</idno>
+		<ptr target="https://doi.org/10.1016/j.neuroimage.2015.12.040" />
+	</analytic>
+	<monogr>
+		<title level="j">NeuroImage</title>
+		<imprint>
+			<biblScope unit="volume">128</biblScope>
+			<biblScope unit="page" from="1" to="10" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Predictive modeling of optimism bias using gray matter cortical thickness</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Kotikalapudi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">A</forename><surname>Moser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Dricu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">T</forename><surname>Spisak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Aue</surname></persName>
+		</author>
+		<idno type="DOI">10.31234/osf.io/3yz68</idno>
+		<ptr target="https://doi.org/10.31234/osf.io/3yz68" />
+	</analytic>
+	<monogr>
+		<title level="j">PsyArXiv</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Association of Optimism with Cardiovascular Events and All-Cause Mortality: Systematic Review and Meta-Analysis</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Krittanawong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">S</forename><surname>Maitra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hassan</forename><surname>Virk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">U</forename><surname>Fogg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Kaplin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Gritsch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Storch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">A</forename><surname>Tobler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">N</forename><surname>Charney</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">S</forename><surname>Levine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">N</forename></persName>
+		</author>
+		<idno type="DOI">10.1016/j.amjmed.2021.12.023</idno>
+		<ptr target="https://doi.org/10.1016/j.amjmed.2021.12.023" />
+	</analytic>
+	<monogr>
+		<title level="j">The American Journal of Medicine</title>
+		<imprint>
+			<biblScope unit="volume">135</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="856" to="863" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">What Can Reinforcement Learning Models of Dopamine and Serotonin Tell Us about the Action of Antidepressants</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">C L</forename><surname>Lan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Browning</surname></persName>
+		</author>
+		<idno type="DOI">10.5334/cpsy</idno>
+		<ptr target="https://doi.org/10.5334/cpsy" />
+	</analytic>
+	<monogr>
+		<title level="j">Computational Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Free viewing of sad and happy faces in depression: A potential target for attention bias modification</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Lazarov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Ben-Zion</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Shamai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">S</forename><surname>Pine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Bar-Haim</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jad.2018.05.047</idno>
+		<ptr target="https://doi.org/10.1016/j.jad.2018.05.047" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Affective Disorders</title>
+		<imprint>
+			<biblScope unit="volume">238</biblScope>
+			<biblScope unit="page" from="94" to="100" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Magnitude of negative interpretation bias depends on severity of depression</title>
+		<author>
+			<persName><forename type="first">J.-S</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Mathews</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Shergill</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Yiend</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.brat.2016.05.007</idno>
+		<ptr target="https://doi.org/10.1016/j.brat.2016.05.007" />
+	</analytic>
+	<monogr>
+		<title level="j">Behaviour Research and Therapy</title>
+		<imprint>
+			<biblScope unit="volume">83</biblScope>
+			<biblScope unit="page" from="26" to="34" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">A Primer on Reinforcement Learning in the Brain: Psychological, Computational, and Neural Perspectives</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">A</forename><surname>Ludvig</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">G</forename><surname>Bellemare</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">G</forename><surname>Pearson</surname></persName>
+		</author>
+		<idno type="DOI">10.4018/978-1-60960-021-1</idno>
+		<ptr target="https://doi.org/10.4018/978-1-60960-021-1" />
+	</analytic>
+	<monogr>
+		<title level="m">Computational Neuroscience for Advancing Artificial Intelligence: Models, Methods and Applications</title>
+		<imprint>
+			<publisher>IGI Global</publisher>
+			<date type="published" when="2011">2011</date>
+			<biblScope unit="page" from="111" to="144" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Is gratitude a moral affect?</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">E</forename><surname>Mccullough</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">D</forename><surname>Kilpatrick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Emmons</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">B</forename><surname>Larson</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0033-2909.127.2.249</idno>
+		<ptr target="https://doi.org/10.1037/0033-2909.127.2.249" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">127</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="249" to="266" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Attentional bias in depression: Understanding mechanisms to improve training and treatment</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">C</forename><surname>Mennen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">A</forename><surname>Norman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">B</forename><surname>Turk-Browne</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.copsyc.2019.07.036</idno>
+		<ptr target="https://doi.org/10.1016/j.copsyc.2019.07.036" />
+	</analytic>
+	<monogr>
+		<title level="j">Current Opinion in Psychology</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="page" from="266" to="273" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">The Predictive Dynamics of Happiness and Well-Being</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Kiverstein</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Rietveld</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/17540739211063851</idno>
+		<ptr target="https://doi.org/10.1177/17540739211063851" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion Review</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="15" to="30" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Introducing a Bayesian model of selective attention based on active inference</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">B</forename><surname>Mirza</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Adams</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Friston</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Parr</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41598-019-50138-8</idno>
+		<ptr target="https://doi.org/10.1038/s41598-019-50138-8" />
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Reports</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">13915</biblScope>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Comparing daily physiological and psychological benefits of gratitude and optimism using a digital platform</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">B</forename><surname>Newman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">M</forename><surname>Gordon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">B</forename><surname>Mendes</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/emo0001025</idno>
+		<ptr target="https://doi.org/10.1037/emo0001025" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="1357" to="1365" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<monogr>
+		<title level="m" type="main">Active inference: The free energy principle in mind, brain, and behavior</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Parr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Pezzulo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">J</forename><surname>Friston</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<publisher>The MIT Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">A meta-analysis of the magnitude of biased attention in depression</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">D</forename><surname>Peckham</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">K</forename><surname>Mchugh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">W</forename><surname>Otto</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/da.20755</idno>
+		<ptr target="https://doi.org/10.1002/da.20755" />
+	</analytic>
+	<monogr>
+		<title level="j">Depression and Anxiety</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="1135" to="1142" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">Effects of Positive Psychology Interventions in Depressive Patients-A Randomized Control Study</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Pietrowsky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Mikutta</surname></persName>
+		</author>
+		<idno type="DOI">10.4236/psych.2012.312158</idno>
+		<ptr target="https://doi.org/10.4236/psych.2012.312158" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychology</title>
+		<imprint>
+			<biblScope unit="volume">03</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">Seeing the world through rose-colored glasses: People who are happy and satisfied with life preferentially attend to positive stimuli</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Raila</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">J</forename><surname>Scholl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Gruber</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/emo0000049</idno>
+		<ptr target="https://doi.org/10.1037/emo0000049" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="449" to="462" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">Active Inference: Demystified and Compared</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sajid</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">J</forename><surname>Ball</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Parr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">J</forename><surname>Friston</surname></persName>
+		</author>
+		<idno type="DOI">10.1162/neco_a_01357</idno>
+		<ptr target="https://doi.org/10.1162/neco_a_01357" />
+	</analytic>
+	<monogr>
+		<title level="j">Neural Computation</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="674" to="712" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Looking at the eyes of happiness: Positive emotions mediate the influence of life satisfaction on attention to happy faces</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sanchez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Vazquez</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17439760.2014.910827</idno>
+		<ptr target="https://doi.org/10.1080/17439760.2014.910827" />
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Positive Psychology</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="435" to="448" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<analytic>
+		<title level="a" type="main">Looking at the eyes of happiness: Positive emotions mediate the influence of life satisfaction on attention to happy faces</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sanchez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Vazquez</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17439760.2014.910827</idno>
+		<ptr target="https://doi.org/10.1080/17439760.2014.910827" />
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Positive Psychology</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="435" to="448" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<analytic>
+		<title level="a" type="main">Chapter 8-Optimism and Pessimism</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">M</forename><surname>Schueller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">E P</forename><surname>Seligman</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/B978-0-08-045078-0.00008-3</idno>
+		<ptr target="https://doi.org/10.1016/B978-0-08-045078-0.00008-3" />
+	</analytic>
+	<monogr>
+		<title level="m">Risk Factors in Depression</title>
+		<editor>
+			<persName><forename type="first">K</forename><forename type="middle">S</forename><surname>Dobson</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">D</forename><forename type="middle">J A</forename><surname>Dozois</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Elsevier</publisher>
+			<date type="published" when="2008">2008</date>
+			<biblScope unit="page" from="171" to="194" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<analytic>
+		<title level="a" type="main">The Dopaminergic Midbrain Encodes the Expected Certainty about Desired Outcomes</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Schwartenbeck</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">H B</forename><surname>Fitzgerald</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Mathys</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Dolan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Friston</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/cercor/bhu159</idno>
+		<ptr target="https://doi.org/10.1093/cercor/bhu159" />
+	</analytic>
+	<monogr>
+		<title level="j">Cerebral Cortex</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="3434" to="3445" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<analytic>
+		<title level="a" type="main">The optimism bias</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Sharot</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cub.2011.10.030</idno>
+		<ptr target="https://doi.org/10.1016/j.cub.2011.10.030" />
+	</analytic>
+	<monogr>
+		<title level="j">Current Biology</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">23</biblScope>
+			<biblScope unit="page" from="941" to="R945" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">How Dopamine Enhances an Optimism Bias in Humans</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Sharot</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Guitart-Masip</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">W</forename><surname>Korn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Chowdhury</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Dolan</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cub.2012.05.053</idno>
+		<ptr target="https://doi.org/10.1016/j.cub.2012.05.053" />
+	</analytic>
+	<monogr>
+		<title level="j">Current Biology</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">16</biblScope>
+			<biblScope unit="page" from="1477" to="1481" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b59">
+	<analytic>
+		<title level="a" type="main">A step-by-step tutorial on active inference and its application to empirical data</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Smith</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">J</forename><surname>Friston</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">J</forename><surname>Whyte</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jmp.2021.102632</idno>
+		<ptr target="https://doi.org/10.1016/j.jmp.2021.102632" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mathematical Psychology</title>
+		<imprint>
+			<biblScope unit="volume">107</biblScope>
+			<biblScope unit="page">102632</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b60">
+	<analytic>
+		<title level="a" type="main">Effects of the Gratitude Letter and Positive Attention Bias Modification on Attentional Deployment and Emotional States</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">M</forename><surname>Stone</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Lindt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">E</forename><surname>Rabinovich</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">G</forename><surname>Gilbert</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10902-021-00377-2</idno>
+		<ptr target="https://doi.org/10.1007/s10902-021-00377-2" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Happiness Studies</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="3" to="25" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b61">
+	<analytic>
+		<title level="a" type="main">Cognitive biases in three prediction tasks: A test of the cognitive model of depression</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">R</forename><surname>Strunk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">D</forename><surname>Adler</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.brat.2008.10.008</idno>
+		<ptr target="https://doi.org/10.1016/j.brat.2008.10.008" />
+	</analytic>
+	<monogr>
+		<title level="j">Behaviour Research and Therapy</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="34" to="40" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b62">
+	<analytic>
+		<title level="a" type="main">Depressive symptoms are associated with unrealistic negative predictions of future life events</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">R</forename><surname>Strunk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Lopez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Derubeis</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.brat.2005.07.001</idno>
+		<ptr target="https://doi.org/10.1016/j.brat.2005.07.001" />
+	</analytic>
+	<monogr>
+		<title level="j">Behaviour Research and Therapy</title>
+		<imprint>
+			<biblScope unit="volume">44</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="861" to="882" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b63">
+	<analytic>
+		<title level="a" type="main">Attentional Bias towards Positive Emotion Predicts Stress Resilience</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">A</forename><surname>Thoern</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Grueschow</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><surname>Ehlert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">C</forename><surname>Ruff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Kleim</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0148368</idno>
+		<ptr target="https://doi.org/10.1371/journal.pone.0148368" />
+	</analytic>
+	<monogr>
+		<title level="j">PLOS ONE</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">148368</biblScope>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b64">
+	<analytic>
+		<title level="a" type="main">Positive mood broadens visual attention to positive stimuli</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">A</forename><surname>Wadlinger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">M</forename><surname>Isaacowitz</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11031-006-9021-1</idno>
+		<ptr target="https://doi.org/10.1007/s11031-006-9021-1" />
+	</analytic>
+	<monogr>
+		<title level="j">Motivation and Emotion</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="87" to="99" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b65">
+	<analytic>
+		<title level="a" type="main">Modifying interpretation bias leads to congruent changes in gratitude</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">C</forename><surname>Watkins</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Munger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Hutton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Elliot</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Mathews</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17439760.2021.1940249</idno>
+		<ptr target="https://doi.org/10.1080/17439760.2021.1940249" />
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Positive Psychology</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="628" to="638" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b66">
+	<analytic>
+		<title level="a" type="main">Gratitude and well-being: A review and theoretical integration</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">M</forename><surname>Wood</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">J</forename><surname>Froh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">W A</forename><surname>Geraghty</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cpr.2010.03.005</idno>
+		<ptr target="https://doi.org/10.1016/j.cpr.2010.03.005" />
+	</analytic>
+	<monogr>
+		<title level="j">Clinical Psychology Review</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="890" to="905" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b67">
+	<analytic>
+		<title level="a" type="main">Eye Movements During Fixation on Stationary Objects</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">L</forename><surname>Yarbus</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-1-4899-5379-7_4</idno>
+		<ptr target="https://doi.org/10.1007/978-1-4899-5379-7_4" />
+	</analytic>
+	<monogr>
+		<title level="m">Eye Movements and Vision</title>
+		<editor>
+			<persName><forename type="first">A</forename><forename type="middle">L</forename><surname>Yarbus</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Springer US</publisher>
+			<date type="published" when="1967">1967</date>
+			<biblScope unit="page" from="103" to="127" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b68">
+	<analytic>
+		<title level="a" type="main">Neural substrates and social consequences of interpersonal gratitude: Intention matters</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Cai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Shen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Gao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Zhou</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/emo0000258</idno>
+		<ptr target="https://doi.org/10.1037/emo0000258" />
+	</analytic>
+	<monogr>
+		<title level="j">Emotion</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="589" to="601" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b69">
+	<analytic>
+		<title level="a" type="main">Decomposing Gratitude: Representation and Integration of Cognitive Antecedents of Gratitude in the Brain</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Yu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Gao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Zhou</surname></persName>
+		</author>
+		<idno type="DOI">10.1523/JNEUROSCI.2944-17.2018018</idno>
+		<ptr target="https://doi.org/10.1523/JNEUROSCI.2944-17.2018018" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">21</biblScope>
+			<biblScope unit="page" from="4886" to="4898" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

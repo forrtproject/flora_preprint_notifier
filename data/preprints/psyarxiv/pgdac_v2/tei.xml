@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">BayesPower: A General Application of Power and Sample Size Calculation for the Bayes Factor</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Tsz</forename><forename type="middle">Keung</forename><surname>Wong</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Tilburg University</orgName>
+								<orgName type="institution" key="instit2">University of Zurich</orgName>
+								<orgName type="institution" key="instit3">Hiroshima University</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Samuel</forename><surname>Pawel</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Tilburg University</orgName>
+								<orgName type="institution" key="instit2">University of Zurich</orgName>
+								<orgName type="institution" key="instit3">Hiroshima University</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Jorge</forename><surname>Tendeiro</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution" key="instit1">Tilburg University</orgName>
+								<orgName type="institution" key="instit2">University of Zurich</orgName>
+								<orgName type="institution" key="instit3">Hiroshima University</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">BayesPower: A General Application of Power and Sample Size Calculation for the Bayes Factor</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">97BEA290F5D512DF03B01FB4D0A8A200</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:16+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Bayes factor</term>
+					<term>power analysis</term>
+					<term>design analysis</term>
+					<term>sample size determination</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>BayesPower is an R package with a user-friendly Shiny interface for conducting sample size determination, power calculation, and Bayes factor calculation in the context of Bayesian hypothesis testing without the use of simulation. The app supports a wide range of commonly encountered statistical tests in the social, behavioral, and biomedical sciences, including standardized mean differences, correlations, linear regression and ANOVA, as well as tests for one and two proportions. In addition to traditional pointnull hypothesis versus composite alternative hypothesis, BayesPower supports sample size planning for interval hypothesis Bayes factors (i.e., equivalence testing). Moreover, the Shiny app provides command-line-based R code for the reproducibility of results. For most testing problems, the sample size and power are returned almost instantly, enabling researchers to rapidly design informative and efficient studies.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">Introduction</head><p>The application of Bayes factors in data analysis has been facilitated by the development of accessible software, such as BayesFactor <ref type="bibr" target="#b18">(Morey and Rouder 2024)</ref>, BFpack <ref type="bibr" target="#b19">(Mulder, Williams, Gu, Tomarken, Böing-Messing, Olsson-Collentine, Meijerink, Menke, van Aert, Fox, Hoijtink, Rosseel, Wagenmakers, and van Lissa 2021)</ref>, and JASP (JASP Team 2025). However, to obtain informative Bayes factor inferences, experiments need to be well designed, requiring large enough samples to ensure adequate statistical power. Statistical software for power and sample size calculation in Bayes factor analysis is mainly based on Monte Carlo simulation methodology, such as BFDA <ref type="bibr" target="#b26">(Stefan, Gronau, Schönbrodt, and Wagenmakers 2019)</ref>. Simulation methods are associated with Monte Carlo error, can take a long time to run, and can be challenging to use for inexperienced users. Recently, an alternative approach has been t.k.wong3004@gmail.com implemented in the bfpwr package by <ref type="bibr" target="#b21">Pawel and Held (2025)</ref> and extended by <ref type="bibr" target="#b10">Kelter and Pawel (2025)</ref>. Following <ref type="bibr" target="#b29">Weiss (1997)</ref> and <ref type="bibr" target="#b3">De Santis (2004)</ref>, this approach uses root-finding algorithms for sample size determination in conjunction with an analytic solution for power calculation, given a normal or a normal-moment prior for z-tests and a beta prior in binomial settings. In the settings where it is applicable, this numerical approach represents a notable improvement, as it substantially reduces computational time while avoiding Monte Carlo error. Concurrently, <ref type="bibr" target="#b30">Wong and Tendeiro (2025)</ref> employed numerical integration for power calculation in t-tests, enabling sample size determination for Bayes factors even when the marginal likelihood functions lack a closed-form solution. Building on these recent advances, the BayesPower package was developed for sample size determination in common testing problems using Bayes factors.</p><p>BayesPower supports sample size determination for a variety of testing problems, including standardized mean differences, correlation, linear regression and ANOVA, as well as oneand two-proportion tests-commonly encountered in the social, behavioral, and biomedical sciences. The Bayes factors implemented in the package are primarily based on common test statistics, where the corresponding likelihood functions depends on the data only through a one-dimensional statistic (e.g., a t-statistic), ensuring computational efficiency. The procedure for sample size determination for these Bayes factors relies on numerical integration and rootfinding algorithms. An exact method has also been developed and implemented to handle Bayes factors involving a likelihood function based on data in the form of a two-dimensional statistic. These implementations include Bayes factors with default and normal-moment priors for the t-test <ref type="bibr" target="#b4">(Gronau, Ly, and Wagenmakers 2020;</ref><ref type="bibr" target="#b22">Pramanik and Johnson 2024)</ref>; default stretched beta <ref type="bibr" target="#b13">(Ly, Verhagen, and Wagenmakers 2016)</ref>, scaled beta, and normalmoment priors for correlation; effect size and moment priors for regression and ANOVA <ref type="bibr" target="#b11">(Klauer, Meyer-Grant, and Kellen 2024)</ref>; beta and moment priors for one-proportion tests; and independent beta priors for two-proportion tests.</p><p>Most of the existing Bayes factors discussed above primarily concern testing a point-null hypothesis against a composite alternative. Nonetheless, the point-null hypothesis (e.g., an effect size of 0) is often argued to be never true <ref type="bibr" target="#b1">(Cohen 1994;</ref><ref type="bibr" target="#b15">Meehl 1978</ref>). For this reason, BayesPower supports sample size determination for testing either a point-null hypothesis or an interval-null hypothesis (i.e., equivalence testing<ref type="foot" target="#foot_0">foot_0</ref> ) against a (truncated) composite alternative-except in the case of two-proportion tests, where equivalence testing is not currently supported. More specifically, the non-overlapping hypotheses Bayes factor by <ref type="bibr" target="#b17">Morey and Rouder (2011)</ref> is implemented and extended to scenarios beyond the t-test. As the Bayes factors above are not collectively available in any existing package, BayesPower also allows users to compute them directly based either on test statistics or on frequencies, hence without the need of raw data. Thus, in addition to power analysis, our application allows users to calculate Bayes factors directly from reported statistical results.</p><p>The targeted audience of BayesPower is quantitative researchers who are somewhat familiar with Bayesian testing and wish to conduct power analysis and sample size calculations to ensure efficient use of limited resources and maximize the informativeness of their empirical studies. For this reason, a user-friendly Shiny app was developed and is distributed via an R package (R Core Team 2025), rather than as a traditional command-line-based R package, in order to reduce the programming burden on users and improve computational efficiency. Nonetheless, the Shiny application provides the results of sample size determination accompanied by the corresponding command-line-based R code for reproducibility. BayesPower is available from the Comprehensive R Archive Network (CRAN) at <ref type="url" target="https://cran.r-project.org/package=BayesPower">https://cran.r-project.org/package=BayesPower</ref>. The main contribution of the present paper is to report the development of the general application for sample size determination without relying on simulation for Bayesian testing, with results returned almost instantaneously for most testing problems.</p><p>The structure of the paper is as follows. Section 2 briefly introduces the Bayes factor and a general method for sample size determination. Section 3 provides technical details on the likelihood and the prior distributions for each test. Section 4 introduces the user interface and functionality of the Shiny app. Section 5 presents five examples demonstrating its use. The paper ends with some concluding remarks in Section 6.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">The general procedure for sample size determination</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.1.">Bayes Factor</head><p>The Bayes factor <ref type="bibr" target="#b8">(Jeffreys 1961;</ref><ref type="bibr" target="#b9">Kass and Raftery 1995)</ref> is a relative measure of evidence for an alternative hypothesis H 1 relative to a null hypothesis H 0 (or vice versa when the subscript is "01"), defined as</p><formula xml:id="formula_0">BF 10 = p(D | H 1 ) p(D | H 0 ) . (<label>1</label></formula><formula xml:id="formula_1">)</formula><p>Here, p(D | H i ) denotes the marginal likelihood of the data D under hypothesis H i (i = 0, 1). Thus, the Bayes factor is the ratio of the marginal likelihood of the data under one hypothesis to that under another. The Bayes factor indicates the relative predictability of the observed data among two hypotheses. For instance, a BF 10 of 7 suggests that H 1 predicts the data 7 times better than H 0 . In other words, the data are 7 times more likely to be observed under H 1 than H 0 . The 'factor' in the Bayes factor is due to it also being the multiplicative term transforming the prior odds p(H 1 ) p(H 0 ) into the corresponding posterior odds p(H 1 |D) p(H 0 |D) given the data (in words: prior odds times Bayes factor equals posterior odds).</p><p>Each marginal likelihood in Equation 1 is obtained by</p><formula xml:id="formula_2">p(D | H i ) = Θ i p(D | θ) π(θ | H i ) dθ.</formula><p>(2)</p><p>The first term inside the integral is the likelihood of the data given a set of parameters θ, weighted by the prior density function of θ under H i over the parameter space Θ i (the second term under the integral). In the case of a point prior, the marginal likelihood function reduces to the ordinary likelihood of the data evaluated at that parameter value. Depending on the testing problems at hand, the data D and the prior π(θ|H i ) can be multidimensional. Note that Equation 2 is the density function of the so-called prior predictive distribution, when regarded for any potential (observable) data D. The prior predictive distribution is the distribution of the observable data conditional on the prior distribution π(θ), which encapsulates both parameter uncertainty and sampling variability.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2.">Method for sample size determination</head><p>The purpose of sample size determination is to enable informative inferences from a study <ref type="bibr" target="#b25">(Schönbrodt and Wagenmakers 2018)</ref>, ensuring that the study has a sufficiently high probability of yielding compelling evidence. In the context of Bayes factor hypothesis testing, such evidence is typically indicated by the Bayes factor exceeding a certain threshold k (say, 3, 10, or 20). For example, the goal may be to find the minimal sample size that assures that BF 10 is larger than k with a prespecified (high) probability if H 1 is true, thus indicative of strong relative evidence in favor of H 1 over H 0 . Likewise, if H 0 is true, we may want to determine the minimal sample size that allows finding decisive evidence for H 0 over H 1 by ensuring that BF 01 = 1/BF 10 is larger than k with a prespecified probability. This search is operationalized by exploring the relationship between three ingredients: the Bayes factor threshold k, the sample size, and the subset of the sample space for which the data produce a Bayes factor that exceeds the threshold k. In this section, a general three-step procedure for Bayes factor power and sample size calculation is elaborated. Note that more detailed information on prior distributions and likelihood functions for different testing problems will be given in Section 3.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>First step: the specification of analysis priors</head><p>An analysis prior under either hypothesis π a (θ | H i ) needs to be specified in order to determine the subset of the sample space leading to a compelling Bayes factor (i.e., reaching the threshold). The analysis prior consists of a prior density function (e.g., normal distribution) over a parameter space Θ i for θ. In our implementation, a point-null hypothesis is automatically chosen for the analysis prior under the null hypothesis. Meanwhile, for interval hypothesis Bayes factors, the prior density functions are the same for both hypotheses except for the parameter space under either hypothesis, Θ i . The parameter spaces Θ 0 and Θ 1 form a partition of the entire parameter space of θ across both hypotheses for equivalence testing.</p><p>Then, the chosen analysis priors under H 1 and H 0 are used for the calculation of the Bayes factor in Equation <ref type="formula" target="#formula_0">1</ref>. By relating the computed Bayes factor to the desired threshold k, we are then able to find the subset Ω k of the sample space Ω that yields compelling evidence, i.e., Ω k = {D ∈ Ω : BF ≥ k}. The subset Ω k10 represents the range of D for which BF 10 ≥ k, while the subset Ω k01 corresponds to the range of D for which BF 01 ≥ k.</p><p>When D can be summarized by a one-dimensional and continuous statistic (e.g., t-statistic), a root-finding algorithm is used to find the sample subset Ω k10 for which the associated BF 10 is at least equal to k (and similarly for Ω k01 ). For discrete data, the sample subset Ω k is determined by considering the associated Bayes factor values that are the closest to being greater than or equal to k (being exactly equal to k might not be possible due to the discreteness of the data). As for D when the data summary statistics is two-dimensional, Bayes factors are calculated across the entire sample space Ω via a grid search. For instance, in the case of testing two proportions, a grid with (n 1 + 1)(n 2 + 1) Bayes factors is calculated. This grid is then used to identify the desired sample subsets Ω k in much the same vein as described for the discrete data case above.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Second step: the specification of design priors</head><p>A design prior under either hypothesis π d (θ | H i ) must be specified, along with the parameter space Θ for θ, to calculate the probability of obtaining a compelling Bayes factor that exceeds a specified threshold k, i.e., Pr(BF &gt; k | H i ). The probability is obtained by:</p><formula xml:id="formula_3">Pr(BF &gt; k | H i ) = Θ i Ω k p(D | θ) dD π d (θ | H i ) dθ. (<label>3</label></formula><formula xml:id="formula_4">)</formula><p>As for discrete D when testing two proportions, the equation is:</p><formula xml:id="formula_5">Pr(BF &gt; k | H i ) = Θ i   Ω k p(D | θ)   π d (θ | H i ) dθ. (<label>4</label></formula><formula xml:id="formula_6">)</formula><p>The inner integral in Equation 3 and the summation in Equation <ref type="formula" target="#formula_5">4</ref>represent the probability of obtaining a compelling Bayes factor being greater than k under a hypothesis H i given the subset Ω k from step 1. This probability is then marginalized by the outer integral with respect to the design prior. Consequentially, the true positive rate (i.e., power) and false positive rate are obtained for a given sample size by plugging in Ω k10 or Ω k10 . More concretely,</p><formula xml:id="formula_7">True positive rate = Pr(BF 10 &gt; k | H 1 ) = Θ 1 Ω k10 p(D | θ) dD π d (θ | H 1 ) dθ False positive rate = Pr(BF 10 &gt; k | H 0 ) = Θ 0 Ω k10 p(D | θ) dD π d (θ | H 0 ) dθ.</formula><p>As for true negative and false negative rates,</p><formula xml:id="formula_8">True negative rate = Pr(BF 01 &gt; k | H 0 ) = Θ 0 Ω k01 p(D | θ) dD π d (θ | H 0 ) dθ False negative rate = Pr(BF 01 &gt; k | H 1 ) = Θ 1 Ω k01 p(D | θ) dD π d (θ | H 1 ) dθ.</formula><p>In some cases, analytical solutions are available for the computation above, as shown in <ref type="bibr" target="#b21">Pawel and Held (2025)</ref> for the z-test. Otherwise, the R function stats::integrate can be used for numerical integration as in <ref type="bibr" target="#b30">Wong and Tendeiro (2025)</ref> for the t-test.</p><p>The design prior and the analysis prior serve different purposes. The analysis prior in the previous step is used to calculate Bayes factors with the observed data, while the design prior in the current step is used to assess the probability of compelling or misleading evidence before data collection <ref type="bibr" target="#b20">(O'Hagan and Stevens 2001;</ref><ref type="bibr" target="#b25">Schönbrodt and Wagenmakers 2018)</ref>. Researchers may use conventional default analysis priors, together with more subjective design priors based on their knowledge <ref type="bibr" target="#b21">(Pawel and Held 2025)</ref>. Alternatively, the same prior can be specified for both design and analysis, as both reflect prior beliefs about the parameter of interest <ref type="bibr" target="#b26">(Stefan et al. 2019</ref>).</p><p>In our implementation, the specification of the design and analysis priors can be different under H 1 except for the parameter space, which is the same for both priors. This assumption avoids logical inconsistencies-such as specifying a one-sided hypothesis (e.g., δ &gt; 0) for the analysis prior while using a two-sided prior (δ = 0) or an oppositely directed one-sided prior (δ &lt; 0) for the design prior. Moreover, the analysis and the design priors under H 0 are always the same.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Third step: determining the sample size</head><p>The required sample size for given values of the false positive rate and power is determined using a root-finding algorithm-the stats::uniroot function in R. The sample size is iteratively adjusted until the condition Pr(BF 10 &gt; k | H 1 ) ≥ targeted power is satisfied for the power, based on Equation 3 or Equation <ref type="formula" target="#formula_5">4</ref>. The function is used again for ensuring that Pr(BF 10 &gt; k | H 0 ) ≤ targeted false positive rate. Note that, unlike frequentist tests, Bayesian tests rarely achieve the exact nominal values of the specified false positive rate and power for a given sample size. In our implementation, the determined sample size ensures that the resulting false positive rate does not exceed the specified false positive rate, and that the statistical power meets or exceeds the predefined threshold. Moreover, in our implementation, users can determine the required sample size based on the desired true negative and false negative rates. An exception is testing two proportions, where the user can determine the sample size only based on either the desired power or the true negative rate, in order to ensure computational efficiency.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Details about the implemented statistical tests</head><p>Details about the likelihood functions and the prior distributions for applying the procedure outlined in the previous section are given in this section. Researchers primarily interested in applying BayesPower may skip this section and proceed directly to section 4.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1.">Standardized mean difference</head><p>The Bayes factor for t-tests by <ref type="bibr" target="#b4">Gronau et al. (2020)</ref> is implemented in our Shiny app. The marginal likelihood function is:</p><formula xml:id="formula_9">p(t | H i ) = Θ i T v (t | √ n δ δ) π(δ | H i ) dδ. (<label>5</label></formula><formula xml:id="formula_10">)</formula><p>T v denotes the noncentral t-distribution with v degrees of freedom and noncentrality parameter √ n δ δ. The effective sample size is n δ , in which n δ is obtained by the number of (paired) samples n for the one-sample/paired t-test, and ( <ref type="formula" target="#formula_0">1</ref>n 1 + 1 n 2 ) -1 for the independent samples t-test. The implemented priors are the scaled t-distribution, normal distribution, and the normal-moment distribution <ref type="bibr" target="#b22">(Pramanik and Johnson 2024)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2.">Pearson's correlation</head><p>The exact density function of the sample correlation r is</p><formula xml:id="formula_11">p(r | ρ, v) = v -1 √ 2π Γ(v) Γ(v + 1 2 ) (1-ρ 2 ) 1 2 v (1-r 2 ) 1 2 (v-3) (1-ρr) -v+ 1 2 2 F 1 1 2 , 1 2 , v + 1 2 , 1 + ρr 2 (6)</formula><p>with the Gaussian hypergeometric function 2 F 1 (., ., ., .), true correlation ρ, degrees of freedom v = n -1, and n the number of observations <ref type="bibr" target="#b5">(Hotelling 1953</ref>). 2 The prior density under consideration is given by the four-parameter beta distribution:</p><formula xml:id="formula_12">π(ρ | α, β, a, b) = (ρ -a) α-1 (b -ρ) β-1 (b -a) α+β-1 B(α, β) , for ρ ∈ [a, b] (7)</formula><p>where α &gt; 0 and β &gt; 0 are shape parameters, and the distribution is defined over the interval <ref type="bibr">[a, b]</ref> as the parameter space, which serves to scale the standard beta distribution. When α = β = 1 κ with ρ ∈ [-1, 1], the four-parameter distribution becomes the default stretched beta distribution by <ref type="bibr" target="#b13">Ly et al. (2016)</ref>:</p><formula xml:id="formula_13">π(ρ, κ) = 2 κ-2 κ B 1 κ , 1 κ 1 -ρ 2 1-κ κ . (<label>8</label></formula><formula xml:id="formula_14">)</formula><p>Moreover, the normal-moment prior is implemented as well <ref type="bibr" target="#b22">(Pramanik and Johnson 2024)</ref>.</p><p>Note that when substituting the equations above in Equation ( <ref type="formula" target="#formula_3">3</ref>), the integrate function in R occasionally leads to error or divergence because the Γ terms in Equation 6 become ∞ and 2 F 1 (., ., ., .) returns "NaN" for large sample sizes. For this reason, the exact density of r is only used for the calculation of the Bayes factor, leading to the same values as <ref type="bibr" target="#b13">Ly et al. (2016)</ref> with the default beta prior. Meanwhile, the inner integral of Equation ( <ref type="formula" target="#formula_3">3</ref>) is approximated by the normal distribution with Fisher's Z transformation, which performed well in our simulation. Thus, the simulated probabilities of compelling and misleading outcomes closely align with the probabilities obtained through our numerical method. The simulation can be found in our Github repository (<ref type="url" target="https://github.com/tkWong3004/BayesPower/tree/main/BF_Simulation">https://github.com/tkWong3004/BayesPower/tree/main/BF_Simulation</ref>).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3.">Linear regression and ANOVA</head><p>Unlike the default Bayesian tests for linear regression and ANOVA in BayesFactor by Rouder, Morey, Speckman, and Province (2012), <ref type="bibr" target="#b11">Klauer et al. (2024)</ref> reparametrize the testing problem in terms of the F -statistic and the effect size measure Cohen's f 2 (sometimes also called λ 2 ). Cohen's f 2 is the proportion of variance being explained by additional predictors in the full model compared to the reduced model, which is given by <ref type="bibr" target="#b0">Cohen (1988)</ref> as:</p><formula xml:id="formula_15">f 2 = R 2 full -R 2 reduced 1 -R 2 full .</formula><p>Subsequently, the marginal likelihood is derived as:</p><formula xml:id="formula_16">p(F | H i ) = Θ i f F (F, q, M -q, M λ 2 ) π(λ 2 | H i ) dλ 2 . (<label>9</label></formula><formula xml:id="formula_17">)</formula><p>The likelihood of an F -value is given by the noncentral F -distribution, see Equation A4 in <ref type="bibr" target="#b11">Klauer et al. (2024)</ref>:</p><formula xml:id="formula_18">f F (F ; df 1 , df 2 , ncp)</formula><p>where F denotes the observed F -statistic, df 1 = q = k -p, and df 2 = M -q = N -k. Here, N is the number of observations, k is the number of predictors in the full model, p is the 2 It is worth noting that <ref type="bibr" target="#b5">Hotelling (1953)</ref> uses v = n -1 for the degrees of freedom instead of v = n -2 as in <ref type="bibr" target="#b13">Ly et al. (2016)</ref>. However, the resulting Bayes factor based on density function by <ref type="bibr" target="#b5">Hotelling (1953)</ref> aligns with the one in <ref type="bibr" target="#b13">Ly et al. (2016)</ref> and BayesFactor. number of predictors in the reduced model, and M = N -p is the effective sample size. In other words, df 1 is the number of additional parameters in the full model compared to the reduced model and df 2 is the number of residual degrees of freedom in the full model. Linear regression and ANOVA models are special cases of the normal linear model. Therefore, the same Bayes factor with the F -likelihood can be used for the two testing problems. The detail for the specification of k and p for different models comparison can be found in Table <ref type="table" target="#tab_0">1</ref>. </p><formula xml:id="formula_19">+ (m 1 -1) + (m 2 -1) p + (m 1 -1)(m 2 -1)</formula><p>As for the prior density function π(λ 2 ), <ref type="bibr" target="#b11">Klauer et al. (2024)</ref> derived the prior density functions for the effect size prior in Equation ( <ref type="formula" target="#formula_20">10</ref>) and the moment prior in Equation ( <ref type="formula" target="#formula_21">11</ref>) as follows:</p><formula xml:id="formula_20">π(λ 2 ) = Γ ν+q 2 Γ ν 2 Γ q 2 (νr 2 ) ν/2 (λ 2 ) q/2-1 λ 2 + f 2 + νr 2 -(ν+q)/2 × 2 F 1 ν + q 4 , 1 4 (2 + ν + q); q 2 ; 4f 2 λ 2 (λ 2 + f 2 + νr 2 ) 2<label>(10)</label></formula><p>and</p><formula xml:id="formula_21">π(λ 2 ) = Γ ν+q 2 Γ q 2 Γ ν 2 2(ν -2) q(ν + q -2)f 2 (ξν) -1 λ 2 q/2 1 + (ξν) -1 λ 2 -(ν+q)/2<label>(11)</label></formula><p>where</p><formula xml:id="formula_22">ξ = (ν + q -2)f 2 2ν .</formula><p>Both priors are mixtures of distributions, including: a normal distribution on the outcome variable, a uniform distribution on the regression coefficients of the predictors common to both models, a Jeffrey's prior on the variance, and a scaled and shifted multivariate t distribution on the regression weights for the additional predictors in the full model. For the effect size prior, the hyperparameter f 2 influences the location of the multivariate t distribution, which has ν degrees of freedom and is scaled by the hyperparameter r. In the case of the moment prior, the multivariate t distribution is centered at zero and scaled by the hyperparameter ξ.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.4.">One proportion</head><p>The number of successes y for a given sample size n, conditional on a probability of success θ, follows a binomial distribution (i.e., y | θ ∼ Bin(n, θ)). Thus, the marginal likelihood is obtained as:</p><formula xml:id="formula_23">p(y | H i ) = Θ i Bin(y | n, θ) π(θ | H i ) dθ. (<label>12</label></formula><formula xml:id="formula_24">)</formula><p>When a beta prior is specified, as in <ref type="bibr" target="#b10">Kelter and Pawel (2025)</ref>, the marginal likelihood ( <ref type="formula" target="#formula_23">12</ref>) is available in closed-form as a beta-binomial distribution. In our application, beta prior and normal-moment prior are implemented.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5.">Two proportions with independent beta priors</head><p>Similarly, let y 1 and y 2 denote the number of successes in group 1 and group 2, respectively, with sample sizes n 1 and n 2 and success probabilities θ 1 and θ 2 . The number of successes are assumed to follow independent binomial distributions:</p><formula xml:id="formula_25">y 1 | θ 1 ∼ Bin(n 1 , θ 1 ), y 2 | θ 2 ∼ Bin(n 2 , θ 2 ).</formula><p>Subsequently, the marginal likelihood is:</p><formula xml:id="formula_26">p(y 1 , y 2 | H i ) = 1 0 1 0 Bin(y 1 | θ 1 ) Bin(y 2 | θ 2 ) π(θ 1 | H i ) π(θ 2 | H i ) dθ 1 dθ 2 . (<label>13</label></formula><formula xml:id="formula_27">)</formula><p>In our package, the independent beta approach is implemented to test the equality of two proportions. Formally, the hypotheses are specified as</p><formula xml:id="formula_28">H 0 : θ 1 = θ 2 = θ, H 1 : θ 1 = θ 2 .</formula><p>Under the null hypothesis, the two probabilities of success are assumed to be equal and are assigned a beta prior distribution on θ (i.e., θ ∼ Beta(a 0 , b 0 )). The analytical solution for the marginal likelihood is derived as (see Appendix A):</p><formula xml:id="formula_29">p(y 1 , y 2 | H 0 ) = n 1 y 1 n 2 y 2 B(a 0 + y 1 + y 2 , b 0 + n 1 + n 2 -y 1 -y 2 ) B(a 0 , b 0 )</formula><p>where B(z 1 , z 2 ) is the beta function.</p><p>Under the alternative hypothesis, each probability of success per group is assigned a beta prior distribution (i.e., θ 1 ∼ Beta(a 1 , b 1 ) and θ 2 ∼ Beta(a 2 , b 2 )). The marginal likelihood is derived as (see Appendix A):</p><formula xml:id="formula_30">p(y 1 , y 2 | H 1 ) = n 1 y 1 B(a 1 + y 1 , b 1 + n 1 -y 1 ) B(a 1 , b 1 ) n 2 y 2 B(a 2 + y 2 , b 2 + n 2 -y 2 ) B(a 2 , b 2 ) .</formula><p>Taking the ratio of the two marginal likelihoods produces the Bayes factor (Equation <ref type="formula" target="#formula_0">1</ref>). The equations are used for the calculation of the probability of compelling and misleading evidence as well (Equation <ref type="formula" target="#formula_5">4</ref>).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">BayesPower</head><p>BayesPower can be downloaded and opened using the following commands in R:</p><p>R&gt;install.packages("BayesPower") R&gt;BayesPower::BayesPower_BayesFactor()</p><p>The source code for the package and the simulation scripts used to validate our method are available on our GitHub repository: <ref type="url" target="https://github.com/tkWong3004/BayesPower">https://github.com/tkWong3004/BayesPower</ref>. The package is also archived on Zenodo with the DOI <ref type="url" target="https://doi.org/10.5281/zenodo.17405100">https://doi.org/10.5281/zenodo.17405100</ref>.</p><p>Figure <ref type="figure" target="#fig_0">1</ref> shows a screenshot of the application. Users can select the testing problem via the navigation bar at the top. BayesPower supports the following statistical tests:</p><p>• Standardized mean difference: one-sample/paired t-test and independent samples t-test</p><formula xml:id="formula_31">• Pearson's correlation</formula><p>• Linear regression/ANOVA</p><p>• Proportion: one proportion and two proportion tests</p><p>The sidebar panel on the left allows users to choose the application mode under "Select Mode", and to specify the relevant inputs. The results of the power analysis are displayed in the main panel on the right.</p><p>The "Sample size determination" mode, as its name suggests, is used to determine the required sample size given the specified conditions. In this mode, users first specify the parameter space Θ under both the null hypothesis H 0 and alternative hypothesis H 1 . Next, the analysis prior is defined under "Analysis Prior Distribution". If the design prior and analysis prior differ, additional hyperparameters of the design prior (e.g., location and scale) must be specified. Then, users set the minimal acceptable true positive (or true negative) rate and the maximal probability of false positive (or false negative). After defining the bounds of compelling evidence and clicking the "Run" button, the results will be displayed in the main panel. The top left panel displays the chosen analysis and design priors, whereas the top right panel shows the probability of obtaining compelling evidence under the two hypotheses and the required sample size. Once the results are displayed in the main panel, users can download them as a HTML file with a timestamp by clicking the "Download result as HTML" button at the bottom of the sidebar panel. The R code for reproducing the results is provided as well.</p><p>Users are strongly advised to always start with the Shiny app first before using command-line based functions in R as the package was mainly developed for the usage of the Shiny app.</p><p>Additional plots-such as the power curve and the relationship between Bayes factors and data-can be enabled by checking the corresponding checkboxes. These plots are intended for advanced users and are computationally intensive, potentially taking a few seconds to generate. Note that the procedure is particularly computationally intensive when the testing problem involves two proportions.</p><p>For the power curve, the left panel displays the true positive rate (black line) and the false positive rate (gray line) across varying sample sizes, whereas the right panel presents the true negative rate (black line) and the false negative rate (gray line).</p><p>For the plots illustrating the relationship between Bayes factors and the data, the y-axis represents the natural logarithm of the Bayes factor, and the x-axis corresponds to the observed test statistic (i.e., the t-value and the f -value). The left panel shows the relationship when the Bayes factor indicates evidence in favor of H 1 over H 0 , with the title indicating the minimal value of the test statistic that yields a compelling Bayes factor, BF 10 &gt; k. Similarly, the right panel illustrates the relationship when the Bayes factor supports H 0 over H 1 , with the title indicating the minimal value of the test statistic for which BF 01 &gt; k. These calculations are based on the analysis priors under both hypotheses, the specified threshold for compelling evidence, and the sample sizes provided in the table in the top-right corner. In the case of testing two proportions, a heatmap is provided over the grid of outcomes for groups 1 and 2, indicating where the evidence is compelling for either H 1 or H 0 .</p><p>The "Fixed N" mode is used to calculate the probabilities of compelling and misleading evidence of the test for a given sample size. Similar to the "Sample Size Determination" mode, users must specify the parameter space as well as the analysis and design priors. However, instead of specifying the desired probability of compelling and misleading evidence, users provide the sample size directly. The generated table provides the estimated true/false positive rates and true/false negative rates.</p><p>The "BF calculator" mode is used to compute the Bayes factor based on the parameter space under H 0 , H 1 , analysis prior, observed data (in the form of summary statistics), and sample size. The resulting Bayes factor is displayed at the bottom of the sidebar panel.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.">Application</head><p>We present five applications to illustrate the use of BayesPower in different testing problems.</p><p>Readers are encouraged to explore the app using these applications as running examples.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.1.">Standardized mean difference</head><p>We made use of an example from <ref type="bibr" target="#b16">Moon and Roeder (2014)</ref>, which is also discussed in <ref type="bibr" target="#b12">Lakens, Scheel, and Isager (2018)</ref> in the context of equivalence testing. <ref type="bibr" target="#b16">Moon and Roeder (2014)</ref> investigated whether Asian American women would perform better than a control group on a mathematics exam when primed with their Asian identity. The descriptive statistics for the primed sample were x 1 = .46, s 1 = .17, and n 1 = 53, and for the control group x 2 = .50, s 2 = .18, and n 2 = 48. The null hypothesis posits a negligible effect, whereas the alternative hypothesis posits that the difference between the experimental group and the control group is non-negligible:</p><formula xml:id="formula_32">H 0 : δ ∈ [-0.36, 0.36] versus H 1 : δ / ∈ [-0.36, 0.36],</formula><p>where the parameter space in the brackets indicates an interval hypothesis for equivalence test.</p><p>Following <ref type="bibr" target="#b12">Lakens et al. (2018)</ref>, an equivalence bound of 0.0625 in raw score units was specified.</p><p>When expressed in terms of standardized mean difference, the equivalence bounds correspond to 0.0625 sp ≈ 0.36. An independent samples t-test was conducted (equal variances assumed), yielding t(99) = -1.148, p = 0.254 and d = -0.23. Moreover, the result of equivalence test in <ref type="bibr" target="#b12">Lakens et al. (2018)</ref> is not statistically equivalent and not statistically different. However, using our application, the interval Bayes factor was computed as BF 01 = 9.05 with the analysis prior being a two-sided scaled t-distribution with location 0, scaling parameter 0.707, and 1 degree of freedom. Therefore, the Bayes factor suggest that the observed data are 9.05 times more likely under the null hypothesis H 0 of negligible effect than under the alternative hypothesis H 1 of non-negligible effect. Suppose a possible future study is conducted and the BayesPower application would be used for sample size determination. Based on the existing study with d = -0.23, the parameter space is specified as follows: <ref type="bibr">-0.36, 0.36]</ref> The analysis and design priors are specified as a two-sided normal prior with a location of -0.23, a scaling parameter of .2. The standard error is given by</p><formula xml:id="formula_33">H 0 : δ ∈ [-0.36, 0.36] versus H 1 : δ / ∈ [</formula><formula xml:id="formula_34">s d = n 1 +n 2 n 1 n 2 + d 2 2(n 1 +n 2 )</formula><p>, an equation commonly used in meta-analysis to obtain the standard error of the standardized mean difference effect size estimate σ θ <ref type="bibr" target="#b2">(Cooper, Hedges, and Valentine 2019)</ref>. Given a bound for compelling evidence of 3, a targeted true negative value of 0.8, the greatest acceptable false negative rate of 0.05 and equal sample size per group, the required sample size is 444 per group, see Figure <ref type="figure" target="#fig_0">1</ref>. The actual true negative rate and false negative rate are .8 and .047, respectively. <ref type="bibr" target="#b13">Ly et al. (2016)</ref> conducted a Bayesian analysis using the data from <ref type="bibr" target="#b27">Stulp, Buunk, Verhulst, and Pollet (2013)</ref> to investigate whether height is associated with receiving a higher popular vote in the U.S. presidential election. The correlation is 0.393 with n = 46, between the relative heights of U.S. presidents (compared to their most successful opponents) and the ratio of popular votes-that is, the percentage of popular votes for the president divided by the sum of the percentages of popular votes for both the president and their most popular opponent <ref type="bibr">(Stulp et al. 2013, p. 162)</ref>. <ref type="bibr" target="#b13">Ly et al. (2016)</ref> reported BF 10 = 6.33 with a two-sided default beta prior and k = 1, BayesPower and BayesFactor returned the values of Bayes factor within rounding error.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2.">Pearson's correlation</head><p>As for sample size determination in a possible future study, the hypotheses are:</p><formula xml:id="formula_35">H 0 : ρ = 0 versus H 1 : ρ ∼ Beta(α = 1, β = 1), ρ ∈ [0, 1].</formula><p>The one-sided test is motivated by the expectation discussed in <ref type="bibr" target="#b27">Stulp et al. (2013)</ref>, which states: "According to conventional wisdom, U.S. presidential elections are often won by the taller of the two candidates" <ref type="bibr">(Stulp et al. 2013, p. 159)</ref>. For this reason, a right-sided beta prior with α = 1 and β = 1 is specified as an analysis prior. However, a point design prior with ρ 1 = 0.3 is selected, following Cohen's benchmark for a "medium effect size". Thus, the design prior under the alternative hypothesis assumed that the true correlation is 0.3. Based on this, the required sample size is determined to be 104 in order to achieve a targeted power of at least 0.8 with a maximum acceptable false positive rate of 0.05 and bound of compelling evidence k = 3, see Figure <ref type="figure" target="#fig_1">2</ref>. Therefore, we would need to wait approximately 230 years to gather enough data-assuming there will eventually be an 104th U.S. president. <ref type="bibr" target="#b19">Mulder et al. (2021)</ref> conducted a Bayesian ANOVA on a dataset from <ref type="bibr" target="#b6">Janiszewski and Uy (2008)</ref> investigating the anchoring effect. A 2×2 factorial experiment was conducted, in which participants were asked to estimate the price of a television given an anchor price. In the first condition, participants were presented with either a round anchor (e.g., $5,000) or a precise anchor (e.g., $4,988 or $5,012). The second condition manipulated whether participants were told that the actual price was close to the anchor price. The outcome variable was the standardized difference between the participants' guess on the price and the anchor price.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3.">Regression/ANOVA</head><p>For illustrative purposes, suppose the hypothesis of interest is whether there is an interaction effect between the two factors. To test this, a two-factor model without interaction terms is compared to a two-factor model with an interaction term. Thus,</p><formula xml:id="formula_36">H 0 : λ 2 = 0 versus H 1 : λ 2 &gt; 0</formula><p>where λ 2 is the standardized noncentrality parameter of the F -distribution when comparing a full with a reduced model. An effect size prior of f 2 = 0.01 (representing a small effect size) is specified, with r = 0.18 and v = 3 following the recommendations by <ref type="bibr" target="#b11">Klauer et al. (2024)</ref> as the analysis prior. Meanwhile, a point design prior located at 0.01 is specified. The required sample size is determined to be 1155 in order to achieve a target power of 0.8 with α = 0.05 with the bound of evidence being 3. The actual power and false positive rate are 0.8 and 0.024, respectively, see Figure <ref type="figure" target="#fig_2">3</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.4.">One proportion</head><p>In Van Doorn, Matzke, and Wagenmakers (2019), a beer tasting experiment was conducted at the University of Amsterdam. Participants were given two small cups filled with Weihenstephaner Hefeweissbier-one containing alcohol and the other alcohol-free-and were asked to identify which one contained alcohol. The hypotheses for the experiment are:</p><formula xml:id="formula_37">H 0 : θ = 0.5 versus H 1 : θ ∼ Beta(α = 1, β = 1), θ ∈ [0.5, 1].</formula><p>The null hypothesis states that participants are guessing at random, implying no ability to distinguish between the beers. The alternative hypothesis assumes that participants possess some ability to discriminate between alcoholic and non-alcoholic beer. A total of 42 out of 52 participants correctly distinguished the beer that contained alcohol. JASP and BayesPower return BF 10 = 10742.5, indicating decisive evidence for discriminative ability over random guessing.</p><p>Suppose a sample size determination had been conducted prior to the experiment, specifying a right-sided analysis and a design prior of Beta(α = 1, β = 1), targeting a power of 0.8 and a false positive rate of 0.05. Under these specifications, a sample size of 140 would be required, resulting in an actual power of 0.808 and an effective α level of 0.011.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.5.">Two proportions</head><p>Magee, Von Dadelszen, Rey, Ross, Asztalos, Murphy, Menzies, Sanchez, Singer, Gafni, Gruslin, Helewa, Hutton, Lee, Lee, Logan, Ganzevoort, Welch, Thornton, and Moutquin (2015) conducted a randomized controlled trial to examine the impact of less-tight versus tight control of hypertension on pregnancy complications. Hypertension was defined as a diastolic blood pressure (DBP) of 90 mmHg or higher. Women with hypertension were randomized to either a less-tight control group, where the target DBP was 100 mmHg, or a tight control group, where the target DBP was 85 mmHg. The outcome variable, pregnancy complications, was a composite of pregnancy loss or the need of high-level neonatal care. Among 493 pregnancies assigned to the less-tight control group, 155 (31.4%) resulted in pregnancy loss or required high-level neonatal care. In comparison, 150 out of 488 pregnancies (30.7%) in the tight control group experienced the same outcome.</p><p>The hypotheses are as follows: H 0 : p 1 = p 2 = p 0 ∼ Beta(α 0 = 1, β 0 = 1) H 1 : p 1 ∼ Beta(α 1 = 1, β 1 = 1), p 2 ∼ Beta(α 2 = 1, β 2 = 1) where p denotes the proportion of pregnancy complications. The calculated Bayes factors using BayesPower with the analysis priors above and BayesFactor are the same with BF 01 = 13.15.</p><p>As for the sample size determination for a possible future study using the existing data, the analysis priors under each hypothesis are specified based on the observed data: H 0 : p 1 = p 2 = p 0 ∼ Beta(α 0 = 1, β 0 = 1) H 1 : p 1 ∼ Beta(α 1 = 156, β 1 = 339), p 2 ∼ Beta(α 2 = 151, β 2 = 339).</p><p>We further assume that the analysis and design priors are the same. The required sample size per group is determined to be 37 for achieving a power of 0.8 with the bound of compelling evidence being 3. The actual power is 0.82 with a false positive rate of .15 due to the discreteness of the data.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.">Discussion</head><p>To facilitate sample size determination in Bayesian hypothesis testing, a Shiny app has been developed for common testing scenarios and is distributed via an R package. A key advantage of BayesPower is the use of numerical methods instead of simulation, which ensures computational efficiency and reproducibility. This approach allows results to be returned almost instantaneously for Bayes factors involving likelihood functions with one outcome variable, such as in t-tests, correlation tests, regression/ANOVA, and binomial tests. As for testing two proportions, the computational time ranges from a few seconds to 10 seconds or more depending on the true required sample size.</p><p>As for the limitations, BayesPower can only determine sample sizes up to 10,000 for t-tests, regression/ANOVA, and binomial tests, and up to 5,000 for correlation and two-proportion tests, due to computational efficiency considerations. Moreover, in the two-proportion setting, the application does not permit simultaneous control of both positive rates or negative rates, also for efficiency reasons. Consequently, the determined sample size may yield a higher false positive or false negative rate than the conventional levels of .05 or .2, even when the targeted power (or true negative rate) is achieved as in Section 5.5. In this example, a sample size of 5,150 per group is required for achieving the conventional false positive rate of 0.05 with the actual power of 0.95, which are obtained under the "Fixed N" mode. Users are therefore advised to review the output carefully to ensure that error rate is acceptable for their specific purposes.</p><p>Another limitation of the BayesPower package is its focus on fixed-N designs, where the sample size is determined before data collection. For sequential designs, readers are referred to the BFDA package <ref type="bibr" target="#b26">(Stefan et al. 2019)</ref>. Future work may focus on generalizing the methods in BayesPower to sequential settings.</p><p>For any problem and suggestion concerning BayesPower, users are encouraged to report it on <ref type="url" target="https://github.com/tkWong3004/BayesPower/issues">https://github.com/tkWong3004/BayesPower/issues</ref>.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: BayesPower (Standardized Mean Difference tab).</figDesc><graphic coords="11,81.00,108.88,440.93,440.93" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: BayesPower (Correlation tab).</figDesc><graphic coords="14,81.00,108.88,440.93,452.39" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: BayesPower (Regression tab).</figDesc><graphic coords="15,81.00,108.88,440.93,495.60" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 1 :</head><label>1</label><figDesc>Specification of p and k for different model comparisons (m denotes the number of levels of a factor). The reduced model has p parameters, and the full model has k parameters.</figDesc><table><row><cell>Model comparison</cell><cell>Reduced model (p)</cell><cell>Full model (k)</cell></row><row><cell>Intercept-only vs. one-factor</cell><cell>1</cell><cell>p + (m 1 -1)</cell></row><row><cell>Intercept-only vs. two-factor</cell><cell>1</cell><cell>p + (m 1 -1) + (m 2 -1)</cell></row><row><cell>One-factor vs. two-factor</cell><cell>1 + (m 1 -1)</cell><cell>p + (m 2 -1)</cell></row><row><cell>Without interaction vs. with</cell><cell>1</cell><cell></cell></row><row><cell>interaction</cell><cell></cell><cell></cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="1" xml:id="foot_0"><p>In the frequentist equivalence test, the null hypothesis is typically defined as a non-negligible effect, while the alternative hypothesis states that the effect is negligible. In contrast, we adopt the original formulation of<ref type="bibr" target="#b17">Morey and Rouder (2011)</ref>. Although the direction of the hypotheses is reversed, this does not affect the interpretation of the Bayes factor in comparison to the frequentist equivalence test. However, the interpretation of the false positive rate differs: under our specification, it represents the probability of obtaining misleading evidence in favor of the alternative hypothesis of a non-negligible effect, given that the null hypothesis of a negligible effect is true.</p></note>
+		</body>
+		<back>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Author's Note</head><p>The order of the second and third authors was determined by the following code: R&gt; set.seed(1517192324) R&gt; sample(c("Samuel", "Jorge"), size = 1)</p><p>The name returned by the function was designated as the second author, while the other became the third. The seed was based on the outcome of the 'Mark Six' lottery organized by the Hong Kong Jockey Club during the Mid-Autumn Festival on October 6, 2025 (Result ID 25/107). In this lottery, six main balls and one extra ball are drawn from a pool of 49 without replacement. To construct the seed, the six main balls are first arranged in ascending order, after which the extra (seventh) ball is appended at the end. This method was agreed upon one week before the lottery draw. However, on the day the results were announced, it was discovered that the seed could not be set using the predetermined method because its value was too large. To resolve this issue, numbers were removed from the rightmost lottery balls one at a time until a valid seed was obtained. Ultimately, only the first five main balls were used to determine the final seed. This deviation from the "preregistration" was agreed among the authors.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A. Two-sample binomial Bayes factor</head><p>assigned to the common probability θ under H 0 , and two independent beta priors θ 1 | H 1 ∼ Beta(a 1 , b 1 ) and θ 2 | H 1 ∼ Beta(a 2 , b 2 ) assigned to the group-specific probabilities θ 1 and θ 2 under H 1 .</p><p>The marginal likelihood of two observed number of success y 1 and y 2 under the null hypothesis is then given by</p><p>dt is the beta function. In a similar way, the marginal likelihood of y 1 and y 2 under the alternative hypothesis can be derived to be</p><p>Taking the ratio of the two marginal likelihoods produces the Bayes factor.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Affiliation:</head><p>Tsz Keung Wong Department of Methodology and Statistics Tilburg School of Social and Behavioral Sciences Tilburg University Warandelaan 2 5037AB Tilburg</p><p>The Netherlands E-mail: t.k.wong3004@gmail.com</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">Statistical Power Analysis for the Behavioral Sciences</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Cohen</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1988">1988</date>
+			<publisher>Academic Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">The earth is round (p &lt; .05)</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Cohen</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0003-066x.49.12.997</idno>
+		<ptr target="https://doi.org/10.1037/0003-066x.49.12.997" />
+	</analytic>
+	<monogr>
+		<title level="j">American Psychologist</title>
+		<imprint>
+			<biblScope unit="volume">49</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="997" to="1003" />
+			<date type="published" when="1994">1994</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">The Handbook of Research Synthesis and Meta-Analysis</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Cooper</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">V</forename><surname>Hedges</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">C</forename><surname>Valentine</surname></persName>
+		</author>
+		<idno type="DOI">10.7758/9781610448864</idno>
+		<ptr target="http://dx.doi.org/10.7758/9781610448864" />
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<publisher>Russell Sage Foundation</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Statistical evidence and sample size determination for Bayesian hypothesis testing</title>
+		<author>
+			<persName><forename type="first">De</forename><surname>Santis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename></persName>
+		</author>
+		<idno type="DOI">10.1016/S0378-3758(03)00198-8</idno>
+		<ptr target="https://doi.org/10.1016/S0378-3758(03)00198-8" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Statistical Planning and Inference</title>
+		<idno type="ISSN">0378-3758</idno>
+		<imprint>
+			<biblScope unit="volume">124</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="121" to="144" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Informed Bayesian t-Tests</title>
+		<author>
+			<persName><forename type="first">Q</forename><forename type="middle">F</forename><surname>Gronau</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ly</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Wagenmakers</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/00031305.2018.1562983</idno>
+	</analytic>
+	<monogr>
+		<title level="j">The American Statistician</title>
+		<imprint>
+			<biblScope unit="volume">74</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="137" to="143" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">New Light on the Correlation Coefficient and its Transforms</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Hotelling</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.2517-6161.1953.tb00135.x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the Royal Statistical Society: Series B (Methodological)</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="193" to="225" />
+			<date type="published" when="1953">1953</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Precision of the anchor influences the amount of adjustment</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Janiszewski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Uy</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="121" to="127" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title/>
+		<author>
+			<orgName type="collaboration">JASP Team</orgName>
+		</author>
+		<ptr target="https://jasp-stats.org/" />
+	</analytic>
+	<monogr>
+		<title level="j">JASP</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note>Version 0.19.3 Computer software</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">Theory of Probability</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Jeffreys</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1961">1961</date>
+			<publisher>Clarendon Press</publisher>
+			<pubPlace>Oxford</pubPlace>
+		</imprint>
+	</monogr>
+	<note>third edition</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Bayes Factors</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">E</forename><surname>Kass</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">E</forename><surname>Raftery</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/01621459.1995.10476572</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the American Statistical Association</title>
+		<imprint>
+			<biblScope unit="volume">90</biblScope>
+			<biblScope unit="issue">430</biblScope>
+			<biblScope unit="page" from="773" to="795" />
+			<date type="published" when="1995">1995</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<monogr>
+		<title level="m" type="main">Bayesian Power and Sample Size Calculations for Bayes Factors in the Binomial Setting</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Kelter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Pawel</surname></persName>
+		</author>
+		<idno>2502.02914</idno>
+		<ptr target="https://arxiv.org/abs/2502.02914" />
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">On Bayes factors for hypothesis tests</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">C</forename><surname>Klauer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">G</forename><surname>Meyer-Grant</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kellen</forename><forename type="middle">D</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychonomic Bulletin &amp; Review</title>
+		<imprint>
+			<biblScope unit="page" from="1" to="25" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Equivalence Testing for Psychological Research: A tutorial</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Lakens</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">M</forename><surname>Scheel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">M</forename><surname>Isager</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/2515245918770963</idno>
+		<ptr target="https://doi.org/10.1177/2515245918770963" />
+	</analytic>
+	<monogr>
+		<title level="j">Advances in Methods and Practices in Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="259" to="269" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Harold Jeffreys&apos;s default Bayes factor hypothesis tests: Explanation, extension, and application in psychology</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ly</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Verhagen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Wagenmakers</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jmp.2015.06.004</idno>
+		<ptr target="https://doi.org/10.1016/j.jmp.2015.06.004" />
+	</analytic>
+	<monogr>
+		<title level="m">Bayes Factors for Testing Hypotheses in Psychological Research: Practical Relevance and New Developments</title>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+			<biblScope unit="volume">72</biblScope>
+			<biblScope unit="page" from="19" to="32" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Less-Tight versus Tight Control of Hypertension in Pregnancy</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">A</forename><surname>Magee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Von</forename><surname>Dadelszen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rey</forename><forename type="middle">E</forename><surname>Ross</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Asztalos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Murphy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">E</forename><surname>Menzies</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Sanchez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Singer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Gafni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Gruslin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Helewa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Hutton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">K</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Logan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">G</forename><surname>Ganzevoort</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Welch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Thornton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">G</forename><surname>Moutquin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename></persName>
+		</author>
+		<idno type="DOI">10.1056/nejmoa1404595</idno>
+	</analytic>
+	<monogr>
+		<title level="j">New England Journal of Medicine</title>
+		<imprint>
+			<biblScope unit="volume">372</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="407" to="417" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Theoretical risks and tabular asterisks: Sir Karl, Sir Ronald, and the slow progress of soft psychology</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Meehl</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0022-006x.46.4.806</idno>
+		<ptr target="https://doi.org/10.1037/0022-006x.46.4.806" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Consulting and Clinical Psychology</title>
+		<imprint>
+			<biblScope unit="volume">46</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="806" to="834" />
+			<date type="published" when="1978">1978</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<title level="m" type="main">A Secondary Replication Attempt of Stereotype Susceptibility A Secondary Replication Attempt of Stereotype Susceptibility</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Moon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">S</forename><surname>Roeder</surname></persName>
+		</author>
+		<idno type="DOI">10.1027/1864-9335/a000193</idno>
+		<ptr target="https://doi.org/10.1027/1864-9335/a000193" />
+		<imprint>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Bayes factor approaches for testing interval null hypotheses</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Morey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">N</forename><surname>Rouder</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological methods</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">406</biblScope>
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<title level="m" type="main">BayesFactor: Computation of Bayes Factors for Common Designs</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Morey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">N</forename><surname>Rouder</surname></persName>
+		</author>
+		<idno type="DOI">10.32614/CRAN.package.BayesFactor</idno>
+		<idno>doi:10.32614/</idno>
+		<ptr target="https://CRAN.R-project.org/package=BayesFactor" />
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note>CRAN.package.BayesFactor. R package version 0.9.12-4.7</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">BFpack: Flexible Bayes Factor Testing of Scientific Theories in R</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Mulder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">R</forename><surname>Williams</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Gu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Tomarken</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Böing-Messing</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Olsson-Collentine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Meijerink</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Menke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Van Aert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">P</forename><surname>Fox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Hoijtink</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Rosseel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Wagenmakers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Van Lissa</surname></persName>
+		</author>
+		<idno type="DOI">10.18637/jss.v100.i18</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Statistical Software</title>
+		<imprint>
+			<biblScope unit="volume">100</biblScope>
+			<biblScope unit="issue">18</biblScope>
+			<biblScope unit="page" from="1" to="63" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Bayesian Assessment of sample size for Clinical Trials of Cost-Effectiveness</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>O'hagan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">W</forename><surname>Stevens</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0272989x0102100307</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Medical Decision Making</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="219" to="230" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Closed-Form Power and Sample Size Calculations for Bayes Factors</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Pawel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Held</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/00031305.2025.2467919</idno>
+	</analytic>
+	<monogr>
+		<title level="j">The American Statistician</title>
+		<imprint>
+			<biblScope unit="volume">0</biblScope>
+			<biblScope unit="issue">0</biblScope>
+			<biblScope unit="page" from="1" to="15" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Efficient alternatives for Bayesian hypothesis tests in psychology</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Pramanik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><forename type="middle">E</forename><surname>Johnson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological methods</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page">243</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">R: A Language and Environment for Statistical Computing</title>
+		<author>
+			<persName><forename type="first">Team</forename><surname>Core</surname></persName>
+		</author>
+		<ptr target="https://www.R-project.org/" />
+	</analytic>
+	<monogr>
+		<title level="m">R Foundation for Statistical Computing</title>
+		<meeting><address><addrLine>Vienna, Austria</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Default Bayes factors for ANOVA designs</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">N</forename><surname>Rouder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Morey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">L</forename><surname>Speckman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Province</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jmp.2012.08.001</idno>
+		<ptr target="https://doi.org/10.1016/j.jmp.2012.08.001" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Mathematical Psychology</title>
+		<idno type="ISSN">0022-2496</idno>
+		<imprint>
+			<biblScope unit="volume">56</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="356" to="374" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Bayes factor design analysis: Planning for compelling evidence</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">D</forename><surname>Schönbrodt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Wagenmakers</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13423-017-1230-y</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Psychonomic Bulletin &amp; Review</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="128" to="142" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">A tutorial on Bayes Factor Design Analysis using an informed prior</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">M</forename><surname>Stefan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><forename type="middle">F</forename><surname>Gronau</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">D</forename><surname>Schönbrodt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Wagenmakers</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13428-018-01189-8</idno>
+		<ptr target="https://doi.org/10.3758/s13428-018-01189-8" />
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">51</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1042" to="1058" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Tall claims? Sense and nonsense about the importance of height of US presidents</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Stulp</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">P</forename><surname>Buunk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Verhulst</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">V</forename><surname>Pollet</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.leaqua.2012.09.002</idno>
+		<ptr target="https://doi.org/10.1016/j.leaqua.2012.09.002" />
+	</analytic>
+	<monogr>
+		<title level="j">The Leadership Quarterly</title>
+		<idno type="ISSN">1048-9843</idno>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="159" to="171" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">An In-Class Demonstration of Bayesian inference</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Van Doorn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Matzke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Wagenmakers</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1475725719848574</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Psychology Learning and Teaching</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="36" to="45" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Bayesian sample size calculations for hypothesis testing</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Weiss</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/1467-9884.00075</idno>
+		<ptr target="https://doi.org/10.1111/1467-9884.00075" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the Royal Statistical Society: Series D (The Statistician)</title>
+		<imprint>
+			<biblScope unit="volume">46</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="185" to="191" />
+			<date type="published" when="1997">1997</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">On a generalizable approach for sample size determination in Bayesian t tests</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">K</forename><surname>Wong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">N</forename><surname>Tendeiro</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13428-025-02654-x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">57</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page">130</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Issues in Using News Accounts in Process Analysis of Protest Episodes</title>
+				<funder ref="#_bWC9a34">
+					<orgName type="full">National Science Foundation</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Pamela</forename><surname>Oliver</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Collective Action</orgName>
+								<orgName type="institution">Temple University Press</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Chaeyoon</forename><surname>Lim</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Collective Action</orgName>
+								<orgName type="institution">Temple University Press</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Anna</forename><surname>Milewski</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Collective Action</orgName>
+								<orgName type="institution">Temple University Press</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Issues in Using News Accounts in Process Analysis of Protest Episodes</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">A482A73B3FDBDDD3FA5530EDB3CC457D</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:18+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>We use examples from the widely-publicized Jena Six case to highlight several issues in using news accounts in process analysis. News stories offered different narratives that included and excluded different events and offered different causal connections that reflected the standpoints and interests of different actors. Media coverage itself and outreach to news reporters were significant events that were omitted from news accounts of event sequences. The media cascade was a probabilistic outcome that could not in general be repeated through the same sequence of prior events. Two seemingly irrelevant events may have affected the outcome, one that facilitated a connection between a journalist and bloggers and another that apparently competed for attention from national activists and media.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Newspapers are crucial sources for scholars of social movements and contentious politics. Protest event analysis (PEA), the dominant quantitative approach to studying the distribution of collective action over time and space, involves extracting events and their characteristics from news stories.</p><p>As Andrews and Gaby note in their chapter in this volume, PEA and process analysis both focus on sequences of events over time, though they differ in explanatory logic. While PEA quantifies events and often treats them as independent, process analysis constructs narratives connecting a sequence of events to explain an outcome or the unfolding of a process. Like PEA, process analysis also often heavily relies on news sources.</p><p>But news articles are not just data sources; news writers are actors and publication is an action. In the introduction to this book, Bosi and Malthaner discuss the importance of attention to actors and action in processual research. We highlight the roles news writers and news media play as key actors involved in the mobilization of movements as well as in the construction of movement narratives. News stories are important mechanisms of protest diffusion, as news coverage of protests draws in new participants and inspires further events. Media narratives in news articles attribute causal connections between events, yet they can obscure or distort their own role within these sequences. Any processual research relying on news stories for information needs to attend to these factors.</p><p>We examine these issues through two narratives: the Jena Six narrative itself, which focuses on the nooses and the fight, and a broader movement narrative about how a small-town injustice escaped obscurity and became a national news story. These narratives are linked because activists deliberately constructed the Jena Six narrative and persuaded the media to cover it. A close analysis of both narratives highlights crucial ambiguities regarding which events are considered relevant and how they are linked. Jena residents, activists, news writers, and academics all constructed narratives in line with their own meanings, interests, and purposes. Echoing Wahlström's argument in this volume, our analysis underscores the importance of researcher reflexivity and recognition of competing narratives when conducting an academic process analysis. It also demonstrates how process analysis can enhance protest event analysis by showing how events interconnect to become a part of a process.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">News as Data: Missing and Competing Information</head><p>Constructing a narrative linking events in sequence is central to process analysis <ref type="bibr" target="#b5">(Bennett, Fairfield, and Soifer 2019;</ref><ref type="bibr" target="#b35">Ruback 2010)</ref> wherein "the meaning of an event is conditional on its position" in the sequence <ref type="bibr">(Bearman, Faris, and Moody 1999:502)</ref>. Narrative construction requires what <ref type="bibr">Bearman and colleagues call "casing" (1999)</ref>: deciding which events are relevant and where the story should begin and end. Delimiting the process "as a bounded sequence of actions and events" is therefore a central challenge in process analysis (Bosi and Malthaner in this volume). <ref type="bibr" target="#b10">Crasnow (2017)</ref> underscores the constructed nature of a process narrative: it is organized around a central causal mechanism, provides grounds for considering and rejecting alternatives, and demonstrates how specific evidence and events are relevant.</p><p>Missing and conflicting data are significant challenges in process analysis. Gonzalez-Ocantos and LaPorte (2021:1410) note that actors "in addition to pushing the causal story forward, are responsible for generating the data we need" "may have incentives either to leave traces of actions and motives or to omit evidence in order to cover their tracks." Researchers may lack evidence for critical steps in a process and can only infer what happened in the gaps. Conflicting evidence about the mechanisms involved can also complicate the analysis.</p><p>Actors often have a stake in promoting different narratives about events. Research on news coverage of incidents of police violence offers clear examples. Reporters aim to maintain good relations with police, who are key sources of information, especially for crime reports <ref type="bibr" target="#b9">(Chermak 1995;</ref><ref type="bibr" target="#b28">Lawrence 2000)</ref>, while police seek favorable news coverage. The official police account forms the basis for most news coverage of incidents of police violence <ref type="bibr" target="#b7">(Burch 2021</ref><ref type="bibr" target="#b8">(Burch , 2023;;</ref><ref type="bibr" target="#b28">Lawrence 2000;</ref><ref type="bibr" target="#b30">Lu 2023)</ref>, and most cases do not lead to protests. These accounts often justify police action through individualizing narratives focusing on the victim's behavior and the officer's perceptions <ref type="bibr" target="#b7">(Burch 2021</ref><ref type="bibr" target="#b8">(Burch , 2023;;</ref><ref type="bibr" target="#b28">Lawrence 2000)</ref>. Even when protests occur, news coverage is typically brief, and the protests quickly dissipate. In rare cases-when the victim is unarmed and not acting aggressively-family or community members successfully advance a competing individualizing narrative blaming the officer <ref type="bibr" target="#b7">(Burch 2021</ref><ref type="bibr" target="#b8">(Burch , 2023;;</ref><ref type="bibr" target="#b28">Lawrence 2000)</ref>. If the victim is Black and protests arise, movement activists offer a counter-narrative linking the incident to systemic racism <ref type="bibr" target="#b28">(Lawrence 2000)</ref>. These competing narratives differ in which events they highlight as relevant.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">News as Mechanism: Competition Between Issues</head><p>The publication of a news article is itself an event that is part of a sequence of events. News coverage of collective action can spark further action, as media attention confers legitimacy <ref type="bibr" target="#b12">(De Fazio 2014)</ref>. Increased collective action, in turn, attracts more news coverage. This dynamic between events and media attention creates positive feedback loops that can produce media cascades <ref type="bibr" target="#b36">(Seguin 2016)</ref> or "issue attention cycles" <ref type="bibr">(Downs 1972)</ref>, wherein an issue receives intense but short-lived media attention. One factor in these cycles is the competition among stories for attention and space in the news. In traditional print newspapers and 30-minute television news shows, this competition was constrained by a fixed volume limit ("news hole"). Although online news, social media, and cable news channels face fewer limits, human attention is still limited.</p><p>Competition for attention remains a central feature of all media platforms.</p><p>Competition makes news coverage of events and diffusion of collective action inherently probabilistic and unpredictable. Media cascades are rare: most events receive little or no news coverage. Although activists strive to attract media attention, their efforts do not reliably produce consistent outcomes. In a formal modeling exercise, <ref type="bibr" target="#b33">Oliver and Myers (2003)</ref> show that probabilistic models with mutual reinforcement including both positive and negative feedback are necessary to capture observed patterns of protest event waves over time. They also show that competition between actors for reinforcement produces outcomes that look like observed media and protest cycles.</p><p>Even when we know how a media cascade occurred, the outcome might be different if the sequence were repeated. More generally, episodes of contention are inherently probabilistic, filled with contingencies and indeterminacy <ref type="foot" target="#foot_0">1</ref> . In these processes, connections between events are not deterministic and seemingly irrelevant events may trigger key developments <ref type="bibr" target="#b29">(Lieberson 1991)</ref>.</p><p>These issues affect the interpretation of any process analysis, especially those involving news stories.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">The Jena Six Protests: Background</head><p>The Jena Six were Black high school students charged with attempted murder and threatened with decades in prison following a December 2006 school fight that injured a White student. The victim was briefly hospitalized but released the same day and attended a social event in the evening. The charges seemed politically motivated and disproportionate to the injury. News articles sketched a story beginning with nooses being hung at the high school and ending with the fight, but they differed in detail. News articles also presented conflicting stories about movement building: some credited bloggers with drawing attention to the case after mainstream media and Black organizations had ignored it, while others attributed the publicity to Black radio hosts. These contradictions prompted our focus on tracing events in both narratives. News accounts rarely mentioned that the Jena Six story drew on a document compiled by activist Alan Bean <ref type="bibr" target="#b2">(Bean 2007)</ref> whose strategy was to attract external media attention to address injustices in small Southern towns typically overlooked by national media. 2   The Nooses and the Fight: Competing Narratives The Jena Six narrative powerfully linked images of lynching and the Jim Crow South with the modern problem of racial bias in the criminal legal system <ref type="bibr" target="#b22">(Greenlea 2014)</ref>. As Alan Bean said in a blog post, "Thank God for the nooses" <ref type="bibr">(FRIENDSOFJUSTICE 2007)</ref>. Nearly all news stories about the case through mid-September 2007 mentioned the nooses. But what was the connection between the nooses and the fight? We list all the documented events in the 2006 sequence. 3 There were ongoing local news stories about events.</p><p>• Thursday, August 31. A Black student in a school assembly asked about sitting under the tacitly segregated "white tree." Vice principal: "sit anywhere you want."</p><p>2 There is much more to the case than the few threads we identify in this article. More details can be found in <ref type="bibr" target="#b22">Greenlea (2014)</ref> and <ref type="bibr">Oliver et al. (forthcoming)</ref> 3 Almost all of the events in Bean's narrative can be confirmed by contemporaneous articles in the Alexandria Town Talk. The school authorities deny that there was a student protest on September 5. We have not gained access to the Jena Times for 2006 because the online version of that year only was removed from the Internet, but multiple secondary sources attest to the two claims about what it said.</p><p>• Friday, September 1. Two nooses in school colors were hung on the tree and quickly removed by school officials.</p><p>• Tuesday, September 5. Parents called local new media and held a meeting at L&amp;A Missionary Baptist Church. Local television and newspaper coverage on September 5 and 6.</p><p>• Wednesday, September 6. Small student protest at the tree, a few fights at school. School assembly where District attorney threatened students: "I can take away your lives with a stroke of this pen." Principal recommended expulsion for the three noose-hangers. Local &amp; Associated Press news coverage.</p><p>• Thursday, September 7. Police at school. School superintendent gave only a suspension to the noose-hangers. AP coverage of the punishment decision.</p><p>• Friday, September 8. School on lockdown, many parents kept children home.</p><p>• Monday, September 11. Black parents were refused permission to speak to the school board about the nooses. Parents said they had contacted FBI and NAACP.</p><p>• Wednesday, September 13. Jena Times published complaint that publicity about the nooses caused fights at school, characterizing the nooses as an innocent prank.<ref type="foot" target="#foot_1">foot_1</ref> </p><p>• Monday, September 18. One Black parent spoke for five minutes to the school board about the nooses; the board took no action.</p><p>• (Vague claims about ongoing tensions between mid-September and November 30, no specific details. Others claim tensions died down.)</p><p>• Thursday November 30. Main high school building destroyed by arson. Community trauma. No one knew who did it. No school.</p><p>• Friday December 1. No school. A Black student, Robert Bailey, was beaten by White men after he and others sought to attend a predominantly White party.</p><p>• Saturday December 2. Black students Robert Bailey, Theo Shaw, and Ryan Simmons encountered White adult Matt Windham, at the Gotta Go market. Windham retrieved a shotgun; the Black students took the gun from him, saying Windham had threatened them.</p><p>Local news described Windham as the "victim." Windham was not charged while the Black students were charged with stealing the firearm.<ref type="foot" target="#foot_2">foot_2</ref> </p><p>• Multiple sources say there were other racial fights over the weekend involving people other than those later named in these specific incidents.</p><p>• Monday December 4. Reports that teachers had asked to delay reopening school due to weekend fights. Makeshift classes in the gym. At midday, some Black students attacked Justin Barker, knocking him briefly unconscious and kicking him. About 40 students and teachers witnessed the fight and gave conflicting accounts of who did what.</p><p>• Tuesday December 5. Four students (Carwin Jones, Brobert Bailey Jr, Theo Shaw, and an unnamed juvenile) were arrested and charged with felony battery for the school fight. The December 6 article also reports the arrest of Shaw, Bailey, and Simmons for the Saturday incident and says the nooses incident is unrelated.</p><p>• Wednesday December 6. Two more unnamed juveniles were arrested and charged with felony battery for the fight. The news article mentions the Friday and Saturday fights and says all fights were unrelated to nooses or arson.</p><p>• Thursday December 7. The charges for Robert Bailey, Theo Shaw, Carwin Jones and Bryant Purvis were upgraded to attempted second-degree murder and conspiracy to commit murder. The school incident was described as the third in a series of fights involving Robert Bailey. Claims that teachers were threatening to boycott if nothing was done about school violence. Justin Sloan (age 22) was charged with misdemeanor battery for the December 1 fight.</p><p>• Wednesday December 13. The Jena Times printed a statement by district attorney Reed Walker calling the arrested students criminals who have been terrorizing the school and community, implying they are responsible for the arson, and promising to seek the harshest possible penalty.</p><p>• Wednesday December 13. About 400 people attended a biracial community prayer service for racial unity at Jena High <ref type="bibr" target="#b37">(Sumrall 2006)</ref>. Black and White ministers held a follow-up meeting on December 21 <ref type="bibr" target="#b23">(Hayes 2006</ref>) and a White minister wrote in a blog that the town is "awash in racism," referencing both White-and Black-initiated actions <ref type="bibr" target="#b38">(Thompson 2006</ref>).</p><p>• Friday December 15 Charges for juvenile Mychal Bell and an unnamed younger juvenile were raised to attempted second degree murder. Bell was moved into adult custody.</p><p>The event sequence suggests that in September, Black adult protests about the noose-hangingparticularly contacting news media, obtaining outside news coverage, and reaching out to the FBI and NAACP-were significant actions that heightened community conflict and possibly triggered repressive responses. However, non-local news sources rarely mention them. Instead, the student protest at the tree is often mentioned, sometimes incorrectly repositioned to precede the noosehanging and become its cause. The causal chain between the nooses and the fight is ambiguous.</p><p>The first narrative presented in local news sources is the "official" account, which frames the fight as the result of escalating hostilities over the preceding weekend. In this narrative, the Jena Six conspired to attack Justin Barker <ref type="bibr" target="#b21">(Goodnight 2006)</ref>. This individualizing account places all agency on the accused. In this version, the nooses had nothing to do with the fight (e.g., <ref type="bibr" target="#b17">Franklin 2007</ref>).</p><p>The second and dominant "Jena Six" narrative is that the nooses and the failure to punish the perpetrators escalated racial tensions, ultimately leading to the fight. However, there is a gap in the event sequence between September 19 and November 30. Alan Bean bridges this gap by writing, "Although few major disciplinary issues emerged during the fall semester at Jena High School, there is strong evidence that several black male students remained unusually agitated throughout the semester and that disciplinary referrals on these students spiked sharply." Many news articles filled the gap by stating that "racial tension" or "racial unrest" continued or was growing. Others compressed the timeline. For example, one stated, "Racial tension rose in Jena after white students hung three nooses in a tree at the school. Black parents wanted the students expelled, but the superintendent of schools opted to suspend them for three days. In subsequent weeks, an arsonist torched a wing of the school, and racial fighting roiled the town. Only the black high school students were arrested and charged in the fights." <ref type="bibr">(Anonymous 2007a</ref>) Similarly, a Chicago Defender article said, "School officials labeled the incident a 'prank.' Racial tension mounted and fights broke out between Black and white students. The white students were charged with misdemeanors, while the six Black students were charged with felonies." (Jena 6 will get support from Chicago group 2007) Several writers who read the witness statements said the immediate precipitant of the fight was the victim (Justin Barker) taunting Black students with racial slurs and made the point that he was friends with those who had hung the nooses. Some writers turned this into a stronger link, making the fight about the nooses. An article widely reprinted in Black newspapers in September 2007 by Marian Wright Edelman, president of the Children's Defense Fund, said: "The racial tension in the town came to a head on Dec. 4, when Justin Barker, a white student who was vocally supportive of the noose hangers and called Black students 'niggers,' was beaten by some Black students." <ref type="bibr" target="#b13">(Edelman 2007)</ref> There is evidence that Black and White community members perceived a broader issue of racial conflict, as reflected in the December 13 community prayer service, Thompson's blog, and the follow-up pastors' meeting. But was that perception based on the fights after the school arson? Or did it stem from a broader context that began with the nooses or perhaps even earlier?</p><p>These questions lead to the third causal account: Jena is a racist town that failed to punish the noose-hangers, ignored White aggressors who attacked Black youths, and unfairly overcharged six Black youths for an attack on a White student. In this account, the reason for the fight is irrelevant; what matters is the excessive punishment proposed. This explanation is more about common causes than about connecting events, similar to the "systemic narrative" <ref type="bibr" target="#b28">Lawrence (2000)</ref> identifies as typically coming from activists protesting police killings. Here, the nooses and the "white tree" are symptoms of a broader racist system, not direct causes of the fight or the punishment. Despite its appeal to activists and social scientists, few news articles use this common causes narrative without linking the fight to the nooses. One is a short article covering Al Sharpton's first visit to Jena in early August 2007 quoting him as saying: "You cannot have two levels of justice. Some boys assault people and are charged with nothing. Some boys hang nooses and finish the school year. And some boys are charged with attempted murder." <ref type="bibr" target="#b16">(Foster 2007</ref>). Some writers augment the "racist place" narrative by citing earlier instances of racism in Jena <ref type="bibr">(Flaherty 2010, chapter 10;</ref><ref type="bibr">Greenlea 2014:25-28)</ref>. Mainstream articles offering this narrative typically balance it by quoting Jena residents who counter with examples of racial harmony in the community.</p><p>No non-local news article raises a fourth possible account implied by events reported in local news stories: that broader racial conflict in the community arose from earlier outside publicity and organizing around the nooses, as well as the immediate circumstances of the school arson and the weekend of racial fighting.</p><p>These competing narratives highlight a common challenge in process analysis using news accounts. Different news stories present narratives constructed by actors with different interests, each including events they deem relevant. These narratives are tied to competing theoretical frameworks and reflect conflicting interests of groups in unequal positions of power and privilege.</p><p>Choosing among them is not just a matter of drawing empirical connections but of deciding whose theories or standpoints take precedence.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Spreading the Message</head><p>The process of mobilizing the big Jena Six rally in September was too complex and multi-faceted to be described in this paper (see <ref type="bibr">Oliver et al. forthcoming)</ref>. Briefly, mobilization and news coverage were entirely regional until May 2007, when external news and social media coverage began. Mychal Bell was tried and found guilty of aggravated battery June 26-28 after the murder charges were dropped just before the trial. National Black organizations including the NAACP, the Congressional Black Caucus, the Nation of Islam, and ColorOfChange.org began official support for the case in July after the guilty verdict. Bells's sentencing, originally scheduled for July 31, was postponed to September 20 after he obtained pro bono counsel. There was a rally of about 1,000 people in Jena on July 31. Al Sharpton visited Jena in early August, followed by Martin Luther King III and Jesse Jackson. The call to protest in Jena on September 20 began circulating in mid-August and was promoted by Black talk radio hosts as well as on social media.</p><p>A diverse range of traditional Black organizations chartered buses to Jena and organized solidarity rallies in their communities <ref type="bibr" target="#b22">(Greenlea 2014)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">Probabilistic versus Deterministic Processes</head><p>The noose-fight narrative transformed the Jena Six case from just another instance of racial injustice in the criminal legal system into a powerful story that connected present injustice with a long history of lynching and racial violence, resonating strongly with Black Americans. Noose references were the most common theme when people signed the online ColorOfChange.org petitions after mid-July <ref type="bibr">(Greenlea 2014:55-56)</ref>. But the noose-fight narrative did not go viral quickly. Initial external news stories and blogger amplification started in May, but as Figure <ref type="figure" target="#fig_0">1</ref> indicates, both mainstream and Black newspaper coverage built slowly over the summer before exploding into a media cascade in late September that was tied to the September 20 protest itself, which is marked by the vertical red line. 6 6 Search strings varied by source. Ethnic NewsWatch archives ethnic newspapers, and most hits are Black newspapers. The few false hits for Jena were hand screened. US NewsStream archives national and regional US newspapers, including a major local source, the Alexandria, Louisiana Town Talk. The search string was Jena + Jena Six or Jena 6 or noose or murder; hits with Jena + murder without the other terms were hand screened for relevance. Factiva archives national and international news sources including campus newspapers and includes transcripts of television news stories. The search string was Jena + Jena Six or Jena 6 or noose or nooses.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Figure 2 Early coverage of Jena in three sources</head><p>The news cascade followed the involvement of national Black organizations, online portals, and Black talk radio hosts. Most blogs and Facebook pages from 2007 are no longer available, but an unsystematic inspection of the dates on extant posts and comments suggests that they begin in late May, slowly increase over the summer, and then explode in late August and early September.</p><p>Facebook grew from 20 million to 50 million active users between April and October 2007 <ref type="bibr" target="#b14">(Facebook, Inc. 2012</ref>) and many Facebook groups spread the message. Radio host mentions also cannot be retroactively traced, but news articles say that prominent hosts like Michael Baisden, Tom Joyner and others learned of the case from listener call-ins in mid-August and actively promoted participation in the protests on their shows in September <ref type="bibr" target="#b4">(Belgard 2007)</ref>.</p><p>The evidence suggests that social media amplification of the case accelerated alongside, rather than before, the involvement of national-level organizations. BlackAmericaWeb.com, a site with a million hits per day, covered the case on July 1. The NAACP launched a website to collect contributions after endorsing the case at its national convention on July 7-12 <ref type="bibr">(Anonymous 2007c;</ref><ref type="bibr" target="#b32">NAACP 2007)</ref>. ColorOfChange sent its first email about the case on July 17 <ref type="bibr">(Greenlea 2014:40)</ref> and then organized email and phone campaigns and provided other coordination and organizing <ref type="bibr">(Greenlea 2014:94)</ref>. The Nation of Islam's Final Call published its first article about Jena on July 22 <ref type="bibr" target="#b31">(Muhammad 2007</ref>) and provided substantial organizational support for the September rally <ref type="bibr" target="#b15">(Flaherty 2010;</ref><ref type="bibr">Greenlea 2014:125)</ref>.</p><p>The September cascade of collective action and news media coverage arose from the positive feedback across multiple communication channels, rather than any single source or mechanism.</p><p>These feedback loops created a probabilistic amplification of the case that would be difficult to replicate, even with a similar narrative for another case. <ref type="foot" target="#foot_4">7</ref>Erasing A Crucial Event Many news stories (e.g., <ref type="bibr">Anonymous 2007b;</ref><ref type="bibr" target="#b6">Brown 2007;</ref><ref type="bibr">Witt 2007a</ref>) and academic articles (e.g., <ref type="bibr" target="#b27">Kvasny, Payton, and Hales 2009;</ref><ref type="bibr" target="#b34">Payton and Kvasny 2012)</ref> claim that "bloggers" provided the initial research into the Jena Six case, uncovering a story that would otherwise have remained unknown. AfroSpear, a consortium of Black bloggers formed in April 2007 to use blogging for Black liberation <ref type="bibr" target="#b24">(Holland 2007)</ref>, is often credited with initiating the story. However, as Greenlea These three journalists did not stumble on Jena by accident: they were recruited. Jordan Flaherty was invited to a May 2 rally by Louisiana ACLU activist Tory Pegram 8 who had been working on the case since March. In several interviews and retrospectives, Alan Bean says he leveraged his prior connections with people at the Chicago Tribune, the BBC, and CNN to persuade them to report on the story. Flaherty's article discusses Bean and his goal of bringing attention to small Southern towns but does not mention Bean's event document nor being invited to the May 2 rally.</p><p>Witt and Mangold do not mention Bean at all. These omissions reflect standard news practice: reporters often rely on press releases or interviews with key sources whose influence is downplayed or omitted entirely.</p><p>These three news stories were critical steps in the Jena Six mobilization, but they would not have been written without activists' efforts to prepare a background document and invite the reportersactions that go unmentioned in news articles. This omission poses a challenge for process analysis when media coverage itself is a key event in the process. Activists' connections to reporters were critical for securing the coverage. Media studies have long recognized that reporters establish reciprocal relationships with politicians, police, and other regular "sources" for news stories.</p><p>Similarly, movement scholars and activists understand the importance of reaching out to news media for coverage and providing them with tools like well-written press releases to increase their 8 Email communication from Jordan Flaherty. chances of favorable coverage. Yet, traces of this behind-the-scenes work rarely appear in the news stories that provide the basis for process analysis.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.">The relevance of seemingly irrelevant events</head><p>Selecting events for process analysis of media diffusion can be even more complex due to the possible influence of seemingly irrelevant events. Two other cases involving unfair charges against Black youths were potentially relevant to the Jena Six case, one likely facilitating the diffusion of the Jena narrative and the second possibly competing with it.</p><p>The first case affected the Black AfroSpear bloggers. Howard Witt's March 12 Chicago Tribune story <ref type="bibr">(Witt 2007c</ref>) described the plight of Shaquanda Cotton, a 14-year-old girl sentenced to an indefinite term in a youth prison for pushing a hall monitor. Black bloggers circulated the story.</p><p>On March 31, Witt wrote about how this blogger amplification helped secure Cotton's release <ref type="bibr">(Witt 2007b)</ref>. This experience led to the formation of AfroSpear in April 2007 and heightened these bloggers' attention to Witt's first story about Jena <ref type="bibr" target="#b22">(Greenlea 2014)</ref>. The seemingly-irrelevant case appears to be a critical event in the sequence of diffusion of the Jena Six story.</p><p>The second case involved Genarlow Wilson, who was sentenced in December 2006 to ten years in prison for having oral sex with a 15-year-old girl when he was 17.<ref type="foot" target="#foot_5">foot_5</ref> This case neither went viral nor lead to major protests. However, as the solid lines in figure <ref type="figure" target="#fig_3">3</ref>   While it is beyond our scope to assess the counterfactuals of how the diffusion of the Jena Six case might have proceeded in the absence of the Cotton or Wilson cases, they provide important examples of how difficult it can be to decide which events to include in process analysis and how problematic the basic problem of "casing" can be.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusions</head><p>News media accounts of protests are data sources for social movement research, both in quantitative analysis of protest events and qualitative studies focusing on processes. Our efforts to reconstruct causal narratives around the Jena Six episode from multiple news sources illustrate some of the issues and challenges that require attention.</p><p>First, rather than treating news reports as straightforward data, researchers should view them as key events in episodes of contention. News coverage affects future events. News stories do not simply list facts; they construct their own causal narratives. News reports of protest episodes are selective in their inclusion of relevant events, drawing connections, imposing meanings, and telling a causal story. News stories about the Jena Six varied in which events were included and even altered the order of events, driven by the pull toward compelling storytelling. Additionally, there were conflicting narratives about whether there was any causal relationship between key events, reflecting the different interests and theoretical understandings of various actors. As Bosi and Malthaner point out in this volume, there are no "given" processes in processual research. We demonstrate this on two levels when using news media as a data source. News stories first construct a narrative of the process and subsequently researchers use these constructions to build their own account of the process.</p><p>While the Jena Six narrative may be an extreme case, inconsistent accounts of events and their relationships are common in event-focused research. These different accounts are often lost in many traditional protest event analyses, which seek to "de-duplicate" multiple reports of the same event. Our analysis here is reminiscent of <ref type="bibr" target="#b11">Davenport's (2010)</ref>  Second, media narratives can themselves play a causal role in protest diffusion. While some narratives originate with news writers, many are created by actors who work to plant them in news media. Cultivating relationships with reporters and preparing press releases or other background documents are well-recognized practices. The Jena Six case is unusual in that narrative linking the September nooses to the December fight and overcharging can be traced to a single document by Alan Bean, who openly described his media outreach efforts. Because erasing media outreach is standard news reporting practice, it is easy for scholars to overlook the intentional construction of a narrative and outreach to reporters as key events in process analysis when using news reports to compile inventories of events and their connections.</p><p>Third, our analysis of the Jena Six case highlights the challenge of selecting relevant events and determining the correct starting point for a process. A more structural racism account of the noosefight connection in Jena would include events and conditions beyond the "it all started with the nooses" framework of the dominant narrative. Additionally, we found that the narrative about how news of the Jena Six spread often incorrectly credited bloggers with original reporting, while failing to mention the prior connection between reporter Howard Witt and the Black bloggers who formed the AfroSpear around the Shaquanda Cotton case.</p><p>Inter-issue competition further complicates this challenge. Traditional newspapers have limited space, and even in the online space, human attention spans are finite. When one issue dominates attention, it leaves less space for others. This competition explains why most events receive limited media coverage, let alone spark a media cascade, and why media cascades are often short-lived.</p><p>We presented suggestive evidence of competition for media and movement attention between the Genarlow Wilson and Jena Six cases, suggesting that while the powerful noose-fight narrative was important, a conjunction of circumstances and feedback loops also contributed to the attention and action cascade.</p><p>Finally, we identify events conspicuously omitted in the dominant narratives of the Jena Six case.</p><p>Protests by Black parents about the nooses and external news attention to the nooses were significant in the community's racial conflicts in September 2006, yet rarely included in the narratives. News stories also typically overlooked local mobilization, such as the formation of an NAACP chapter with 100 members by March 2007. News accounts of the nationwide mobilization vaguely credited bloggers or radio hosts as crucial but failed to detail how bloggers amplified extant news reports, how activists created the narrative, or how activist and organizational networks provided the infrastructure for organizing the protest. These narratives emphasized diffuse popular enthusiasm while downplaying the nuts and bolts of movement organizing, especially local efforts. This approach to narrative construction distorts understandings of how social movements develop.</p><p>More broadly, our analysis of the Jena Six case highlights the critical role of news media as active participants in social movement episodes. Rather than merely reporting events, news media construct their own narratives and contribute to the meaning-making process by selecting which events to highlight and offering interpretations. Media attention itself becomes part of the process, drawing visibility and influencing perceptions of the issues at stake. Social movement activists are well aware of this dynamic and strategically work to shape media coverage.</p><p>However, conventional protest event analysis often fails to account for this complex interplay between movements and media. Standard practices, such as deduplicating news reports, obscure the multiple, often competing narratives constructed by different actors. Protest events are also typically treated as independent, with limited attention to how they interrelate or how non-protest events shape the broader process. These limitations pose challenges for both conventional quantitative protest event analysis and process analysis, where understanding sequences and meaning-making is central. In line with Bosi and Malthaner's call in their introduction for better methodological tools, researchers should adopt methods that capture the multiplicity of accounts, trace connections between events, and incorporate non-protest activities that influence movement trajectories.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1</head><label>1</label><figDesc>Figure 1 Cumulative articles about Jena in three news databases Figure 2 shows the daily coverage in each database through mid-September and distinguishes Louisiana newspapers from others in the US NewsStream database. It shows that external coverage before September centered on key events marked with vertical dashed lines: the original trial date of May 20, Mychal Bell's trial which began June 26, and the July 31 rally in Jena which was followed by an August 4 visit of Al Sharpton.</figDesc><graphic coords="11,72.00,204.19,468.00,254.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>(</head><figDesc>2014) confirms through interviews with AfroSpear bloggers, bloggers primarily amplified existing news stories rather than conducting original research. The initial source material for bloggers was three news articles written in May 2007. Jordan Flaherty's May 9 article was posted simultaneously on multiple online progressive news outlets and reprinted by other left-leaning sources. Howard Witt's Chicago Tribune article and Tom Mangold's BBC documentary with its accompanying blog post were published on May 20. These articles, widely reprinted, include substantial original reportage, but deploy the noose-fight narrative and rely on the event sequence compiled by Bean.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><figDesc>indicate, from January to July 2007 it received substantially more mainstream news attention than the Jena case, including a few New York Times articles. At the end of July 2007, attention to Jena rose and attention to Genarlow Wilson dropped. The Wilson case received priority support from the NAACP, Al Sharpton, and ColorOfChange.org in the first half of 2007, but all shifted their focus to the Jena Six in July. These patterns suggest possible competition between the two cases for attention from both mainstream media and national Black organizations. Perhaps attention to the Wilson case delayed media coverage and Black organizational support for the Jena case. Such competition for attention highlights how seemingly irrelevant events can become important parts of processual sequences.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 3</head><label>3</label><figDesc>Figure 3 Coverage of Jena Six and Genarlow Wilson before mid-September</figDesc><graphic coords="17,72.00,72.00,468.00,618.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><figDesc>study of the Black Panthers coverage by five different news sources, showing that each source constructed a distinct narrative about the relationship between the Panthers and the police. Mainstream newspapers portrayed the Panthers as violent actors that were brought under control by the authorities, while the Panthers' own newspaper depicted them as resisting ongoing violent police attacks.</figDesc></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="1" xml:id="foot_0"><p>Other chapters in this volume, including Andrews &amp; Gaby and Jasper, also emphasize the contingent and unpredictable nature of episodes of collective contention.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="4" xml:id="foot_1"><p>The Jena Times for 2006 was pulled offline when controversy arose. Several secondary sources refer to this editorial including Greenlea (2014, page 3 foonote 3) and<ref type="bibr" target="#b26">(Kosloski et al. 2009</ref>) .</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="5" xml:id="foot_2"><p>Jena Times reported the incident on Dec</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_3"><p>6, per Greenlea. Town Talk reported the fight on December 7.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="7" xml:id="foot_4"><p>As della Porta emphasizes in this volume, this probabilistic and indeterminate nature of cascades does not mean that they are organizationally unstructured. As discussed above, existing social movement organizations and other actors play crucial roles in triggering them.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="9" xml:id="foot_5"><p>The incident involved a videorecording of a high school party in a motel room and an allegation of rape of another girl at the party. Wilson was found not guilty of rape based on the video, but guilty of receiving oral sex initiated by a minor.</p></note>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><p>This work was supported in part by <rs type="funder">National Science Foundation</rs> grant <rs type="grantNumber">SES2214160</rs>.</p><p>for an assault on a White student in a December</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_bWC9a34">
+					<idno type="grant-number">SES2214160</idno>
+				</org>
+			</listOrg>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Bloggers Put Jena Six Case on Blast</title>
+		<author>
+			<persName><surname>Anonymous</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Afro -American</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page" from="1" to="2" />
+			<date type="published" when="2007-08-25">2007. August 25</date>
+		</imprint>
+	</monogr>
+	<note>Star Edition</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">NAACP Lends Its Support to &apos;Jena 6</title>
+		<author>
+			<persName><surname>Anonymous</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Washington Informer</title>
+		<imprint>
+			<date type="published" when="2007-08-26">2007. August 26, 21</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">RESPONDING TO THE CRISIS IN JENA, LOUISIANA</title>
+		<author>
+			<persName><forename type="first">Alan</forename><surname>Bean</surname></persName>
+		</author>
+		<ptr target="https://friendsofjustice.blog/2021/04/12/responding-to-the-crisis-in-jena-louisiana/" />
+		<imprint>
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Blocking the Future: New Solutions for Old Problems in Historical Social Science</title>
+		<author>
+			<persName><forename type="first">Peter</forename><surname>Bearman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Faris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">James</forename><surname>Moody</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S0145553200021854</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Social Science History</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="501" to="533" />
+			<date type="published" when="1999">1999</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Black Entertainers Plan to Attend Rally</title>
+		<author>
+			<persName><forename type="first">Jodi</forename><surname>Belgard</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Town Talk</title>
+		<imprint>
+			<date type="published" when="2007-09-19">2007. September 19</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">Comparative Methods and Process Tracing</title>
+		<author>
+			<persName><forename type="first">Andrew</forename><surname>Bennett</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tasha</forename><surname>Fairfield</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hillel</forename><forename type="middle">David</forename><surname>Soifer</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Case Gets Attention from All over World</title>
+		<author>
+			<persName><forename type="first">Abbey</forename><surname>Brown</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Town Talk</title>
+		<imprint>
+			<date type="published" when="2007-06-11">2007. June 11</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Not All Black Lives Matter: Officer-Involved Deaths and the Role of Victim Characteristics in Shaping Political Interest and Voter Turnout</title>
+		<author>
+			<persName><forename type="first">Traci</forename><surname>Burch</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S1537592721003157</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Perspectives on Politics</title>
+		<imprint>
+			<biblScope unit="page" from="1" to="17" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<author>
+			<persName><forename type="first">Traci</forename><surname>Burch</surname></persName>
+		</author>
+		<title level="m">Which Lives Matter?: Factors Shaping Public Attention to and Protest of Officer-Involved Killings</title>
+		<meeting><address><addrLine>Cambridge</addrLine></address></meeting>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note>Elements in Race, Ethnicity, and Politics</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Image Control: How Police Affect the Presentation of Crime News</title>
+		<author>
+			<persName><forename type="first">Steven</forename><surname>Chermak</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Journal of Police</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="21" to="43" />
+			<date type="published" when="1995">1995</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Process Tracing in Political Science: What&apos;s the Story?</title>
+		<author>
+			<persName><forename type="first">Sharon</forename><surname>Crasnow</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.shpsa.2017.03.002</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Studies in History and Philosophy of Science Part A</title>
+		<imprint>
+			<biblScope unit="volume">62</biblScope>
+			<biblScope unit="page" from="6" to="13" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<author>
+			<persName><forename type="first">Christian</forename><surname>Davenport</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Media Bias, Perspective, and State Repression : The Black Panther Party</title>
+		<title level="s">Cambridge Studies in Contentious Politics</title>
+		<meeting><address><addrLine>New York</addrLine></address></meeting>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Intra-Movement Competition and Political Outbidding as Mechanisms of Radicalization in Northern Ireland, 1968-1969</title>
+		<author>
+			<persName><forename type="first">De</forename><surname>Fazio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">;</forename><forename type="middle">C</forename><surname>Gianluca</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Demetriou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Bosi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Malthaner</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Johnston</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Dynamics of Political Violence: A Process-Oriented Perspective on Radicalization and the Escalation of Political Conflict</title>
+		<meeting><address><addrLine>Farnham, UNITED KINGDOM</addrLine></address></meeting>
+		<imprint>
+			<publisher>Taylor &amp; Francis Group</publisher>
+			<date type="published" when="1972">2014. 1972</date>
+			<biblScope unit="page" from="38" to="50" />
+		</imprint>
+	</monogr>
+	<note>Up and Down with Ecology-the Issue-Attention Cycle</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Free the Jena Six</title>
+		<author>
+			<persName><forename type="first">Marian</forename><surname>Edelman</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Wright</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">New Pittsburgh Courier</title>
+		<imprint>
+			<date type="published" when="2007-09-12">2007. September 12</date>
+		</imprint>
+	</monogr>
+	<note>City Edition</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Number of Active Users at Facebook over the Years</title>
+		<author>
+			<persName><forename type="first">Inc</forename><surname>Facebook</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Yahoo Finance</title>
+		<imprint>
+			<date type="published" when="2012-10-23">2012. October 23</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<monogr>
+		<title level="m" type="main">Floodlines: Community and Resistance from Katrina to the Jena Six (Kindle Edition)</title>
+		<author>
+			<persName><forename type="first">Jordan</forename><surname>Flaherty</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2010">2010</date>
+			<publisher>Haymarket Books</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Sharpton Takes Pulpit In Jena</title>
+		<author>
+			<persName><forename type="first">Mary</forename><surname>Foster</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Sacramento Observer</title>
+		<imprint>
+			<date type="published" when="2007-08">2007. August 9</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Media Myths about the Jena 6</title>
+		<author>
+			<persName><forename type="first">Craig</forename><surname>Franklin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Christian Science Monitor</title>
+		<imprint>
+			<date type="published" when="2007-10-24">2007. October 24</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<ptr target="https://friendsofjustice.blog/2007/05/21/deep-south-didnt-get-the-civil-rights-memo/" />
+		<title level="m">Deep South Didn&apos;t Get the Civil Rights Memo</title>
+		<imprint>
+			<publisher>FRIENDSOFJUSTICE</publisher>
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Understanding the Impetus for Modern Student Activism for Justice at an HBCU: A Look at Personal Motivations</title>
+		<author>
+			<persName><forename type="first">Camille</forename><surname>Gibson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fay</forename><surname>Williams</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11256-019-00527-0</idno>
+	</analytic>
+	<monogr>
+		<title level="j">The Urban Review</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="263" to="276" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Process Tracing and the Problem of Missing Data</title>
+		<author>
+			<persName><forename type="first">Ezequiel</forename><surname>Gonzalez-Ocantos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jody</forename><surname>Laporte</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0049124119826153</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Sociological Methods &amp; Research</title>
+		<imprint>
+			<biblScope unit="volume">50</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1407" to="1435" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Jena High Fight Counts Upgraded to Attempted Murder Charges</title>
+		<author>
+			<persName><forename type="first">Mandy</forename><surname>Goodnight</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Town Talk</title>
+		<imprint>
+			<date type="published" when="2006-12-08">2006. December 8</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<monogr>
+		<title level="m" type="main">Free the Jena Six! Racism and the Circuitry of Black Solidarity in the Digital Age</title>
+		<author>
+			<persName><forename type="first">Stephanie</forename><surname>Greenlea</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+		<respStmt>
+			<orgName>Yale University, United States --Connecticut</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Ph.D.</note>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Jena Ministers Discuss next Step in Easing Racial Tensions</title>
+		<author>
+			<persName><forename type="first">Warren</forename><surname>Hayes</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Town Talk</title>
+		<imprint>
+			<biblScope unit="page">8</biblScope>
+			<date type="published" when="2006-12-22">2006. December 22</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<monogr>
+		<author>
+			<persName><forename type="first">Francis</forename><surname>Holland</surname></persName>
+		</author>
+		<ptr target="https://afrospear-history.blogspot.com/2007/11/history-of-afrospear.html" />
+		<title level="m">History of the AfroSpear: The History of the AfroSpear</title>
+		<imprint>
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<monogr>
+		<title level="m" type="main">Jena 6 will get support from Chicago group</title>
+		<imprint>
+			<date type="published" when="2007-09-17">2007. September 17</date>
+			<pubPlace>Chicago Defender</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<monogr>
+		<title level="m" type="main">The &apos;Noose Incident&apos;: Racialization of the &apos;Jena Six&apos; in Local and National Newspapers</title>
+		<author>
+			<persName><forename type="first">Anna</forename><surname>Kosloski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Matthew</forename><forename type="middle">D</forename><surname>Moore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Molly</forename><surname>Sween</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bridget</forename><forename type="middle">Diamond</forename><surname>Welch</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Social Activism in the &apos;Blackosphere&apos;: The Jena 6 Case</title>
+		<author>
+			<persName><forename type="first">Lynette</forename><surname>Kvasny</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Fay</forename><surname>Cobb Payton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kayla</forename><forename type="middle">D</forename><surname>Hales</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Interpersonal Relations and Social Patterns in Communication Technologies: Discourse Norms, Language Structures and Cultural Variables</title>
+		<editor>
+			<persName><forename type="first">J</forename><surname>Park</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">E</forename><surname>Abels</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>IGI Global</publisher>
+			<date type="published" when="2009">2009</date>
+			<biblScope unit="page" from="2286" to="2399" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<monogr>
+		<author>
+			<persName><forename type="first">Regina</forename><forename type="middle">G</forename><surname>Lawrence</surname></persName>
+		</author>
+		<title level="m">The Politics of Force : Media and the Construction of Police Brutality</title>
+		<meeting><address><addrLine>Berkeley</addrLine></address></meeting>
+		<imprint>
+			<publisher>University of California Press</publisher>
+			<date type="published" when="2000">2000. 2000. ©2000</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Small N&apos;s and Big Conclusions: An Examination of the Reasoning in Comparative Studies Based on a Small Number of Cases*</title>
+		<author>
+			<persName><forename type="first">Stanley</forename><surname>Lieberson</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/sf/70.2.307</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Social Forces</title>
+		<imprint>
+			<biblScope unit="volume">70</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="307" to="320" />
+			<date type="published" when="1991">1991</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<monogr>
+		<author>
+			<persName><forename type="first">Todd</forename><surname>Lu</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Jiajin</surname></persName>
+		</author>
+		<ptr target="https://osf.io/vxd8a/" />
+		<title level="m">When Black Movements Matter: Controlling Images and Black Lives Matter Protests in Media Attention to U.S. Police Killings</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<monogr>
+		<title level="m" type="main">Young Black Males the Target of Small-Town Racism</title>
+		<author>
+			<persName><forename type="first">Jesse</forename><surname>Muhammad</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2007-07-22">2007. July 22</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">NAACP Resolutions</title>
+		<author>
+			<persName><surname>Naacp</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">forthcoming. The Jena 6: Of Nooses, Narratives, and Movement Building</title>
+		<editor>
+			<persName><forename type="first">Pamela</forename><surname>Oliver</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Anna</forename><surname>Milewski</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Chaeyoon</forename><surname>Lim</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Erin</forename><surname>Gaede</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="2007">2007. 2007</date>
+		</imprint>
+	</monogr>
+	<note>Submitted under Article X, Section 2 of the Constitution of the NAACP</note>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">The Coevolution Of Social Movements</title>
+		<author>
+			<persName><forename type="first">Pamela</forename><surname>Oliver</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Daniel</forename><surname>Myers</surname></persName>
+		</author>
+		<idno type="DOI">10.17813/maiq.8.1.d618751h524473u7</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Mobilization: An International Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="24" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Considering the Political Roles of Black Talk Radio and the Afrosphere in Response to the Jena 6: Social Media and the Blogosphere</title>
+		<author>
+			<persName><forename type="first">Fay</forename><surname>Payton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lynette</forename><surname>Cobb</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Kvasny</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Information Technology &amp; People</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="81" to="102" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Let Me Tell the Story Straight On&apos;: Middlemarch, Process-Tracing Methods and the Politics of Narrative</title>
+		<author>
+			<persName><forename type="first">Timothy</forename><forename type="middle">J</forename><surname>Ruback</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1467-856X.2010.00425.x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">The British Journal of Politics and International Relations</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="477" to="497" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Cascades of Coverage: Dynamics of Media Attention to Social Movement Organizations</title>
+		<author>
+			<persName><forename type="first">Charles</forename><surname>Seguin</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/sf/sov085</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Social Forces</title>
+		<imprint>
+			<biblScope unit="volume">94</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="997" to="1020" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Prayers for Unity in Jena</title>
+		<author>
+			<persName><forename type="first">Bill</forename><surname>Sumrall</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Town Talk</title>
+		<imprint>
+			<date type="published" when="2006-12-14">2006. December 14</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<title level="m" type="main">The Battle Against Racism In Jena, Louisiana</title>
+		<author>
+			<persName><forename type="first">Eddie</forename><surname>Thompson</surname></persName>
+		</author>
+		<ptr target="https://www.authorsden.com/visit/viewarticle.asp?id=25922&amp;AuthorID=17296" />
+		<imprint>
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Bloggers Inspire New Civil Rights Wave; Jena 6 Protest Nurtured on Web: [Chicago Edition</title>
+		<author>
+			<persName><forename type="first">Howard</forename><surname>Witt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Chicago Tribune</title>
+		<imprint>
+			<date type="published" when="2007-09-19">2007. September 19, 1</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Girl in Prison for Shove Gets Released Early</title>
+		<author>
+			<persName><forename type="first">Howard</forename><surname>Witt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Chicago Tribune</title>
+		<imprint>
+			<date type="published" when="2007-03-31">2007. March 31</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<monogr>
+		<title level="m" type="main">To Some in Paris, Sinister Past Is Back ; In Texas, a White Teenager Burns down Her Family&apos;s Home and Receives Probation. A Black One Shoves a Hall Monitor and Gets 7 Years in Prison. The State NAACP Calls It &apos;a Signal to Black Folks</title>
+		<author>
+			<persName><forename type="first">Howard</forename><surname>Witt</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2001">2007. March 12, 1.1</date>
+			<pubPlace>Chicago Tribune</pubPlace>
+		</imprint>
+	</monogr>
+	<note>Chicagoland Final Edition</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

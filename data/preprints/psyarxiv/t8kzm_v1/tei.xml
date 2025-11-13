@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Fatal flaws in &quot;The relationship between personality traits and marital satisfaction: a systematic review and meta-analysis&quot;</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Steven</forename><forename type="middle">G</forename><surname>Ludeke</surname></persName>
+							<email>stevenludeke@gmail.com</email>
+							<affiliation key="aff0">
+								<orgName type="institution">University of Southern Denmark</orgName>
+								<address>
+									<settlement>Odense</settlement>
+									<country key="DK">Denmark</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Fatal flaws in &quot;The relationship between personality traits and marital satisfaction: a systematic review and meta-analysis&quot;</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">47FDA1BF9C357EDBEE692FDDAAFC2FD5</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:17+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>error correction</term>
+					<term>personality</term>
+					<term>marital satisfaction</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>The core results from a recent BMC Psychology meta-analysis represent errors of extraordinary magnitude and implausibility, with reported correlations between marital satisfaction and the Big Five traits as high as r = .90. Inspection of the paper reveals that standardized z-statistics were misinterpreted as correlation coefficients, producing effect sizes far beyond plausible limits. Despite the error's remarkable implausibility, the article has remained unretracted for five years and accumulated over two hundred citations, none expressing doubt. The handling journal acknowledges the problem but reports no process for publishing error-only reports. This episode illustrates a failure of science's self-correction mechanisms and highlights the demotivating effect of uncorrected errors on conscientious researchers. It also raises broader questions about journal accountability and impact-factor systems that equate venues regardless of their capacity for post-publication correction.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Discovery of an Impossible Result</head><p>While reading an unusually strong bachelor's thesis on personality and relationship quality, I was brought up short by an impossible result. The student cited a recent meta-analysis appearing in BMC Psychology, a journal from the Nature Springer group, which reported correlations between marital satisfaction and the Big Five traits of r = .90 (Conscientiousness), .86 (Agreeableness), .83 (Extraversion), .78 (Openness), and -.44 (Neuroticism; <ref type="bibr" target="#b11">Sayehmiri et al., 2020)</ref>.</p><p>I assumed this was a transcription error: Numbers this implausible are not unreasonably attributed to the student copying the wrong results down. Upon checking the source, I saw however that the student had transcribed the results exactly; the journal article itself repeatedly presented these values and discussed them as genuine findings.</p><p>Despite my previous work documenting serious quantitative errors in published research, this one struck me as extraordinary. The magnitude of the discrepancy between expectations (reviewed below) and reported meta-analytic results struck me as well beyond anything that could plausibly survive peer review-and yet the article was being cited more rapidly than many of the papers I find most important in the field. My reaction went well beyond surprise: I genuinely albeit temporarily raised my estimate that I might have lost contact with reality, and wrote to a colleague for a (quite literal) sanity check. A short refresher on why such results are so impossible that they provoked such a response is therefore warranted, as it provides crucial context for interpreting what this incident reveals about contemporary psychological research and publishing practices.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Commonly-Observed Personality Effect Sizes, and the Implications of More Pronounced Effects</head><p>As a rule, the most potent personality predictors of any given outcome typically yield correlations in the moderate range. (See, for example, studies of counterproductive work behaviors <ref type="bibr" target="#b1">[Berry et al., 2007]</ref>, academic performance <ref type="bibr" target="#b8">[Poropat, 2009]</ref>, and externalizing psychopathologies <ref type="bibr" target="#b9">[Ruiz et al., 2008]</ref>.) Meta-analytic correlations with personality traits rarely approach .50, and in the exceptional cases that do reach that range-e.g., Neuroticism and internalizing disorders <ref type="bibr" target="#b7">(Ormel et al., 2013</ref>)-it's not uncommon for researchers to voice skepticism of the differentiability of the two constructs. Psychometric correlations that are particularly large (&gt;.80) are widely recognized as indicating the traits under study are psychometrically redundant <ref type="bibr" target="#b6">(Lawson &amp; Robins, 2021</ref>). An early meta-analysis on the link between self-reported personality and marital satisfaction-precisely the topic explored by <ref type="bibr" target="#b11">Sayehmiri et al. (2020)</ref>-gives no reason to expect this domain to be exceptional, reporting effects ranging from -.26 for Neuroticism to just .08 for Openness <ref type="bibr" target="#b4">(Heller et al., 2004)</ref>.</p><p>By contrast, the results reported by <ref type="bibr" target="#b11">Sayehmiri et al. (2020)</ref>-one unexpectedly large effect (.44 with Neuroticism) and four extraordinary ones (ranging between .77 and .90 for the other Big Five traits)-would open intriguing questions well beyond marital satisfaction. They would suggest that, at least in the Iranian context of the studies meta-analyzed by <ref type="bibr" target="#b11">Sayehmiri et al. (2020)</ref>, most Big Five traits (excluding Neuroticism) are not only highly predictive of marital satisfaction but also nearly isomorphic with it-and with each other. This could represent fascinating evidence for the General Factor of Personality, a striking incidence of cultural differences, and a powerful rebuttal to Mischel and the situationists to boot.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Re-Examining the Evidence: The Mislabelled Z-Scores</head><p>Inspection of the original paper's results table provided an important clue to the unexpected results. Two adjacent columns were labelled "Z-score" and "R." When the values in the Z column are interpreted as correlation coefficients, they match almost perfectly the earlier metaanalytic results reported by <ref type="bibr" target="#b4">Heller et al. (2004)</ref>; the "R" column-the one the authors described multiple times in the text as correlations-deviates by roughly fifteen times as much. Table <ref type="table" target="#tab_0">1</ref> presents these side-by-side comparisons. The simplest explanation is that standardized z statistics were mistaken for correlation coefficients at some point in the analytic workflow or manuscript preparation. The Englishlanguage primary studies included in the meta-analysis confirm the implausibility of the published numbers. Across three accessible papers <ref type="bibr" target="#b0">(Amiri et al., 2011;</ref><ref type="bibr" target="#b5">Javanmard &amp; Garegozlo, 2013;</ref><ref type="bibr" target="#b10">Sadeghi &amp; Mozhdehi, 2016)</ref>, the largest observed coefficient between any Big Five trait and marital satisfaction was .50, and twelve of fifteen were below |.32|. The notion that the true population effects could average above .80 across studies is not credible.</p><p>The error is categorical, not interpretive. Under no reasonable statistical understanding can the published results be valid. Given such a basic and extraordinary error, the analytic procedures and quality-control practices of the original authorship team behind the report warrant considerable independent re-examination by qualified analysts.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Widespread Uptake Without Scrutiny</head><p>The implausible correlations have not remained obscure. At the time of writing, Google Scholar listed roughly 240 citations to the article in the five years since its 2020 publication, including 32 added after the journal was first notified of the error. A spot-check of dozens of these citing papers found none expressing skepticism about the reported magnitudes. Several used the results substantively-re-analyzing or interpreting them as genuine findings-while many more repeated the coefficients uncritically in literature reviews or introductions. The error propagation is not limited in reach, having even affected articles published in elite outlets within the field (e.g., <ref type="bibr" target="#b2">Esplin et al., 2025;</ref><ref type="bibr" target="#b3">Grau et al., 2025)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Attempts to Correct the Record</head><p>A paper briefly documenting the error was submitted to BMC Psychology on June 26, 2025. It was desk-rejected on July 14, appealed on July 30, and subsequently rerouted through several administrative exchanges. Forms were misplaced, replaced, and resubmitted, with weeks of silence between replies. On September 26, the appeal was rejected, and I was advised to contact the handling editor directly.</p><p>Over the next several days, correspondence with that editor (Dr. Menglu Yang) confirmed that BMC Psychology "does not have a specific article type" for work whose sole purpose is to document an error. As of November 2025, the article remains online and unretracted. No timeline for correction has been communicated.</p><p>The correspondence gives no indication that the editor or publisher has evaluated the statistical substance of the error. The obstacle appears procedural, not substantive, revealing a gap in the publisher's ability to address clear-cut mistakes once an article is in print.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Incentives and Motivation</head><p>Within the replication crisis, discussions of incentives have focused mainly on those relevant to identifying correcting flawed research. These do matter: detecting and documenting errors requires many hours of unfunded work, and few journals or universities recognize it. Other domains, such as software security, reward flaw detection through "bug-bounty" programs; science expects comparable diligence without compensation or even meaningful acknowledgment.</p><p>Less often considered, but perhaps more consequential, is the effect of bad science on researchers' intrinsic motivation for their own original empirical work. The social or scientific value of any well-conducted study depends on the reliability of the field it builds on. When researchers perceive that (a) much existing work is of low quality and (b) influence is weakly linked to quality, the expected social and scientific value of doing careful research declines.</p><p>Because academic research depends heavily on intrinsically motivated individuals-those who remain in science despite limited extrinsic rewards-tolerating low-quality work risks eroding the motivation that sustains progress. Findings from research on "meaningful work," "callings," "moral injury," and "public-service motivation" all converge on this point: maintaining intrinsic motivation requires a culture of quality control and credible self-correction.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Lessons for Science's Claim of Self-Correction</head><p>Science's credibility rests on its capacity for self-correction. Yet this case shows an error so obvious that it should have been detected at any stage-peer review, editorial handling, postpublication citation-which nevertheless persisted for five years while quickly accumulating citations in the field. The episode is highly inconsistent with an optimistic view of contemporary psychological science, instead better aligning with the position that major overhauls to incentive structures and publication practices are urgently needed.</p><p>The episode also bears on narrower questions, such as the role of BMC Psychology within the field. If a journal cannot or will not correct known errors, its publications cannot serve as equivalent academic currency to those that can. Journals lacking rigorous pre-and postpublication review processes arguably must be treated, in effect, as self-verified preprints. Impact factors that treat all journals alike obscure this difference. A credible alternative would be an impact-factor provider that withholds rankings from outlets that lack a formal channel for publishing credible error corrections to their own articles.</p><p>The episode began with a student whose only error was trusting a published paper, and a supervisor briefly wondering if he'd lost his mind. It ends with a community still largely acting as though nothing is amiss. In that sense, the "sanity check" remains incomplete-not for one researcher, but for the field itself.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 1 .</head><label>1</label><figDesc>Comparison of meta-analytic results between the Big Five and marital satisfactionNote. The results reported from<ref type="bibr" target="#b4">Heller et al. (2004)</ref> are from their "Avg. r" column in Table5. Given that there is no indication in<ref type="bibr" target="#b11">Sayehmiri et al. (2020)</ref> that they performed any corrections for measurement error, reliability, or measurement artifacts, the "Avg. r" results are presumably the appropriate comparisons rather than the "ρ" results from the same table (which are, in any event, only 10-20% larger).</figDesc><table><row><cell></cell><cell>Heller et al (2004)</cell><cell cols="2">Sayehmiri et al (2020)</cell></row><row><cell></cell><cell></cell><cell>"Z score"</cell><cell>"R"</cell></row><row><cell>Neuroticism</cell><cell>-0.26</cell><cell>-0.22</cell><cell>0.439</cell></row><row><cell>Extraversion</cell><cell>0.14</cell><cell>0.16</cell><cell>0.833</cell></row><row><cell>Agreeableness</cell><cell>0.24</cell><cell>0.14</cell><cell>0.855</cell></row><row><cell>Conscientiousness</cell><cell>0.22</cell><cell>0.26</cell><cell>0.9</cell></row><row><cell>Openness</cell><cell>0.08</cell><cell>-0.04</cell><cell>0.777</cell></row></table></figure>
+		</body>
+		<back>
+
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Availability of data and materials: Does not apply</head><p>Competing interests: None Funding: None</p></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Declarations</head><p>Ethics approval and consent to participate: Does not apply Consent for publication: Does not apply Authors' contributions: All material by the sole author Acknowledgements: None</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">A study of the relationship between Big-five personality traits and communication styles with marital satisfaction of married students majoring in public universities of Tehran</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Amiri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Farhoodi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Abdolvand</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">R</forename><surname>Bidakhavidi</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.sbspro.2011.10.132</idno>
+		<ptr target="https://doi.org/10.1016/j.sbspro.2011.10.132" />
+	</analytic>
+	<monogr>
+		<title level="j">Procedia -Social and Behavioral Sciences</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="page" from="685" to="689" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Interpersonal deviance, organizational deviance, and their common correlates: a review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">M</forename><surname>Berry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">S</forename><surname>Ones</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">R</forename><surname>Sackett</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0021-9010.92.2.410</idno>
+		<ptr target="https://doi.org/10.1037/0021-9010.92.2.410" />
+	</analytic>
+	<monogr>
+		<title level="j">J Appl Psychol</title>
+		<imprint>
+			<biblScope unit="volume">92</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="410" to="424" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Neuroticism and relationship quality: A meta-analytic review</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">R</forename><surname>Esplin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">D</forename><surname>Rasmussen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">G</forename><surname>Hatch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">J</forename><surname>Hawkins</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">R</forename><surname>Braithwaite</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/pspi0000463</idno>
+		<ptr target="https://doi.org/10.1037/pspi0000463" />
+	</analytic>
+	<monogr>
+		<title level="j">J Pers Soc Psychol</title>
+		<imprint>
+			<biblScope unit="volume">128</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="594" to="610" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Cultural Differences in Correlations With Marital Satisfaction: The Vulnerability-Stress-Adaptation Model in 65 Countries</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Grau</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Miketta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Ebbeler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Banse</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/00220221251323216</idno>
+		<ptr target="https://doi.org/10.1177/00220221251323216" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cross-Cultural Psychology</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">The role of person versus situation in life satisfaction: a critical examination</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Heller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Watson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Hies</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0033-2909.130.4.574</idno>
+		<ptr target="https://doi.org/10.1037/0033-2909.130.4.574" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychol Bull</title>
+		<imprint>
+			<biblScope unit="volume">130</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="574" to="600" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">The Study of Relationship Between Marital Satisfaction and Personality Characteristics In Iranian Families</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">H</forename><surname>Javanmard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Garegozlo</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.sbspro.2013.06.573</idno>
+		<ptr target="https://doi.org/10.1016/j.sbspro.2013.06.573" />
+	</analytic>
+	<monogr>
+		<title level="j">Procedia -Social and Behavioral Sciences</title>
+		<imprint>
+			<biblScope unit="volume">84</biblScope>
+			<biblScope unit="page" from="396" to="399" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Sibling Constructs: What Are They, Why Do They Matter, and How Should You Handle Them</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">M</forename><surname>Lawson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">W</forename><surname>Robins</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/10888683211047101</idno>
+		<ptr target="https://doi.org/10.1177/10888683211047101" />
+	</analytic>
+	<monogr>
+		<title level="j">Pers Soc Psychol Rev</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="344" to="366" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Neuroticism and common mental disorders: meaning and utility of a complex relationship</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Ormel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">F</forename><surname>Jeronimus</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Kotov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Riese</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">H</forename><surname>Bos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Hankin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">G M</forename><surname>Rosmalen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">J</forename><surname>Oldehinkel</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cpr.2013.04.003</idno>
+		<ptr target="https://doi.org/10.1016/j.cpr.2013.04.003" />
+	</analytic>
+	<monogr>
+		<title level="j">Clin Psychol Rev</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="686" to="697" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">A meta-analysis of the five-factor model of personality and academic performance</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">E</forename><surname>Poropat</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/a0014996</idno>
+		<ptr target="https://doi.org/10.1037/a0014996" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">135</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="322" to="338" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Externalizing pathology and the five-factor model: a meta-analysis of personality traits associated with antisocial personality disorder, substance use disorder, and their co-occurrence</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Ruiz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">L</forename><surname>Pincus</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Schinka</surname></persName>
+		</author>
+		<idno type="DOI">10.1521/pedi.2008.22.4.365</idno>
+		<ptr target="https://doi.org/10.1521/pedi.2008.22.4.365" />
+	</analytic>
+	<monogr>
+		<title level="j">J Pers Disord</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="365" to="388" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Surveying the Relationship between Personality Traits and Self-Esteem with Marital Satisfaction in Married Students of Islamic Azad University Students, City of Rasht, Guilan Province, Iran</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sadeghi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">K Z</forename><surname>Mozhdehi</surname></persName>
+		</author>
+		<idno type="DOI">10.4236/psych.2016.75067</idno>
+		<ptr target="https://doi.org/10.4236/psych.2016.75067" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychology</title>
+		<imprint>
+			<biblScope unit="volume">07</biblScope>
+			<biblScope unit="issue">05</biblScope>
+			<biblScope unit="page" from="655" to="661" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">The relationship between personality traits and marital satisfaction: a systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Sayehmiri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">I</forename><surname>Kareem</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Abdi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dalvand</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">G</forename><surname>Gheshlagh</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s40359-020-0383-z</idno>
+		<ptr target="https://doi.org/10.1186/s40359-020-0383-z" />
+	</analytic>
+	<monogr>
+		<title level="j">BMC Psychol</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">15</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

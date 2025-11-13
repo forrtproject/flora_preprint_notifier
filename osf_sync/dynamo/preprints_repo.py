@@ -228,10 +228,9 @@ class PreprintsRepo:
             self.t_refs.update_item(
                 Key={"osf_id": osf_id, "ref_id": ref_id},
                 UpdateExpression="SET doi=:d, has_doi=:hd, doi_source=:src, updated_at=:t",
-                ExpressionAttributeValues={":d": doi, ":hd": True, ":src": source, ":t": now},
+                ExpressionAttributeValues={":d": doi, ":hd": True, ":src": source, ":t": now, ":empty": ""},
                 ConditionExpression="attribute_not_exists(doi) OR doi = :empty",
-                ExpressionAttributeNames=None,
-                ReturnValues="NONE"
+                ReturnValues="NONE",
             )
             return True
         except ClientError as e:

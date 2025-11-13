@@ -373,9 +373,9 @@ def enrich_missing_with_openalex(
     sess = requests.Session()
 
     for r in rows:
-        osfid = r["osf_id"]
-        refid = r["ref_id"]
-        title = r["title"] or ""
+        osfid = r.get("osf_id")
+        refid = r.get("ref_id")
+        title = (r.get("title") or "").strip()
         authors = r.get("authors") or []  # array in DB
         journal = r.get("journal")
         year = r.get("year")

@@ -1,0 +1,1423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main"></title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">BE59C912EFE214B2BA4A67C65DB83793</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:15+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Widely used in the NHS, Equality Impact Assessments (EIAs) are structured tools used to evaluate whether policies or decisions may negatively impact individuals in relation to 'protected characteristics', including age, gender, and ethnicity. EIAs are designed to support compliance with UK equality legislation. However, there are concerns that these are not meaningfully engaged withincluding in relation to restrictive interventions in psychiatric hospitals, which are known to be imposed disproportionately on some patient populations.</p><p>This study employed a three-stage content analysis to examine EIAs associated with seclusion, restraint, and continuous observation policies in NHS Mental Health Trusts in England. A total of 113 in-date documents were obtained, of which 82% had an EIA. However, 70% of the EIAs denied the possibility of the policy having a disproportionate impact on patients in relation to characteristics such as age, gender and ethnicity. The content of most of the documents lacked detail, specificity and clear, tangible actions. However, this is not necessarily a call for more documentation. In isolation, conducting EIAs -or calling for these to be conducted -is insufficient in addressing the harms and injustices associated with coercive and restrictive practices in mental health inpatient settings. More substantial actions and policy change is required.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Equality legislation, tokenism and non-performativity</head><p>The Equality Act was introduced in the UK in 2010, consolidating several pieces of legislation. It sought to protect against discrimination on the basis of nine 'protected characteristics': age; disability; gender reassignment; marriage and civil partnership; pregnancy and maternity; race; religion or belief; sex; and sexual orientation. Duties under the Equality Act include the Public Sector Equality Duty (PSED) (2011) which requires authorities to give due consideration when making decisions or implementing policies, to ensure that they do not discriminate against individuals on the basis of those nine protected characteristics. Compliance can be demonstrated in a number of ways, including through Equality Impact Assessments (EIA). An EIA is a structured tool, designed to support (and demonstrate) consideration of the potential negative impact policy may have in respect of individuals' protected characteristics <ref type="bibr" target="#b5">(Arthur et al, 2013)</ref>. While EIAs are not mandatory, courts may seek evidence of PSED compliance during judicial reviews <ref type="bibr" target="#b38">(Pyper, 2013)</ref>. A superficial EIA may fail to demonstrate that due consideration has been exercised, potentially breaching the requirements of PSED <ref type="bibr">(McColgan, 2015)</ref>. However, there is wide variation in how EIAs are approached, and concerns have been raised that these may be treated as a 'tick-box' exercise, unconnected to any meaningful action <ref type="bibr" target="#b5">(Arthur et al., 2013;</ref><ref type="bibr" target="#b44">Salway et al., 2016)</ref>. Alternatively, they may be viewed as bureaucratic and burdensome <ref type="bibr">(Government Equalities Office, 2013)</ref>.</p><p>Although equality, diversity, and inclusion (EDI) initiatives are often promoted as valuable for combating discrimination and advancing social justice, the extent to which these aims are realised is variable -particularly with regards to document-based approaches. For example, in her discussion of 'race equality policy and action plans' within UK higher education, Sara Ahmed emphasises the distinction between what organisations assert commitments to in these documents, and the realities of how they operate <ref type="bibr">(Ahmed, 2006a</ref><ref type="bibr" target="#b1">(Ahmed, , 2006b</ref><ref type="bibr" target="#b2">(Ahmed, , 2007))</ref>. The procedural, auditable nature of these documents means universities may be measured against their ability to produce 'good documents', rather than by the experiences of staff and students. This focus on outputs over outcomes, allows universities to declare a 'commitment' to race equality without meaningfully taking action to address racism within their institution <ref type="bibr" target="#b2">(Ahmed, 2007)</ref>. As Ahmed argues, such statements of 'commitment to addressing racism' cannot be considered performative, as they do not compel or obligate the institution to follow through on the 'commitments' they outline. Instead, these public declarations function as non-performatives, meaning they are specifically not doing what they purport to do; publicly declaring a commitment to antiracism does nothing to compel an institution to do anything specific to achieve that end <ref type="bibr">(Ahmed, 2006a)</ref>. Rather they serve to give an image of doing something to address racism, without necessarily taking any action at all. In this sense, such performative actions are not neutral; they can actively block the recognition of racism and inequalities, and prevent meaningful intervention to address the structures which uphold and underpin discrimination <ref type="bibr">(Ahmed, 2006a</ref><ref type="bibr" target="#b2">(Ahmed, , 2007))</ref>. While compliance with minimal legal standards may be seen as a "cop-out," such tick-box engagement may technically fulfil legal requirements <ref type="bibr" target="#b2">(Ahmed, 2007)</ref>. Therefore, the non-performativity of such documents can be seen as a result of both institutional under-compliance, and reflective of the law itself. Nevertheless, as Ahmed emphasises, these non-performative acts still "act", and can be used to expose the gap between what is stated and what is delivered.</p><p>Ahmed's analysis emphasises the limitations of documents which purport to address inequalities and highlights the need to critically engage with the content of these and the functions such (non)performative texts may serve.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The use of EIAs in mental health services</head><p>EIAs are used widely within the NHS, and are encouraged in each NHS Trust as part of meeting the PSED. For example, Leicestershire Partnership NHS Trust (2025) have an EIA policy which outlines the legal background and provides guidance and templates for completing the assessment. However, patient-led campaign groups have identified a lack of meaningful engagement with EIAs in relation to the adoption of restrictive healthcare policies and technologies.</p><p>Firstly, the survivor-led group the StopSIM Coalition -who campaigned against the Serenity Integrated Mentoring (SIM) intervention, which embedded police officers in mental health community teams -warned that the intervention could perpetuate institutional racism and disproportionately harm women and trauma survivors <ref type="bibr">(StopSIM, 2021a)</ref>. Despite these concerns, NHS Trusts implementing the model did not conduct, or fully engage with, EIAs, often publishing documents that were left blank <ref type="bibr" target="#b3">(Aked et al., 2024;</ref><ref type="bibr" target="#b7">Aves, 2023;</ref><ref type="bibr">StopSIM, 2021b)</ref>. Subsequently, another patient-led campaign group Stop Oxevision have argued that, even where EIAs are completed and identify risks that the policy may discriminate, there is a lack of clear action taken to mitigate these risks <ref type="bibr">(Stop Oxevision, 2025)</ref>. For example, Tees Esk and Wear Valleys NHS Foundation Trust completed an EIA associated with their implementation of Oxevision -a video surveillance system used in patient bedrooms. Although the document discusses the potential for the surveillance system to have disproportionate negative impacts on Gypsy and Traveller communities, women who wear a Hijab, and transgender people -even noting that the camera may enable staff to see patients undressed and observe their body and genitals -no actions are reported to address these concerns, and the technology was implemented regardless <ref type="bibr">(Stop Oxevision, 2025)</ref>. This suggests the EIA process may be engaged with tokenisticly, if at all, by NHS mental health trusts, speaking to wider concerns about a lack of action to address discrimination within experiences of mental health services.</p><p>NHS England have issued advice to NHS mental health Trusts, stating that, "an equality and health inequalities impact assessment (EHIA) should be undertaken before procurement of the digital technology" <ref type="bibr">(NHS England, 2025)</ref>. However, completing more documents -especially if these are not being engaged with meaningfully -is argued to be insufficient to address the harm and discrimination posed by restrictive practices <ref type="bibr">(Stop Oxevision, 2025)</ref>. Within the context of wide promotion of EIAs, yet apparently poor engagement with these, it is important to critically assess how EIAs are used, and the extent to which they support efforts to address discrimination within healthcare.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Restrictive practices</head><p>Patients in psychiatric inpatient settings in the UK, many of whom may be detained under the Mental Health <ref type="bibr">Act (1983)</ref>, face restricted freedoms. Restrictive practices refer to an intervention which limit an individual's liberties or freedoms; require someone to do something against their wishes; or prevent them from doing something they wish to do, including physical restraint, seclusion, and the use of surveillance technologies <ref type="bibr">(CQC, 2024;</ref><ref type="bibr">Restraint Reduction Network, no date)</ref>. Whilst these measures may be considered necessary to protect an individual from harm, they are often overly restrictive and can be damaging for patients' psychological safety <ref type="bibr">(CQC, 2024;</ref><ref type="bibr" target="#b47">Slemon, Jenkins and Bungay, 2017)</ref>. Restrictive practices are often experienced as distressing, dehumanising, causing lasting trauma, and infringing patients Human Rights <ref type="bibr" target="#b17">(Butterworth, Wood and Rowe, 2022)</ref>. Additionally, they can also have a paradoxical effect of increasing patient 'risk', whereby the distress caused by the restrictive practices can lead to greater 'risk behaviours', such as self-harm <ref type="bibr" target="#b30">(Lawrence et al., 2021)</ref>.</p><p>Distressing and traumatic experiences of inpatient mental health services are frequently reported, with patients facing isolation, coercion, inadequate support from staff, and powerlessness <ref type="bibr" target="#b50">(Staniszewska et al., 2019)</ref>. These experiences must be understood in relation to the wider structures psychiatry exists within, and contributes to, in particular structural racism <ref type="bibr" target="#b9">(Bansal et al., 2022;</ref><ref type="bibr" target="#b29">King and Jeynes, 2021;</ref><ref type="bibr" target="#b32">Lowther-Payne et al., 2023)</ref>. Mental health services in the UK have long been described as institutionally racist (e.g. <ref type="bibr" target="#b15">Bradby, 2010)</ref>. Whilst institutional and interpersonal racism is enacted in numerous ways, this can be reflected in access to services mental health and experiences within them. For example, longer hospital admissions, and higher levels of compulsory dentition, are reported amongst Black and South Asian patients, in comparison to white patients <ref type="bibr" target="#b10">(Barnett et al., 2019;</ref><ref type="bibr" target="#b16">Bruce and Smith, 2020;</ref><ref type="bibr" target="#b25">Halvorsrud et al., 2018)</ref> in addition to facing racialisation and racial discrimination through the duration of admission <ref type="bibr">(Hua et al., 2023)</ref>.</p><p>The implementation of restrictive practices is also influenced by aspects of patients' identities such as their ethnicity, gender, and age (e.g. <ref type="bibr">Pedersen et al., 2023)</ref>. Restrictive practices are imposed at higher rates for autistic people and people with learning disabilities <ref type="bibr">(CQC, 2020;</ref><ref type="bibr">Younan et al., 2024)</ref>. Seclusion is used disproportionately for female patients, and those aged 18 to 25 <ref type="bibr">(Cullen et al., 2018)</ref> and patients who were Black or of Mixed ethnic background <ref type="bibr" target="#b35">(Payne-Gill et al., 2021)</ref>. This must be understood within the context of the underlying logics that justify restrictive practices. The dehumanisation, objectification and "othering" of patients, who are presumed to pose a danger to others, irrespective of any evidence to suggest this, underpins the use of harmful practices <ref type="bibr">(Felton, Repper and Avis, 2018)</ref>. A patient's perceived level of 'risk', and the response to this, is shaped by stereotypes and assumptions, including racial prejudice <ref type="bibr">(Nazroo, Bhui, and Rhodes, 2020)</ref>. In secure service settings, assessment and response to perceived risk is also influenced by gender, with women often perceived as more 'risky' than men, with greater restrictions imposed as a result <ref type="bibr" target="#b11">(Bartlett and Somers, 2016)</ref>. Therefore, efforts to reduce the use of reduce restrictive practices must recognise how these are imposed in ways which are socially situated.</p><p>While the imposition of restrictive practices disproportionately affects some patient populations, these practices can also have additional negative effects on patients in relation to aspects of their identity, marginalisation and prior experiences. For example, women have reported particularly harmful experiences with restrictive practices, shaped by gendered experiences, especially when these practices mirror prior gender-based and sexual violence <ref type="bibr" target="#b22">(Eben, 2023;</ref><ref type="bibr" target="#b23">Fish and Hatton, 2017;</ref><ref type="bibr">Scholes, Price and Berry, 2022;</ref><ref type="bibr">Tully, Bucci and Berry, 2023)</ref>. Furthermore, research examining patients' experiences of menstruation in psychiatric inpatient settings highlighted that patients who menstruate experienced heightened distress from practices like continuous observation and being placed in seclusion without access to toilet facilities or menstrual products <ref type="bibr" target="#b37">(Porter, 2024)</ref>. Participants contextualised these menstrual injustices as part of broader gendered inequalities in psychiatric care, where their needs as women were overlooked <ref type="bibr" target="#b37">(Porter, 2024)</ref>. Therefore, in addition to understanding how the implementation of restrictive practices differs across patient demographics, it is also vital to recognise that these experiences are informed by patients' identities, marginalisation and (unmet) needs. Urgent actions are needed to reduce restrictive practices, but this must attend to how restrictive practices are used disproportionately against -and have differential impacts for -specific patient populations, as well as recognising how the imposition of restrictive practices, and the logic behind their use, are intertwined with broader systemic injustices. Indeed, important work is being undertaken. For example, the Patient and Carer Race Equality Framework is an NHS England antiracism framework, addressing three domains of leadership, data and feedback aiming to bring about change in the sector (NHS England, no date). The framework is mandatory and will become part of Care Quality Commission (CQC) inspections to ensure NHS mental health trusts are meaningfully addressing this work within their services <ref type="bibr">(CQC, 2025)</ref>. Other organisations, such as the Restraint Reduction Network, campaign to reduce the use of restrictive practices, incorporating consideration of discrimination <ref type="bibr">(Restraint reduction network, 2023)</ref>. This work must be incorporated at a local and national level, and lead to substantial changes in healthcare provision.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methods</head><p>The aim of this research was to consider how EIAs are used by NHS mental health trusts in England in relation to restrictive practice policies, and the extent to which such documents identify (and respond to) the risks of discrimination. The study examines the adoption and content of EIAs, considering the implications for patients affected by restrictive practices and efforts to address associated harms. While this is relevant from a legal perspective, it may also be indicative of the extent to which mental health services address the critical issue of reducing inequalities, discrimination, and violence within the sector. This study is informed by recognition -as supported by lived experience and empirical research -that there are inequalities in the implementation and experience of restrictive practices in relation to the nine protected characteristics outlined in the Equality Act ( <ref type="formula">2010</ref>). Thus, it is expected that NHS services would recognise this and undertake actions towards rectifying such injustices. This study sought to address the following questions:</p><p>1. Do mental health trusts in England complete Equality Impact Assessments in relation to restrictive practice policies? If so, do these EIAs recognise the possibility of disproportionate and differential impacts in relation to protected characteristics, and do they identify actions that can be taken to mitigate these?</p><p>2. How are EIAs structured and what do these documents outline?</p><p>3. What is the professional role of the individuals' completing these documents? Are there differences in the level of detail including within EIAs when these are completed by EDI staff in comparison to senior management?</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Survivor research and author positionality</head><p>This study follows a survivor-led approach, informed by my lived experience of detention in psychiatric inpatient settings and experiences of restrictive practices, which were shaped by my identity being white, disabled, queer, and transgender (but read as female). Survivor research is concerned with topics which are important to people with experience of using/refusing psychiatric services, trauma and/or distress. It is explicitly led by researchers with lived experience of the subject matter and is rooted within social activism and emancipatory aims <ref type="bibr" target="#b13">(Beresford and Rose. 2009)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Policy selection</head><p>This study assessed the EIAs associated with three types of restrictive practice policies: 'therapeutic observations', seclusion, and restraint. The policies analysed had varying titles, for consistency, in this article, I refer to them as observations, seclusion, and restraint policies. The selection of these policies was informed by reviewing numerous NHS Trust policies in the design of this study in addition to knowledge from previous activism and lived experience. These restrictive practices were chosen because they are known to disproportionately impact patients in relation to various protected characteristics.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data collection</head><p>Attempts were made to obtain policies, and associated EIAs, from 50 NHS mental health trusts in England, through a combination of searching Trust websites and submitting Freedom of Information Requests (FOIs). Policies were checked for their review date to ensure that they were in date at the time of reviewing. Policies which had a review date prior to August 2024 (when data analysis commenced) were excluded, even where these appeared to still be in use.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data analysis</head><p>This study employed a three-stage quantitative and qualitative content analysis to examine the EIAs: whether EIAs were completed; the content and key details in the analysis; and whom was responsible for completing the EIAs. Content analysis is an approach to analysing qualitative data, such as transcripts, written communication, and formal documents including policies and procedures <ref type="bibr" target="#b28">(Hsieh &amp; Shannon, 2005)</ref>. Content analysis was chosen for this study due to its flexible nature and ability to provide a structured method for analysing a large number of documents <ref type="bibr" target="#b24">(Forman &amp; Damschroder, 2007)</ref>. A deductive manifest content analysis approach focused primarily on the observed content of the documents, rather than latent or implicit meaning, given the formal nature of the documents, and the large amount of data <ref type="bibr">(Bengtsson, 2016)</ref>.</p><p>For the first stage, I followed a process of immersion in the data; developing a coding framework; and placing documents into descriptive categories that summarise their content. An initial selection of EIAs were reviewed to identify key features and develop a coding structure of six descriptive categories. These summarised the depth and detail of the EIA ranging from having not completed an EIA, to having an EIA which identifies potential equalities issues and outlines 'actions' to mitigate these. An action is considered to be the outlining of a tangible thing that can be done, which results in a direct consequence to mitigate the concern, as opposed to a statement which is non-directive.</p><p>Table <ref type="table">1</ref> provides an outline of the coding structure and logic. Each policy was reviewed and placed into these descriptive categories, and this was cross-checked on three separate occasions.</p><p>Frequencies and percentages were calculated for the number of policies in each descriptive category.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 1: Outline of the descriptive categories</head><p>Category Outline 1. Does not have an EIA The policy does not have an associated EIA, which was confirmed through a Freedom of Information request, verifying that no EIA has been conducted.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">Does not have an EIA but has a general, unstructured 'equality statement'</head><p>There is no formal EIA associated with the policy. However, the policy includes a statement or paragraph specifically addressing 'equality considerations'. While this is structured as a specific section with a subheading, it is not described as an EIA and doesn't have a structure.</p><p>3. Has an EIA. The EIA does not identify a potential for the policy to have differential impacts on patients in relation to protected characteristics.</p><p>No explanation is provided.</p><p>The policy includes an EIA; however, it identifies no potential differential impacts and lacks further details or descriptions. The boxes are checked to indicate 'no impact' or 'positive impact.' A generic statement may be provided for each 'Protected Characteristic,' such as "all groups will be treated equitably" but this is the same for all groups.</p><p>4. Has an EIA. The EIA does not identify the potential for the policy to have differential impacts on patients in relation to protected characteristics.</p><p>The EIA has some brief statements justifying this, for at least one category.</p><p>The policy has an EIA. However, this identifies no potential differential impacts; it does have some statements which are specific to that protected characteristic, but do not identify any risk the policy may have in terms of discrimination.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>5.</head><p>The EIA does identity the potential for the policy to have differential impacts on patients in relation to protected characteristics.</p><p>It includes some comments explaining these, but the statements do not constitute actions, i.e. they give no direction or the comment is unclear</p><p>The EIA may identify some potential differential impacts; however, it does not provide actions to mitigate these impacts. while some potential issues are identified, there is no clear guidance on how to address them.</p><p>Example: "address the religious needs of patients". This statement is directive but gives no clarity as to how this may be achieved.</p><p>6. The EIA does identity the potential for the policy to have differential impacts on patients in relation to protected characteristics.</p><p>It includes at least one action.</p><p>The policy includes an EIA, which outlines potential differential impacts and provides more than one unique action to address these concerns. An action is considered to be the outlining of a tangible thing which can be done, with a direct consequence to mitigate the concern.</p><p>For example:</p><p>"Patients must be observed by a member of staff of the same gender when washing, dressing and using the toilet."</p><formula xml:id="formula_0">"</formula><p>Translation options are made available where English is not the first language of the Patient or Service User and BSL interpretation is made available to those who are Deaf/Hearing Impaired." "Easy Read format or PA support is provided where Patients or Service Users have a learning disability or support around mental capacity."</p><p>For the second analysis, EIAs were reviewed to identify the author, specifically whether it was completed by the policy author/another member of senior manager, or an Equality, Diversity, and Inclusion (EDI) practitioner. Authors were verified using the names and job titles listed on the policy document and/or cross-checked with the NHS Trust's website. If the author was unclear (such as when the name was redacted or only a signature was provided) the EIA was excluded from this stage of analysis. EIAs signed by an EDI practitioner, or counter-signed to indicate review, were grouped together, as it was not possible to determine the extent of input from each individual author.</p><p>To analyse the distribution of EIA categories based on their author, I calculated odds ratios comparing dichotomous categories of policies, specifically whether or not they included "multiple actions across protected characteristics". Additionally, treating the six descriptive categories were treated as ordinal data, Mann-Whitney U tests were conducted to compare the distribution of policy 'descriptive categories' between groups (conducted by policy authors vs EDI practitioner). I used IBM SPSS version 29.02.</p><p>In the final analysis, each EIA was reviewed to provide greater detail on the content itself. This involved a further deductive manifest analysis, following a process informed by Bengtsson ( <ref type="formula">2016</ref>) beginning with immersion in the data to identify categories to review the documents against; reviewing the documents again to ensure the categories reflect the content, and meaning is not missed; categorising each document in turn; and finally creating a summary of the content across documents and drawing insights and conclusions in relation to each category. This process was iterative and repeated multiple times for each document <ref type="bibr">(Bengtsson, 2016)</ref>. Each document was assessed to consider the following: its content and structure; discussion of intersectionality; patient involvement; connection between the EIA and the policy; the inclusion of additional categories; and the use of evidence in the document -areas which were informed by a preliminary review of the documents and existing research and theory.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>In total, 135 restrictive practices policies were obtained. Four trusts failed to respond to the request for policies within nine months, despite numerous follow-ups. One of these Trusts (Livewell Southwest) is operated by a Community Interest Company and is excluded from the definition of a public authority under the Freedom of Information Act. Of the policies obtained, 22 had surpassed their review date and were excluded from the analysis. One trust did not have a seclusion room and as such did not have a policy for this; four trusts combined seclusion and restraint into one policy, for the purposes of this study these were analysed as restraint policies.</p><p>A total of 113 in-date restrictive practice policies were reviewed. This consisted of 38 observations policies, 34 seclusion policies and 41 restraint policies. The breakdown of the policies obtained is outlined in table 2. Of the 113 policies obtained, 82.3% (n=93) had some form of EIA associated with the policy. Of the remaining policies, 12 had an 'equality statement' under a subheading within the policy, whilst eight had no EIA or equality statement. The majority of the EIAs, 69.9% (n=65), stated that there was no risk of differential impacts on the basis of any protected characteristic, with the greatest proportion of the EIAs, 48.4% (n=45), having no comments to explain or justify this claim. Only 30.1% (n=28) of the EIAs identified possible risks of disproportionate impacts in relation to at least one protected characteristic within the policy, although these varied substantially in the detail in which they discussed these issues. 24.7% of EIAs (n=23) outlined at least one 'action' to address the issues they identified. Table <ref type="table" target="#tab_2">3</ref> outlines of the distribution of EIAs across these descriptive categories. Equality Impact Assessment authors 76.3% (n=58) of the EIAs had been completed by the author of the main policy, or someone who appeared to work in a management role. 23.7% (n=18) had been completed (or were signed by) a member of equality diversity and inclusion staff. Table <ref type="table" target="#tab_3">4</ref> outlines the distributions of EIAs and the job role of their authors.</p><p>83.3% of the EIAs completed by an EDI practitioner identified potential 'equality issues' with the policy (n= 15) compared to 12.1% of those completed by the policy author, with an odds ratio of 6.9. This increased to 7.9 if the EIAs which were embedded within the document were assumed to have been completed by the policy author and included in the analysis. The policies completed by or with an EDI practitioner had significantly higher 'scores' (where the descriptive categories are viewed on an ordinal scale) than those completed by the policy author U = 894.5, p &lt; 0.001. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The content of Equality Impact Assessments</head><p>The final stage of analysis examined the content of the documents in more depth. Whilst the largest proportion of EIAs stated that there was no risk of negative or differential impacts of the policy, many did not provide an explanation for this claim. However, for those which did (n=20) justified this on the basis of three claims (making one or multiple of these arguments): that patients are all treated equally with the policy applying to all; that person-centred care alleviated the potential for discrimination; and that the trust is committed to eliminating discrimination and that the policy addresses the needs of different patient groups (without explaining how they will achieve this).</p><p>Illustrated in figure <ref type="figure" target="#fig_0">1</ref>, one EIA argued that "all groups will be treated equitably". Similarly, Sheffield Health and Social Care NHS Foundation Trust (SHSC) restraint EIA stated that there was no risk of differential impacts related to any protected characteristics as the policy "covers all adults within SHSC". Although both trusts assert that 'all patients will be treated equally', no further explanation is provided, and there appears to be no consideration of how the trust will meet the needs of patients where these may differ in relation to aspects of their identity, for example religion. In contrast, though similarly without explanation, other EIAs justified that the policy would not negatively impact any patients on the basis that treatment is person-centred and individual. For example, South West Yorkshire Partnership NHS Foundation Trust's observations EIA states:</p><p>"The policy will have a positive impact on all groups and will drive high quality person centred planning to ensure the voice of these groups is gathered, recorded, reflected, and considered in the decisions we make as a Trust regarding observation and engagement". "The Trust is committed to eliminating discrimination in all its forms, including against those with protected characteristics".</p><p>These statements lack detail or clarity as to how such commitments might be achieved. Additionally, in referring to 'those with protected characteristics' this statement is inaccurate, and potentially 'othering', as all individuals inherently possess characteristics related to multiple protected categories (e.g., age, ethnicity, gender).</p><p>In some cases, policies included statements justifying how they would benefit people with specific protected characteristics, often citing that the policy addresses the needs of each group, but not providing additional details. For example, the Birmingham and Solihull Mental Health NHS Foundation Trust's seclusion EIA asserts that the policy will have a "positive impact" on disabled individuals because "the policy supports staff in considering the individual needs of the person in seclusion or segregation, including whether they have a disability, and how this affects their needs."</p><p>This reveals a difference in how some NHS trusts interpreted the EIA process, focusing more on how the policy is presented (and the topics it considers) rather than the impacts of the restrictive practice itself. In these cases, the EIA appeared to be used in defence of the policy, rather than more meaningfully addressing the potential negative impacts the restrictive practice may have.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The content of 'actions'</head><p>Where EIAs did identify the potential for the policy to have negative impacts for patient groups, these were not necessarily accompanied by any suggestion for how these effects may be mitigated. Some comments were made but were often vague, for example "give consideration to cultural needs" and "observations should be gender-sensitive." In both of these examples, it is unclear what is specifically meant by 'gender-sensitive' or 'cultural needs', or how treatment can be tailored to be sensitive to these factors. While these considerations will vary for individual patients, the lack of clarity leaves these statements open to interpretation and misunderstanding. Similarly, the Cumbria, Northumberland, Tyne and Wear NHS Foundation Trust observations EIA states:</p><p>"Dignity, privacy and respect issues for patients being observed within eyesight and arms length -especially an issue at prayer time. What will be a suitable observation time for patient during Ramadan? -clearly not meal time".</p><p>Whilst this identifies some potential issues for patients engaging in activities related to their faith whilst being observed by a staff member, there is no suggestion of what could be done to manage these impacts.</p><p>However, 25% of the EIAs did include at least one 'action' relating to ways the policy may have disproportionate negative impacts for some patient groups. For observations, actions most commonly related to ensuring that patients are observed by staff members of the same gender when using the toilet, showering or dressing. Access to interpreters and Easy Read documentation was also outlined. In the case of restraint, actions typically focused on adapting techniques for pregnant or disabled patients, as well as considering the gender of the staff members conducting the restraint. For example, Pennine Care NHS Foundation Trust's restraint policy included specific directions for adapting restraint methods if the patient is pregnant. However, the 'actions' reported were discrete and service focused, with a lack of consideration of wider institutional factors which shape patient experiences. For example, recommendations were given for patients to be observed by a staff member of the same gender, but there was no evidence of a wider consideration of concerns such as the prevalence of sexual violence within psychiatric services. Similarly, in relation to ethnicity, statements were made about ensuring patients had access to interpreters, but not addressing racism at the individual and institutional levels.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Structure of the EIAs</head><p>All the EIAs reviewed were contained in a template structure, either embedded within the policy or as a separate appendix. Many of these included instructions on completing the document. In many cases it appeared that these templates were used by Trusts across their policies. Indeed, when EIAs for each policy type were reviewed for one trust, similarities were often noted, with the same form being used or information seemingly copied between documents. Although the templates gave clear guidance on completing the document, this did not necessarily ensure that all relevant sections were completed. For example, figure <ref type="figure">2</ref> provides an example of an EIA which left numerous sections of the template blank. This was frequently observed for EIAs placed in the descriptive category where EIAs identified no issues and had no statements/actions. The EIA templates provided space to justify the statement that the policy would have no negative impacts for patients according to any protected characteristics, however this was not completed.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Figure 2: Oxford health restraint EIA</head><p>The structured forms all included sections for the nine protected characteristics, with one trust noting that marriage should only be considered for staff-related policies. Forty-five percent (n=42) of the EIAs had additional sections for categories beyond the protected characteristics, most commonly carers, with other categories including military, low socio-economic group, homeless people, people who use substances and those in isolated rural areas. However, the inclusion of these categories did not ensure that they were completed (e.g. Figure <ref type="figure" target="#fig_0">1</ref>). Fourteen EIAs included a section or discussion on the potential Human Rights impacts associated with the policy, with one trust providing an additional Human Rights impact form.</p><p>Fourteen EIAs (across eight Trusts) included data within their equality assessments. For example, South West Yorkshire Partnership NHS Foundation Trust provided data reflecting the demographics of patients admitted to their inpatient units, allowing consideration of characteristics such as ethnicity, religion, and sexual orientation. Other Trusts referenced national data and research, such as Central and North West London NHS Foundation Trust's EIA for restraint, which included national studies highlighting the overuse of restraint, particularly for Black men. However, this was not integrated with a discussion on how it could inform the design of policies that account for the needs of a diverse patient population.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Intersectionality</head><p>The EIAs reviewed were typically structured within a table where positive, neutral, or negative impacts could be selected for each Protected Characteristic. However, only four EIAs mentioned the intersectionality of these experiences. Sussex Partnership NHS Foundation Trust, across the EIAs for all three of its policies, included a section in the EIA template titled "Cumulative Impact and Intersectionality". However, the responses were not in-depth, with one EIA stating, "If a patient does report under these characteristics, then we discuss the effect this can have on them. We will therefore adapt the training in accordance with patient needs". Despite reflecting an important need, this did not explicitly consider the ways in which restrictive practices may have impacts in relation to their intersecting experiences and identities. South West Yorkshire Partnership NHS Foundation Trust's EIA noted that the need to consider intersectionality was raised during their stakeholder engagement.</p><p>"The need to promote services to people with cross-sectional protected characteristics, such as young LGBTQ+ people from BAME communities, young people with specific educational needs and disabilities, asylum seekers, children who are home-educated, and children who are looked after, was highlighted by stakeholders and young people".</p><p>The comment acknowledges the need to consider multiple aspects of patients' identity and experience but provides little detail on how policies should address the needs of patients from these communities.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Patient involvement within assessments</head><p>Eighteen EIAs reported that patients had given feedback on the policy, typically in relation to the development of the policy itself, rather than the EIA specifically. However, only four of these provided details about what had been shared. In other cases, trusts may have involved patients in developing the policy but reported this in a separate section of the document. In some instances, the information was minimal. For example, the Lancashire and South Cumbria NHS Foundation Trust observations EIA states that some consultation was conducted but notes, "There has been no equality impact identified through consultation as yet". Conversely, the three EIAs completed by Sussex Partnership NHS Foundation Trust included a column which outlined the feedback provided by patients and how this related to the equality analysis.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Discussion</head><p>This study revealed significant variability in the engagement with Equality Impact Assessments (EIAs) by NHS mental health trusts. Whilst some of the EIAs acknowledged the potential for negative impacts in relation to the policies, these didn't always include any clear actions to address those risks. The majority of the EIAs denied the possibility of the policy having any negative impacts, with most of those not providing any evidence to support such claims. Although each mental health trust operates independently, with treatment provision and policies varying, the potential risks of a policy having disproportionate impacts based on any protected characteristics are relevant across 50 trusts. Thus, the variation in the EIAs can be understood to reflect differences in how these were engaged with, rather than in the policies or restrictive practices themselves.</p><p>The purpose of an EIA is to consider -or to demonstrate that consideration has been given towhether a policy may have differential impacts on individuals in relation to the nine protected characteristics outlined in the UK Equality Act 2010. Whilst leaving these documents essentially blank could be seen as failing to demonstrate that due regard has been exercised, they may function exactly to this end in demonstrating that it has not been exercised. Whilst a 'good' EIA might not necessarily suggest actions are being taken, one that is very poorly engaged with may reflect a low prioritisation of the topic. However, it is not sufficient to merely call for more detailed EIAs unless these documents are accompanied by meaningful, sustained action. As <ref type="bibr" target="#b0">Ahmed (2006)</ref> argues, statements of commitment to equality and diversity may serve as non-performative acts; they do not compel the institution to take real action to achieve the commitments they declare. The use of EIAs may be argued to reduce discrimination, but unless these translate into concrete, tangible actions, the underlying discriminatory structures and processes are left intact.</p><p>The statistical analysis showed a strong correlation between the EIAs having been completed by an EDI practitioner, or in consultation with one, and the recognition of potential negative impacts of the policy on specific patient groups. However, this should not necessarily be interpreted as a recommendation for EDI practitioners to complete EIAs, but rather a reflection that healthcare managers may not be engaging fully with this process. This reflects previous research which identified that healthcare leaders, at a local and national level, did not consider addressing ethnic healthcare inequalities as part of their remit; denied the importance of the subject; and found topics of ethnicity and racism to be uncomfortable <ref type="bibr" target="#b44">(Salway et al., 2016)</ref>. In their mixed methods analysis of primary care commissioning in England, Salway and colleagues (2016) identified inadequate consideration of addressing ethnic healthcare inequalities, with a lack of resource provision and under prioritisation of the topic. While EDI staff play an essential role in healthcare, their involvement should not be used to justify the inaction of others. Addressing discrimination should be prioritised throughout the organisations, therefore this research supports a call for healthcare managers need to take greater responsibility for considering equality, diversity, and inclusion within their services.</p><p>Some of the EIAs attempted to refute the possibility of the trust discriminating against patients, making broad claims to how the policy addresses potential discrimination, without providing evidence to support these assertions. However, in instances where a rationale was given, references were frequently made to patients being treated equally; treatment being person-centred and highquality; or though unspecified commitments to addressing discrimination. However, these lines of argument fail to meaningfully address inequalities in treatment, not least because a one-size-fits-all approach to policy can ignore and perpetuate exclusionary processes <ref type="bibr" target="#b42">(Salway et al., 2020)</ref>. Similarly, assurances of person-centred care risk overlooking and denying the realities of underfunded healthcare systems and power dynamics and relationships inherent in healthcare and how this intersects with broader systems of oppression <ref type="bibr" target="#b4">(Arnold, Kerridge, and Lipworth, 2020;</ref><ref type="bibr" target="#b48">Smith, Willis, &amp; Hopkins-Walsh, 2022)</ref>. Therefore, these claims appear to function to defend the policy and the treatment provision in the trust, through surface level claims without further justification.</p><p>The EIAs reviewed were all structured according to the nine protected characteristics outlined in the UK Equality Act (2010). One key limitation of this is that these nine characteristics do not encompass all aspects of experience relevant to inequalities <ref type="bibr" target="#b6">(Atrey, 2019)</ref>. Whilst some EIAs included additional sections to consider some of these variables, these sections were engaged with as minimally as the other aspects. Furthermore, the design of EIA forms often presented each protected category in boxes; only one Trust had an additional section to consider the interactions between these identities. Therefore, where discrimination was considered in the EIAs, this was through lens of single, discrete identity categories. This reflects Crenshaw's 1989 paper discussing the erasure of Black women from policy, law and feminist theory, which treat race and gender on single-axis frameworks, and fail to capture the experiences of intersectional discrimination. Current legal frameworks in the UK are argued to inadequately attend to the ways discrimination is intersectional <ref type="bibr">(Bagihole, 2007;</ref><ref type="bibr" target="#b46">Shahin, 2020;</ref><ref type="bibr">Solanke, 2007)</ref>. However, this is not necessarily a call to adopt consideration of intersectionality into the existing EIA process and intersectionality must be understood critically and integrated with recognition of power dynamics, marginalisation and social injustice <ref type="bibr" target="#b26">(Hankivsky, 2014)</ref>. Initiatives such as the PCREF attend to consideration of intersectionality (NHS England, no date). However, time is needed to assess and evaluate the impact this framework has on service provision.</p><p>In categorising and describing the content of EIAs, I do not suggest these necessarily reflect the quality of treatment provision within a trust, nor the extent to which the policy itself addresses the risk of discrimination. It is unclear whether the staff providing care -who may be contributing to the perpetuation of biases and discrimination -are aware of the EIAs; read a policy in its entirety; or whether this has any tangible impacts on treatment provision. Therefore, future research needs to further explore the use of EIAs and what this reflects in terms of service provision more generally. Indeed, policies -even with non-performative continents -act and need to be understood within the context of how they are adopted and the impacts they have <ref type="bibr" target="#b1">(Ahmed, 2006b)</ref>. As a survivor-led study, the design of this research -and thus its limitations -was pragmatic, and shaped by the minimal resources available to me, for example utilising Freedom of Information requests as a tool to obtain information. The present study focuses on mental health services within England however, the findings may hold relevance for other service types and consideration of inequalities in health services in the rest of the UK and beyond.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>This study examined the use of EIAs in relation to restrictive practice policies in NHS mental health trusts in England. While 82.3% of the policies reviewed had an EIA, 69.9% denied any disproportionate impact on individuals based on the nine Protected Characteristics. The depth of the EIAs varied, with most being brief screenings and others providing more detailed data and considerations. However, the EIAs lacked clear actions to address "equality issues" and often ignored the intersectionality of experiences, with only four EIAs acknowledging this. Some arguments suggested that all patients were treated equally, that treatment was patient-centred and therefore not discriminatory, but these claims don't reflect the realities of care. Stating that a policy is non-discriminatory or person-centred does not make it so. Instead, these claims may be seen as excuses for inaction and ways to evade recognition of areas where treatment is discriminatory and not person-centred. By denying any potential negative impacts the policy may have for patients, these documents risk appearing defensive and deflecting from meaningful consideration of potential harms both failing to address the realities of patient experiences, and undermining efforts to improve these experiences.</p><p>The study highlights that currently EIAs do not appear to be meaningfully engaged with in relation to NHS mental health trust restrictive practice policies. Nevertheless, addressing discrimination requires more than documentation -it demands real actions. NHS trusts must move beyond compliance and take concrete steps to tackle inequality and discrimination. The findings of this study also highlight the need for caution when institutions such as NHS England call for the use of EIAs, positioning these as a tool that, in itself, addresses inequalities. However, this illustrates that these are often engaged with superficially, without involvement of patients and without wider substantive actions. Just as completing EIAs may be non-performative, so too is calling for others to complete them without using authority to enforce their use or taking any other actions themselves. This is unlikely to address the challenge at hand. Meaningful change requires systemic reform, accountability, and dismantling structural inequities, with NHS trusts following through on their commitments. Future research should explore the real-world impact of EIAs on patient experiences and the broader context of healthcare delivery.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Berkshire Healthcare NHS Foundation Trust EIA for restraint policy</figDesc><graphic coords="13,131.15,283.88,332.70,243.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="15,123.65,318.73,347.39,246.50" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head>Table 2 :</head><label>2</label><figDesc>Summary of the restrictive practice policies obtained</figDesc><table><row><cell></cell><cell>Observations</cell><cell>Seclusion policies</cell><cell>Restraint policies</cell><cell>Total</cell></row><row><cell></cell><cell>policies</cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell>(% total trusts</cell><cell>(% total trusts</cell><cell>(% total trusts</cell></row><row><cell></cell><cell>(% total trusts</cell><cell>n=50)</cell><cell>n=50)</cell><cell>across 3 policies</cell></row><row><cell></cell><cell>n=50)</cell><cell></cell><cell></cell><cell>n=150)</cell></row><row><cell>No response</cell><cell>2 (4%)</cell><cell>3 (6%)</cell><cell>5 (10%)</cell><cell>10 (6.7%)</cell></row><row><cell>Out of date</cell><cell>10 (20%)</cell><cell>8 (16%)</cell><cell>4 (8%)</cell><cell>22 (14.7%)</cell></row><row><cell>Policy obtained</cell><cell>38 (76%)</cell><cell>34 (68%)</cell><cell>41 (82%)</cell><cell>113 (75.3%)</cell></row><row><cell>Other (no</cell><cell>0 (0%)</cell><cell>5 (10%)</cell><cell>0 (0%)</cell><cell>5 (3.3%)</cell></row><row><cell>seclusion room</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>or restraint and</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>seclusion were</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>discussed in one</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>policy)</cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head>Table 3 :</head><label>3</label><figDesc>outline of the descriptive categories for each EIA associated with the policies obtained</figDesc><table><row><cell>score</cell><cell>Observations (%</cell><cell>Seclusion</cell><cell>Restraint</cell><cell>Number of</cell></row><row><cell></cell><cell>of 38 policies)</cell><cell></cell><cell></cell><cell>policies</cell></row><row><cell></cell><cell></cell><cell>(% of 34</cell><cell>(% of 41 policies)</cell><cell></cell></row><row><cell></cell><cell>(% of 31 EIAs)</cell><cell>policies)</cell><cell></cell><cell>(% of 113</cell></row><row><cell></cell><cell></cell><cell></cell><cell>(% of 36 EIAs)</cell><cell>policies) (% of 93</cell></row><row><cell></cell><cell></cell><cell>(% of 26 EIAs)</cell><cell></cell><cell>EIAs)</cell></row><row><cell>no EIA</cell><cell>3 (7.9%)</cell><cell>3 (8.8%)</cell><cell>2 (4.9%)</cell><cell>8 (7.1%)</cell></row><row><cell>no EIA, an equalities</cell><cell>4 (10.5%)</cell><cell>5 (14.7%)</cell><cell>3 (7.3%)</cell><cell>12 (10.6%)</cell></row><row><cell>statement</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>EIA identifies no</cell><cell>15</cell><cell>11</cell><cell>19</cell><cell>45</cell></row><row><cell>issues and has no</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>statements/actions</cell><cell>48.4%</cell><cell>42.3%</cell><cell>52.8%</cell><cell>48.4%</cell></row><row><cell>(only tick boxes)</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>EIA identifies no</cell><cell>6</cell><cell>7</cell><cell>7</cell><cell>20</cell></row><row><cell>issues but has some</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>brief statements</cell><cell>19.4%</cell><cell>26.9%</cell><cell>19.4%</cell><cell>21.5%</cell></row><row><cell>EIA identifies some</cell><cell>2</cell><cell>1</cell><cell>2</cell><cell>5</cell></row><row><cell>issues with no actions</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>6.5%</cell><cell>3.8%</cell><cell>5.6%</cell><cell>5.4%</cell></row><row><cell>EIA identifies equality</cell><cell>8</cell><cell>7</cell><cell>8</cell><cell>23</cell></row><row><cell>issues and includes</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>actions</cell><cell>25.8%</cell><cell>26.9%</cell><cell>22.2%</cell><cell>24.7%</cell></row><row><cell>Total number of</cell><cell>38</cell><cell>34</cell><cell>41</cell><cell>113</cell></row><row><cell>policies obtained</cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3"><head>Table 4 :</head><label>4</label><figDesc>summary of the authors of the EIAs obtained</figDesc><table><row><cell>EIA author</cell><cell>Observations</cell><cell>Seclusion</cell><cell>Restraint</cell><cell>Combined</cell></row><row><cell></cell><cell>(n=31)</cell><cell>(n=26)</cell><cell>(n=36)</cell><cell>(n=93)</cell></row><row><cell>no name/redacted</cell><cell>1 (3.2%)</cell><cell>3 (11.5%)</cell><cell>5 (13.9%)</cell><cell>9 (9.7%)</cell></row><row><cell>The EIA was embedded within the</cell><cell>5 (16.1%)</cell><cell>2 (7.7%)</cell><cell>1 (2.8%)</cell><cell>8 (8.6%)</cell></row><row><cell>policy and had no space for a</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>name</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>the EIA was completed by the</cell><cell>21 (67.7%)</cell><cell>16 (61.5%)</cell><cell>21 (58.3%)</cell><cell>58 (62.4%)</cell></row><row><cell>author of the policy or someone</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>in a clinical managerial role</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>the EIA was completed by an EDI</cell><cell>4 (12.9%)</cell><cell>5 (19.2%)</cell><cell>9 (25%)</cell><cell>18 (19.4%)</cell></row><row><cell>lead/practitioner or indicated that</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>it had been reviewed and was</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>counter signed by an EDI</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>lead/practitioner</cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">The nonperformativity of antiracism</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Ahmed</surname></persName>
+		</author>
+		<ptr target="https://www.jstor.org/stable/40338719" />
+	</analytic>
+	<monogr>
+		<title level="j">Meridians</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="104" to="126" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Doing Diversity Work in Higher Education in Australia</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Ahmed</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1469-5812.2006.00228.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1469-5812.2006.00228.x" />
+	</analytic>
+	<monogr>
+		<title level="j">Educational Philosophy and Theory</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="745" to="768" />
+			<date type="published" when="2006">2006b</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">You end up doing the document rather than doing the doing&apos;: Diversity, race equality and the politics of documentation</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Ahmed</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/01419870701356015</idno>
+		<ptr target="https://doi.org/10.1080/01419870701356015" />
+	</analytic>
+	<monogr>
+		<title level="j">Ethnic and Racial Studies</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="590" to="609" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Criminalising Distress</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Aked</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Bailey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Blell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Blewitt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Botelle</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ela</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Gnaegi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Lake</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Monk-Cunliffe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Palmer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Porter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Sangtani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sukles</surname></persName>
+		</author>
+		<ptr target="https://stat.medact.org/wp-uploads/2024/04/Criminalising-Distress-FINAL-WEB.pdf" />
+		<imprint>
+			<date type="published" when="2024">2024</date>
+			<publisher>Medact</publisher>
+			<pubPlace>London</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">An ethical critique of Person-Centred healthcare</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">H</forename><surname>Arnold</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Kerridge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Lipworth</surname></persName>
+		</author>
+		<idno type="DOI">10.5750/ejpch.v8i1.1818</idno>
+		<ptr target="https://doi.org/10.5750/ejpch.v8i1.1818" />
+	</analytic>
+	<monogr>
+		<title level="j">European Journal for Person Centered Healthcare</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="34" to="44" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<author>
+			<persName><forename type="first">S</forename><surname>Arthur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Mitchell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Graham</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Beninger</surname></persName>
+		</author>
+		<ptr target="https://assets.publishing.service.gov.uk/media/5a7c9902ed915d12ab4bbdb1/PSED_Revised_Report_Final_030913_-_FINAL" />
+		<title level="m">Views and experiences of the Public Sector Equality Duty (PSED) Qualitative research to inform the review</title>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">Intersectional discrimination</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Atrey</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/oso/9780198848950.001.0001</idno>
+		<ptr target="https://doi.org/10.1093/oso/9780198848950.001.0001" />
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<publisher>Oxford University Press eBooks</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<author>
+			<persName><forename type="first">W</forename><surname>Aves</surname></persName>
+		</author>
+		<ptr target="https://www.psychiatryisdrivingmemad.co.uk/post/sim-past-present-and-future" />
+		<title level="m">Serenity Integrated Mentoring: Past, Present and Future. Psychiatry is Driving me Mad</title>
+		<imprint>
+			<date type="published" when="2023-03">2023, March</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">An exploration of UK equal Opportunities and Diversity Policies: looking through the lens of intersectionality</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Bagilhole</surname></persName>
+		</author>
+		<idno type="DOI">10.18848/1447-9532/cgp/v07i02/39367</idno>
+		<ptr target="https://doi.org/10.18848/1447-9532/cgp/v07i02/39367" />
+	</analytic>
+	<monogr>
+		<title level="j">The International Journal of Diversity in Organizations Communities and Nations Annual Review</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="153" to="164" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Understanding ethnic inequalities in mental healthcare in the UK: A meta-ethnography</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Bansal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Karlsen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">P</forename><surname>Sashidharan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Cohen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">A</forename><surname>Chew-Graham</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Malpass</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pmed.1004139</idno>
+		<ptr target="https://doi.org/10.1371/journal.pmed.1004139" />
+	</analytic>
+	<monogr>
+		<title level="j">PLoS Medicine</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page">1004139</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Ethnic variations in compulsory detention under the Mental Health Act: a systematic review and meta-analysis of international data</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Barnett</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Mackay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Matthews</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Gate</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Greenwood</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Ariyo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bhui</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Halvorsrud</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Pilling</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Smith</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/S2215-0366(19)30027-6</idno>
+		<ptr target="https://doi.org/10.1016/S2215-0366(19)30027-6" />
+	</analytic>
+	<monogr>
+		<title level="j">The lancet Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="305" to="317" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Are women really difficult? Challenges and solutions in the care of women in secure services</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bartlett</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Somers</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/14789949.2016.1244281</idno>
+		<ptr target="https://doi.org/10.1080/14789949.2016.1244281" />
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Forensic Psychiatry &amp; Psychology</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="226" to="241" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Risk factors associated with use of coercive practices in adult mental health inpatients: A systematic review</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Beames</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Onwumere</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/jpm.12757</idno>
+		<ptr target="https://doi.org/10.1111/jpm.12757" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Psychiatric and Mental Health Nursing</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="220" to="239" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Chapter 2: Background</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Beresford</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Rose</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">This is Survivor Research</title>
+		<editor>
+			<persName><forename type="first">A</forename></persName>
+		</editor>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<title/>
+		<author>
+			<persName><forename type="first">P</forename><surname>Sweeney</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Beresford</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Faulkner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Nettle</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Rose</surname></persName>
+		</author>
+		<imprint>
+			<publisher>PCCS Books</publisher>
+			<biblScope unit="page" from="11" to="21" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Institutional Racism in Mental Health Services: The consequences of compromised conceptualisation</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Bradby</surname></persName>
+		</author>
+		<idno type="DOI">10.5153/sro.2197</idno>
+		<ptr target="https://doi.org/10.5153/sro.2197" />
+	</analytic>
+	<monogr>
+		<title level="j">Sociological Research Online</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="86" to="96" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Length of stay among multi-ethnic psychiatric inpatients in the United Kingdom</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bruce</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Smith</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.comppsych.2020.15220</idno>
+		<ptr target="https://doi.org/10.1016/j.comppsych.2020.15220" />
+	</analytic>
+	<monogr>
+		<title level="j">Comprehensive psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">102</biblScope>
+			<biblScope unit="page">152201</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Patients&apos; and staff members&apos; experiences of restrictive practices in acute mental health in-patient settings: systematic review and thematic synthesis</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Butterworth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Wood</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Rowe</surname></persName>
+		</author>
+		<idno type="DOI">10.1192/bjo.2022.574</idno>
+		<ptr target="https://doi.org/10.1192/bjo.2022.574" />
+	</analytic>
+	<monogr>
+		<title level="j">BJPsych open</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page">178</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<ptr target="https://www.cqc.org.uk/guidance-providers/nhs-trusts/pcref" />
+	</analytic>
+	<monogr>
+		<title level="m">Patient and carer race equality framework (PCREF): Our interim approach</title>
+		<imprint>
+			<publisher>Care Quality Commission</publisher>
+			<date type="published" when="2020-10">2020, October. 2024. 2025, February 17</date>
+		</imprint>
+	</monogr>
+	<note>Monitoring the Mental Health Act in 2022/23 Out of sight -who cares?: Restraint, segregation and seclusion review Care Quality Commission</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Demarginalizing the intersection of race and sex: A Black Feminist critique of antidiscrimination doctrine, feminist theory and antiracist politics</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Crenshaw</surname></persName>
+		</author>
+		<ptr target="https://chicagounbound.uchicago.edu/uclf/vol1989/iss1/8/?utm_source=chicagounbound.uchicago" />
+	</analytic>
+	<monogr>
+		<title level="s">Chicago Unbound</title>
+		<imprint>
+			<date type="published" when="1989">1989</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<monogr>
+		<title level="m" type="main">%2Fiss1%2F8&amp;utm_medium=PDF&amp;utm_campaign=PDFCoverPages</title>
+		<author>
+			<persName><surname>Edu%2fuclf%2fvol</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1989">1989</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Factors associated with use of psychiatric intensive care and seclusion in adult inpatient mental health services</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">E</forename><surname>Cullen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Bowers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Khondoker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Pettit</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Achilla</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Koeser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Moylan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Baker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Quirk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Sethi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Stewart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mccrone</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">D</forename><surname>Tulloch</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/s2045796016000731</idno>
+		<ptr target="https://doi.org/10.1017/s2045796016000731" />
+	</analytic>
+	<monogr>
+		<title level="j">Epidemiology and Psychiatric Sciences</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="51" to="61" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Women&apos;s Experiences of Restrictive Interventions in Inpatient Units and How They Impact their Recovery</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">J</forename><surname>Eben</surname></persName>
+		</author>
+		<idno type="DOI">10.47760/cognizance.2023.v03i10.011</idno>
+		<ptr target="https://doi.org/10.47760/cognizance.2023.v03i10.011" />
+	</analytic>
+	<monogr>
+		<title level="j">Cognizance Journal of Multidisciplinary Studies</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="140" to="173" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Gendered experiences of physical restraint on locked wards for women</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Fish</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Hatton</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/09687599.2017.1329711</idno>
+		<ptr target="https://doi.org/10.1080/09687599.2017.1329711" />
+	</analytic>
+	<monogr>
+		<title level="j">Disability &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="790" to="809" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Qualitative content analysis</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Forman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Damschroder</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/s1479-3709(07)11003-7</idno>
+		<ptr target="https://doi.org/10.1016/s1479-3709(07)11003-7" />
+	</analytic>
+	<monogr>
+		<title level="m">Advances in bioethics</title>
+		<imprint>
+			<date type="published" when="2007">2007</date>
+			<biblScope unit="page" from="39" to="62" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Ethnic inequalities and pathways to care in psychosis in England: a systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Halvorsrud</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Nazroo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Otis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Brown Hajdukova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bhui</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s12916-018-1201-9</idno>
+		<ptr target="https://doi.org/10.1186/s12916-018-1201-9" />
+	</analytic>
+	<monogr>
+		<title level="m">The independent Steering Group&apos;s report of the Public Sector Equality Duty (PSED) review and government response</title>
+		<imprint>
+			<publisher>Government equalities office</publisher>
+			<date type="published" when="2013">2013. 2018</date>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="page">223</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">An intersectionality-based policy analysis framework: critical reflections on a methodology for advancing equity</title>
+		<author>
+			<persName><forename type="first">O</forename><surname>Hankivsky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Grace</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Hunting</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Giesbrecht</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Fridkin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Rudrum</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Ferlatte</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Clark</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s12939-014-0119-x</idno>
+		<ptr target="https://doi.org/10.1186/s12939-014-0119-x" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal for Equity in Health</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Intersectional Discrimination in Mental Health care: A Systematic review with qualitative evidence synthesis</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Hempeler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Schneider-Reuter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Windel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Carlet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Philipsen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Juckel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Gather</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Yeboah</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Faissner</surname></persName>
+		</author>
+		<idno type="DOI">10.1176/appi.ps.20230252</idno>
+		<ptr target="https://doi.org/10.1176/appi.ps.20230252" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychiatric Services</title>
+		<imprint>
+			<biblScope unit="volume">75</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="1125" to="1143" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Three approaches to qualitative content analysis</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Hsieh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">E</forename><surname>Shannon</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1049732305276687</idno>
+		<ptr target="https://doi.org/10.1177/1049732305276687" />
+	</analytic>
+	<monogr>
+		<title level="j">Qualitative Health Research</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="1277" to="1288" />
+			<date type="published" when="2005">2005</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Whiteness, madness, and reform of the Mental Health Act</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>King</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Jeynes</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/s2215-0366(21)00133-4</idno>
+		<ptr target="https://doi.org/10.1016/s2215-0366(21)00133-4" />
+	</analytic>
+	<monogr>
+		<title level="j">The Lancet Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="460" to="461" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Restrictive Practices in Adult Secure Mental Health Services: A scoping review</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Lawrence</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Bagshaw</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Stubbings</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Watt</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/14999013.2021.1887978</idno>
+		<ptr target="https://doi.org/10.1080/14999013.2021.1887978" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Forensic Mental Health</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="68" to="88" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<monogr>
+		<ptr target="https://www.leicspart.nhs.uk/wp-content/uploads/2025/02/Equality-and-Quality-Impact-Assessment-Policy-Exp-Feb-28-.pdf" />
+		<title level="m">Equality and Quality Impact Assessment (EQIA) Policy</title>
+		<imprint>
+			<publisher>Leicestershire Partnership NHS Trust</publisher>
+			<date type="published" when="2015-02">2015, February</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Understanding inequalities in access to adult mental health services in the UK: a systematic mapping review</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">J</forename><surname>Lowther-Payne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ushakova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Beckwith</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Liberty</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Edge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Lobban</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s12913-023-10030-8</idno>
+		<ptr target="https://doi.org/10.1186/s12913-023-10030-8" />
+	</analytic>
+	<monogr>
+		<title level="j">BMC Health Services Research</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Where next for understanding race/ethnic inequalities in severe mental illness? Structural, interpersonal and institutional racism</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">Y</forename><surname>Nazroo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">S</forename><surname>Bhui</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Rhodes</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/1467-9566.1300</idno>
+		<ptr target="https://doi.org/10.1111/1467-9566.1300" />
+	</analytic>
+	<monogr>
+		<title level="j">Sociology of Health &amp; Illness</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="262" to="276" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<monogr>
+		<ptr target="https://www.england.nhs.uk/mental-health/advancing-mental-health-equalities/pcref/" />
+		<title level="m">Principles for using digital technologies in mental health inpatient treatment and care. NHS England</title>
+		<meeting><address><addrLine>NHS England</addrLine></address></meeting>
+		<imprint>
+			<publisher>NHS England</publisher>
+			<date type="published" when="2025-02">2025, February</date>
+		</imprint>
+	</monogr>
+	<note>Patient and carer race equality framework</note>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">The relationship between ethnic background and the use of restrictive practices to manage incidents of violence or aggression in psychiatric inpatient settings</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Payne-Gill</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Whitfield</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Beck</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/inm.12873</idno>
+		<ptr target="https://doi.org/10.1111/inm.12873" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Mental Health Nursing</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1221" to="1233" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Ethnic disparities in the use of restrictive practices in adult mental health inpatient settings: a scoping review</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">L</forename><surname>Pedersen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Gildberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Baker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">B</forename><surname>Damsgaard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">B</forename><surname>Tingleff</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s00127-022-02387-8</idno>
+		<ptr target="https://doi.org/10.1007/s00127-022-02387-8" />
+	</analytic>
+	<monogr>
+		<title level="j">Social Psychiatry and Psychiatric Epidemiology</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="505" to="522" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">It&apos;s a horrible place to have a period&apos;: A Survivor-Led investigation of experiences of menstrual health in psychiatric inpatient settings in England</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Porter</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/inm.13450</idno>
+		<ptr target="https://doi.org/10.1111/inm.13450" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Mental Health Nursing</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<author>
+			<persName><forename type="first">D</forename><surname>Pyper</surname></persName>
+		</author>
+		<ptr target="https://www.equallyours.org.uk/wp-content/uploads/2013/09/sn06591.pdf" />
+	</analytic>
+	<monogr>
+		<title level="m">The Public Sector Equality Duty and EqualityImpact Assessments</title>
+		<title level="s">House of Commons Library</title>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<monogr>
+		<ptr target="https://restraintreductionnetwork.org/wp-content/uploads/2023/03/RRN_Inequalities_Explainer_FINAL.pdf" />
+		<title level="m">Challenging Restraint Inequalities</title>
+		<imprint>
+			<publisher>Restraint Reduction Network</publisher>
+			<date type="published" when="2023-03">2023, March</date>
+		</imprint>
+	</monogr>
+	<note>Restraint Reduction Network</note>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<monogr>
+		<ptr target="https://restraintreductionnetwork.org/types-of-restrictive-practice/" />
+		<title level="m">Restraint Reduction Network (no date). Types of Restrictive Practice. Restraint Reduction Network</title>
+		<imprint/>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">The Experiences of Lesbian and Gay Adults on Acute Mental Health Wards: Intimate Relationship Needs and Recovery</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Robertson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Pote</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Byrne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Frasquilho</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/19359705.2014.998800</idno>
+		<ptr target="https://doi.org/10.1080/19359705.2014.998800" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Gay &amp; Lesbian Mental Health</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="261" to="284" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Transforming the health system for the UK&apos;s multiethnic population</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Salway</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Holman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Mcgowan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Ben-Shlomo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Saxena</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Nazroo</surname></persName>
+		</author>
+		<idno type="DOI">10.1136/bmj.m268</idno>
+		<ptr target="https://doi.org/10.1136/bmj" />
+	</analytic>
+	<monogr>
+		<title level="j">BMJ</title>
+		<imprint>
+			<biblScope unit="volume">268</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title/>
+		<idno type="DOI">10.1136/bmj.m268</idno>
+	</analytic>
+	<monogr>
+		<title level="j">m</title>
+		<imprint>
+			<biblScope unit="page">268</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Obstacles to &quot;race equality&quot; in the English National Health Service: Insights from the healthcare commissioning arena</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Salway</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Mir</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Turner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">T</forename><surname>Ellison</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Carter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Gerrish</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.socscimed.2016.01.031</idno>
+		<ptr target="https://doi.org/10.1016/j.socscimed.2016.01.031" />
+	</analytic>
+	<monogr>
+		<title level="j">Social Science &amp; Medicine</title>
+		<imprint>
+			<biblScope unit="volume">152</biblScope>
+			<biblScope unit="page" from="102" to="110" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Women&apos;s experiences of restrictive interventions within inpatient mental health services: A qualitative investigation</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Scholes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Price</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Berry</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/inm.12966</idno>
+		<ptr target="https://doi.org/10.1111/inm.12966" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Mental Health Nursing</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="379" to="389" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Intersectionality&quot;: a Blind-Spot missed in the British equality framework?</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Shahin</surname></persName>
+		</author>
+		<ptr target="https://vlex.co.uk/vid/intersectionality-blind-spot-missed-887632304" />
+	</analytic>
+	<monogr>
+		<title level="j">LSE Law Review</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Safety in psychiatric inpatient care: The impact of risk management culture on mental health nursing practice</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Slemon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Jenkins</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Bungay</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/nin.12199</idno>
+		<ptr target="https://doi.org/10.1111/nin.12199" />
+	</analytic>
+	<monogr>
+		<title level="j">Nursing inquiry</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">12199</biblScope>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">What does person-centred care mean, if you weren&apos;t considered a person anyway: An engagement with person-centred care and Black, queer, feminist, and posthuman approaches</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">B</forename><surname>Smith</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Willis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hopkins-Walsh</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/nup.12401</idno>
+		<ptr target="https://doi.org/10.1111/nup.12401" />
+	</analytic>
+	<monogr>
+		<title level="j">Nursing Philosophy</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">Infusing the Silos in the Equality Act 2010 with Synergy</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Solanke</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/indlaw/dwr024</idno>
+		<ptr target="https://doi.org/10.1093/indlaw/dwr024" />
+	</analytic>
+	<monogr>
+		<title level="j">Industrial Law Journal</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="336" to="358" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">Experiences of in-patient mental health services: systematic review</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Staniszewska</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Mockford</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Chadburn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Fenton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Bhui</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Larkin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Newton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Crepaz-Keay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Griffiths</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Weich</surname></persName>
+		</author>
+		<idno type="DOI">10.1192/bjp.2019.22</idno>
+		<ptr target="https://doi.org/10.1192/bjp.2019" />
+	</analytic>
+	<monogr>
+		<title level="j">The British Journal of Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">214</biblScope>
+			<biblScope unit="issue">06</biblScope>
+			<biblScope unit="page" from="329" to="338" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<monogr>
+		<ptr target="https://stopsim.co.uk/2021/05/05/concerns-regarding-the-human-rights-and-equalities-implications-of-the-high-intensity-network-hin-and-serenity-integrated-mentoring-sim/" />
+		<title level="m">Concerns Regarding The Human Rights And Equalities Implications Of The High Intensity Network (HIN) And Serenity Integrated Mentoring (SIM). StopSIM</title>
+		<imprint>
+			<publisher>Stop Oxevision</publisher>
+			<date type="published" when="2021">2025, February. 2021. 2021</date>
+		</imprint>
+	</monogr>
+	<note>Stop Oxevision StopSIM: Mental Illness Is Not A Crime. StopSIM Empty words, false promises and window-dressing: An overview NHS England&apos;s new Digital Principles</note>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">My life isn&apos;t my life, it&apos;s the systems&quot;: A qualitative exploration of women&apos;s experiences of day-to-day restrictive practices as inpatients</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">M</forename><surname>Tully</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Bucci</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Berry</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/jpm.12855</idno>
+		<ptr target="https://doi.org/10.1111/jpm.12855" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Psychiatric and Mental Health Nursing</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="110" to="122" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Restrictive Practice Use in People with Neurodevelopmental Disorders: A Systematic Review</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Younan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Jorgensen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Chan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Winata</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Gillies</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s41252-023-00367-w</idno>
+		<ptr target="https://doi.org/10.1007/s41252-023-00367-" />
+	</analytic>
+	<monogr>
+		<title level="j">Advances in Neurodevelopmental Disorders</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="122" to="140" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

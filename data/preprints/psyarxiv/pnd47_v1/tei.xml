@@ -1,0 +1,1446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">More than attention: brief practice of focused-attention meditation suppresses automatic word meaning processing</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Tate</forename><surname>Pan</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="institution">New York University Shanghai</orgName>
+								<address>
+									<addrLine>567 West Yangsi Rd Pudong New District</addrLine>
+									<postCode>200124</postCode>
+									<settlement>Shanghai</settlement>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="institution">The University of Chicago</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Jiaqiu</forename><forename type="middle">Vince</forename><surname>Sun</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Center for Neural Science</orgName>
+								<orgName type="institution">New York University</orgName>
+								<address>
+									<addrLine>4 Washington Place</addrLine>
+									<postCode>10003</postCode>
+									<settlement>New York</settlement>
+									<region>NY</region>
+									<country key="US">United States</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="institution">New York University Shanghai</orgName>
+								<address>
+									<addrLine>567 West Yangsi Rd Pudong New District</addrLine>
+									<postCode>200124</postCode>
+									<settlement>Shanghai</settlement>
+									<country key="CN">China</country>
+								</address>
+							</affiliation>
+						</author>
+						<author role="corresp">
+							<persName><forename type="first">Xing</forename><surname>Tian</surname></persName>
+							<email>xing.tian@nyu.edu</email>
+							<affiliation key="aff0">
+								<orgName type="department">Center for Neural Science</orgName>
+								<orgName type="institution">New York University</orgName>
+								<address>
+									<addrLine>4 Washington Place</addrLine>
+									<postCode>10003</postCode>
+									<settlement>New York</settlement>
+									<region>NY</region>
+									<country key="US">United States</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">More than attention: brief practice of focused-attention meditation suppresses automatic word meaning processing</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">B9A9C6BB70F804390EC1D4B1EFE04ECE</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:17+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Mindfulness practice is often described as yielding a "quieter mind," yet the specific cognitive mechanisms underlying this experience remain understudied. This research investigates how focused attention (FA) meditation influences automatic semantic processing through a series of conflict-based tasks (e.g., Stroop). In a between-groups design, participants were randomly assigned to either brief FA meditation or mind-wandering control conditions. Results demonstrated that, compared to the control group, FA meditation significantly reduced the Stroop congruency facilitation effect in the classic color-word task.</p><p>In two additional non-semantic control tasks, administered only to participants who underwent FA meditation, the facilitation effect was preserved. This selective pattern suggests that FA meditation temporarily inhibits automatic semantic processing rather than enhancing reactive control or general selective attention. Notably, these effects emerged in meditation novices following a brief (10-minute) guided FA session, indicating that even short-term meditation can modulate automatic cognitive processes. These findings provide empirical support for the role of mindfulness in reducing automatic thought processes and contribute to our understanding of its underlying cognitive mechanisms, offering insights into how brief meditation interventions might help individuals better manage intrusive thoughts and automatic cognitive processes in daily life.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>Mindfulness practice-especially focused-attention (FA) meditation-has long been described as yielding a "quieter mind," marked by fewer intrusive mentations and a crisper sense of ongoing perceptual experience <ref type="bibr" target="#b3">(Bishop et al. 2004;</ref><ref type="bibr" target="#b34">Lutz et al. 2015)</ref>. In FA meditation, practitioners repeatedly re-orient to a chosen target (e.g., the breath) and monitor distraction with an attitude of non-reactivity. This characteristic experiential pattern is increasingly studied with neurophenomenological methods that pair disciplined first-person reports with neural measures: during FA, button-press-marked transitions between mind-wandering, awareness, reorienting, and sustained attention map onto default-mode, salience, and executive network dynamics <ref type="bibr" target="#b24">(Hasenkamp et al. 2012)</ref>. This pattern of first-person experience is widely reported across contemporary protocols, yet the constituent cognitive mechanisms that give rise to it remain only partially specified and are a central focus of current mechanistic work <ref type="bibr" target="#b13">(Creswell 2017)</ref>.</p><p>One intuitive interpretation of a "quieter mind" is "less mind-wandering." A large literature has therefore examined how meditation modulates task-unrelated thought (TUT). Converging cross-sectional and training data indicate that experienced meditators show lower TUT frequency alongside reduced default-mode network (DMN) engagement during meditation and rest <ref type="bibr" target="#b7">(Brewer et al. 2011;</ref><ref type="bibr" target="#b22">Garrison et al. 2015;</ref><ref type="bibr" target="#b17">Feruglio et al. 2021)</ref>. By contrast, brief inductions and short-term programs frequently report null or small effects on total TUT counts <ref type="bibr" target="#b2">(Banks, Welhaf, and Srour 2015;</ref><ref type="bibr" target="#b47">Xu et al. 2017)</ref>, and preregistered syntheses highlight modest, heterogeneous cognitive benefits of brief mindful-attention inductions <ref type="bibr" target="#b23">(Gill et al. 2020)</ref>. Conceptually, standard probe-caught TUT measures also conflate frequency of spontaneous thought with meta-awareness and reporting thresholds since mind-wandering is conceptually multidimensional <ref type="bibr" target="#b12">(Christoff et al. 2016;</ref><ref type="bibr" target="#b44">Seli et al. 2018</ref>). Together, these issues complicate a direct identification of "quieter mind" with "less TUT."</p><p>We propose a specific cognitive candidate for "quieter mind": reduced automaticity of semantic activation. Automatic constraints on thought are central to spontaneous mentation-high automatic drive fosters rigid, repetitive ideation (e.g., rumination), whereas lower automaticity permits more flexible trajectories <ref type="bibr" target="#b12">(Christoff et al. 2016)</ref>. Similarly, in literate adults, lexical-semantic activation is also rapid and difficult to suppress: word meanings are engaged with little intention and readily bias concurrent processing, as evidenced by the robustness of Stroop interference <ref type="bibr" target="#b1">(Augustinova and Ferrand 2014;</ref><ref type="bibr" target="#b42">Pattamadilok et al. 2017)</ref>. Crucially, the effect persists-even when attempts are made to impede reading-though it can be attenuated. For example, spatially restricting attention to a single letter or presenting austere displays reduces but does not eliminate interference <ref type="bibr" target="#b8">(Brown et al. 2002)</ref> and deliberate visual blurring (akin to squinting) roughly halves interference without speeding incongruent responses <ref type="bibr" target="#b39">(Palfi et al. 2022</ref>; see also <ref type="bibr">Parris, Hasshim, and</ref> Dienes 2021 on ruling out squinting as the sole mechanism in hypnotic "word-blindness").</p><p>Together, these literatures motivate our mechanistic hypothesis: brief FA practice may quiet the mind not (only) by reducing the frequency of thoughts or general attention manipulation/modulation, but by dampening the downstream impact of automatic semantic activations on ongoing behavior-a prediction that can be tested with objective assays of semantic automaticity rather than self-report.</p><p>Behavioral assays aimed directly at the "quiet mind" are uncommon because work on meditation's cognitive benefits has been dominated by two families of mechanisms that emphasize how control is deployed. First, conflict-monitoring/reactive control accounts hold that practice sharpens detection of conflict and speeds trial-wise adjustment when targets and distractors collide <ref type="bibr" target="#b5">(Botvinick and Braver 2015;</ref><ref type="bibr" target="#b10">Chang et al. 2018)</ref>. Second, selective attention/target amplification accounts propose that practice strengthens sustained attention to task-relevant features-often formalized within proactive control frameworks <ref type="bibr" target="#b3">(Bishop et al. 2004;</ref><ref type="bibr" target="#b6">Braver et al. 2021;</ref><ref type="bibr" target="#b23">Gill et al. 2020)</ref>. These perspectives predict improvements in control deployment, but they do not directly address whether meditation reduces the automatic semantic involvement that can make mentation feel busy. This motivates our complementary hypothesis that FA can dampen automatic semantic activation (H1), while we also derive targeted predictions for reactive-control enhancement (H2) and target amplification/proactive control (H3) (Fig. <ref type="figure" target="#fig_0">1a</ref>). proposes that the immediate post-FA state is dominated by an inhibition of the automatic activation of semantics and thoughts. b, Alternatively, the reactive control hypothesis (H2) suggests that FA evokes a state with enhanced reactive control, the capability to flexibly level up attentional control upon the detection of conflictory information. c, Target Amplification (H3) proposes intuitively that FA encourages the state of more focused attention, in which the task relevant features are amplified. b, To dissociate hypotheses, we decompose the congruency effect into facilitation and interference, enabled by measuring the relevant reaction time against the neutral condition. c, Experiment procedure. The two sessions-Pretest and Posttest-were separated by a 10-minute intervention-either focused attention (FA) or mind-wandering (MW). Each session consists of three identical blocks, which were interleaved with either short breaks or 2-min boosters.</p><p>Empirically, results that adapt reactive-control enhancement or target amplification hypotheses show inconsistency: effects on attention/executive tasks are mixed and typically small at the group level, especially for brief inductions, with notable heterogeneity across mindfulness programs and samples <ref type="bibr" target="#b23">(Gill et al. 2020;</ref><ref type="bibr" target="#b46">Whitfield et al. 2022;</ref><ref type="bibr" target="#b32">Lin, Tang, and Braver 2022)</ref>. Moreover, findings within the dual-mechanisms literature show trends or mixed patterns for proactive vs. reactive control after training or at the trait level <ref type="bibr" target="#b10">(Chang et al. 2018;</ref><ref type="bibr" target="#b0">Aguerre, Bajo, and Gómez-Ariza 2021)</ref>. A key reason for such inconsistency in results-beyond dose and protocol differences-is task complexity and the field's tendency to treat a single task as if it uniquely indexes one component (i.e., task purity): most classic control tasks blend multiple processes, and widely used composite scores can collapse distinct mechanisms, obscuring alternative hypotheses <ref type="bibr" target="#b18">(Friedman and Miyake 2017;</ref><ref type="bibr" target="#b6">Braver et al. 2021)</ref>. Psychometric work likewise shows that many popular conflict tasks yield robust mean effects but unreliable individual-difference measures, complicating inference and replication <ref type="bibr" target="#b25">(Hedge, Powell, and Sumner 2018)</ref>. These limitations motivate our approach: test H1 (reduced automatic semantic activation) alongside H2 and H3 with a battery and analyses that isolate mechanisms, rather than assuming task purity.</p><p>The color-word Stroop, a canonical behavioral assay of obligatory lexical-semantic activation, can serve as a probe of semantic-activation automaticity: for literate adults, printed words are processed with minimal intention, and their meanings intrude on color naming <ref type="bibr" target="#b1">(Augustinova and Ferrand 2014)</ref>. This robust pattern indicates that word reading is automatic and often outside intentional control <ref type="bibr" target="#b35">(MacLeod 2007;</ref><ref type="bibr" target="#b38">Neely and Kahan 2001)</ref>.</p><p>Methodologically, however, a unitary "congruency" score, the incongruent-congruent reaction time (RT) difference, conflates facilitation (the RT advantage of congruent over neutral trials) and interference (the RT cost of incongruent relative to neutral trials) (Fig. <ref type="figure" target="#fig_1">2</ref>) (Fig. <ref type="figure" target="#fig_0">1b</ref>). This unitary score is also sensitive to design confounds such as contingency and what types of stimuli are constructed as the neutral baseline, which can mask mechanism-specific effects <ref type="bibr" target="#b33">(Lorentz et al. 2016;</ref><ref type="bibr" target="#b41">Parris et al. 2023)</ref>. This matters for the mindfulness literature: several studies report smaller net Stroop effects or better incongruent performance after training but operationalize Stroop with a single index within one task <ref type="bibr" target="#b36">(Martinon et al. 2024;</ref><ref type="bibr" target="#b37">Moore et al. 2012;</ref><ref type="bibr" target="#b48">Zhang et al. 2019)</ref>. Crucially, under that analytic choice, all three accounts-semantic inhibition (H1), reactive-control enhancement (H2), and target amplification (H3)-make the same prediction (a smaller net congruency effect), and thus remain empirically indistinguishable.</p><p>We therefore use a multi-task conflict battery and separate congruency into facilitation and interference (Fig. <ref type="figure" target="#fig_1">2b</ref>), to discriminate among H1-H3. We retain the Stroop logic and contrast one semantic conflict with two isomorphic non-semantic controls matched in format (Fig. <ref type="figure" target="#fig_2">S3</ref>). Participants (i) name the ink color while ignoring the color word (color-word; semantic), (ii) name the ink color while ignoring where it appears (color-location; non-semantic), and (iii) report the local arrow direction while ignoring the global arrow (global-local arrows; non-semantic). If focused-attention (FA) meditation suppresses automatic semantic activation (H1), facilitation should shrink selectively in the color-word task, with little or no change in the non-semantic controls. If FA enhances reactive control (H2), participants should resolve conflict more efficiently only when target and distractor collide, yielding reduced interference across tasks. If FA amplifies the target (H3), both facilitation and interference should decline across all tasks, consistent with improved attention/proactive control <ref type="bibr" target="#b6">(Braver et al. 2021)</ref>.</p><p>Our core hypotheses (H1-H3) concern the immediate, state-level cognitive consequences of mindfulness practice. To test these transient effects, which are distinct from long-term trait changes (e.g., 8-week MBSR; Eberth and Sedlmeier 2012), our manipulation must register cognitive shifts in real time. We therefore restrict our protocol to a brief FA induction, which consisted of a 10-min mindful breathing exercise and two subsequent 2-min FA boosters interleaved with the posttest blocks, and was paired with a mind-wandering control (Fig. <ref type="figure" target="#fig_0">1c</ref>).</p><p>This design allows any mechanism-specific change to be registered in real time. Brief inductions offer a well-controlled means to probe state mindfulness <ref type="bibr" target="#b13">(Creswell 2017)</ref> and have been used to test short-latency cognitive consequences, for example, speed benefits without switching improvements <ref type="bibr" target="#b26">(Jankowski and Holas 2020)</ref>.</p><p>Mirroring our hypothesis, results show that brief FA practice selectively reduced color-word facilitation with non-semantic controls unchanged, and posttest dynamics tracked the FA boosters-an effect profile predicted by semantic inhibition (H1) and not by generic improvements in attention or reactive control. This pattern coheres with predictive accounts that view meditation as down-weighting higher-level priors (i.e., softening the precision landscape across hierarchical processing), thereby reducing the downstream pull of automatic conceptual activations on behavior <ref type="bibr" target="#b19">(Friston 2010;</ref><ref type="bibr" target="#b30">Ruben E. Laukkonen and Slagter 2021;</ref><ref type="bibr" target="#b29">Ruben Eero Laukkonen, Friston, and Chandaria 2025)</ref>. Importantly, the same mechanism has broad explanatory reach: by dampening automatic semantic involvement, FA can help explain reports of fewer intrusive verbal mentations and rumination <ref type="bibr" target="#b12">(Christoff et al. 2016)</ref>, while also clarifying why brief inductions yield small, task-specific improvements rather than wholesale gains on executive batteries <ref type="bibr" target="#b23">(Gill et al. 2020</ref>) and how repeated state shifts could accumulate within longer programs <ref type="bibr" target="#b13">(Creswell 2017)</ref>. In short, semantic inhibition provides a mechanistic bridge between the felt "quieter mind" and the diverse, measured benefits associated with mindfulness practice.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>Participants were instructed to make correct and speed response to a predefined target feature (e.g., ink color), while a task-irrelevant distractor was congruent (CG), incongruent (IC), or neutral (NT) relative to the target. A pure (PU) condition, presenting only the target stimulus (e.g., a color patch) was also included (see Methods). We decomposed the congruency score into facilitation (RT NT -RT CG ) and interference (RT IC -RT NT ) (Fig. <ref type="figure" target="#fig_0">1b</ref>) and applied this analysis across three parallel tasks: color-word (Stroop), color-location (Simon), and direction-level (Navon arrows). This two-dimensional breakdown (congruency component × task) enables mechanism-level tests that distinguish semantic-specific inhibition (H1) from enhanced reactive control (H2) and from target amplification (H3). (First-order performance-RT and accuracy-is reported at the end of the Results as a manipulation check.)</p><p>FA practice reduced the semantic congruency facilitation, favoring the inhibited semantics hypothesis over the reactive control hypothesis.</p><p>We used a color-word conflict task in a pre-post design to test whether focused attention (FA) meditation dampens automatic semantic processing (H1) or instead enhances reactive control (H2), compared with a mind-wandering (MW) control group. Participants named the ink color while ignoring the word (Fig. <ref type="figure" target="#fig_1">2b</ref>); the four types of stimuli are shown in Fig. <ref type="figure" target="#fig_1">2a</ref> (see Fig. <ref type="figure" target="#fig_2">S3</ref> for the full stimuli set). Word meanings are often processed automatically and can facilitate or interfere with the primary goal of identifying the text's ink color. Normally, people are faster when the word meaning matches the color (congruent) compared to a neutral word. But if semantic processing is dampened, the facilitation effect will weaken.</p><p>Therefore, if meditation reduces or inhibits the automatic processing of the word meaning (H1), then both facilitation and interference should shrink (Fig. <ref type="figure" target="#fig_1">2c</ref>). Yet, If meditation primarily improves the ability to monitor and resolve conflict (H2), then only the interference will be reduced. Since better reactive control does not necessarily stop the initial, automatic advantage for congruent items (Fig. <ref type="figure" target="#fig_1">2d</ref>), facilitation will not decrease. Taken together, a reduction in the facilitation effect, specifically in the FA group relative to the MW group, would provide unique support for H1. confidence intervals. P values were corrected for multiple comparisons using the Holm-Bonferroni method across the two congruency components. * P &lt; 0.05; We found that FA practice significantly influenced both facilitation and interference effects in the color-word task. Paired permutation tests revealed significant reductions in facilitation (P = 0.002, n = 31, Cohen's d = 0.708) and interference (P = 0.002, n =27, d = 0.439) after FA practice. P values are all two-sided; unless noted, they are Holm-Bonferroni-adjusted within each experimental group across the two components (facilitation and interference; see Methods). Facilitation decreased from 35 ± 22 ms (SD) in the pretest to 17 ± 27 ms in the posttest, while interference decreased from 128 ± 93 ms to 90 ± 72 ms. These findings fit the predictions made by the inhibited semantics hypothesis (H1; Fig. 2c), indicating that FA practice reduces automatic word-meaning processing. In contrast, the color-word-MW control group showed no significant changes in facilitation (P = 0.564, n = 31, d = 0.125) or interference (P = 0.180, n = 31, d = 0.265) (Fig. 2f).</p><p>Between-group comparisons confirmed that the reduction in facilitation was greater in the FA group compared to the MW group (P = 0.035, d = -0.626, Fig. <ref type="figure" target="#fig_1">2g</ref>). Specifically, the color-word-FA group exhibited a facilitation decrease of -18 ± 28 ms, while the color-word-MW group showed a smaller decrease of -2 ± 21 ms (Fig. <ref type="figure" target="#fig_1">2g</ref>). For interference, while the FA group demonstrated a reduction of -37 ± 61 ms compared to -18 ± 56 ms in the MW group, the between-group difference was not statistically significant (P = 0.234, d = -0.318, Fig. <ref type="figure" target="#fig_1">2h</ref>). As converging evidence, a 2×2 mixed ANOVA (group × session) on color-word facilitation showed a significant interaction, F(1,57) = 5.77, P = 0.039 (Holm-Bonferroni within task for facilitation/interference, m = 2), η ² = 0.092; whereas interference showed no interaction, F(1,57) = 1.49, P = 0.227. Full ANOVA tables are provided in Table <ref type="table">S1</ref>.</p><p>To complement this analysis and directly quantify the evidence for or against the null hypothesis, we also computed Bayes Factors within each group (see Methods). Our Bayesian paired t-tests confirmed the pattern above. For the color-word-FA group, the BF 10 values for facilitation (BF 10 = 25.801 &gt; 10) and interference (BF 10 = 18.121 &gt; 10) provided strong evidence supporting the inhibited semantics hypothesis (H1), Conversely, the BF 10 values for the color-word-MW control group (facilitation BF 10 = 0.235 &lt; 1, interference BF 10 = 0.772 &lt; 1) suggested evidence against the alternative hypothesis, indicating no meaningful changes in either effect. These findings align with the non-significant P values and small effect sizes observed in the color-word-MW group.</p><p>While the color-word results favor H1 over H2, they are also consistent with H3. According to H3, the observed reduction in facilitation and interference was because the processing of the target feature was generally amplified. That is, we need to distinguish whether this effect was driven by inhibition of the distraction (H1) or amplification of the target (H3).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Non-semantic distractors showed no sign of facilitation reduction after FA practice, challenging the target amplification hypothesis</head><p>One key difference between H1 and H3 is whether the distraction type modulates the effect: if the effect reflects target amplification (H3), switching distractor types should not qualitatively change the results, whereas selective inhibition of semantic processing would be specific to semantic distraction (H1). Therefore, we used a color-location task to test whether the effect observed in the color-word task generalizes when the distractor is a lower-level visuospatial feature (location) rather than semantic content, while holding the target color constant. In parallel with the color-word task design, participants were required to attend to the rectangle's color while disregarding its screen location (Fig. <ref type="figure" target="#fig_2">3a</ref>, <ref type="figure">b</ref>). If FA meditation has a particular effect on word meaning (H1), then we should not observe significant decrease in the facilitation effect in the color-location task (Fig. <ref type="figure" target="#fig_2">3c</ref>). However, if meditation improves general attention towards the target visual color (H3), a reduction in both facilitation and interference would be observed (Fig. <ref type="figure" target="#fig_2">3d</ref>), similar to the color-word task.</p><p>In contrast to the effect in the color-word task, FA practice had no significant influence on either facilitation or interference in the color-location task. Paired permutation tests showed no significant reductions in either facilitation (P = 0.919, n =27, Cohen's d = 0.023) or interference (P = 0.052, n =27, d = 0.517) after FA practice. Facilitation remains almost unchanged (pre: 61 ± 20 ms; post: 60 ± 26 ms), while interference decreased from 44 ± 24 ms to 29 ± 32 ms (two-sided tests, Fig. <ref type="figure" target="#fig_2">3e</ref>). We further examined these effects using Bayesian paired t-tests. For facilitation, the BF 10 = 0.205 provided moderate evidence in favor of the null hypothesis (no change). For interference, the BF 10 = 2.017 provided anecdotal evidence in favor of the alternative hypothesis (a reduction in interference). The fixed spatial arrangement of the response buttons allowed for a potential conflict between the response location and the color box's position on the screen. c, As the location distractor no longer involves word meaning or higher-level features, the Semantic inhibition hypothesis (H1) predicts that neither facilitation nor interference would change after FA practice. The reactive control hypothesis (H2), though not a dominant effect, may or may not reduce the interference. d, In contrast, the target amplification hypothesis (H3) suggests an enhancement of the attention to target features regardless of the distractor's nature. Therefore, H3 predicts that both facilitation and interference would decrease after FA practice, similar to the color-word task. e, Results support H1 over H3: no significant change in facilitation or interference was observed. Dots and thin gray lines represent individual subjects; black horizontal lines represent the group mean with ±2 SEM. * P &lt; 0.05; ** P &lt; 0.01; *** P &lt; 0.001; n.s., not significant. Bayes factor (BF 10 ) is provided to quantify evidence supporting the null findings.</p><p>Taken together, these findings fail to support the target amplification hypothesis (H3), as we found no clear evidence of improved attentional processing in this non-semantic task. Instead, this dissociation-a clear effect in the color-word task (Fig. <ref type="figure" target="#fig_1">2e</ref>) contrasted with the null effects in the color-location task (Fig. <ref type="figure" target="#fig_2">3e</ref>)-aligns with the predictions of H1 (Fig. <ref type="figure" target="#fig_1">2c</ref> and Fig. <ref type="figure" target="#fig_2">3c</ref>). It suggests that the cognitive changes induced by short-term FA practice are likely not general, but specific to the semantic processing of word meaning.</p><p>The pattern observed thus far-a significant reduction in facilitation for the semantic (color-word) task but not for the non-semantic (color-location) task-supports H1. However, this interpretation is confounded by a difference in their underlying cognitive architecture.</p><p>The color-word task involves a stimulus-stimulus (S-S) conflict (ink color vs. word meaning) that occurs at an early, perceptual stage. In contrast, the color-location task involves a stimulus-response (S-R) conflict, which emerges later during response mapping as illustrated in Fig. <ref type="figure" target="#fig_0">S1</ref>  <ref type="bibr" target="#b16">(Egner, Delano, and Hirsch 2007;</ref><ref type="bibr" target="#b28">Kornblum 1994</ref>). This distinction is another alternative hypothesis (and a confound) that must be addressed: the effect might not be specific to semantics (H1), but rather specific to the conflict stage. This new hypothesis (H3*) would posit that FA meditation enhances general attention to the target feature only at the perceptual stage, thus impacting early-stage S-S conflict (Stroop) but not late-stage S-R conflict (Simon).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Reduction of facilitation remains absent with non-semantic distractors after controlling for the conflict stage</head><p>To arbitrate between H1 and the "conflict-stage" hypothesis, H3*, we introduced a third experiment: the direction-level task. This task was designed to be the critical control, as it isolates the key variables: like the color-word task, it is structurally isomorphic and involves an S-S conflict (local-level direction vs. global-level direction), but like the color-location task, it remains non-semantic. Participants were instructed to identify the direction of the arrows at the local level, while ignoring a distracting global-level shape (Fig. <ref type="figure" target="#fig_3">4a</ref>, <ref type="figure">b</ref>). This design leads to two competing predictions same as the color-location task (Fig. <ref type="figure" target="#fig_2">3c</ref>, <ref type="figure">d</ref>). If H3* is correct (i.e., FA meditation targets early S-S conflict), we should observe a significant reduction in facilitation, similar to the color-word task. If H1 is correct (i.e., FA meditation specifically targets semantic distractors), we should observe no effect, replicating the null result in the color-location task. The key finding from this task, replicating the pattern from the color-location task, was the absence of a significant change in facilitation. Paired permutation tests showed no significant reduction in facilitation (P = 0.340, n = 31, d = 0.179), with the effect decreasing minimally from 18 ± 12 ms in the pretest to 15 ± 15 ms in the posttest (two-sided tests, Fig. <ref type="figure" target="#fig_3">4c</ref>).</p><p>Crucially, the Bayesian t-test confirmed this null effect, providing moderate evidence for the null hypothesis (BF 10 = 0.294 &lt; 1/3). This finding rejects the alternative "conflict-stage" hypothesis (H3), indicating that the FA's impact on facilitation reduction in the color-word task cannot be explained by the S-S conflict structure.</p><p>Separately, we did observe a significant reduction in interference (P &lt; 0.001, n = 31, d = 0.435) , which decreased from 95 ± 37 ms to 79 ± 36 ms (BF10 = 152.77 &gt; 10). This secondary finding might be attributable to either a task-specific practice effect or a potential improvement in cognitive control (H2) that. Given the null result in the S-R (color-location) task, this effect would be specific to S-S conflict structures. Crucially, however, this effect was limited to interference and did not extend to facilitation, thus failing to support H3 and further reinforcing our primary hypothesis (H1) that the facilitation reduction is semantically specific.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Color-word-FA Block Trend: Progressive Decrease in facilitation</head><p>To examine both the time course of FA practice (including booster effects) and to synthesize evidence across the three tasks when re-evaluating H1-H3, we analyzed blockwise changes in facilitation and interference within two stages. Stage 1 comprised the three pretest blocks (interleaved with two 2-min breaks). Stage 2 included the last pretest block followed by three posttest blocks. The 10-min FA practice occurred between the final pretest and first posttest block, while the two boosters occurred between the subsequent posttest blocks. For each stage and component (facilitation, interference), we fit linear mixed-effects models (LMMs) with block index as a fixed effect and participant as a random intercept. P values for the block slope came from within-stage permutation tests and were Holm-Bonferroni-corrected across the four groups (m = 4) per stage × congruency component (uncorrected estimates in Fig. <ref type="figure" target="#fig_4">5i</ref>-j; summary in Table <ref type="table">S2</ref>).</p><p>In Stage 2, facilitation declined progressively in the color-word-FA group (β = -9.28 ms/block, SE = 3.41, P = 0.034; n = 28; Fig. <ref type="figure" target="#fig_4">5a</ref>), with no comparable trends in control groups (all P ≥ 0.351; Fig. <ref type="figure" target="#fig_4">5b-d</ref>). No baseline trend was observed in Stage 1 for the color-word-FA group (β = -0.71 ms/block, SE = 5.55, P =1.0), indicating that the Stage-2 decline reflects the FA intervention and boosters rather than a pre-existing drift. For interference in Stage 2, the color-word-FA group showed a per-block decrease according to the uncorrected permutation test (β = -11.63 ± 5.68 ms/block, P raw = 0.044; Fig. <ref type="figure" target="#fig_4">5e</ref>), but this effect did not survive multiple-comparison correction (P = 0.131). A post-hoc model comparison further suggested that interference was better modeled as a step-like drop at posttest (Akaike weight = 0.84) rather than a gradual blockwise decline. Color-word-MW group and color-location-FA group showed no progressive trends (all P = 0.197; Fig. <ref type="figure" target="#fig_4">5f</ref>, <ref type="figure">g</ref>). By contrast, the direction-level-FA group exhibited blockwise decreases in both stages (Stage 1: β = -10.64 ± 3.52 ms/block, P = 0.012; Stage 2: β = -5.47 ± 1.94 ms/block, P = 0.024; Fig. <ref type="figure" target="#fig_4">5h</ref>). The steeper Stage-1 slope is consistent with a general practice-related effect. Together, the blockwise facilitation decline, which is specific to the color-word-FA group in Stage 2, provides further support for the semantic inhibition hypothesis (H1). 2 (magenta line) for the color-word-FA group, a trend absent in Stage 1 (black line). <ref type="figure">b-d</ref>, No significant blockwise facilitation trend was found in the color-word-MW, the color-location-FA, or the direction-level-FA groups. e, For the color-word-FA group, no significant blockwise trend was observed after adjusting for multiple correction. f-g, No significant relationship between block index and interference was found for the color-word-MW or color-location-FA groups. h, In the direction-level-FA group, interference showed a gradual decrease in both stages, suggesting a practice effect. P values use Holm-Bonferroni corrections (m = 4) across the groups, applied separately for each stage (Stage 1, Stage 2) and outcome (facilitation, interference). * P &lt; 0.05; ** P &lt; 0.01; *** P &lt; 0.001; n.s., not significant.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>First-Order Performance: Practice-Driven Speed Gains With Stable Accuracy</head><p>Overall, the analysis of task performance-including reaction times (RTs) and percentage error (%error)-revealed significant effects of both session and stimulus type (PU, CG, NT, IC) across all experimental groups. Across all groups, RTs showed a clear practice effect: RTs became faster from pre-test to post-test (e.g., color-word-FA: F(1, 30) = 16.04, p &lt; 0.001, η ² = 0.35; Table <ref type="table">S3</ref>). By contrast, error rates showed no meaningful change across sessions (Table <ref type="table">S3</ref>) because accuracy was already near ceiling after the initial practice before the main experiment.</p><p>Crucially, our central inferences rely on second-order components-facilitation and interference-computed relative to the neutral baseline. Because these derived measures capture differences between conditions, they are insulated from the uniform speed-up observed in raw RTs and thus remain valid indicators of FA meditation's specific cognitive effects.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Discussion</head><p>The primary finding of this study is that a brief 10-minute focused-attention (FA) meditation intervention significantly reduced the facilitation effect in the color-word Stroop task. This result supports the semantic inhibition hypothesis (H1), which posits that FA meditation selectively down-weights the automatic activation of word meaning. This modulation was highly specific: it was absent in the mind-wandering (MW) control group and, critically, in two structurally matched non-semantic conflict tasks (color-location, direction-level). This task-specific dissociation argues against alternative accounts, such as a general enhancement of reactive control (H2) or proactive target amplification (H3), which would have predicted broad improvements across all conflict types.</p><p>While interference was reduced in a non-semantic related condition-the direction-level task-this trend was likely to reflect practice effects already evident before the FA induction.</p><p>By contrast, facilitation-a more stable index of automatic semantic activation <ref type="bibr" target="#b33">(Lorentz et al. 2016</ref>)-showed a robust and selective decline only in the FA group. This conclusion is further bolstered by the progressive, block-by-block decline in facilitation observed only in the color-word FA group during the post-meditation stage. This trend, absent at baseline, suggests the 2-min FA boosters incrementally sustained and strengthened this semantic-inhibitory state. Taken together, these findings provide novel, controlled evidence that even brief FA practice can modulate a highly automatic layer of conceptual processing.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Automaticity reduction as a core influence of FA meditation</head><p>Crucially, the color-word-FA group showed a progressive block-by-block decline in facilitation during the post-meditation stage, whereas no such drift appeared in the pre-meditation blocks or in any control group (Fig. <ref type="figure" target="#fig_4">5a</ref>, <ref type="figure">i</ref>). The absence of baseline change also rules out simple fatigue or habituation, implying that the 2-min FA boosters added incremental semantic-inhibition "weight" or sustained and strengthened the ongoing inhibitory effect. Taken together, these findings position automaticity reduction-specifically, the spontaneous activation of semantics-as a primary, rapidly trainable consequence of FA meditation. By demonstrating both immediacy and cumulative gain, they also suggest a plausible pathway through which brief, repeated FA exercises might help mitigate maladaptive forms of conceptual elaboration such as rumination or intrusive verbal thought, offering a mechanistic bridge between laboratory effects and clinical applications.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Advancing Beyond Domain-General Accounts</head><p>This task-specific dissociation carries a key methodological implication. Much prior research in this field has tended to group diverse cognitive tasks under broad, domain-general labels such as "executive control" or "attentional enhancement." This tendency, however, can obscure the specific mechanisms being modulated, as different tasks tap distinct computational and representational processes even if they all require "control."</p><p>Our design, in contrast, deliberately moves beyond this monolithic view. By directly comparing conflicts arising from different representational levels (high-level semantic vs. low-level perceptual), we provide a more granular account. This approach allows us to dissociate the specific impact of FA meditation-the inhibition of automatic semantic activation-from a non-specific, domain-general enhancement of "attention."</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Implication for mental health and cognitive benefit</head><p>Repetitive, stimulus-independent thoughts-such as rumination and worry-are a trans-diagnostic risk factor for mental health disorders, hypothesized to persist due to "automatic constraints" that lock the mind into well-worn semantic associations <ref type="bibr" target="#b12">(Christoff et al. 2016)</ref>. While often studied via self-report (e.g., <ref type="bibr" target="#b34">Lutz et al. 2015)</ref>, our findings provide a novel, objective behavioral proxy for this process. The observed reduction in facilitation-the automatic "speed-boost" from semantic priming-offers (to our knowledge) the first objective evidence that a state of mindfulness co-occurs with dampened automatic meaning activation. This finding behaviorally substantiates proposals that meditation "reduces automatized sequences of mental states" <ref type="bibr" target="#b11">(Christoff Hadjiilieva 2025</ref>) and provides a candidate mechanism: by throttling the earliest, automatic spread of lexical meaning, FA meditation may loosen the very constraints that underlie ruminative thought patterns. This sharper semantic gating may also offer benefits in everyday settings. Although decreased facilitation is not a conventional marker of "better" performance, it reflects a specific capacity: the ability to mitigate distraction or rumination sparked by irrelevant verbal cues (e.g., reading in noisy environments, perseverative worry). The cumulative decline we observed across FA boosters is particularly noteworthy. It hints at a plausible pathway through which brief, repeated sessions could build durable resistance to intrusive semantics, offering a bridge between transient laboratory effects and long-term clinical applications.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Predictive theory of meditation</head><p>Our findings are consistent with the hierarchical information processing account of meditation: (Ruben E. <ref type="bibr" target="#b30">Laukkonen and Slagter 2021)</ref> proposed that meditation down-weights higher-level predictions and engages more fully with present-moment sensory input. In the color-word task, participants must prioritize a lower-level perceptual feature-the ink color-while inhibiting a higher-level semantic feature-the word's meaning. The observed semantic-specific inhibition is highly consistent with this framework, indicating more effective gating of automatic semantic activation. Furthermore, this specificity-the null effect in control tasks where the distracting information was itself a lower-level sensory cue (spatial location or arrow direction)-also aligns with the theory's predictions. Thus, FA meditation appears to target higher-order semantic processing rather than generic sensory conflict, though whether this effect generalizes to all higher-level information processing remains an open question. At minimum, our data offer a behavioral correlate for the oft-reported subjective experience of "quieter mind" after mindfulness practice.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Speculation on neural basis of the semantic inhibition effect</head><p>This selective dampening of automatic semantics coheres with neuro-imaging evidence that FA meditation transiently suppresses the very circuits that normally funnel word meaning into behaviour. The medial temporal gyrus (MTG)-a key node in the ventral occipitotemporal "reading" pathway-supports rapid sight-word recognition and semantic extraction; its activity and coupling with left frontal cortex, thalamus and caudate scale with silent-reading fluency <ref type="bibr" target="#b31">(Lee and Stoodley 2024)</ref>. Meta-analytic and single-study fMRI work shows that MTG activity is diminished during FA meditation in roughly two-thirds of comparisons studied <ref type="bibr" target="#b20">(Ganesan et al. 2022;</ref><ref type="bibr" target="#b11">Christoff Hadjiilieva 2025)</ref>, implying a state-level dampening of automatic lexical spread. Convergent evidence indicates that FA practice down-regulates salience-and default-mode cores-dACC, anterior insula, mPFC and PCC-which normally impose "automatic constraints on thought" <ref type="bibr" target="#b12">(Christoff et al. 2016)</ref> and are known to decrease in activity during focused-breath meditation <ref type="bibr" target="#b22">(Garrison et al. 2015;</ref><ref type="bibr" target="#b7">Brewer et al. 2011)</ref>.</p><p>In parallel, basal-ganglia nodes that gate cortico-semantic flow reorganise with both reading proficiency and meditation exposure: caudate connectivity with MTG predicts fluent reading <ref type="bibr" target="#b31">(Lee and Stoodley 2024)</ref>, and experienced meditators show stronger caudate-centred functional coupling within basal-ganglia-thalamic loops <ref type="bibr" target="#b21">(Gard et al. 2015;</ref><ref type="bibr" target="#b45">Sperduti, Martinelli, and Piolino 2012)</ref>. Together, the transient suppression of MTG-centred reading circuitry and its default-mode partners, along with the gating function of their striatal partners, provide potential mechanistic substrates for this selective inhibition of word meaning.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Limitation and future directions</head><p>Although our findings provide novel evidence for state-level semantic inhibition, several limitations define the scope of these conclusions and highlight clear avenues for future research.</p><p>First, our experiment focused on acute state mindfulness induced in meditation novices.</p><p>While this design was key to isolating a semantic-inhibition signature (H1), it also means our findings primarily challenge domain-general accounts (H2, H3) only as immediate state-level effects. It remains plausible that such enhancements-for instance, in reactive control (H2) or target amplification (H3)-emerge only as a long-term trait effect of sustained practice, or are more characteristic of experienced meditators who may deploy different cognitive strategies. This leaves key questions unanswered: (1) How pre-existing trait mindfulness modulates the acute semantic effect, and (2) How the profile of effects (e.g., semantic-specific vs. domain-general) differs in experts.</p><p>Second, our control tasks targeted low-level perceptual conflicts (spatial location and direction). While this contrast successfully dissociated semantic inhibition from general target amplification (H3) or reactive control (H2) applied to these specific tasks, it remains unknown whether this inhibition is specific only to semantics or if it applies to other forms of high-level conceptual processing (e.g., emotional or phonological conflict).</p><p>These limitations lead directly to a focused research agenda: 1) Investigate the bidirectional relationship between state and trait mindfulness: both how pre-existing trait levels modulate the acute semantic-inhibition state effect observed here, and conversely, how these transient state shifts, when repeatedly evoked, accumulate into durable trait change in novices. 2) Employ broader task batteries to map the full boundary conditions of this effect, such as by testing task designs that isolate other levels of the processing hierarchy (e.g., phonological vs. conceptual or emotional conflict). 3) Track whether this behavioral signature (i.e., reduced facilitation) longitudinally predicts clinical outcomes, such as drops in self-reported rumination and anxiety. 4) Begin tailoring meditation protocols to specific cognitive demands-emphasizing semantic inhibition when automatic thought content is the primary challenge, or sensory grounding when perceptual precision is paramount.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>This study demonstrates that a brief FA meditation can significantly reduce automatic word-meaning processing, as evidenced by a selective reduction in Stroop facilitation that was absent in non-semantic control tasks. These results therefore support the semantic inhibition hypothesis (H1) over alternative accounts of reactive control (H2) or target amplification (H3). The primary implication of this semantic gating is not enhanced general cognitive performance, but rather a potential mechanism for mitigating maladaptive "automatic" thoughts, such as rumination. Future research should explore the long-term effects and neural basis of this semantic inhibition mechanism, tracking how these state-level changes accumulate and generalize to experienced meditators and clinical contexts.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methods</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Participants</head><p>The target sample size was determined a priori using G*Power (version 3.1) to ensure sufficient statistical power. As there is limited literature on the expected effect size for a single-session mindfulness intervention on the Stroop facilitation effect, we based our estimate on the effect size reported for the more robust Stroop interference effect from a methodologically similar study <ref type="bibr">(Luu &amp; Hall, 2017)</ref>. The power analysis, based on a two-tailed matched-pairs t-test with a medium-to-large effect size (dz = 0.55), an alpha of .05, and a power of .80, indicated a target sample size of at least 28 participants per group after applying exclusion criteria.</p><p>A total of 161 participants (125 females) from East China Normal University were recruited to this target sample size was met after applying the predefined exclusion criteria. All participants were native Chinese speakers, right-handed, and had normal or corrected-to-normal vision. Participants self-reported as neurotypical and had little to no prior experience with mindfulness meditation. The majority of them participated in only one of the four testing groups (a specific combination of task and intervention), while a few participated in two different tasks that were separated by at least a month. The study was approved by the institutional review board at New York University Shanghai and conducted in accordance with the Declaration of Helsinki. All participants provided written informed consent and were compensated for their time.</p><p>As our major analyses were based on both the facilitation and interference effects, we predefined a screening criterion named FC-IF-existence. According to the criterion, only participants whose pretest results showed both positive facilitation and interference-RT(CG) &lt; RT(NT) &lt; RT(IC) as depicted in Fig. <ref type="figure" target="#fig_1">2c</ref>-proceeded to the intervention (FA or MW) and posttest. This pre-screening criterion was designed to ensure that the analyzed sample included only participants genuinely susceptible to the Stroop phenomenon. The absence of either facilitation or interference in the pretest was interpreted as potentially reflecting the use of atypical cognitive strategies, which would compromise the construct validity of the measurement. This criterion was applied to maximize the reliability of our measures, particularly given the small magnitude of the facilitation effect. To further justify this approach, a permutation test on the facilitation and interference effects in Pretest against zero showed positive results across all three experiments (Fig. <ref type="figure" target="#fig_1">S2</ref>). Of the 161 recruited participants, 123 met this criterion and completed the full experiment.</p><p>The sample size breakdown for each task is as follows. For the color-word task, 86 participants were recruited and randomly assigned to the FA group (45 participants) or MW group (41 participants). After applying the FC-IF-existence criterion, 34 FA participants and (PU-condition reaction time &gt; mean + 3SD) were removed, leaving 31 participants (24 females) in the color-word-FA group and 28 participants (17 females) in the color-word-MW group for statistical analysis. Two participants in the FA group and one subject in the MW group were removed from the LMM analysis (see subsection Data analysis) as they accidentally omitted the breaks and boosters in the posttest session. They were retained in the rest analyses that focus on pre-post general comparison instead of the progressive trend.</p><p>For the color-location task, 31 participants were recruited, among whom 29 met the FC-IF-existence criterion. After removing two outliers, 27 participants (22 females) were included in the color-location-FA group. For the direction-level task, 44 people were recruited. 32 of them met the FC-IF-existence criterion and completed the full experiment.</p><p>After removing one outlier, 31 participants (27 females) were included in the direction-level-FA group. In total, 117 participants (90 females) were included in the final analysis (mean age: 22 years; range: 18 to 29).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Stimuli</head><p>The color-word, color-location, and direction-level tasks were designed to measure the influence of task-irrelevant information on reaction time (RT) and accuracy. Following  <ref type="figure" target="#fig_2">S3a</ref>). The NT characters were selected to have no phonological, orthographic, or semantic relationship with the color words to avoid confounding effects <ref type="bibr" target="#b43">(Peng, Yang, and Wang 2013)</ref>. Semantic frequency was controlled based on <ref type="bibr" target="#b9">Cai and Brysbaert (2010)</ref> In the color-location task, the stimulus always contained the outlines of three identical vertical rectangles arranged horizontally at the screen center, with a portion of the outlines filled with one of the three colors used in the color-word task (Fig. <ref type="figure" target="#fig_2">S3b</ref>). The four conditions were (1) PU: all three rectangles are filled with the same color; (2) NT: all three rectangles were partially filled at top, middle, or bottom; (3) CG: one of the three rectangles was fully filled, and its location (left, center, right) matched the location of the correct response key;</p><p>(4) IC: the color-filled rectangle's location did not match the correct response key's location.</p><p>Note that while the conflicts in the color-location task resided in the spatial domain, the logic of the conflicts perfectly mirrored the color-word task. color-location PU condition contained no spatial bias (just as the color-word PU lacked any semantics or orthographical information); the color-location NT condition had spatial biases orthogonal to the response's spatial arrangement (just as the color-word NT had meanings orthogonal to colors); and the color-location CG and IC contained spatial biases parallel to the response keys' arrangement (just as the color-word CG and IC contained semantics parallel to the ink colors).</p><p>The stimuli in the direction-level task involved two scales: local-scale arrows that pointed to one of three directions (0°, 120°, and 240°), and a global shape that was either absent (PU), centrosymmetric and directionless (NT), or arrow-like pointing to a direction congruent <ref type="bibr">(CG)</ref> or incongruent (IC) with the local-arrows' direction (Fig. <ref type="figure" target="#fig_2">S3c</ref>).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Intervention</head><p>Participants in the mindfulness group received a 10-minute focused attention (FA) breathing meditation. They were instructed to focus on the sensations that arise with their breath, and gently redirect their attention back to their breath when mind-wandering occurred.</p><p>Participants were assured that occasional mind wandering was natural and that the objective was to consistently return attention to their breathing. A three-minute audio guide initiated the meditation, followed by occasional singing bowl cues to prompt attention redirection. A full transcript of the audio guide is available in the Supplementary Information (Supplementary Text 1). The audio is recorded using Praat <ref type="bibr" target="#b4">(Boersma and Weenink 2025)</ref>.</p><p>The speaker was a woman with a similar cultural and academic background and age as the participants, with three years of mindfulness practice. The speaker gave written informed consent and was also compensated.</p><p>Participants in the mind-wandering (MW) control group were instructed to sit quietly with their eyes closed and relax for the same 10-minute duration. They listened to intermittent segments of a mock Chinese Language exam (HSK), which consisted of semantically incoherent dialogues, designed to induce passive listening and mind-wandering <ref type="bibr" target="#b14">(Deepeshwar et al. 2015)</ref>. This stimulus also served to prevent drowsiness. For both groups, the audio intensity was normalized to 60 dB using the Scale intensity function in Praat <ref type="bibr" target="#b4">(Boersma and Weenink 2025)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Procedure</head><p>Participants were seated in a quiet testing room, facing a monitor placed ∼60 cm in front of them. Participants were provided with oral and written instructions. For the color-word and color-location tasks, they were instructed to press the key that corresponds to the ink/visual color presented at the screen center. For the direction-level task, they were instructed to press the key labeled with an arrow matching the direction of the local arrows in the stimulus (Fig. <ref type="figure" target="#fig_3">4b</ref>). The physical locations of the keys approximately mirrored the three arrows' directions (Fig. <ref type="figure" target="#fig_3">4b</ref>). In all tasks, participants were required to press the three keys using the right index, middle, and ring fingers. To prevent responses based on visual matching of keys, the keypad was covered with an opaque barrier, blocking the participant's view of both the buttons and their fingers.</p><p>Participants were instructed to respond as quickly and accurately as possible. Prior to the main experiment, they completed two phases of training: first, 20 trials of the Pure condition (PU) to establish response-key mapping proficiency, followed by 20 trials featuring all four conditions to familiarize them with the task stimuli. Each trial began with a fixation cross for 500 ms, followed by the stimulus which remained for 2,000 ms or until a response was made. The inter-trial intervals (ITIs) were jittered (1,000 ± 500 ms) to prevent entrainment effects.</p><p>Each of the three tasks consisted of two sessions: a pretest session and a posttest session, which were separated by the 10-min intervention. Each session of the three tasks consisted of 216 trials, with 54 instances per condition (18 per color), divided into three blocks of 72 trials. Within each session, participants took a two-minute break between each block. The nature of these breaks differed crucially by session and group. In the pretest session, all participants remained uninstructed and idle during the breaks. In the posttest session, participants in the FA group re-practiced FA breathing during these breaks, while the MW group remained idle and uninstructed (Fig. <ref type="figure" target="#fig_0">1c</ref>). All responses and RTs were recorded using Python.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data Analysis</head><p>Notation. Theory-driven hypotheses are labeled H1-H3. Statistical hypotheses use H₀ (null) and H A (alternative).</p><p>Primary analyses focused on congruency components including facilitation and interference.</p><p>Facilitation was calculated as the difference in mean RTs between neutral (NT) and congruent (CG) trials (RT NT -RT CG ), while interference was the mean RT difference between incongruent (IC) and NT trials (RT IC -RT NT ),. The classic congruency effect in Stroop literature is the sum of these two components.</p><p>To test the hypotheses, we compared pretest and posttest congruency components within each group by conducting paired permutation tests (10,000 iterations), creating the null distribution by shuffling the signs of the post-pre difference. For the color-word tasks, comparisons between the FA and MW groups were similarly conducted using permutation tests (10,000 iterations), where group labels were shuffled to create the null distribution. All P values were two-sided, and a Holm-Bonferroni correction was applied to control the family-wise error rate for multiple comparisons. Specifically, for both the within-group and between-group permutation tests, this correction was applied across the two dependent variables (facilitation and interference).</p><p>Mixed ANOVA. As a supplemental analysis, we analyzed the congruency components separately using a 2×2 mixed ANOVA with a between-subjects factor Group (FA, MW) and a within-subjects factor Session (pre, post). The subject identifier served as the repeated-measures factor. Because the within-subjects factor had two levels, sphericity was trivially satisfied. To control multiplicity within the task, we applied a Holm-Bonferroni correction across the two components (facilitation and interference). Levene's test indicated a small departure from homogeneity of variance for pre-test facilitation (P = 0.042). Given the unequal group sizes (FA n = 31; MW n = 28) and the variance heterogeneity, we treat mixed-ANOVA P values as descriptive. Our primary inferences are based on the a priori planned permutation contrasts.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Linear mixed effect model (LMM).</head><p>To examine temporal dynamics, we analyzed performance trends across blocks using LMMs. These models included block index as a continuous fixed effect and subject as a random intercept, allowing us to assess linear trends in facilitation and interference over time.For this analysis, the experimental blocks were divided into two distinct stages based on the timing of the interventions. Stage 1 comprised the first three pretest blocks (Blocks 1-3), separated by two 2-minute uninstructed breaks.</p><p>Stage 2 was defined to capture the progressive effect spanning the main intervention and subsequent boosters, and comprised the final pretest block (Block 3) and the three posttest blocks (Blocks 4-6). The transition from Block 3 to Block 4 was separated by the main 10-minute intervention (FA meditation or mock HSK exam). Blocks 4, 5, and 6 were then interleaved with 2-minute booster sessions (FA group) or uninstructed idle breaks (MW group). LMM analyses were conducted separately for each stage, group, and outcome measure (facilitation and interference). The significance values were also obtained by a permutation test. As the primary goal for this analysis is to test whether there is a progressive trend by blocks, we shuffled the order of the block indices within each stage 10,000 times, and refitted the model to get the null distribution of the block slope. All P values are two tailed. To control the family-wise error rate for multiple comparisons, we applied a Holm-Bonferroni correction within each stage and outcome. This correction was applied across the four experimental groups (color-word-FA, color-word-MW, color-location-FA, and direction-level-FA), resulting in m = 4.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Bayesian analyses. While traditional P values can only indicate whether a null hypothesis</head><p>should be rejected, they cannot provide evidence in its favor. To overcome this limitation and to quantify the strength of evidence for our hypotheses, we also calculated Bayes Factors (BF 10 ). To complement the within-group permutation analyses, we computed paired-sample Bayesian t-tests comparing pretest and posttest facilitation and interference within each group. We ran Bayesian paired-samples t-tests in Python using Pingouin (pairwise_ttests, default settings). Pingouin implements the JZS t-test with a Cauchy (0, r = 0.707) prior on the standardized effect size δ <ref type="bibr">(Rouder et al., 2009)</ref>. We report BF 10 = p(data | H A ) / p(data | H 0 ). The BF 10 quantifies the relative support for the alternative hypothesis (H A ) versus the null hypothesis (H 0 ). We interpreted the results using Jeffreys' scale <ref type="bibr" target="#b27">(Kass and Raftery 1995)</ref>: BF₁₀ = 1-3 "anecdotal," 3-10 "moderate," and &gt;10 "strong" evidence for H A.</p><p>Table <ref type="table">S1</ref> | Mixed ANOVA (group × session) for color-word congruency indices (facilitation and interference). Values report F, DF, raw P, adjusted P (Holm-Bonferroni within task across facilitation and interference, m=2), and partial eta squared. Indices: facilitation = RT (NT) -RT (CG); interference = RT (IC) -RT (NT). Two-sided tests. Primary inferences relied on a priori planned contrasts (see Methods).</p><p>Effect DF F p p (adj.) η ² Facilitation group 1,57 0.27 0.608 0.608 0.005 session 1,57 10.47 0.002 0.002 0.155 Interaction 1,57 5.77 0.02 0.039 0.092 Interference group 1,57 1.35 0.25 0.501 0.023 session 1,57 13.76 &lt;0.001 0.001 0.194 Interaction 1,57 1.49 0.227 0.227 0.025</p><p>Table <ref type="table">S2</ref> | Linear mixed effects model (LMM) analysis of facilitation and interference across blocks Facilitation and interference were analyzed using a LMM with block index as a fixed effect and random effects for subjects. The analysis was conducted across two testing stages (interleaved with breaks or FA practice) and four experimental groups: (1) color-word task with focused attention (FA), (2) color-word task with mind wandering (MW), (3) color-location task with FA, and (4) direction-level task with FA. P-values for the fixed effect block index were obtained through permutation tests, using 10,000 shuffles of subtest orders to generate the null distribution. All P values were adjusted for multiple comparisons using the Holm-Bonferroni method. This correction was applied across the four experimental groups (m = 4), with the procedure performed separately for each testing stage and outcome (facilitation, interference). All p-values are two-sided.</p><p>Stage1, interleaved with breaks (Pre1,Pre2, Pre3) Stage2, interleaved with FA practice (Pre3, Pos1, Pos2, Pos3) Block Slope msec / block Dof p (perm.) p (adj.) Block Slope msec / block Dof p (perm.) p (adj.) color-word-FA -0.71(5.55) 85 0.902 1.000 -9.28(3.41) 114 0.008 0.034 color-word-MW -6.41(5.14) 82 0.259 1.000 -0.96(3.32) 110 0.772 0.772 color-location-FA -1.08(4.84) 79 0.822 1.000 4.46(2.84) 106 0.117 0.351 direction-level-FA 2.56(3.14) 91 0.433 1.000 -1.85(1.71) 122 0.270 0.540 color-word-FA -0.2(10.83) 85 0.984 0.984 -11.63(5.68) 114 0.044 0.131 color-word-MW 8.33(7.39) 82 0.265 0.714 -8.25(5.11) 110 0.112 0.197 color-location-FA -5.47(4.58) 79 0.238 0.714 -4.82(2.85) 106 0.099 0.197 direction-level-FA -10.64(3.52) 91 0.003 0.012 -5.47(1.94) 122 0.006 0.024</p><p>Table S3 | Post hoc comparison for task performance in terms of percentage error (%error) and reaction time (RT) between Pretest and Posttest. Post hoc comparisons between two sessions (Pretest, Posttest) were conducted for four stimulus types and four experimental groups. The stimulus types include pure (PU), congruent (CG), neutral (NT), and incongruent (IC), while the groups include (1) color-word task with focused attention (FA), (2) color-word task with mind wandering (MW), (3) color-location task with FA, and (4) direction-level task with FA. The dependent variables are %error and RT. "Change" represents the difference between Posttest and Pretest. Standard error of the mean (SEM) is placed inside parentheses. P-values were obtained via a permutation test, where the session labels were shuffled 10,000 times to generate a null distribution of the change value. All p-values were adjusted for multiple comparisons using the Holm-Bonferroni method. This correction was applied across the four stimulus types (m = 4), with the procedure performed separately for each experimental group and outcome (%error, RT). All p-values are two-sided. %error (SEM) RT (SEM), msec Pretest Posttest Change p (perm.) p (adj.) Pretest Posttest Change p (perm.) p (adj.)</p><p>Colorword-FA PU 2.3 (0.5) 2.5 (0.5) 0.2 (0.6) 0.812 1 576 ( <ref type="formula">16</ref>) 543 (13) -33 (8) &lt;0.001 &lt;0.001 CG 1.3 (0.3) 1.2 (0.3) -0.1 (0.4) 0.883 1 562 ( <ref type="formula">15</ref>) 548 (15) -14 (7) 0.062 0.062 NT 2.4 (0.6) 2.0 (0.5) -0.4 (0.6) 0.462 1 597 ( <ref type="formula">15</ref>) 565 (13) -33 (9) &lt;0.001 0.001 IC 6.5 (1.4) 4.5 (0.9) -1.9 (1.0) 0.085 0.341 726 (30) 656 (23) -70 (16) &lt;0.001 &lt;0.001</p><p>Colorword-MW PU 2.3 (0.5) 2.2 (0.4) -0.1 (0.5) 0.888 1 547 (17) 523 (12) -25 (10) 0.016 0.016 CG 1.3 (0.3) 1.2 (0.4) -0.1 (0.4) 0.999 1 560 (21) 523 (13) -36 (14) 0.004 0.007 NT 1.5 (0.3) 1.6 (0.4) 0.1 (0.3) 0.871 1 590 ( <ref type="formula">23</ref>) 551 (15) -38 (13) &lt;0.001 0.002 IC 5.7 (1.3) 5.0 (1.3) -0.7 (0.8) 0.323 1 686 (29) 629 (21) -57 (16) &lt;0.001 &lt;0.001</p><p>Colorlocation-FA PU 0.8 (0.3) 0.6 (0.2) -0.2 (0.4) 0.708 1 526 (13) 510 (12) -16 (7) 0.023 0.069 CG 0.4 (0.2) 0.2 (0.1) -0.2 (0.2) 0.687 1 477 (11) 467 (10) -11 (6) 0.09 0.161 NT 2.2 (0.5) 2.3 (0.5) 0.1 (0.7) 0.892 1 538 (12) 527 ( <ref type="formula">12</ref>) -11 (6) 0.081 0.161 IC 4.5 (0.9) 4.0 (0.7) -0.4 (0.7) 0.553 1 583 ( <ref type="formula">14</ref>) 556 (12) -26 (8) 0.002 0.008</p><p>Directionscale-FA PU 1.1 (0.3) 1.6 (0.4) 0.5 (0.3) 0.193 0.772 498 ( <ref type="formula">12</ref>) 478 (10) -20 (4) &lt;0.001 &lt;0.001 CG 0.1 (0.1) 0.4 (0.2) 0.3 (0.2) 0.227 0.772 476 ( <ref type="formula">14</ref>) 453 ( <ref type="formula">11</ref>) -22 (6) &lt;0.001 &lt;0.001 NT 0.2 (0.1) 0.4 (0.2) 0.2 (0.2) 0.438 0.876 494 ( <ref type="formula">14</ref>) 469 (10) -25 (7) &lt;0.001 &lt;0.001 IC 4.9 (1.0) 5.3 (1.1) 0.4 (0.8) 0.694 0.876 589 ( <ref type="formula">16</ref>) 548 (13) -41 (5) &lt;0.001 &lt;0.001</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 1 |</head><label>1</label><figDesc>Fig. 1 | Hypotheses and Experiment Framework. a, The inhibited semantics hypothesis (H1)proposes that the immediate post-FA state is dominated by an inhibition of the automatic activation of semantics and thoughts. b, Alternatively, the reactive control hypothesis (H2) suggests that FA evokes a state with enhanced reactive control, the capability to flexibly level up attentional control upon the detection of conflictory information. c, Target Amplification (H3) proposes intuitively that FA encourages the state of more focused attention, in which the task relevant features are amplified. b, To dissociate hypotheses, we decompose the congruency effect into facilitation and interference, enabled by measuring the relevant reaction time against the neutral condition. c, Experiment procedure. The two sessions-Pretest and Posttest-were separated by a 10-minute intervention-either focused attention (FA) or mind-wandering (MW). Each session consists of three identical blocks, which were interleaved with either short breaks or 2-min boosters.</figDesc><graphic coords="4,73.50,114.90,451.50,212.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Fig. 2 |</head><label>2</label><figDesc>Fig. 2 | Facilitation decreased following focused attention (FA) practice but not mind-wandering (MW) in the color-word task. a, Representative stimuli for the four conditions in the color-word task. b, Participants respond to the ink color of the word by pressing the corresponding key, while ignoring the word meaning. c, The semantic inhibition hypothesis (H1) suggests that the automatic word reading is temporarily dampened after meditation regardless of congruency; as a result, both facilitation and interference would decrease. d, According to the reactive control enhancement hypothesis (H2), meditation only influences the incongruent condition, which predicts that only interference, not facilitation would decrease after FA practice. e, The results align with H1: both facilitation and interference decreased after practice in the FA group. f, Mind-wandering (MW) control group: facilitation or interference showed no significant changes. g, The post-pre facilitation change is of a greater degree in FA group than MW group. h, Interference change was not significantly different between the groups. Dots and thin gray lines in e and f represent individual subjects; black horizontal lines represent the group mean ±2 SEM. Error bars in g, h represent 95%</figDesc><graphic coords="8,73.50,114.90,451.50,426.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fig. 3 |</head><label>3</label><figDesc>Fig. 3 | No decrease in facilitation was observed following focused attention (FA) practice in the color-location task. a, Representative stimuli of different experimental conditions in the color-location task b, Participants respond to the ink color of the box similarly to the color-word task.The fixed spatial arrangement of the response buttons allowed for a potential conflict between the response location and the color box's position on the screen. c, As the location distractor no longer involves word meaning or higher-level features, the Semantic inhibition hypothesis (H1) predicts that neither facilitation nor interference would change after FA practice. The reactive control hypothesis (H2), though not a dominant effect, may or may not reduce the interference. d, In contrast, the target amplification hypothesis (H3) suggests an enhancement of the attention to target features regardless of the distractor's nature. Therefore, H3 predicts that both facilitation and interference would decrease after FA practice, similar to the color-word task. e, Results support H1 over H3: no significant change in facilitation or interference was observed. Dots and thin gray lines represent individual subjects; black horizontal lines represent the group mean with ±2 SEM. * P &lt; 0.05; ** P &lt; 0.01; *** P &lt; 0.001; n.s., not significant. Bayes factor (BF 10 ) is provided to quantify evidence supporting the null findings.</figDesc><graphic coords="11,73.50,114.90,451.50,254.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Fig. 4 |</head><label>4</label><figDesc>Fig. 4 | Facilitation remained unchanged following focused attention (FA) practice in the direction-level task. a, Representative stimuli illustrating the experimental conditions in the direction-level task. b, Participants responded to the direction of the small arrows by pressing the key labeled with and positioned at the corresponding direction. Incongruent stimuli introduced a conflict between the global shape's indicated direction and the local texture's direction. c, No significant change in facilitation was observed after FA practice, while interference significantly decreased. These findings support the semantic inhibition hypothesis (H1; see fig. 3c) over the targeted attention hypothesis (H3; see fig.3d). However, they also suggest additional mechanisms, such as the reactive control hypothesis (H2) or practice effects (see fig.3d), may contribute to interference reduction. Dots and thin gray lines represent individual subjects; black horizontal lines represent the group mean with ±2 SEM. * P &lt; 0.05; ** P &lt; 0.01; *** P &lt; 0.001; n.s., not significant. Bayes factor (BF 10 ) is provided to quantify evidence supporting the null findings.</figDesc><graphic coords="13,73.50,114.90,451.50,156.75" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Fig. 5 |</head><label>5</label><figDesc>Fig. 5 | Progressive decrease in facilitation across test blocks interleaved with focused attention practice in the color-word group. a-h, Facilitation (orange) and interference (purple) effects across test blocks. Solid lines represent predicted trends from Linear Mixed Effects Models (LMMs) with block order as a fixed effect. Hollow circles show block-wise averages. i-j, Fixed-effect coefficients for the block index from the LMMs. Boxplots represent the central 95% of the permutation distribution; stars indicate the actual observed slopes. a, Facilitation decreased progressively in Stage</figDesc><graphic coords="15,73.50,168.29,451.50,492.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><figDesc>Brunetti et al. (2021), stimuli for the color-word task include four conditions presented in three colors (red: RGB 255 0 0, blue: RGB 0 0 255, green: RGB 0 255 0) against a gray (RGB 140 140 140) background: (1) Pure condition (PU): a geometrical circle shape; (2) Neutral condition (NT): three unrelated Chinese characters (值, 章, 批, meaning value, chapter, batch and pronounced /zhi2/ /zhang1/ /pi1/); (3) Congruent condition (CG): color characters congruent with their ink color; (4) Incongruent condition (IC): color characters incongruent with their ink color (Fig.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="36,160.01,147.59,275.25,237.75" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="36,165.64,509.66,264.00,194.25" type="bitmap" /></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgement</head><p>We thank <rs type="person">Dr. Todd Braver</rs> for inspiring the attention modulation hypothesis tested in this study. We are also grateful to <rs type="person">Yuchunzi Wu</rs> for insightful discussions regarding statistical issues in this paper, and to <rs type="person">Jinyu Zheng</rs> for assistance in designing the stimuli for the direction-level task and for collecting a portion of the data for this task.</p></div>
+			</div>
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Data Availability. All data and analysis code will be made publicly available on a platform such as the Open Science Framework (OSF) upon publication.</p></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>More than attention: brief practice of focused-attention meditation suppresses automatic word meaning processing Tate Pan 2,3,* , Jiaqiu Vince Sun 1,2,*, † , Xing Tian 1, † 1. Center for Neural Science, New York University, 4 Washington Place, 10003 New York, NY, United States 2. New York University Shanghai, 567 West Yangsi Rd, Pudong New District, Shanghai, China 200124 3.The University of Chicago * These authors contributed equally; † Correspondence: sunshine.bigq@gmail.com (J.V.S.), xing.tian@nyu.edu (X.T.)</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Supplementary Information</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Supplementary Tables</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Supplementary Figures</head><p>Figure <ref type="figure">S1 |</ref> Conflict stages (S-S vs S-R) explained. The color-location task serves as a control for the color-word task, sharing the same task rule (responding to visual color) and response options (R, G, B). However, the two tasks differ in the ways conflicts can be generated. In the color-word task, conflicts arise as early as the stimulus processing stage, involving stimulus-stimulus (S-S) conflict. In contrast, in the color-location task, conflicts do not occur until the target color is mapped to a response, leading to stimulus-response (S-R) conflict.  现在我们哪里都不用去，什么都不用做，只需要和自己呆在一起。 Now, we don't need to go anywhere, do anything. Just stay with yourself.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>开始觉察你的呼吸。深吸一口气，感受空气进入并充满你的胸腔和腹部。缓慢吐气。很 好，现在请恢复自然呼吸，不用刻意去控制你呼吸的方式，观察它自然流动就好。保持 这样的观察，呼吸几个循环。</head><p>Start to notice your breath. Take a deep breath, feel the air entering and filling your chest and abdomen. Exhale slowly. Good, now please return to natural breathing, without deliberately controlling your breath, just observe its natural flow. Maintain this observation, for a few cycles of breath.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>现在让我们觉察呼吸时的身体感觉：</head><p>Now, let's notice the bodily sensations when breathing: 吸气时，鼻腔有什么感受？呼气时呢？ What sensations do you feel in your nostrils when inhaling? And when exhaling? 你也可以觉察身体其他部位有没有什么感受。 You can also notice if there are any sensations in other parts of your body.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>在整个练习过程中，你可以选择一个感受最为明显的部位，并保持觉察。我们只需要去 观察呼吸所带来的感受。</head><p>Throughout the entire practice, you can choose one part of the body with the most noticeable sensation and maintain awareness. We only need to observe the sensations brought about by the breath.</p><p>好奇地去感受当下的每一口吸气，每一口呼气。 Be curious and feel every inhalation and exhalation in the present moment.</p><p>你可能会发现自己走神，这没有关系，当你觉察到自己想法浮现的时候，说明你已经回 到当下了。我们可以温和而坚定地回到呼吸上，继续去体会当下的呼吸感受。 You may find your attention drifting away, that's okay, when you notice thoughts arising, it means you've returned to the present. We can gently and firmly return to the breath, continuing to experience the sensations of the present breath.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>接下里的时间，我就让你自己练习啦。我会时不时轻轻敲响颂钵。</head><p>For the next period of time, I'll let you practice on your own. I'll occasionally gently ring the singing bowl. </p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Dual Mechanisms of Cognitive Control in Mindful Individuals</title>
+		<author>
+			<persName><forename type="first">Nuria</forename><forename type="middle">V</forename><surname>Aguerre</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">Teresa</forename><surname>Bajo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Carlos</forename><forename type="middle">J</forename><surname>Gómez-Ariza</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Research</title>
+		<imprint>
+			<biblScope unit="volume">85</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1909" to="1921" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Automaticity of word reading: Evidence from The semantic Stroop paradigm</title>
+		<author>
+			<persName><forename type="first">Maria</forename><surname>Augustinova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ludovic</forename><surname>Ferrand</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Current Directions in Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="343" to="348" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">The Protective Effects of Brief Mindfulness Meditation Training</title>
+		<author>
+			<persName><forename type="first">Jonathan</forename><forename type="middle">B</forename><surname>Banks</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Matthew</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alexandra</forename><surname>Welhaf</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Srour</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Consciousness and Cognition</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="page" from="277" to="285" />
+			<date type="published" when="2015-05">2015. May</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Mindfulness: A proposed operational definition</title>
+		<author>
+			<persName><forename type="first">Scott</forename><forename type="middle">R</forename><surname>Bishop</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mark</forename><surname>Lau</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Shauna</forename><surname>Shapiro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Linda</forename><surname>Carlson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nicole</forename><forename type="middle">D</forename><surname>Anderson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">James</forename><surname>Carmody</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Zindel</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Segal</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Clinical Psychology: A Publication of the Division of Clinical Psychology of the American Psychological Association</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="230" to="241" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Praat: Doing Phonetics by Computer</title>
+		<author>
+			<persName><forename type="first">Paul</forename><surname>Boersma</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><surname>Weenink</surname></persName>
+		</author>
+		<ptr target="https://scholar.google.com/citations?view_op=view_citation&amp;hl=en&amp;citation_for_view=9v4hT2kAAAAJ:vfT5ieZw1WcC" />
+	</analytic>
+	<monogr>
+		<title level="j">Computer Program</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Motivation and Cognitive Control: From Behavior to Neural Mechanism</title>
+		<author>
+			<persName><forename type="first">Matthew</forename><surname>Botvinick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Todd</forename><surname>Braver</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Annual Review of Psychology</title>
+		<imprint>
+			<biblScope unit="volume">66</biblScope>
+			<biblScope unit="page" from="83" to="113" />
+			<date type="published" when="2015-01">2015. January</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">The Dual Mechanisms of Cognitive Control project</title>
+		<author>
+			<persName><forename type="first">Todd</forename><forename type="middle">S</forename><surname>Braver</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alexander</forename><surname>Kizhner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rongxiang</forename><surname>Tang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">C</forename><surname>Freund</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joset</forename><forename type="middle">A</forename><surname>Etzel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cognitive Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="1" to="26" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Meditation Experience Is Associated with Differences in Default Mode Network Activity and Connectivity</title>
+		<author>
+			<persName><forename type="first">Judson</forename><forename type="middle">A</forename><surname>Brewer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Patrick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeremy</forename><forename type="middle">R</forename><surname>Worhunsky</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yi-Yuan</forename><surname>Gray</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jochen</forename><surname>Tang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hedy</forename><surname>Weber</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Kober</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences of the United States of America</title>
+		<imprint>
+			<biblScope unit="volume">108</biblScope>
+			<biblScope unit="issue">50</biblScope>
+			<biblScope unit="page" from="20254" to="20259" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Automaticity in reading and the Stroop task: testing The limits of involuntary word processing</title>
+		<author>
+			<persName><forename type="first">Tracy</forename><forename type="middle">L</forename><surname>Brown</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kelly</forename><surname>Joneleit</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cathy</forename><forename type="middle">S</forename><surname>Robinson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Carli</forename><forename type="middle">Rose</forename><surname>Brown</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The American Journal of Psychology</title>
+		<imprint>
+			<biblScope unit="volume">115</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="515" to="543" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">SUBTLEX-CH: Chinese word And character frequencies based on film subtitles</title>
+		<author>
+			<persName><forename type="first">Qing</forename><surname>Cai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marc</forename><surname>Brysbaert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">PloS One</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page">10729</biblScope>
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">The Flexible Effect of Mindfulness on Cognitive Control</title>
+		<author>
+			<persName><forename type="first">Jen</forename><forename type="middle">-</forename><surname>Chang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Chun-Yu</forename><surname>Ho</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Chin-Lan</forename><surname>Kuo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yi-Cheng</forename><surname>Huang</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Lin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Mindfulness</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="792" to="800" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Mindfulness as a way of reducing automatic constraints on thought</title>
+		<author>
+			<persName><forename type="first">Christoff</forename><surname>Hadjiilieva</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kalina</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Biological Psychiatry: Cognitive Neuroscience and Neuroimaging</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="393" to="401" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Mind-Wandering as Spontaneous Thought: A Dynamic Framework</title>
+		<author>
+			<persName><forename type="first">Kalina</forename><surname>Christoff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Zachary</forename><forename type="middle">C</forename><surname>Irving</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">R</forename><surname>Kieran</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">Nathan</forename><surname>Fox</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jessica</forename><forename type="middle">R</forename><surname>Spreng</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Andrews-Hanna</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature Reviews. Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="718" to="731" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Mindfulness interventions</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Creswell</surname></persName>
+		</author>
+		<author>
+			<persName><surname>David</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Annual Review of Psychology</title>
+		<imprint>
+			<biblScope unit="volume">68</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="491" to="516" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Hemodynamic Responses on Prefrontal Cortex Related to Meditation and Attentional Task</title>
+		<author>
+			<persName><surname>Deepeshwar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Suhas</forename><forename type="middle">Ashok</forename><surname>Singh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Naveen</forename><forename type="middle">Kalkuni</forename><surname>Vinchurkar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hongasandra Ramarao</forename><surname>Visweswaraiah</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Nagendra</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Systems Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page">252</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">The Effects of Mindfulness Meditation: A Meta-Analysis</title>
+		<author>
+			<persName><forename type="first">Juliane</forename><surname>Eberth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><surname>Sedlmeier</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Mindfulness</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="174" to="189" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Separate Conflict-Specific Cognitive Control Mechanisms in the Human Brain</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Egner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Delano</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hirsch</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neuroimage</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="940" to="948" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">The impact of Mindfulness Meditation on the wandering mind: A systematic review</title>
+		<author>
+			<persName><forename type="first">Susanna</forename><surname>Feruglio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alessio</forename><surname>Matiz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Giuseppe</forename><surname>Pagnoni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Franco</forename><surname>Fabbro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cristiano</forename><surname>Crescentini</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neuroscience and Biobehavioral Reviews</title>
+		<imprint>
+			<biblScope unit="volume">131</biblScope>
+			<biblScope unit="page" from="313" to="330" />
+			<date type="published" when="2021-12">2021. December</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Unity and Diversity of Executive Functions: Individual Differences as a Window on Cognitive Structure</title>
+		<author>
+			<persName><forename type="first">Naomi</forename><forename type="middle">P</forename><surname>Friedman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Akira</forename><surname>Miyake</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Brain Model Sufficient?</title>
+		<imprint>
+			<biblScope unit="volume">86</biblScope>
+			<biblScope unit="page" from="186" to="204" />
+			<date type="published" when="2017-01">2017. January</date>
+		</imprint>
+	</monogr>
+	<note>Cortex; a Journal Devoted to the Study of the Nervous System and Behavior, Is a &quot;Single</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">The Free-Energy Principle: A Unified Brain Theory?</title>
+		<author>
+			<persName><forename type="first">Karl</forename><surname>Friston</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature Reviews. Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="127" to="138" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Focused Attention Meditation in Healthy Adults: A Systematic Review and Meta-Analysis of Cross-Sectional Functional MRI Studies</title>
+		<author>
+			<persName><forename type="first">Saampras</forename><surname>Ganesan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Emillie</forename><surname>Beyer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bradford</forename><surname>Moffat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nicholas</forename><forename type="middle">T</forename><surname>Van Dam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Valentina</forename><surname>Lorenzetti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Andrew</forename><surname>Zalesky</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neuroscience and Biobehavioral Reviews</title>
+		<imprint>
+			<biblScope unit="volume">141</biblScope>
+			<biblScope unit="page">104846</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Greater Widespread Functional Connectivity of the Caudate in Older Adults Who Practice Kripalu Yoga and Vipassana Meditation than in Controls</title>
+		<author>
+			<persName><forename type="first">Tim</forename><surname>Gard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Maxime</forename><surname>Taquet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rohan</forename><surname>Dixit</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Britta</forename><forename type="middle">K</forename><surname>Hölzel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bradford</forename><forename type="middle">C</forename><surname>Dickerson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sara</forename><forename type="middle">W</forename><surname>Lazar</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Human Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="page">137</biblScope>
+			<date type="published" when="2015-03">2015. March</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Meditation Leads to Reduced Default Mode Network Activity beyond an Active Task</title>
+		<author>
+			<persName><forename type="first">Kathleen</forename><forename type="middle">A</forename><surname>Garrison</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Thomas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dustin</forename><surname>Zeffiro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">Todd</forename><surname>Scheinost</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Judson</forename><forename type="middle">A</forename><surname>Constable</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Brewer</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Cognitive, Affective &amp; Behavioral Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="712" to="720" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Mindfulness Induction and Cognition: A Systematic Review and Meta-Analysis</title>
+		<author>
+			<persName><forename type="first">Louis-Nascan</forename><surname>Gill</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robin</forename><surname>Renault</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Emma</forename><surname>Campbell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Pierre</forename><surname>Rainville</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bassam</forename><surname>Khoury</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Consciousness and Cognition</title>
+		<imprint>
+			<biblScope unit="volume">84</biblScope>
+			<biblScope unit="page">102991</biblScope>
+			<date type="published" when="2020">2020. 102991</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Mind Wandering and Attention during Focused Meditation: a Fine-Grained Temporal Analysis of Fluctuating Cognitive States</title>
+		<author>
+			<persName><forename type="first">Wendy</forename><surname>Hasenkamp</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christine</forename><forename type="middle">D</forename><surname>Wilson-Mendenhall</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Erica</forename><surname>Duncan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lawrence</forename><forename type="middle">W</forename><surname>Barsalou</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">NeuroImage, Neuroergonomics: The Human Brain in Action and at Work</title>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="750" to="760" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">The Reliability Paradox: Why Robust Cognitive Tasks Do Not Produce Reliable Individual Differences</title>
+		<author>
+			<persName><forename type="first">Craig</forename><surname>Hedge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Georgina</forename><surname>Powell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Petroc</forename><surname>Sumner</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">50</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1166" to="1186" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Effects of Brief Mindfulness Meditation on Attention Switching</title>
+		<author>
+			<persName><forename type="first">Tomasz</forename><surname>Jankowski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Pawel</forename><surname>Holas</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Mindfulness</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="1150" to="1158" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Bayes Factors</title>
+		<author>
+			<persName><forename type="first">Robert</forename><forename type="middle">E</forename><surname>Kass</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Adrian</forename><forename type="middle">E</forename><surname>Raftery</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the American Statistical Association</title>
+		<imprint>
+			<biblScope unit="volume">90</biblScope>
+			<biblScope unit="issue">430</biblScope>
+			<biblScope unit="page" from="773" to="795" />
+			<date type="published" when="1995">1995</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">The Way Irrelevant Dimensions Are Processed Depends on What They Overlap with: The Case of Stroop-and Simon-like Stimuli</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kornblum</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Research</title>
+		<imprint>
+			<biblScope unit="volume">56</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="130" to="135" />
+			<date type="published" when="1994">1994</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">A Beautiful Loop: An Active Inference Theory of Consciousness</title>
+		<author>
+			<persName><forename type="first">Ruben</forename><surname>Laukkonen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Karl</forename><surname>Eero</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Shamil</forename><surname>Friston</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Chandaria</surname></persName>
+		</author>
+		<idno type="DOI">10.31234/osf.io/daf5n_v1</idno>
+		<ptr target="https://doi.org/10.31234/osf.io/daf5n_v1" />
+	</analytic>
+	<monogr>
+		<title level="j">PsyArXiv. OSF</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">From Many to (n)one: Meditation And the Plasticity of the Predictive Mind</title>
+		<author>
+			<persName><forename type="first">Ruben</forename><forename type="middle">E</forename><surname>Laukkonen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Heleen</forename><forename type="middle">A</forename><surname>Slagter</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neuroscience and Biobehavioral Reviews</title>
+		<imprint>
+			<biblScope unit="volume">128</biblScope>
+			<biblScope unit="page" from="199" to="217" />
+			<date type="published" when="2021-09">2021. September</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Neural Bases of Reading Fluency: A Systematic Review and Meta-Analysis</title>
+		<author>
+			<persName><forename type="first">Marissa</forename><forename type="middle">M</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Catherine</forename><forename type="middle">J</forename><surname>Stoodley</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neuropsychologia</title>
+		<imprint>
+			<biblScope unit="volume">202</biblScope>
+			<biblScope unit="issue">108947</biblScope>
+			<biblScope unit="page">108947</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Investigating Mindfulness Influences on Cognitive Function: On The Promise and Potential of Converging Research Strategies</title>
+		<author>
+			<persName><forename type="first">Yanli</forename><surname>Lin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rongxiang</forename><surname>Tang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Todd</forename><forename type="middle">S</forename><surname>Braver</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychonomic Bulletin &amp; Review</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1198" to="1222" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Disentangling genuine semantic Stroop effects in reading from contingency effects: On The need for two neutral baselines</title>
+		<author>
+			<persName><forename type="first">Eric</forename><surname>Lorentz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tessa</forename><surname>Mckibben</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Chelsea</forename><surname>Ekstrand</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Layla</forename><surname>Gould</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kathryn</forename><surname>Anton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ron</forename><surname>Borowsky</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Psychology</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page">386</biblScope>
+			<date type="published" when="2016-03">2016. March</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Investigating the Phenomenological Matrix of Mindfulness-Related Practices from a Neurocognitive Perspective</title>
+		<author>
+			<persName><forename type="first">Antoine</forename><surname>Lutz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Amishi</forename><forename type="middle">P</forename><surname>Jha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">John</forename><forename type="middle">D</forename><surname>Dunne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Clifford</forename><forename type="middle">D</forename><surname>Saron</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The American Psychologist</title>
+		<imprint>
+			<biblScope unit="volume">70</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="632" to="658" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<monogr>
+		<title level="m" type="main">The Concept of Inhibition in Cognition</title>
+		<author>
+			<persName><forename type="first">Colin</forename><forename type="middle">M</forename><surname>Macleod</surname></persName>
+		</author>
+		<ptr target="https://psycnet.apa.org/record/2007-07643-001" />
+		<imprint>
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Distributional Analyses Reveal the Polymorphic Nature of the Stroop Interference Effect: It&apos;S about (response) Time</title>
+		<author>
+			<persName><forename type="first">Léa</forename><forename type="middle">M</forename><surname>Martinon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mariana</forename><surname>Ludovic Ferrand</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nabil</forename><surname>Burca</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dounia</forename><surname>Hasshim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Benjamin</forename><forename type="middle">A</forename><surname>Lakhzoum</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Laetitia</forename><surname>Parris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Maria</forename><surname>Silvert</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Augustinova</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Memory &amp; Cognition</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1229" to="1245" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Regular, Brief Mindfulness Meditation Practice Improves Electrophysiological Markers of Attentional Control</title>
+		<author>
+			<persName><forename type="first">Adam</forename><surname>Moore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><surname>Gruber</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jennifer</forename><surname>Derose</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><surname>Malinowski</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Human Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="page">18</biblScope>
+			<date type="published" when="2012-02">2012. February</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Is Semantic Activation Automatic? A Critical Re-Evaluation</title>
+		<author>
+			<persName><forename type="first">James</forename><forename type="middle">H</forename><surname>Neely</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Todd</forename><forename type="middle">A</forename><surname>Kahan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">The Nature of Remembering: Essays in Honor of Robert G. Crowder</title>
+		<meeting><address><addrLine>Washington</addrLine></address></meeting>
+		<imprint>
+			<publisher>American Psychological Association</publisher>
+			<date type="published" when="2001">2001</date>
+			<biblScope unit="volume">396</biblScope>
+			<biblScope unit="page" from="69" to="93" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Strategies That Reduce Stroop Interference</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Palfi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">A</forename><surname>Parris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">F</forename><surname>Collins</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Dienes</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Royal Society Open Science</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">202136</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Look into My Eyes: Pupillometry Reveals That a Post-Hypnotic Suggestion for Word Blindness Reduces Stroop Interference by Marshalling Greater Effortful Control</title>
+		<author>
+			<persName><forename type="first">Benjamin</forename><forename type="middle">A</forename><surname>Parris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nabil</forename><surname>Hasshim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Zoltan</forename><surname>Dienes</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The European Journal of Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">53</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="2819" to="2834" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Do Task Sets Compete in the Stroop Task and Other Selective Attention Paradigms?</title>
+		<author>
+			<persName><forename type="first">Benjamin</forename><forename type="middle">A</forename><surname>Parris</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nabil</forename><surname>Hasshim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ludovic</forename><surname>Ferrand</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Maria</forename><surname>Augustinova</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cognition</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">23</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">Automaticity of Phonological and Semantic Processing during Visual Word Recognition</title>
+		<author>
+			<persName><forename type="first">Chotiga</forename><surname>Pattamadilok</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Valérie</forename><surname>Chanoine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christophe</forename><surname>Pallier</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jean-Luc</forename><surname>Anton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bruno</forename><surname>Nazarian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Pascal</forename><surname>Belin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Johannes</forename><forename type="middle">C</forename><surname>Ziegler</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">NeuroImage</title>
+		<imprint>
+			<biblScope unit="volume">149</biblScope>
+			<biblScope unit="page" from="244" to="255" />
+			<date type="published" when="2017-04">2017. April</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<monogr>
+		<author>
+			<persName><forename type="first">G</forename><surname>Peng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">X</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">S Y</forename><surname>Wang</surname></persName>
+		</author>
+		<ptr target="https://research.polyu.edu.hk/en/publications/lateralized-stroop-interference-effect-with-chinese-characters" />
+		<title level="m">Lateralized Stroop Interference Effect with Chinese Characters</title>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+	<note>實驗語言學</note>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Mind-wandering as a natural kind: A family-resemblances view</title>
+		<author>
+			<persName><surname>Seli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">J</forename><surname>Paul</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jonathan</forename><surname>Kane</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Daniel</forename><forename type="middle">L</forename><surname>Smallwood</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><surname>Schacter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jonathan</forename><forename type="middle">W</forename><surname>Maillet</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Daniel</forename><surname>Schooler</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Smilek</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Trends in Cognitive Sciences</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="479" to="490" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">A Neurocognitive Model of Meditation Based on Activation Likelihood Estimation (ALE) Meta-Analysis</title>
+		<author>
+			<persName><forename type="first">Marco</forename><surname>Sperduti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Pénélope</forename><surname>Martinelli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Pascale</forename><surname>Piolino</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Consciousness and Cognition</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="269" to="276" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">The effect of mindfulness-based programs on cognitive function in adults: A systematic review And meta-analysis</title>
+		<author>
+			<persName><forename type="first">Tim</forename><surname>Whitfield</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thorsten</forename><surname>Barnhofer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rebecca</forename><surname>Acabchuk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Avi</forename><surname>Cohen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marco</forename><surname>Schlosser</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Eider</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Arenaza-Urquijo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Neuropsychology Review</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="677" to="702" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Mindfulness and Mind Wandering: The Protective Effects of Brief Meditation in Anxious Individuals</title>
+		<author>
+			<persName><forename type="first">Mengran</forename><surname>Xu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christine</forename><surname>Purdon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Paul</forename><surname>Seli</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Daniel</forename><surname>Smilek</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Consciousness and Cognition</title>
+		<imprint>
+			<biblScope unit="volume">51</biblScope>
+			<biblScope unit="page" from="157" to="165" />
+			<date type="published" when="2017-05">2017. May</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<analytic>
+		<title level="a" type="main">The effects of different stages of mindfulness meditation training on emotion regulation</title>
+		<author>
+			<persName><forename type="first">Qin</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Zheng</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Xinqiang</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lei</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jing</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Renlai</forename><surname>Zhou</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Human Neuroscience</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="page">208</biblScope>
+			<date type="published" when="2019-06">2019. June</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Jute Composite Material and Its Innovative Applications in a Sustainable Economy</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Nasif</forename><surname>Chowdhury</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Textile Engineering</orgName>
+								<orgName type="institution">Anwer Khan Modern University</orgName>
+								<address>
+									<settlement>Dhaka</settlement>
+									<country key="BD">Bangladesh</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Textile Engineering</orgName>
+								<orgName type="institution">Anwer Khan Modern University</orgName>
+								<address>
+									<settlement>Dhaka</settlement>
+									<country key="BD">Bangladesh</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Jute Composite Material and Its Innovative Applications in a Sustainable Economy</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">0A97F2DBC8EBCFAA87F1EE62DBB0F625</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:18+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Jute composite</term>
+					<term>bio-composite</term>
+					<term>sustainability</term>
+					<term>circular economy</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>The recent internationally driven sustainability discussions and the need to embrace circular economies have sparked off intense studies of bio-based materials as alternatives to the synthetic, petroleum-based composites. One of these, jute, a lignocellulosic bast fiber, has become a leader because it is renewable, has high specific strength and is also biodegradable. The paper will look at the expanding opportunities of the jute composite materials as covers its material properties, earlier methods of its fabrication and the newer usage that it opens in various industries. In this review, jute composites are shown to have excellent environmental benefits regarding a smaller carbon footprint and recyclability at the end of their life through a qualitative synthesis of existing literature. Nevertheless, commercial proliferation of such composites would hang on the achievement of the internal hurdles like hydrophilic vulnerability and inconsistency in the characteristics of fibers. The paper wraps up with strategic materials science research, scale-up, and cross-sectoral investigation recommendations, assuming that jute composites will play a significant part in the shift to more sustainable material systems in the automotive, construction and packaging sectors, among others.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">Introduction</head><p>A paradox of the modern industrial environment is that the need to produce high-performant materials is quite high, whereas the negative impact of the traditional materials, especially synthetic materials such as glass and carbon fiber-reinforced plastics, on the environment is becoming more and more unsustainable (La <ref type="bibr" target="#b11">Mantia &amp; Morreale, 2011)</ref>. They are synthetic composites of non-renewable materials that are sources of carbon emissions and a big menace in waste management since they are not biodegradable <ref type="bibr" target="#b3">(Faruk et al., 2012)</ref>. NFRCs have received special attention in this regard as environmentally friendly, that is, sustainable alternatives. Jute (Corchorus capsularis and Corchorus olitorius), which ranks second after cotton in volume of production worldwide, could be a very promising option to NFRCs <ref type="bibr" target="#b22">(Shen et al., 2020)</ref>. Jute material has traditionally been utilized in wrapping and textile applications, but currently, a renewed fascination is being shown in utilizing it as a strong reinforcement to polymer matrices.</p><p>Its advantage is in a successful mixture of features: It is ubiquitous, it is inexpensive, it has a great tensile modulus, and it is entirely biodegradable <ref type="bibr" target="#b17">(Ramesh, 2016)</ref>. Jute fibers incorporated into polymeric matrices, including synthetic ones (e.g., polypropylene, polyester), as well as bio-based ones (e.g., polylactic acid), create composite materials that would provide an unparalleled balance of environmental friendliness and mechanical properties <ref type="bibr" target="#b16">(Pickering et al., 2016)</ref>.</p><p>Jute composites have much more potential than green composites. Lightweighting is an essential goal in industries such as automotive and aerospace, and such lightweighting is due to their low density <ref type="bibr" target="#b9">(Koronis et al., 2013)</ref>. More so, jute farming is a carbon-negative activity; more CO 2 is taken by the farm than is released during its processing, which has a positive environmental lifecycle <ref type="bibr" target="#b13">(Majumdar et al., 2020)</ref>. This paper seeks to give a detailed discussion of the potential of composite materials made of jute. It will explore their essential characteristics, the processes involved in their production, and their novel application in a variety of industries, in addition to dealing with the current obstacles and the future opportunities of their large-scale implementation <ref type="bibr" target="#b25">(Zhang, X., &amp; Zhang, Y., 2023)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">Research Methods</head><p>The research design used in this study is systematic qualitative research design and its main focus is on a systematic review and synthesis of literature. The aim is to develop an integrated picture of the present situation in the jute composite technology, starting with the underlying principles of the material science and onward to the application in industries <ref type="bibr" target="#b20">(Sarker, F., et al. 2019)</ref>.</p><p>A systematic search of academic databases, such as Scopus, Web of Science and Google Scholar, was used to collect the data. Some of the main search terms and Boolean operators included: "jute composite, jute fiber reinforcement, natural fiber composite, sustainable material and jute AND (automotive OR construction OR packaging). The review was restricted to the research published within the past 20 years to be relevant and high-impact articles in the materials science, polymer science, and sustainable engineering were considered <ref type="bibr" target="#b22">(Shen, J., Min, X., &amp; Zhang, Y., 2020)</ref>.</p><p>The data analysis entailed a thematic review of the literature collected. Some of the themes that are identified and covered are:</p><p>Material Properties: Developing data on mechanical (tensile, flexural, impact strength), physical (density, acoustic, thermal) and hygroscopic (moisture absorption) data of jute composites.</p><p>Fabrication Techniques: Since the most widely used methods of manufacturing include compression molding, injection mastering, and hand lay-up, it is necessary to review them and refer to their applicability to jute composites.</p><p>Application Case Studies: Examination of recorded samples of jute composite use in different industries to assess performance, advantages and drawbacks.</p><p>Environmental Impact: Evaluating the study of Life Cycle Assessment (LCA) and other environmental profiling data in order to determine the ecological benefits of jute composites compared to traditional materials <ref type="bibr" target="#b13">(Majumdar, A., Shah, S., &amp; Das, P., 2020)</ref>.</p><p>Basing this study on a desk-based research methodology will enable the incorporation of extensive knowledge base, which will then be used in detecting the trends, areas of consensus, and challenges in research in the area of jute composites.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Findings</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Material Characteristics and Behavior</head><p>The main cellulose (58-63), hemicellulose (21-24), and lignin (12-14) content of jute fibers determine both the mechanical and chemical behavior <ref type="bibr" target="#b22">(Shen et al., 2020)</ref>. Jute composites have competitive mechanical properties compared to traditional materials. An example is jutepolypropylene composites whose tensile strengths are found between 50-80 MPa and flexural moduli range from 5-8 GPa, which makes them an easier alternative to glass fiber composites in the semi-structural applications <ref type="bibr" target="#b3">(Faruk et al., 2012)</ref>. One of the main strengths is the specific strength of jute composites; the low density (1.2-1.4 g/cm3) allows reducing the weight of endproducts by a significant margin <ref type="bibr" target="#b17">(Ramesh, 2016)</ref>.</p><p>In addition to mechanical performance, jute composites have high acoustic insulation and moderate thermal insulation, which has also increased their usefulness <ref type="bibr" target="#b21">(Sen and Reddy, 2011)</ref>.</p><p>Nevertheless, one of the main conclusions made in the literature is the hydrophilic character of jute fibers that contributes to the high absorption of moisture. It may lead to a loss of dimensional stability and worsening of the fiber-matrix interfacial bond, which ultimately decreases the longterm performance in the humid setting in terms of durability and mechanical strength of the composite <ref type="bibr" target="#b16">(Pickering et al., 2016)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">New Utilities in Various Industries</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2.1">Automotive Industry</head><p>The automobile industry is one of the key applications of jute composites, owing to the regulations which require a reduction in weight and the incorporation of renewable materials. Non-structural internal components that are made of jute-based composites are widely utilized. In an example, the door panels of Mercedes-Benz are made with epoxy compounds based on jute, whereas other manufacturers use it as a parcel shelf, headliners, and seat-back liners <ref type="bibr" target="#b9">(Koronis et al., 2013)</ref>. The use of jute in place of glass fibers in these parts results in less weight, use of less energy used in production, and better acoustics in the passenger compartment. One such case study is that of jute felt and jute composite panels in other models in companies such as BMW and Audi that are in line with their corporate sustainability requirements <ref type="bibr" target="#b6">(Gogna, E. et al. 2019)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2.2">Building Materials and Construction</head><p>Jute composites are being used in novel applications in the construction industry, which encourages green building practices. Their use has been proven to be effective as a reinforcing agent in concrete and jute geotextiles and fabrics can potentially manage cracking and enhance tensile strength <ref type="bibr" target="#b0">(Ali et al., 2012)</ref>. Moreover, jute-polymer composites are being made into panels that can be used as false ceilings, interior wall claddings and flooring substrates. Their aesthetic aspect is in virtue of their natural source, and their qualities are helpful in thermal and acoustic insulation against the energy operation of a building <ref type="bibr" target="#b13">(Majumdar et al., 2020)</ref>. They can be used to provide a sustainable substitute to wood-based panels and synthetic insulation, and contribute to such certifications as LEED (Leadership in Energy and Environmental Design).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2.3">Packaging and Consumer Goods</head><p>The packaging industry, which is required to minimize plastic waste, is opting to use jute composite because it is a sustainable solution. Jute biocomposites are currently being designed on the basis of rigid packaging, disposable food wrappings and even protective cushioning (where expanded polystyrene (EPS) is being substituted) in jute biocomposites <ref type="bibr" target="#b24">(Thakur, 2014)</ref>. These are products that use the biodegradability of jute, which could be broken in composting conditions, as compared to the case of persistent plastic waste. Within the consumer goods industry, jute composites are being molded into furniture, laptop casing, and various other durable products, attractive to environmentally conscious consumers and new market niches of bio-based products are being generated <ref type="bibr" target="#b25">(Thimmegowda, D. Y. et al. 2025)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Environmental Impact Assessment</head><p>The most significant similarity among all studies of Life Cycle Assessment (LCA) is that the environmental profile of jute composites is higher than that of the synthetic ones. Jute fiber production consumes much less energy as compared with the production of glass or carbon fiber <ref type="bibr">(Rahman, M., &amp; Hoque, M. B., 2025)</ref>. In addition, jute farming is also a carbon sink. The calculation done by <ref type="bibr" target="#b13">Majumdar et al. (2020)</ref> showed that a hectare of land under jute farming has the capacity to absorb CO2 in the form of 15 tonnes and release oxygen to a total of 11 tonnes in the course of growth. When a jute composite comes to the end of its life, it can be burned in order to reuse the energy or composted, which is a part of a circular economy model, but synthetic composites commonly leak to a landfill <ref type="bibr" target="#b3">(Faruk et al., 2012)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">Discussion</head><p>The results are a clear and conclusive indication that jute composites are a promising and practical type of engineering material. Their internal policies and tactics are in line with the global sustainability initiatives and the principles of the circular economy, which focus on minimizing waste and using renewable resources <ref type="bibr" target="#b5">(Geissdoerfer et al., 2017)</ref>. The fact that they have succeeded in automotive interiors, construction, and packaging highlights their technical reliability and readiness to work in the market.</p><p>There are, however, some challenges on the way to large-scale commercialization. The following challenges have to be discussed critically:</p><p>Hydraulic resistance and durability: The hydrophilicity quality of jute is the greatest hurdle. Lack of moisture vapor imparts can cause swellings, fungal infection, acute weakening of the fibermatrix interface, or debonding <ref type="bibr" target="#b16">(Pickering et al., 2016)</ref>. This restricts the application of jute composites in exterior or high humidity. Studies are currently being conducted on this mitigation by: Chemical Modifications: Nontopography (alkali), silane, acetylation only and maleated coupling agents are used to treat the fiber surface, making it less hydrophilic as well as enhancing its bonding adhesion to the polymer matrix <ref type="bibr" target="#b2">(Bag, S. 2025)</ref>.</p><p>Hybrid Composites: A hybrid of jute with synthetic fibers (e.g., glass) or other natural fibers with superior moisture resistance (e.g., hemp) can be developed to strike the balance between performance and sustainability <ref type="bibr">(Rahman, M. M. et al. 2025)</ref>.</p><p>Manufacturing and Supply Chain Optimization: Due to the variability of jute fibers based on the geographic source and manufacturing procedures, there is a challenge of maintaining the uniform performance of composites. Such manufacturing processes as compression molding are easy to adapt, and such approaches as resin transfer molding need modifications to accommodate the various permeability and compaction characteristics of jute mats with synthetic fabrics <ref type="bibr" target="#b17">(Ramesh, 2016)</ref>. To achieve the production scale needed to satisfy the industrial demand, it is recommended to invest in high-throughput processing lines that are automated and have a consistent, uniform supply of jute fiber of high quality.</p><p>Perception and Economical Viability of the market: the cost of life cycle may be good, but the initial material and processing cost is sometimes high compared with the known synthetics, thus a barrier to market entry. Moreover, the ignorance of designers, engineers, and consumers on the performance abilities of jute composites may retard their use in new products <ref type="bibr" target="#b15">(Naik, V., Kumar, M., &amp; Kaup, V. 2022)</ref>.</p><p>These obstacles notwithstanding, the adoption motives are impressive. The jute composites are growing on fertile soil due to the regulatory pressures, corporate sustainability commitment, and the rising demand for green products by consumers. The current studies of bio-based and biodegradable polymer matrices, including Polylactic Acid (PLA), are likely to contribute to the further improvement of the environmental performance of these materials, resulting in the creation of a pure bio-based and compostable composite material <ref type="bibr" target="#b4">(Faruk et al., 2014)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.">Recommendations</head><p>In order to expedite the journey towards the manufacture and adoption of jute composites, the recommendations within the following areas are proposed as strategic:</p><p>Further Material Development: The future work has to focus on the evolution of innovative, greener chemical treatments of jute and nanocellulose extraction to manufacture high-performing, nano-reinforced jute composite. Long-term studies need to be conducted under different environments (UV exposure, hygrothermal cycling) to gain confidence in their use, too <ref type="bibr" target="#b10">(Khan, M. A., &amp; Khan, R. A., 2024)</ref>.</p><p>Process Engineering and Standardization: This should be geared towards optimization and automation of manufacturing processes in order to enhance reproducibility and cost minimization (). It is necessary to develop industry standards regarding the grading of jute fiber and the test protocols used to ascertain the quality to gain the trust of OEMs (Original Equipment Manufacturers).</p><p>Promoting Cross-Sectoral Collaboration: It is essential to use a multi-stakeholder approach.</p><p>Greater interaction between academic research and government agencies and private industry can resource pool, risk-share and accelerate innovations. Market pull may also be triggered through government incentives on the use of bio-based materials <ref type="bibr" target="#b1">(Alshahrani, A., &amp; Alghamdi, S., 2023)</ref>.</p><p>Lifecycle Thinking and Consumer Outreach Lifecycle Thinking: LCA studies must be less selective and more thorough to get a precise measure of the environmental benefits of jute composites across the lifecycle <ref type="bibr" target="#b7">(Hoque, M. B. et al. 2025)</ref>. At the same time, there can be strong awareness campaigns that deal with the industry stakeholders and general population, trying to emphasize the performance and sustainability benefits of jute composites, changing the opinions of the market.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6.">Conclusion</head><p>Jute composite materials represent a major advance in relating human material requirements to environmental concern. This review has clarified their high potential, which is supported by positive mechanical characteristics, an attractive environmental profile, and successes in novel uses in automotive, construction and packaging industries. Although the issues related to water resistance, scalability of manufacturing, and ability to enter the market are still present, they are not insurmountable. The future of jute composites lies in the path of rapid development, supported by the constant research and increased focus on the sphere of sustainability. By listening to the suggestions to develop specific research, industrial building, and planned investment, jute composites should become an alternative instead of an alternative material of choice. In such a manner, they will certainly contribute to a more sustainable and circular industrial economy decisively, as they will demonstrate that power and environmental friendliness can actually be made of the same fabric.</p></div>		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Mechanical and dynamic properties of coconut fiber reinforced concrete</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ali</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Sou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Chouw</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Construction and Building Materials</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="page" from="814" to="825" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Jute/basalt hybrid composites for automotive applications: Mechanical properties and dynamic behavior</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Alshahrani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Alghamdi</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.compscitech.2022.108831</idno>
+		<ptr target="https://doi.org/10.1016/j.compscitech.2022.108831" />
+	</analytic>
+	<monogr>
+		<title level="j">Composites Science and Technology</title>
+		<imprint>
+			<biblScope unit="volume">227</biblScope>
+			<biblScope unit="page">108831</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<author>
+			<persName><forename type="first">S</forename><surname>Bag</surname></persName>
+		</author>
+		<ptr target="https://www.onlineclothingstudy.com/2025/04/jute-fiber-structure-composition-application.html" />
+	</analytic>
+	<monogr>
+		<title level="m">Jute fabric: Its structure, composition, properties, manufacturing and applications</title>
+		<title level="s">Online Clothing Study</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Biocomposites reinforced with natural fibers: 2000-2010</title>
+		<author>
+			<persName><forename type="first">O</forename><surname>Faruk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Bledzki</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">P</forename><surname>Fink</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sain</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Progress in Polymer Science</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="1552" to="1596" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Progress in polymer science: Biocomposites reinforced with natural fibers: 2000-2010</title>
+		<author>
+			<persName><forename type="first">O</forename><surname>Faruk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Bledzki</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">P</forename><surname>Fink</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sain</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Progress in Polymer Science</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="1565" to="1596" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">The Circular Economy -A new sustainability paradigm</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Geissdoerfer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Savaget</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">M P</forename><surname>Bocken</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Hultink</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cleaner Production</title>
+		<imprint>
+			<biblScope unit="volume">143</biblScope>
+			<biblScope unit="page" from="757" to="768" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">A comprehensive review of jute fiber reinforced composites</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Gogna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Kumar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Sahoo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Panda</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-981-13-6412-9_45</idno>
+		<ptr target="https://doi.org/10.1007/978-981-13-6412-9_45" />
+	</analytic>
+	<monogr>
+		<title level="m">Advances in Industrial and Production Engineering</title>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="459" to="467" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Unlocking the potential of jute: A comprehensive review of its innovative applications in composite materials</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">B</forename><surname>Hoque</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rahman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Ahmed</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Hossain</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Khan</surname></persName>
+		</author>
+		<idno type="DOI">10.38032/jea.2025.02.003</idno>
+		<ptr target="https://doi.org/10.38032/jea.2025.02.003" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Engineering and Applied Sciences</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="123" to="145" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Are natural fiber composites environmentally superior to glass fiber reinforced composites?</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">V</forename><surname>Joshi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">T</forename><surname>Drzal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Mohanty</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Arora</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Composites Part A: Applied Science and Manufacturing</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="371" to="376" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Green composites: A review of adequate materials for automotive applications</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Koronis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Silva</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Fontul</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Composites Part B: Engineering</title>
+		<imprint>
+			<biblScope unit="volume">44</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="120" to="127" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Processing and properties of jute (Corchorus olitorius L.) fibers and their composites</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Khan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Khan</surname></persName>
+		</author>
+		<idno type="DOI">10.1039/d3ta05481k</idno>
+		<ptr target="https://doi.org/10.1039/d3ta05481k" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Materials Chemistry A</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="234" to="250" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Green composites: A brief review</title>
+		<author>
+			<persName><forename type="first">La</forename><surname>Mantia</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">P</forename><surname>Morreale</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Composites Part A: Applied Science and Manufacturing</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="579" to="588" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Chemical treatments of natural fiber for use in natural fiber-reinforced composites: A review</title>
+		<author>
+			<persName><forename type="first">X</forename><surname>Li</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">G</forename><surname>Tabil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Panigrahi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Polymers and the Environment</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="25" to="33" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Carbon sequestration potential of jute and jute-based composites</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Majumdar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Shah</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Das</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Jute and Jute Composites</title>
+		<meeting><address><addrLine>Singapore</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="45" to="62" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Studies on the mechanical performance of biofiber/glass reinforced polyester hybrid composites</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mishra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Mohanty</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">T</forename><surname>Drzal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Misra</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Parija</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Composites Science and Technology</title>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="1377" to="1385" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">A review of natural fiber composite materials in automotive applications</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Naik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kumar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Kaup</surname></persName>
+		</author>
+		<idno type="DOI">10.30919/es8d589</idno>
+		<ptr target="https://doi.org/10.30919/es8d589" />
+	</analytic>
+	<monogr>
+		<title level="j">Engineered Science</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="page" from="1" to="10" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">A review of recent developments in natural fiber composites and their mechanical performance</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">L</forename><surname>Pickering</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">G A</forename><surname>Efendy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">M</forename><surname>Le</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Composites Part A: Applied Science and Manufacturing</title>
+		<imprint>
+			<biblScope unit="volume">83</biblScope>
+			<biblScope unit="page" from="98" to="112" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Jute fiber reinforced polymer composites: A review</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ramesh</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Cogent Engineering</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="114" to="129" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<title level="m" type="main">Physical and chemical characterization of Saccharum spontaneum flower fiber: Potential applications in thermal insulation and microbial fuel cells</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">M</forename><surname>Rahman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">K</forename><surname>Das</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Tabassum</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">C</forename><surname>Das</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Uddin</surname></persName>
+		</author>
+		<idno type="DOI">10.2501/2501.05324</idno>
+		<ptr target="https://doi.org/10.2501/2501.05324" />
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Unlocking the potential of jute: A comprehensive review of its innovative applications in composite materials</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rahman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">B</forename><surname>Hoque</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rahman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">B</forename><surname>Hoque</surname></persName>
+		</author>
+		<idno type="DOI">10.38032/jea.2025.02.003</idno>
+		<ptr target="https://doi.org/10.38032/jea.2025.02.003" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Engineering and Applied Sciences</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="123" to="145" />
+			<date type="published" when="2025">2025. 2025</date>
+		</imprint>
+	</monogr>
+	<note>The environmental impact and future outlook of jute fiber composite materials Diverse Daily</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<monogr>
+		<author>
+			<persName><forename type="first">F</forename><surname>Sarker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Potluri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Afroj</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Koncherry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">S</forename><surname>Novoselov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Karim</surname></persName>
+		</author>
+		<idno type="DOI">10.48550/arXiv.1905.00750</idno>
+		<ptr target="https://doi.org/10.48550/arXiv.1905.00750" />
+		<title level="m">Ultra-high performance of nano-engineered graphene-based natural jute fiber composites</title>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv</note>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Various industrial applications of hemp, kenaf, flax and ramie natural fibers</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Sen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">N</forename><surname>Reddy</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Innovation, Management and Technology</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="192" to="198" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Jute fiber and its composites: A review</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Shen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Min</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Zhang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Natural Fibers</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="567" to="582" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Natural fiber composites in automotive applications</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">C</forename><surname>Suddell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">J</forename><surname>Evans</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Natural Fibers, Biopolymers, and Biocomposites</title>
+		<imprint>
+			<publisher>CRC Press</publisher>
+			<date type="published" when="2005">2005</date>
+			<biblScope unit="page" from="231" to="259" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Processing and characterization of natural cellulose fibers/thermoset polymer composites</title>
+		<author>
+			<persName><forename type="first">V</forename><forename type="middle">K</forename><surname>Thakur</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">K</forename><surname>Thakur</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Carbohydrate Polymers</title>
+		<imprint>
+			<biblScope unit="volume">109</biblScope>
+			<biblScope unit="page" from="102" to="117" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Enhancement of mechanical properties of natural fiber reinforced polymer composites using different approaches</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">Y</forename><surname>Thimmegowda</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hindi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">B</forename><surname>Markunti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kakunje</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Zhang</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.mser.2022.100120</idno>
+		<ptr target="https://doi.org/10.1016/j.mser.2022.100120" />
+	</analytic>
+	<monogr>
+		<title level="j">Materials Science and Engineering: R: Reports</title>
+		<imprint>
+			<biblScope unit="volume">154</biblScope>
+			<biblScope unit="page" from="100" to="120" />
+			<date type="published" when="2023">2025. 2023</date>
+		</imprint>
+	</monogr>
+	<note>Jute fiber reinforced polymer composites: A review of processing, properties, and applications</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

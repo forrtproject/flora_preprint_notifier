@@ -235,30 +235,34 @@ def enrich_missing_with_crossref(limit: int = 300,
 
     for r in rows:
         checked += 1
-        title = (r["title"] or "").strip()
-        year = int(r["year"]) if r["year"] is not None and str(r["year"]).isdigit() else None
-        journal = (r["journal"] or "").strip() or None
-        authors = r["authors"] or []
+        title = (r.get("title") or "").strip()
+        raw_year = r.get("year")
+        year = int(raw_year) if raw_year is not None and str(raw_year).isdigit() else None
+        journal = (r.get("journal") or "").strip() or None
+        authors = r.get("authors") or []
 
         # Query Crossref
         items = _query_crossref(title, year, journal, authors, rows=30, debug=debug)
         if not items:
-            logger.info("No Crossref candidates", extra={"osf_id": r["osf_id"], "ref_id": r["ref_id"]})
+            logger.info("No Crossref candidates", extra={"osf_id": r.get("osf_id"), "ref_id": r.get("ref_id")})
             continue
 
         best = _pick_best(items, title, year, journal, authors, threshold=threshold, debug=debug)
         if not best:
-            logger.info("No good Crossref match", extra={"osf_id": r["osf_id"], "ref_id": r["ref_id"], "candidates": len(items)})
+            logger.info(
+                "No good Crossref match",
+                extra={"osf_id": r.get("osf_id"), "ref_id": r.get("ref_id"), "candidates": len(items)},
+            )
             continue
 
         doi = best.get("DOI")
         if not doi:
-            logger.info("Best Crossref candidate missing DOI", extra={"osf_id": r["osf_id"], "ref_id": r["ref_id"]})
+            logger.info("Best Crossref candidate missing DOI", extra={"osf_id": r.get("osf_id"), "ref_id": r.get("ref_id")})
             continue
 
         # Update DB
         try:
-            ok = repo.update_reference_doi(r["osf_id"], r["ref_id"], doi, source="crossref")
+            ok = repo.update_reference_doi(r.get("osf_id"), r.get("ref_id"), doi, source="crossref")
             updated += 1 if ok else 0
         except Exception:
             failed += 1

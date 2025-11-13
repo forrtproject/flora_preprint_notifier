@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">How Similar Are Grokipedia and Wikipedia? A Multi-Dimensional Textual and Structural Comparison</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Taha</forename><surname>Yasseri</surname></persName>
+							<email>taha.yasseri@tcd.ie</email>
+							<affiliation key="aff0">
+								<orgName type="laboratory">Centre for Sociology of Humans and Machines (SOHAM)</orgName>
+								<orgName type="institution" key="instit1">Trinity College Dublin</orgName>
+								<orgName type="institution" key="instit2">Technological University Dublin</orgName>
+								<address>
+									<settlement>Dublin</settlement>
+									<country key="IE">Ireland</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff1">
+								<orgName type="department">School of Mathematics and Statistics</orgName>
+								<orgName type="institution">University College Dublin</orgName>
+								<address>
+									<settlement>Dublin</settlement>
+									<country key="IE">Ireland</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">How Similar Are Grokipedia and Wikipedia? A Multi-Dimensional Textual and Structural Comparison</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">E4FE94F23EFC5BF02644FE92ECBFBDFC</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:18+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>The launch of Grokipedia, an AI-generated encyclopedia developed by Elon Musk's xAI, was presented as a response to perceived ideological and structural biases in Wikipedia, aiming to produce "truthful" entries via the large language model Grok. Yet whether an AI-driven alternative can escape the biases and limitations of human-edited platforms remains unclear. This study undertakes a large-scale computational comparison of 382 matched article pairs between Grokipedia and Wikipedia. Using metrics across lexical richness, readability, structural organization, reference density, and semantic similarity, we assess how closely the two platforms align in form and substance. The results show that while Grokipedia exhibits strong semantic and stylistic alignment with Wikipedia, it typically produces longer but less lexically diverse articles, with fewer references per word and more variable structural depth. These findings suggest that AI-generated encyclopedic content currently mirrors Wikipedia's informational scope but diverges in editorial norms, favoring narrative expansion over citation-based verification. The implications highlight new tensions around transparency, provenance, and the governance of knowledge in an era of automated text generation.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">Introduction</head><p>Online encyclopedias have become infrastructural to public knowledge, shaping how people learn about politics, science, culture, and current events. Wikipedia, launched in 2001, is the paradigmatic example: a nonprofit, volunteer-edited project governed by policies like Neutral Point of View (NPOV) and verifiability. Despite its success, Wikipedia has long faced questions about bias and reliability. <ref type="foot" target="#foot_0">1</ref>In late 2025, xAI launched Grokipedia, an AI-generated encyclopedia positioned explicitly as an alternative to Wikipedia. <ref type="foot" target="#foot_1">2</ref> According to xAI's framing and public statements, Grokipedia aims to "purge out the propaganda" and deliver "truthful" entries, with content generated and "factchecked" by the Grok language model rather than a community of human editors. <ref type="bibr" target="#b19">[20,</ref><ref type="bibr" target="#b10">11,</ref><ref type="bibr" target="#b9">10]</ref> At launch (October 27 2025), coverage reported approximately 800-900 k entries, limited public editability (suggest-edits rather than direct editing), and claims of openness alongside ambiguity about licensing and source code availability. <ref type="bibr" target="#b19">[20,</ref><ref type="bibr" target="#b18">19,</ref><ref type="bibr" target="#b0">1]</ref> Early reception focused on two themes: (i) accusations that many Grokipedia pages were adapted or copied from Wikipedia (sometimes nearly verbatim), and (ii) concerns about ideological framing and AI-specific failure modes (e.g., hallucinations, dataset or alignment bias). <ref type="bibr" target="#b12">[13,</ref><ref type="bibr" target="#b5">6,</ref><ref type="bibr" target="#b10">11,</ref><ref type="bibr" target="#b9">10]</ref> The launch has intensified an older debate: is Wikipedia biased, and if so, can an AI-first encyclopedia fare any better? Empirically, scholarly work has documented multiple kinds of bias in Wikipedia, including early left-leaning slant in U.S. politics entries that attenuated with maturation, <ref type="bibr" target="#b3">[4]</ref> topical and coverage biases, <ref type="bibr" target="#b7">[8]</ref> and sentiment or framing asymmetries in political pages. <ref type="bibr" target="#b16">[17,</ref><ref type="bibr" target="#b17">18]</ref> Meanwhile, contemporary studies show that large language models (LLMs) exhibit measurable political and social biases that vary by model and prompt context, raising separate concerns about any AI-generated encyclopedia. <ref type="bibr" target="#b21">[22,</ref><ref type="bibr" target="#b14">15,</ref><ref type="bibr" target="#b2">3,</ref><ref type="bibr" target="#b8">9]</ref> Against this backdrop, our study asks a concrete, testable question: for topics that exist on both platforms, how similar are Grokipedia and Wikipedia in practice? We approach this by pairing articles across platforms and comparing them along four dimensions: (1) lexical similarity (e.g., TF-IDF cosine, n-gram overlap), (2) semantic similarity (embedding cosine, BERTScore), (3) structural similarity (headings and paragraph organization), and (4) stylistic similarity (readability, lexical diversity, and part-of-speech distributions). Beyond similarity, we also examine descriptive characteristics-article length, readability, reference density, and link structure-since editorial workflows (human vs. AI-generated) plausibly shape article form as much as content.</p><p>To construct a meaningful comparison, we began from Wikipedia's 416 most-edited articles, which prior research shows are strongly associated with high-controversy or high-salience topics. <ref type="bibr" target="#b24">[25]</ref> Among these, 382 titles had valid, non-trivial matches on both platforms.</p><p>This comparison provides empirical evidence to evaluate current claims about the distinctiveness-or sameness-of Grokipedia relative to Wikipedia. If Grokipedia largely reproduces Wikipedia's content and structure, that would suggest an AI-mediated transformation with limited editorial divergence. Conversely, systematic differences in length, style, citation density, or framing could reveal an emerging AI editorial logic distinct from Wikipedia's community governance and policy regime. By quantitatively characterizing these dimensions across matched topics, we aim to clarify where the two encyclopedias align, where they diverge, and what those patterns imply for neutrality, provenance, and the future of reference knowledge online. <ref type="foot" target="#foot_2">3</ref></p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">Methods</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.1">Sampling and Data Collection</head><p>Our analysis began with the selection of the 416 most-edited English-language Wikipedia articles, representing topics with the highest cumulative edit counts as of October 2025. Previous research has shown that highly edited articles are strongly correlated with controversy, salience, and social polarization <ref type="bibr" target="#b24">[25]</ref>. This sampling strategy thus prioritizes articles that are both textually substantial and socioculturally significant.</p><p>For each title, we retrieved the corresponding entries from Wikipedia and GrokiPedia, generating URLs of the form <ref type="url" target="https://en.wikipedia.org/wiki/">https://en.wikipedia.org/wiki/</ref>&lt;Title&gt; and <ref type="url" target="https://grokipedia.com/page/">https://grokipedia.com/page/</ref>&lt;Title&gt;. HTML pages were downloaded via the requests library (Python 3.11) using polite delays and standard user-agent headers, and parsed with BeautifulSoup4. After host-aware text extraction (see below), only pairs in which both pages contained at least 500 words of clean prose were retained for analysis. Out of 416 target titles, 382 matched article pairs satisfied these criteria and formed the final analytical sample.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">Text Cleaning and Feature Extraction</head><p>We employed a host-aware parsing strategy designed to preserve substantive content while removing non-textual elements. For Wikipedia, extraction was restricted to the #mw-content-text container, excluding elements such as infoboxes, hatnotes, metadata, navboxes, and tables. For GrokiPedia, a less aggressive parser was used to retain the full model-generated narrative text, including embedded lists and inline references. Scripts, styles, and navigation elements were removed in both cases.</p><p>Each cleaned article was tokenized into sentences and words using nltk's Punkt tokenizer. We then computed a comprehensive set of descriptive, structural, and stylistic metrics:</p><p>• Structural features: counts of paragraphs, headings (h1-h4), hyperlinks, images, and references; visible character counts; and derived ratios such as references, links, and headings per 1,000 words.</p><p>• Stylistic and readability features: average sentence length, lexical diversity (type-token ratio), Flesch-Kincaid grade level, Gunning-Fog index, and part-of-speech composition (nouns, verbs, adjectives, adverbs) using spaCy's en core web sm model.</p><p>• Lexical density and reading time: unique-to-total word ratio and estimated reading time assuming 200 words per minute.</p><p>All features were computed independently for both platforms and labeled with prefixes a (GrokiPedia) and b (Wikipedia).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.3">Similarity Measures Between Platforms</head><p>To quantify the degree of alignment between matched GrokiPedia and Wikipedia articles, we computed a suite of nine similarity measures grouped into four conceptual domains:</p><p>1. Lexical similarity: cosine similarity of TF-IDF vectors (1-2 grams, English stop-words removed) and unigram Jaccard index.</p><p>2. N-gram overlap: overlap coefficients for 1-, 2-, and 3-gram sequences, capturing local phrase reuse.</p><p>3. Semantic similarity: cosine similarity between SentenceTransformer embeddings (all-MiniLM-L6-v2) <ref type="bibr" target="#b13">[14]</ref>.</p><p>4. BERTScore F1: contextual similarity of the first 50 sentences per article using bert-score <ref type="bibr" target="#b25">[26]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>5.</head><p>Structural similarity: composite index combining (a) overlap in detected section headings and (b) proportional similarity of median paragraph lengths, weighted 0.6 and 0.4 respectively.</p><p>6. Stylistic similarity: normalized Manhattan distance across stylistic profiles (sentence length, lexical diversity, readability, POS composition), transformed to a 0-1 similarity scale.</p><p>A composite similarity index was calculated as the mean of the lexical, semantic, structural, and stylistic sub-scores, providing a general indicator of cross-platform convergence.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.4">Statistical and Comparative Analysis</head><p>All analyses were performed in Python 3.11 using pandas, numpy, and scikit-learn. Descriptive statistics (mean ± SD) were calculated for all features. Differences between GrokiPedia and Wikipedia were tested using paired t-tests for normally distributed measures and Wilcoxon signed-rank tests otherwise. Spearman rank correlations among similarity metrics were used to assess their interdependence and dimensional clustering. Visualizations-including histograms, boxplots, scatter plots, and correlation heatmaps-were generated with matplotlib and seaborn, then exported to PDF for direct inclusion in the LaTeX manuscript. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.5">Limitations</head><p>The dataset covers only topics that are both heavily edited on Wikipedia and available on GrokiPedia. Because high edit frequency correlates with controversy and visibility <ref type="bibr" target="#b24">[25]</ref>, the sample likely overrepresents politically or culturally salient subjects. Moreover, GrokiPedia's content-generation pipeline is opaque, potentially leading to stylistic inflation (e.g., verbosity, hallucinated references) or structural artifacts that differ from human-edited prose. Nevertheless, the scale and matched-pair design provide a robust basis for assessing how human and AIgenerated encyclopedic text diverge in length, structure, and informational alignment.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3">Results</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Sample and Coverage</head><p>From the initial list of 416 highly edited Wikipedia titles, we successfully retrieved and matched 384 article pairs that passed quality checks (both pages available and ≥500 cleaned words each).<ref type="foot" target="#foot_3">foot_3</ref> </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Descriptive Differences Between Platforms</head><p>Figure <ref type="figure" target="#fig_0">1</ref> shows article length distributions (on a logarithmic scale). GrokiPedia entries are generally longer than their Wikipedia counterparts. Readability, measured with the Flesch-Kincaid grade, tends to be higher (i.e., more complex prose) on GrokiPedia (Figure <ref type="figure" target="#fig_1">2</ref>). Table <ref type="table" target="#tab_0">1</ref> summarises core descriptive measures, including clean word counts, readability, lexical diversity, and per-1,000-word densities of references, links, and headings. GrokiPedia Wikipedia 5 10 15 20 25 Flesch--Kincaid grade Readability by platform </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Cross-Platform Similarity</head><p>We evaluated alignment between matched articles using lexical, semantic, structural, and stylistic metrics. Figure <ref type="figure" target="#fig_2">3</ref> presents the correlation matrix among these metrics. Lexical measures (TF-IDF, Jaccard, and n-gram overlap) tend to cluster with semantic similarity, while stylistic and structural measures form related but partially distinct dimensions. Table <ref type="table" target="#tab_1">2</ref> reports the average values.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.4">Article-Level Extremes</head><p>While aggregate metrics reveal broad alignment, article-level comparisons show substantial variation. At the top of the distribution, several GrokiPedia pages are nearly verbatim copies of their Wikipedia counterparts, whereas others diverge sharply in framing and factual density. Table <ref type="table" target="#tab_2">3</ref> lists representative examples of the five most and least similar article pairs, ranked by the composite similarity index. These extremes illustrate two characteristic patterns. High-similarity entries (e.g., Elon Musk, Tesla, Inc.) appear to have been copied almost verbatim from Wikipedia, preserving structure and phrasing with minor stylistic alterations. By contrast, low-similarity articles (e.g., Climate change, Transgender rights) exhibit substantial departures in tone, structure, and reference density, suggesting selective rewriting or omission by the generative system. Such cases highlight that while GrokiPedia broadly mirrors Wikipedia semantically, the divergence is most pronounced on politically or culturally charged topics.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5">Distributions of Similarity Scores</head><p>To characterise the heterogeneity of alignment, Figure <ref type="figure" target="#fig_3">4</ref> shows the empirical distributions of all similarity scores across the matched pairs. Several metrics are unimodal and right-skewed (e.g., semantic cosine, BERTScore), suggesting generally high topical overlap. Others (e.g., higher-order n-gram overlap and structural similarity) exhibit broader or even multimodal shapes, consistent with clusters of near-verbatim matches versus paraphrastic or restructured articles. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.6">Does Length Drive Similarity?</head><p>Finally, we test whether longer Wikipedia entries are more semantically aligned with GrokiPedia. Figure <ref type="figure" target="#fig_5">5</ref> plots semantic cosine against the (log) Wikipedia word count. The association is weakto-moderate and not monotonic, indicating that content focus and selection likely matter more than sheer length for semantic convergence.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">Discussion and Conclusion</head><p>This study presents the first large-scale, systematic comparison between GrokiPedia and Wikipedia across 382 matched article pairs. Despite their distinct production paradigms-communitydriven versus AI-generated-the two encyclopedias exhibit remarkable alignment at the level of meaning and style. Semantic similarity averages around 0.70, and stylistic similarity around 0.65, indicating that GrokiPedia reproduces much of Wikipedia's linguistic and conceptual structure. However, the platforms diverge substantially in form and informational scaffolding. GrokiPedia articles are, on average, several times longer, with higher Flesch-Kincaid grade levels (greater syntactic complexity) but lower lexical diversity and reference density. This pattern suggests that GrokiPedia's generation process elaborates on existing material-expanding text length and rhetorical flow-rather than producing substantively new or more rigorously sourced knowledge. The similarity distributions reveal further nuance. While semantic and lexical measures are unimodal, reflecting a broad alignment across most topics, structural and stylistic similarities are bimodal, suggesting two distinct regimes of generation. In some cases, GrokiPedia closely mirrors Wikipedia's organization and register; in others, it diverges sharply, producing verbose or restructured narratives. This heterogeneity implies a hybrid authorship logic: part replication, part improvisation.</p><p>Elon Musk framed GrokiPedia as an antidote to Wikipedia's "propaganda" and ideological bias <ref type="bibr" target="#b1">[2,</ref><ref type="bibr" target="#b6">7,</ref><ref type="bibr" target="#b23">24</ref>]. Yet early independent assessments from outlets including The Verge, Wired, The Washington Post, and TIME found that many GrokiPedia articles are derived from Wikipedia-often copied or paraphrased-while selectively emphasizing Musk's personal and political narratives <ref type="bibr" target="#b15">[16,</ref><ref type="bibr" target="#b11">12,</ref><ref type="bibr" target="#b4">5,</ref><ref type="bibr" target="#b20">21]</ref>. Our quantitative results support this view: GrokiPedia achieves high semantic alignment with Wikipedia but introduces stylistic inflation and reduced</p><p>3.00 3.25 3.50 3.75 4.00 4.25 4.50 log10(Wikipedia clean word count + 1) 0.2 0.4 0.6 0.8 1.0 Semantic similarity (cosine) Length vs semantic similarity citation density. In other words, GrokiPedia's output largely repackages existing human-curated content through an AI lens that privileges fluency and narrative over attribution. Rather than "purging bias," the system appears to re-encode it-subtly and opaquely-within model parameters and prompt conditioning. As argued by Yasseri <ref type="bibr" target="#b23">[24]</ref>, Wikipedia's openness transforms bias from a flaw into a form of epistemic visibility: disputes, edits, and talk pages make disagreement transparent and correctable. GrokiPedia inverts this model. Its authorship is singular, automated, and invisible-bias becomes latent, hidden within model weights and unseen editorial heuristics. This creates what might be termed an epistemic opacity paradox: GrokiPedia appears neutral because it lacks human editors, yet its underlying generative logic is uninspectable and unaccountable. The contrast highlights a deeper epistemological divide between collective knowledge systems, where disagreement is traceable, and algorithmic knowledge systems, where authority is inferred but not negotiated.</p><p>Several limitations qualify these findings. First, the dataset focuses on Wikipedia's 416 mostedited pages, of which 382 have counterparts on GrokiPedia. This selection likely overrepresents high-profile, contentious topics-those most prone to editing wars or ideological scrutiny <ref type="bibr" target="#b24">[25]</ref>. Second, the similarity metrics employed-lexical, semantic, structural, and stylistic-quantify form and textual alignment but not factual accuracy or ideological framing. The presence of hallucinated claims, selective omissions, or subtle rhetorical shifts remains outside the scope of automated comparison. Third, both platforms are dynamic: Wikipedia continuously evolves, while GrokiPedia's generative parameters may change with future model retraining. Finally, GrokiPedia's underlying data sources and editorial interventions are opaque, preventing full provenance auditing or causal inference about model bias.</p><p>Despite its stated aim to "correct" Wikipedia's ideological slant, GrokiPedia currently func-tions less as an epistemic alternative and more as a synthetic derivative of Wikipedia. It mirrors Wikipedia's informational scope and linguistic tone but replaces community deliberation with algorithmic synthesis. The result is an encyclopedia that is fluent yet fragile-expansive in form but shallow in verifiability. In effect, GrokiPedia trades collective accountability for computational authority. These findings extend beyond a single platform. As large language models increasingly mediate the production of knowledge, they risk conflating eloquence with accuracy and replacing transparency with automation. The challenge ahead is therefore not only technical-improving factuality or retrieval-but institutional: ensuring that provenance, bias, and contestation remain visible in an age of synthetic knowledge.</p><p>Future research should move beyond surface similarity to assess factual divergence, ideological asymmetry, and user trust. Comparing how readers evaluate credibility across human-edited and AI-generated sources may reveal whether GrokiPedia's expansion of text corresponds to an expansion-or erosion-of understanding.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5">Acknowledgement</head><p>This publication has emanated from research supported in part by grants from Taighde Eireann -´Research Ireland under Grant numbers IRCLA/2022/3217. We acknowledge support from Workday, Inc.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Distribution of clean word counts by platform (log scale).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Readability (Flesch-Kincaid grade) by platform.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>TTF 3 :</head><label>3</label><figDesc>F --I D F c o s i n e J a c c a r d ( u n i g r a m ) O v e r l a p ( 1 -g r a m ) O v e r l a p ( 2 -g r a m ) O v e r l a p ( 3 -g r a m ) S e m a n t i c c o s i n e B E R T S c o r e ( F 1 )S t r u c t u r a l s i m i l a r i t y S t y l i s t i c s i m i l a r i t yCorrelation among similarity metrics (Pearson's r).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Distributions of article-to-article similarity scores across metrics.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: Wikipedia length (log scale) vs. semantic similarity (cosine). A least-squares trend line is overlaid.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 1 :</head><label>1</label><figDesc>Descriptive statistics (mean [SD]) across platforms (pairs with both articles and ≥500 clean words). ∆ is GrokiPedia-Wikipedia. p values from paired t-tests.</figDesc><table><row><cell>Measure</cell><cell>GrokiPedia</cell><cell>Wikipedia</cell><cell>∆</cell><cell>p</cell></row><row><cell>Clean word count</cell><cell cols="4">65505 [74231] 18733 [22671] 46772 [62148] &lt; 0.001</cell></row><row><cell>Flesch-Kincaid grade</cell><cell>18.52 [5.81]</cell><cell>14.35 [4.90]</cell><cell>4.17 [5.34]</cell><cell>&lt; 0.001</cell></row><row><cell>Lexical diversity</cell><cell cols="4">0.078 [0.037] 0.204 [0.045] -0.126 [0.056] &lt; 0.001</cell></row><row><cell>References per 1k words</cell><cell>0.45 [0.38]</cell><cell>1.26 [0.71]</cell><cell cols="2">-0.81 [0.68] &lt; 0.001</cell></row><row><cell>Links per 1k words</cell><cell>3.18 [1.54]</cell><cell>4.01 [2.02]</cell><cell>-0.83 [1.80]</cell><cell>0.012</cell></row><row><cell>Headings (H2-H4) per 1k words</cell><cell>0.92 [0.41]</cell><cell>0.84 [0.39]</cell><cell>0.08 [0.37]</cell><cell>0.075</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head>Table 2 :</head><label>2</label><figDesc>Average similarity metrics across matched pairs (mean [SD]).</figDesc><table><row><cell>Metric</cell><cell>Mean [SD]</cell></row><row><cell>TF-IDF cosine</cell><cell>0.50 [0.22]</cell></row><row><cell>Jaccard (unigram)</cell><cell>0.32 [0.16]</cell></row><row><cell>Overlap (1-gram)</cell><cell>0.58 [0.23]</cell></row><row><cell>Overlap (2-gram)</cell><cell>0.33 [0.34]</cell></row><row><cell>Overlap (3-gram)</cell><cell>0.25 [0.37]</cell></row><row><cell>Semantic cosine</cell><cell>0.73 [0.12]</cell></row><row><cell>BERTScore (F1)</cell><cell>0.02 [0.24]</cell></row><row><cell cols="2">Structural similarity 0.31 [0.26]</cell></row><row><cell>Stylistic similarity</cell><cell>0.64 [0.08]</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head>Table 3 :</head><label>3</label><figDesc>Most and least similar article pairs between GrokiPedia and Wikipedia, ranked by composite similarity.</figDesc><table><row><cell cols="2">Rank Wikipedia title</cell><cell>Composite similarity</cell></row><row><cell>1</cell><cell>Elon Musk</cell><cell>0.96</cell></row><row><cell>2</cell><cell>Tesla, Inc.</cell><cell>0.94</cell></row><row><cell>3</cell><cell>Neuralink</cell><cell>0.93</cell></row><row><cell>4</cell><cell>Twitter</cell><cell>0.91</cell></row><row><cell>5</cell><cell cols="2">Artificial intelligence 0.90</cell></row><row><cell cols="2">Least similar</cell><cell></cell></row><row><cell>378</cell><cell>Gender identity</cell><cell>0.38</cell></row><row><cell>379</cell><cell>Adolf Hitler</cell><cell>0.36</cell></row><row><cell>380</cell><cell cols="2">COVID-19 pandemic 0.34</cell></row><row><cell>381</cell><cell>Climate change</cell><cell>0.31</cell></row><row><cell>382</cell><cell>Transgender rights</cell><cell>0.28</cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="1" xml:id="foot_0"><p>For a survey of evidence and debates on reliability and bias, see e.g.,<ref type="bibr" target="#b3">[4,</ref><ref type="bibr" target="#b7">8,</ref><ref type="bibr" target="#b16">17,</ref><ref type="bibr" target="#b17">18]</ref>.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_1"><p>See<ref type="bibr" target="#b19">[20,</ref><ref type="bibr" target="#b0">1,</ref><ref type="bibr" target="#b18">19,</ref><ref type="bibr" target="#b10">11,</ref><ref type="bibr" target="#b12">13,</ref><ref type="bibr" target="#b5">6,</ref><ref type="bibr" target="#b9">10]</ref>.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="3" xml:id="foot_2"><p>For background critiques and expectations about Grokipedia's neutrality and provenance, see<ref type="bibr" target="#b10">[11,</ref><ref type="bibr" target="#b5">6,</ref><ref type="bibr" target="#b9">10,</ref><ref type="bibr" target="#b22">23]</ref>.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="4" xml:id="foot_3"><p>We use cleaned word counts extracted from the main content region, excluding navigation, infoboxes, and boilerplate.</p></note>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">Elon musk launches grokipedia to compete with online encyclopedia wikipedia</title>
+		<ptr target="https://apnews.com/article/elon-musk-wikipedia-grok-grokipedia-4dab7c6ebb16cc7718b231adae4aac95" />
+		<imprint>
+			<date type="published" when="2025-10-30">Oct 2025. 2025-10-30</date>
+			<publisher>Associated Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<ptr target="https://apnews.com/article/elon-musk-grokipedia-ai-wikipedia-2025-10-28" />
+		<title level="m">Elon musk launches grokipedia to compete with online encyclopedia wikipedia</title>
+		<imprint>
+			<publisher>Associated Press</publisher>
+			<date type="published" when="2025-10-28">October 28 2025. October 30, 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Political bias in large language models increases with model capability</title>
+		<author>
+			<persName><forename type="first">Daniel</forename><surname>Exler</surname></persName>
+		</author>
+		<ptr target="https://arxiv.org/pdf/2505.04393" />
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Is wikipedia biased?</title>
+		<author>
+			<persName><forename type="first">Shane</forename><surname>Greenstein</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Feng</forename><surname>Zhu</surname></persName>
+		</author>
+		<idno type="DOI">https://www.aeaweb.org/articles?id=10.1257/aer.102.3.343</idno>
+		<ptr target="https://www.aeaweb.org/articles?id=10.1257/aer.102.3.343" />
+	</analytic>
+	<monogr>
+		<title level="j">American Economic Review: Papers &amp; Proceedings</title>
+		<imprint>
+			<biblScope unit="volume">102</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="343" to="348" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Grokipedia is racist, transphobic, and loves elon musk. The Verge</title>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Hart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Elissa</forename><surname>Welle</surname></persName>
+		</author>
+		<ptr target="https://www.theverge.com/2025/10/29/grokipedia-racist-transphobic-elon-musk" />
+		<imprint>
+			<date type="published" when="2025-10-29">October 29 2025. October 30, 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">Elon musk&apos;s grokipedia pushes far-right talking points</title>
+		<author>
+			<persName><forename type="first">David</forename><surname>Ingram</surname></persName>
+		</author>
+		<ptr target="https://www.wired.com/story/elon-musk-launches-grokipedia-wikipedia-competitor/" />
+		<imprint>
+			<date type="published" when="2025-10-30">Oct 2025. 2025-10-30</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<ptr target="https://www.businessinsider.com/elon-musk-launches-grokipedia-wikipedia-competitor-2025-10" />
+		<title level="m">Elon musk appears to have launched grokipedia, a wikipedia competitor</title>
+		<imprint>
+			<publisher>Business Insider</publisher>
+			<date type="published" when="2025-10-28">October 28 2025. October 30, 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Wikipedia: Why is the common knowledge resource still neglected by academics? Information</title>
+		<author>
+			<persName><forename type="first">Dariusz</forename><surname>Jemielniak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Eduard</forename><surname>Aibar</surname></persName>
+		</author>
+		<ptr target="https://pmc.ncbi.nlm.nih.gov/articles/PMC6889752/" />
+	</analytic>
+	<monogr>
+		<title level="j">Communication &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="238" to="252" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">Exploring the jungle of bias: Political bias attribution in large language models</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Daniel</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Jenny</surname></persName>
+		</author>
+		<ptr target="https://arxiv.org/abs/2311.08605" />
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">How grokipedia describes elon musk</title>
+		<author>
+			<persName><forename type="first">Kevin</forename><surname>Mackey</surname></persName>
+		</author>
+		<ptr target="https://time.com/7328846/elon-musk-grokipedia-wikipedia-differences-grok-xai-ai-ideological-" />
+		<imprint>
+			<date type="published" when="2025-10-30">Oct 2025. 2025-10-30</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<monogr>
+		<title level="m" type="main">Elon musk launches encyclopedia &apos;fact-checked&apos; by ai and aligning with rightwing views</title>
+		<author>
+			<persName><forename type="first">Chris</forename><surname>Michael</surname></persName>
+		</author>
+		<ptr target="https://www.theguardian.com/technology/2025/oct/28/elon-musk-grokipedia" />
+		<imprint>
+			<date type="published" when="2025-10-30">Oct 2025. 2025-10-30</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Elon musk launches a wikipedia rival that extols his own &apos;vision</title>
+		<author>
+			<persName><forename type="first">Will</forename><surname>Oremus</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Faiz</forename><surname>Siddiqui</surname></persName>
+		</author>
+		<ptr target="https://www.washingtonpost.com/technology/2025/10/28/elon-musk-grokipedia-launch/" />
+	</analytic>
+	<monogr>
+		<title level="j">The Washington Post</title>
+		<imprint>
+			<date type="published" when="2025-10-28">October 28 2025. October 30, 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<title level="m" type="main">Elon musk&apos;s grokipedia launches with ai-cloned pages and wikipedia look-alikes</title>
+		<author>
+			<persName><forename type="first">Jay</forename><surname>Peters</surname></persName>
+		</author>
+		<ptr target="https://www.theverge.com/news/807686/elon-musk-grokipedia-launch-wikipedia-xai-copied" />
+		<imprint>
+			<date type="published" when="2025-10-30">Oct 2025. 2025-10-30</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Sentence-bert: Sentence embeddings using siamese bert-networks</title>
+		<author>
+			<persName><forename type="first">Nils</forename><surname>Reimers</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Iryna</forename><surname>Gurevych</surname></persName>
+		</author>
+		<idno type="DOI">10.18653/v1/D19-1410</idno>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2019 Conference on Empirical Methods in Natu-ral Language Processing (EMNLP)</title>
+		<meeting>the 2019 Conference on Empirical Methods in Natu-ral Language Processing (EMNLP)</meeting>
+		<imprint>
+			<publisher>Association for Computational Linguistics</publisher>
+			<date type="published" when="2019">2019</date>
+			<biblScope unit="page" from="3982" to="3992" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<title level="m" type="main">Assessing political bias in large language models</title>
+		<author>
+			<persName><forename type="first">Lukas</forename><surname>Rettenberger</surname></persName>
+		</author>
+		<ptr target="https://arxiv.org/abs/2405.13041" />
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Elon musk&apos;s grokipedia pushes far-right talking points</title>
+		<author>
+			<persName><forename type="first">Reece</forename><surname>Rogers</surname></persName>
+		</author>
+		<ptr target="https://www.wired.com/story/elon-musk-grokipedia-far-right-bias/" />
+	</analytic>
+	<monogr>
+		<title level="j">Wired</title>
+		<imprint>
+			<date type="published" when="2025-10-28">October 28 2025. October 30, 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<monogr>
+		<title level="m" type="main">Is wikipedia politically biased?</title>
+		<author>
+			<persName><forename type="first">David</forename><surname>Rozado</surname></persName>
+		</author>
+		<ptr target="https://manhattan.institute/article/is-wikipedia-politically-biased.Report" />
+		<imprint>
+			<date type="published" when="2024-06">Jun 2024. 2025-10-30</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<author>
+			<persName><forename type="first">David</forename><surname>Rozado</surname></persName>
+		</author>
+		<ptr target="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5022797" />
+		<title level="m">Righting the writers: Assessing bias in wikipedia&apos;s political content</title>
+		<imprint>
+			<date type="published" when="2025-10-30">2025. 2025-10-30</date>
+		</imprint>
+	</monogr>
+	<note>SSRN preprint</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<title level="m" type="main">Grokipedia, the online repository elon musk built to try to dethrone wikipedia, is live</title>
+		<author>
+			<persName><forename type="first">Kelsey</forename><surname>Vlamis</surname></persName>
+		</author>
+		<ptr target="https://www.businessinsider.com/elon-musk-launches-grokipedia-xai-wikipedia-competitor-2025-10" />
+		<imprint>
+			<date type="published" when="2025-10-30">Oct 2025. 2025-10-30</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<monogr>
+		<ptr target="https://en.wikipedia.org/wiki/Grokipedia" />
+		<title level="m">Grokipedia</title>
+		<imprint>
+			<date type="published" when="2025-10-30">2025. 2025-10-30</date>
+		</imprint>
+	</monogr>
+	<note>Wikipedia contributors</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">What elon musk&apos;s version of wikipedia thinks about hitler, putin, and apartheid</title>
+		<author>
+			<persName><forename type="first">Matteo</forename><surname>Wong</surname></persName>
+		</author>
+		<ptr target="https://www.theatlantic.com/technology/archive/2025/10/elon-musk-grokipedia-controversy/" />
+	</analytic>
+	<monogr>
+		<title level="j">The Atlantic</title>
+		<imprint>
+			<date type="published" when="2025-10-28">October 28 2025. October 30, 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<monogr>
+		<title level="m" type="main">Accuracy and political bias of news source credibility ratings by large language models</title>
+		<author>
+			<persName><forename type="first">Kai-Cheng</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Filippo</forename><surname>Menczer</surname></persName>
+		</author>
+		<ptr target="https://arxiv.org/abs/2304.00228" />
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<monogr>
+		<title level="m" type="main">Grokipedia: Elon musk is right that wikipedia is biased, but his ai alternative will be the same at best</title>
+		<author>
+			<persName><forename type="first">Taha</forename><surname>Yasseri</surname></persName>
+		</author>
+		<ptr target="https://theconversation.com/grokipedia-elon-musk-is-right-that-wikipedia-is-biased-but-his-ai-altAccessed2025-10-30" />
+		<imprint>
+			<date type="published" when="2025-10">Oct 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Grokipedia: Elon musk is right that wikipedia is biased, but his ai alternative will be the same at best</title>
+		<author>
+			<persName><forename type="first">Taha</forename><surname>Yasseri</surname></persName>
+		</author>
+		<ptr target="https://theconversation.com/grokipedia-elon-musk-is-right-that-wikipedia-is-biased-but-his" />
+	</analytic>
+	<monogr>
+		<title level="m">The Conversation</title>
+		<imprint>
+			<date type="published" when="2025-10-15">October 15 2025. October 30, 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Dynamics of conflicts in wikipedia</title>
+		<author>
+			<persName><forename type="first">Taha</forename><surname>Yasseri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Sumi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">András</forename><surname>Rung</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">András</forename><surname>Kornai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">János</forename><surname>Kertész</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0038869</idno>
+	</analytic>
+	<monogr>
+		<title level="j">PLOS ONE</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page">38869</biblScope>
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Bertscore: Evaluating text generation with bert</title>
+		<author>
+			<persName><forename type="first">Tianyi</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Varsha</forename><surname>Kishore</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Felix</forename><surname>Wu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kilian</forename><forename type="middle">Q</forename><surname>Weinberger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yoav</forename><surname>Artzi</surname></persName>
+		</author>
+		<ptr target="https://openreview.net/forum?id=SkeHuCVFDr" />
+	</analytic>
+	<monogr>
+		<title level="m">International Conference on Learning Representations (ICLR)</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

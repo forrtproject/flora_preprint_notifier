@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Measuring Recruitment Elasticity in the Multi-stage and Bilateral Job Matching Process *</title>
+				<funder ref="#_kVuyeKZ #_pWqmNmy #_javjzne #_2aW95xG #_rKhAEQK #_gBuJqMv">
+					<orgName type="full">unknown</orgName>
+				</funder>
+				<funder ref="#_mtfUHDz">
+					<orgName type="full">JST ERATO</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability  status="unknown">
+					<licence/>
+				</availability>
+				<date type="published" when="2025-10-27">October 27, 2025</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Ryo</forename><surname>Kambayashi</surname></persName>
+							<email>ryo.kambayashi@cc.musashi.ac.jp</email>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">University of Science and Technology</orgName>
+								<orgName type="department" key="dep2">Faculty of Economics</orgName>
+								<orgName type="department" key="dep3">Department of Economics</orgName>
+								<orgName type="department" key="dep4">School of Business and Management</orgName>
+								<orgName type="department" key="dep5">Market Design Center</orgName>
+								<orgName type="department" key="dep6">Department of Economics</orgName>
+								<orgName type="institution" key="instit1">Jinan University</orgName>
+								<orgName type="institution" key="instit2">Waseda University</orgName>
+								<orgName type="institution" key="instit3">Hitotsubashi University</orgName>
+								<orgName type="institution" key="instit4">UC Santa Barbara</orgName>
+								<orgName type="institution" key="instit5">Musashi University and IZA</orgName>
+								<orgName type="institution" key="instit6">Hong Kong Uni- versity of Science and Technology</orgName>
+								<orgName type="institution" key="instit7">The University of Tokyo</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Kohei</forename><surname>Kawaguchi</surname></persName>
+							<email>kkawaguchi@ust.hk</email>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">University of Science and Technology</orgName>
+								<orgName type="department" key="dep2">Faculty of Economics</orgName>
+								<orgName type="department" key="dep3">Department of Economics</orgName>
+								<orgName type="department" key="dep4">School of Business and Management</orgName>
+								<orgName type="department" key="dep5">Market Design Center</orgName>
+								<orgName type="department" key="dep6">Department of Economics</orgName>
+								<orgName type="institution" key="instit1">Jinan University</orgName>
+								<orgName type="institution" key="instit2">Waseda University</orgName>
+								<orgName type="institution" key="instit3">Hitotsubashi University</orgName>
+								<orgName type="institution" key="instit4">UC Santa Barbara</orgName>
+								<orgName type="institution" key="instit5">Musashi University and IZA</orgName>
+								<orgName type="institution" key="instit6">Hong Kong Uni- versity of Science and Technology</orgName>
+								<orgName type="institution" key="instit7">The University of Tokyo</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Suguru</forename><surname>Otani</surname></persName>
+							<email>suguru.otani@e.u-tokyo.ac.jp</email>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">University of Science and Technology</orgName>
+								<orgName type="department" key="dep2">Faculty of Economics</orgName>
+								<orgName type="department" key="dep3">Department of Economics</orgName>
+								<orgName type="department" key="dep4">School of Business and Management</orgName>
+								<orgName type="department" key="dep5">Market Design Center</orgName>
+								<orgName type="department" key="dep6">Department of Economics</orgName>
+								<orgName type="institution" key="instit1">Jinan University</orgName>
+								<orgName type="institution" key="instit2">Waseda University</orgName>
+								<orgName type="institution" key="instit3">Hitotsubashi University</orgName>
+								<orgName type="institution" key="instit4">UC Santa Barbara</orgName>
+								<orgName type="institution" key="instit5">Musashi University and IZA</orgName>
+								<orgName type="institution" key="instit6">Hong Kong Uni- versity of Science and Technology</orgName>
+								<orgName type="institution" key="instit7">The University of Tokyo</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Measuring Recruitment Elasticity in the Multi-stage and Bilateral Job Matching Process *</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2025-10-27">October 27, 2025</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">ABAC63CDBA075558D48E89B846629883</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:16+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Recruitment elasticity</term>
+					<term>Monopsony</term>
+					<term>Job matching intermediary. JEL code: J20</term>
+					<term>J30</term>
+					<term>J42</term>
+					<term>J64</term>
+					<term>L13</term>
+					<term>L40</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>This study refines recruitment elasticity measurement by focusing on realized matches rather than applications and by conditioning on worker-vacancy pairs for which posted wages are observed. Using data from Japan's largest job-matching intermediary that tracks full recruitment processes, we find elasticities near one for upper-wage workers but insignificant elasticities for lower-wage workers, while little variation across employment types are found. Elasticities are higher in small firms and in competitive occupations. Because both sides' outside options matter, controlling for choice sets is essential. Posted wages mainly influence the application stage, suggesting that applications reliably approximate matches in estimating recruitment elasticity.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1">Introduction</head><p>The growing recognition of non-competitive labor markets <ref type="bibr">(Manning, 2003)</ref>, declining labor share ( <ref type="bibr">Karabarbounis and Neiman, 2014)</ref>, and renewed focus on antitrust enforcement (Department of <ref type="bibr">Justice and Commission, 2016</ref>; <ref type="bibr">Azar and Marinescu, 2024a,b)</ref> has driven a research agenda centered on estimating employer market power, with recruitment elasticity-a measure of wage elasticity of labor supply at the firm level-playing a pivotal role ( <ref type="bibr">Naidu and Posner, 2022)</ref>. 1 While traditional labor economics assumes perfectly competitive markets where recruitment elasticity is infinite, recent research on imperfectly competitive markets demonstrates that recruitment elasticity is finite, requiring alternative estimation methods beyond market-level approaches based on household panel data, such as those used in Chetty <ref type="bibr">(2012)</ref>.</p><p>Nevertheless, defining recruitment elasticity is challenging when workers are heterogeneous and employers use interviews to select candidates, or when search friction prevents workers from seeing all vacancies. Two key issues arise: First, recruitment outcome must be defined by the match instead of actions like applications because applications by workers who are eventually rejected through the job matching process by the vacancy do not count.</p><p>This can be a problem when workers and employers are heterogeneous from each other's perspective. Second, the recruitment elasticity should be defined by the worker-vacancy pair where the worker finds the vacancy and observes the posted wage because the elasticity to the posted wage is mechanically zero if the worker does not find the vacancy, introducing a bias in the estimation by using a potentially misspecified choice set. The worker may not find a vacancy when there is search friction.</p><p>Following this rationale, this paper argues that the relevant recruitment elasticity to evaluate the market power of employers is thus the elasticity of a match with respect to the 1 As discussed in <ref type="bibr">Manning (2003)</ref>, labor supply at the firm level is defined as the change in number of workers a firm employs at a given change in wage, which reflects both recruitment elasticity and separation elasticity. When using household surveys such as the Labor Force Survey to estimate labor supply elasticity, the literature often assumes a steady state and equates recruitment elasticity with the inverse of separation elasticity.</p><p>posted wages between the worker and the vacancy for which the worker finds the vacancy and observes the posted wage. We then use data from one of the largest private job matching intermediaries in Japan, which encompasses all decisions involved in the job matching process from applications to offer acceptances for a year in 2014. Taking advantage of this rich dataset, we estimate the relevant recruitment elasticity by focusing on worker-vacancy pairs for which the worker inquired about the vacancy and tracking whether they eventually matched. We also document how the elasticities evolve across the job matching stages after selection, including interview attendance after receiving interview calls and offer acceptance stages after receiving offers.</p><p>Our data offer several additional advantages to draw comprehensive estimates of recruitment elasticity: i) coverage of both on-the-job and off-the-job searches; ii) inclusion of employed workers' current wage and unemployed workers' previous wage; and iii) availability of the posted wage range for all vacancies without any missing values. Despite partial coverage of the labor market, the distribution of posted wages on this private intermediary resembles the wage distribution of the newly hired full-time mid-career workers found in the representative governmental survey. <ref type="foot" target="#foot_0">2</ref>We estimate the average recruitment elasticity across four partitions of workers, defined by employment status (employed vs. unemployed) and by whether their current (if employed) or previous (if unemployed) wage is above or below the median wage. We find that the average recruitment elasticities are positive and statistically significant for upper-wage workers (employed workers whose current wage is above the median or unemployed workers whose previous wage is above the median), whereas they are statistically insignificant for lower-wage workers. Even for upper-wage workers, the elasticity is around 1, indicating high market power of employers in the labor market. We also document that posted wages are no longer associated with realized match, conditional on applying and receiving interview calls or receiving offers. This suggests that workers are sorted into vacancies based on the observed posted wages as assumed in the directed search literature. We also document that whether the vacancy requires the same skill or is in the same location as the worker's current or previous job also only affects the application stage, and not the later stages. Finally, we estimate the recruitment elasticity by employer segments. The analysis finds relatively high wage elasticities for small firms (1.66) and top occupations (1.01), while the other segments show insignificant or negatively significant elasticities consistent with firms facing more severe competition having higher recruitment elasticity.</p><p>Our results suggest that the recruitment elasticity substantially differs across workers and employers depending on the competition they face. Workers with lower current or previous wages face more limited outside options, leading to lower recruitment elasticities.</p><p>Vacancies from small firms or in an area with many similar vacancies face more intense competition among employers, leading to higher recruitment elasticities. Importantly, the competitive environment is determined by each side's outside options. Therefore, focusing on the competition of one side alone, such as competition among unskilled workers, may overlook the competition among employers for those workers. Even if unskilled workers face limited outside options, vacancies for unskilled workers may also face intense competition among employers, leading to high recruitment elasticity. To address the bilateral nature of the job matching process, leveraging the information on exact choice set of workers is crucial.</p><p>Another potentially useful finding is that posted wages primarily affect recruitment at the application stage but not at subsequent stages. Because of this, application elasticity can serve as a reasonable approximation for overall wage elasticity in labor supply. This stagespecific effect implies that when evaluating employment effects of policies such as minimum wage increases on gross job flows (e.g. <ref type="bibr">Dube et al., 2016;</ref><ref type="bibr">Dustmann et al., 2021)</ref>, policymakers can focus on how such policies affect workers' application behaviors through changes in offered wages, as the subsequent matching mechanism such as changes in unobservable job quality may not amplify or dampen the initial wage effect.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.1">Related Literature</head><p>While prior studies acknowledge the first issue-the conceptual distinction between matches and actions like applications-for instance, Hirsch et al. ( <ref type="formula">2022</ref>) caution against interpreting application elasticity estimates as directly informative about recruitment elasticity,<ref type="foot" target="#foot_1">foot_1</ref> they have not clearly articulated the empirical implications of failing to observe decision-making on both sides of the match. The second issue of not observing the choice set for workers has been widely recognized by the literature <ref type="bibr" target="#b18">(Sorkin, 2018;</ref><ref type="bibr">Roussille and Scuderi, 2023)</ref>. In a general context, <ref type="bibr" target="#b6">Barseghyan et al. (2021)</ref> showed that erroneous inference of choice sets can introduce substantial bias in the estimates of utility parameters including the elasticity.</p><p>To estimate parameters related to the recruitment elasticity, the literature has used (i) employer-employee matched data <ref type="bibr">(Hirsch et al., 2022)</ref>, (ii) job application data from job advertising platforms <ref type="bibr" target="#b5">(Banfi and Villena-Roldán, 2019;</ref><ref type="bibr">Marinescu and Wolthoff, 2019;</ref><ref type="bibr" target="#b8">Belot et al., 2022;</ref><ref type="bibr">Azar et al., 2022;</ref><ref type="bibr" target="#b1">Arnold et al., 2025)</ref>, (iii) data from job advertising platforms with additional features like scouting or hiring auctions (Roussille and Scuderi, 2023; <ref type="bibr">Stanton and Thomas, 2025), and (iv)</ref> hiring data from an employer (Dal <ref type="bibr" target="#b11">Bó et al., 2013;</ref><ref type="bibr">Falch, 2017;</ref><ref type="bibr" target="#b17">Shukla, 2024)</ref>.</p><p>The match is observed in the first literature, but only application is observed in the second literature. In this literature, the researchers do not observe the choice set for workers and construct artificial choice sets based on their commuting <ref type="bibr">zones and occupation (Hirsch et al., 2022;</ref><ref type="bibr">Azar et al., 2022)</ref> or of all available vacancies <ref type="bibr" target="#b5">(Banfi and Villena-Roldán, 2019;</ref><ref type="bibr">Marinescu and Wolthoff, 2019;</ref><ref type="bibr" target="#b8">Belot et al., 2022)</ref>. 45  In the third strand of literature, choice sets at some stages and matches are observed, but not at all stages. <ref type="bibr">Roussille and Scuderi (2023)</ref> use data from a platform where firms send wage bids and candidates decide whether to attend interviews. They estimate the wage elasticity of interviews among firms that form a connected set, following <ref type="bibr" target="#b18">Sorkin (2018)</ref>, and interpolate labor supply elasticity. However, <ref type="bibr">Roussille and Scuderi (2023)</ref> do not observe firm's choice set data at the initial scouting stage (i.e., applications initiated by firms), and thus do not estimate application or recruitment elasticity. <ref type="bibr" target="#b19">Stanton and Thomas (2025)</ref> analyze data from a platform where workers submit job-specific wage bids to openings. They treat recruitment as the firm's final selection among known applicants and estimate a job fill elasticity accordingly. Yet, <ref type="bibr" target="#b19">Stanton and Thomas (2025)</ref> lack data on the application choice sets, and therefore do not estimate application elasticity either. Collectively, these studies highlight the importance of choice set level data in moving beyond assumptions about externally defined markets and toward directly measuring recruitment behavior.</p><p>In the fourth strand of literature, applications, final matches, and sometimes intermediate outcomes are observed, but only from the employer side. Thus, the estimates are limited to a specific type of job, and the recruitment elasticity conditional on worker characteristics that are not recorded in the data is not identified. Dal <ref type="bibr" target="#b11">Bó et al. (2013)</ref> randomly posted low and high wages for public sector jobs in Mexico and estimated application, offer, and offer acceptance elasticities. However, it is limited to the public service and only semi-elasticities could be identified because the wage variation was binary. Falch (2017) also examined the impact of wage offers on final recruitment outcomes in teachers' markets in Norway. <ref type="bibr" target="#b17">Shukla (2024)</ref> analyzes the process from application to employment, although the primary focus is on firm-side caste bias in India. 6   Compared to the existing literature that lacked information on either the match or the on posted wages without explicitly modeling the choice set. Subsequent papers such as <ref type="bibr" target="#b1">Arnold et al. (2025)</ref> combine the platform data with employment records from census data.</p><p>6 The literature has also addressed endogeneity concerns by focusing on exogenous variation in offered wages; see, for example, experimental designs in online matching markets such as <ref type="bibr" target="#b15">(Dube et al., 2020;</ref><ref type="bibr" target="#b8">Belot et al., 2022)</ref>, and quasi-experimental designs in public sector recruitment such as <ref type="bibr">(Falch, 2017;</ref><ref type="bibr" target="#b11">Dal Bó et al., 2013;</ref><ref type="bibr" target="#b13">da Fonseca and Santarrosa, 2025)</ref>. choice set, our analysis leverages uniquely rich platform log data from Japan, allowing us to observe and analyze the full chain of job-seeking decisions-from initial inquiry and application submission, through interview attendance, to final offer acceptance-at the individual level. This enables a more comprehensive understanding of how job seekers respond to wage offers across the entire decision sequence.</p><p>Our modeling approach highlights key distinctions from unified general equilibrium frameworks such as <ref type="bibr" target="#b9">Berger et al. (2022)</ref>. Rather than relying on a reduced-form matching function, we explicitly decompose hiring dynamics into several stages-from the probability of a firm contacting an applicant to the probability of a hire-by leveraging detailed data on workers' actual choice sets. This stage-wise decomposition allows us to separately model firm behavior during the screening and selection phases, offering a more granular representation of the recruitment process. In contrast to models that rely on Nash bargaining for wage determination, we assume wages are posted and adjust in response to market conditions, reflecting the institutional setting of our platform and allowing us to estimate recruitment elasticity directly from observed wage and application responses. Our framework also directly engages with the core question raised by <ref type="bibr">Menzio (2024)</ref>: to what extent does the downward-sloping labor demand curve reflect heterogeneity in workers' outside options versus preferences? By using rich choice data, we are able to empirically isolate these two forces.<ref type="foot" target="#foot_4">foot_4</ref> </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">Measuring Relevant Recruitment Elasticity</head><p>A match between a worker and a vacancy happens if and only if they go through a multistage job matching process involving a belief update. After the employer posts a job, a worker searching for a job may find the posting and observe the posted wage. Then, the worker considers the vacancy and may apply for it, the employer may call the applicant for an interview, and the worker may attend the interview. In the interview, the worker observes the vacancy's type beyond the job description. Based on the updated information, the vacancy may make an offer to the worker if she is qualified, and the worker picks up the best offer from her offer set.</p><p>To see how these issues affect the definition of recruitment elasticity, let us introduce an analytical framework. Let w j be the posted wage, ξ j be the vacancy's unobserved type that is only revealed during the interview. In this multi-stage job matching process, the probability that a vacancy can match with a worker after the worker finds the posting is given by</p><formula xml:id="formula_0">RC(w j , ξ j ) = AP (w j , Eξ j ) • IC • IA(w j , Eξ j ) • OF • OA(w j , ξ j ), (<label>1</label></formula><formula xml:id="formula_1">)</formula><p>where AP is the application rate as a function of the posted wage and the expected vacancy's type, IC is the interview call rate, IA is the interview attendance rate as a function of the posted wage and the expected vacancy's type, OF is the offer rate, and OA is the offer acceptance rate as a function of the posted wage and the vacancy's type. For exposition, we fix firm-side selection through IC and OF to constant parameters. Before having the interview, the worker makes decisions based on their expectations about the vacancy's type.</p><p>If v(ξ j ) is the match surplus between a worker and vacancy of type ξ j , the employer's posted wage setting problem is max</p><formula xml:id="formula_2">w j p (v(ξ j ) -w j ) • RC(w j , ξ j ),<label>(2)</label></formula><p>where p is the probability that the worker finds the job posting. Note that ξ j is known to the firm posting vacancy of type ξ j at the timing of job posting. The optimal posted wage is then given by</p><formula xml:id="formula_3">w * j = v(ξ j ) - ( ∂RC(w j , ξ j ) ∂w j ) -1 RC(w j , ξ j ),<label>(3)</label></formula><p>and the markdown at wage w j is</p><formula xml:id="formula_4">v(ξ j ) -w j w j = ( ∂RC(w j , ξ j ) ∂w j ) -1 RC(w j , ξ j ) w j . (4)</formula><p>Therefore, the relevant recruitment elasticity is the elasticity of recruitment combining both the worker and vacancy sides' decisions during the job matching process conditional on finding the job posting and observing the wage. The implications are twofold. First, the information after application, specifically whether the application led to the match, is necessary to evaluate the employer's market power. If only the application elasticity is used, the number includes workers that are not qualified for the vacancy. At the extreme, none of them is qualified for the vacancy. In this case, having a high or low elasticity has nothing to do with the vacancy's market power. Second, the recruitment should be measured for a pair of worker and vacancy where the worker finds the vacancy and observes the posted wage.</p><p>A worker who has not found the vacancy does not react to the posted wage. However, this does not mean that the recruitment elasticity with respect to the posted wage is low. If we include this kind of worker in the analysis, we will underestimate the relevant recruitment elasticity.</p><p>Our data can address these two issues. First, our data include the information on whether the application led to the match. Second, our data include the information on whether the worker inquired about the vacancy and observes the posted wage. This allows us to identify the relevant recruitment elasticity.</p><p>As auxiliary analysis, we also report the recruitment elasticity conditional on the worker being called for interviews and the worker being offered a job. If the idea of directed search is correct, the selection of workers is already done by the interview call stage. Then, the interview attendance decisions will no longer depend on the posted wage. At this stage, the update of information about the vacancy is not substantial, either. By the time the worker receives the offer, the information about the vacancy is already updated. Therefore, the vacancy and the worker may start a negotiation for the offered wage, which could be correlated with the posted wage. Then, the offer acceptance decision of a worker may also depend on the posted wage. These analyses are not essential for the assessment of the employer's market power, but are informative for the understanding of the job matching process.</p><p>3 Institutional Background and Data</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Law and Regulation of Job Matching Intermediaries</head><p>The job matching intermediary is defined as the provider of job placement services under the International Labor Organization (ILO) convention. In the convention, the job placement service and the job advertisement service are strictly distinguished. 8 The placement service is defined as a service that mediates the matching between workers and employers by processing information between them. In contrast, the advertising service cannot process any information between a worker and an employer. It can only offer a marketplace.</p><p>This difference in the nature of the service is important to us. We can use detailed characteristics of the worker and the vacancy and track the entire job matching process from the job application, interview call, interview attendance, job offer, and offer acceptance because the job matching intermediary involves these activities. On the other hand, data from a job advertisement service cannot include information after job applications.</p><p>In Japan, the Employment Security Act defines and regulates the job matching intermediary. 9 A job matching intermediary is required to have a license (Article 33), and it can charge fees only to the employer with very few exceptions (Article 32-3(2)). 10 The job 8 Article 1.1.a. C096.</p><p>9 "[R]eceiving offers for posting job offerings and offers for registering as a job seeker and extending services to establish employment relationships between job offerers and job seekers." (Article 4-1)</p><p>10 "[A] fee-charging employment placement business provider shall not collect any fees from job seekers." This regulation corresponds to C181 of ILO; "Private employment agencies shall not charge directly or indirectly, in whole or in part, any fees or costs to workers." (Article 7-1 C181) matching intermediary cannot intervene in the relationship between the employer and worker once the employment contract is concluded. Due to this regulation, for-profit intermediaries cannot track the worker after matching. Therefore, we cannot use results after matching, such as the retention rate.</p><p>In 2022, there existed 28.1 thousand for-profit job matching intermediaries in Japan.</p><p>They handled 10.7 million vacancies and 28.7 million workers. In 2014, the year of our data, 17.9 thousand for-profit intermediaries were active and handled 4.4 million vacancies and 15.6 million workers. The for-profit intermediaries created 518 thousand jobs and collected a total amount of fees of 3.3 billion USD. Regarding the importance of the job matching intermediaries in the entire job changers, according to the Employment Trend Survey, 5.0 million workers who were employed by companies with more than 5 employees changed jobs in 2014. Thus, approximately 10% of the job changers are through for-profit intermediaries.<ref type="foot" target="#foot_5">foot_5</ref> </p><p>Since the beginning of industrialization, the job matching intermediary has been under regulation. ILO conventions have prohibited for-profit job matching intermediaries to rule out the exploitation of workers. Matching jobs by for-profit intermediaries was considered hardly distinguishable from trafficking. Consequently, it has been monopolized by a public employment agency in many countries under the Unemployment Recommendation in 1919 (R001) and the Fee-Charging Employment Agencies Convention in 1933 (C034), which was revised in 1949 (C096). 42 countries ratified C034.</p><p>However, in the 1990s, regulators started to think that the harm of for-profit job-matching intermediaries had been mitigated because of the improvement of labor laws and regulations and the diffusion of Internet technology. Thus, the ratification of the Convention on Private Employment Agencies in 1997 (C181) automatically overruled C096, and finally R001 was withdrawn in 2002. Among the 42 countries that ratified C034 (C096), it is no longer in force in 19 countries. For-profit job matching intermediaries in Japan have also emerged from this wave of deregulation.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Job Matching Process in the Intermediary</head><p>The job matching intermediary we collaborate with offers a two-sided service, employing agents for both vacancies and workers. These agents are referred to as vacancy-side consultants for vacancies and worker-side consultants for workers. When a vacancy is registered, the vacancy-side consultant communicates with the corresponding employer to gather unwritten job details, adjusts the advertisement as necessary, and verifies the qualifications of potential candidates. Meanwhile, the worker-side consultant meets with registered workers to discuss their goals, job-search scope, and assess their experience and qualifications.</p><p>The consultants maintain a close relationship to share information, enabling the worker-side consultant to recommend suitable vacancies to workers. When a worker applies for a vacancy, the vacancy-side consultant conducts an initial screening and forwards the application package of qualified candidates to the employer. The intermediary earns a fixed share of the annual salary (typically 30%) from the vacancy if the worker and the vacancy are successfully matched and the match lasts for at least six months; otherwise, the intermediary receives no compensation.</p><p>A worker initiates the job matching process by registering on the intermediary's website.</p><p>After registration, they can access vacancy information but can only apply for a vacancy if the worker-side consultant interviews them and provides a recommendation. Applications without a worker-side consultant's recommendation are automatically rejected, so the worker-side consultant's recommendation essentially determines the worker's choice set at the application stage. If the application passes the vacancy-side consultant's initial screening, the application package is sent to the employer for review. The rest of the process follows the usual job matching procedures, with the intermediary not intervening but being informed of events in the system. Based on the application package, the employer decides whom to invite for interviews. Workers then decide which interviews to attend. After the interview, the employer decides whether to extend a job offer. Upon receiving an offer, the worker decides whether to accept it.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Data</head><p>We use proprietary data from a job matching intermediary in Japan, covering the period from the 1st to the 40th week of 2014. The dataset encompasses all 47 prefectures in Japan and includes 39 job categories as defined by the intermediary. It records not only the observed characteristics of registered firms, workers, and vacancies but also details the decision-making process of workers and vacancies. This includes applications, interview attendance, offer acceptance for workers, and interview invitations and offers for vacancies.</p><p>We refer to the data detailing the workers' decision processes as the worker event data.</p><p>All monetary values, like posted and prior wages, are expressed in US dollars utilizing the average exchange rate in 2014 of 105 Japanese yen (JPY) to the dollar.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.4">Summary Statistics</head><p>We compile data for variables at the worker, vacancy, and pairwise levels. This section outlines the summary statistics, focusing on workers and vacancies registered within the first 40 weeks of 2014 to avoid right-censoring.</p><p>The worker-level data Workers' data contain a number of recommendations, interview calls, and job offers, labor market characteristics including employment, current or previous job wage, category, experience, rank, contract type, and second language fluency, and worker's demographic information including education, gender, age class, and residential area. The job rank is ordered as 9: Director, 8: Manager, 7: Senior Leader, 6: Leader, 5:</p><p>Junior Leader, 4: Senior Player, 3: Player, 2: Junior Player, and 1: Associate. The second language level has four levels from 0: No knowledge to 3: Very fluent. The second language required is mostly English, with some exceptions. The university graduate dummy takes a value of one if the worker's education rank is "university" or "postgraduate" and zero otherwise. The dummy of the young cohort is one if a worker is younger than 35 years old and is zero otherwise. For estimation, we include the worker's education level as a categorical variable.</p><p>Table A1 reports the summary statistics of the employed workers. At the application stage, on average, a worker collects information on 175.0 vacancies and applies to 21.3 vacancies. In the interview attendance stage, which means that among workers who receive at least one call back, a worker receives 5.95 interview calls and attends 5.23 interviews on average. At the offer acceptance stage, on average, a worker receives 1.23 offers if he receives at least one offer and accepts 0.81 offers. These statistics illustrate two notable features.</p><p>First, the job matching process is competitive, and most of the worker's applications are rejected by the vacancy at a later stage. Second, the multiple choice behavior of each worker is prevalent in the application and interview stage.</p><p>In the application stage, the average current wage is $49,666, the number of jobs experienced is 1.93, and the rank of the job is 3.93 (between the player and the senior player).</p><p>86% are full-time, 83% are university graduates, 75% are male, and 64% are under 35 years of age. The averages of these variables are similar in the interview attendance and offer acceptance stages. Hence, there appears to be no evident selection based on the observed characteristics during the job matching process.</p><p>Table A2 reports the summary statistics of the unemployed. The number of unemployed workers is 18,445 at the application stage, 12,468 at the interview attendance stage, and 4,108 at the offer acceptance stage. The current wage for unemployed workers is mechanically zero.</p><p>The average wage for their previous jobs is $43,245 in the application stage. The number of jobs experienced is 1.97 and the worker rank is 3.56. Thus, the previous wage of unemployed workers in the intermediary is slightly lower than the current wage of employed workers.</p><p>The previous job rank is between the player and the senior player, but is closer to the player than the employed workers. 79% are full-time, 79% are university graduates, 67% are male, and 69% are under 35 years of age. Unemployed workers consist of fewer full-time workers, fewer university graduates, fewer males, and younger workers than employed workers. The numbers are similar in each stage.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The vacancy-level data</head><p>The vacancy data constitute the registration week and job descriptions including job category, workplace location, lower and upper bounds of wages, job experience, job rank, second language, eligible education level, and firm information including the number of employees. The eligible education (high) takes a value of 1 if a vacancy can accept a high school graduate worker and zero otherwise. The other eligible educational level is defined analogously. The job rank and language level are defined in the same way as the worker data.</p><p>A job posting specifies a wage range. The average lower and upper bounds of the posted wage range are $43, 938 and $67,727. 12 The lower bound is closer to the workers' current and previous wages. The average number of job experience required is 1.46, which is close to the average number of job experience by registered workers. The job rank is on average 5.94, which is between the junior leader and the leader. The required rank of the vacancies is higher than the average rank of the jobs of registered workers. The required second language level is 0.25 on average, which means that about 75% of the vacancies do not require a second language level. Almost all vacancies are eligible for university graduates. Approximately half of the vacancies are eligible for an education level less than the university graduate. The number of employees is 3,254 on average, which means that vacancies in this intermediary are mainly posted by large companies.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The pairwise-level data</head><p>The pairwise-level data at the application stage includes variables that assess several key aspects of pairs of workers and vacancies that workers inquired about: the time interval from when a job is posted to when a worker applies, the geographic proximity between the worker and vacancy, as well as current or previous wages and job ranks compared to those posted. Since locations are recorded only at the prefecture level, geographic distance is measured between the capital cities of the prefectures where the current or previous job (if unemployed) is located and where the vacancy is posted.</p><p>Additionally, to account for the transition cost across different job categories, a skill distance metric is used, indicating whether the job category of the vacancy matches that of the worker's previous job.</p><p>Table <ref type="table">A4</ref> presents a summary of the pairwise variables for the worker-vacancy pairs during the application stage. The average duration is 9.82 weeks, with a standard deviation of 9.08 weeks. The average logarithm of the geographic distance (in km) plus one is 2.37, indicating that many recommended vacancies are located in different prefectures. Additionally, 64% of the recommended vacancies offer a lower bound wage higher than workers' current or previous wages, and 80% are of a higher rank. The skill distance standard deviation exceeds 0.50, suggesting that some vacancies pertain to different job categories than those of the workers' previous roles.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5">Building Choice Sets at Each Stage</head><p>We define each week as a round and analyze the interactions between workers and vacancies within this period. Our focus is on workers' actions such as applications, interview attendance, and offer acceptance for vacancies within the same round, disregarding actions for other vacancies.</p><p>In the application stage, the choice set includes vacancies recommended by the workerside consultant. During the interview stage, based on actual interview attendance data, the choice set is defined by vacancies with interview calls at each time state, allowing workers to decide on attendance. In the offer stage, the offer set encompasses all offers received by the worker after all rounds are completed.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">Estimating Recruitment Elasticity</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">Econometric Model</head><p>We estimate the equilibrium probability of recruitment conditional on a worker (i) inquiring about vacancies, (ii) receiving interview calls, and (iii) receiving offers. For the first two stages, the probability that worker i is recruited by vacancy j is given by</p><formula xml:id="formula_5">p ij = e δ ij 1 + e δ ij , (<label>5</label></formula><formula xml:id="formula_6">)</formula><p>where δ ij is specified as</p><formula xml:id="formula_7">δ ij = α ln(w j ) + β ′ i x j ,<label>(6)</label></formula><p>and</p><formula xml:id="formula_8">β i = Πz i ,<label>(7)</label></formula><p>with x j and z i be observed characteristics of vacancy j and worker i, respectively. As discussed in Appendix A, we treat the lower bound of the range of vacancy j's posted wage as posted wage w j . Note that δ ij does not have an interpretation as direct utility, because the recruitment is a consequence of the bilateral decisions of workers and vacancies. We consider this as a predictive model of recruitment. Vacancy j for each worker i includes information about the set of vacancies that the worker has inquired about in the baseline analysis. We also consider the set of vacancies that the worker has received an interview call and the set of vacancies that the worker has received an offer.</p><p>We add controls related to vacancies and workers. For vacancies, this includes the number of employees in the job, the job's rank, the language used in the job, the level of education required, the number of required experiences, the job's location, and the field of the job.</p><p>Regarding workers, this includes the age group and gender of the worker. Additionally, for these combinations of workers and vacancies, we controlled for whether the field was the same as the previous job (skill distance), whether the region was the same as the previous job (location distance), whether the salary was higher than in the previous job, whether the rank was higher than in the previous job, and the time it took from the worker's registration to matching with the vacancy. In our baseline specification, we allow that the coefficient of skill and location distance variables can differ across workers.</p><p>For the third stage, the probability that worker i is recruited by vacancy j is given by</p><formula xml:id="formula_9">δ ij = α ln(w j ) + β ′ i x j + ξ j , (<label>8</label></formula><formula xml:id="formula_10">)</formula><p>where ξ j is the private characteristics of the vacancy, which is revealed during interview processes. The private characteristics ξ j could be correlated with the posted wage. We address the endogeneity problem by using the control function approach ( <ref type="bibr">Petrin and Train, 2010)</ref>. Assume that the equilibrium wage posting equation is</p><formula xml:id="formula_11">w j = γ ′ x j + κd(x j , H t ) + ν j , (<label>9</label></formula><formula xml:id="formula_12">)</formula><p>where d(x j , H t ) is a measure of the distance in the characteristics space of the vacancy from other registered vacancies. H t represents the market structure, that is, the vector of number of vacancies of type at the registration week of the worker, t. ν j is the function of the private characteristics ξ j and assumed to be linear: ν j = ρ -1 ξ j . The idea is that the equilibrium wage depends on the public and private characteristics of the vacancy, and the distance from other registered vacancies influences the wage markdown.</p><p>In the first stage, we estimate equation ( <ref type="formula" target="#formula_11">9</ref>). Then, we obtain the residual estimate of</p><formula xml:id="formula_13">νj = w j -γ′ x j -κd(x j , H t ). (<label>10</label></formula><formula xml:id="formula_14">)</formula><p>We insert this into equation ( <ref type="formula" target="#formula_9">8</ref>) to obtain</p><formula xml:id="formula_15">δij := α ln(w j ) + β ′ i x j + ρν j . (<label>11</label></formula><formula xml:id="formula_16">)</formula><p>We then estimate the remaining parameters by a maximum likelihood method.</p><p>Following <ref type="bibr">Azar et al. (2022)</ref>, the instruments for wage w j are i) the log of the number of vacancies posted by a vacancy's competitors in the preceding two weeks in the same job category and the prefecture (BLP-type instruments, <ref type="bibr" target="#b10">Berry et al., 1995)</ref>, ii) the log of the sum of the number of employees of competitors who posted a vacancy in the preceding two weeks in the same job category and the prefecture (BLP-type instruments), and iii) the log of mean wages posted by the same firm in other markets (Hausman-type instruments, <ref type="bibr">Hausman et al., 1994)</ref>. For the third instrumental variable, if a firm does not post in other markets, the variable is replaced with the log of mean wages of all vacancies. We control for a log of the number of employees, the required second language level, the required number of experiences, and vacancy-specific dummies for job rank, eligible education level, job category, workplace prefecture, and registered week.</p><p>We estimate the model for each worker segment separately by employment status (employed and unemployed) and wage range (lower and upper). We also estimate the model for each employer segment separately by required education level (tertiary and secondary), firm size (large and small), location (Tokyo and non-Tokyo), and occupation (top and nontop). The top occupations constitute the top 50% of job postings including Sales, System Engineer, and Web Developer. Because variations across employers drop when segmenting the employers, we estimate the model using a lasso regression and make an inference of the wage coefficient by an honest confidene interval <ref type="bibr" target="#b7">(Belloni et al., 2013)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">First-Stage Results</head><p>Table <ref type="table">A5</ref> reports the first-stage regression results for the posted wage. Columns (1), (2), and</p><p>(3) show the results when each instrumental variable is used separately. It shows that the number of rivals' vacancies and the mean wage in other markets are statistically significant, but the number of rivals' employees is not. The magnitude of the number of rivals' vacancies is small. Columns ( <ref type="formula">4</ref>) and ( <ref type="formula" target="#formula_5">5</ref>) show the results when both BLP-type instrumental variables are used, as well as when all instrumental variables are used. It shows that the numbers of rivals' vacancies and employees are no longer statistically significant, and only the mean wage in other markets is statistically and economically significant. This makes sense because firms tend to set a uniform wage across markets. Moreover, it is likely that the uniform wage is set independently of local labor supply shocks. Because the BLP-type instruments are weak, in the following estimation of the offer acceptance decision, we use the Hausman-type instrumental variable as the preferred instrument.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Heterogeneity across Worker Segments</head><p>Table <ref type="table">A6</ref> reports the wage coefficients with the standard errors from each stage and the average of the implied wage elasticities with the 95% confidence intervals from each stage.</p><p>The underlying raw data correlations are displayed by binned scatter plots in Figures <ref type="figure" target="#fig_0">A1</ref>, <ref type="figure">A2</ref>, and <ref type="figure" target="#fig_1">A3</ref>.</p><p>The first rows of Table <ref type="table">A6</ref> shows the estimation results at the application stage conditional on inquiry. The wage coefficients are positive and statistically significant for upperwage workers (0.650 and 1.334 for unemployed and employed), whereas they are negative and statistically insignificant for lower-wage workers (-0.510 and -0.059 for unemployed and employed). The implied wage elasticities are 0.648 and 1.33 for unemployed and employed upper-wage workers, respectively, and -0.509 and -0.0588 for unemployed and employed lower-wage workers, respectively. With a large choice set and a single job selected per occasion, alternative-specific choice probabilities are near zero, so the estimated wage coefficients closely approximate the corresponding elasticities.</p><p>As we discussed in Section 2, these are the relevant recruitment elasticities for evaluating the market power of the employers. The fact that the recruitment elasticities are substantially lower for lower-wage workers than for upper-wage workers suggests that the employers have greater market power for lower-wage workers. One may think the employer may not be interested in hiring such a lower-wage worker, but the current estimates already incorporate such a possibility of rejection by the vacancy side. Even for the upper-wage workers, the recruitment elasticity is just above 1, meaning that the employers have substantial market power for these workers, too.</p><p>The second rows of Table <ref type="table">A6</ref> shows the estimation results at the interview attendance stage conditional on interview call. As we discussed in Section 2, posted wages would no longer affect the outcomes substantially if the workers have already sorted into vacancies for which the match could happen as assumed in the directed search literature and the information update is only after the offer stage. As we expected, the wage coefficients and the average of the implied wage elasticities at this stage are all statistically insignificant.</p><p>The third rows of Table <ref type="table">A6</ref> shows the estimation results at the offer acceptance stage conditional on offer call. If the workers have already sorted into vacancies, the posted wage could be associated with the outcomes only through its correlation with the private information updates and the negotiated matched wage. Our result shows that the wage coefficients are positive and statistically significant only for upper-wage unemployed workers</p><p>(2.763 with elasticity of 1.05), but not for other workers.</p><p>The observations that the workers would have already sorted into vacancies for which the match could happen are also confirmed from the estimated coefficients on the same skill and same location dummies for predicting the recruitment in Table <ref type="table">A7</ref>. At the application stage, the coefficients are all positive and statistically significant for all workers, meaning that at this stage, whether the vacancy requires a similar skill and workplace location closer to the worker's previous job matters for the recruitment. However, at the interview and offer acceptance stages, the coefficients become smaller and statistically insignificant except for a few cases, such as the same location coefficient for upper-wage unemployed workers. These patterns indicate that sorting based on observed characteristics including the posted wage matters only at the margin of application, and not thereafter.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.4">Heterogeneity across Employer Segments</head><p>Table <ref type="table">A8</ref> presents the estimated wage coefficients for different employer segments. Segments are defined along four employer-side dimensions: required education (tertiary or secondary), firm size (large or small), location (Tokyo or non-Tokyo), and job category, where "Top" denotes categories sharing the upper half of postings by category share and "Non-Top" denotes the remainder. We find relatively high wage elasticities for small firms (1.66) and top occupations in terms of the number of vacancies (1.01). This is consistent with the view that firms facing more severe competition for workers tend to have a higher recruitment elasticity.</p><p>It is well known in the literature that the wage coefficients are often estimated to be negative <ref type="bibr" target="#b5">(Banfi and Villena-Roldán, 2019)</ref>. One reason is that there are unobserved skill requirements across vacancies that are positively correlated with the posted wage even after controlling for detailed observed vacancy characteristics ( <ref type="bibr">Marinescu and Wolthoff, 2019)</ref>. If this is the case, matches are more difficult when the posted wage is higher. Indeed, we find negative coefficients for employer segments such as large firms, other prefectures, and other job categories, that are deemed to have more unobserved skill requirements. A vacancy only requiring secondary education generally may not have a large heterogeneity in skill requirement, but a vacancy posting a higher wage while only requiring secondary education may be a sign of a more difficult position which is consistent with the negative coefficient.</p><p>This paper provides a comprehensive analysis of recruitment elasticity across multiple stages of the job matching process, addressing two critical conceptual issues that have limited previous research. First, we argue that recruitment outcomes must be defined by actual matches rather than actions alone like applications, as workers who are rejected do not contribute to meaningful recruitment elasticity measures. Second, we emphasize that elasticity should be measured only for worker-vacancy pairs where workers observe posted wages, avoiding mechanical zeros that bias estimates downward.</p><p>Using unique data from one of Japan's largest job matching intermediaries, we track the complete job matching process from initial inquiries through final offer acceptances. Our results reveal substantial heterogeneity in recruitment elasticities across worker types and matching stages. While upper-wage workers show positive and significant elasticities around 1 at the application stage, lower-wage workers exhibit insignificant elasticities, suggesting employers have greater market power over lower-wage segments of the labor market.</p><p>Our stage-wise decomposition provides new insights into the matching process. Consistent with directed search theory, we find that posted wages significantly influence outcomes only at the application stage, with no significant effects at interview attendance or offer acceptance stages conditional on reaching those stages. This pattern suggests that workers sort into appropriate vacancies based on observable characteristics including wages early in the process, with subsequent stages determined primarily by match-specific factors revealed through interviews.</p><p>We also uncover substantial heterogeneity in recruitment elasticities across employer segments. Small firms exhibit relatively high positive elasticities, as do top job categories, consistent with these employers facing more intense competition for workers. In contrast, large firms, non-Tokyo locations, and non-top job categories show negative wage coefficients, likely reflecting unobserved skill requirements that correlate with higher posted wages. These negative coefficients suggest that higher wages in these segments signal more difficult positions requiring unobserved skills, making matches harder to achieve despite the wage premium.</p><p>This heterogeneity highlights how labor market competitiveness varies substantially across different employer characteristics.</p><p>These findings reveal that labor market competitiveness is inherently bilateral, shaped by outside options on both sides of the market. Lower-wage workers exhibit lower elasticities due to constrained alternatives, while employers in competitive segments, such as small firms or those in markets crowded with similar vacancies, face higher elasticities. This bilateral perspective is crucial: analyzing worker competition in isolation, for instance among lessskilled workers, risks missing critical employer-side dynamics. Positions targeting less-skilled workers may still generate high recruitment elasticity if employers compete intensely for these candidates. Properly accounting for this two-sided competition requires precise measurement of workers' actual choice sets, which our data uniquely provide.</p><p>For policy analysis, our stage-specific findings provide practical guidance. Since wage effects are concentrated at the application stage rather than propagating through interviews and offers, application responses can serve as reliable proxies for the overall elasticity of labor supply. This has direct implications for evaluating the effects of policies through gross job flows. For example, the absence of a decline in employment following minimum-wage increases is often attributed to simultaneous reductions in both hiring and separations <ref type="bibr">(Dube et al., 2016;</ref><ref type="bibr">Dustmann et al., 2021)</ref>.</p><p>Distinguishing between application and later-stage recruitment elasticities helps clarify the mechanisms behind such employment dynamics; whether they stem from a worker-side incentive effect, in which higher wages reduce applications (i.e., application elasticity), or from increases in post-application frictions, such as changes in job quality or other non-wage attributes triggered by minimum-wage hikes (i.e., interview-attendance elasticity). Understanding which mechanism dominates is crucial for interpreting how minimum-wage policies influence employment outcomes. Because our data cover only the middle segment of the labor market and exclude the minimum-wage range, future research should extend this analysis</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>A Which Wage to Use in the Analysis?</head><p>A job posting specifies a wage range. For each worker-job match, we observe both the offered wage in addition to the posted wage range. While previous studies have used the midpoint of the posted wage range for analysis, we opt to use the lower bound of the posted wage based on our analysis. We also argue that the offered wage aligns closely with the lower bound of the posted wages.</p><p>To determine whether the lower bound or the mean of the posted wage is more relevant, the upper left panel of Figure <ref type="figure" target="#fig_2">A4</ref> illustrates the distribution of lower bounds for posted wages, accepted wages, and current or previous wages. This comparison considers posted wages from all vacancies and accepted wages from all matched worker-vacancy pairs, along with current or previous wages for all workers.</p><p>The lower bounds of the posted wages are slightly below the current or previous wages.</p><p>Similarly, the accepted wages are marginally lower than these lower bounds but not significantly different. The upper right panel of Figure <ref type="figure" target="#fig_2">A4</ref> replaces the distribution of the lower bounds with the distribution of the average of the lower and upper bounds, indicating that the average posted wages are considerably higher than those of other categories. Therefore, the lower bound more accurately reflects the nature of the vacancy than the average or upper wage bounds.</p><p>The lower left panel of Figure <ref type="figure" target="#fig_2">A4</ref> illustrates the distribution of differences for matched worker-vacancy pairs: between the lower bound of the posted wage and the accepted wage, and between the mean posted wage and the accepted wage. It reveals that the difference is, on average, close to 0 for the lower bound but positive for the mean. Therefore, the lower bound of the posted wage is a less biased predictor of the accepted wage compared to the mean.</p><p>The figures suggest that the accepted wage is not as tightly bound by the posted wage range as the directed search literature posits, yet it's not completely independent of it as the random search literature suggests. This observation prompts several questions: first, how accurately can we predict accepted wages based on posted wages? Second, when there is a discrepancy between the accepted and posted wages, does it indicate the bargaining power of the worker or the employer?</p><p>Table <ref type="table">A9</ref> shows the results of regressing the accepted wage on the lower bound of the posted wage for the matched worker-vacancy pairs. The second column controls for the worker's characteristics. Additionally, the third column controls for the state of the worker at the application stage, measured by the number of vacancies the worker has applied for each type of vacancy. The fourth column controls the state of the worker at the interview stage, measured by the number of vacancies for which the worker has received interview calls for each type of vacancy.</p><p>Without controlling for any variables, the coefficient for the lower bound of the posted wage is 0.899 and statistically significant, with an adjusted R-squared of 0.542. When controlling for worker characteristics, the coefficient decreases to 0.613, and the adjusted R-squared increases to 0.685. This indicates that while the lower bound of the posted wage is not a perfect predictor, it is highly indicative of the accepted wage. Notably, including worker state variables at the application and interview stages does not improve the model's fit. Thus, although worker characteristics do influence the accepted wage, the worker's state, endogenously formed during the job-matching process, does not have an impact.</p><p>For these reasons, in the following analysis, we use the lower bound of the posted wage in the model and consider the difference between the accepted and posted wages as exogenous shocks.</p><p>The lower right panel of Figure <ref type="figure" target="#fig_2">A4</ref> compares the distribution of accepted wages with a representative wage distribution in Japan. We specifically compare it with the income of newly hired full-time mid-career workers from the 2012 Employment Status Survey (ESS).</p><p>The results show that accepted wages in the intermediary are higher than the average wages of these workers. This is because the intermediary targets university graduates in whitecollar, relatively high-wage jobs. (a) Employed/Lower Wage (b) Employed/Upper Wage (c) Unemployed/Lower Wage (d) Unemployed/Upper Wage Figure A2: The recruitment probability from interview call   Table A4: Summary statistics of pairwise-level variables for inquired pairs N mean sd min max Duration (week) 10161572 9.82 9.08 0.00 52.00 Log(1 + distance (km)) 10161572 2.37 2.20 0.00 7.72 1(posted wage &gt; previous wage) 10161572 0.64 0.48 0.00 1.00 1(job rank &gt; worker rank) 10161572 0.80 0.40 0.00 1.00 Same skill 10161572 0.56 0.50 0.00 1.00 Same location 10161572 0.42 0.49 0.00 1.00 Note: The definitions of these variables are provided in the main text.</p><p>Table A5: First-stage results (1) (2) (3) (4) (5) Log(rivals' vacancies) 0.004 0.004 -0.002 (0.002) (0.002) (0.002) Log(rivals' employees) 0.001 0.000 0.000 (0.000) (0.001) (0.000) Posting in other markets -4.806 -4.808 (0.168) (0.167) Posting in other markets × Log(other markets' mean wage) 0.452 0.452 (0.016) (0.016) Num.Obs. 154488 154488 154488 154488 154488 R2 0.461 0.461 0.540 0.461 0.540 R2 Adj. 0.456 0.456 0.536 0.456 0.536 AIC -72623.9 -72608.6 -97266.3 -72622.1 -97266.0 RMSE 0.19 0.19 0.18 0.19 0.18 Note: The dependent variable is the logarithm of the posted wage (the lower bound of the range). The coefficients of the control variables are omitted from the table. We control for the logarithm of the number of employees, the required second language level, the required years of experience, and vacancy-specific dummies for job rank, eligible education level, job category, workplace prefecture, and registered week. Standard errors are shown in parentheses.</p><p>Table A7: Same skill and location coefficients by worker segments from each stage Stage Segment Same Skill S.E. Same Location S.E. Num.Obs. Application Unemployed Upper 0.358 (0.061) 0.705 (0.074) 1203384 Lower 0.482 (0.057) 0.709 (0.064) 1830283 Employed Upper 0.261 (0.034) 0.430 (0.043) 4612848 Lower 0.362 (0.043) 0.885 (0.048) 3180180 Interview attendance Unemployed Upper 0.082 (0.063) 0.217 (0.077) 37424 Lower 0.148 (0.058) 0.083 (0.065) 50489 Employed Upper 0.063 (0.035) -0.039 (0.044) 102149 Lower 0.075 (0.044) 0.266 (0.049) 72771 Offer acceptance Unemployed Upper -0.060 (0.197) 0.544 (0.250) 2108 Lower -0.003 (0.150) -0.103 (0.179) 3182 Employed Upper 0.062 (0.100) 0.012 (0.125) 7039 Lower -0.148 (0.115) 0.300 (0.133) 5539 Note: These tables show the estimated coefficients on the same skill and same location dummies of the regression models in Table ??. The standard errors are in the parentheses.</p><p>Table A9: Regression of accepted wages on the lower bounds of the posted wages Accepted wage Accepted wage Accepted wage Accepted wage Lower bound of the posted wage 0.899 0.613 0.613 0.613 (0.006) (0.006) (0.006) (0.006) Num.Obs. 16907 16907 16907 16907 R2 0.542 0.687 0.687 0.687 R2 Adj. 0.542 0.685 0.685 0.685 RMSE 8803.92 7283.81 7277.14 7283.21 Worker characteristics Yes Yes Yes Application state variables Yes Interview state variables Yes Note: Each observation corresponds to a matched pair of workers and vacancies. The characteristics of workers considered include second language proficiency, rank, number of job experiences, education level, gender, age group, employment status, prefecture, and job category. Standard errors are presented in parentheses.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure A1 :</head><label>A1</label><figDesc>Figure A1: The recruitment probability from inquiry Note: We estimate the probability of recruitment using a stage-wise logit model, where the recruitment process is decomposed into multiple stages. The y-axis reports the probability of being recruited (matched) conditional on inquiry. Each line corresponds to a subgroup defined by employment status and wage range, with 95% confidence intervals shown by dashed lines. The x-axis shows the logarithm of posted wages.</figDesc><graphic coords="31,95.40,355.04,210.60,157.95" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure A3 :</head><label>A3</label><figDesc>Figure A3: The recruitment probability from offer call Note: We estimate the probability of recruitment using a stage-wise logit model. The y-axis reports the probability of being recruited (matched) conditional on receiving an offer. Each line corresponds to a subgroup defined by employment status and wage range, with 95% confidence intervals shown by dashed lines. The x-axis shows the logarithm of posted wages.</figDesc><graphic coords="33,95.40,355.04,210.60,157.95" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure A4 :</head><label>A4</label><figDesc>Figure A4: The empirical cumulative distribution of wagesNote: In the upper panels, posted wages pertain to all job vacancies, while current and previous wages are relevant to all workers. Accepted wages are specific to matched worker-vacancy pairs. In the bottom-left panel, data is presented for all matched worker-vacancy pairs. In the bottom-right panel, the distribution of accepted wages is compared with a representative wage distribution in Japan, specifically focusing on the income of newly hired full-time mid-career workers as reported in the 2012 Employment Status Survey (ESS).</figDesc><graphic coords="34,93.45,342.87,210.60,157.95" type="bitmap" /></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="2" xml:id="foot_0"><p>The distribution of posted wages in our dataset is similar to the wage distribution of newly hired (fulltime mid-career) workers in the Employment Status Survey (ESS) in 2012, which is a nationwide randomly sampled household survey equivalent to the American Community Survey in the United States.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="3" xml:id="foot_1"><p>Hirsch et al. (2022)  explicitly state that "[w]hile applications and recruitment are related, they are not the same, so these estimates are not directly informative on the recruitment elasticity" (p. 2).</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="4" xml:id="foot_2"><p>Hirsch et al. (2022)  adopt a more direct approach by estimating fixed-effects Poisson regressions on expanded matched data with application data, where the dependent variable is an indicator for the plant a recruit moves to. Their core regressor is the plant wage effect estimated by the approach of<ref type="bibr" target="#b0">Abowd et al. (1999)</ref>, whose coefficient directly identifies the wage elasticity of recruitment.</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="5" xml:id="foot_3"><p>Azar et al. (2022)  estimates application elasticities within a binary nested logit framework, treating market entry as a discrete choice over commuting zone and occupation cells. Under the assumption that hiring elasticity equals the application elasticity and is half the labor supply elasticity, they indirectly back out markdowns from these equilibrium relationships rather than estimating recruitment elasticity directly.Marinescu and Wolthoff (2019)  using data from job advertising platforms regress the number of applicants</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="7" xml:id="foot_4"><p>For further discussion on these mechanisms in monopsonistic labor markets, seeAzar and Marinescu  (2024a,b).</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="11" xml:id="foot_5"><p>https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/haken-shoukai/ shoukaishukei.html</p></note>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="12" xml:id="foot_6"><p>When a worker accepts an offer, we observe not only the posted wage range but also the actual offered wage. From these observations, we find that the lower bound of the posted wage range closely approximates the offered wage. See Appendix A for details.</p></note>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><p>supported by <rs type="grantNumber">KAKENHI 25K16620</rs>, <rs type="grantNumber">23K17286</rs>, <rs type="grantNumber">19H00592</rs>, <rs type="grantNumber">17KK0044</rs>, <rs type="grantNumber">16K21741</rs>, <rs type="grantNumber">16H02020</rs> and <rs type="funder">JST ERATO</rs> Grant Number <rs type="grantNumber">JPMJER2301</rs>. We thank <rs type="person">Yutaro Takayasu</rs> and <rs type="person">Haruo Kakehi</rs> for their research assistance. We also thank <rs type="person">Haruo Kakehi</rs>, <rs type="person">Ryota Mugiyama</rs>, and <rs type="person">Kyoko</rs></p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_kVuyeKZ">
+					<idno type="grant-number">KAKENHI 25K16620</idno>
+				</org>
+				<org type="funding" xml:id="_pWqmNmy">
+					<idno type="grant-number">23K17286</idno>
+				</org>
+				<org type="funding" xml:id="_javjzne">
+					<idno type="grant-number">19H00592</idno>
+				</org>
+				<org type="funding" xml:id="_2aW95xG">
+					<idno type="grant-number">17KK0044</idno>
+				</org>
+				<org type="funding" xml:id="_rKhAEQK">
+					<idno type="grant-number">16K21741</idno>
+				</org>
+				<org type="funding" xml:id="_mtfUHDz">
+					<idno type="grant-number">16H02020</idno>
+				</org>
+				<org type="funding" xml:id="_gBuJqMv">
+					<idno type="grant-number">JPMJER2301</idno>
+				</org>
+			</listOrg>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0" />			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">High Wage Workers and High Wage Firms</title>
+		<author>
+			<persName><forename type="first">John</forename><forename type="middle">M</forename><surname>Abowd</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Francis</forename><surname>Kramarz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><forename type="middle">N</forename><surname>Margolis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Econometrica</title>
+		<imprint>
+			<biblScope unit="volume">67</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="251" to="333" />
+			<date type="published" when="1999">1999</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">The Impact of Pay Transparency in Job Postings on the Labor Market</title>
+		<author>
+			<persName><forename type="first">David</forename><surname>Arnold</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Simon</forename><surname>Quach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bledi</forename><surname>Taska</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Chapter 10 -Monopsony Power in the Labor Market</title>
+		<author>
+			<persName><forename type="first">José</forename><surname>Azar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ioana</forename><surname>Marinescu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Handbook of Labor Economics</title>
+		<editor>
+			<persName><forename type="first">Christian</forename><surname>Dustmann</surname></persName>
+		</editor>
+		<editor>
+			<persName><forename type="first">Thomas</forename><surname>Lemieux</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Elsevier</publisher>
+			<date type="published" when="2024-01">January 2024</date>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page" from="761" to="827" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Monopsony Power in the Labor Market: From Theory to Policy</title>
+	</analytic>
+	<monogr>
+		<title level="j">Annual Review of Economics</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="491" to="518" />
+			<date type="published" when="2024-08">August 2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<title level="m" type="main">Estimating Labor Market Power</title>
+		<author>
+			<persName><forename type="first">Steven</forename><surname>Berry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ioana</forename><forename type="middle">Elena</forename><surname>Marinescu</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2022-07">July 2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Do High-Wage Jobs Attract More Applicants? Directed Search Evidence from the Online Labor Market</title>
+		<author>
+			<persName><forename type="first">Stefano</forename><surname>Banfi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Benjamín</forename><surname>Villena-Roldán</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Labor Economics</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="715" to="746" />
+			<date type="published" when="2019-01">January 2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Heterogeneous Choice Sets and Preferences</title>
+		<author>
+			<persName><forename type="first">Levon</forename><surname>Barseghyan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Maura</forename><surname>Coughlin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Francesca</forename><surname>Molinari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joshua</forename><forename type="middle">C</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Econometrica</title>
+		<imprint>
+			<biblScope unit="volume">89</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="2015" to="2048" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note>Teitelbaum</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<title level="m" type="main">Honest Confidence Regions for a Regression Parameter in Logistic Regression with a Large Number of Controls</title>
+		<author>
+			<persName><forename type="first">Alexandre</forename><surname>Belloni</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Victor</forename><surname>Chernozhukov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ying</forename><surname>Wei</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2013-12">December 2013</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">Technical Report</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">How Wage Announcements Affect Job Search-A Field Experiment</title>
+		<author>
+			<persName><forename type="first">Michèle</forename><surname>Belot</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Philipp</forename><surname>Kircher</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Paul</forename><surname>Muller</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Economic Journal: Macroeconomics</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1" to="67" />
+			<date type="published" when="2022-10">October 2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Labor Market Power</title>
+		<author>
+			<persName><forename type="first">David</forename><surname>Berger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kyle</forename><surname>Herkenhoff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Simon</forename><surname>Mongey</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Economic Review</title>
+		<imprint>
+			<biblScope unit="volume">112</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1147" to="1193" />
+			<date type="published" when="2022-04">April 2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Automobile Prices in Market Equilibrium</title>
+		<author>
+			<persName><forename type="first">Steven</forename><surname>Berry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">James</forename><surname>Levinsohn</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ariel</forename><surname>Pakes</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Econometrica</title>
+		<imprint>
+			<biblScope unit="volume">63</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="841" to="890" />
+			<date type="published" when="1995">1995</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Strengthening State Capabilities: The Role of Financial Incentives in the Call to Public Service</title>
+		<author>
+			<persName><forename type="first">Ernesto</forename><surname>Bó</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Frederico</forename><surname>Dal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Martín</forename><forename type="middle">A</forename><surname>Finan</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Rossi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Quarterly Journal of Economics</title>
+		<imprint>
+			<biblScope unit="volume">128</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1169" to="1218" />
+			<date type="published" when="2013-08">August 2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Bounds on Elasticities With Optimization Frictions: A Synthesis of Micro and Macro Evidence on Labor Supply</title>
+		<author>
+			<persName><forename type="first">Raj</forename><surname>Chetty</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Econometrica</title>
+		<imprint>
+			<biblScope unit="volume">80</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="969" to="1018" />
+			<date type="published" when="2012-05">May 2012</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+		<title level="m" type="main">Identifying Labor Market Power: A Quasi-Experimental Approach</title>
+		<author>
+			<persName><forename type="first">João</forename><surname>Da Fonseca</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rogerio</forename><surname>Galindo</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Santarrosa</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2025-04">April 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<monogr>
+		<title level="m" type="main">Antitrust Guidance for Human Resource Professionals</title>
+		<imprint>
+			<date type="published" when="2016-10">October 2016</date>
+			<publisher>Department of Justice and Federal Trade Commission</publisher>
+		</imprint>
+		<respStmt>
+			<orgName>U.S. Department of Justice and Federal Trade Commission</orgName>
+		</respStmt>
+	</monogr>
+	<note type="report_type">Technical Report</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Monopsony in Online Labor Markets</title>
+		<author>
+			<persName><forename type="first">Arindrajit</forename><surname>Dube</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jeff</forename><surname>Jacobs</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Suresh</forename><surname>Naidu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Siddharth</forename><surname>Suri</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Economic Review: Insights</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="33" to="46" />
+			<date type="published" when="2020-03">March 2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Minimum Wage Shocks, Employment Flows, and Labor Market Frictions</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">William</forename><surname>Lester</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><surname>Reich</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Labor Economics</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="663" to="704" />
+			<date type="published" when="2016-07">July 2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<title level="m" type="main">Making the Elite: Top Jobs, Disparities, and Solutions</title>
+		<author>
+			<persName><forename type="first">Soumitra</forename><surname>Shukla</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2024-05">May 2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Ranking Firms Using Revealed Preference*</title>
+		<author>
+			<persName><forename type="first">Isaac</forename><surname>Sorkin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Quarterly Journal of Economics</title>
+		<imprint>
+			<biblScope unit="volume">133</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1331" to="1393" />
+			<date type="published" when="2018-08">August 2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Who Benefits from Online Gig Economy Platforms?</title>
+		<author>
+			<persName><forename type="first">Christopher</forename><forename type="middle">T</forename><surname>Stanton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Catherine</forename><surname>Thomas</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Economic Review</title>
+		<imprint>
+			<biblScope unit="volume">115</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="1857" to="1895" />
+			<date type="published" when="2025-06">June 2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

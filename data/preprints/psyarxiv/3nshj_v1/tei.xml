@@ -1,0 +1,2015 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main"></title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Francesca</forename><surname>Aarons</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="institution">University of Marburg</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Edward</forename><forename type="middle">J R</forename><surname>Clarke</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="institution">University of Marburg</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="institution">University of Marburg</orgName>
+								<address>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">2D147966AA1C35CEAA1A125FB61701F5</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-13T17:17+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=false, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Partisanship</term>
+					<term>negative partisanship</term>
+					<term>political independence</term>
+					<term>Australia</term>
+					<term>Social Identity Theory</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>While partisanship is a popular measure for predicting a broad range of political and social variables, its true nature is not well understood, particularly outside the U.S. in multi-party democracies. This study uses a series of open-ended survey questions (Australian sample, N = 81) to inductively examine party evaluation, whether this can lead to identification with parties and for whom. Further, we explore negative partisanship and the nature of political independence. Using qualitative content analysis, we find issues of morality, party effectiveness and value/policy congruence are among the most common factors of positive and negative party evaluation.</p><p>However, negative attitudes were often directed toward a particular group (not necessarily a political party, e.g. "all left-wing parties") denoting their most threatening out-group. Most participants claimed not to identify with any political party, due to their values (which some acknowledged a political party represented) being the aspect relevant to their identity, rather than the party itself. Political independents were described in a similar way to previous U.S.-based research, i.e. morally superior and free from party constraints or biases. Overall, our research suggests that more complex measures are required to capture and understand partisanship than what currently exists in political and psychological research.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Transparency statement</head><p>Anonymised data collected for this study is freely available at <ref type="url" target="https://osf.io/ys8jq">https://osf.io/ys8jq</ref>. A file containing the original coding of all data (.mx22) is also freely available at <ref type="url" target="https://osf.io/8ucag">https://osf.io/8ucag</ref>. Survey questions were not preregistered.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>"You can not like cake but still have a favourite": How people evaluate and engage with political parties in multi-party systems</head><p>Partisanship is generally accepted as a positive and lasting psychological attachment to a specific political party <ref type="bibr" target="#b17">(Campbell et al., 1960)</ref>. It plays a key role in predicting voting behaviour <ref type="bibr" target="#b67">(Oscarsson &amp; Holmberg, 2020)</ref>, but its consequences extend beyond electoral outcomes to democratic satisfaction <ref type="bibr" target="#b5">(Aldrich et al., 2020;</ref><ref type="bibr" target="#b7">Anduiza &amp; Pannico, 2020)</ref> and interpersonal relationships <ref type="bibr" target="#b73">(Reilly &amp; Hedberg, 2022)</ref>. Partisanship can benefit democracy, giving laypeople a framework to understand their political environment, encouraging political elites to be accountable to citizens, and increasing political mobilisation and stability in societies <ref type="bibr" target="#b67">(Oscarsson &amp; Holmberg, 2020)</ref>. However, partisanship also fuels polarisation, misrepresentation, and politically-motivated reasoning <ref type="bibr" target="#b14">(Brader et al., 2020;</ref><ref type="bibr" target="#b51">Kunda, 1990;</ref><ref type="bibr" target="#b67">Oscarsson &amp; Holmberg, 2020;</ref><ref type="bibr" target="#b77">Strickland et al., 2011;</ref><ref type="bibr" target="#b81">Unsworth &amp; Fielding, 2014)</ref>. This fosters deep social divisions beyond political spheres that appear to be intensifying <ref type="bibr" target="#b56">(Mason, 2016;</ref><ref type="bibr" target="#b71">Reiljan, 2020;</ref><ref type="bibr" target="#b85">Wagner, 2021)</ref>, increasing intolerance toward those from different social groups <ref type="bibr" target="#b57">(Mason, 2018;</ref><ref type="bibr" target="#b74">Roccas &amp; Brewer, 2002)</ref>.</p><p>Therefore, in an increasingly polarised world, understanding the inner workings of partisanship is crucial. However, when considering party engagement and its wider effects, many scholars believe negative party attitudes also play a role alongside positive attitudes. This concept of "negative partisanship" is shown to independently predict voter intention, turnout, and support for bipartisanship <ref type="bibr" target="#b10">(Bankert, 2022;</ref><ref type="bibr" target="#b21">Caruana et al., 2015;</ref><ref type="bibr" target="#b37">Haime &amp; Cantú, 2022;</ref><ref type="bibr" target="#b59">Mayer, 2017)</ref>. Additionally, it is feasible to think there are politically-engaged individuals who may not opt into aspects of positive or negative party attachment, who may be referred to as political independents. However, this concept of political independence has not to our knowledge been taken beyond the context of the United States, where it predicts commitment to values of political autonomy <ref type="bibr" target="#b27">(Dennis, 1992)</ref>, more consistent reappraisal of political issues and candidates than partisans <ref type="bibr" target="#b3">(Abrams &amp; Fiorina, 2011)</ref>, and plays a moderating role in political discussion networks with avowed partisans <ref type="bibr" target="#b73">(Reilly &amp; Hedberg, 2022)</ref>.</p><p>Therefore, we posit that these three positions of (positive) partisanship, negative partisanship, and political independence together influence political outcomes and interpersonal factors, and exploring how these may fit together will help to illustrate the holistic political identities of citizens in multi-party systems. Yet, the definitions of these three concepts remain contested, even where they originated in the United States, and attempts to apply the concepts elsewhere has led to further inconsistencies (see <ref type="bibr">Bartle &amp; Belluci, 2014;</ref><ref type="bibr">Caruana, 2014;</ref><ref type="bibr" target="#b50">Klar &amp; Krupnikov, 2016)</ref>. Therefore, we must gain a clearer theoretical understanding of how these concepts operate before they can be integrated. Qualitative explorations are sorely lacking in partisanship research, and we argue this approach will help to guide understanding of these concepts by providing a "bottom-up" process to interpretation. Our research aimed to do this by directly asking people to describe their experiences of party attachment and evaluation.</p><p>Australia offers a valuable case study for partisanship in a multi-party system, due to recent growth in representation of minor parties and independent candidates <ref type="bibr">(Parliament of Australia, 2022)</ref>. This may suggest a subsequent shift in the nature of partisanship, providing insight into what positive, negative or independent political attachments may look like in a multi-party system.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Positive partisanship: what are we actually measuring?</head><p>This concept of partisanship as a favourable relationship between the partisan and the political party was born in the U.S., and while it was not infeasible that citizens in other democracies would show signs of partisanship, the traditional scale used to measure their prevalence was not suitable for a multi-party context. The original U.S.-based question (via the American National Election Studies, or ANES) reads: "[g]enerally speaking, do you usually think of yourself as a Republican, a Democrat, an Independent, or what?" and is still widely used to measure partisanship.</p><p>However, in its transition to multi-party systems, the item was subject to contextual and structural changes, as well as language translations in order to make sense in other democracies (e.g. the Netherlands, Denmark, Israel, Britain). Some measures then asked people the equivalent of whether they are an "adherent" of a party, "attracted" or "attached" to a party, "support" a party, or even "identify" with a party (for full summaries see <ref type="bibr" target="#b12">Bartle &amp; Bellucci, 2014;</ref><ref type="bibr" target="#b45">or Huddy et al., 2020)</ref>. Further, to fit multi-party contexts, if respondents answer "yes" to this question they are then typically asked to name the party or parties with which they are attached or attracted to. The seemingly subtle differences between these updated measurement approaches and the traditional ANES measure led to incomparable prevalence of "partisans" in political systems. For example, one study examining the differences in who is classified as a partisan by two differently-worded measures showed dramatic variation, where the United Kingdom and Canada saw 89% and 69% of the population (respectively) branded as partisans drop to only 49% and 38% <ref type="bibr" target="#b45">(Huddy et al., 2020)</ref>.</p><p>Therefore, within this one measurement approach, it appears there is no longer a coherent definition of what is being measured when referring to partisanship. So, when other measures of partisanship take a different approach again, there is no confirmation that the same concept is being measured globally. Notably, other studies are seen to use feeling thermometers (e.g. <ref type="bibr" target="#b33">Gidron et al., 2022</ref><ref type="bibr">), voting intention (e.g. Fitzgerald, 2011)</ref>, or measures of social identification with political parties (e.g. <ref type="bibr">Huddy et al;</ref><ref type="bibr">2015)</ref> to evaluate partisanship. Therefore, beyond the inconsistency in measurement -and perhaps compounded by it -the nature of what partisanship actually means is also under scrutiny. Many researchers argue that partisanship functions as a social identity <ref type="bibr" target="#b11">(Bankert et al., 2017;</ref><ref type="bibr" target="#b28">Dinas, 2014;</ref><ref type="bibr" target="#b36">Greene, 2004;</ref><ref type="bibr" target="#b46">Huddy et al., 2015)</ref>, known as the 'expressive' approach to partisanship. This is explained by the Social Identity Approach, which proposes that a person's perception of themselves can be influenced by their membership(s) to a certain group(s), with differing intensity based on the value they attach to this membership <ref type="bibr" target="#b64">(Miller, 2010;</ref><ref type="bibr" target="#b80">Tajfel, 1978)</ref>. So, a social identity can influence one's attitude toward a certain topic (e.g. a policy) based on the opinion of a group (e.g. a political party) and how strongly one identifies with that group.</p><p>The opposing perspective is an 'instrumental' approach to partisanship, describing a purely practical decision that accounts for past behaviour and ideological proximity to a party <ref type="bibr" target="#b29">(Fiorina, 1981;</ref><ref type="bibr"></ref> as cited by Huddy 2015) rather than an emotional and identity-based experience.</p><p>Presently, research suggests that both conceptual approaches have merit <ref type="bibr" target="#b11">(Bankert et al., 2017;</ref><ref type="bibr" target="#b19">Carius-Munz, 2020;</ref><ref type="bibr" target="#b44">Huddy et al., 2018)</ref> with aspects of each being relevant for different people at different times. For example, <ref type="bibr" target="#b32">Gidengil and Nevitte (2020)</ref> found that during parliamentary scandals in the United Kingdom and Canada, while voting reflected disapproval of the implicated parties, partisan identification remained relatively stable.</p><p>Further, <ref type="bibr" target="#b54">Mari and Rosema (2009)</ref> found that a self-identity component of partisanship could be distinguished empirically from an evaluative component using a Confirmatory Factor Analysis. Therefore, the selfidentification facet of partisanship may endure unfavourable short-term events without resisting a display of at least temporary disapproval.</p><p>However, what this debate has always noticeably lacked is a person-centred component, where people are asked if and how they identify with or experience emotion related to political parties, or if and how they instrumentally engage with them. If any single existing theory cannot account for the holistic experience of partisanship, then prior to building a new framework, we must understand the meaning behind differences in these experiences.</p><p>In summary, when scholars refer to partisanship, there is no guarantee that they are referring to or measuring the same concept. These inconsistent measurement techniques have continued for decades, yet few consider descriptions offered by partisans of their own political attitudes or identities, with the exception of <ref type="bibr" target="#b60">Mayer (2019)</ref>. This paper asked a German population to describe why they "leaned towards" a certain political party they had named, and received a multitude of reasons including ideological congruence, social group linkage, habitual reasons, party membership, and more. This was, however, a single question and did not separately probe factors of evaluation and identification. If we are asking someone whether they are a partisan, it would be valuable to first gain insight into what this concept might mean to people. The aim of this study is then to use a "bottom-up" qualitative approach to inform our understanding of party attachments, starting with positive ones.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Negative partisanship: the other side of the coin, or a different coin altogether?</head><p>Political motivation that is not driven by positive feelings toward a preferred party or parties, and may in fact be driven by negative feelings toward parties, is often referred to as "negative partisanship". This phenomenon can be demonstrated by the mobilisation of the left in the 2002 French Federal election under the motto "vote for the crook, not the fascist" <ref type="bibr" target="#b13">(Boonen, 2019)</ref>, or a Democratic vote in the 2016 election being widely ascribed the "lesser of two evils" <ref type="bibr" target="#b79">(Sweetser, 2017)</ref>.</p><p>However, as with its positive counterpart, the conceptualisation and measurement of negative partisanship is debated. Some scholars have argued that opponent negativity merely insulates partisan loyalty, where one is not only able to defend their own party but can also criticise the other, completing the overall puzzle of a partisan identity (e.g. <ref type="bibr" target="#b86">Wattenberg, 1982)</ref>. Further, since there is a strong relationship between one holding both negative and positive partisanship towards separate parties <ref type="bibr" target="#b62">(Medeiros &amp; Noël, 2014)</ref>, much research typically conceptualises them as two sides of the same coin, where both must exist simultaneously and in direct opposition. This is especially pertinent given the growing distance between positive and negative partisanship, also known as affective polarisation <ref type="bibr" target="#b6">(Anderson et al., 2022)</ref>. However, most recent research clearly shows that negative partisanship, or negative partisan identities, can both exist without their positive counterpart and differentially predict political outcomes <ref type="bibr" target="#b10">(Bankert, 2022;</ref><ref type="bibr" target="#b21">Caruana et al., 2015;</ref><ref type="bibr" target="#b37">Haime &amp; Cantú, 2022;</ref><ref type="bibr" target="#b59">Mayer, 2017)</ref>.</p><p>For example, an increasing division of partisan identities along ideological, racial and cultural lines has been tracked in the U.S. <ref type="bibr" target="#b55">(Mason, 2015</ref><ref type="bibr" target="#b56">(Mason, , 2016</ref><ref type="bibr" target="#b57">(Mason, , 2018) )</ref> and assigned the cause of increased party loyalty not through positive partisanship but through negative partisanship <ref type="bibr" target="#b2">(Abramowitz &amp; Webster, 2015)</ref>. Further, negative partisanship has gained a notorious reputation for discouraging bipartisan negotiations <ref type="bibr" target="#b2">(Abramowitz &amp; Webster, 2015)</ref>, where positive partisanship does not do the same <ref type="bibr" target="#b9">(Bankert, 2021;</ref><ref type="bibr">2022)</ref>. A lack of bipartisan compromise in a fiercely polarised democracy can lead to poor governmental outcomes, where parties do not unite to tackle overarching threats (e.g. pandemics, natural disasters, etc.). Also akin to its positive counterpart, some scholars argue that negative partisanship functions as an identity, with <ref type="bibr">Caruana et al. (2015, p. 772</ref>) claiming negative partisan identities are "affective repulsion[s]" from a party, or <ref type="bibr" target="#b8">Bankert (2020)</ref> describing them as identities primarily explained by feelings toward the out-party rather than one's own party. Others, such as <ref type="bibr" target="#b53">Lelkes (2021)</ref>, disagree with these approaches, claiming "disdain is not an identity"(p. 495). In defence of this argument, given that citizens may identify with <ref type="bibr" target="#b58">(Mayer, 2013;</ref><ref type="bibr" target="#b60">Mayer &amp; Schultze, 2019)</ref> or at least evaluate <ref type="bibr" target="#b49">(Kekkonen &amp; Ylä-Anttila, 2021;</ref><ref type="bibr" target="#b67">Oscarsson &amp; Holmberg, 2020;</ref><ref type="bibr" target="#b72">Reiljan &amp; Ryan, 2021;</ref><ref type="bibr" target="#b84">Wagner &amp; Wiezel, 2022)</ref> multiple parties positively, as well as negatively <ref type="bibr" target="#b59">(Mayer, 2017;</ref><ref type="bibr" target="#b61">McGregor et al., 2015)</ref>, it seems unlikely that all of these evaluations would always individually translate to multiple identities. Perhaps this idea is instead best suited to two-party systems, where it may be more feasible for multi-party systems that one has a specific political identity encompassing their feelings toward all parties, combining positive, negative or neutral, or perhaps that people have partisan identities without attitudinal evaluations and vice versa. In an attempt to better understand this puzzle, this study will probe participants' negative and/or neutral feelings towards political parties. Further, given a noticeable lack of qualitative research in the area of negative partisanship (both its nature and how it is measured), we aimed to uncover whether these attitudes or attachments are based predominantly on politicians, supporters of these parties, values and norms of the party, or some combination of these things.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Political independence: the final piece of the puzzle?</head><p>While both positive and negative partisan attachments appear consequential for predicting and understanding political behaviours, this still largely ignores those who lack partisan attachments but engage with the political system. In the United States, <ref type="bibr" target="#b20">Carmines et al. (1987)</ref> identified a trend in the late 1980's away from major party identification, and towards "political independence". They attribute this phenomenon to the emergence of new issues that did not divide neatly along party lines, fragmenting the cohesion of party loyalty and driving people away from partisanship.</p><p>However, as with positive and negative partisanship, researchers do not seem to agree on what exactly constitutes a political independent. An overall external view sometimes denotes a high degree of instability or lack of political opinion, but viewing independents as more "persuadable" than partisans toward party loyalty is a mistake, as most have chosen a candidate to vote for long before election day <ref type="bibr" target="#b50">(Klar &amp; Krupnikov, 2016)</ref>. Independents (at least in the U.S.) are not necessarily ideologically-positioned between parties, as some will exist at further extremes than the available parties <ref type="bibr" target="#b3">(Abrams &amp; Fiorina, 2011)</ref>. <ref type="bibr" target="#b39">Heaney (2016)</ref> also suggests that independents may sometimes evade party identification due to political parties not holding a strong enough stance on a specific issue on which they feel passionately. Self-proclaimed independents in the U.S. offering descriptive reasons for their position include: voting for candidates rather than parties, discontentment with either party, and not wishing to label their views <ref type="bibr" target="#b50">(Klar &amp; Krupnikov, 2016)</ref>. Other general values that independents associate with the label include honesty, common sense, openness to truth, and free thinking <ref type="bibr" target="#b50">(Klar &amp; Krupnikov, 2016)</ref>. While it seems feasible that some people outside the U.S. (including those in multi-party democracies) could hold a similar collection of political values, there is no research to our knowledge that examines political independence in alternative contexts. This study aims to expand the meaning of political independence by examining the meaning attached to this label in the multi-party system of Australia, by asking participants if they do or ever have identified as an independent, and what they think this term refers to. Once we develop a better understanding of political independence in wider contexts, we can begin to speculate where this concept may fit alongside partisanship, and build a comprehensive political identity model.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Integration of political attitudes: can partisanship overlap with independence?</head><p>Many correlational studies that explore partisanship in the U.S. use data from the ANES, which utilises the traditional partisanship measurement tool that sorts respondents along a 7-point continuum shown in Figure <ref type="figure" target="#fig_0">1</ref>. Strong Democr at Weak Democr at Democra tic leaner Pure independ ent Republic an leaner Weak Republic an Strong Republic an</p><p>The nature of this measurement sparked a debate that has since divided scholars for decades: where exactly to draw the line between "partisans" and "independents". This scale differentiates two categories of independents -those who initially claim to be independent and do not later indicate leaning toward any party (often called "pure independents"), and those who initially claim independence but do lean toward a party ("leaning independents"). In the foundational conceptualisation of partisanship ("The American Voter", <ref type="bibr" target="#b17">Campbell et al., 1960)</ref>, leaning independents were categorised as independent. However, <ref type="bibr" target="#b48">Keith et al. (1992)</ref> challenged this classification by claiming that independent leaners are just partisans in disguise, given that they vote as (or more) loyally than "weak partisans". <ref type="bibr">Dennis (1988a</ref><ref type="bibr" target="#b26">Dennis ( , 1988b</ref><ref type="bibr" target="#b27">Dennis ( , 1992</ref>) offered a third perspective, stating that both previous approaches lack the nuance of political reality, a sentiment that was strongly reinforced in the book "Independent Politics" <ref type="bibr" target="#b50">(Klar &amp; Krupnikov, 2016)</ref> and other articles <ref type="bibr" target="#b3">(Abrams &amp; Fiorina, 2011;</ref><ref type="bibr" target="#b34">Greene, 2000;</ref><ref type="bibr" target="#b47">Ishio, 2006)</ref>.</p><p>However, despite calls for more nuance, the trend of grouping independent leaners with partisans (rather than independents) has continued (see <ref type="bibr" target="#b0">Abramowitz &amp; Saunders, 2006;</ref><ref type="bibr" target="#b1">Abramowitz &amp; Webster, 2018;</ref><ref type="bibr" target="#b63">Miller &amp; Conover, 2015;</ref><ref type="bibr" target="#b69">Petrocik, 2009;</ref><ref type="bibr" target="#b71">Reiljan, 2020)</ref>. This approach assumes that similar voting patterns then equate to similar political identities. If political identity is more than just voting behaviour, then selfidentification as an independent should have equal legitimacy to selfidentification as a partisan. To this point, <ref type="bibr" target="#b27">Dennis (1992)</ref> contended that although some leaners resemble strong partisans in party involvement and loyalty, they consistently score higher on independence attitudes (i.e. commitment to the values of political autonomy) and lower on emotional responses to election content than avowed partisans. This suggested that independent leaners view their party attachment as a "hypotheses to be continually re-tested" <ref type="bibr">(Dennis, 1992 p. 271)</ref>, rather than a deeply-rooted identity. Accordingly, independent leaners display less stability in their political self-classifications over time than weak partisans, suggesting reappraisal of issues and candidates more regularly than those with a deeper (partisan) attachment <ref type="bibr" target="#b3">(Abrams &amp; Fiorina, 2011)</ref>.</p><p>To mitigate the apparent likeness of leaning independents and weak partisans, <ref type="bibr" target="#b82">Valentine and Van Wingen (1980)</ref> pioneered the idea of representing partisanship and independence on different spectrums and allowing them to coexist, meaning a person can appear partisan due to high levels of political engagement and commitment to a party but still view themselves as distinctly independent. Greene (2000) also later found higher levels of independent identity in independent leaners than for weak partisans, despite their comparable voting habits, pointing to a qualified role for conceptualising political independence separately from partisanship, rather than assuming mutual exclusivity. We will explore whether this approach may be considered appropriate for a system outside the U.S., by asking participants in the political context of Australia whether they think one can be both politically independent and support a party simultaneously, and why or why not. Discerning not only the nature of political independence in multi-party systems but also how this may intersect with partisanship contributes to painting the overall picture of political attitudes/identities in multi-party systems.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The present study</head><p>The aims of this study are twofold. Firstly, we address the contested nature of partisanship by directly asking participants to describe their experiences engaging with or evaluating political parties in ways that may be consistent with positive partisanship, negative partisanship, or political independence. The debate surrounding these concepts is unlikely to be amended by further quantitative research, and requires rich, personcentred data to inform a nuanced approach to understanding one's political attitudes. The second aim is to facilitate a process of consciously moving concepts of political attitudes (e.g. positive partisanship, negative partisanship, political independence) beyond the U.S. context, using qualitative data to probe people's experience rather than applying preexisting quantitative measures beyond their intended use. We are interested in whether these concepts exist or are engaged with in Australia, and both of our aims will be addressed by a string of open-ended survey questions.</p><p>Australia is an interesting case study for partisanship as it is a multi-party democracy that also has a number of successful independent, partyunaligned politicians.</p><p>As one theoretical framework does not appear to encompass partisanship wholly, we used an atheoretical, inductive approach to code responses based on the diversity of information offered by participants. The open response questions encouraged participants to provide and explain answers in as much detail as possible, and we used a qualitative content analysis to analyse and organise responses. <ref type="bibr">Leavitt et al. (2018)</ref> recommends qualitative methods for research areas that are contradictory or ill-fitting for certain populations, which can be considered the case for partisanship in multi-party systems. This research strived to expand an understanding of positive, negative and independent political attitudes to help guide future research away from relying solely on existing conceptualisations or measurement strategies that are not informed by descriptions of human experience.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methods</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Positionality statement</head><p>Both authors are white, early career researchers working in the field of social psychology. The first author (female) who did the majority of the coding for this study, and the second author (male), were both born and raised in Australia. Our cultural background affords a contextual and nuanced understanding of the sociopolitical context in which this research was conducted, but may also shape potential biases. We acknowledge that our social and academic positions may inform the data analysis and interpretations made in this paper.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data collection</head><p>Pilot testing was conducted with five participants in June 2023, after which several edits were made to the questions due to both participant feedback and apparent functionality of questions in addressing the research aims.</p><p>Online data collection ran from July to November 2023 via the survey platform SoSci Survey. Recruitment involved a series of posts on several politically-themed Facebook and Reddit pages, a post on the personal Facebook page of the first author, and using the SurveyCircle website.</p><p>SurveyCircle is a platform that helps researchers find participants by allowing them to reciprocally complete surveys.</p><p>The study was described as an exploration of "how people relate to political parties and view certain political concepts", and there were no incentives offered for completing the survey. The survey method was chosen (over other qualitative research methods such as interviews) predominantly due to the anonymity provided, given that political attitudes can be a sensitive topic and may have led to socially desirable responding. This method also allowed wide dissemination of the survey via the internet, and use of websites such as SurveyCircle.</p><p>Once participants clicked on the link to the survey, they were directed to read the Plain Language Information Statement before agreeing to participate. The first page collected basic (e.g. age, gender) and contextual (e.g. political interest) demographic information, before moving on to the open-ended questions (full list provided in Table <ref type="table" target="#tab_0">1</ref>). There was no time limit for the survey, and participants wrote an average of 18.21 words per openended response.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Participants</head><p>The final sample comprised 81 participants ranging from 21 to 71 years old (M = 38.43, SD = 15.92), including 51 females, 27 males, 2 nonbinary people and 1 person who preferred not to disclose their gender. 76.6% of participants had "a good deal" or "some" political interest (23.4%</p><p>with "not much" or "none"). 20 participants (24.7%) identified as political independents. 45 (55.6%) reported not having ever supported a particular political party, 27 (33.3%) currently supported a particular party and 9 (11.1%) did not currently but had in the past. The average political leaning on the single-item left-right orientation scale (range 0-10) was 4.36. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data analysis</head><p>Data was analysed using MAXQDA 2022 (VERBI Software, 2021).</p><p>Using qualitative content analysis, the first author familiarised themselves with the data, before inductively creating a set of codes for each openended question that could encompass all relevant responses based on repetition of specific words or basic ideas. Inductive coding allows a rich description of the dataset to be gained without applying a particular theoretical lens <ref type="bibr" target="#b15">(Braun &amp; Clarke, 2021;</ref><ref type="bibr" target="#b23">Clarke &amp; Braun, 2013)</ref>. A semantic coding technique was also predominantly used, meaning participants'</p><p>responses were taken at face value and there was little interpretation beyond the words or ideas mentioned in the data <ref type="bibr" target="#b16">(Byrne, 2022)</ref>. Units of analysis were typically single sentences, which sometimes contained only one or two words.</p><p>Any data that appeared irrelevant or as if the participant had not understood the question was discarded. Then a codebook was created that included a label for each code, a description of the code, 1-3 example quotes from the data, and the number of times the code occurred among the responses. A simplified version of this was provided to the second author, which did not include example quotes or number of instances, who independently re-coded 20% the data (as suggested by <ref type="bibr" target="#b18">Campbell et al., 2013;</ref><ref type="bibr">O'Connor &amp; Jaffe, 2020)</ref>. Discussion occurred after 10% and 20% of the double coding to address discrepancies, until intercoder agreement met 100%.</p><p>After this process, the codes were finalised, and overarching code labels were used to group codes under common ideas by the first author.</p><p>The second author oversaw and made suggestions to the overarching codes.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>The overarching codes that emerged from the data are described briefly in Table <ref type="table">2</ref>. Codes are presented in the order they appeared when analysing the data, so those most relevant to the initial questions precede codes that were most relevant to later questions. Table 2 also details which codes appeared specifically in response to each question, as this information affects how codes are interpreted.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 2</head><p>Overarching codes identified to explain the data. Includes the code names, number of instances the code was identified across participant responses, the total percentage of responses this represents, a brief description of the code, several example codes, and which questions the codes were relevant for.</p><p>Code name No. of instanc es/ % of respon ses Description Example quotes Releva nt to Importan ce of values and policy congruen ce 133 29.56% Encompasses whether there is congruence or incongruence between the values of a person and a party and their subsequent policies. Also relevant when one felt there was no existing political party congruent enough to their values to support. "The general values and policies inform my opinion of a party the most. I can separate the person from the party, meaning if I do not like a certain politician of a party, I can look past that if I support the party's values and policies." (female, 25). "There is not any political party that can express my ideology fully" (female, 25). Q1 Q3 Q5 Q6 Q7 Q8 Q9 Importan ce of morality 51 11.33% Encompasses whether parties behave with integrity and fairness (morality) or are untrustworthy or corrupt (immorality). Also includes the idea of whether parties are committed to the best interests of their constituents. "The example [political parties] set in their behaviour -honesty and integrity" (female, 58). "[Political parties] are corrupted by the desire to remain in power for power's sake" (male, 67). "I have a lot of mistrust in [political parties]. Both left and right" (female, 33). Q1 Q6 Q7 Q8 Q9 Importan ce of being realistic and effective 59 13.11% Encompasses concerns with how effectively a political party functions, based on past performance and plans or goals for the future. Positive evaluations typically included discussion of realistic goals and foci, and negative evaluations as parties having wrong or distracted foci, being out of touch, or ineffective. "I support parties that can demonstrate the pathways required to reach their proposed goal… I support parties that appear to be well grounded and set targets that are in the realm of possibility within the current political/economical landscape" (male, 24). "Primarily, I ask myself if a politician walks the walk" (male, 67). "I feel that [political parties] are self-serving and do not represent the general population" (female, 27). Q1 Q3 Q5 Q6 Q8 Importan ce of social factors 30 6.67% Encompasses assessment or support of political parties on social grounds, which can include the behaviour of politicians (e.g. in parliament or in media) or other supporters of the party (e.g. family and friends) and how this mobilises people. "I think I began following the political parties and views that my family aligned with" (female, 23). "The personalities and values of the politicians inform my opinion of the parties" (female, 60). "How they represent themselves in the media [as the most important evaluative factor]. I don't like petty campaigns" (female, 33). Q3 Q8 Oppositio n to particula r groups 27 6.00% Encompasses responses explaining an aversion to a particular political party or group of political parties as a</p><p>"Extremist parties of any political orientation disgust me and I think they are a threat to the well-being of our nation" (male, 24).</p><p>"Both major parties" (male, 67).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Q7</head><p>general rule. This included all major parties, any minor extremist party, issue specific parties, or all right-wing or left-wing parties.</p><p>"Greens [party]: too black and white" (female, 56).</p><p>"Extreme left" (female, 25).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Anti</head><p>system/ antipolitical party attitudes 26 5.78% Encompasses responses stating a general opposition to political parties and/or government. This was not merely nihilistic beliefs of society, but also those who have lost faith in the way Australian democracy currently functions, or who feel that all political parties are fundamentally problematic. "Yes [I feel negatively towards] all of them. They are not interested in representing the people, just them and their donors' interests" (male, 43). "I am not a big fan of party politics at all" (male, 63). "Democracy is only viable in societies in which the vast majority identify with each other and have empathy for other people…governments are focused on juggling competing interests rather than being focused on good governance" (male, 65) Q4 Q5 Q6 Q7 Q9 Values over parties 61 13.56% Encompasses the idea that everyone holds their values closely, but to what extent they link these values -and their identity -to a political party varies from person to person. So, one may link their values to a political party strongly, moderately, weakly, or "They mirror my values and I'm proud to say I support them as a way to express simply where my values lie" (female, 23). "I do feel a personal connection and identification with my party. In saying this, not all of my parties policies align with me, and not everything I do aligns with my party" (female, 25) "I don't feel that a particular political party is part Q2 Q9 Q10 not at all, which affects how much they feel they 'identify' with the party.</p><p>of my identity as the party I support has changed over the years. It is something that I know is fluent and ever-changing depending on current issues and party members" (female, 25).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Fear of partisan bias</head><p>25 5.56%</p><p>Encompasses claims that identification with a political party is dangerous for the individual and for democracy. This is due to the belief that once someone's identity becomes tied up with a political party, their objectivity is damaged and their support is given mindlessly rather than conditionally.</p><p>"I believe that too strict of an alignment with a political party can restrict objectivity and impair the democratic process" (male, 25).</p><p>"Partisanship eventually causes divided loyalties" (gender not disclosed, 38).</p><p>"I am wary of identifying too strongly with a party" (female, 26).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Q2 Q4 Q10</head><p>Freedom 58</p><p>12.88%</p><p>Encompasses the idea of having one's own thoughts and opinions, free from any party influence or pressure to support or believe a party's rhetoric, and the freedom and flexibility this gives an individual within political spaces.</p><p>"Forming one's own opinions on each and every topic, and backing whoever's position best aligns with one's own viewpoint at any point in time" (male, 63).</p><p>"Separating yourself from political ties, following your own beliefs" (female, 27).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Q9</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Code prevalence</head><p>All codes listed provided a window into at least one of the concepts probed by the aim; namely the nature of positive/negative partisanship or political independence. Whereas some overarching codes were particularly common across a multitude of responses and for different questions, some were only relevant to one or two questions. For example, the "opposition to particular groups" code only appeared in responses to Q7 when we asked participants if there were any political parties they felt negatively towards, and the "freedom" code only appeared in responses to Q9 when we asked participants what they think a political independent is. On the other hand,</p><p>The "importance of values and policy congruence" code was the most prolific, appearing in the highest number of responses (29.56%) and in response to the most questions (Q1, Q3, Q5, Q6, Q7, Q8, Q9) showing strong relevance across all concepts explored in our study. The discussion below explains how each overarching code helped to paint a picture of how we can better understand political attitudes.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Discussion</head><p>The first aim of this study was to provide a "bottom-up" understanding of partisanship using a qualitative approach. This meant uncovering and integrating the contested nature of the positive and negative sides of party evaluation, as well as the attitudes of those who are politically engaged but may not support or identify with particular parties (often referred to as political independents). The second aim of this study was to use rich, person-centred data to consciously move the concepts of partisanship and political independence beyond the United States. This meant using people's experiences with and opinions of these concepts to understand their nature, rather than perpetuating the use of pre-existing measures beyond their intended context. We explored the meaning and nature of party support and identification, as well as the meaning of political independence and its relationship to partisanship in an Australian context using a series of openended survey questions.</p><p>The overarching message that we interpreted from this data was that the ways people engage with political parties, and the political system more broadly, is not only extremely varied but often also conflicting. The results indicate that no existing conceptualisation of partisanship could alone accurately represent people's experience, and the measures used in data collection to represent partisanship within these structures are likely inadequate. The following sections will unpack in more detail our findings on positive and negative partisanship, party identification, political independence and the co-existence of these concepts, using the recurrence of certain topics from the survey data.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Positive and negative partisanship</head><p>Our findings suggest that party evaluation hinges predominantly on the spectrum of three concepts: morality, being realistic and effective, and values and policy congruence. These themes consistently appeared for discussion of both positive and negative party evaluation, meaning an individual may judge a party on a spectrum of these issues, leading to either a positive or negative partisanship to said parties. However, it is likely to be more complicated than this. Social factors also appear to play a role for some people in developing positive partisanship, for example when a party has politicians or supporters that are to their personal liking, or in cases when it provides social connectedness. Interestingly, those who gave examples of social influence e.g. "I think I began following the political parties and views that my family aligned with" (female, 23), or "it was nice to be together with a group of people with similar views and ideologies for robust debates" (female, 29), were typically from the group of participants who used to support a party but no longer did. This poses an interesting challenge to the longevity of research showing parental <ref type="bibr" target="#b17">(Campbell et al., 1960</ref><ref type="bibr" target="#b42">, Hooghe &amp; Boonen, 2015)</ref> and peer group <ref type="bibr" target="#b70">(Quintelier, 2015;</ref><ref type="bibr"></ref> Raychaudhuri, 2020) influences on development and direction of partisan influence. Perhaps these social factors are a tenuous link to party supportinspiring but not necessarily maintaining positive party support in the face of moral, practical, or ideological inconsistencies between person and party.</p><p>Alongside this finding that social factors were the most tenuous link to party support when compared with other codes, the popularity of evaluating parties based on how realistic and effective they are may challenge certain aspects of the Social Identity Approach in understanding partisanship.</p><p>While concerns of ideological congruence and morality may be tied into a social identity, which is associated with the idea of "expressive" partisanship (where partisans have an ongoing psychological identification with a political party; <ref type="bibr" target="#b4">Achen &amp; Bartels, 2006;</ref><ref type="bibr">Green et al., 2002;</ref><ref type="bibr">Huddy &amp; Bankert, 2017)</ref>, other factors like parties being realistic and effective tie in well with the opposing "instrumental" approach. This posits that partisans assess practical factors when deciding which party (if any) to support, such as past performance, and proximity of policy preferences to one's own <ref type="bibr" target="#b29">(Fiorina, 1981;</ref><ref type="bibr" target="#b45">Huddy, 2020)</ref>.</p><p>On the other hand, the blanket rejection of parties along specific criteria that appeared so often in our data could highlight a role for Social Identity Theory in describing the negative side of partisanship. Like with sports teams, partisans see opposition parties as a threat, and the closer the rivalry the bigger the threat <ref type="bibr" target="#b40">(Hewstone et al., 2002)</ref>. So, it is possible that the overarching group one sees as the most threatening to their political agenda or "ingroup" thereby becomes the "out-group". In the case of our data, perhaps someone who is universally opposed to extremist parties may consider upholding the values of democracy as the most salient political issue facing society, and the threat these groups pose to this then puts them in an outgroup category, e.g. "extremist parties of any political orientation disgust me and I think they are a threat to the well-being of our nation" (male, 24). On the other hand, someone who is universally opposed to rightwing parties might see conservative policies as the most salient political issue, e.g. "right leaning parties with regressive policies pertaining to climate and social justice issues" (female, 25), causing right-wing parties as a whole to pose the greatest threat to their ideals and become the outgroup.</p><p>It is also possible that instead of representing negative partisanship per se, these oppositions represent their own opinion-based identity. This would indicate that opposition to a group that is not a specific political party (which in our data included parties with a certain ideological leaning; i.e.</p><p>left/right, any party supporting or not supporting certain policy, all major parties, etc.) is outside of negative partisanship and itself forms a distinct identity. As suggested by <ref type="bibr" target="#b41">Hogg and Smith (2007)</ref>, this opinion-based identity will tie in with pre-existing identities, such as a certain aligning partisanship or negative partisanship. Of course, some people did mention specific political parties by name that posed the greatest threat to their political agenda, indicating a strong example of negative partisanship, but future research will be required to determine whether opposition along other political lines are included in negative partisanship or whether they are instead a separate (albeit related) opinion-based identity. The sentiment of differential "us versus them" polarisation is mirrored in the work of <ref type="bibr" target="#b75">Rothers (2025)</ref>, who found that there are three main axes along which people are affectively polarised in politics; left and right, mainstream and radical right, and centre and extreme. Further, research by Young and de-Wit (2024) found that U.S. and UK citizens can be opposed to factions within their own political party (that is, the one they reportedly identify with) equally or in some cases more than to out-party factions, again suggesting that it is not always parties or party identification that creates the strongest political motivation, but sometimes other groups that pose greater relevance and/or threat to the individual's political goals.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Party identification</head><p>Qualitatively exploring the "instrumental" versus "expressive" partisanship debate, where scholars pit partisanship as a practical decision against an emotional and identity-based experience, we asked participants if they identify with a particular party and why or why not. Participant reasoning for either identifying or not identifying with parties was often along similar lines. Participants either said that they identified with a party because the party embodied their values, and their values formed part of their identity, e.g. "values are intrinsic to identity, so I definitely identify with the political party that I support." (female, 67) or they did not identify with a party because it was their values they held close, and the political party was merely the most appropriate vehicle (subject to change) to seeing these values realised in society, e.g. "no, I wouldn't consider my party identification to be central to my identity. My support relies solely upon the consistency of their political action with my personal values and outlook regarding a positive society" (male, 25). The former could be considered as embodying expressive partisanship, given the identification element, and the latter embodying instrumental partisanship, given the practical element.</p><p>However, some people took issue with the idea of identifying with a party because they believed this meant their goals had to be seamlessly orientated with the party, and that simply aligning on a values-level (rather than, say, a policy level) was insufficient for identification, e.g. "I do feel a personal connection and identification with my party. In saying this, not all of my party's policies align with me, and not everything I do aligns with my party.". Further, participants also expressed a fear of losing objectivity in the process of attaching a political party to their identity, e.g. "that has always felt like black-and-white thinking to me" (male, 28), and the perceived implications of getting caught up in an agenda that impairs their ability to think critically about political issues, e.g. "I believe that too strict of an alignment with a political party can restrict objectivity and impair the democratic process" (male, 25). These people may be avoiding the "boiling frog metaphor" -an urban legend stating that a frog placed in boiling water jumps out immediately, but a frog placed in cold water where the temperature slowly rises to boiling will not jump to safety. So, some people fear identifying with a party (i.e. being the frog in cold water) may gradually indoctrinate them to an agenda (i.e. the water slowly boiling) that does not wholly serve their ideals, without them realising.</p><p>Despite many participants claiming they did not identify with a political party, previous research in and outside of the U.S. suggests that partisan biases are rife, and may not appear in self-report format (see <ref type="bibr" target="#b22">Clarke et al., 2022;</ref><ref type="bibr" target="#b44">Huddy et al., 2018;</ref><ref type="bibr" target="#b65">Nurse &amp; Grant, 2020;</ref><ref type="bibr" target="#b77">Strickland et al., 2011)</ref>. However, it may also be possible that a compulsory voting system -such as in Australia where our participants reside -leads citizens to see political engagement more as a practical process, where party utility (that is, which candidate can best cater to their needs) is the key focus. De Leon and Rizzi (2016) do find that compulsory voting systems make citizens think more about politics, updating ideological positions and preferences toward political parties more readily than in voluntary systems. In contrast, a voluntary voting system might predominantly see intrinsically-motivated citizens participate, meaning political engagement by nature becomes more personal, and at greater cost to the individual, leading to higher rates of expressive or identity-based partisanship tendencies. While it makes sense that compulsory voting leads to higher incidence and strength of partisanship <ref type="bibr" target="#b76">(Singh &amp; Thornton, 2013)</ref>, given that more people are involved in the political system by design, we argue that it is the nature of this partisanship that may be different.</p><p>Therefore, when we consider the idea of "party identification" and people's emotional response to political events (e.g. electoral losses, policy defeats), perhaps these are sometimes best understood as one's reaction to society challenging their personal values, an inherently personal and emotional experience, where the party merely acts as a vessel for these values.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Political independence</head><p>Given the lack of attempts to take the concept of "political independence" beyond a U.S. context, where there is an existing (albeit unique) understanding of what this means, Australia may be a good environment to begin this process. Due to a shift this century in vote share away from the two major parties, there is a higher likelihood of people adopting an "independent" label, as well as a rise in support for independent candidates in government (who run on an individual platform that is not beholden to or affiliated with any political party).</p><p>In asking our participants what they believe political independence means, a diversity of ideas emerged. Independents were often painted as morally superior to regular citizens, typically because they are free from this so-called partisan bias, and are seen to prioritise values and policies above party politics, e.g. "being prepared to say no to all parties to ensure the most beneficial, moral, ethical, balanced, sensible outcome" (female, 56). Independents were also often associated with the idea of freedom, or a flexibility to hold a unique set of opinions across different political topics and to further their values accordingly, however they see fit, e.g.</p><p>"separating yourself from political ties, following your own beliefs" (female, 27), or "political independence reflects a desire for autonomy and the belief that political decisions should be made on a case-by-case basis rather than along strict party lines" (male, 34).</p><p>Some participants also equated political independence to antisystem/anti-party attitudes, e.g. "do not believe in politicians' contributions and believe we should not have 'government'" (female, 25). Because voting in elections is compulsory in Australia, those who embody this attitude may not be able to simply opt out of "supporting" the political system without facing financial penalties<ref type="foot" target="#foot_0">foot_0</ref> . Therefore, perhaps these participants believe that independents should and will vote for candidates that are the furthest away from the institution of political parties as possible; with a first preference to support an independent candidate, and where this is not possible a minor party, consciously avoiding major parties, e.g. "not affiliating with any particular political party, especially the major ones" (male, 43).</p><p>Holistically, these ideas represent an independent as virtuous, fair and rational. This is directly comparable to the way the concept is viewed in the U.S., where <ref type="bibr" target="#b50">Klar and Krupnikov (2016)</ref> found the descriptions people offered to define independents aligned with "a political scientist's ideal voter". In addition, an idea reinforced by our participants frequently was the importance of values in politics. However, whether one attaches their values to a political party differs from person to person. We suggest that this may be the key distinction between partisans and independentswhereas partisans attach their values to political parties and as a result fulfil a process of identification with a party (or parties), independents keep their values separate from specific parties and instead use them to inform their political behaviour on a case by case basis, meaning they do not become identified with any party.</p><p>Overall, it seems likely that this idea of a politically-engaged, rational free-thinker may exist in other democracies too -but whether they are known as something akin to a "political independent" is a question for future research, as this phrase still appeared misunderstood or confusing for several participants in our study.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The intersection of partisanship and political independence</head><p>When participants were asked whether they believe a person can be politically independent and support a party simultaneously, the results were polarised, and contained a multitude of metaphors to explain why this either was or was not possible. One participant claimed this was the equivalent of "saying 'I am vegan' but eating meat at the same time" (female, 21), whereas another participant said "absolutely. You can not like cake but still have a favourite" (female, 25).</p><p>This meant some participants thought that supporting a party while claiming to be politically independent was essentially a paradox, where anyone who finds themselves too close to a party and its ideals will not then be able to maintain objectivity in political realms. According to Social Identity Theory, once a group (e.g. a political party) has been adopted as part of one's identity, the ideals of the group can influence the way one interacts with these concepts <ref type="bibr" target="#b35">(Greene, 2002;</ref><ref type="bibr" target="#b36">2004;</ref><ref type="bibr" target="#b63">Miller &amp; Conover, 2015;</ref><ref type="bibr" target="#b77">Strickland et al., 2011)</ref>. Alternatively, some agreed that it was possible for party support and political independence to co-exist, suggesting that independents do not place value on who is presenting policies or values, and support whoever is closest to their ideals on any given topic (or, in an election, support whoever aligns best with an aggregate of their ideals).</p><p>This mindset can be summed up by a quote from one participant, who agreed that someone can be politically independent and support a party simultaneously, and "to get caught up with the dilemma here would miss the point of politics" (male, 28).</p><p>So, it appears that the mismatch between these two competing arguments arises from some people believing that support can exist free of bias or future obligation, and some who do not. This is an interesting topic for future research to explore in the context of partisan behaviour, perhaps by asking participants who have a history of party support whether they felt or acted on obligation to these parties following support, or whether and how their opinions on certain topics changed during the period of support.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Consequences for measurement of partisanship and political independence</head><p>Based on the ideas that emerged under questions probing the nature of party support and party dislike, it seems that elements of different theories explain different facets of partisanship, with no single theoretical approach providing a holistic fit. So, traditional U.S.-based measurement methods of asking people if they are a Republican or a Democrat is likely not suitable for other democracies, where only some people consider their party support/lack of support to be part of themselves or their identity. Even the assumption of more complex multi-item partisanship measurements (e.g. <ref type="bibr" target="#b11">Bankert et al., 2017)</ref> presume partisanship as an identity, with the goal of the scale not to decide how people engage with politics but what the strength of this identity is. Given the high proportion of our participants who did not claim to identify with a party but still had strong value-based political motivations, it would appear too simplistic to use only an identitybased approach to measure partisanship. As detailed in the responses to our survey, there are a number of different ways to approach and engage with politics that are not done in the name of party identity. Existing U.S.-based research shows those who identify as politically independent still attend political protests <ref type="bibr" target="#b39">(Heaney, 2016)</ref>, and turn out to vote in elections at a similar rate to Republicans or Democrats <ref type="bibr" target="#b38">(Hartig et al., 2023)</ref>, indicating a party identity is not a necessary precursor to political behaviour. If we are interested in what drives people's engagement with politics and political parties, not just in the form of voting, but also attending protests, campaign assistance, financial support, and even the way people speak about and encourage or oppose the support of parties to those around them, then we must understand motivation that is not simply the result of party identification. Political motivations prove complex, meaning measurement of partisanship (and distinguishing this from non-partisanship) should reflect this.</p><p>As for the measurement of political independence, our results indicated a clear divide among people who do not believe party support can exist without partisan bias, and people who believe it is possible to be entirely loyal to your personal political ideals (e.g. politically independent) while simultaneously supporting a party. Therefore, further research should endeavour to discern which of these theories holds more weight, and whether independence must be considered and measured entirely separately to partisanship.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Limitations and future directions</head><p>Many of the limitations in this study are based on how participants interpreted the wording of questions. For example, several participants appeared to interpret "political independents" as politicians specifically (who have received much media attention in Australia since their success in the 2022 Federal election), rather than citizens themselves. Further, when</p><p>participants were asked about 'support' of a party, this may have carried different connotations for different people. Although this seemed the most neutral word to describe any kind of engagement with a party with the purpose of furthering a political goal, it is possible that some interpreted this to mean simple voting behaviour, and others a much larger degree of support of even social identification with a party. This difference of interpretation may be the cause of such polarised responses to the question asking whether one can be politically independent and support a party simultaneously, as the idea of one claiming political independence but merely voting for a party (particularly given mandatory electoral voting in Australia) may seem significantly less at odds than someone claiming independence but supporting a party by more invested and visible means.</p><p>Given the research by <ref type="bibr" target="#b45">Huddy et al. (2020)</ref> demonstrating how differently worded items can create drastic differences in who may be considered a political partisan in the same population, it is clear there is still more research needed before we can trust terminology to consistently convey the intention of items probing partisanship and related concepts.</p><p>The other key limitation in this study is the limits of self-reporting to accurately describe a phenomenon. We found that most participants claimed not to identify with a party (e.g. in a traditional "expressive partisanship" sense) or those who did only did so because the party served directly as a vehicle for their values or goals. However, <ref type="bibr" target="#b44">Huddy et al. (2018)</ref> provides robust evidence that partisans from four different European democracies (the UK, the Netherlands, Sweden and Italy) all consistently exhibit behaviours characteristic of the expressive approach 2 . Since approximately half of Australian citizens are considered "partisans" <ref type="bibr" target="#b31">(Gauja &amp; Grömping, 2020;</ref><ref type="bibr" target="#b78">Susan McKinnon Foundation, 2024)</ref>, but most participants in our study claimed not to identify with a party, it appears issues of both implicit bias and measurement error may be at play.</p><p>Therefore, elements of expressive partisanship and a fear of partisan bias are certainly an important consideration when examining partisanship, and future research should aim to unite this with participants' claims of their own instrumentality during political engagement. For example, a 2 These included "stable partisan identity, motivated reasoning in defence of the party, the greater influence of identity than issues and ideology in shaping vote choice and political behaviour…and the existence of strong defensive emotions aroused by partisan threats and reassurances" (p 173) measure of 'partisanship' should perhaps include some measures of an implicit bias to measure expressive forms of partisanship, as well as probing other methods by which people engage with politics and parties to measure the instrumental side of partisanship.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>This study aimed to paint a picture of partisanship and the way people relate to or evaluate political parties in a non-U.S. democracy using personcentred, qualitative data. This included further exploring and integrating principles of positive partisanship, negative partisanship, and so-called 'political independence'. Notably, in finding that positive and negative party evaluations fall along the same issue spectrums (namely values and policy congruence, morality, and realistic and effectiveness), we suggest that these two concepts are heavily linked. Further, those describing negative feelings toward political parties defined their 'out-group' in different ways (e.g. "all major parties" or "all left-wing parties"), potentially by selecting a category that posed the greatest threat to their personal political agenda, indicating a major role for Social Identity Theory in informing interpretations of this data. However, given that most participants did not claim to identify specifically with a political party (or if they did this was only because the party directly represented their personal values) we suggest that Australia's compulsory voting system may lead citizens to treat political engagement as more of a practical rather than a personal identitybased process. Specifically regarding 'political independence', our participants defined this in very similar ways to participants in U.S.-based research (e.g. <ref type="bibr" target="#b50">Klar &amp; Krupnikov, 2016)</ref>, meaning this may be emerging terminology for politically engaged citizens who are not partisans.</p><p>Interestingly, as participants were very divided on whether one could embody these values and simultaneously support a party, this is an important question for future research to consider.</p><p>Overall, we find a qualified use for the concepts of positive and negative partisanship as well as political independence in democracies outside the U.S., but implore the need for more complex theoretical and subsequent measurement to holistically capture partisanship (and nonpartisanship). Conceptualising partisanship purely as an identity may be misguided, especially in Australia, where participants detailed many other political motivations outside of protecting their party identity. Future measures (and conceptualisations more generally) would benefit from a multi-faceted approach to partisanship, where party identification and biases are accounted for, alongside other driving forces and styles of political engagement.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1</head><label>1</label><figDesc>Figure 1 Traditional U.S.-based partisan sorting spectrum.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 1</head><label>1</label><figDesc>All open-ended questions answered by each participant group, and how each question addressed the research aim.</figDesc><table><row><cell>Participa nts involved</cell><cell>Questi on ID</cell><cell>Question</cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="1" xml:id="foot_0"><p>Failing to vote in federal elections incurs a $20AUD fine and between $25 and $109 for state elections. As long as one's name is marked off the electoral roll at the time of voting, no fine will be issued, meaning it is of course possible to vote illegitimately by marking ballot papers incorrectly or leaving them blank.</p></note>
+		</body>
+		<back>
+
+			
+			<div type="funding">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>: no funding was received for the completion of this research.</p></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Conflict of interest disclosure: the authors declare no conflicts of interest.</p><p>Ethics considerations: all participants gave written and informed consent prior to participating in the study.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Exploring the bases of partisanship in the American electorate: Social identity vs. ideology</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">I</forename><surname>Abramowitz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">L</forename><surname>Saunders</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/106591290605900201</idno>
+		<ptr target="https://doi.org/10.1177/106591290605900201" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Research Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="175" to="187" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Negative partisanship: Why Americans dislike parties but behave like rabid partisans</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">I</forename><surname>Abramowitz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">W</forename><surname>Webster</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/pops.12479</idno>
+		<ptr target="https://doi.org/10.1111/pops.12479" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Psychology</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="page" from="119" to="135" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">All politics is national: The rise of negative partisanship and the nationalization of US house and senate elections in the 21st century</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Abramowitz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Webster</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.electstud.2015.11.001</idno>
+		<ptr target="https://doi.org/10.1016/j.electstud.2015.11.001" />
+	</analytic>
+	<monogr>
+		<title level="m">Annual Meeting of the Midwest Political Science Association Conference</title>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+			<biblScope unit="page" from="16" to="19" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Are Leaning Independents Deluded or Dishonest Weak Partisans? Conference Revisiting Party Identification: American and European Perspectives</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">J</forename><surname>Abrams</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">P</forename><surname>Fiorina</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011">2011</date>
+			<publisher>Luiss School of Government</publisher>
+			<pubPlace>Rome</pubPlace>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">It feels like we&apos;re thinking: The rationalizing voter and electoral democracy</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">H</forename><surname>Achen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">M</forename><surname>Bartels</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Annual Meeting of the American Political Science Association</title>
+		<meeting><address><addrLine>Philadelphia</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2006">2006</date>
+			<biblScope unit="volume">30</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Does a partisan public increase democratic stability?</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">H</forename><surname>Aldrich</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bussing</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Krishnamurthy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Madan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">M</forename><surname>Ice</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">M</forename><surname>Renberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">M</forename><surname>Ridge</surname></persName>
+		</author>
+		<idno type="DOI">10.4337/9781788111997.00027</idno>
+		<ptr target="https://doi.org/10.4337/9781788111997.00027" />
+	</analytic>
+	<monogr>
+		<title level="m">Research Handbook on Political Partisanship</title>
+		<imprint>
+			<publisher>Edward Elgar Publishing</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="256" to="265" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Us versus them: Do the rules of the game encourage negative partisanship</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">D</forename><surname>Anderson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Mcgregor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">B</forename><surname>Stephenson</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/1475-6765.12485</idno>
+		<ptr target="https://doi.org/10.1111/1475-6765.12485" />
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Political Research</title>
+		<imprint>
+			<biblScope unit="volume">61</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1060" to="1079" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Attitudinal consequences of partisanship for new parties</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Anduiza</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Pannico</surname></persName>
+		</author>
+		<idno type="DOI">10.4337/9781788111997.00029</idno>
+		<ptr target="https://doi.org/10.4337/9781788111997.00029" />
+	</analytic>
+	<monogr>
+		<title level="m">Research Handbook on Political Partisanship</title>
+		<imprint>
+			<publisher>Edward Elgar Publishing</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="281" to="293" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">The origins and effect of negative partisanship</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bankert</surname></persName>
+		</author>
+		<idno type="DOI">10.4337/9781788111997.00012</idno>
+		<ptr target="https://doi.org/10.4337/9781788111997.00012" />
+	</analytic>
+	<monogr>
+		<title level="m">Research handbook on political partisanship</title>
+		<imprint>
+			<publisher>Edward Elgar Publishing</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="89" to="101" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Negative and positive partisanship in the 2016 US presidential elections</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bankert</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11109-020-09599-1</idno>
+		<ptr target="https://doi.org/10.1007/s11109-020-09599-1" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Behavior</title>
+		<imprint>
+			<biblScope unit="volume">43</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1467" to="1485" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Negative partisanship among Independents in the 2020 US presidential elections</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bankert</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.electstud.2022.102490</idno>
+		<ptr target="https://doi.org/10.1016/j.electstud.2022.102490" />
+	</analytic>
+	<monogr>
+		<title level="j">Electoral Studies</title>
+		<imprint>
+			<biblScope unit="volume">78</biblScope>
+			<biblScope unit="page">102490</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Measuring partisanship as a social identity in multi-party systems</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bankert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Huddy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rosema</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11109-016-9349-5</idno>
+		<ptr target="https://doi.org/10.1007/s11109-016-9349-5" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Behavior</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="page" from="103" to="132" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Introduction: Partisanship, social identity and individual attitudes</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Bartle</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Bellucci</surname></persName>
+		</author>
+		<idno type="DOI">10.4324/9780203884454&amp;type=</idno>
+		<ptr target="https://api.taylorfrancis.com/content/books/mono/download?identifierName=doi&amp;identifierValue=10.4324/9780203884454&amp;type=" />
+	</analytic>
+	<monogr>
+		<title level="m">Political parties and partisanship</title>
+		<imprint>
+			<publisher>Routledge</publisher>
+			<date type="published" when="2014">2014</date>
+			<biblScope unit="page" from="1" to="25" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Learning who not to vote for: The role of parental socialization in the development of negative partisanship</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Boonen</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.electstud.2019.04.001</idno>
+		<ptr target="https://doi.org/10.1016/j.electstud.2019.04.001" />
+	</analytic>
+	<monogr>
+		<title level="j">Electoral Studies</title>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="page" from="109" to="119" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Where You Lead, I Will Follow&quot;: Partisan Cueing on High-Salience Issues in a Turbulent Multiparty System</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Brader</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>De Sio</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Paparo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Tucker</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/pops.12651</idno>
+		<ptr target="https://doi.org/10.1111/pops.12651" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Psychology</title>
+		<imprint>
+			<biblScope unit="volume">41</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="795" to="812" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Can I use TA? Should I use TA? Should I not use TA? Comparing reflexive thematic analysis and other patternbased qualitative analytic approaches</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Braun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Clarke</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/capr.12360</idno>
+		<ptr target="https://doi.org/10.1002/capr.12360" />
+	</analytic>
+	<monogr>
+		<title level="j">Counselling and Psychotherapy Research</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="37" to="47" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">A worked example of Braun and Clarke&apos;s approach to reflexive thematic analysis</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Byrne</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11135-021-01182-y</idno>
+		<ptr target="https://doi.org/10.1007/s11135-021-01182-y" />
+	</analytic>
+	<monogr>
+		<title level="j">Quality &amp; Quantity</title>
+		<imprint>
+			<biblScope unit="volume">56</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1391" to="1412" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<author>
+			<persName><forename type="first">A</forename><surname>Campbell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Converse</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">E</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">E</forename><surname>Stokes</surname></persName>
+		</author>
+		<title level="m">The american voter</title>
+		<imprint>
+			<publisher>University of Chicago Press</publisher>
+			<date type="published" when="1960">1960</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Coding In-depth Semistructured Interviews: Problems of Unitization and Intercoder Reliability and Agreement</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">L</forename><surname>Campbell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Quincy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Osserman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><forename type="middle">K</forename><surname>Pedersen</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0049124113500475</idno>
+		<ptr target="https://doi.org/10.1177/0049124113500475" />
+	</analytic>
+	<monogr>
+		<title level="j">Sociological Methods &amp; Research</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="294" to="320" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Partisanship: Conceptualizations and consequences</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">M</forename><surname>Carius-Munz</surname></persName>
+		</author>
+		<idno type="DOI">10.4337/9781788111997.00009</idno>
+		<ptr target="https://doi.org/10.4337/9781788111997.00009" />
+	</analytic>
+	<monogr>
+		<title level="m">Research Handbook on Political Partisanship</title>
+		<imprint>
+			<publisher>Edward Elgar Publishing</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="47" to="59" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Unrealized partisanship: A theory of dealignment</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">G</forename><surname>Carmines</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">P</forename><surname>Mciver</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Stimson</surname></persName>
+		</author>
+		<idno type="DOI">10.2307/2131306</idno>
+		<ptr target="https://doi.org/10.2307/2131306" />
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Politics</title>
+		<imprint>
+			<biblScope unit="volume">49</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="376" to="400" />
+			<date type="published" when="1987">1987</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">The power of the dark side: Negative partisanship and political behaviour in Canada</title>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">J</forename><surname>Caruana</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Mcgregor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">B</forename><surname>Stephenson</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S0008423914000882</idno>
+		<ptr target="https://doi.org/10.1017/S0008423914000882" />
+	</analytic>
+	<monogr>
+		<title level="j">Canadian Journal of Political Science/Revue Canadienne de Science Politique</title>
+		<imprint>
+			<biblScope unit="volume">48</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="771" to="789" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Partisan bias in responses to sexual misconduct allegations against male politicians</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Clarke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Klas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Lizzio-Wilson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Kothe</surname></persName>
+		</author>
+		<idno type="DOI">10.5964/jspp.6371</idno>
+		<ptr target="https://doi.org/10.5964/jspp.6371" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Social and Political Psychology</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="706" to="722" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<monogr>
+		<author>
+			<persName><forename type="first">V</forename><surname>Clarke</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Braun</surname></persName>
+		</author>
+		<ptr target="https://www.torrossa.com/gs/resourceProxy?an=5017629&amp;publisher=FZ7200" />
+		<title level="m">Successful qualitative research: A practical guide for beginners</title>
+		<imprint>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Does forced voting result in political polarization?</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">L L</forename><surname>De Leon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Rizzi</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11127-016-0318-7</idno>
+		<ptr target="https://doi.org/10.1007/s11127-016-0318-7" />
+	</analytic>
+	<monogr>
+		<title level="j">Public Choice</title>
+		<imprint>
+			<biblScope unit="volume">166</biblScope>
+			<biblScope unit="issue">1-2</biblScope>
+			<biblScope unit="page" from="143" to="160" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Political independence in America, Part I: On being an independent partisan supporter</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Dennis</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S0007123400004968</idno>
+		<ptr target="https://doi.org/10.1017/S0007123400004968" />
+	</analytic>
+	<monogr>
+		<title level="j">British Journal of Political Science</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="77" to="109" />
+			<date type="published" when="1988">1988</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Political independence in America, part II: Towards a theory</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Dennis</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S0007123400005068</idno>
+		<ptr target="https://doi.org/10.1017/S0007123400005068" />
+	</analytic>
+	<monogr>
+		<title level="j">British Journal of Political Science</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="197" to="219" />
+			<date type="published" when="1988">1988b</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Political independence in America, III: In search of closet partisans</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Dennis</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/BF00991981</idno>
+		<ptr target="https://doi.org/10.1007/BF00991981" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Behavior</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="page" from="261" to="296" />
+			<date type="published" when="1992">1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Does choice bring loyalty? Electoral participation and the development of party identification</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Dinas</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/ajps.12044</idno>
+		<ptr target="https://doi.org/10.1111/ajps.12044" />
+	</analytic>
+	<monogr>
+		<title level="j">American Journal of Political Science</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="449" to="465" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<monogr>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">P</forename><surname>Fiorina</surname></persName>
+		</author>
+		<title level="m">Retrospective voting in American national elections</title>
+		<imprint>
+			<publisher>Yale University Press</publisher>
+			<date type="published" when="1981">1981</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Family dynamics and Swiss parties on the rise: Exploring party support in a changing electoral context</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Fitzgerald</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S0022381611000454</idno>
+		<ptr target="https://doi.org/10.1017/S0022381611000454" />
+	</analytic>
+	<monogr>
+		<title level="j">The Journal of Politics</title>
+		<imprint>
+			<biblScope unit="volume">73</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="783" to="796" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">The expanding party universe: Patterns of partisan engagement in Australia and the United Kingdom</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Gauja</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Grömping</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Party Politics</title>
+		<imprint>
+			<biblScope unit="volume">26</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="822" to="833" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Party identification: Resilience under strain</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Gidengil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Nevitte</surname></persName>
+		</author>
+		<idno type="DOI">10.4337/9781788111997.00024</idno>
+		<ptr target="https://doi.org/10.4337/9781788111997.00024" />
+	</analytic>
+	<monogr>
+		<title level="m">Research Handbook on Political Partisanship</title>
+		<imprint>
+			<publisher>Edward Elgar Publishing</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="225" to="235" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Validating the feeling thermometer as a measure of partisan affect in multi-party systems</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Gidron</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Sheffer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Mor</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.electstud.2022.102542</idno>
+		<ptr target="https://doi.org/10.1016/j.electstud.2022.102542" />
+	</analytic>
+	<monogr>
+		<title level="j">Electoral Studies</title>
+		<imprint>
+			<biblScope unit="volume">80</biblScope>
+			<biblScope unit="page">102542</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">The psychological sources of partisan-leaning independence</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Greene</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1532673X00028004004</idno>
+		<ptr target="https://doi.org/10.1177/1532673X00028004004" />
+	</analytic>
+	<monogr>
+		<title level="j">American Politics Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="511" to="537" />
+			<date type="published" when="2000">2000</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">The social-psychological measurement of partisanship</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Greene</surname></persName>
+		</author>
+		<idno type="DOI">10.1023/A:1021859907145</idno>
+		<ptr target="https://doi.org/10.1023/A:1021859907145" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Behavior</title>
+		<imprint>
+			<biblScope unit="volume">24</biblScope>
+			<biblScope unit="page" from="171" to="197" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Social identity theory and party identification</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Greene</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.0038-4941.2004.08501010.x</idno>
+		<ptr target="https://doi.org/10.1111/j.0038-4941.2004.08501010.x" />
+	</analytic>
+	<monogr>
+		<title level="j">Social Science Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">85</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="136" to="153" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Negative Partisanship in Latin America</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Haime</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Cantú</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/lap.2021.54</idno>
+		<ptr target="https://doi.org/10.1017/lap.2021" />
+	</analytic>
+	<monogr>
+		<title level="j">Latin American Politics and Society</title>
+		<imprint>
+			<biblScope unit="volume">64</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="72" to="92" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<monogr>
+		<title level="m" type="main">Republican Gains in 2022 Midterms Driven Mostly by Turnout Advantage: An examination of the 2022 elections, based on validated voters</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Hartig</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Daniller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Keeter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Van Green</surname></persName>
+		</author>
+		<ptr target="https://www.pewresearch.org/politics/2023/07/12/republican-gains-in-2022-midterms-driven-mostly-by-turnout-advantage/" />
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+		<respStmt>
+			<orgName>Pew Research Center</orgName>
+		</respStmt>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Unconventional protests: Partisans and independents outside the Republican and Democratic national conventions</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">T</forename><surname>Heaney</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/2053168016674138</idno>
+		<ptr target="https://doi.org/10.1177/2053168016674138" />
+	</analytic>
+	<monogr>
+		<title level="j">Research &amp; Politics</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">2053168016674138</biblScope>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Intergroup Bias</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Hewstone</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rubin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Willis</surname></persName>
+		</author>
+		<idno type="DOI">10.1146/annurev.psych.53.100901.135109</idno>
+		<ptr target="https://doi.org/10.1146/annurev.psych.53.100901.135109" />
+	</analytic>
+	<monogr>
+		<title level="j">Annual Review of Psychology</title>
+		<imprint>
+			<biblScope unit="volume">53</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="575" to="604" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Attitudes in social context: A social identity perspective</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">A</forename><surname>Hogg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Smith</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/10463280701592070</idno>
+		<ptr target="https://doi.org/10.1080/10463280701592070" />
+	</analytic>
+	<monogr>
+		<title level="j">European Review of Social Psychology</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="89" to="131" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">The intergenerational transmission of voting intentions in a multiparty setting: An analysis of voting intentions and political discussion among 15-year-old adolescents and their parents in Belgium</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Hooghe</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Boonen</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0044118X13496826</idno>
+		<ptr target="https://doi.org/10.1177/0044118X13496826" />
+	</analytic>
+	<monogr>
+		<title level="j">Youth &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="125" to="147" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Political partisanship as a social identity</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Huddy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bankert</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/acrefore/9780190228637.013.250</idno>
+		<ptr target="https://doi.org/10.1093/acrefore/9780190228637.013.250" />
+	</analytic>
+	<monogr>
+		<title level="s">Oxford research encyclopedia of politics</title>
+		<imprint>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Expressive versus instrumental partisanship in multiparty European systems</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Huddy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bankert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Davies</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/pops.12482</idno>
+		<ptr target="https://doi.org/10.1111/pops.12482" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Psychology</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="page" from="173" to="199" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Measuring the direction and strength of partisan identity</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Huddy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Davies</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Sandor</surname></persName>
+		</author>
+		<idno type="DOI">10.4337/9781788111997.00014</idno>
+		<ptr target="https://doi.org/10.4337/9781788111997.00014" />
+	</analytic>
+	<monogr>
+		<title level="m">Research Handbook on Political Partisanship</title>
+		<imprint>
+			<publisher>Edward Elgar Publishing</publisher>
+			<date type="published" when="2020">2020</date>
+			<biblScope unit="page" from="103" to="122" />
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Expressive partisanship: Campaign involvement, political emotion, and partisan identity</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Huddy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Mason</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Aarøe</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S0003055414000604</idno>
+		<ptr target="https://doi.org/10.1017/S0003055414000604" />
+	</analytic>
+	<monogr>
+		<title level="j">American Political Science Review</title>
+		<imprint>
+			<biblScope unit="volume">109</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="17" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Political Independence in the United States How Do Independent Leaners Differ From Pure Independents and Weak Partisans?</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Ishio</surname></persName>
+		</author>
+		<idno type="DOI">10.14854/jaes1986.21.51</idno>
+		<ptr target="https://doi.org/10.14854/jaes1986.21.51" />
+	</analytic>
+	<monogr>
+		<title level="j">Japanese Journal of Electoral Studies</title>
+		<imprint>
+			<biblScope unit="volume">21</biblScope>
+			<biblScope unit="page" from="51" to="76" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<monogr>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">E</forename><surname>Keith</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">B</forename><surname>Magleby</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">J</forename><surname>Nelson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">A</forename><surname>Orr</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">C</forename><surname>Westlye</surname></persName>
+		</author>
+		<title level="m">The myth of the independent voter</title>
+		<imprint>
+			<publisher>Univ of California Press</publisher>
+			<date type="published" when="1992">1992</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">Affective blocs: Understanding affective polarization in multiparty systems</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kekkonen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Ylä-Anttila</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.electstud.2021.102367</idno>
+		<ptr target="https://doi.org/10.1016/j.electstud.2021.102367" />
+	</analytic>
+	<monogr>
+		<title level="j">Electoral Studies</title>
+		<imprint>
+			<biblScope unit="volume">72</biblScope>
+			<biblScope unit="page">102367</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<monogr>
+		<author>
+			<persName><forename type="first">S</forename><surname>Klar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Krupnikov</surname></persName>
+		</author>
+		<title level="m">Independent politics</title>
+		<imprint>
+			<publisher>Cambridge University Press</publisher>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">The case for motivated reasoning</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Kunda</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">108</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page">480</biblScope>
+			<date type="published" when="1990">1990</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">Journal article reporting standards for qualitative primary, qualitative meta-analytic, and mixed methods research in psychology: The APA Publications and Communications Board task force report</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">M</forename><surname>Levitt</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bamberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">W</forename><surname>Creswell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">M</forename><surname>Frost</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Josselson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Suárez-Orozco</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Psychologist</title>
+		<imprint>
+			<biblScope unit="volume">73</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">26</biblScope>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">What Do We Mean by Negative Partisanship</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Lelkes</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/0033-2909.108.3.480</idno>
+		<ptr target="https://doi.org/10.1037/0033-2909.108.3.480" />
+	</analytic>
+	<monogr>
+		<title level="j">The Forum</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="481" to="497" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<analytic>
+		<title level="a" type="main">The emotional underpinning of partisanship and vote choice</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rosema</surname></persName>
+		</author>
+		<ptr target="https://hdl.handle.net/10281/10351" />
+	</analytic>
+	<monogr>
+		<title level="m">32th Annual Scientific Meeting ISPP-International Society of Political Psychology</title>
+		<imprint>
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<analytic>
+		<title level="a" type="main">I disrespectfully agree&quot;: The differential effects of partisan sorting on social and issue polarization</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Mason</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/ajps.12089</idno>
+		<ptr target="https://doi.org/10.1111/ajps.12089" />
+	</analytic>
+	<monogr>
+		<title level="j">American Journal of Political Science</title>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="128" to="145" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<analytic>
+		<title level="a" type="main">A cross-cutting calm: How social sorting drives affective polarization</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Mason</surname></persName>
+		</author>
+		<idno type="DOI">10.1093/poq/nfw001</idno>
+		<ptr target="https://doi.org/10.1093/poq/nfw001" />
+	</analytic>
+	<monogr>
+		<title level="j">Public Opinion Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">80</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="351" to="377" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b57">
+	<analytic>
+		<title level="a" type="main">Losing common ground: Social sorting and polarization</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Mason</surname></persName>
+		</author>
+		<idno type="DOI">10.1515/for-2018-0004</idno>
+		<ptr target="https://doi.org/10.1515/for-2018-0004" />
+	</analytic>
+	<monogr>
+		<title level="j">The Forum</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="47" to="66" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b58">
+	<analytic>
+		<title level="a" type="main">How Multiple Party Identifications Shape the Voters&apos; Political World. Panel&quot; Political Image and Public Opinion: Impressions and Evaluations</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Mayer</surname></persName>
+		</author>
+		<ptr target="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2384505" />
+	</analytic>
+	<monogr>
+		<title level="m">the 7th General Conference of the European Consortium for Political Research (ECPR) at Sciences Po</title>
+		<meeting><address><addrLine>Bordeaux (France</addrLine></address></meeting>
+		<imprint>
+			<date type="published" when="2013">2013. 4th-7th September</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b59">
+	<analytic>
+		<title level="a" type="main">How negative partisanship affects voting behavior in Europe: Evidence from an analysis of 17 European multi-party systems with proportional voting</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">J</forename><surname>Mayer</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/2053168016686636</idno>
+		<ptr target="https://doi.org/10.1177/2053168016686636" />
+	</analytic>
+	<monogr>
+		<title level="j">Research &amp; Politics</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">2053168016686636</biblScope>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b60">
+	<analytic>
+		<title level="a" type="main">The effects of political involvement and cross-pressures on multiple party identifications in multi-party systems-evidence from Germany</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">J</forename><surname>Mayer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Schultze</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17457289.2018.1466785</idno>
+		<ptr target="https://doi.org/10.1080/17457289.2018.1466785" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Elections, Public Opinion and Parties</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="245" to="261" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b61">
+	<analytic>
+		<title level="a" type="main">Negative partisanship in a multi-party system: The case of Canada</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">R</forename><surname>Mcgregor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">J</forename><surname>Caruana</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">B</forename><surname>Stephenson</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17457289.2014.997239</idno>
+		<ptr target="https://doi.org/10.1080/17457289.2014.997239" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Elections, Public Opinion and Parties</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="300" to="316" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b62">
+	<analytic>
+		<title level="a" type="main">The forgotten side of partisanship: Negative party identification in four Anglo-American democracies</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Medeiros</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Noël</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0010414013488560</idno>
+		<ptr target="https://doi.org/10.1177/0010414013488560" />
+	</analytic>
+	<monogr>
+		<title level="j">Comparative Political Studies</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="1022" to="1046" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b63">
+	<analytic>
+		<title level="a" type="main">Red and blue states of mind: Partisan hostility and voting in the United States</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">R</forename><surname>Miller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">J</forename><surname>Conover</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1065912915577208</idno>
+		<ptr target="https://doi.org/10.1177/1065912915577208" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Research Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">68</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="225" to="239" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b64">
+	<monogr>
+		<title level="m" type="main">chapter two: the cross-national use of party identification as a stimulus to political inquiry. Party identification and beyond: Representations of voting and party competition</title>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">E</forename><surname>Miller</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2010">2010</date>
+			<biblScope unit="volume">21</biblScope>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b65">
+	<analytic>
+		<title level="a" type="main">I&apos;ll see it when I believe it: Motivated numeracy in perceptions of climate change risk</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">S</forename><surname>Nurse</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">J</forename><surname>Grant</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/17524032.2019.1618364</idno>
+		<ptr target="https://doi.org/10.1080/17524032.2019.1618364" />
+	</analytic>
+	<monogr>
+		<title level="j">Environmental Communication</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="184" to="201" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b66">
+	<analytic>
+		<title level="a" type="main">Intercoder Reliability in Qualitative Research: Debates and Practical Guidelines</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>O'connor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Joffe</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1609406919899220</idno>
+		<ptr target="https://doi.org/10.1177/1609406919899220" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Qualitative Methods</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="page">160940691989922</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b67">
+	<monogr>
+		<title level="m" type="main">Research handbook on political partisanship</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Oscarsson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Holmberg</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+			<publisher>Edward Elgar Publishing</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b68">
+	<monogr>
+		<ptr target="https://www.aph.gov.au/About_Parliament/House_of_Representatives/Powers_practice_and_procedure/00_-_Infosheets/Infosheet_22_-_Political_parties" />
+		<title level="m">Infosheet 22 -Political parties: Political Parties in the House of Representatives</title>
+		<imprint>
+			<publisher>Parliament of Australia</publisher>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b69">
+	<analytic>
+		<title level="a" type="main">Measuring party support: Leaners are not independents</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Petrocik</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.electstud.2009.05.022</idno>
+		<ptr target="https://doi.org/10.1016/j.electstud.2009.05.022" />
+	</analytic>
+	<monogr>
+		<title level="j">Electoral Studies</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="562" to="572" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b70">
+	<analytic>
+		<title level="a" type="main">Engaging adolescents in politics: The longitudinal effect of political socialization agents</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Quintelier</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0044118X13507295</idno>
+		<ptr target="https://doi.org/10.1177/0044118X13507295" />
+	</analytic>
+	<monogr>
+		<title level="j">Youth &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">47</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="51" to="69" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b71">
+	<analytic>
+		<title level="a" type="main">Fear and loathing across party lines&apos;(also) in Europe: Affective polarisation in European party systems</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Reiljan</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/1475-6765.12351</idno>
+		<ptr target="https://doi.org/10.1111/1475-6765.12351" />
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Political Research</title>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="376" to="396" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b72">
+	<analytic>
+		<title level="a" type="main">Ideological tripolarization, partisan tribalism and institutional trust: The foundations of affective polarization in the Swedish multiparty system</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Reiljan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ryan</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/1467-9477.12194</idno>
+		<ptr target="https://doi.org/10.1111/1467-9477.12194" />
+	</analytic>
+	<monogr>
+		<title level="j">Scandinavian Political Studies</title>
+		<imprint>
+			<biblScope unit="volume">44</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="195" to="219" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b73">
+	<analytic>
+		<title level="a" type="main">Social networks of independents and partisans: Are independents a moderating force?</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Reilly</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">C</forename><surname>Hedberg</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/polp.12460</idno>
+		<ptr target="https://doi.org/10.1111/polp.12460" />
+	</analytic>
+	<monogr>
+		<title level="j">Politics &amp; Policy</title>
+		<imprint>
+			<biblScope unit="volume">50</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="225" to="243" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b74">
+	<analytic>
+		<title level="a" type="main">Social identity complexity</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Roccas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">B</forename><surname>Brewer</surname></persName>
+		</author>
+		<idno type="DOI">10.1207/S15327957PSPR0602_01</idno>
+		<ptr target="https://doi.org/10.1207/S15327957PSPR0602_01" />
+	</analytic>
+	<monogr>
+		<title level="j">Personality and Social Psychology Review</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="88" to="106" />
+			<date type="published" when="2002">2002</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b75">
+	<analytic>
+		<title level="a" type="main">The poles in polarization: Social categorization and affective polarization in multiparty systems</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Rothers</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.electstud.2025.102908</idno>
+		<ptr target="https://doi.org/10.1016/j.electstud.2025.102908" />
+	</analytic>
+	<monogr>
+		<title level="j">Electoral Studies</title>
+		<imprint>
+			<biblScope unit="volume">95</biblScope>
+			<biblScope unit="page">102908</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b76">
+	<analytic>
+		<title level="a" type="main">Compulsory voting and the dynamics of partisan identification</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Singh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Thornton</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/j.1475-6765.2012.02071.x</idno>
+		<ptr target="https://doi.org/10.1111/j.1475-6765.2012.02071.x" />
+	</analytic>
+	<monogr>
+		<title level="j">European Journal of Political Research</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="188" to="211" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b77">
+	<analytic>
+		<title level="a" type="main">Motivated reasoning and public opinion</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Strickland</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">S</forename><surname>Taber</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Lodge</surname></persName>
+		</author>
+		<idno type="DOI">10.1215/03616878-1460524</idno>
+		<ptr target="https://doi.org/10.1215/03616878-1460524" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Health Politics, Policy and Law</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="935" to="944" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b78">
+	<analytic>
+		<author>
+			<persName><forename type="first">Susan</forename><surname>Mckinnon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Foundation</forename></persName>
+		</author>
+		<ptr target="https://www.susanmckinnon.org.au/wp-content/uploads/2024/11/J01216_SMF_Partisanship_and_Polarisation-Report-FINAL.pdf" />
+	</analytic>
+	<monogr>
+		<title level="m">Partisanship, polarisation and social cohesion in Australia</title>
+		<imprint>
+			<date type="published" when="2024-08">2024, August</date>
+		</imprint>
+	</monogr>
+	<note>PowerPoint Slides</note>
+</biblStruct>
+
+<biblStruct xml:id="b79">
+	<analytic>
+		<title level="a" type="main">Lesser of two evils? Political organization-public relationship in the 2016 election</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">D</forename><surname>Sweetser</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0002764217701216</idno>
+		<ptr target="https://doi.org/10.1177/0002764217701216" />
+	</analytic>
+	<monogr>
+		<title level="j">American Behavioral Scientist</title>
+		<imprint>
+			<biblScope unit="volume">61</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="345" to="356" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b80">
+	<monogr>
+		<title level="m" type="main">Differentiation between social groups: Studies in the social psychology of intergroup relations</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">E</forename><surname>Tajfel</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1978">1978</date>
+			<publisher>Academic Press</publisher>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b81">
+	<analytic>
+		<title level="a" type="main">It&apos;s political: How the salience of one&apos;s political identity changes climate change beliefs and policy support</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">L</forename><surname>Unsworth</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">S</forename><surname>Fielding</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.gloenvcha.2014.05.002</idno>
+		<ptr target="https://doi.org/10.1016/j.gloenvcha.2014.05.002" />
+	</analytic>
+	<monogr>
+		<title level="j">Global Environmental Change</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="page" from="131" to="137" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b82">
+	<analytic>
+		<title level="a" type="main">Partisanship, independence, and the partisan identification question</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">C</forename><surname>Valentine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Van Wingen</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1532673X8000800202</idno>
+		<ptr target="https://doi.org/10.1177/1532673X8000800202" />
+	</analytic>
+	<monogr>
+		<title level="j">American Politics Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="165" to="186" />
+			<date type="published" when="1980">1980</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b83">
+	<monogr>
+		<title level="m">MAXQDA 2022</title>
+		<meeting><address><addrLine>Berlin, Germany</addrLine></address></meeting>
+		<imprint>
+			<publisher>VERBI Software</publisher>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note>computer software Available from maxqda.com</note>
+</biblStruct>
+
+<biblStruct xml:id="b84">
+	<analytic>
+		<title level="a" type="main">Do Partisans Always Like Their Inparty and Dislike Their Outparty? An Analysis of Partisans Across the Affective Spectrum</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">K</forename><surname>Wagner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Wiezel</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/1532673X221139475</idno>
+		<ptr target="https://doi.org/10.1177/1532673X221139475" />
+	</analytic>
+	<monogr>
+		<title level="j">American Politics Research</title>
+		<imprint>
+			<biblScope unit="page" from="1532673X" to="221139475" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b85">
+	<analytic>
+		<title level="a" type="main">Affective polarization in multiparty systems</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Wagner</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.electstud.2020.102199</idno>
+		<ptr target="https://doi.org/10.1016/j.electstud.2020.102199" />
+	</analytic>
+	<monogr>
+		<title level="j">Electoral Studies</title>
+		<imprint>
+			<biblScope unit="volume">69</biblScope>
+			<biblScope unit="page">102199</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b86">
+	<analytic>
+		<title level="a" type="main">Party identification and party images: A comparison of Britain, Canada, Australia, and the United States</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">P</forename><surname>Wattenberg</surname></persName>
+		</author>
+		<idno type="DOI">10.2307/421577</idno>
+		<ptr target="https://doi.org/10.2307/421577" />
+	</analytic>
+	<monogr>
+		<title level="j">Comparative Politics</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="23" to="40" />
+			<date type="published" when="1982">1982</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+<biblStruct xml:id="b87">
+	<analytic>
+		<title level="a" type="main">Affective polarization within parties</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">J</forename><surname>Young</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">H</forename><surname>De-Wit</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/pops.12973</idno>
+		<idno>pops.12973</idno>
+		<ptr target="https://doi.org/10.1111/pops.12973" />
+	</analytic>
+	<monogr>
+		<title level="j">Political Psychology</title>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

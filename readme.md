@@ -227,6 +227,21 @@ docker compose run --rm app python -m osf_sync.cli enrich-openalex --limit 400 -
 
 ---
 
+## Manual scripts (no Docker required)
+
+After configuring `.env` and installing dependencies locally, you can run the post-GROBID steps directly:
+
+```bash
+python scripts/manual_post_grobid/run_extraction.py --limit 200
+python scripts/manual_post_grobid/run_enrich_crossref.py --limit 400 --threshold 78
+python scripts/manual_post_grobid/run_enrich_openalex.py --limit 400 --threshold 75
+python scripts/manual_post_grobid/analyze_doi_sources.py
+```
+
+See `scripts/manual_post_grobid/README.md` for details and extra flags (`--dry-run`, `--sleep`, etc.).
+
+---
+
 ## One-off Celery Tasks
 
 ```bash
