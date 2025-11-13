@@ -8,9 +8,7 @@ import logging
 import requests
 
 from thefuzz import fuzz
-from sqlalchemy import text
-
-from ..db import engine
+from ..dynamo.preprints_repo import PreprintsRepo
 
 # -----------------------
 # Logging configuration
@@ -343,27 +341,7 @@ def _pick_best(
 # -----------------------
 # DB helpers
 # -----------------------
-SEL_REFS_MISSING = text("""
-    SELECT osf_id, ref_id, title, authors, journal, year
-    FROM preprint_references
-    WHERE (doi IS NULL OR doi = '')
-    ORDER BY updated_at ASC NULLS LAST
-    LIMIT :lim
-""")
-
-SEL_REFS_MISSING_ONE = text("""
-    SELECT osf_id, ref_id, title, authors, journal, year
-    FROM preprint_references
-    WHERE osf_id = :osf AND (doi IS NULL OR doi = '')
-    ORDER BY ref_id ASC
-    LIMIT :lim
-""")
-
-UPDATE_DOI = text("""
-    UPDATE preprint_references
-    SET doi = :doi, has_doi = TRUE, doi_source = 'openalex', updated_at = now()
-    WHERE osf_id = :osf_id AND ref_id = :ref_id AND (doi IS NULL OR doi = '')
-""")
+repo = PreprintsRepo()
 
 
 # -----------------------
@@ -375,6 +353,7 @@ def enrich_missing_with_openalex(
     limit: int = 200,
     threshold: int = 70,
     debug: bool = False,
+    mailto: Optional[str] = None,
 ) -> Dict[str, int]:
     """
     For references without a DOI:
@@ -388,11 +367,8 @@ def enrich_missing_with_openalex(
     updated = 0
     failed = 0
 
-    with engine.begin() as conn:
-        if osf_id:
-            rows = conn.execute(SEL_REFS_MISSING_ONE, {"osf": osf_id, "lim": limit}).mappings().all()
-        else:
-            rows = conn.execute(SEL_REFS_MISSING, {"lim": limit}).mappings().all()
+    rows = repo.select_refs_missing_doi(limit=limit, osf_id=osf_id)
+    active_mailto = mailto or OPENALEX_MAILTO
 
     sess = requests.Session()
 
@@ -421,11 +397,11 @@ def enrich_missing_with_openalex(
 
         # Stage 2: relaxed keep-year (title + year window)
         if not cands:
-            cands = _fetch_candidates_relaxed(sess, nt, year, OPENALEX_MAILTO, keep_year=True)
+            cands = _fetch_candidates_relaxed(sess, nt, year, active_mailto, keep_year=True)
 
         # Stage 3: relaxed no-year (title only)
         if not cands:
-            cands = _fetch_candidates_relaxed(sess, nt, None, OPENALEX_MAILTO, keep_year=False)
+            cands = _fetch_candidates_relaxed(sess, nt, None, active_mailto, keep_year=False)
 
         if not cands:
             _log(logging.INFO, "No good OpenAlex match", osf_id=osfid, ref_id=refid, candidates=0)
@@ -447,11 +423,13 @@ def enrich_missing_with_openalex(
 
         # Update DB if still empty
         try:
-            with engine.begin() as conn:
-                conn.execute(UPDATE_DOI, {"osf_id": osfid, "ref_id": refid, "doi": doi})
-            updated += 1
+            ok = repo.update_reference_doi(osfid, refid, doi, source="openalex")
+            if ok:
+                updated += 1
+                _log(logging.INFO, "DOI updated via OpenAlex", osf_id=osfid, ref_id=refid, doi=doi)
+            else:
+                _log(logging.INFO, "DOI already present, skipped", osf_id=osfid, ref_id=refid)
             checked += 1
-            _log(logging.INFO, "DOI updated via OpenAlex", osf_id=osfid, ref_id=refid, doi=doi)
         except Exception as e:
             failed += 1
             checked += 1
@@ -472,6 +450,7 @@ if __name__ == "__main__":
     ap.add_argument("--limit", type=int, default=50)
     ap.add_argument("--threshold", type=int, default=70)
     ap.add_argument("--debug", action="store_true")
+    ap.add_argument("--mailto", default=None)
     args = ap.parse_args()
 
     out = enrich_missing_with_openalex(
@@ -479,5 +458,6 @@ if __name__ == "__main__":
         limit=args.limit,
         threshold=args.threshold,
         debug=args.debug,
+        mailto=args.mailto,
     )
     print("✅ OpenAlex Enrichment Done →", out)

@@ -5,9 +5,7 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 from requests.exceptions import RequestException, Timeout, ConnectionError
-from sqlalchemy import text
-
-from .db import engine
+from .dynamo.preprints_repo import PreprintsRepo
 from .iter_preprints import SESSION, OSF_API  # reuse resilient session
 
 ACCEPT_PDF = {"application/pdf"}
@@ -76,21 +74,12 @@ def _convert_docx_to_pdf(in_docx: Path, out_pdf: Path) -> bool:
     return False
 
 def mark_downloaded(osf_id: str, local_path: Optional[str], ok: bool):
-    sql = text("""
-        UPDATE preprints
-        SET
-            pdf_downloaded = :ok,
-            pdf_downloaded_at = CASE WHEN :ok THEN now() ELSE pdf_downloaded_at END,
-            pdf_path = CASE WHEN :ok THEN :path ELSE pdf_path END,
-            updated_at = now()
-        WHERE osf_id = :id
-    """)
-    with engine.begin() as conn:
-        conn.execute(sql, {"ok": ok, "path": local_path, "id": osf_id})
+    repo = PreprintsRepo()
+    repo.mark_pdf(osf_id, ok=ok, path=local_path)
 
 def delete_preprint(osf_id: str):
-    with engine.begin() as conn:
-        conn.execute(text("DELETE FROM preprints WHERE osf_id = :id"), {"id": osf_id})
+    repo = PreprintsRepo()
+    repo.delete_preprint(osf_id)
 
 def ensure_pdf_available_or_delete(
     osf_id: str,

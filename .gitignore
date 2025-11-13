@@ -2,3 +2,6 @@
 /venv
 *.DS_Store
 /scripts/augmentation/__pycache__
+/osf_sync/__pycache__
+/osf_sync/augmentation/__pycache__
+/osf_sync/dynamo/__pycache__

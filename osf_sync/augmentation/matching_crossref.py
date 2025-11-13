@@ -9,11 +9,7 @@ from urllib.parse import urlencode
 
 import requests
 from thefuzz import fuzz
-from sqlalchemy import text, bindparam
-from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.types import String, Integer
-
-from ..db import engine
+from ..dynamo.preprints_repo import PreprintsRepo
 
 logger = logging.getLogger(__name__)
 if not logger.handlers:
@@ -233,43 +229,9 @@ def enrich_missing_with_crossref(limit: int = 300,
     """
     logger.info("Crossref lookup start")
 
-    SELECT_SQL = text("""
-        SELECT r.osf_id, r.ref_id, r.title, r.authors, r.journal, r.year, r.doi
-        FROM preprint_references r
-        WHERE (r.doi IS NULL OR r.doi = '')
-        AND (r.has_title IS TRUE)
-        AND (r.has_year IS TRUE)
-        AND (:osf_id IS NULL OR r.osf_id = :osf_id)
-        AND (:ref_id IS NULL OR r.ref_id = :ref_id)
-        ORDER BY r.osf_id, r.ref_id
-        LIMIT :lim
-    """).bindparams(
-        bindparam("osf_id", type_=String),   # <- force type
-        bindparam("ref_id", type_=String),   # <- force type
-        bindparam("lim", type_=Integer),
-    )
-
-    UPDATE_SQL = text("""
-        UPDATE preprint_references
-        SET doi = :doi,
-            has_doi = TRUE,
-            doi_source = 'crossref',
-            updated_at = now()
-        WHERE osf_id = :osf_id AND ref_id = :ref_id
-    """)
-
     checked = updated = failed = 0
-
-    try:
-        with engine.begin() as conn:
-            rows = conn.execute(SELECT_SQL, {
-                "lim": limit,
-                "osf_id": osf_id,
-                "ref_id": ref_id
-            }).mappings().all()
-    except SQLAlchemyError as e:
-        logger.exception("DB select error for Crossref enrichment")
-        return {"checked": 0, "updated": 0, "failed": 0}
+    repo = PreprintsRepo()
+    rows = repo.select_refs_missing_doi(limit=limit, osf_id=osf_id)
 
     for r in rows:
         checked += 1
@@ -296,13 +258,12 @@ def enrich_missing_with_crossref(limit: int = 300,
 
         # Update DB
         try:
-            with engine.begin() as conn:
-                conn.execute(UPDATE_SQL, {"doi": doi, "osf_id": r["osf_id"], "ref_id": r["ref_id"]})
-            updated += 1
-        except SQLAlchemyError:
+            ok = repo.update_reference_doi(r["osf_id"], r["ref_id"], doi, source="crossref")
+            updated += 1 if ok else 0
+        except Exception:
             failed += 1
-            logger.exception("DB update error in Crossref enrichment",
-                             extra={"osf_id": r["osf_id"], "ref_id": r["ref_id"], "doi": doi})
+            logger.exception("Dynamo update error in Crossref enrichment",
+                             extra={"osf_id": r.get("osf_id"), "ref_id": r.get("ref_id"), "doi": doi})
 
     logger.info("Crossref enrichment complete")
     return {"checked": checked, "updated": updated, "failed": failed}

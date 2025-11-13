@@ -11,13 +11,12 @@ from typing import Optional, Dict, Any, Iterable
 import requests
 from requests.adapters import HTTPAdapter, Retry
 from requests.exceptions import RequestException
-from sqlalchemy import text
-from sqlalchemy.exc import SQLAlchemyError
+from .dynamo.preprints_repo import PreprintsRepo
 
 from celery import chain
 
 from .celery_app import app
-from .db import engine, init_db
+from .db import init_db
 from .upsert import upsert_batch
 from .iter_preprints import iter_preprints_batches, iter_preprints_range
 
@@ -94,24 +93,23 @@ def _coerce_osf_id(x):
 
 
 def _get_cursor(source_key: str) -> Optional[dt.datetime]:
-    sql = text("SELECT last_seen_published FROM sync_state WHERE source_key = :k")
-    with engine.begin() as conn:
-        row = conn.execute(sql, {"k": source_key}).one_or_none()
-        return row[0] if row else None
+    repo = PreprintsRepo()
+    v = repo.get_cursor(source_key)
+    if not v:
+        return None
+    try:
+        vv = v.replace("Z", "+00:00")
+        d = dt.datetime.fromisoformat(vv)
+        if d.tzinfo is None:
+            d = d.replace(tzinfo=dt.timezone.utc)
+        return d
+    except Exception:
+        return None
 
 
 def _set_cursor(source_key: str, last_seen: dt.datetime) -> None:
-    sql = text(
-        """
-        INSERT INTO sync_state (source_key, last_seen_published, last_run_at)
-        VALUES (:k, :v, now())
-        ON CONFLICT (source_key) DO UPDATE SET
-            last_seen_published = GREATEST(sync_state.last_seen_published, EXCLUDED.last_seen_published),
-            last_run_at = now();
-        """
-    )
-    with engine.begin() as conn:
-        conn.execute(sql, {"k": source_key, "v": last_seen})
+    repo = PreprintsRepo()
+    repo.set_cursor(source_key, last_seen.isoformat())
 
 
 def _parse_iso_dt(value: Optional[str]) -> Optional[dt.datetime]:
@@ -219,12 +217,8 @@ def download_single_pdf(self, osf_id: str):
     Only PDF/DOCX allowed (DOCX converted to PDF inside ensure_pdf_available_or_delete).
     Others: delete row or mark excluded (handled inside your .pdf module).
     """
-    with engine.begin() as conn:
-        row = conn.execute(
-            text("SELECT osf_id, provider_id, raw FROM preprints WHERE osf_id = :id LIMIT 1"),
-            {"id": osf_id},
-        ).mappings().one_or_none()
-
+    repo = PreprintsRepo()
+    row = repo.get_preprint_basic(osf_id)
     if not row:
         return {"osf_id": osf_id, "skipped": "no longer in DB"}
 
@@ -248,19 +242,8 @@ def download_single_pdf(self, osf_id: str):
 
 @app.task(bind=True)
 def enqueue_pdf_downloads(self, limit: int = 100):
-    sql = text(
-        """
-        SELECT osf_id
-        FROM preprints
-        WHERE is_published IS TRUE
-          AND (raw -> 'relationships' -> 'primary_file') IS NOT NULL
-          AND COALESCE(pdf_downloaded, false) = false
-        ORDER BY date_published ASC NULLS LAST
-        LIMIT :lim
-        """
-    )
-    with engine.begin() as conn:
-        ids = [r[0] for r in conn.execute(sql, {"lim": limit}).fetchall()]
+    repo = PreprintsRepo()
+    ids = repo.select_for_pdf(limit)
 
     if not ids:
         return {"queued": 0}
@@ -285,22 +268,14 @@ def grobid_single(self, osf_id_or_result):
     if not osf_id:
         return {"ok": False, "error": "missing osf_id in previous result"}
 
-    sql = text(
-        """
-        SELECT osf_id, provider_id, pdf_downloaded, tei_generated
-        FROM preprints
-        WHERE osf_id = :id
-        LIMIT 1
-        """
-    )
-    with engine.begin() as conn:
-        row = conn.execute(sql, {"id": osf_id}).mappings().one_or_none()
-
+    repo = PreprintsRepo()
+    row = repo.get_preprint_basic(osf_id)
     if not row:
         return {"osf_id": osf_id, "skipped": "not found"}
-    if not row["pdf_downloaded"]:
+    full = repo.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item") or {}
+    if not full.get("pdf_downloaded"):
         return {"osf_id": osf_id, "skipped": "pdf not downloaded"}
-    if row.get("tei_generated"):
+    if full.get("tei_generated"):
         return {"osf_id": osf_id, "skipped": "already processed"}
 
     provider_id = row["provider_id"] or "unknown"
@@ -315,26 +290,15 @@ def enqueue_grobid(self, limit: int = 50):
     """
     Queue a strictly sequential chain of GROBID jobs.
     """
-    sql = text(
-        """
-        SELECT osf_id
-        FROM preprints
-        WHERE COALESCE(pdf_downloaded, false) = true
-          AND COALESCE(tei_generated, false) = false
-        ORDER BY pdf_downloaded_at ASC NULLS LAST
-        LIMIT :lim
-        """
-    )
-    with engine.begin() as conn:
-        ids = [r[0] for r in conn.execute(sql, {"lim": limit}).fetchall()]
-
+    repo = PreprintsRepo()
+    ids = repo.select_for_grobid(limit)
     if not ids:
         return {"queued": 0}
 
     sigs = [grobid_single.si(i) for i in ids]
     chain(*sigs).apply_async(queue="grobid")
     out = {"queued": len(ids)}
-    _slack("Enqueued GROBID", extra=out)
+    _slack("Enqueued GROBID jobs", extra=out)
     return out
 
 
@@ -395,14 +359,11 @@ def extract_from_tei(self, maybe_provider_or_result, maybe_osf_id: Optional[str]
         osf_id = maybe_provider_or_result.get("osf_id")
         if not osf_id:
             return {"ok": False, "error": "missing osf_id in prior result"}
-        with engine.begin() as conn:
-            row = conn.execute(
-                text("SELECT provider_id FROM preprints WHERE osf_id = :id LIMIT 1"),
-                {"id": osf_id},
-            ).mappings().one_or_none()
-        if not row:
+        repo = PreprintsRepo()
+        b = repo.get_preprint_basic(osf_id)
+        if not b:
             return {"ok": False, "error": "osf_id not found"}
-        provider_id = row["provider_id"]
+        provider_id = b.get("provider_id")
     else:
         provider_id = maybe_provider_or_result
         osf_id = maybe_osf_id
@@ -415,22 +376,11 @@ def extract_from_tei(self, maybe_provider_or_result, maybe_osf_id: Optional[str]
 
 @app.task(name="osf_sync.tasks.enqueue_extraction", bind=True)
 def enqueue_extraction(self, limit: int = 200):
-    SEL = text(
-        """
-        SELECT p.osf_id, p.provider_id
-        FROM preprints p
-        WHERE COALESCE(p.tei_generated, false) IS TRUE
-          AND COALESCE(p.pdf_downloaded, false) IS TRUE
-          AND COALESCE(p.tei_extracted, false) IS NOT TRUE
-        ORDER BY p.date_published ASC NULLS LAST
-        LIMIT :limit
-        """
-    )
-    with engine.begin() as conn:
-        rows = conn.execute(SEL, {"limit": limit}).mappings().all()
-    for r in rows:
-        extract_from_tei.apply_async(args=[r["provider_id"], r["osf_id"]], queue="grobid")
-    out = {"queued": len(rows)}
+    repo = PreprintsRepo()
+    items = repo.select_for_extraction(limit)
+    for it in items:
+        extract_from_tei.apply_async(args=[it.get("provider_id"), it.get("osf_id")], queue="grobid")
+    out = {"queued": len(items)}
     _slack("Enqueued TEI extraction", extra=out)
     return out
 
@@ -447,8 +397,22 @@ def enrich_crossref(self, limit: int = 300, ua_email: str = OPENALEX_EMAIL):
 
 
 @app.task(name="osf_sync.tasks.enrich_openalex", bind=True)
-def enrich_openalex(self, limit: int = 200):
+def enrich_openalex(
+    self,
+    limit: int = 200,
+    threshold: int = 70,
+    mailto: Optional[str] = None,
+    osf_id: Optional[str] = None,
+    debug: bool = False,
+):
     from .augmentation.doi_check_openalex import enrich_missing_with_openalex
-    stats = enrich_missing_with_openalex(limit=limit)
+
+    stats = enrich_missing_with_openalex(
+        limit=limit,
+        threshold=threshold,
+        mailto=mailto,
+        osf_id=osf_id,
+        debug=debug,
+    )
     _slack("OpenAlex enrichment", extra=stats)
     return stats

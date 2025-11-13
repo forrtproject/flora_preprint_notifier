@@ -1,108 +1,17 @@
-from sqlalchemy import create_engine, text
-import os
+from __future__ import annotations
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg://osf:osfpass@postgres:5432/osfdb")
-engine = create_engine(DATABASE_URL, pool_pre_ping=True)
+from .dynamo.tables import ensure_tables
+from .dynamo.client import get_dynamo_resource
 
-DDL = """
-CREATE TABLE IF NOT EXISTS preprints (
-    osf_id              text PRIMARY KEY,
-    type                text,
-    title               text,
-    description         text,
-    doi                 text,
-    date_created        timestamptz,
-    date_modified       timestamptz,
-    date_published      timestamptz,
-    is_published        boolean,
-    version             int,
-    is_latest_version   boolean,
-    reviews_state       text,
-    tags                text[],
-    subjects            jsonb,
-    license_record      jsonb,
-    provider_id         text,
-    -- NOTE: if the table existed before, this column may be missing; migration below adds it.
-    primary_file_id     text,
-    links               jsonb,
-    raw                 jsonb,
-    -- download tracking (may be missing; migration adds them)
-    pdf_downloaded      boolean DEFAULT false,
-    pdf_downloaded_at   timestamptz,
-    pdf_path            text,
-    updated_at          timestamptz DEFAULT now(),
-    tei_extracted       boolean DEFAULT FALSE,
-    tei_generated       boolean DEFAULT FALSE,
-    tei_generated_at    timestamptz,
-    tei_path            text
 
-);
+def init_db() -> None:
+    """
+    Initialize DynamoDB tables (no-op if they already exist).
 
-CREATE TABLE IF NOT EXISTS preprint_tei (
-  osf_id           TEXT PRIMARY KEY REFERENCES preprints(osf_id) ON DELETE CASCADE,
-  title            TEXT,
-  doi              TEXT,
-  authors          jsonb,          -- ["A B", "C D"]
-  published_date   TEXT,            -- keep as text; some TEI values are partial
-  has_title        BOOLEAN,
-  has_doi          BOOLEAN,
-  has_authors      BOOLEAN,
-  has_published_date BOOLEAN,
-  extracted_at     TIMESTAMPTZ DEFAULT now()
-);
+    Docker Compose and tasks import this as a stable entrypoint.
+    """
+    ensure_tables()
 
-CREATE TABLE IF NOT EXISTS preprint_references (
-  osf_id           TEXT REFERENCES preprints(osf_id) ON DELETE CASCADE,
-  ref_id           TEXT,            -- TEI @xml:id (e.g., "b1")
-  title            TEXT,
-  authors          jsonb,
-  journal          TEXT,
-  year             INTEGER,
-  doi              TEXT,            -- DOI from TEI or later enrichment
-  has_doi          BOOLEAN,
-  has_title        BOOLEAN,
-  has_authors      BOOLEAN,
-  has_journal      BOOLEAN,
-  has_year         BOOLEAN,
-  doi_source       TEXT,            -- 'tei' | 'crossref' | 'openalex'
-  doi_confidence   TEXT,            -- 'high' | 'medium' | 'low' (from Crossref stage)
-  match_scores     JSONB,           -- {title, author, journal, combined}
-  updated_at       TIMESTAMPTZ DEFAULT now(),
-  PRIMARY KEY (osf_id, ref_id)
-);
 
-CREATE INDEX IF NOT EXISTS idx_preprint_refs_missing_doi ON preprint_references (osf_id) WHERE doi IS NULL;
-CREATE INDEX IF NOT EXISTS idx_preprints_date_modified ON preprints (date_modified);
-CREATE INDEX IF NOT EXISTS idx_preprints_provider ON preprints (provider_id);
-CREATE INDEX IF NOT EXISTS idx_preprints_tags_gin ON preprints USING GIN (tags);
-CREATE INDEX IF NOT EXISTS idx_preprints_subjects_gin ON preprints USING GIN (subjects);
+__all__ = ["init_db", "get_dynamo_resource"]
 
-CREATE TABLE IF NOT EXISTS sync_state (
-    source_key      text PRIMARY KEY,
-    last_seen_published timestamptz,
-    last_run_at     timestamptz DEFAULT now()
-);
-"""
-
-MIGRATIONS = [
-    # Add columns if they don’t exist (safe to run repeatedly)
-    "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS primary_file_id   text",
-    "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS pdf_downloaded    boolean DEFAULT false",
-    "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS pdf_downloaded_at timestamptz",
-    "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS pdf_path          text",
-    "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS tei_extracted boolean DEFAULT FALSE;"
-    # Optional: helpful index if you’ll query by download status
-    "CREATE INDEX IF NOT EXISTS idx_preprints_pdf_needed ON preprints (pdf_downloaded) WHERE pdf_downloaded = false",
-
-    "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS tei_generated    boolean DEFAULT false",
-    "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS tei_generated_at timestamptz",
-    "ALTER TABLE preprints ADD COLUMN IF NOT EXISTS tei_path         text",
-    "CREATE INDEX IF NOT EXISTS idx_preprints_tei_needed ON preprints (tei_generated) WHERE tei_generated = false",
-    "CREATE INDEX IF NOT EXISTS idx_preprints_tei_flags ON preprints (tei_generated, tei_extracted);",
-]
-
-def init_db():
-    with engine.begin() as conn:
-        conn.exec_driver_sql(DDL)
-        for stmt in MIGRATIONS:
-            conn.exec_driver_sql(stmt)

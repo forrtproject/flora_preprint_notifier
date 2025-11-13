@@ -1,9 +1,10 @@
 requests
 python-dotenv
-psycopg[binary]>=3.2
-SQLAlchemy>=2.0
 celery>=5.3
 flower>=2.0
 redis>=5.0
 thefuzz
 lxml
+boto3>=1.34
+botocore>=1.34
+python-dateutil>=2.9

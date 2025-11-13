@@ -1,8 +1,7 @@
 from __future__ import annotations
 import re
 from typing import Optional, Dict, Any
-from sqlalchemy import text
-from .db import engine
+from .dynamo.preprints_repo import PreprintsRepo
 from .iter_preprints import SESSION, OSF_API
 from .upsert import upsert_batch
 
@@ -32,6 +31,5 @@ def upsert_one_preprint(data: Dict[str, Any]) -> int:
     return upsert_batch([data])
 
 def exists_in_db(osf_id: str) -> bool:
-    with engine.begin() as conn:
-        row = conn.execute(text("SELECT 1 FROM preprints WHERE osf_id=:id LIMIT 1"), {"id": osf_id}).first()
-        return bool(row)
+    repo = PreprintsRepo()
+    return repo.exists_preprint(osf_id)

@@ -3,10 +3,8 @@ import os
 from pathlib import Path
 from typing import Optional, Tuple
 
-from sqlalchemy import text
 from requests.exceptions import RequestException, Timeout, ConnectionError
-
-from .db import engine
+from .dynamo.preprints_repo import PreprintsRepo
 from .iter_preprints import SESSION
 
 GROBID_URL = os.environ.get("GROBID_URL", "http://grobid:8070")
@@ -56,14 +54,5 @@ def process_pdf_to_tei(provider_id: str, osf_id: str) -> Tuple[bool, Optional[st
         return (False, None, str(e))
 
 def mark_tei(osf_id: str, ok: bool, tei_path: Optional[str]):
-    sql = text("""
-        UPDATE preprints
-        SET
-            tei_generated = :ok,
-            tei_generated_at = CASE WHEN :ok THEN now() ELSE tei_generated_at END,
-            tei_path = CASE WHEN :ok THEN :path ELSE tei_path END,
-            updated_at = now()
-        WHERE osf_id = :id
-    """)
-    with engine.begin() as conn:
-        conn.execute(sql, {"ok": ok, "path": tei_path, "id": osf_id})
+    repo = PreprintsRepo()
+    repo.mark_tei(osf_id, ok=ok, tei_path=tei_path)
