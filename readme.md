@@ -236,6 +236,7 @@ python scripts/manual_post_grobid/run_extraction.py --limit 200
 python scripts/manual_post_grobid/run_enrich_crossref.py --limit 400 --threshold 78
 python scripts/manual_post_grobid/run_enrich_openalex.py --limit 400 --threshold 75
 python scripts/manual_post_grobid/analyze_doi_sources.py
+python scripts/manual_post_grobid/dump_missing_doi_refs.py --output missing.jsonl
 ```
 
 See `scripts/manual_post_grobid/README.md` for details and extra flags (`--dry-run`, `--sleep`, etc.).
