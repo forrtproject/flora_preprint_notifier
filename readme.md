@@ -26,26 +26,17 @@ End-to-end pipeline that ingests OSF preprints, stores metadata in **DynamoDB**,
 ## Environment Configuration (`.env`)
 
 ```dotenv
-# Core services
-CELERY_BROKER_URL=redis://redis:6379/0
-CELERY_RESULT_BACKEND=redis://redis:6379/0
-PDF_DEST_ROOT=/data/preprints
 GROBID_URL=http://grobid:8070
-LOG_LEVEL=INFO
-
-# OSF + enrichment
-OSF_API_TOKEN=...                # required for OSF sync
-OPENALEX_EMAIL=you@example.com
-
-# DynamoDB (local dev defaults)
+CELERY_BROKER_URL=redis://redis:6379/0
 AWS_REGION=eu-north-1
-AWS_ACCESS_KEY_ID=local
-AWS_SECRET_ACCESS_KEY=local
-DYNAMO_LOCAL_URL=http://dynamodb-local:8000   # comment/remove when using AWS-hosted DynamoDB
+AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
+AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
 DDB_TABLE_PREPRINTS=preprints
 DDB_TABLE_REFERENCES=preprint_references
-DDB_TABLE_TEI=preprint_tei
 DDB_TABLE_SYNCSTATE=sync_state
+OPENALEX_EMAIL=<PERSONAL_EMAIL>
+PDF_DEST_ROOT=/data/preprints
+LOG_LEVEL=INFO
 ```
 
 - For **AWS DynamoDB**, comment out `DYNAMO_LOCAL_URL` and set real AWS credentials (or rely on an IAM role).
