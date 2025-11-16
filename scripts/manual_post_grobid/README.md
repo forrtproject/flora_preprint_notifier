@@ -35,6 +35,7 @@ python scripts/manual_post_grobid/run_extraction.py --limit 25
 | `run_enrich_openalex.py`                 | Fills missing DOIs via OpenAlex.                                                  |
 | `analyze_doi_sources.py`                 | Summarises DOI coverage (`by_source`, missing counts).                            |
 | `dump_missing_doi_refs.py`               | Dumps remaining references without DOIs (JSON lines).                             |
+| `select_low_doi_coverage.py`             | Lists OSF IDs whose reference sets have <X% DOI coverage (optional ref dumps).    |
 
 Each script supports `--limit` (and optional `--dry-run`/`--sleep`) arguments; run with `-h` for details.
 
@@ -57,6 +58,9 @@ python scripts/manual_post_grobid/analyze_doi_sources.py
 
 # Dump missing DOI references
 python scripts/manual_post_grobid/dump_missing_doi_refs.py --output missing.jsonl --limit 1000
+
+# OSF IDs with <20% DOI coverage and at least 30 refs (plus reference dumps)
+python scripts/manual_post_grobid/select_low_doi_coverage.py --threshold 0.2 --min-refs 30 --dump-refs-dir low_refs
 ```
 
 These mirror the Docker/Celery tasks but execute sequentially on your local machine for quick experiments or ad-hoc runs.
