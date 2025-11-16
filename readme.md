@@ -1,16 +1,23 @@
-# OSF Preprints → DynamoDB → PDF/GROBID
+# OSF Preprints – Modular Pipeline
 
-End-to-end pipeline that ingests OSF preprints, stores metadata in **DynamoDB**, downloads primary PDFs, and extracts TEI XML via **GROBID** – orchestrated with **Celery** and **Docker Compose**.
+This repository houses multiple task families that work together or independently:
+
+1. **Ingestion** – Fetch preprints from OSF and persist structured documents in DynamoDB.
+2. **PDF/GROBID pipeline** – Download source files, run GROBID, and parse TEI references.
+3. **Enrichment** – Augment references via Crossref/OpenAlex and write enriched DOIs.
+4. **Analytics scripts** – Inspect coverage, dump missing references, and surface gaps without running containers.
+
+All code runs against **DynamoDB** (local or AWS), **Redis/Celery** handles scheduling/queues, and helper scripts allow running the post-TEI steps locally for ad-hoc analysis.
 
 ---
 
-## Features
+## Feature overview
 
-- Incremental OSF sync with per-provider cursors stored in DynamoDB
-- PDF download + DOCX→PDF conversion with per-preprint state flags
-- GROBID processing and TEI reference extraction
-- Queue selection backed by DynamoDB GSIs (no table scans)
-- Works with **local DynamoDB** (default) or **AWS-hosted DynamoDB** by toggling env vars
+- Incremental OSF ingestion with DynamoDB-backed cursors.
+- PDF/GROBID pipeline with queue flags stored on each preprint.
+- TEI parsing + reference extraction using the same data path.
+- Enrichment tasks for Crossref/OpenAlex with fallback scripts.
+- Extensive analytics scripts (no Docker required) to inspect coverage, dump references, or compute metrics.
 
 ---
 
@@ -34,7 +41,7 @@ AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
 DDB_TABLE_PREPRINTS=preprints
 DDB_TABLE_REFERENCES=preprint_references
 DDB_TABLE_SYNCSTATE=sync_state
-OPENALEX_EMAIL=<PERSONAL_EMAIL>
+OPENALEX_EMAIL=<PERSONAL_EMAIL_ID>
 PDF_DEST_ROOT=/data/preprints
 LOG_LEVEL=INFO
 ```
@@ -44,7 +51,7 @@ LOG_LEVEL=INFO
 
 ---
 
-## Running the Stack
+## Running the ingestion stack
 
 ```bash
 docker compose up -d dynamodb-local redis
@@ -56,13 +63,13 @@ docker compose up -d celery-worker celery-pdf celery-grobid celery-beat flower
 
 ### Common commands
 
-| Action                        | Command                                                                 |
-| ----------------------------- | ----------------------------------------------------------------------- |
-| Build images                  | `docker compose build`                                                  |
-| Start stack                   | `docker compose up -d`                                                  |
-| Inspect Celery worker logs    | `docker compose logs -f celery-worker`                                  |
-| Inspect PDF/GROBID logs       | `docker compose logs -f celery-pdf` / `docker compose logs -f celery-grobid` |
-| Flower dashboard              | visit `http://localhost:5555`                                           |
+| Action                     | Command                                                                      |
+| -------------------------- | ---------------------------------------------------------------------------- |
+| Build images               | `docker compose build`                                                       |
+| Start stack                | `docker compose up -d`                                                       |
+| Inspect Celery worker logs | `docker compose logs -f celery-worker`                                       |
+| Inspect PDF/GROBID logs    | `docker compose logs -f celery-pdf` / `docker compose logs -f celery-grobid` |
+| Flower dashboard           | visit `http://localhost:5555`                                                |
 
 ---
 
@@ -72,7 +79,7 @@ docker compose up -d celery-worker celery-pdf celery-grobid celery-beat flower
 
 1. `docker compose up -d dynamodb-local`
 2. Ensure `.env` still contains `DYNAMO_LOCAL_URL=http://dynamodb-local:8000` and dummy AWS credentials.
-3. Initialize tables/GSIs (only needed once):  
+3. Initialize tables/GSIs (only needed once):
    ```bash
    docker compose run --rm app python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"
    ```
@@ -81,7 +88,7 @@ docker compose up -d celery-worker celery-pdf celery-grobid celery-beat flower
 
 1. Comment/remove `DYNAMO_LOCAL_URL` in `.env`.
 2. Export valid `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_REGION` (or rely on an IAM role).
-3. Run `init_db()` once to create tables + GSIs in AWS:  
+3. Run `init_db()` once to create tables + GSIs in AWS:
    ```bash
    python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"
    ```
@@ -106,6 +113,7 @@ docker compose exec app python /app/osf_sync/dump_ddb.py --limit 5 --queues
 ```
 
 Flags:
+
 - `--table preprints` scans only that table.
 - `--queues` queries `by_queue_pdf`, `by_queue_grobid`, `by_queue_extract` GSIs (falls back to scans if missing).
 
@@ -154,7 +162,9 @@ aws dynamodb query --table-name preprints `
 
 ---
 
-## Core Workflows
+## Task families
+
+### Ingestion (Celery tasks/CLI)
 
 ### Sync OSF preprints
 
@@ -170,7 +180,7 @@ docker compose run --rm app python -m osf_sync.cli enqueue-pdf --limit 50
 docker compose logs -f celery-pdf
 ```
 
-### Enqueue GROBID processing
+### PDF + GROBID + TEI (Celery tasks)
 
 ```bash
 docker compose run --rm app python -m osf_sync.cli enqueue-grobid --limit 25
@@ -191,6 +201,7 @@ docker compose logs -f celery-worker
 ```
 
 Each extraction job calls `osf_sync.augmentation.run_extract.extract_for_osf_id`, which:
+
 1. Loads the TEI XML.
 2. Uses the TEI parser to pull structured fields and references.
 3. Persists output via `write_extraction`, updating `preprint_tei`, `preprint_references`, and `preprints.tei_extracted`.
@@ -206,15 +217,39 @@ docker compose run --rm app python -m osf_sync.cli enrich-openalex --limit 400 -
 
 ---
 
-## Troubleshooting Tips
+## Analytics & local scripts (no Docker)
 
-| Symptom                                   | Fix                                                                                                 |
-| ----------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `service "app" is not running`            | Expected – `app` runs init + CLI help then exits. Use `docker compose run --rm app ...` as needed.  |
-| `ValidationException` querying GSIs       | Ensure `init_db()` was run so GSIs exist, or delete local data dir (`rm -rf .dynamodb`) and restart |
-| `Unable to locate credentials`            | Set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, and (for local) `DYNAMO_LOCAL_URL`. |
-| Local edits not reflected in containers   | Source is bind-mounted; restart the service if Python module caching causes issues.                 |
-| Need to inspect Dynamo data quickly       | `python -m osf_sync.dump_ddb --limit 5 --queues` (host) or `docker compose exec app ...`            |
+All scripts live under `scripts/manual_post_grobid/`. They work from the repo root after installing dependencies (`pip install -r requirements.txt`) and setting `PYTHONPATH`. Summary:
+
+| Script                                              | Description                                                               |
+| --------------------------------------------------- | ------------------------------------------------------------------------- |
+| `run_extraction.py`                                 | Parse TEI XML from disk and write TEI/refs into DynamoDB.                 |
+| `run_enrich_crossref.py` / `run_enrich_openalex.py` | Run Crossref/OpenAlex enrichment sequentially.                            |
+| `analyze_doi_sources.py`                            | Count DOI coverage per source.                                            |
+| `dump_missing_doi_refs.py`                          | Dump references that still lack DOI information.                          |
+| `select_low_doi_coverage.py`                        | Find OSF IDs below a DOI coverage threshold (optionally dump references). |
+
+Run scripts with:
+
+```bash
+cd H:\fred_preprint_bot
+$env:PYTHONPATH = "$PWD"    # PowerShell; use set/export on cmd/bash
+python scripts/manual_post_grobid/analyze_doi_sources.py
+python scripts/manual_post_grobid/dump_missing_doi_refs.py --output missing.jsonl
+python scripts/manual_post_grobid/select_low_doi_coverage.py --threshold 0.2 --min-refs 30 --dump-refs-dir low_refs
+```
+
+See `scripts/manual_post_grobid/README.md` for details on each script.
+
+## Troubleshooting tips
+
+| Symptom                                 | Fix                                                                                                 |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `service "app" is not running`          | Expected – `app` runs init + CLI help then exits. Use `docker compose run --rm app ...` as needed.  |
+| `ValidationException` querying GSIs     | Ensure `init_db()` was run so GSIs exist, or delete local data dir (`rm -rf .dynamodb`) and restart |
+| `Unable to locate credentials`          | Set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, and (for local) `DYNAMO_LOCAL_URL`. |
+| Local edits not reflected in containers | Source is bind-mounted; restart the service if Python module caching causes issues.                 |
+| Need to inspect Dynamo data quickly     | `python -m osf_sync.dump_ddb --limit 5 --queues` (host) or `docker compose exec app ...`            |
 
 ---
 
@@ -228,13 +263,14 @@ python scripts/manual_post_grobid/run_enrich_crossref.py --limit 400 --threshold
 python scripts/manual_post_grobid/run_enrich_openalex.py --limit 400 --threshold 75
 python scripts/manual_post_grobid/analyze_doi_sources.py
 python scripts/manual_post_grobid/dump_missing_doi_refs.py --output missing.jsonl
+python scripts/manual_post_grobid/select_low_doi_coverage.py --threshold 0.2 --min-refs 30 --dump-refs-dir low_refs
 ```
 
 See `scripts/manual_post_grobid/README.md` for details and extra flags (`--dry-run`, `--sleep`, etc.).
 
 ---
 
-## One-off Celery Tasks
+## One-off Celery tasks
 
 ```bash
 # Download a specific PDF
