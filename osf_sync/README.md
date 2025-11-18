@@ -31,6 +31,7 @@ Run everything via `python -m osf_sync.cli <command> [options]`.
 | `enqueue-extraction`  | Parse TEI XML from disk and write TEI/refs to DynamoDB.|
 | `enrich-crossref`     | Fill missing reference DOIs via Crossref.              |
 | `enrich-openalex`     | Remaining DOI enrichment via OpenAlex.                |
+| `enrich-crossref --osf-id <ID> --ref-id <RID>` | Re-run Crossref enrichment for a single reference. |
 | `fetch-one`           | Fetch a single OSF preprint by ID/DOI and upsert it.   |
 
 Each CLI command wraps Celery tasks or helper functions defined inside this package.

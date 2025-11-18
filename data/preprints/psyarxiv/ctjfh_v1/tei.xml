@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">A Framework for Reproducible Testing of Complex Narrative Systems: A Case Study in Astrology</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability  status="unknown">
+					<licence/>
+				</availability>
+				<date type="published" when="2025-10-31">October 31, 2025</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Peter</forename><forename type="middle">J</forename><surname>Marko</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Kenneth</forename><surname>Mcritchie</surname></persName>
+						</author>
+						<title level="a" type="main">A Framework for Reproducible Testing of Complex Narrative Systems: A Case Study in Astrology</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2025-10-31">October 31, 2025</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">C1E7BC6A9A73F3D40B5E7BC6BB077D27</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-18T15:25+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=true, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Psychology</term>
+					<term>astrology</term>
+					<term>large language models</term>
+					<term>computational social science</term>
+					<term>reproducibility</term>
+					<term>open science</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Background: Psychology has struggled to empirically validate complex, holistic systems that produce narrative-based claims. This methodological gap highlights the need for new, more rigorous, and transparent research paradigms. Objective: This paper introduces and validates a novel, fully automated, and opensource framework for testing for weak signals in complex narratives. Using astrology as a challenging case study, we demonstrate a reproducible method for assessing the construct validity of a symbolic system against biographical data. Methods: We programmatically neutralized a library of astrological descriptions using a Large Language Model (LLM) to remove all esoteric terminology. We filtered a cohort of 10,707 individuals through a multi-stage, LLM-driven process to a final pool of 4,987 subjects, which we selected for eminence and psychological diversity. We then used independent LLMs as impartial arbiters to perform a series of matching tasks between biographies and personality descriptions. Results: Aggregate analysis revealed a statistically significant but practically negligible signal, creating a statistical tension that motivated a deeper, multi-level analysis. This decomposition uncovered two critical findings: 1) A "Goldilocks effect," where signal detection peaked at a medium level of task difficulty (k=10), and 2) Extreme heterogeneity across models, with signal detection capability varying by a factor of 575. This demonstrates that framework effectiveness is not universal but requires both a compatible model architecture and optimal task difficulty calibration. Conclusion: This study's primary contribution is a new, open-science paradigm for psychological research. By demonstrating its utility on a difficult and controversial topic, we provide a robust, methodologically reproducible, and scalable framework for future investigations into complex narrative systems.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>The replication crisis has spurred a fierce and ongoing debate within psychological science about methodological reform <ref type="bibr" target="#b21">(van Dongen &amp; van Grootel, 2025)</ref>. A key challenge in this landscape is establishing the construct validity (i.e., whether a system measures what it claims to measure) of complex, holistic systems that generate narrative-based claims <ref type="bibr" target="#b4">(Cronbach &amp; Meehl, 1955)</ref>. This paper introduces and validates the LLM Narrative Framework-an automated testing methodology that uses Large Language Models as pattern-detection engines to perform matching tasks, determining whether systematic signals in narrative descriptions can be detected at rates significantly greater than chance. Astrology serves as a prime example, where landmark empirical studies have faced significant methodological debate <ref type="bibr" target="#b2">(Carlson, 1985;</ref><ref type="bibr" target="#b8">Eysenck &amp; Nias, 1982;</ref><ref type="bibr" target="#b7">Ertel, 2009)</ref> and where comprehensive meta-analyses of quantitative research have consistently shown null results <ref type="bibr" target="#b6">(Dean &amp; Kelly, 2003)</ref>. While modern "whole-chart" matching tests show promise <ref type="bibr" target="#b5">(Currey, 2022;</ref><ref type="bibr" target="#b10">Godbout, 2020)</ref>, even recent computational explorations have been limited by a reliance on opaque "black-box" tools and manual processes for assessing semantic similarity <ref type="bibr" target="#b15">(Marko, 2018)</ref>. This history highlights the need for a fully automated, transparent, and scalable testing framework.</p><p>The advent of Large Language Models (LLMs) presents an opportunity to develop such a framework. Prior research on the construct validity of astrology has often employed matching tests, where judges attempt to pair biographical or psychological descriptions with their corresponding subjects (e.g., <ref type="bibr" target="#b2">Carlson, 1985)</ref>. LLMs, as powerful patternrecognition engines <ref type="bibr">(Google, 2024;</ref><ref type="bibr" target="#b22">Wei et al., 2022)</ref>, are uniquely suited to automate this process. Unlike human judges, who are susceptible to cognitive biases, LLMs can be deployed as agnostic arbiters, executing a matching task at a massive scale. Recent research has shown that modern LLMs can meet or even exceed the reliability of human annotators for complex text-classification tasks <ref type="bibr" target="#b9">(Gilardi et al., 2023)</ref> and can be used to simulate human samples for social science research <ref type="bibr" target="#b1">(Argyle et al., 2023)</ref>. This study introduces and validates such an LLM-based framework, using astrology as a challenging case study.</p><p>Our primary goal is to determine if a fully automated pipeline can serve as a sensitive instrument for detecting weak signals in complex, narrative-based claims. To this end, the study tests a single, core hypothesis: that the LLM-based framework can distinguish between correctly mapped and randomly mapped personality descriptions at a rate significantly greater than chance. While the successful detection of such a signal within the present case study of astrology has implications for that field, the broader contribution of this work is the validation of the methodology itself. The philosophical implications of using a non-conscious system to analyze subjective consciousness are taken up in a companion article <ref type="bibr">(McRitchie &amp; Marko, manuscript in preparation)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Methods</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Tool Selection Across Pipeline Stages</head><p>The framework employs distinct LLMs for different stages of data preparation and evaluation, each selected to optimize performance, cost, and methodological independence (see Figures <ref type="figure" target="#fig_0">1a</ref> and <ref type="figure" target="#fig_1">1b</ref> at the end of this section for system architecture). For the LLM-based candidate selection stage, LLM A (OpenAI's GPT-5) 1 performed eminence scoring in batches of 100 subjects, leveraging its superior contextual understanding to score individuals against a fixed, absolute scale of historical impact. Subsequently, LLM B (Anthropic's Claude 4.5 Sonnet) generated OCEAN personality scores with a batch size of 50, chosen for its strong performance on nuanced psychological assessment tasks. For profile generation, LLM C (Google's Gemini 2.5 Pro) handled the neutralization of 149 astrological delineations, selected for its superior instruction-following capabilities and large context window. For the core matching task, seven independent evaluation models were deployed (see Table <ref type="table" target="#tab_1">2</ref> in Experimental Design and Procedure for the complete experimental design). For the LLM-based candidate selection stage, LLM A used a calibrated eminence scoring prompt with fixed historical anchors (Jesus Christ = 100.0, Plato/Newton = 99.5, Einstein = 99.0) to establish an absolute scale, with explicit instructions to distinguish "lasting historical eminence" from "transient celebrity." LLM B used a structured prompt requesting Big Five personality traits rated on a 1.0-7.0 scale with JSON output format for automated parsing. Complete prompt texts for all LLM stages are available in the project repository.</p><p>To minimize potential data contamination, we selected evaluation models to be independent from data generation models where possible; we present a full discussion of this contamination risk in the Limitations section. We used a temperature of 0.0 for all evaluation models to maximize response consistency, a standard practice in LLM evaluation. While temperature=0.0 minimizes sampling variance, it does not eliminate it, as LLM APIs exhibit inherent non-determinism. Therefore, exact computational reproducibility is not achievable. Instead, our framework provides methodological reproducibility through transparent documentation and open-source code. We did not use randomization seeds in the original study, but future work could use them to enable exact replication of experimental stimuli. The consistency of our findings across 1,260 experiments demonstrates methodological stability despite this variance.  </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Sample Population</head><p>We designed the framework to support three distinct research paths. For direct replication, researchers can use the static data files included in the project's public repository. While the framework employs temperature=0.0 to minimize LLM response variance, exact computational reproducibility is not achievable due to inherent API nondeterminism. Researchers should expect methodological reproducibility: statistically equivalent results using the same experimental design. For methodological replication, researchers can use the framework's automated tools to generate a fresh dataset from the live Astro-Databank (ADB) to test the robustness of the findings. Finally, for conceptual replication, researchers can modify the framework itself (e.g., by using a different LLM or analysis script) to extend the research.</p><p>We derived the final study sample from a multi-stage data preparation pipeline, as illustrated in Figure <ref type="figure" target="#fig_2">2</ref> below. This section provides a conceptual overview of the workflow; the Supplementary Materials (Replication Guide) contain a detailed, step-by-step guide for the entire pipeline (see Replication Guide in the online repository). In the first stage, Data Sourcing, we queried the Astro-Databank (ADB) for subjects based on three criteria: high-quality birth data (Rodden Rating 'A' or 'AA'), inclusion in the Personal &gt; Death category to ensure the subject is deceased, and inclusion in the eminence category of Notable &gt; Famous &gt; Top 5% of Profession. We chose these filters because:</p><p>• Accurate birth date and time are required for the astrology program to generate reliable personality descriptions.</p><p>• The use of publicly available data of deceased historical individuals obviates privacy concerns.</p><p>• Focusing on famous people at the top of their profession ensures the general availability of ample biographical data.</p><p>In the second stage, Candidate Qualification, we subjected this initial set to a more rigorous automated filtering pass. We applied several additional data quality rules, retaining only individuals who:</p><p>• Were classified as a Person;</p><p>• Had a death date recorded on their Wikidata page to verify the 'death' attribute in ADB and to avoid the accidental inclusion of living individuals;</p><p>• Had a birth year between 1900-1999 to minimize cohort-specific confounds <ref type="bibr" target="#b19">(Ryder, 1965)</ref>;</p><p>• Had a validly formatted birth time;</p><p>• Were not duplicates;</p><p>• Passed an automated validation against their English Wikipedia page; and</p><p>• Were born in the Northern Hemisphere to control for the potential confounding variable of a 180-degree zodiacal shift for Southern Hemisphere births <ref type="bibr" target="#b14">(Lewis, 1994)</ref>.</p><p>This multi-step process produced a clean cohort of "eligible candidates." We then subjected this "eligible" cohort to the third stage, LLM-Based Candidate Selection, to determine the final sample. First, LLM A (OpenAI's GPT-5) generated a static eminence score for each candidate, sorting the cohort by historical prominence. Second, LLM B (Anthropic's Claude 4.5 Sonnet) generated Big Five (OCEAN) personality scores for the entire eminence-ranked cohort. Finally, we applied an algorithmic cutoff procedure to determine the optimal cohort size based on psychological diversity, operationalized as the average variance across the five OCEAN traits. The algorithm calculated cumulative personality variance as we added subjects in eminence-descending order, smoothed the curve using a 1,500-point moving average, and performed slope analysis to identify the plateau-the point where additional subjects contributed negligible diversity. This objective procedure yielded a cutoff at 4,987 subjects. Our sensitivity analysis across 412 parameter combinations confirmed the robustness of this cutoff. This approach maximizes sample diversity while excluding subjects with sparse biographical data that would add measurement noise. We executed this procedure during data preparation, ensuring sample size determination was independent of experimental outcomes.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Profile Generation</head><p>We generated the personality descriptions used as test interventions in the fourth stage, Profile Generation, through a multi-step process.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Component Library Neutralization and Validation</head><p>To create a robust, double-blind experimental design, we systematically "neutralized" the entire library of interpretive delineations within the Solar Fire v9.0.3 expert system (Astrolabe Inc., n.d.). Our primary goal was to remove all astrological terminology while preserving core descriptive meaning. We processed this library of components using LLM C (Google's Gemini 2.5 Pro), breaking down the set into 149 individual API calls. We rewrote each snippet using a structured prompt that instructed the model to remove astrological terminology, shift to an impersonal third-person style, and preserve core psychological meaning. This process created a master database of neutralized components. To validate the neutralization, we performed an automated keyword search for 42 astrological terms present in the origina library, which confirmed that no explicit terminology remained. Table <ref type="table" target="#tab_0">1</ref> below provides an example of this process. We acknowledge that this neutralization results in a loss of nuance, a necessary trade-off for a robust blinding procedure.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Component-Level Validation of Discriminability:</head><p>To validate that neutralization preserved description discriminability, we analyzed semantic diversity across the 178 neutralized delineation components that serve as building blocks for profile generation. TF-IDF vectorization with pairwise cosine similarity analysis revealed mean similarity of 0.029 (SD = 0.056), indicating components are meaningfully distinct rather than generic variants. Vocabulary analysis showed mean pairwise overlap (Jaccard similarity) of 0.093 (SD = 0.050), with the component library utilizing 1,917 unique terms (type-token ratio = 0.329). Within-category components showed higher semantic similarity (M = 0.033) than between-category components (M = 0.023), confirming the neutralization process preserved the system's semantic structure. Component length varied substantially (M = 32.7 words, SD = 26.2, CV = 0.802), demonstrating the algorithm utilized diverse building blocks rather than template-like patterns. These metrics confirm that neutralization maintained discriminability at the component level, which is then preserved through deterministic assembly into complete profiles.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Profile-Level Validation via Random Control:</head><p>The experimental design itself provides functional validation through the random control condition. If neutralization had created generic, Barnum-like descriptions lacking discriminating power, performance on random mappings would equal performance on correct mappings (since generic descriptions would "match" any biography equally well). The significant correct-vs-random difference at optimal difficulty (k=10: η²=1.25%, p&lt;.001) demonstrates that assembled profiles retain sufficient specificity to support above-chance discrimination. Together, the componentlevel diversity metrics and profile-level discrimination performance provide converging evidence that neutralization maintained rather than eliminated discriminating power. On the whole though you handle yourself with aplomb as, astrologically speaking, the Sun is exalted in Aries emphasising the strengths rather than the weaknesses."</p><p>"Assertive and freedom-loving, with a strong need for independence. A headstrong quality, coupled with a firm belief in the right to self-assertion. An enjoyment of meeting challenges head-on, regardless of the obstacles. Natural leadership ability. An ability to focus on goals to the exclusion of others, which requires balance and the inclusion of others' points of view and methods. On the whole, a sense of aplomb, with strengths emphasized over weaknesses."</p><p>The neutralization process is depicted on Figure <ref type="figure" target="#fig_3">3</ref> below. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Profile Assembly</head><p>For each of the 4,987 test subjects, we exported a foundational set of astrological placements from Solar Fire. This structured data included the factors necessary to generate two reports: the "Balances" (Planetary Dominance) report and the "Chart Points" report. We deliberately chose this foundational set of factors to test for a primary signal while minimizing potential confounds from more complex astrological techniques.</p><p>We then programmatically assembled each test subject's complete, neutralized personality profile. We used their specific set of astrological placements as a key to look up and concatenate the corresponding pre-neutralized description components from the master database. We rigorously validated this personality assembly algorithm for technical correctness: using the original, non-neutralized delineations, our implementation produced an output that was bit-for-bit identical to a ground-truth dataset generated by the source expert system. This validation confirms our code faithfully reproduces the source system's logic. This process resulted in a unique, composite personality profile for each individual, expressed in neutral language, which formed the basis of the stimuli we used in the matching task. We conducted all data generation, experiments, and analysis in October 2025 (see Figure <ref type="figure" target="#fig_4">4</ref> for complete timeline). Specifically, we executed the data preparation pipeline on October 16, conducted the main experimental runs between October 18-22, and performed the final analysis on October 22-26.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Experimental Design and Procedure</head><p>The study employed a 2 × 3 × 7 factorial design, as detailed in Table <ref type="table" target="#tab_1">2</ref>. The end-to-end research workflow, from generating data for individual experimental conditions to compiling the final study analysis, is illustrated in Figure <ref type="figure" target="#fig_5">5</ref>.    The factor mapping_strategy is the core experimental manipulation: a correct value means the matching test is evaluated against the true mappings between test subjects and their astrologically derived, neutralized peronality descriptions while a random value corresponds to arbitrary mappings between the paired lists, effectively creating a control group for each scenario. The LLMs are blinded to the true mappings.</p><p>The factor k is the size of the test group: the number of test subjects and their corresponding personality descriptions. This factor directly influences the difficulty of the matching task: k=7 is considered 'easy', k=10 'medium', and k=14 'hard' on the task difficulty scale.</p><p>We executed the core matching task using seven evaluation models: Claude Sonnet 4, Gemini 2.0 Flash Lite, Llama 3.3 70B, GPT-4o, DeepSeek Chat v3.1, Qwen 2.5 72B, and Mistral Large. For each trial, we provided the LLM with a group of k neutralized personality descriptions and a corresponding group of k subject names with birth years. We randomly shuffled the presentation order of both lists for each trial to control for position effects. We instructed the model to: (1) independently source biographical information for each individual, (2) assess similarity between each biography and each personality description, and (3) return results as a tab-delimited table of similarity scores (0.00-1.00).</p><p>We conducted 30 full replications of 80 trials each for all 42 conditions, totaling 100,800 LLM queries. Parsing success rates varied substantially by model, from 100% (Claude Sonnet 4) to 65% (Qwen 2.5 72B), yielding an overall success rate of 92.4%. We excluded failed trials from analysis. This exclusion introduced no bias, as failures were randomly distributed across conditions. All 1,260 replications exceeded our minimum quality threshold of 25 valid responses, and the 80-trial design provided sufficient resilience to maintain statistical power even for the lowest-performing model.</p><p>We selected the seven evaluation models through a systematic piloting process that prioritized technical reliability (parsing success, cost, speed) and architectural diversity over any assessment of signal detection capability. We evaluated 42 candidate models and excluded 35 for failing to meet our technical requirements. Importantly, we did not use signal detection performance as a selection criterion; the extreme heterogeneity we later discovered was a post-hoc finding. To monitor the integrity of the matching process, we also periodically queried the LLM to provide an explanation of its methodology, which we reviewed to ensure it was operating within the intended parameters of the task.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Dependent Variables and Statistical Analysis</head><p>We used "lift" metrics as the primary dependent variables, as they normalize for chance and are thus comparable across different k values. Key metrics included:</p><p>• Mean Reciprocal Rank (MRR) Lift: The observed MRR divided by the MRR expected by chance.</p><p>• Top-1 and Top-3 Accuracy Lift: Observed accuracy divided by chance accuracy.</p><p>We conducted a Three-Way Analysis of Variance (ANOVA) for each metric to assess the main effects of mapping_strategy, k, and model, as well as their interactions. We calculated effect sizes using eta-squared (η²) to determine the proportion of variance attributable to each factor <ref type="bibr" target="#b3">(Cohen, 1988)</ref>, and we set the significance level at α = .05.</p><p>To address the potential for aggregate findings to mask model-specific heterogeneity, a systematic, data-driven multi-level decomposition approach was employed. This strategy proceeded in four stages:</p><p>1. Aggregate Analysis: A three-way ANOVA was first conducted on the full dataset to establish a baseline and test for main effects and interactions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.">Optimal Difficulty Identification:</head><p>To identify the task difficulty (k) that best exposed a potential signal, the data was subset by each k level, and separate twoway ANOVAs (model × mapping_strategy) were conducted. This process was designed to locate a "Goldilocks zone" of peak signal detection. 3. Model Heterogeneity Characterization: Based on the results of the previous step, the data was further subset to the optimal difficulty level (k=10). A series of one-way ANOVAs were then performed for each model individually to quantify its specific signal detection capability and effect size. 4. Trajectory Pattern Analysis: Finally, to characterize the full performance patterns, the signal detection results (η²) for representative high-detection (e.g., GPT-4o, DeepSeek) and low-detection (e.g., Claude, Llama) models were plotted across all three k levels to identify distinct "Goldilocks" versus "Flat" trajectories.</p><p>This multi-level approach allowed for a comprehensive assessment that moved from a general baseline to specific, actionable insights about both overall framework effectiveness and model-specific compatibility patterns.</p><p>Given the large sample size (N=1,260), balanced design, and use of lift metrics (which normalize distributions), ANOVA provided robust inference even if normality and other assumptions were not perfectly met.</p><p>Each ANOVA was treated as a separate, pre-specified test of the core hypothesis that the framework can distinguish between correct and random mappings. 2 To complement the frequentist approach, a Bayesian analysis was also conducted. This allowed us to quantify the evidence for the hypothesis that a real signal exists against the null hypothesis that performance is due to chance. This approach responds to the ongoing debate about the proper use of statistical inference in psychology <ref type="bibr">(van Dongen &amp; van Grootel, 2022)</ref>.</p><p>Finally, to facilitate the interpretation of effect sizes, the analysis pipeline automatically generates a series of publication-ready visualizations. These Effect Size Charts plot the calculated Eta-squared (η²) values for key factors, providing an intuitive visual summary of the magnitude of the findings. For instance, the Goldilocks pattern and model heterogeneity are visualized using charts generated directly by the framework's analysis scripts, ensuring a reproducible link between statistical computation and graphical representation.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Pre-registration and Exploratory Analysis:</head><p>The core hypothesis-that the framework can distinguish between correct and random mappings-was pre-specified. However, the multi-level decomposition approach represents exploratory framework validation, with</p><p>2 Complete FDR-corrected p-values for all 21 primary statistical tests are provided in Supplementary Materials (Replication Guide) Table <ref type="table">S7</ref>. The corrected values confirm that all findings reported as "statistically significant" in the main text remain significant after controlling for multiple comparisons (smallest corrected p = .000037 for aggregate mapping_strategy effect on MRR Lift).</p><p>specific analyses (optimal difficulty identification, model heterogeneity characterization, trajectory patterns) emerging from data inspection rather than a priori hypotheses. This hybrid approach is appropriate for novel framework validation studies, where the primary goal is methodological demonstration rather than theory testing. Future replications and confirmatory studies employing this framework should pre-register specific hypotheses about signal strength, model performance, and task difficulty effects.</p><p>Software and Computational Environment: All analyses were conducted using Python 3.11+ with the following core packages: NumPy (numerical computing), Pandas (data manipulation), SciPy and Statsmodels (statistical analysis), Pingouin (ANOVA and effect sizes), Seaborn and Matplotlib (visualization), and python-dotenv (configuration management). Data preparation and experiment orchestration scripts were implemented in PowerShell 7.x for cross-platform compatibility. The complete computational environment, including all package versions and dependencies, is specified in the project's pyproject.toml and can be reproduced using PDM (Python Dependency Manager). All code is version-controlled via Git, ensuring transparent tracking of methodological decisions and modifications.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head><p>The analysis employed a multi-level decomposition approach to comprehensively assess framework effectiveness, moving from an ambiguous aggregate baseline to a clear characterization of model-specific signal detection capabilities. An initial three-way ANOVA on the full dataset revealed a statistical tension: a highly significant main effect for mapping_strategy (F(1, 1218) = 18.22, p &lt; .001) was contrasted by a practically negligible effect size (η² = .003) and a Bayesian analysis that provided anecdotal evidence for the null hypothesis (BF₁₀ ≈ 0.35). This apparent contradiction-where the data are simultaneously statistically significant yet more likely under the null-strongly suggests that aggregate statistics are masking substantial underlying heterogeneity. This finding motivates the subsequent multi-level decomposition, which is necessary to identify the specific conditions (i.e., model architecture and task difficulty) under which a robust signal becomes detectable. To control for false discovery rate across 21 primary statistical tests, Benjamini-Hochberg FDR correction was applied; all statistically significant results reported hereafter remained significant after correction (see Supplementary Materials Table <ref type="table">S7</ref>). For clarity, uncorrected p-values are reported in the main text.</p><p>Table <ref type="table" target="#tab_2">3</ref> summarizes the main effect of mapping_strategy across all performance metrics at the aggregate level, while Figure <ref type="figure" target="#fig_8">7</ref> visualizes the small difference between conditions. The aggregate analysis also revealed a highly significant main effect for group size k (F(2, 1218) = 667.48, p &lt; .001, η² = .200), confirming that task difficulty substantially impacts performance. The mapping_strategy × k interaction approached significance (F(2, 1218) = 2.81, p = .061), providing further statistical justification for investigating each k level independently to pinpoint where the signal was strongest.  .003) creates a statistical tension, motivating the multi-level analysis needed to uncover underlying heterogeneity.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Optimal Difficulty Analysis: Identifying the Goldilocks Zone</head><p>To identify the task difficulty level at which the framework most effectively exposes signals, targeted analyses were conducted for each k level independently. Results revealed a clear Goldilocks pattern, with signal detection peaking at medium difficulty.</p><p>At k=7 (easiest condition), the main effect of mapping_strategy on MRR Lift was minimal and non-significant (F(1, 406) = 1.25, p = .264, η² = 0.25%). At k=10 (medium difficulty), signal detection was strongest and highly significant (F(1, 406) = 20.77, p &lt; .001, η² = 1.25%), representing a 5-fold increase in effect size over k=7. At k=14 (hardest condition), the effect, while still marginally significant, diminished substantially (F(1, 406) = 3.65, p = .057, η² = 0.10%). Figures <ref type="figure" target="#fig_9">8</ref> and <ref type="figure" target="#fig_10">9</ref> illustrate this Goldilocks pattern, where medium difficulty optimizes signal exposure.</p><p>This Goldilocks pattern demonstrates that the framework requires optimal task calibration: when the task is too easy (k=7), the signal-to-noise ratio may be insufficient to reveal meaningful differences; when too difficult (k=14), noise overwhelms the signal. The k=10 condition represents the optimal difficulty level for this framework and dataset.  Mapping strategy shows optimal effect size at medium task difficulty (k=10, η²=1.25%, p&lt;.001), with significantly weaker effects at easy (k=7, η²=0.25%, ns) and hard (k=14, η²=0.10%, ns) conditions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Model Heterogeneity: Extreme Variation in Signal Detection Capability</head><p>Individual LLM model analyses at the optimal difficulty level (k=10) revealed extreme heterogeneity in signal detection capability, with effect sizes ranging from 0.03% to 17.23%-a 575-fold variation. For each model at k=10, the analysis included 60 observations (30 replications × 2 mapping strategies: correct and random).</p><p>Table 4 presents signal detection metrics for each evaluation model, with Figures 10 and 11 visualizing this heterogeneity. Table 4: Model-Specific Signal Detection at Optimal Difficulty (k=10) Model N p-value η² BF₁₀ Signal Detection GPT-4o 60 .001 17.23% 31.627 Very strong DeepSeek Chat v3.1 60 .009 11.16% 5.076 Strong Gemini 2.0 Flash Lite 60 .033 7.63% 1.689 Moderate Qwen 2.5 72B 60 .129 3.93% 0.705 Weak (NS) Llama 3.3 70B 60 .204 2.77% 0.524 Minimal (NS) Mistral Large 60 .590 0.38% 0.284 Minimal (NS) Claude Sonnet 4 60 .890 0.03% 0.265 Minimal (NS) This heterogeneity reveals that aggregate findings substantially underestimate framework effectiveness for compatible models while overestimating it for incompatible models. The framework successfully exposes signals through GPT-4o and DeepSeek with large effect sizes, moderately through Gemini, and minimally or not at all through Qwen, Llama, Mistral, and Claude. These findings demonstrate that model architecture significantly impacts framework effectiveness.  Figure <ref type="figure" target="#fig_12">11</ref>: A conceptual summary of the 575-fold variation in signal detection capability at optimal difficulty (k=10). Models demonstrate three tiers: strong detection (GPT-4o, DeepSeek), moderate detection (Gemini), and weak/minimal detection <ref type="bibr">(Qwen, Llama, Mistral, Claude)</ref>. This illustrates that framework effectiveness requires both a compatible architecture and optimal task difficulty.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Signal Detection Trajectories: Goldilocks vs. Flat Patterns</head><p>To characterize how signal detection varies across difficulty levels for different model types, complete study trajectories were analyzed for representative high-detection (GPT-4o, DeepSeek) and low-detection (Claude, Llama) models. Two distinct patterns emerged.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>High-Detection Models: Goldilocks Patterns</head><p>GPT-4o exhibited an extreme Goldilocks pattern with signal detection exclusively at k=10. At k=7, no significant detection occurred (p = .638, η² = 0.38%). At k=10, detection was massive and highly significant (p = .001, η² = 17.23%). At k=14, detection again disappeared (p = .372, η² = 1.38%). This represents a 45-fold difference between optimal and suboptimal difficulty, demonstrating extreme sensitivity to task calibration.</p><p>DeepSeek showed a modified Goldilocks pattern with greater robustness. Signal detection peaked at k=10 (p = .009, η² = 11.16%) but remained marginally significant at k=14 (p = .033, η² = 7.63%), while absent at k=7 (p = .359, η² = 1.45%). Unlike GPT-4o, DeepSeek maintained partial signal detection even at the highest difficulty level.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Low-Detection Models: Flat Patterns</head><p>Claude exhibited a flat pattern with consistently minimal detection across all difficulty levels: k=7 (p = .304, η² = 1.82%), k=10 (p = .890, η² = 0.03%), and k=14 (p = .170, η² = 3.28%). All effects were non-significant, demonstrating that the framework does not successfully expose signals through Claude regardless of task difficulty.</p><p>Llama similarly showed a flat pattern: k=7 (p = .367, η² = 1.41%), k=10 (p = .204, η² = 2.77%), and k=14 (p = .710, η² = 0.24%). Like Claude, Llama showed minimal detection across all conditions, indicating framework incompatibility independent of difficulty calibration.</p><p>Table <ref type="table" target="#tab_4">5</ref> summarizes complete trajectories for these representative models, with Figure <ref type="figure" target="#fig_13">12</ref> illustrating the distinct patterns at the optimal difficulty level. These trajectory analyses reveal that framework effectiveness requires both optimal difficulty calibration (k=10) and compatible model architecture (GPT-4o, DeepSeek).</p><p>Having only one requirement satisfied is insufficient: compatible models at suboptimal difficulty show minimal detection (GPT-4o at k=7 or k=14), while incompatible models show minimal detection regardless of difficulty (Claude, Llama at all k levels). </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Analysis of Presentation Order Bias</head><p>Finally, to ensure the integrity of these findings, we conducted a formal analysis of potential procedural confounds. The metric Top-1 Prediction Bias (Std Dev) measures whether evaluation models consistently favor items based on ordinal position rather than content. ANOVA showed a significant effect for group size k (F(2, 1218) = 8.45, p &lt; .001) but not for mapping_strategy (F(1, 1218) = 0.85, p = .357), indicating that while k influenced response consistency, this behavior did not differ between correct and random conditions. Further analyses for simple linear position (presentation) bias showed no statistically significant effects for either mapping_strategy or k, reinforcing that the observed signal detection effects reflect genuine content-based discrimination rather than positional artifacts.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Discussion</head><p>As a replication and methodological extension of <ref type="bibr" target="#b10">Godbout (2020)</ref>, this study deployed a framework that detected a statistically significant, yet practically minuscule (η² = .003), non-random signal at the aggregate level. This finding is heavily qualified by Bayesian analysis favoring the null hypothesis, suggesting that the framework's primary utility is not in confirming a general signal, but in identifying the specific conditions-namely, model architecture and task difficulty-under which a signal becomes discernible. Through multilevel decomposition analysis, the framework successfully detected weak signals across multiple evaluation models, demonstrating both the methodology's validity and revealing critical insights about model-framework compatibility.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Signal Detection Confirmed Through Multi-Level Validation</head><p>The aggregate analysis established baseline signal detection with high statistical significance (p &lt; .001), confirming that evaluation models collectively distinguish between correct and random mappings at rates exceeding chance, although the practical effect size was very small (η² = .003). While this aggregate effect is small-consistent with the weak nature of signals in complex narrative systems-the multi-level decomposition revealed that aggregate findings substantially mask underlying heterogeneity.</p><p>The identification of k=10 as the optimal difficulty level (η² = 1.25%) demonstrates a clear Goldilocks zone where signal detectability peaks. At k=7, the task may be insufficiently challenging to reveal meaningful discrimination, while at k=14, noise from increased distractors overwhelms the signal. This finding has practical implications for framework deployment: signal detection in complex narrative systems requires careful task calibration to balance challenge with detectability.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Model Heterogeneity: The Central Finding</head><p>The most critical discovery is the extreme model-to-model variation in signal detection capability, ranging from 0.03% to 17.23%-a 575-fold difference. This heterogeneity fundamentally reframes our understanding of framework effectiveness: the framework does not work uniformly across models but instead reveals which model architectures are compatible with the task of detecting weak signals in complex narratives.</p><p>GPT-4o and DeepSeek demonstrated strong signal detection (17.23% and 11.16% respectively), with effect sizes far exceeding the aggregate (see Table <ref type="table">4</ref>). The magnitude of GPT-4o's effect is substantial; in practical terms, this 17.23% variance explained corresponds to a nearly 18% improvement in its Top-3 Accuracy Lift at the optimal difficulty (k=10) compared to its baseline performance at suboptimal difficulties. These models successfully function as sensitive instruments for exposing subtle patterns in narrative-biographical matching tasks. In contrast, Claude, Llama, and Mistral showed minimal to no signal detection (0.03%, 2.77%, and 0.38%), suggesting fundamental incompatibility with this framework regardless of task calibration (see Table <ref type="table" target="#tab_4">5</ref> for complete trajectory patterns).</p><p>This heterogeneity also explains the apparent contradiction between the significant frequentist result and the Bayesian analysis, which favored the null hypothesis (BF₁₀ ≈ 0.35). The Bayesian analysis correctly concluded that there was no consistent signal at the aggregate level. This finding was not a statistical artifact but an accurate reflection of the data: the strong positive signals from the few compatible models (GPT-4o, DeepSeek) were overwhelmed by the null results from the majority of incompatible models. The aggregate statistics, therefore, masked rather than revealed the framework's performance with specific, compatible architectures.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Two Distinct Model-Framework Relationships</head><p>Trajectory analysis across difficulty levels revealed two qualitatively different patterns of model-framework interaction. Framework-compatible models (GPT-4o, DeepSeek) exhibited Goldilocks patterns characterized by peak signal detection at optimal difficulty (k=10) with substantial dropoff at suboptimal levels. GPT-4o showed an extreme version of this pattern, with signal detection exclusively at k=10 and 45-fold sensitivity to calibration. DeepSeek demonstrated a more robust variant, maintaining marginal detection even at k=14.</p><p>Framework-incompatible models (Claude, Llama) exhibited flat patterns characterized by consistently minimal detection across all difficulty levels. Importantly, these models showed no response to task calibration-they detected minimal signal at k=7, k=10, and k=14 alike. This demonstrates that their incompatibility is not a matter of suboptimal difficulty but rather reflects fundamental architectural differences in how these models process narrative-biographical relationships.</p><p>These patterns confirm the dual requirements previously identified, with incompatible models showing minimal detection regardless of calibration.</p><p>While the "black box" nature of proprietary models makes a definitive explanation for this heterogeneity impossible, it is worth hypothesizing about potential mechanisms. The two best-performing models, GPT-4o and DeepSeek, are known for their sophisticated reasoning and pattern-matching architectures (the latter being a Mixture-of-Experts model). It is plausible that their superior performance stems not just from general capability, but from a specific emergent ability, akin to a rudimentary Theory of Mind <ref type="bibr" target="#b13">(Kosinski, 2023)</ref>, to detect subtle, cross-domain semantic relationships between abstract personality traits and concrete biographical events. In contrast, models showing a "flat" trajectory may be architecturally optimized for more direct, literal tasks, making them less sensitive to the faint, metaphorical patterns present in this study. This suggests that signal detection in complex narratives is not a universal capability but may depend on specific architectural features geared towards nuanced, inferential reasoning.</p><p>lookup-key integrity while removing jargon (automated keyword search confirmed zero residual astrological terminology), maintaining the deterministic structure-content relationship. (4) The Goldilocks pattern across k-values demonstrates that task difficulty (number of profiles to discriminate among) systematically affects performance-this pattern would not emerge if descriptions lacked discriminating power. However, a formal validation study measuring description specificity (e.g., using semantic diversity metrics or human rater discriminability tests) would provide stronger evidence that neutralization preserved rather than eliminated uniqueness.</p><p>Demographic confounds, such as the "birth season effect" or a self-fulfilling prophecy based on cultural stereotypes (e.g., an "assertive Aries"), are unlikely to explain the findings. The personality descriptions are a composite signal derived from two distinct sources: (1) the simple placements of 12 chart points in their respective signs (as opposed to just the Sun sign), and (2) five different algorithmic balance configurations based on the distribution of these points across elements, modes, quadrants, hemispheres, and signs. While a person may be aware of their Sun sign, the 12 chart-point placements combined with the balance configurations (which are the output of a specific, non-obvious weighting algorithm, resulting in classifications like "Element Fire Weak" or "Quadrant 3 Strong") produce a complex esoteric signal that is impossible to confound culturally. Furthermore, the extreme model heterogeneity argues against a simple cultural confound, which one would expect to be detected more uniformly across different LLM architectures.</p><p>While neutralization removed astrological terminology, subtle era-specific biographical patterns may persist. Future research comparing biography sources could help isolate signal types.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Philosophical Implications</head><p>Ultimately, this study addressed a single empirical question: can a fully automated framework detect weak signals in complex narrative systems? The results indicate yes, but with critical caveats about model compatibility and task calibration. The profound question of what it means for non-conscious algorithmic systems to detect faint patterns within symbolic frameworks traditionally associated with human meaning-making remains philosophical rather than empirical. This deeper inquiry-exploring implications for consciousness, patterns of subjective experience, and characterization-is the subject of a companion analysis (McRitchie &amp; Marko, manuscript in preparation).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Limitations and Future Directions</head><p>This study has several limitations, primarily related to the nature of the LLM-based method, the sample population, and the specific stimuli used.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Model Selection Transparency:</head><p>The seven evaluation models were selected from 42 candidates using the same dataset later used in the main study. While selection was based strictly on technical criteria (parsing reliability, cost, speed) rather than signal detection performance, this design introduces a potential concern: models that failed technically on this specific dataset might have succeeded on different data. To address circular reasoning concerns, we emphasize that (1) signal detection performance was not measured during selection, (2) the 35 excluded models failed objective technical tests (detailed in Supplementary Materials), and (3) the discovered heterogeneity (575× variation) was entirely unexpected-no pilot analysis examined whether models could detect signals. Future studies should ideally use separate pilot and main datasets, or employ pre-registered model selection criteria established before any data collection.</p><p>The "Black Box" Problem and Model Contamination Risk: The most significant limitation is the reliance on closed-source LLMs. This creates a theoretical contamination risk, as three evaluation models share providers with the models used for data generation: GPT-4o (same provider as eminence-scoring model GPT-5), Claude Sonnet 4 (same family as OCEAN-scoring model Claude 4.5 Sonnet), and Gemini 2.0 Flash Lite (same family as neutralization model Gemini 2.5 Pro). If these models learned implicit personalitybiography associations from shared training data, the detected signal could be an artifact. However, several empirical patterns argue strongly against contamination as the primary explanation. First, the three "contaminated" models show opposite performance patterns: GPT-4o exhibits the strongest signal detection (η²=17.23%), Gemini shows moderate detection (η²=7.63%), and Claude shows essentially no detection (η²=0.03%). This 575-fold variation within the supposedly contaminated set is inconsistent with a uniform contamination effect and suggests that architectural differences, not training data overlap, drive performance. Second, the second-strongest performer, DeepSeek V3.1 (η²=11.16%), is a fully independent architecture with no overlap, proving that strong signal detection occurs in uncontaminated models. While this evidence is compelling, the risk cannot be definitively ruled out. Further, it is theoretically possible that the evaluation LLMs could have inferred the astrological origin of the neutralized descriptions and used latent knowledge to defeat the blinding, or that they sourced biographical data from an obscure source correlated with birth data. This "black box" problem highlights a central challenge in using proprietary AI for scientific research. Future studies should aim to replicate these findings using fully independent, open-source models to ensure the detected signal is not an artifact. Furthermore, the results are specific to the models used in this study; replication with different architectures is necessary to establish robustness.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Sample and Stimulus Constraints:</head><p>The use of famous individuals (born 1900-1999, Northern Hemisphere, deceased), while necessary to ensure rich biographical data and control for specific confounds, limits the generalizability of these specific findings to the broader population. However, these constraints are specific to this case study of astrology, not inherent to the framework itself. The framework is designed to be adaptable: different narrative systems may require different sampling strategies. The widely known lives of these subjects could also introduce unknown confounds. Similarly, the study intentionally used a simplified astrological model (primary placements only) to test for a foundational signal. The weak effect size may be a function of this simplification. Future research should extend this methodology to non-public figures, different cultural contexts, and incorporate more complex astrological factors (e.g., aspects, midpoints, house systems) to assess whether the signal strength varies across populations and model complexity.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Technical vs. Conceptual Validation:</head><p>Our validation of the profile assembly algorithm demonstrates technical correctness-that our code faithfully implements the astrological weighting system-but does not validate the conceptual meaningfulness of that system.</p><p>The "bit-for-bit identical" reproduction confirms implementation fidelity, ensuring the test fairly represents the source system's claims. However, whether the astrological weights and thresholds produce psychologically meaningful distinctions is an empirical question answered by the experimental data itself. The weak aggregate signal (0.3% effect size), extreme model heterogeneity (575× variation), and task-difficulty dependency suggest the weighting system, if meaningful at all, generates subtle patterns accessible only under specific conditions. This distinction between technical validation (did we implement it correctly?) and conceptual validation (does it produce meaningful output?) is important for interpreting our findings: we can confidently state the test was conducted fairly, but we cannot claim the underlying astrological system is validated-the empirical results themselves constitute that test.</p><p>Neutralization Process Validation: The framework's validity rests on the assumption that neutralization preserved discriminating power rather than creating generic, Barnum-like statements. This was validated at two levels. Functionally, the random control condition provides the primary validation: the significant correct-vs-random difference at k=10 demonstrates that assembled profiles retain enough specificity to support above-chance discrimination. Quantitatively, a dedicated analysis of the 178 neutralized components confirmed their diversity (see Methods section for full metrics). This analysis showed extremely low semantic similarity (mean cosine similarity = 0.029) and vocabulary overlap (mean Jaccard = 0.093) across components, providing direct evidence against the Barnum effect at the component level. However, a human validation study using expert astrologers or lay raters to assess discriminability could provide a valuable benchmark for the LLM's performance. First, a formal matching test using expert human astrologers as judges could provide a valuable benchmark against which to compare the performance of the automated system. Second, a study using non-astrologer human raters, blind to the source, could test the integrity of the blinding procedure. If these lay raters, when asked to classify the neutralized snippets back into their original astrological categories, perform at chance level, it would provide stronger evidence that the neutralization successfully removed all discernible stylistic artifacts and esoteric traces of the source system.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>This study successfully deployed an automated and objective framework to test for weak, hypothesized signals in a complex narrative system, meeting its primary methodological goal. The framework demonstrated that while an aggregate-level signal was statistically detectable, it was practically negligible and only became robustly evident under highly specific conditions. Critically, the framework exposed extreme model-to-model heterogeneity (575× variation in signal detection), revealing that effectiveness requires both compatible model architecture and optimal task difficulty calibration. This work does not validate astrology as a whole, but it suggests that the null hypothesis of pure arbitrariness may be an oversimplification. The findings indicate that any non-randomness in the system's outputs is not universally accessible but is highly dependent on the architecture of the analytical tool used to detect it. It provides a robust, methodologically reproducible framework for future empirical investigations into complex narrative systems and establishes a firm factual basis that gorunds the philosophical inquiry into consciousness and symbolic systems explored in our companion article.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Author Contact</head><p>Correspondence concerning this article should be addressed to Peter J. Marko at peter.j.marko@gmail.com.</p><p>Quality Control. The framework employs fully automated validation procedures with predefined quality criteria for correctness, reasoning, relevance, and professional quality embedded throughout the data preparation and experimental pipeline. All quality checks were performed algorithmically to eliminate human error in response validation. The parsing and response validation procedures described in the Methods section (Component Library Neutralization and Validation, Profile Assembly validation, and experimental result parsing) constitute the complete quality control system. Human oversight was limited to designing validation criteria and reviewing final aggregated results. The framework's comprehensive test suite (147 scripts, 41,000+ lines) underwent extensive validation by the authors to ensure technical correctness and methodological integrity.</p><p>Originality. This research represents entirely novel work introducing a new methodological paradigm. All components are original, with proper accreditation for all referenced materials and methodologies.</p><p>Bias Mitigation. We systematically addressed presentation bias by analyzing positional ordering effects in the experimental results. The Analysis of Presentation Order Bias (Results section) demonstrates that observed signal detection effects reflect genuine content-based discrimination rather than positional artifacts.</p><p>Accountability and Transparency. We accept full accountability for all AI-generated content in this research. The AI outputs are fully documented: eminence scores (LLM A/GPT-5), OCEAN personality scores (LLM B/Claude 4.5 Sonnet), neutralized astrological text (LLM C/Gemini 2.5 Pro), and similarity score matrices (seven evaluation LLMs). Complete documentation of tools, versions, parameters, and procedures is provided throughout the article and in the public repository. LLM assistance in manuscript preparation is disclosed in the Author Contributions section.</p><p>Broader Impact. This research addresses the replication crisis in psychological science by providing the scientific community with an open-source, automated, and methodologically rigorous framework for investigating complex narrative systems. As an uncompensated research project, this work focuses specifically on researching LLM technology capabilities-a goal integral to the research question itself.</p><p>permanently and publicly available at <ref type="url" target="https://github.com/peterjmarko/llm-narrative-">https://github.com/peterjmarko/llm-narrative-</ref>framework.git.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Repository Contents:</head><p>• README: Quick start guide and framework overview.</p><p>• Replication Guide (Supplementary Material): Project overview, description of interactive tools and production codebase, complete step-by-step procedures for all three replication paths, including detailed descriptions of the data preparation pipeline, validation procedures, and experiment workflow.</p><p>• Framework Manual: Technical specifications, data formats, and API references.</p><p>• Source Code: Complete Python and PowerShell codebase (147 scripts, 41,000+ lines) with comprehensive test suite and 40 technical diagrams. • Data Files: Static datasets for direct replication (34 files total), including: o Neutralized component library (CSV format with component IDs and neutralized text) o Final subject database (CSV format with biographical and astrological metadata) o Raw experimental results (JSON format with trial-level data and model responses) o Compiled study-level analysis results (CSV format with summary statistics) • Configuration Files: Exact parameter settings used in the original study. • Data Dictionaries: Complete documentation of variable names, data types, valid ranges, and missing data codes for all datasets.</p><p>Example data structures and loading scripts are included to facilitate immediate data access and reuse.</p><p>Licensing: The framework is released under dual licensing: source code under GNU GPL v3.0, and data/documentation under CC BY-SA 4.0.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Figure 1a :</head><label>1a</label><figDesc>Figure 1a: The first four stages of the system architecture showing distinct LLM roles across the data preparation pipeline. LLM A (GPT-5) performs eminence scoring, LLM B (Claude 4.5 Sonnet) generates OCEAN scores, and LLM C (Gemini 2.5 Pro) neutralizes astrological text. This separation of roles is designed to minimize data contamination risk.</figDesc><graphic coords="4,221.77,72.00,168.45,567.85" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 1b :</head><label>1b</label><figDesc>Figure 1b: The last two stages of the ystem architecture showing distinct LLM roles across the experiment &amp; study workflow. Following the data the three preparation LLMs, seven independent evaluation models perform the matching task. This separation of roles is designed to minimize data contamination risk.</figDesc><graphic coords="5,228.80,72.00,154.40,560.35" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Flowchart of the sample derivation process, showing the number of subjects we retained at each stage of the data preparation pipeline.</figDesc><graphic coords="7,165.60,149.39,280.76,259.20" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Text neutralization pipeline implemented via neutralize_delineations.py. The process parses the raw astrological library, processes each component through LLM C (Gemini 2.5 Pro), validates removal of esoteric terminology, and outputs neutralized descriptions while preserving lookup keys for profile assembly.</figDesc><graphic coords="10,212.40,119.30,187.19,229.35" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 4 :</head><label>4</label><figDesc>Figure 4: Study execution timeline (October 2025). Data preparation completed October 16, experimental runs conducted October 18-22 (1,260 experiments, 100,800 LLM queries), and statistical analysis performed October 22-26. This temporal documentation provides critical methodological context given the time-specific behavior and inherent response variability of LLM models.</figDesc><graphic coords="11,72.00,88.65,467.98,231.60" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 5 :</head><label>5</label><figDesc>Figure 5: Experimental design structure showing the 2×3×7 factorial arrangement: 2 mapping strategies (correct vs. random) × 3 group sizes (k=7, 10, 14) × 7 evaluation models = 42 conditions, each with 30 replications.</figDesc><graphic coords="12,95.40,95.65,421.19,406.15" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Figure 6</head><label>6</label><figDesc>Figure 6 below shows an example for generating two experiments and compiling them into a study.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Figure 6 :</head><label>6</label><figDesc>Figure 6: The end-to-end research workflow, showing the generation of individual experiments and their final compilation into a study.</figDesc><graphic coords="13,130.50,72.00,350.99,418.45" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head>Figure 7 :</head><label>7</label><figDesc>Figure 7: Aggregate comparison of MRR Lift between correct and random mapping strategies across all models and k-values. While the 'correct' condition showed a statistically significant increase (F(1, 1218) = 18.22, p &lt; .001), the negligible effect size (η² =.003) creates a statistical tension, motivating the multi-level analysis needed to uncover underlying heterogeneity.</figDesc><graphic coords="17,72.00,201.29,468.00,312.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>Figure 8 :</head><label>8</label><figDesc>Figure 8: Distribution of MRR Lift values across different group sizes (k). While all three difficulty levels cluster near chance performance (1.0), subsequent subset analyses revealed that k=10 showed the strongest signal detection effect when comparing correct vs. random mappings, demonstrating a Goldilocks pattern where medium difficulty optimizes signal exposure.</figDesc><graphic coords="18,107.10,274.78,397.80,265.20" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head>Figure 9 :</head><label>9</label><figDesc>Figure 9: Goldilocks Effect in LLM Signal Detection. Mapping strategy shows optimal effect size at medium task difficulty (k=10, η²=1.25%, p&lt;.001), with significantly weaker effects at easy (k=7, η²=0.25%, ns) and hard (k=14, η²=0.10%, ns) conditions.</figDesc><graphic coords="19,107.10,72.00,397.79,299.55" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_11"><head>Figure 10 :</head><label>10</label><figDesc>Figure 10: Model heterogeneity in signal detection at k=10. Effect sizes range from 0.03% (Claude Sonnet 4) to 17.23% (GPT-4o)-a 575-fold variation in sensitivity to correct personality mapping.</figDesc><graphic coords="21,107.10,72.00,397.80,265.20" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_12"><head>Figure 11</head><label>11</label><figDesc>Figure 11 below shows the extreme difference in signal detection capability across the models.</figDesc><graphic coords="22,177.30,133.95,257.39,466.65" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_13"><head>Figure 12 :</head><label>12</label><figDesc>Figure 12: Model × mapping strategy interaction at k=10, revealing two distinct patterns of signal sensitivity. GPT-4o and DeepSeek V3 show pronounced sensitivity (a large separation between correct and random conditions), while Claude Sonnet 4, Llama 3.3, and Mistral Large exhibit "flat" patterns with minimal discrimination.</figDesc><graphic coords="24,72.00,177.89,468.00,312.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 1 :</head><label>1</label><figDesc>Example of Text Neutralization</figDesc><table><row><cell>Original Astrological Text (Sun in Aries)</cell><cell>Neutralized Text</cell></row><row><cell>"Your Sun is in the zodiac sign of Aries indicating that you're an assertive and freedom-loving individual, with a strong need for independence. Others may call you headstrong, but you simply believe that</cell><cell></cell></row><row><cell>everyone has a right to assert themselves in any situation. Life presents many</cell><cell></cell></row><row><cell>challenges which you enjoy meeting head-on regardless of the obstacles along the way. You're a natural-born leader. The ability to focus on one's own goals to the exclusion of others is a healthy trait, but like all things a balance is needed, and you must make sure that you take the time to include others' points of views and modus operandi.</cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_1"><head>Table 2 :</head><label>2</label><figDesc>Experimental Design</figDesc><table><row><cell>Factor</cell><cell>Type</cell><cell>Levels</cell></row><row><cell>mapping_strategy</cell><cell>Between-Groups</cell><cell>2 (correct, random)</cell></row><row><cell>k (Group Size)</cell><cell>Within-Groups</cell><cell>3 (7, 10, 14)</cell></row><row><cell>model</cell><cell>Within-Groups</cell><cell>7 (Claude Sonnet 4, Gemini 2.0 Flash Lite, Llama 3.3 70B, GPT-4o, DeepSeek Chat v3.1, Qwen 2.5 72B,</cell></row><row><cell></cell><cell></cell><cell>Mistral Large)</cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head>Table 3 :</head><label>3</label><figDesc>Aggregate ANOVA Results for Main Effect of mapping_strategy</figDesc><table><row><cell>MRR Lift</cell><cell>18.22</cell><cell cols="2">&lt; .001 .003 [.000, .007]</cell></row><row><cell>Top-1 Accuracy Lift</cell><cell>10.73</cell><cell>.001</cell><cell>.001 [.000, .004]</cell></row><row><cell>Top-3 Accuracy Lift</cell><cell>7.54</cell><cell>.006</cell><cell>.001 [.000, .003]</cell></row></table><note><p>Dependent Variable F(1, 1218) p-value η² 95% CI for η²</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_4"><head>Table 5 :</head><label>5</label><figDesc>Signal Detection Trajectories Across Difficulty Levels</figDesc><table><row><cell>Model</cell><cell>k=7 η²</cell><cell>k=10 η²</cell><cell>k=14 η²</cell><cell>Pattern Type</cell></row><row><cell>GPT-4o</cell><cell>0.38% (NS)</cell><cell>17.23% (***)</cell><cell>1.38% (NS)</cell><cell>Extreme Goldilocks</cell></row><row><cell>DeepSeek</cell><cell>1.45% (NS)</cell><cell>11.16% (**)</cell><cell>7.63% (*)</cell><cell>Modified Goldilocks</cell></row><row><cell>Claude</cell><cell>1.82% (NS)</cell><cell>0.03% (NS)</cell><cell>3.28% (NS)</cell><cell>Flat</cell></row><row><cell>Llama</cell><cell>1.41% (NS)</cell><cell>2.77% (NS)</cell><cell>0.24% (NS)</cell><cell>Flat</cell></row></table><note><p>Note: NS = not significant; p &lt; .05; ** p &lt; .01; *** p &lt; .001*</p></note></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" n="1" xml:id="foot_0"><p>The naming of the data generation models reflects the latest versions available at the time of the study. For provider details and release context, see Appendix C of the Supplementary Materials (Replication Guide).</p></note>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgements</head><p>The authors wish to thank <rs type="person">Vincent Godbout</rs> for generously sharing his pioneering thoughts, drafts, and procedures on automated matching tests, which provided a valuable foundation for this work. The authors are independent researchers and received no specific funding for this study.</p></div>
+<div><head>Open Data and Code Availability</head><p>In accordance with the principles of open science and methodological reproducibility (The Turing Way Community, 2022), all data, analysis scripts, supplementary materials, and documentation necessary to reproduce the findings reported in this article are</p></div>
+			</div>			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Implications for Framework Validation and Deployment</head><p>The primary contribution of this work is the introduction and validation of a methodological framework for testing weak signals in complex narrative systems. Three key insights emerge for framework deployment:</p><p>Three key insights emerge for framework deployment. First, aggregate analysis alone is insufficient-multi-level decomposition is essential to identify which models successfully expose signals and avoid misleading aggregate statistics. Second, model selection is critical: the 575-fold variation demonstrates that architecture fundamentally moderates effectiveness, with GPT-4o and DeepSeek prioritized while Claude, Llama, and Mistral should be avoided for signal detection. Third, optimal task difficulty must be empirically determined: the Goldilocks pattern at k=10 emerged from data rather than prediction, requiring calibration studies before deployment. This LLM-driven, open-source pipeline represents a new paradigm for bringing empirical rigor to complex narrative systems that have long resisted quantitative assessmentincluding Jungian archetypes, qualitative sociological theories, and personality typologies. By demonstrating its utility on the particularly challenging case of astrology, we provide a robust template and establish clear methodological principles for investigating other complex narrative systems.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Open Science and Reproducibility</head><p>This study embodies open science principles through fully automated, publicly available workflows with methodological reproducibility (Open Science Collaboration, 2015). While exact computational reproducibility is not achievable due to inherent LLM API nondeterminism, the framework enables independent verification of methods and statistical conclusions. The entire data preparation pipeline (Figure <ref type="figure">2</ref>), system architecture (Figure <ref type="figure">1</ref>), and experimental workflow (Figures <ref type="figure">4</ref><ref type="figure">5</ref><ref type="figure">6</ref>) are fully documented and reproducible at the methodological level. The multi-level decomposition approach demonstrated here (Tables <ref type="table">3</ref><ref type="table">4</ref><ref type="table">5</ref>, Figures <ref type="figure">7</ref><ref type="figure">8</ref><ref type="figure">9</ref><ref type="figure">10</ref><ref type="figure">11</ref><ref type="figure">12</ref>) could serve as a model for standard practice for framework validation, as it reveals patterns invisible to aggregate analysis alone.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Alternative Explanations and Confounds</head><p>Several alternative explanations merit consideration. The Barnum Effect: The concern that neutralized descriptions might be generic statements that apply universally is addressed by four key findings: (1) The random control condition provides the critical test-if descriptions were Barnum-like (vague, universally applicable), models would show equivalent performance on correct and random mappings since generic descriptions would "match" anyone equally well. Instead, models at k=10 showed significantly better performance with correct mappings (η²=1.25%, p&lt;.001), demonstrating that descriptions contain discriminating information. (2) The extreme model heterogeneity (575× variation) argues against a universal-match explanation-if descriptions applied to everyone, all models would perform similarly. (3) The neutralization process was validated to preserve Author Contributions Peter J. Marko was responsible for the conceptualization, investigation, methodology, software development, formal analysis, documentation, and the original draft of the article. Kenneth McRitchie proposed the idea, assisted with the conceptualization, and reviewed and edited the article.</p><p>Portions of this manuscript and the framework's source code were drafted, edited, and structured with assistance from Anthropic Claude Sonnet 4.5 and Google Gemini 2.5 Pro (July-October 2025). All AI-generated content was reviewed, revised, validated, and approved by the authors, who accept full responsibility for the final content and comply with PsyArXiv policies.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>ORCID iDs</head><p>• Peter J. Marko: <ref type="url" target="https://orcid.org/0000-0001-9108-8789">https://orcid.org/0000-0001-9108-8789</ref> • Kenneth McRitchie: <ref type="url" target="https://orcid.org/0000-0001-8971-8091">https://orcid.org/0000-0001-8971-8091</ref> </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conflicts of Interest</head><p>The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Responsible AI Usage Statement</head><p>This research adheres to the Principles for Responsible AI Usage in Research and complies with general international responsible use regulations.</p><p>Regulations and Data Security. The applicable regulations and policies permit AI tool usage in this research context. Our research design addresses data privacy concerns by exclusively selecting deceased individuals as subjects, obviating the need for anonymization while maintaining full compatibility with data privacy and security regulations. We opted out of data usage and storage in all AI applications used.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Language models are few-shot learners</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">B</forename><surname>Brown</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Mann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Ryder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Subbiah</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Kaplan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Dhariwal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Agarwal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Neelakantan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Ramesh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Sastry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Askell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mishkin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Clark</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Krueger</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Amodei</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Advances in Neural Information Processing Systems</title>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="page" from="1877" to="1901" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J. D., Dhariwal, P., Agarwal, S., Neelakantan, A., Ramesh, P., Sastry, G., Askell, A., Mishkin, P., Clark, J., Krueger, G., &amp; Amodei, D. (2020). Language models are few-shot learners. Advances in Neural Information Processing Systems, 33, 1877-1901.</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Out of One, Many: Using Language Models to Simulate Human Samples</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">P</forename><surname>Argyle</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">C</forename><surname>Busby</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fulda</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Gubler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Rytting</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Wingate</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Political Analysis</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="337" to="351" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Argyle, L. P., Busby, E. C., Fulda, N., Gubler, J. R., Rytting, C., &amp; Wingate, D. (2023). Out of One, Many: Using Language Models to Simulate Human Samples. Political Analysis, 31(3), 337-351.</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">A double-blind test of astrology</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Carlson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">318</biblScope>
+			<biblScope unit="issue">6045</biblScope>
+			<biblScope unit="page" from="419" to="425" />
+			<date type="published" when="1985">1985</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Carlson, S. (1985). A double-blind test of astrology. Nature, 318(6045), 419-425.</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Statistical power analysis for the behavioral sciences</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Cohen</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1988">1988</date>
+		</imprint>
+	</monogr>
+	<note>2nd ed.</note>
+	<note type="raw_reference">Cohen, J. (1988). Statistical power analysis for the behavioral sciences (2nd ed.).</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Construct validity in psychological tests</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">J</forename><surname>Cronbach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Meehl</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="281" to="302" />
+			<date type="published" when="1955">1955</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Cronbach, L. J., &amp; Meehl, P. E. (1955). Construct validity in psychological tests. Psychological Bulletin, 52(4), 281-302.</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Meta-analysis of recent advances in natal astrology using a universal effect-size</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Currey</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Correlation</title>
+		<imprint>
+			<biblScope unit="volume">34</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="43" to="55" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Currey, R. (2022). Meta-analysis of recent advances in natal astrology using a universal effect-size. Correlation, 34(2), 43-55.</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Is astrology relevant to consciousness and psi?</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Dean</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">W</forename><surname>Kelly</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Consciousness Studies</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">6-7</biblScope>
+			<biblScope unit="page" from="175" to="198" />
+			<date type="published" when="2003">2003</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Dean, G., &amp; Kelly, I. W. (2003). Is astrology relevant to consciousness and psi? Journal of Consciousness Studies, 10(6-7), 175-198.</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Appraisal of Shawn Carlson&apos;s renowned astrology tests</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Ertel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Scientific Exploration</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="125" to="137" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ertel, S. (2009). Appraisal of Shawn Carlson&apos;s renowned astrology tests. Journal of Scientific Exploration, 23(2), 125-137.</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<monogr>
+		<title level="m" type="main">Astrology: Science or superstition?</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">J</forename><surname>Eysenck</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">K</forename><surname>Nias</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1982">1982</date>
+			<publisher>St. Martin&apos;s Press</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Eysenck, H. J., &amp; Nias, D. K. (1982). Astrology: Science or superstition? St. Martin&apos;s Press.</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">ChatGPT outperforms crowd-workers for textannotation tasks</title>
+		<author>
+			<persName><forename type="first">F</forename><surname>Gilardi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Alizadeh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kubli</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<imprint>
+			<biblScope unit="volume">120</biblScope>
+			<biblScope unit="issue">24</biblScope>
+			<biblScope unit="page">2305016120</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Gilardi, F., Alizadeh, M., &amp; Kubli, M. (2023). ChatGPT outperforms crowd-workers for text- annotation tasks. Proceedings of the National Academy of Sciences, 120(24), e2305016120.</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">An automated matching test: Comparing astrological charts with biographies</title>
+		<author>
+			<persName><forename type="first">V</forename><surname>Godbout</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Correlation</title>
+		<imprint>
+			<biblScope unit="volume">32</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="13" to="41" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Godbout, V. (2020). An automated matching test: Comparing astrological charts with biographies. Correlation, 32(2), 13-41.</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context</title>
+		<ptr target="https://arxiv.org/abs/2403.05530" />
+	</analytic>
+	<monogr>
+		<title level="j">Google AI</title>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+			<publisher>Google</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Google. (2024). Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context. Google AI. https://arxiv.org/abs/2403.05530</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<monogr>
+		<author>
+			<persName><forename type="first">H</forename><surname>Jeffreys</surname></persName>
+		</author>
+		<title level="m">Theory of Probability</title>
+		<imprint>
+			<publisher>Oxford University Press</publisher>
+			<date type="published" when="1961">1961</date>
+		</imprint>
+	</monogr>
+	<note>3rd ed.</note>
+	<note type="raw_reference">Jeffreys, H. (1961). Theory of Probability (3rd ed.). Oxford University Press.</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Theory of mind may have spontaneously emerged in large language models</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kosinski</surname></persName>
+		</author>
+		<idno type="DOI">10.1073/pnas.2218926120</idno>
+		<ptr target="https://doi.org/10.1073/pnas.2218926120" />
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<imprint>
+			<biblScope unit="volume">120</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page">2218926120</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kosinski, M. (2023). Theory of mind may have spontaneously emerged in large language models. Proceedings of the National Academy of Sciences, 120(9), e2218926120. https://doi.org/10.1073/pnas.2218926120</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Southern Hemisphere</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>Lewis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">The Astrology Encyclopedia</title>
+		<imprint>
+			<publisher>Visible Ink Press</publisher>
+			<date type="published" when="1994">1994</date>
+			<biblScope unit="page">484</biblScope>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Lewis, J. R. (1994). Southern Hemisphere. In The Astrology Encyclopedia (p. 484). Visible Ink Press.</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Boomers and the lunar defect</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">J</forename><surname>Marko</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Astrological Journal</title>
+		<imprint>
+			<biblScope unit="volume">60</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="35" to="39" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Marko, P. J. (2018). Boomers and the lunar defect. The Astrological Journal, 60(1), 35-39.</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">How to think about the astrology research program: An essay considering emergent effects</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Mcritchie</surname></persName>
+		</author>
+		<idno type="DOI">10.31275/20222641</idno>
+		<ptr target="https://doi.org/10.31275/20222641" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Scientific Exploration</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="706" to="716" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">McRitchie, K. (2022). How to think about the astrology research program: An essay considering emergent effects. Journal of Scientific Exploration, 36(4), 706-716. https://doi.org/10.31275/20222641</note>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Estimating the reproducibility of psychological science</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Mcritchie</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">J</forename><surname>Marko</surname></persName>
+		</author>
+		<author>
+			<persName><surname>. (n.D</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">349</biblScope>
+			<biblScope unit="issue">6251</biblScope>
+			<biblScope unit="page">4716</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+	<note>manuscript in preparation ) Open Science Collaboration Is astrology relevant to what consciousness is like?</note>
+	<note type="raw_reference">McRitchie, K., &amp; Marko, P. J. (n.d.). Is astrology relevant to what consciousness is like? (manuscript in preparation) Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. Science, 349(6251), aac4716.</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<monogr>
+		<title/>
+		<author>
+			<persName><surname>Openrouter</surname></persName>
+		</author>
+		<ptr target="https://openrouter.ai/" />
+		<imprint/>
+	</monogr>
+	<note>Online API service</note>
+	<note type="raw_reference">OpenRouter.ai. (n.d.). [Online API service]. Retrieved from https://openrouter.ai/</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">The Cohort as a Concept in the Study of Social Change</title>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">B</forename><surname>Ryder</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Sociological Review</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="843" to="861" />
+			<date type="published" when="1965">1965</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ryder, N. B. (1965). The Cohort as a Concept in the Study of Social Change. American Sociological Review, 30(6), 843-861.</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">The Turing Way: A handbook for reproducible, ethical and collaborative research</title>
+		<author>
+			<orgName type="collaboration">The Turing Way Community</orgName>
+		</author>
+		<idno type="DOI">10.5281/zenodo.3233853</idno>
+		<ptr target="https://doi.org/10.5281/zenodo.3233853" />
+	</analytic>
+	<monogr>
+		<title level="j">Zenodo</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">The Turing Way Community. (2022). The Turing Way: A handbook for reproducible, ethical and collaborative research. Zenodo. https://doi.org/10.5281/zenodo.3233853</note>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Overview on the Null Hypothesis Significance Test: A Systematic Review on Essay Literature on its Problems and Solutions in Present Psychological Science</title>
+		<author>
+			<persName><forename type="first">N</forename><surname>Van Dongen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Van Grootel</surname></persName>
+		</author>
+		<idno type="DOI">10.15626/MP.2021.2927</idno>
+		<ptr target="https://doi.org/10.15626/MP.2021.2927" />
+	</analytic>
+	<monogr>
+		<title level="j">Meta-Psychology</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<date type="published" when="2021">2025. 2021. 2927</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">van Dongen, N., &amp; van Grootel, L. (2025). Overview on the Null Hypothesis Significance Test: A Systematic Review on Essay Literature on its Problems and Solutions in Present Psychological Science. Meta-Psychology, 9, MP.2021.2927. https://doi.org/10.15626/MP.2021.2927</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Emergent abilities of large language models</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Wei</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Tay</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Bommasani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Raffel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Zoph</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Borgeaud</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Chowdhery</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Narang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><forename type="middle">V</forename><surname>Le</surname></persName>
+		</author>
+		<ptr target="https://arxiv.org/abs/2206.07682" />
+	</analytic>
+	<monogr>
+		<title level="j">Transactions on Machine Learning Research</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Wei, J., Tay, Y., Bommasani, R., Raffel, C., Zoph, B., Borgeaud, S., Chowdhery, A., Narang, S., &amp; Le, Q. V. (2022). Emergent abilities of large language models. Transactions on Machine Learning Research. https://arxiv.org/abs/2206.07682</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

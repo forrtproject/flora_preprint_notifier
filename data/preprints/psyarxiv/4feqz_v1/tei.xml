@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Human-AI complementarity needs augmentation, not emulation</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Zhicheng</forename><surname>Lin</surname></persName>
+							<email>zhichenglin@gmail.com</email>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Department of Psychology</orgName>
+								<orgName type="department" key="dep2">Department of Psychology</orgName>
+								<orgName type="institution" key="instit1">Yonsei University</orgName>
+								<orgName type="institution" key="instit2">Yonsei University</orgName>
+								<address>
+									<postCode>03722</postCode>
+									<settlement>Seoul</settlement>
+									<country key="KR">Republic of Korea</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Department of Psychology</orgName>
+								<orgName type="department" key="dep2">Department of Psychology</orgName>
+								<orgName type="institution" key="instit1">Yonsei University</orgName>
+								<orgName type="institution" key="instit2">Yonsei University</orgName>
+								<address>
+									<postCode>03722</postCode>
+									<settlement>Seoul</settlement>
+									<country key="KR">Republic of Korea</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Human-AI complementarity needs augmentation, not emulation</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">E843130A3CF461C0BF02DC1B6AA08BF8</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-18T15:25+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=true, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Gonzalez and Heidari propose cognitive AI-systems that emulate human cognitive processesas essential for human-AI complementarity in dynamic decision-making. I argue this framework rests on two questionable premises. First, the distinction between cognitive AI and data-driven approaches lacks practical significance: modern AI trained on behavioral data already exhibits emergent human-like properties through implicit modeling of statistical regularities in human decision-making. Second, the framework assumes complementarity requires AI to mirror human cognition, including human limitations and constraints. Yet if noise and systematic biases fundamentally characterize human cognition, complementary AI should compensate for these limitations rather than reproduce them. I propose that effective human-AI complementarity requires design principles emphasizing appropriate role allocation, transparent uncertainty communication, adaptive personalization that improves decision quality, and mutual modeling of functionally relevant features without necessarily replicating cognitive mechanisms. These principles can be instantiated through various technical approaches and should be evaluated by team outcomes rather than adherence to cognitive theories. Complementarity requires AI that augments human capabilities, not cognitive architectures that reproduce human limitations.</head><p>In their Perspective, Gonzalez and Heidari propose cognitive AI-systems that "emulate and simulate the human mind as an information-processing system"-as essential for achieving human-AI complementarity in dynamic decision-making 1 . However, this framework rests on questionable premises: that cognitive AI represents a meaningful practical distinction from datadriven approaches, and that effective human-AI teams require AI systems to replicate human cognitive processes.</p><p>The authors distinguish cognitive AI from data-driven AI by its grounding in formal cognitive models that "explain and replicate how and why decisions are made." Yet modern AI trained on behavioral data already exhibits emergent human-like properties, including biases, through implicit modeling of statistical regularities in human decision-making 2-4 . The authors acknowledge cognitive AI must ultimately integrate with data-driven approaches, raising the question: what essential work do cognitive architectures accomplish beyond what adaptive</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>learning already achieves? <ref type="bibr" target="#b4">5,</ref><ref type="bibr" target="#b5">6</ref> The framework may label valuable design principlestransparency, adaptability, personalization-but these can be realized through various technical approaches.</p><p>More fundamentally, the framework assumes human-AI complementarity requires AI to mirror human cognition-that "cognitive AI must mimic human limitations and constraints, because doing so will allow us to interpret human behaviour and to predict (and prevent) human error." Yet as Kahneman observes, "humans do so poorly and are so noisy that, just by removing the noise, you can do better than people." <ref type="bibr" target="#b6">7</ref> If noise and other limitations fundamentally characterize human cognition, why should complementary AI systems faithfully reproduce them? The value proposition appears reversed: we need AI that compensates for cognitive limitations, not systems replicating them.</p><p>Consider the authors' disaster management scenario. Should AI model human biases in probability assessment to predict evacuee behavior, or provide debiased estimates to improve emergency managers' decisions? An AI that "mimics human limitations" for interpretability may sacrifice the very complementarity-correction of human weaknesses-motivating collaboration <ref type="bibr" target="#b7">8,</ref><ref type="bibr" target="#b8">9</ref> .</p><p>The proposal conflates two distinct AI roles with different requirements <ref type="bibr" target="#b9">10</ref> . For decision support, predictive accuracy about human behavior matters, achievable through various modeling approaches. For autonomous teammates, functional complementarity matters-can AI accomplish what humans cannot, or accomplish it better? Neither necessarily requires algorithmic-level mirroring of human cognition.</p><p>Rather than privileging cognitive architectures, design principles for human-AI complementarity should emphasize 1) appropriate role allocation (e.g., AI handles pattern recognition where humans are noisy; humans oversee ethical judgments and novel situations); 2) transparent uncertainty communication enabling calibrated reliance; 3) adaptive personalization improving decision quality rather than achieving human-like errors; and 4) mutual modeling capturing functionally relevant features-capabilities, reliability, typical strategies-without necessarily replicating cognitive mechanisms. These principles can be instantiated through cognitive architectures, hybrid systems, or learned models. Frameworks should be evaluated by outcomes in human-AI teams, not adherence to cognitive theories. The authors acknowledge "substantially more research is needed to demonstrate [cognitive AI's] broader utility." I suggest this research should comparatively evaluate whether cognitive approaches offer practical advantages over alternatives in achieving complementarity. Complementarity requires AI that augments human capabilities, not cognitive architectures that reproduce human limitations.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>References</head></div>		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">A cognitive approach to human-AI complementarity in dynamic decision-making</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Gonzalez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Heidari</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s44159-025-00499-x</idno>
+		<ptr target="https://doi.org/10.1038/s44159-025-00499-x" />
+	</analytic>
+	<monogr>
+		<title level="j">Nature Reviews Psychology</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Gonzalez, C. &amp; Heidari, H. A cognitive approach to human-AI complementarity in dynamic decision-making. Nature Reviews Psychology (2025). https://doi.org/10.1038/s44159-025-00499-x</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">A foundation model to predict and capture human cognition</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Binz</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41586-025-09215-4</idno>
+		<ptr target="https://doi.org/10.1038/s41586-025-09215-4" />
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">644</biblScope>
+			<biblScope unit="page" from="1002" to="1009" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Binz, M. et al. A foundation model to predict and capture human cognition. Nature 644, 1002-1009 (2025). https://doi.org/10.1038/s41586-025-09215-4</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">A manager and an AI walk into a bar: does ChatGPT make biased decisions like we do?</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Chen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">N</forename><surname>Kirshner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ovchinnikov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Andiappan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Jenkin</surname></persName>
+		</author>
+		<idno type="DOI">10.1287/msom.2023.0279</idno>
+		<ptr target="https://doi.org/10.1287/msom.2023.0279" />
+	</analytic>
+	<monogr>
+		<title level="j">Manufacturing &amp; Service Operations Management</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="page" from="354" to="368" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Chen, Y., Kirshner, S. N., Ovchinnikov, A., Andiappan, M. &amp; Jenkin, T. A manager and an AI walk into a bar: does ChatGPT make biased decisions like we do? Manufacturing &amp; Service Operations Management 27, 354-368 (2025). https://doi.org/10.1287/msom.2023.0279</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Human-like intuitive behavior and reasoning biases emerged in large language models but disappeared in ChatGPT</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Hagendorff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Fabi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kosinski</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s43588-023-00527-x</idno>
+		<ptr target="https://doi.org/10.1038/s43588-023-00527-x" />
+	</analytic>
+	<monogr>
+		<title level="j">Nat. Comput. Sci</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="page" from="833" to="838" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Hagendorff, T., Fabi, S. &amp; Kosinski, M. Human-like intuitive behavior and reasoning biases emerged in large language models but disappeared in ChatGPT. Nat. Comput. Sci. 3, 833-838 (2023). https://doi.org/10.1038/s43588-023-00527-x</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Building machines that learn and think like people</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">M</forename><surname>Lake</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">D</forename><surname>Ullman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">B</forename><surname>Tenenbaum</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">J</forename><surname>Gershman</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S0140525X16001837</idno>
+		<ptr target="https://doi.org/10.1017/S0140525X16001837" />
+	</analytic>
+	<monogr>
+		<title level="j">Behav. Brain Sci</title>
+		<imprint>
+			<biblScope unit="volume">40</biblScope>
+			<biblScope unit="page">253</biblScope>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Lake, B. M., Ullman, T. D., Tenenbaum, J. B. &amp; Gershman, S. J. Building machines that learn and think like people. Behav. Brain Sci. 40, e253 (2017). https://doi.org/10.1017/S0140525X16001837</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">A standard model of the mind: toward a common computational framework across artificial intelligence, cognitive science, neuroscience, and robotics</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">E</forename><surname>Laird</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Lebiere</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">S</forename><surname>Rosenbloom</surname></persName>
+		</author>
+		<idno type="DOI">10.1609/aimag.v38i4.2744</idno>
+		<ptr target="https://doi.org/10.1609/aimag.v38i4.2744" />
+	</analytic>
+	<monogr>
+		<title level="j">AI Magazine</title>
+		<imprint>
+			<biblScope unit="volume">38</biblScope>
+			<biblScope unit="page" from="13" to="26" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Laird, J. E., Lebiere, C. &amp; Rosenbloom, P. S. A standard model of the mind: toward a common computational framework across artificial intelligence, cognitive science, neuroscience, and robotics. AI Magazine 38, 13-26 (2017). https://doi.org/10.1609/aimag.v38i4.2744</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<title level="m" type="main">The Economics of Artificial Intelligence: An agenda</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Kahneman</surname></persName>
+		</author>
+		<editor>Ajay Agrawal, Joshua Gans, &amp; Avi Goldfarb</editor>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<publisher>University of Chicago Press</publisher>
+			<biblScope unit="page" from="608" to="610" />
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kahneman, D. in The Economics of Artificial Intelligence: An agenda (eds Ajay Agrawal, Joshua Gans, &amp; Avi Goldfarb) 608-610 (University of Chicago Press, 2019).</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<monogr>
+		<author>
+			<persName><forename type="first">G</forename><surname>Bansal</surname></persName>
+		</author>
+		<title level="m">Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems Article 81</title>
+		<meeting>the 2021 CHI Conference on Human Factors in Computing Systems Article 81<address><addrLine>Yokohama, Japan</addrLine></address></meeting>
+		<imprint>
+			<publisher>Association for Computing Machinery</publisher>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Bansal, G. et al. in Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems Article 81 (Association for Computing Machinery, Yokohama, Japan, 2021).</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">When combinations of humans and AI are useful: a systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Vaccaro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Almaatouq</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Malone</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41562-024-02024-1</idno>
+		<ptr target="https://doi.org/10.1038/s41562-024-02024-1" />
+	</analytic>
+	<monogr>
+		<title level="j">Nat. Hum. Behav</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page" from="2293" to="2303" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Vaccaro, M., Almaatouq, A. &amp; Malone, T. When combinations of humans and AI are useful: a systematic review and meta-analysis. Nat. Hum. Behav. 8, 2293-2303 (2024). https://doi.org/10.1038/s41562-024-02024-1</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Human-autonomy teaming: a review and analysis of the empirical literature</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>O'neill</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Mcneese</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Barron</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Schelble</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/0018720820960865</idno>
+		<ptr target="https://doi.org/10.1177/0018720820960865" />
+	</analytic>
+	<monogr>
+		<title level="j">Hum. Factors</title>
+		<imprint>
+			<biblScope unit="volume">64</biblScope>
+			<biblScope unit="page" from="904" to="938" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">O&apos;Neill, T., McNeese, N., Barron, A. &amp; Schelble, B. Human-autonomy teaming: a review and analysis of the empirical literature. Hum. Factors 64, 904-938 (2020). https://doi.org/10.1177/0018720820960865</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

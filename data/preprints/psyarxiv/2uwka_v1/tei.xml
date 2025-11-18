@@ -1,0 +1,1639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Musical improvisation reveals the fine-grained foraging dynamics of collective innovation</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Tevin</forename><surname>Williams</surname></persName>
+							<email>twilliams71@ucmerced.edu</email>
+							<affiliation key="aff0">
+								<orgName type="institution">University of California</orgName>
+								<address>
+									<settlement>Merced</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Matt</forename><surname>Setzler</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="institution">Indiana University Bloomington</orgName>
+							</affiliation>
+							<affiliation key="aff2">
+								<orgName type="department">Meta AI</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Chanuwas</forename><surname>Aswamenakul</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">University of California</orgName>
+								<address>
+									<settlement>Merced</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Rachel</forename><surname>Ryskin</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">University of California</orgName>
+								<address>
+									<settlement>Merced</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Michael</forename><surname>Spivey</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="institution">University of California</orgName>
+								<address>
+									<settlement>Merced</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Minje</forename><surname>Kim</surname></persName>
+							<affiliation key="aff3">
+								<orgName type="institution">University of Illinois at Urbana-Champaign</orgName>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Tyler</forename><surname>Marghetis</surname></persName>
+							<email>tyler.marghetis@gmail.com</email>
+							<affiliation key="aff0">
+								<orgName type="institution">University of California</orgName>
+								<address>
+									<settlement>Merced</settlement>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Musical improvisation reveals the fine-grained foraging dynamics of collective innovation</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">8E4B67A0063848BB1855CE1914F44F69</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-18T15:24+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=true, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Collective innovation is key to the global success of the human species. However, the moment-to-moment details of how creative innovation is accomplished by a collective remain unclear. One challenge is that while creative products (e.g., scientific breakthroughs, technological inventions, rehearsed performances) may be public, the creative processes that generated those products are often private. Here we introduce collective musical improvisation as a model system for the fine-grained study of in vivo collective innovation.</p><p>In free jazz improvisation, the creative product is the creative process, offering a unique real-time window into the creative process. Using a corpus of free jazz recordings, we embedded each track as a trajectory through a high-dimensional "sonic space" and then analyzed the strategies by which musicians moved collectively through this space of sonic possibility. Despite the cognitive sophistication and cultural richness of musical improvisation, we find that musical ensembles spontaneously adopt a search strategy, Area Restricted Search, with deep evolutionary roots, previously identified in animal foraging. This convergence between behavioral ecology, cognition, and culture suggests deep evolutionary origins of the human capacity for collective innovation.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Introduction</head><p>Collective innovation is a cornerstone of our species' global success <ref type="bibr" target="#b0">[1,</ref><ref type="bibr" target="#b1">2]</ref>. This capacity is manifest in activities as varied as technological invention <ref type="bibr" target="#b2">[3]</ref>, crisis problem solving <ref type="bibr" target="#b3">[4]</ref>, scientific collaboration <ref type="bibr" target="#b4">[5]</ref>, and even interpersonal conversation <ref type="bibr" target="#b5">[6]</ref>, all of which require the coordination of creative behaviors distributed among multiple actors. Understanding the moment-to-moment dynamics of collective innovation remains a grand challenge. One major stumbling block to the scientific study of collective innovation is the inherent opacity of the creative process: while creative products like scientific publications or rehearsed musical performances are visible as the public "frontstage" of innovation, the crucial "backstage" of real-time collaborative creation often remains hidden <ref type="bibr" target="#b6">[7]</ref>. The opacity of the creative process has severely limited our understanding of the fine-grained dynamics of real-world collective innovation.</p><p>To penetrate this observational barrier, we turned to a unusual group of creative professionals notorious for engaging publicly in the process of collective innovation: free jazz musicians.</p><p>Improvising musicians must coordinate continuously, make constant decisions on the timescale of milliseconds, and select their moment-to-moment activity from a huge space of acoustic possibility <ref type="bibr" target="#b8">[9]</ref>. In stark contrast to domains where the creative process is hidden behind its product, in musical improvisation the process of creation is the publicly observable product. This immediacy distinguishes it from, say, musical composition or scientific research, where creative products like musical scores or scientific publications are the polished outcomes of often protracted and private generative processes. Crucially, among improvisational practices, free jazz is especially well suited for studying truly collective creativity. Unlike genres that focus on individual soloists with harmonic or rhythmic accompaniment, in free jazz all ensemble members participate simultaneously in the improvisational process <ref type="bibr" target="#b9">[10,</ref><ref type="bibr" target="#b10">11]</ref>. Free jazz ensembles perform without established leaders, preexisting musical scores, predetermined chord changes, planned solo intervals, established harmonies, or canonical musical phrases. Instead, they make it up on the fly, collectively creating novel sounds as they navigate a space of possible sounds that is largely unconstrained <ref type="bibr" target="#b11">[12]</ref>. Likewise, collaboratively improvising musicians rapidly and mutually adapt to their improvising partners to create optimal musical performances <ref type="bibr" target="#b12">[13,</ref><ref type="bibr" target="#b13">14]</ref>.</p><p>Collective free jazz improvisation thus provides a unique real-world laboratory for studying the unscripted, fine-grained, moment-to-moment dynamics of collective innovation in vivo.</p><p>Here, to quantify the fine-grained dynamics of collective innovation, we analyze the improvisational process as a kind of foraging, a search for rewards in an uncertain landscape. More mundane forms of individual creativity have been characterized as foraging processes, including searching through semantic memory <ref type="bibr" target="#b14">[15]</ref>, creating interesting visual patterns <ref type="bibr" target="#b15">[16,</ref><ref type="bibr" target="#b16">17,</ref><ref type="bibr" target="#b17">18]</ref>, and solving insight puzzles <ref type="bibr" target="#b18">[19]</ref>. Similarly, free improvisation can be thought of as a collective foraging process, in which musical ensembles must move through an abstract space of sonic possibility with the goal of discovering sounds that are novel, interesting, or otherwise rewarding. From this perspective, locations within the sonic space correspond to complex sounds produced by the musical ensemble, which could be sounds that the musicians have produced before (analogous to locations that a foraging organism has visited previously) or entirely novel  <ref type="figure">A-C</ref>) Graphical illustration of the analysis pipeline. Single-track audio recordings of improvised free jazz, illustrated in (A), were transformed into trajectories through a 'sonic space,' illustrated in (B), that captured timbral features using Mel Frequency Cepstral Coefficients (MFCC). The trajectory for each recording consisted of consecutive sonic embeddings, m(t), of brief, nonoverlapping "moments" of duration τ . To quantify the moment-to-moment dynamics of these trajectories, we calculated the sonic movement at time t as the Euclidean distance between consecutive sonic embeddings, δ(t) = d(m(t -τ ), m(t)). This generated a time series of moment-to-moment sonic movements, illustrated in (C). (D) Empirical distribution of track durations in the corpus of free jazz recordings. (E) Trajectory through sonic space of one illustrative track. For visualization, the trajectory's 20 dimensions were reduced to 2 using t-SNE, a dimension-reduction technique <ref type="bibr" target="#b7">[8]</ref>. Color indicates time within the recording, from start (red) to end (blue). (F) Time series of moment-to-moment sonic movements for the track in (E). sounds that have never been created (analogous to locations that a foraging organism has yet to 60 visit). Below, we explain how computational methods can formalize this foraging perspective 61 on musical improvisation (Fig. <ref type="figure" target="#fig_0">1</ref>, <ref type="figure">A-C</ref>).</p><p>What foraging strategies might musical ensembles use to improvise? Across a wide range of environmental conditions where resources cluster together in patches, a highly effective foraging strategy is to move through the space using a Lévy flight random walk <ref type="bibr" target="#b19">[20]</ref>. In a Lévy flight, the length of each step is drawn randomly from a heavy-tailed distribution, with frequent small steps and infrequent large steps <ref type="bibr" target="#b20">[21]</ref>. Despite their randomness and lack of any plan or memory, Lévy flights can generate search trajectories that appear patchy, with extended periods spent within local regions, interspersed with large jumps to new regions. The spatial foraging behavior of a wide variety of organisms has been characterized as Lévy flights, including albatrosses <ref type="bibr" target="#b21">[22]</ref>, sharks <ref type="bibr" target="#b22">[23]</ref>, mussels <ref type="bibr" target="#b23">[24]</ref>, deer <ref type="bibr" target="#b24">[25]</ref>, humans <ref type="bibr" target="#b25">[26,</ref><ref type="bibr" target="#b26">27,</ref><ref type="bibr" target="#b27">28]</ref>, and even entire sports teams <ref type="bibr" target="#b28">[29]</ref>, although subsequent reanalyses have cast doubt on some of these claims <ref type="bibr" target="#b29">[30,</ref><ref type="bibr" target="#b30">31]</ref>.</p><p>While a random walk may seem an overly simplistic account of collective innovation, random walks have been used to model a range of high-level cognitive processes, including decision making <ref type="bibr" target="#b31">[32,</ref><ref type="bibr" target="#b32">33]</ref>, memory retrieval <ref type="bibr" target="#b33">[34]</ref>, individual creativity <ref type="bibr" target="#b34">[35]</ref>, curiosity <ref type="bibr" target="#b35">[36]</ref>, and even scientific productivity <ref type="bibr" target="#b36">[37]</ref>, and some have argued that they are optimal in a wide range of conditions <ref type="bibr" target="#b19">[20]</ref>. In the context of improvised music, novel and interesting sounds are distributed unevenly and unpredictably throughout the space of sonic possibility, so musicians could perform an abstract form of a Lévy flight to increase their odds of encountering particularly novel or interesting sounds.</p><p>Alternatively, instead of moving randomly as in a Lévy flight, foragers may respond strategically to resource encounters <ref type="bibr" target="#b37">[38]</ref>. In Area Restricted Search, for instance, resource encounters prompt the forager to search nearby, thus 'exploiting' the local region. As resource encounters become less frequent, the organism becomes more likely to abandon that region to 'explore' widely for a new patch of clustered rewards. Much like Lévy flights, Area-Restricted Search has been documented widely in the natural world <ref type="bibr" target="#b37">[38]</ref>, including in ladybugs foraging for aphids <ref type="bibr" target="#b38">[39]</ref>, seabirds foraging for fish <ref type="bibr" target="#b39">[40]</ref>, and humans foraging for mushrooms <ref type="bibr" target="#b40">[41]</ref>. Since resources are often clustered spatially, Area Restricted Search can generate patchy trajectories that resemble those of a Lévy flight. After encountering an interesting sound, for instance, improvising musicians may decide collectively to persist in exploiting the similar sounds within a sonic patch or "soundworld," only switching to explore for a new soundworld when they have exhausted the current soundworld's novelty or interest.</p><p>As accounts of foraging, Lévy flights and Area Restricted Search are difficult to distinguish because both can generate search patterns that are patchy, with periods of sustained search within a focal region punctuated by leaps to a new region. A key difference, however, is the role of memory in the transition between patches <ref type="bibr" target="#b41">[42,</ref><ref type="bibr" target="#b42">43]</ref>. In a Lévy flight, the organism does not adjust its behavior on the basis of recent resource encounters; it just draws randomly from a heavy-tailed distribution of steps. An organism engaged in Area Restricted Search, by contrast, will transition from exploring to exploiting when it encounters a new resource, and it may then persist in exploiting that region based on the memory of that resource encounter. Area-Restricted Search and Lévy flights are thus distinguished by whether or not the organism adjusts its foraging behavior before and after a resource encounter. As a consequence, when an organism uses Area Restricted Search to forage in a patchy landscape, large exploratory steps should cluster together temporally within periods of sustained exploration; in a Lévy flight, by contrast, the temporal distribution of large steps is random.</p><p>Using a corpus of audio recordings of professional musicians engaged in collective improvisation -a model system for the fine-grained study of in vivo collective innovation -we investigated the foraging strategies adopted collectively as the ensembles engaged in free improvisation (Fig. <ref type="figure" target="#fig_0">1</ref>, <ref type="figure">A</ref>, <ref type="figure">D</ref>). We converted each track (N = 75, ranging from 1 min. to over 40 min.) into a trajectory through a space of sonic possibility by embedding consecutive moments in a high-dimensional "sonic space" (Fig. <ref type="figure" target="#fig_0">1B</ref>, <ref type="figure">E</ref>). We quantified the dynamics of these trajectories by analyzing the moment-to-moment movements through this sonic space (Fig. <ref type="figure" target="#fig_0">1C</ref>, <ref type="figure">F</ref>). We then asked whether the dynamics of collective improvisation instantiate classic foraging strategies from behavioral ecology.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Sonic foraging exploits local patches of sound</head><p>We first characterized the overall dynamics of musicians' sonic foraging. We calculated the pairwise distance between sounds produced throughout each track, using Euclidean distance between sonic embeddings (see Methods). In more structured genres of music, including socalled "straight-ahead" jazz in which improvised solos are interleaved with composed sections, songs will often return repeatedly to the same region of sonic space (e.g., the refrain or chorus in a pop song). In free improvised music, on the other hand, the sound may wander without returning. (In Figure <ref type="figure" target="#fig_0">S1</ref>, we visualize this difference between a more structured jazz standard and a free jazz performance.) As a result, freely improvised music should gradually diverge from past sounds. As expected, in the corpus, sounds that were performed around the same time in a track were highly similar, and mean sonic distance increased monotonically for sounds that were produced at increasingly distant moments (Fig. <ref type="figure" target="#fig_1">2A</ref>). On the long timescale of the entire track, therefore, musicians explored widely in the the sonic space.</p><p>On the short timescale of moment-to-moment playing, however, the ensembles engaged primarily in exploitation of local regions of sonic space, as revealed by the size and direction of moment-to-moment sonic change. Musicians primarily made smaller adjustments to their sound, but infrequently made unusually large changes, generating a heavy-tailed distribution of sonic movements (i.e., sonic distannces between consecutive moments; Fig. <ref type="figure" target="#fig_1">2B</ref>). This is consistent with both Area Restricted Search and Lévy flight foraging strategies. In the Supporting Information, we show that these sonic movements are well characterized by a log-normal distribution, which is typically generated by multiplicative processes <ref type="bibr" target="#b43">[44]</ref>, suggesting (unsurprisingly) that musical improvisation reflects complex interactions among the musicians rather than independent, additive contributions. (For context, in the Supporting Information we also plot the distribution of sonic movements for a structured jazz standard; movements in this track are (A) Temporal decay of sonic similarity. Within each track, sounds were more dissimilar (vertical axis) if they were produced further apart temporally (horizontal axis). Smaller grey dots show the mean sonic distance between all pairs of moments within a particular track that were produced at a given temporal lag. Large black dots show means across all tracks. Sonic distance was rescaled within each track to range from 0 (maximally similar sounds) to 1 (maximally dissimilar sounds). (B) Heavy-tailed distribution of sonic movements (i.e., sonic distance between consecutive moments). (C) Distribution of relative directions across all tracks. Relative direction was measured using cosine similarity and thus ranges from +1 (continuing in the same direction), to 0 (moving in an orthogonal direction), to -1 (reversing direction). Moment-tomoment movements more frequently involved reversing the direction of the previous movement (i.e., more negative relative direction). (D) Kernell density heatmap of moment-to-moment sonic movement (distance between consecutive moments) and relative direction. Most movements involved a smaller step that reversed the direction of the previous step, consistent with local exploitation of a limited region of sonic space. (Color indicates relative density: lighter yellow = higher density; darker purple = lower density) considerably smaller, with fewer larger steps.) Notably, the relative direction of sonic change, which characterizes whether sonic movements continued or reversed direction, was less skewed and primarily negative (M = -0.11, SD = 0.50; Fig. <ref type="figure" target="#fig_1">2C</ref>), indicating a tendency to turn back rather than continue in the same direction. This pattern of smaller sonic movements that tended to turn back on themselves is indicative of local exploitation, which is characteristic of both the 'exploit' phase of Area Restricted Search and the dominance of small steps in a Levy flight.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Large-scale sonic exploration occurred in bursts</head><p>While the musicians engaged primarily in local exploitation -small steps that turned back on themselves -the heavy-tailed distribution of sonic steps reveals that they occasionally engaged in larger steps that allowed them to explore new sonic possibilities. In a Lévy flight these big steps occur at random, while in Area Restricted Search they arrive in bursts while the collective is engaged in sustained exploration for a new patch of interesting sounds. To quantify the burstiness of large sonic steps, we identified sonic movements that were unusually large and calculated whether these clustered together in bursts of sonic exploration (see Methods). In line with Area Restricted Search, and unlike a Lévy flight, the temporal distribution of large sonic steps was significantly bursty (Burstiness: M = .15 ± .02 SE, t(73) = 6.9, p &lt; .001, Fig. <ref type="figure" target="#fig_2">3B</ref>).</p><p>Large sonic movements thus occurred in temporal clusters.</p><p>To determine the foraging strategy that could have generated this pattern, we implemented minimal models of Lévy flight and Explore-Exploit foraging. The latter captures the outcome of Area Restricted Search in a patchy landscape of sonic resources. To test whether these models could recover the observed temporal distribution of sonic movements for each track, we fit the models to the empirical distribution of sonic movements and then generated synthetic time series of sonic movements.</p><p>First, the Lévy flight model was a memory-less, uncorrelated random walk. At each time step, the musical ensemble takes a sonic step of length d, with d drawn from each track's empirical distribution of sonic movements (Fig. <ref type="figure" target="#fig_2">3A</ref>, top). Note that here we use the heavytailed empirical distributions of sonic movements rather than a true Lévy distribution, although our results are robust to the choice of distribution.</p><p>Second, the Explore-Exploit model traded off between exploration and exploitation (Fig. <ref type="figure" target="#fig_2">3A</ref>, top), the behavior generated by Area Restricted Search in a patchy landscape. Like the Lévy flight model, this minimal model generates sonic movements by drawing randomly from distributions estimated from the tracks in the corpus. Unlike a memory-less Lévy flight, the musical ensemble can be in one of two latent states, and the distribution from which the sonic movement is drawn depends on the latent state: smaller movements while exploiting, larger movements while exploring. For simplicity, we ignore the resource encounters that drive changes in behavior in Area Restricted Search, and instead allow the minimal model's latent state to switch stochastically. We implemented this process as a two-state Hidden Markov Model, fit to the empirical time series of each track's sonic movements. Since Hidden Markov Models estimate the distribution of observations associated with each latent state, they can capture processes Left panels illustrate hypothetical trajectories through sonic space. Explore-Exploit alternates between exploitation (black) and exploration (red). Right panels illustrate hypothetical time series of sonic movements (i.e., sonic distance between consecutive moments) derived from these trajectories, with movements considered 'large' if they passed a threshold (dashed line). Raster plots atop each time series show the timing of large movements: random in the Lévy flight and in clustered bursts in the Explore-Exploit process. (B) Empirical distribution of burstiness of large sonic movements. Large movements typically occurred in clustered bursts (i.e., burstiness &gt; 0), consistent with an Explore-Exploit process. (C) Time series of sonic movements from one representative free jazz performance (bottom) and minimal models fit to that recording: Explore-Exploit (middle) and Lévy flight (top). Raster plots atop each time series show the timing of large movements. (D) Burstiness of recordings in the free jazz corpus (x-axis) compared to the burstiness generated by minimal models of those recordings (y-axis): Explore-Exploit (red) and Lévy flight (blue). Lines show linear regressions between empirical burstiness and model burstiness. Only the Explore-Exploit model recovered the burstiness of the empirical recordings.</p><p>where one latent state is associated with larger steps and the other with smaller steps, although this is estimated from the empirical time series for each track. Moreover, since Hidden Markov Models estimate the transition probabilities between latent states, they can capture persistent latent dynamics (i.e., the tendency to persist in exploit or explore modes), although once again this is estimated from the empirical time series. This model thus incrementally extends the Lévy flight model by allowing the musical ensemble to toggle between two latent regimes of sonic improvisation.</p><p>We used these minimal models to simulate time series of sonic movements. For each track, we used each of the two models to generate 100 simulated time series, with duration equal to the track's actual duration (Fig. <ref type="figure" target="#fig_2">3C</ref>). Then, for each track, we calculated the mean burstiness of these simulated time series. As predicted, large sonic movements generated by the Lévy flight model were reliably anti-bursty (burstiness: M = -.07 ± .00 SE, t(74) = -19.03, p &lt; .01).</p><p>Instead the temporal distribution of large steps ranged from random to periodic (Fig. <ref type="figure" target="#fig_2">3D</ref> Ensembles explore before and exploit after encountering a new soundworld Finally, we examined whether musicians changed their foraging behavior before and after encountering a novel patch of sonic space or 'soundworld,' as predicted by Area Restricted Search but not Lévy flight foraging. We identified acoustic transitions between soundworlds as peaks in Foote novelty, a measure of change between stable periods of a time series (see Methods).</p><p>These are moments when the musical ensemble changed its playing suddenly, going from one stable soundworld to a novel one. In the period immediately before transitioning to a new soundworld (i.e., the 10 second period before), musicians' sonic foraging was systematically more exploratory than moments awy from a transition (Fig. <ref type="figure" target="#fig_4">4A</ref>), with moment-to-moment sonic movements that were larger (M = 53.5 ± 2.4 SEM; Fig. <ref type="figure" target="#fig_4">4A</ref>) and changes in direction that were more orthogonal (i.e., closer to 0; M = -0.10±0.03 SEM; Fig. <ref type="figure" target="#fig_4">4B</ref>). A shift toward exploratory foraging can thus serve as an early warning signal of an impending sonic transition. By contrast, in the period immediately after encountering a new soundworld (i.e., the 10 second period after), musicians' sonic foraging rapidly shifted from exploration to exploitation, with a sudden decrease in the size of sonic movements (M = 47.4 ± 2.3 SEM) and relative directions that turned back on themselves (M = -0.19 ± 0.03 SEM). This pattern was confirmed by multilevel Bayesian models of sonic movements and relative directions, with random effects by track to account for between-track variation. These models confirmed that, compared to moments away from a transition, sonic foraging immediately before a transition involved significantly larger sonic movements (β = 6.8, 95% Bayesian Credible Interval = [1.2, 12.3]) and significantly more orthogonal turns (β = 0.10, 95% CI = [0.03, 0.17]). By contrast, sonic foraging immediately after a transition did not differ from baseline sonic exploitation (sonic movements: β = -0.4, 95% CI = [-5.4, 4.5]; relative directions: β = 0.00, 95% CI = [-0.07, 0.07]). Thus, transitions to a novel soundworld were prefigured by sonic exploration, while encounters with novel soundworlds were associated with a shift back to exploitation (Fig. <ref type="figure" target="#fig_4">4C</ref>), as predicted by Area Restricted Search, but inconsistent with a memory-less Lévy flight process.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Discussion</head><p>By analyzing the moment-to-moment creative decisions of free jazz musicians, we have shown that their collective improvisation reflects a process of collective foraging through sonic space.</p><p>Their sonic movements were heavy-tailed, with many small sonic movements and few large ones. Large sonic movements tended to cluster together in time, a bursty pattern that is consistent with the regime switching of Area Restricted Search but not the random draws of a Lévy flight. To further distinguish between these two foraging strategies, we examined the musicians' behavior before and after they encountered a novel 'patch' of the sonic space. Ten seconds before transitioning to a new patch, the musicians' playing became more exploratory, with larger sonic movements in more orthogonal directions. After arriving in the new sonic region, their playing reverted to more exploitative foraging, with smaller sonic movements and more reversals. This responsiveness to new sonic encounters is consistent with Area Restricted</p><p>Search but not a memory-less Lévy flight. Thus, despite the cognitive sophistication and cultural richness of musical improvisation, we find that musical ensembles spontaneously adopted a search strategy, Area Restricted Search, with deep evolutionary roots, previously identified in animals foraging for food <ref type="bibr" target="#b37">[38,</ref><ref type="bibr" target="#b38">39,</ref><ref type="bibr" target="#b39">40,</ref><ref type="bibr" target="#b40">41,</ref><ref type="bibr" target="#b41">42,</ref><ref type="bibr" target="#b42">43]</ref>. This suggests that collective improvisation -a model system for studying collective innovation -involves the kind of distributed sensing and collective memory that is required for Area Restricted Search.</p><p>The collective sonic dynamics analyzed here complement accounts of the individual-level cognitive and physical processes involved in musical improvisation. One model of the cognitive processes underlying individual musical creativity, for instance, posits that musicians improvise in clusters of events that are either associated or interrupted <ref type="bibr" target="#b44">[45]</ref>. Associated clusters seek continuity, consistent with the periods of collective sonic exploitation described here. Interrupted clusters differ from the preceding sound, consistent with bursts collective sonic exploration.</p><p>Here we've shown quantitatively that the fine-grained dynamics of collective improvisation follow a similar pattern of stasis and transformation, association and interruption, exploitation and exploration. Other approaches have focused on the microdynamics of musician-musician interaction. Musicians are known to couple both their high-level playing (e.g., harmony, <ref type="bibr" target="#b12">[13,</ref><ref type="bibr" target="#b13">14]</ref>)</p><p>and their low-level physical movements (e.g., swaying to and fro; <ref type="bibr" target="#b45">[46,</ref><ref type="bibr" target="#b46">47]</ref>). Dyadic coupling : Sonic foraging was more exploratory before sonic transitions. (A) Time series of sonic movements in the period around major sonic transitions. In the 10 seconds before a transition (green), sonic movements became systematically larger than average (solid horizontal line), consistent with exploration. Sonic movements dipped rapidly in the 10 seconds following a transition (orange), consistent with a return to exploitation. (thick black line = mean; grey ribbon = standard error) (B) Time series of relative direction in the period around major sonic transitions. In the 10 seconds before a transition, relative direction approached 0, indicating that consecutive movements were in orthogonal directions, consistent with exploration. In the 10 seconds following a transition, relative direction become more negative, indicating consecutive movements that reversed direction, consistent with a return to exploitation. (thick black line = mean; grey ribbon = standard error) (C) Phase plot of relative direction and sonic movement before and after major sonic transitions. Arrows illustrate the transition from baseline foraging (all moments away from a major transition; black dot) to foraging in the 10 seconds before a major transition (green dot), to foraging in the 10 seconds after a major transition (orange dot). Before a transition, sonic foraging became more exploratory, with larger sonic movements in more orthogonal directions. Immediately after the transition, sonic foraging returned to a baseline of exploitation, with smaller sonic movements that turned back on themselves to stay in the same patch of sonic space. (points = means; error bars = standard errors.)</p><p>among musicians is one simple, local mechanism that could give rise to the sophisticated collective coordination analyzed here, similar to the collective synchronization that can emerge in coupled non-linear oscillators <ref type="bibr" target="#b47">[48,</ref><ref type="bibr" target="#b48">49]</ref>.</p><p>Analyses similar to the ones performed here may shed light on other forms of collective search through acoustic, semantic, or physical space. Collectively improvised dance, for instance, could be analyzed as a search through "movement space" using motion tracking hardware <ref type="bibr" target="#b49">[50]</ref> or pose estimation models from computer vision <ref type="bibr" target="#b50">[51]</ref>, while collective conversation could be analyzed as a search through semantic space <ref type="bibr" target="#b51">[52]</ref>. We suspect that an unscripted freewheeling conversation, for example, may resemble an Area Restricted Search for juicy topics in semantic space. And while we have focused on the short-timescale dynamics of improvisation within a single musical track, this rapid process of mutual adaptation and coordination is nested within much slower processes of lifelong learning and rehearsal <ref type="bibr" target="#b52">[53]</ref>. Since the short-timescale dynamics of engagement and struggle can give rise to qualitatively different long-timescale dynamics of learning <ref type="bibr" target="#b52">[53]</ref>, it remains unclear how the short-timescale foraging dynamics analyzed here might develop and change over the course of a sustained creative collaboration or an entire musical career.</p><p>In seeking to understand collective innovation, Area Restricted Search can serve as metaphor, model, or mechanism. As a metaphor, Area Restricted Search can offer a framework -strategic (non-random) foraging -for thinking qualitatively about the patterns of behavior exhibited by innovative groups. As a model, Area Restricted Search can offer formal tools to quantify those patterns. And as a mechanism, Area Restricted Search can designate an evolutionarily conserved capacity, exapted to navigate figurative rather than literal spaces. We think Area Restricted Search is undeniably a fruitful metaphor. And the current results add to a larger movement to use Area Restricted Search as a model for analyzing a range of foraging-like cognitive phenomena in individuals <ref type="bibr" target="#b53">[54,</ref><ref type="bibr" target="#b15">16,</ref><ref type="bibr" target="#b16">17,</ref><ref type="bibr" target="#b17">18,</ref><ref type="bibr" target="#b54">55,</ref><ref type="bibr" target="#b18">19]</ref>. Finally, in terms of mechanism, the spontaneous emergence of Area Restricted Search in improvising musicians suggests a deep evolutionary origin of the human capacity for collective innovation. For instance, varied foraging processes -from searching for food to collective improvisation -may rely on conserved, evolutionarily-ancient mechanisms for goal-directed behavior <ref type="bibr" target="#b55">[56]</ref>. But we hesitate to conclude that Area Restricted Search as a foraging strategy is innately specified. In addition to evolutionarily-conserved neural mechanisms, the repeated emergence of Area Restricted Search may reflect a recurring solution to a common problem -namely, searching for exhaustible resources in patchy environments. More speculatively, the ubiquity of Area Restricted Search may reflect a kind of universality <ref type="bibr" target="#b56">[57]</ref>, wherein systems that differ in their microscale details exhibit the same qualitative behavior at a more coarse-grained scale. Strategic tradeoffs between local, intensive exploitation and global, extensive exploration may emerge in a wide range of systems that differ radically in size, timescale, and content.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>FFigure 1 :</head><label>1</label><figDesc>Figure 1: Quantifying the sonic trajectories of improvised musical performances. (A-C) Graphical illustration of the analysis pipeline. Single-track audio recordings of improvised free jazz, illustrated in (A), were transformed into trajectories through a 'sonic space,' illustrated in (B), that captured timbral features using Mel Frequency Cepstral Coefficients (MFCC). The trajectory for each recording consisted of consecutive sonic embeddings, m(t), of brief, nonoverlapping "moments" of duration τ . To quantify the moment-to-moment dynamics of these trajectories, we calculated the sonic movement at time t as the Euclidean distance between consecutive sonic embeddings, δ(t) = d(m(t -τ ), m(t)). This generated a time series of moment-to-moment sonic movements, illustrated in (C). (D) Empirical distribution of track durations in the corpus of free jazz recordings. (E) Trajectory through sonic space of one illustrative track. For visualization, the trajectory's 20 dimensions were reduced to 2 using t-SNE, a dimension-reduction technique<ref type="bibr" target="#b7">[8]</ref>. Color indicates time within the recording, from start (red) to end (blue). (F) Time series of moment-to-moment sonic movements for the track in (E).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Figure 2 :</head><label>2</label><figDesc>Figure 2: Free improvised music consisted primarily of local exploitation of the sonic space.(A) Temporal decay of sonic similarity. Within each track, sounds were more dissimilar (vertical axis) if they were produced further apart temporally (horizontal axis). Smaller grey dots show the mean sonic distance between all pairs of moments within a particular track that were produced at a given temporal lag. Large black dots show means across all tracks. Sonic distance was rescaled within each track to range from 0 (maximally similar sounds) to 1 (maximally dissimilar sounds). (B) Heavy-tailed distribution of sonic movements (i.e., sonic distance between consecutive moments). (C) Distribution of relative directions across all tracks. Relative direction was measured using cosine similarity and thus ranges from +1 (continuing in the same direction), to 0 (moving in an orthogonal direction), to -1 (reversing direction). Moment-tomoment movements more frequently involved reversing the direction of the previous movement (i.e., more negative relative direction). (D) Kernell density heatmap of moment-to-moment sonic movement (distance between consecutive moments) and relative direction. Most movements involved a smaller step that reversed the direction of the previous step, consistent with local exploitation of a limited region of sonic space. (Color indicates relative density: lighter yellow = higher density; darker purple = lower density)</figDesc><graphic coords="6,330.50,274.91,196.35,137.75" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: The burstiness of free improvisation was consistent with Explore-Exploit foraging, a pattern generated by Area Restricted Search in patchy environments. (A) Graphical illustration of minimal models of foraging: Lévy flight (top) and Explore-Exploit (bottom).Left panels illustrate hypothetical trajectories through sonic space. Explore-Exploit alternates between exploitation (black) and exploration (red). Right panels illustrate hypothetical time series of sonic movements (i.e., sonic distance between consecutive moments) derived from these trajectories, with movements considered 'large' if they passed a threshold (dashed line). Raster plots atop each time series show the timing of large movements: random in the Lévy flight and in clustered bursts in the Explore-Exploit process. (B) Empirical distribution of burstiness of large sonic movements. Large movements typically occurred in clustered bursts (i.e., burstiness &gt; 0), consistent with an Explore-Exploit process. (C) Time series of sonic movements from one representative free jazz performance (bottom) and minimal models fit to that recording: Explore-Exploit (middle) and Lévy flight (top). Raster plots atop each time series show the timing of large movements. (D) Burstiness of recordings in the free jazz corpus (x-axis) compared to the burstiness generated by minimal models of those recordings (y-axis): Explore-Exploit (red) and Lévy flight (blue). Lines show linear regressions between empirical burstiness and model burstiness. Only the Explore-Exploit model recovered the burstiness of the empirical recordings.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><figDesc>, blue dots). Conversely, the large sonic movements generated by the Explore-Exploit model clustered together in time and were thus consistently bursty (M = .05 ± .01 SE, t(74) = 3.47, p &lt; .01).The improvised tracks' true empirical values of burstiness were strongly associated with the burstiness values generated by the Explore-Exploit model (linear regression predicting empirical burstiness: b = 1.30 ± 0.17, p &lt; .001; Fig.3D, red dots and line) but not the burstiness values generated by the Lèvy flight model (b = -0.03 ± 0.66, p = .96; Fig.3D, blue dots and line). Thus, the temporal clustering of large sonic movements in collectively improvised music is explained by a minimal model of Explore-Exploit foraging, but not by a model of Lévy flight foraging.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 4</head><label>4</label><figDesc>Figure4: Sonic foraging was more exploratory before sonic transitions. (A) Time series of sonic movements in the period around major sonic transitions. In the 10 seconds before a transition (green), sonic movements became systematically larger than average (solid horizontal line), consistent with exploration. Sonic movements dipped rapidly in the 10 seconds following a transition (orange), consistent with a return to exploitation. (thick black line = mean; grey ribbon = standard error) (B) Time series of relative direction in the period around major sonic transitions. In the 10 seconds before a transition, relative direction approached 0, indicating that consecutive movements were in orthogonal directions, consistent with exploration. In the 10 seconds following a transition, relative direction become more negative, indicating consecutive movements that reversed direction, consistent with a return to exploitation. (thick black line = mean; grey ribbon = standard error) (C) Phase plot of relative direction and sonic movement before and after major sonic transitions. Arrows illustrate the transition from baseline foraging (all moments away from a major transition; black dot) to foraging in the 10 seconds before a major transition (green dot), to foraging in the 10 seconds after a major transition (orange dot). Before a transition, sonic foraging became more exploratory, with larger sonic movements in more orthogonal directions. Immediately after the transition, sonic foraging returned to a baseline of exploitation, with smaller sonic movements that turned back on themselves to stay in the same patch of sonic space. (points = means; error bars = standard errors.)</figDesc></figure>
+		</body>
+		<back>
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Open data and analyses</head><p>Data and analysis scripts required to reproduce all results are available through the Open Science Framework: <ref type="url" target="https://osf.io/6krg8/?view">https://osf.io/6krg8/?view</ref> o nly = 14701b4bf 32647d6ab354397c25588a9</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Human culture is uniquely open-ended rather than uniquely cumulative</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">H</forename><surname>Thomas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marcus</forename><forename type="middle">W</forename><surname>Morgan</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Feldman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature Human Behaviour</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="28" to="42" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Thomas JH Morgan and Marcus W Feldman. Human culture is uniquely open-ended rather than uniquely cumulative. Nature Human Behaviour, 9(1):28-42, 2025.</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Human cumulative culture and the exploitation of natural phenomena</title>
+		<author>
+			<persName><forename type="first">Maxime</forename><surname>Derex</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Philosophical Transactions of the Royal Society B</title>
+		<imprint>
+			<biblScope unit="volume">377</biblScope>
+			<biblScope unit="issue">1843</biblScope>
+			<biblScope unit="page">20200311</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Maxime Derex. Human cumulative culture and the exploitation of natural phenomena. Philosophical Transactions of the Royal Society B, 377(1843):20200311, 2022.</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">The increasing dominance of teams in production of knowledge</title>
+		<author>
+			<persName><forename type="first">Stefan</forename><surname>Wuchty</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Benjamin</forename><forename type="middle">F</forename><surname>Jones</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Brian</forename><surname>Uzzi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">316</biblScope>
+			<biblScope unit="issue">5827</biblScope>
+			<biblScope unit="page" from="1036" to="1039" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Stefan Wuchty, Benjamin F Jones, and Brian Uzzi. The increasing dominance of teams in production of knowledge. Science, 316(5827):1036-1039, 2007.</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Distributed cognition</title>
+		<author>
+			<persName><forename type="first">Edwin</forename><surname>Hutchins</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International encyclopedia of the social and behavioral sciences</title>
+		<imprint>
+			<biblScope unit="volume">138</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="10" />
+			<date type="published" when="2000">2000</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Edwin Hutchins. Distributed cognition. International encyclopedia of the social and behavioral sciences, 138(1):1-10, 2000.</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title/>
+		<author>
+			<persName><forename type="first">Santo</forename><surname>Fortunato</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Carl</forename><forename type="middle">T</forename><surname>Bergstrom</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Katy</forename><surname>Börner</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">James</forename><forename type="middle">A</forename><surname>Evans</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dirk</forename><surname>Helbing</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Staša</forename><surname>Milojević</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Filippo</forename><surname>Alexander M Petersen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Roberta</forename><surname>Radicchi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Brian</forename><surname>Sinatra</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Uzzi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Science of science</title>
+		<imprint>
+			<biblScope unit="volume">359</biblScope>
+			<biblScope unit="issue">6379</biblScope>
+			<biblScope unit="page">185</biblScope>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note>Science</note>
+	<note type="raw_reference">Santo Fortunato, Carl T Bergstrom, Katy Börner, James A Evans, Dirk Helbing, Staša Milojević, Alexander M Petersen, Filippo Radicchi, Roberta Sinatra, Brian Uzzi, et al. Science of science. Science, 359(6379):eaao0185, 2018.</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">The emerging science of interacting minds</title>
+		<author>
+			<persName><forename type="first">Thalia</forename><surname>Wheatley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mark</forename><forename type="middle">A</forename><surname>Thornton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Arjen</forename><surname>Stolk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Luke</forename><forename type="middle">J</forename><surname>Chang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Perspectives on Psychological Science</title>
+		<imprint>
+			<biblScope unit="page">17456916231200177</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Thalia Wheatley, Mark A Thornton, Arjen Stolk, and Luke J Chang. The emerging science of interacting minds. Perspectives on Psychological Science, page 17456916231200177, 2023.</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Mathematics has a front and a back</title>
+		<author>
+			<persName><forename type="first">Reuben</forename><surname>Hersh</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Synthese</title>
+		<imprint>
+			<biblScope unit="volume">88</biblScope>
+			<biblScope unit="page" from="127" to="133" />
+			<date type="published" when="1991">1991</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Reuben Hersh. Mathematics has a front and a back. Synthese, 88:127-133, 1991.</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Visualizing data using t-sne</title>
+		<author>
+			<persName><forename type="first">Laurens</forename><surname>Van Der Maaten</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Geoffrey</forename><surname>Hinton</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of machine learning research</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Laurens Van der Maaten and Geoffrey Hinton. Visualizing data using t-sne. Journal of machine learning research, 9(11), 2008.</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Improvising mind and cognition</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Berkowitz</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cognitive Science</title>
+		<imprint>
+			<biblScope unit="volume">42</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="234" to="245" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">S. Berkowitz. Improvising mind and cognition. Journal of Cognitive Science, 42(3): 234-245, 2010.</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">Sync or swarm. Sync or Swarm</title>
+		<author>
+			<persName><forename type="first">David</forename><surname>Borgo</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<biblScope unit="page" from="1" to="314" />
+		</imprint>
+	</monogr>
+	<note type="raw_reference">David Borgo. Sync or swarm. Sync or Swarm, pages 1-314, 2022.</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">What About Their Performance Do Free Jazz Improvisers Agree Upon? A Case Study</title>
+		<author>
+			<persName><forename type="first">Amandine</forename><surname>Pras</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">F</forename><surname>Schober</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Neta</forename><surname>Spiro</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/fpsyg.2017.00966</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Psychology</title>
+		<idno type="ISSN">1664-1078</idno>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page">966</biblScope>
+			<date type="published" when="2017-06">June 2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Amandine Pras, Michael F. Schober, and Neta Spiro. What About Their Performance Do Free Jazz Improvisers Agree Upon? A Case Study. Frontiers in Psychology, 8:966, June 2017. ISSN 1664-1078. doi: 10.3389/fpsyg.2017.00966.</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Individual Decisions and Perceived Form in Collective Free Improvisation</title>
+		<author>
+			<persName><forename type="first">Clément</forename><surname>Canonne</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nicolas</forename><surname>Garnier</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/09298215.2015.1061564</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of New Music Research</title>
+		<idno type="ISSN">0929-8215, 1744-5027</idno>
+		<imprint>
+			<biblScope unit="volume">44</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="145" to="167" />
+			<date type="published" when="2015-04">April 2015</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Clément Canonne and Nicolas Garnier. Individual Decisions and Perceived Form in Col- lective Free Improvisation. Journal of New Music Research, 44(2):145-167, April 2015. ISSN 0929-8215, 1744-5027. doi: 10.1080/09298215.2015.1061564.</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Coordination and consonance between interacting, improvising musicians</title>
+		<author>
+			<persName><forename type="first">Matthew</forename><surname>Setzler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert</forename><surname>Goldstone</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Open Mind</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="page" from="88" to="101" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Matthew Setzler and Robert Goldstone. Coordination and consonance between interact- ing, improvising musicians. Open Mind, 4:88-101, 2020.</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Tonal emergence: an agent-based model of tonal coordination</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Matthew</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robert L Goldstone</forename><surname>Setzler</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Cognition</title>
+		<imprint>
+			<biblScope unit="volume">221</biblScope>
+			<biblScope unit="page">104968</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Matthew D Setzler and Robert L Goldstone. Tonal emergence: an agent-based model of tonal coordination. Cognition, 221:104968, 2022.</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Foraging in mind</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Peter</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><forename type="middle">T</forename><surname>Todd</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Hills</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Current Directions in Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="309" to="315" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Peter M Todd and Thomas T Hills. Foraging in mind. Current Directions in Psychological Science, 29(3):309-315, 2020.</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Creative foraging: An experimental paradigm for studying exploration and discovery</title>
+		<author>
+			<persName><forename type="first">Yuval</forename><surname>Hart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Avraham</forename><forename type="middle">E</forename><surname>Mayo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ruth</forename><surname>Mayo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Liron</forename><surname>Rozenkrantz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Avichai</forename><surname>Tendler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Uri</forename><surname>Alon</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lior</forename><surname>Noy</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">PloS one</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page">182133</biblScope>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yuval Hart, Avraham E Mayo, Ruth Mayo, Liron Rozenkrantz, Avichai Tendler, Uri Alon, and Lior Noy. Creative foraging: An experimental paradigm for studying exploration and discovery. PloS one, 12(8):e0182133, 2017.</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Creative exploration as a scale-invariant search on a meaning landscape</title>
+		<author>
+			<persName><forename type="first">Yuval</forename><surname>Hart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Hagar</forename><surname>Goldberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ella</forename><surname>Striem-Amit</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Avraham</forename><forename type="middle">E</forename><surname>Mayo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lior</forename><surname>Noy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Uri</forename><surname>Alon</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature communications</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">5411</biblScope>
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yuval Hart, Hagar Goldberg, Ella Striem-Amit, Avraham E Mayo, Lior Noy, and Uri Alon. Creative exploration as a scale-invariant search on a meaning landscape. Nature communications, 9(1):5411, 2018.</note>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">The development of creative search strategies</title>
+		<author>
+			<persName><forename type="first">Yuval</forename><surname>Hart</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Eliza</forename><surname>Kosoy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Emily</forename><forename type="middle">G</forename><surname>Liquin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Julia</forename><forename type="middle">A</forename><surname>Leonard</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Allyson</forename><forename type="middle">P</forename><surname>Mackey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Alison</forename><surname>Gopnik</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Cognition</title>
+		<imprint>
+			<biblScope unit="volume">225</biblScope>
+			<biblScope unit="page">105102</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yuval Hart, Eliza Kosoy, Emily G Liquin, Julia A Leonard, Allyson P Mackey, and Alison Gopnik. The development of creative search strategies. Cognition, 225:105102, 2022.</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Divergent and convergent creativity are different kinds of foraging</title>
+		<author>
+			<persName><forename type="first">Soran</forename><surname>Malaie</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">J</forename><surname>Spivey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tyler</forename><surname>Marghetis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Science</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page" from="749" to="759" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Soran Malaie, Michael J Spivey, and Tyler Marghetis. Divergent and convergent creativity are different kinds of foraging. Psychological Science, 35(7):749-759, 2024.</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Optimal foraging strategies: Lévy walks balance searching and patch exploitation under a very broad range of conditions</title>
+		<author>
+			<persName><forename type="first">Nicolas</forename><forename type="middle">E</forename><surname>Humphries</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">David</forename><forename type="middle">W</forename><surname>Sims</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of theoretical biology</title>
+		<imprint>
+			<biblScope unit="volume">358</biblScope>
+			<biblScope unit="page" from="179" to="193" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Nicolas E Humphries and David W Sims. Optimal foraging strategies: Lévy walks bal- ance searching and patch exploitation under a very broad range of conditions. Journal of theoretical biology, 358:179-193, 2014.</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<monogr>
+		<title level="m" type="main">The Fractal Geometry of Nature</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Benoit</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Mandelbrot</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1983">1983</date>
+			<publisher>Macmillan</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Benoit B Mandelbrot. The Fractal Geometry of Nature. Macmillan, 1983.</note>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Lévy flight search patterns of wandering albatrosses</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">M</forename><surname>Viswanathan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Afanasyev</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">V</forename><surname>Buldyrev</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Murphy</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">A</forename><surname>Prince</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">E</forename><surname>Stanley</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/381413a0</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<idno type="ISSN">0028-0836, 1476-4687</idno>
+		<imprint>
+			<biblScope unit="volume">381</biblScope>
+			<biblScope unit="issue">6581</biblScope>
+			<biblScope unit="page" from="413" to="415" />
+			<date type="published" when="1996-05">May 1996</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">G. M. Viswanathan, V. Afanasyev, S. V. Buldyrev, E. J. Murphy, P. A. Prince, and H. E. Stanley. Lévy flight search patterns of wandering albatrosses. Nature, 381(6581):413-415, May 1996. ISSN 0028-0836, 1476-4687. doi: 10.1038/381413a0.</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Environmental context explains lévy and brownian movement patterns of marine predators</title>
+		<author>
+			<persName><forename type="first">Nicolas</forename><forename type="middle">E</forename><surname>Humphries</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nuno</forename><surname>Queiroz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jennifer</forename><forename type="middle">Rm</forename><surname>Dyer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nicolas</forename><forename type="middle">G</forename><surname>Pade</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Kurt</forename><forename type="middle">M</forename><surname>Michael K Musyl</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Daniel</forename><forename type="middle">W</forename><surname>Schaefer</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Fuller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Juerg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><forename type="middle">K</forename><surname>Brunnschweiler</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jonathan</forename><forename type="middle">Dr</forename><surname>Doyle</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Houghton</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">465</biblScope>
+			<biblScope unit="issue">7301</biblScope>
+			<biblScope unit="page" from="1066" to="1069" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Nicolas E Humphries, Nuno Queiroz, Jennifer RM Dyer, Nicolas G Pade, Michael K Musyl, Kurt M Schaefer, Daniel W Fuller, Juerg M Brunnschweiler, Thomas K Doyle, Jonathan DR Houghton, et al. Environmental context explains lévy and brownian move- ment patterns of marine predators. Nature, 465(7301):1066-1069, 2010.</note>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Lévy walks evolve through interaction between movement and environmental complexity</title>
+		<author>
+			<persName><forename type="first">Monique</forename><surname>De Jager</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Franz</forename><forename type="middle">J</forename><surname>Weissing</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bart</forename><forename type="middle">A</forename><surname>Peter Mj Herman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Johan</forename><surname>Nolet</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Van De Koppel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">332</biblScope>
+			<biblScope unit="issue">6037</biblScope>
+			<biblScope unit="page" from="1551" to="1553" />
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Monique de Jager, Franz J Weissing, Peter MJ Herman, Bart A Nolet, and Johan van de Koppel. Lévy walks evolve through interaction between movement and environmental complexity. Science, 332(6037):1551-1553, 2011.</note>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Optimizing the success of random searches</title>
+		<author>
+			<persName><surname>Gandimohan M Viswanathan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Sergey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Shlomo</forename><surname>Buldyrev</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marcos</forename><forename type="middle">Ge</forename><surname>Havlin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ernesto</forename><forename type="middle">P</forename><surname>Da Luz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H Eugene</forename><surname>Raposo</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Stanley</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">nature</title>
+		<imprint>
+			<biblScope unit="volume">401</biblScope>
+			<biblScope unit="issue">6756</biblScope>
+			<biblScope unit="page" from="911" to="914" />
+			<date type="published" when="1999">1999</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Gandimohan M Viswanathan, Sergey V Buldyrev, Shlomo Havlin, Marcos GE da Luz, Ernesto P Raposo, and H Eugene Stanley. Optimizing the success of random searches. nature, 401(6756):911-914, 1999.</note>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">The scaling laws of human travel</title>
+		<author>
+			<persName><forename type="first">Dirk</forename><surname>Brockmann</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Lars</forename><surname>Hufnagel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Theo</forename><surname>Geisel</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">439</biblScope>
+			<biblScope unit="issue">7075</biblScope>
+			<biblScope unit="page" from="462" to="465" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Dirk Brockmann, Lars Hufnagel, and Theo Geisel. The scaling laws of human travel. Nature, 439(7075):462-465, 2006.</note>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Lévy flights in dobe ju/&apos;hoansi foraging patterns</title>
+		<author>
+			<persName><forename type="first">Larry</forename><forename type="middle">S</forename><surname>Clifford T Brown</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Rachel</forename><surname>Liebovitch</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Glendon</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Human Ecology</title>
+		<imprint>
+			<biblScope unit="volume">35</biblScope>
+			<biblScope unit="page" from="129" to="138" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Clifford T Brown, Larry S Liebovitch, and Rachel Glendon. Lévy flights in dobe ju/&apos;hoansi foraging patterns. Human Ecology, 35:129-138, 2007.</note>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Efficient lévy walks in virtual human foraging</title>
+		<author>
+			<persName><forename type="first">Ketika</forename><surname>Garg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christopher</forename><forename type="middle">T</forename><surname>Kello</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Scientific reports</title>
+		<imprint>
+			<biblScope unit="volume">11</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">5242</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ketika Garg and Christopher T Kello. Efficient lévy walks in virtual human foraging. Scientific reports, 11(1):5242, 2021.</note>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">Football as foraging? movements by individual players and whole teams exhibit levy walk dynamics</title>
+		<author>
+			<persName><forename type="first">Ivan</forename><surname>Shpurov</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tom</forename><surname>Froese</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Takashi</forename><surname>Ikegami</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Complexity</title>
+		<imprint>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">3196780</biblScope>
+			<date type="published" when="2024">2024. 2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ivan Shpurov, Tom Froese, and Takashi Ikegami. Football as foraging? movements by individual players and whole teams exhibit levy walk dynamics. Complexity, 2024(1): 3196780, 2024.</note>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Revisiting lévy flight search patterns of wandering albatrosses, bumblebees and deer</title>
+		<author>
+			<persName><forename type="first">Richard</forename><forename type="middle">A</forename><surname>Andrew M Edwards</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nicholas</forename><forename type="middle">W</forename><surname>Phillips</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mervyn P</forename><surname>Watkins</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Eugene</forename><forename type="middle">J</forename><surname>Freeman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Vsevolod</forename><surname>Murphy</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Afanasyev</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Sergey</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marcos</forename><forename type="middle">Ge</forename><surname>Buldyrev</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ernesto</forename><forename type="middle">P</forename><surname>Da Luz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H Eugene</forename><surname>Raposo</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Stanley</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature</title>
+		<imprint>
+			<biblScope unit="volume">449</biblScope>
+			<biblScope unit="issue">7165</biblScope>
+			<biblScope unit="page" from="1044" to="1048" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Andrew M Edwards, Richard A Phillips, Nicholas W Watkins, Mervyn P Freeman, Eu- gene J Murphy, Vsevolod Afanasyev, Sergey V Buldyrev, Marcos GE da Luz, Ernesto P Raposo, H Eugene Stanley, et al. Revisiting lévy flight search patterns of wandering alba- trosses, bumblebees and deer. Nature, 449(7165):1044-1048, 2007.</note>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Understanding individual human mobility patterns</title>
+		<author>
+			<persName><forename type="first">Marta</forename><forename type="middle">C</forename><surname>Gonzalez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cesar</forename><forename type="middle">A</forename><surname>Hidalgo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Albert-Laszlo</forename><surname>Barabasi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">nature</title>
+		<imprint>
+			<biblScope unit="volume">453</biblScope>
+			<biblScope unit="issue">7196</biblScope>
+			<biblScope unit="page" from="779" to="782" />
+			<date type="published" when="2008">2008</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Marta C Gonzalez, Cesar A Hidalgo, and Albert-Laszlo Barabasi. Understanding individ- ual human mobility patterns. nature, 453(7196):779-782, 2008.</note>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Neural computations that underlie decisions about sensory stimuli</title>
+		<author>
+			<persName><forename type="first">I</forename><surname>Joshua</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Gold</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Michael N Shadlen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Trends in cognitive sciences</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="10" to="16" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Joshua I Gold and Michael N Shadlen. Neural computations that underlie decisions about sensory stimuli. Trends in cognitive sciences, 5(1):10-16, 2001.</note>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Diffusion decision model: Current issues and history</title>
+		<author>
+			<persName><forename type="first">Roger</forename><surname>Ratcliff</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Philip</forename><forename type="middle">L</forename><surname>Smith</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Scott</forename><forename type="middle">D</forename><surname>Brown</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Gail</forename><surname>Mckoon</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Trends in cognitive sciences</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="260" to="281" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Roger Ratcliff, Philip L Smith, Scott D Brown, and Gail McKoon. Diffusion decision model: Current issues and history. Trends in cognitive sciences, 20(4):260-281, 2016.</note>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<monogr>
+		<title level="m" type="main">Random walks on semantic networks can resemble optimal foraging</title>
+		<author>
+			<persName><forename type="first">Joshua T</forename><surname>Abbott</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joseph</forename><forename type="middle">L</forename><surname>Austerweil</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><forename type="middle">L</forename><surname>Griffiths</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Joshua T Abbott, Joseph L Austerweil, and Thomas L Griffiths. Random walks on seman- tic networks can resemble optimal foraging. 2015.</note>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Examining search processes in low and high creative individuals with randomwalks</title>
+		<author>
+			<persName><forename type="first">Yoed</forename><surname>Kenett</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Joseph</forename><forename type="middle">L</forename><surname>Austerweil</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Annual Meeting of the Cognitive Science Society</title>
+		<meeting>the Annual Meeting of the Cognitive Science Society</meeting>
+		<imprint>
+			<date type="published" when="2016">2016</date>
+			<biblScope unit="volume">38</biblScope>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yoed Kenett and Joseph L Austerweil. Examining search processes in low and high cre- ative individuals with randomwalks. In Proceedings of the Annual Meeting of the Cogni- tive Science Society, volume 38, 2016.</note>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Hunters, busybodies and the knowledge network building associated with deprivation curiosity</title>
+		<author>
+			<persName><forename type="first">Dale</forename><surname>David M Lydon-Staley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ann</forename><forename type="middle">Sizemore</forename><surname>Zhou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Perry</forename><surname>Blevins</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Danielle</forename><forename type="middle">S</forename><surname>Zurn</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Bassett</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Nature human behaviour</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="327" to="336" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">David M Lydon-Staley, Dale Zhou, Ann Sizemore Blevins, Perry Zurn, and Danielle S Bassett. Hunters, busybodies and the knowledge network building associated with depri- vation curiosity. Nature human behaviour, 5(3):327-336, 2021.</note>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<monogr>
+		<author>
+			<persName><forename type="first">Sam</forename><surname>Zhang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Nicholas</forename><surname>Laberge</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Samuel F Way</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Aaron</forename><surname>Daniel B Larremore</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Clauset</surname></persName>
+		</author>
+		<idno type="arXiv">arXiv:2309.04414</idno>
+		<title level="m">Scientific productivity as a random walk</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+	<note type="raw_reference">Sam Zhang, Nicholas LaBerge, Samuel F Way, Daniel B Larremore, and Aaron Clauset. Scientific productivity as a random walk. arXiv preprint arXiv:2309.04414, 2023.</note>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">A guide to area-restricted search: A foundational foraging behaviour</title>
+		<author>
+			<persName><forename type="first">Arik</forename><surname>Dorfman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thomas</forename><forename type="middle">T</forename><surname>Hills</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Inon</forename><surname>Scharf</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/brv.12883</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Biological Reviews</title>
+		<idno type="ISSN">1464-7931, 1469-185X</idno>
+		<imprint>
+			<biblScope unit="volume">97</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="2076" to="2089" />
+			<date type="published" when="2022-12">December 2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Arik Dorfman, Thomas T. Hills, and Inon Scharf. A guide to area-restricted search: A foundational foraging behaviour. Biological Reviews, 97(6):2076-2089, December 2022. ISSN 1464-7931, 1469-185X. doi: 10.1111/brv.12883.</note>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Mechanism of the switchover from extensive to area-concentrated search behaviour of the ladybird beetle, coccinella septempunctata bruckii</title>
+		<author>
+			<persName><forename type="first">Kiyoshi</forename><surname>Nakamuta</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Insect Physiology</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page" from="849" to="856" />
+			<date type="published" when="1985">1985</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kiyoshi Nakamuta. Mechanism of the switchover from extensive to area-concentrated search behaviour of the ladybird beetle, coccinella septempunctata bruckii. Journal of Insect Physiology, 31(11):849-856, 1985.</note>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">How area restricted search of a pelagic seabird changes while performing a dual foraging strategy</title>
+		<author>
+			<persName><forename type="first">Pedro</forename><surname>Vitor H Paiva</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Iván</forename><surname>Geraldes</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Stefan</forename><surname>Ramírez</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jaime</forename><forename type="middle">A</forename><surname>Garthe</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Ramos</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Oikos</title>
+		<imprint>
+			<biblScope unit="volume">119</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page" from="1423" to="1434" />
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Vitor H Paiva, Pedro Geraldes, Iván Ramírez, Stefan Garthe, and Jaime A Ramos. How area restricted search of a pelagic seabird changes while performing a dual foraging strat- egy. Oikos, 119(9):1423-1434, 2010.</note>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Nahua mushroom gatherers use area-restricted search strategies that conform to marginal value theorem predictions</title>
+		<author>
+			<persName><forename type="first">Luis</forename><surname>Pacheco-Cobos</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Bruce</forename><surname>Winterhalder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cecilia</forename><surname>Cuatianquiz-Lima</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Marcos</forename><forename type="middle">F</forename><surname>Rosetti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Robyn</forename><surname>Hudson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Cody</forename><forename type="middle">T</forename><surname>Ross</surname></persName>
+		</author>
+		<idno type="DOI">10.1073/pnas.1814476116</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<idno type="ISSN">0027-8424</idno>
+		<imprint>
+			<biblScope unit="volume">116</biblScope>
+			<biblScope unit="issue">21</biblScope>
+			<biblScope unit="page" from="10339" to="10347" />
+			<date type="published" when="2019-05">May 2019</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Luis Pacheco-Cobos, Bruce Winterhalder, Cecilia Cuatianquiz-Lima, Marcos F. Rosetti, Robyn Hudson, and Cody T. Ross. Nahua mushroom gatherers use area-restricted search strategies that conform to marginal value theorem predictions. Proceedings of the National Academy of Sciences, 116(21):10339-10347, May 2019. ISSN 0027-8424, 1091-6490. doi: 10.1073/pnas.1814476116.</note>
+</biblStruct>
+
+<biblStruct xml:id="b41">
+	<analytic>
+		<title level="a" type="main">Adaptive Lévy Processes and Area-Restricted Search in Human Foraging</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Thomas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Christopher</forename><surname>Hills</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jan</forename><forename type="middle">M</forename><surname>Kalff</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Wiener</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0060488</idno>
+	</analytic>
+	<monogr>
+		<title level="j">PLoS ONE</title>
+		<idno type="ISSN">1932-6203</idno>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">60488</biblScope>
+			<date type="published" when="2013-04">April 2013</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Thomas T. Hills, Christopher Kalff, and Jan M. Wiener. Adaptive Lévy Processes and Area-Restricted Search in Human Foraging. PLoS ONE, 8(4):e60488, April 2013. ISSN 1932-6203. doi: 10.1371/journal.pone.0060488.</note>
+</biblStruct>
+
+<biblStruct xml:id="b42">
+	<analytic>
+		<title level="a" type="main">How many animals really do the lévy walk?</title>
+		<author>
+			<persName><forename type="first">Simon</forename><surname>Benhamou</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Ecology</title>
+		<imprint>
+			<biblScope unit="volume">88</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="1962" to="1969" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Simon Benhamou. How many animals really do the lévy walk? Ecology, 88(8):1962- 1969, 2007.</note>
+</biblStruct>
+
+<biblStruct xml:id="b43">
+	<analytic>
+		<title level="a" type="main">Random multiplicative processes: An elementary tutorial</title>
+		<author>
+			<persName><forename type="first">Sidney</forename><surname>Redner</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Am. J. Phys</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="267" to="273" />
+			<date type="published" when="1990">1990</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Sidney Redner. Random multiplicative processes: An elementary tutorial. Am. J. Phys, 58(3):267-273, 1990.</note>
+</biblStruct>
+
+<biblStruct xml:id="b44">
+	<analytic>
+		<title level="a" type="main">Improvisation: Methods and models</title>
+		<author>
+			<persName><forename type="first">Jeff</forename><surname>Pressing</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Generative processes in music: The psychology of performance, improvisation, and composition</title>
+		<editor>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Sloboda</surname></persName>
+		</editor>
+		<imprint>
+			<publisher>Oxford University Press</publisher>
+			<date type="published" when="1988">1988</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Jeff Pressing. Improvisation: Methods and models. In J. A. Sloboda, editor, Genera- tive processes in music: The psychology of performance, improvisation, and composition. Oxford University Press, 1988.</note>
+</biblStruct>
+
+<biblStruct xml:id="b45">
+	<analytic>
+		<title level="a" type="main">Improvisation and the self-organization of multiple musical bodies</title>
+		<author>
+			<persName><forename type="first">Ashley</forename><forename type="middle">E</forename><surname>Walton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">J</forename><surname>Richardson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><surname>Langland-Hassan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Anthony</forename><surname>Chemero</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/fpsyg.2015.00313</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Psychology</title>
+		<idno type="ISSN">1664-1078</idno>
+		<imprint>
+			<biblScope unit="volume">06</biblScope>
+			<date type="published" when="2015-04">April 2015</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ashley E. Walton, Michael J. Richardson, Peter Langland-Hassan, and Anthony Chemero. Improvisation and the self-organization of multiple musical bodies. Frontiers in Psychol- ogy, 06, April 2015. ISSN 1664-1078. doi: 10.3389/fpsyg.2015.00313.</note>
+</biblStruct>
+
+<biblStruct xml:id="b46">
+	<analytic>
+		<title level="a" type="main">Body sway reflects leadership in joint music performance</title>
+		<author>
+			<persName><forename type="first">Andrew</forename><surname>Chang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Dan</forename><forename type="middle">J</forename><surname>Steven R Livingstone</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Laurel</forename><forename type="middle">J</forename><surname>Bosnyak</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Trainor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<imprint>
+			<biblScope unit="volume">114</biblScope>
+			<biblScope unit="issue">21</biblScope>
+			<biblScope unit="page" from="4134" to="E4141" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Andrew Chang, Steven R Livingstone, Dan J Bosnyak, and Laurel J Trainor. Body sway reflects leadership in joint music performance. Proceedings of the National Academy of Sciences, 114(21):E4134-E4141, 2017.</note>
+</biblStruct>
+
+<biblStruct xml:id="b47">
+	<analytic>
+		<title level="a" type="main">Self-entrainment of a population of coupled non-linear oscillators</title>
+		<author>
+			<persName><forename type="first">Yoshiki</forename><surname>Kuramoto</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">International symposium on mathematical problems in theoretical physics</title>
+		<meeting><address><addrLine>kyoto university, kyoto/Japan</addrLine></address></meeting>
+		<imprint>
+			<publisher>Springer</publisher>
+			<date type="published" when="1975">January 23-29, 1975. 1975</date>
+			<biblScope unit="page" from="420" to="422" />
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yoshiki Kuramoto. Self-entrainment of a population of coupled non-linear oscillators. In International symposium on mathematical problems in theoretical physics: January 23-29, 1975, kyoto university, kyoto/Japan, pages 420-422. Springer, 1975.</note>
+</biblStruct>
+
+<biblStruct xml:id="b48">
+	<monogr>
+		<author>
+			<persName><forename type="first">H</forename><surname>Steven</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Strogatz</surname></persName>
+		</author>
+		<title level="m">Sync: How order emerges from chaos in the universe, nature, and daily life</title>
+		<imprint>
+			<publisher>Grand Central Publishing</publisher>
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Steven H Strogatz. Sync: How order emerges from chaos in the universe, nature, and daily life. Grand Central Publishing, 2012.</note>
+</biblStruct>
+
+<biblStruct xml:id="b49">
+	<analytic>
+		<title level="a" type="main">Movement synchrony among dance performers predicts brain synchrony among dance spectators</title>
+		<author>
+			<persName><forename type="first">Guido</forename><surname>Orgs</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Staci</forename><surname>Vicary</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Matthias</forename><surname>Sperling</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Adrian</forename><forename type="middle">L</forename><surname>Daniel C Richardson</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Williams</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Reports</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">22079</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Guido Orgs, Staci Vicary, Matthias Sperling, Daniel C Richardson, and Adrian L Williams. Movement synchrony among dance performers predicts brain synchrony among dance spectators. Scientific Reports, 14(1):22079, 2024.</note>
+</biblStruct>
+
+<biblStruct xml:id="b50">
+	<analytic>
+		<title level="a" type="main">Component attention network for multimodal dance improvisation recognition</title>
+		<author>
+			<persName><forename type="first">Jia</forename><surname>Fu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Jiarui</forename><surname>Tan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Wenjie</forename><surname>Yin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Sepideh</forename><surname>Pashami</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Mårten</forename><surname>Björkman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 25th International Conference on Multimodal Interaction</title>
+		<meeting>the 25th International Conference on Multimodal Interaction</meeting>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page" from="114" to="118" />
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Jia Fu, Jiarui Tan, Wenjie Yin, Sepideh Pashami, and Mårten Björkman. Component attention network for multimodal dance improvisation recognition. In Proceedings of the 25th International Conference on Multimodal Interaction, pages 114-118, 2023.</note>
+</biblStruct>
+
+<biblStruct xml:id="b51">
+	<analytic>
+		<title level="a" type="main">Conversational launch pads: Strangers start their conversations with topics that lead to many other topics</title>
+		<author>
+			<persName><forename type="first">Emma</forename><surname>Templeton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Luke</forename><surname>Chang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Thalia</forename><surname>Wheatley</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the Annual Meeting of the Cognitive Science Society</title>
+		<meeting>the Annual Meeting of the Cognitive Science Society</meeting>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+			<biblScope unit="volume">46</biblScope>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Emma Templeton, Luke Chang, and Thalia Wheatley. Conversational launch pads: Strangers start their conversations with topics that lead to many other topics. In Pro- ceedings of the Annual Meeting of the Cognitive Science Society, volume 46, 2024.</note>
+</biblStruct>
+
+<biblStruct xml:id="b52">
+	<analytic>
+		<title level="a" type="main">A first-principles mathematical model integrates the disparate timescales of human learning</title>
+		<author>
+			<persName><forename type="first">Mingzhen</forename><surname>Lu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Tyler</forename><surname>Marghetis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Vicky</forename><surname>Chuqiao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Yang</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">npj Complexity</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">15</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mingzhen Lu, Tyler Marghetis, and Vicky Chuqiao Yang. A first-principles mathematical model integrates the disparate timescales of human learning. npj Complexity, 2(1):15, 2025.</note>
+</biblStruct>
+
+<biblStruct xml:id="b53">
+	<analytic>
+		<title level="a" type="main">Optimal Foraging in Semantic Memory</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Thomas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">N</forename><surname>Hills</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">M</forename><surname>Jones</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Todd</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/a0027373</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Review</title>
+		<imprint>
+			<biblScope unit="volume">119</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="431" to="440" />
+			<date type="published" when="2012">2012</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Thomas T Hills, Michael N Jones, and Peter M Todd. Optimal Foraging in Semantic Memory. Psychological Review, 119(2):431-440, 2012. doi: 10.1037/a0027373.</note>
+</biblStruct>
+
+<biblStruct xml:id="b54">
+	<analytic>
+		<title level="a" type="main">Neural evidence of switch processes during semantic and phonetic foraging in human memory</title>
+		<author>
+			<persName><forename type="first">Joshua</forename><forename type="middle">W</forename><surname>Nancy B Lundin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Brendan</forename><forename type="middle">T</forename><surname>Brown</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Michael</forename><forename type="middle">N</forename><surname>Johns</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">John R</forename><surname>Jones</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">William</forename><forename type="middle">P</forename><surname>Purcell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Brian</forename><surname>Hetrick</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F O'</forename><surname>Donnell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Peter</forename><forename type="middle">M</forename><surname>Todd</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Proceedings of the National Academy of Sciences</title>
+		<imprint>
+			<biblScope unit="volume">120</biblScope>
+			<biblScope unit="issue">42</biblScope>
+			<biblScope unit="page">2312462120</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Nancy B Lundin, Joshua W Brown, Brendan T Johns, Michael N Jones, John R Purcell, William P Hetrick, Brian F O&apos;Donnell, and Peter M Todd. Neural evidence of switch processes during semantic and phonetic foraging in human memory. Proceedings of the National Academy of Sciences, 120(42):e2312462120, 2023.</note>
+</biblStruct>
+
+<biblStruct xml:id="b55">
+	<analytic>
+		<title level="a" type="main">Animal foraging and the evolution of goal-directed cognition</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Thomas</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Hills</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Cognitive science</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="3" to="41" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Thomas T Hills. Animal foraging and the evolution of goal-directed cognition. Cognitive science, 30(1):3-41, 2006.</note>
+</biblStruct>
+
+<biblStruct xml:id="b56">
+	<analytic>
+		<title level="a" type="main">Scaling laws for ising models near t c</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Leo</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Kadanoff</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Physics Physique Fizika</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page">263</biblScope>
+			<date type="published" when="1966">1966</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Leo P Kadanoff. Scaling laws for ising models near t c. Physics Physique Fizika, 2(6): 263, 1966.</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

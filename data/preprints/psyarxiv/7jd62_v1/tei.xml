@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Meta-analysis on risk factors for mental disorders after exposure to natural hazards</title>
+				<funder ref="#_CTyveAu">
+					<orgName type="full">Deutsche Forschungsgemeinschaft (DFG, German Research Foundation</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Ahlke</forename><surname>Kip</surname></persName>
+							<email>ahlke.kip@gmail.com</email>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Medical Psychology and Medical Sociology</orgName>
+								<orgName type="department" key="dep2">Faculty of Medicine</orgName>
+								<orgName type="institution">University of Freiburg</orgName>
+								<address>
+									<settlement>Freiburg</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Lasse</forename><forename type="middle">B</forename><surname>Sander</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Medical Psychology and Medical Sociology</orgName>
+								<orgName type="department" key="dep2">Faculty of Medicine</orgName>
+								<orgName type="institution">University of Freiburg</orgName>
+								<address>
+									<settlement>Freiburg</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Maja</forename><surname>Schepers</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="department">Institute of Psychology</orgName>
+								<orgName type="institution">University of Münster</orgName>
+								<address>
+									<settlement>Münster</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Johanna</forename><surname>Nützmann</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="department">Institute of Psychology</orgName>
+								<orgName type="institution">University of Münster</orgName>
+								<address>
+									<settlement>Münster</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Richard</forename><surname>Bryant</surname></persName>
+							<affiliation key="aff2">
+								<orgName type="department">School of Psychology</orgName>
+								<orgName type="institution">University of New South Wales</orgName>
+								<address>
+									<settlement>Sydney</settlement>
+									<region>New South Wales</region>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+							<affiliation key="aff3">
+								<orgName type="institution">Black Dog Institute</orgName>
+								<address>
+									<settlement>Sydney</settlement>
+									<region>New South Wales</region>
+									<country key="AU">Australia</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Hanna</forename><surname>Holthenrich</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="department">Institute of Psychology</orgName>
+								<orgName type="institution">University of Münster</orgName>
+								<address>
+									<settlement>Münster</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Nexhmedin</forename><surname>Morina</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="department">Institute of Psychology</orgName>
+								<orgName type="institution">University of Münster</orgName>
+								<address>
+									<settlement>Münster</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff4">
+								<orgName type="department">Corresponding Author Ahlke Kip Medical Psychology and Medical Sociology Faculty of Medicine</orgName>
+								<orgName type="institution">University of Freiburg</orgName>
+								<address>
+									<settlement>Freiburg</settlement>
+									<country key="DE">Germany</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Meta-analysis on risk factors for mental disorders after exposure to natural hazards</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">2A1B8357B7491259FFCF72D58A2AA9BD</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-18T15:24+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=true, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>natural disaster</term>
+					<term>meta-analysis</term>
+					<term>mental health</term>
+					<term>risk factors</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Increasing numbers of people are being affected by natural disasters due to climate change. Survivors experience higher prevalences of mental disorders than the general population, but individual responses vary considerably. Across 160 studies and almost 270,000 survivors of different natural hazards, we meta-analytically examined associations of 33 potential risk factors with posttraumatic stress disorder (PTSD), depression, and generalised anxiety disorder. Particularly peri-hazard (e.g., life threat; OR = 3.72, 95% CI 2.11-6.57), and post-hazard risk factors (e.g., low social support; OR = 3.84, 95% CI 2.41-6.12) yielded significant effects with less influence of prehazard factors (i.e., largest effect of prior mental health complaints: OR = 2.89; 95% CI 2.02-4.15). Several risk factors were reported sporadically and were therefore reviewed narratively (e.g., insufficient governmental support). Findings hold potential to guide disaster response planning and effective resource allocation.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>The world is confronted with an unprecedented challenge, with over 165 million people being affected by natural hazards and extreme weather events (e.g., earthquakes, floods, wildfires) <ref type="bibr" target="#b0">1</ref> in 2024 and over three billion people living in contexts highly vulnerable to such events <ref type="bibr" target="#b1">2</ref> . Climate change is likely to further intensify this trend, putting many more lives at risk <ref type="bibr" target="#b1">2</ref> . It is therefore important to elucidate the ways in which natural hazards and weather extremes impact mental health and to determine the core driving factors.</p><p>Natural hazards and extreme weather events not only cause destruction to infrastructure and property <ref type="bibr" target="#b2">3</ref> but also adversely affect individuals' physical and mental health. Long-term mental health consequences, such as post-traumatic stress disorder (PTSD), depression, and anxiety, can persist for months or even years after the initial event <ref type="bibr" target="#b3">4</ref> , affecting daily functioning and quality of life. A recent meta-analysis showed that survivors of natural hazards exhibit higher prevalences of mental disorders and higher symptom severity compared to non-exposed control samples from the general population <ref type="bibr" target="#b4">5</ref> . Non-intentional traumatic events, including natural hazards, have been found to have less impact on mental health compared to intentional ones (e.g., rape <ref type="bibr" target="#b5">6</ref> ).</p><p>Nonetheless, pooled prevalences as high as 32.2% for depression <ref type="bibr" target="#b6">7</ref> , 29.5% for PTSD <ref type="bibr" target="#b7">8</ref> , and 38.8% for prolonged grief disorder <ref type="bibr" target="#b8">9</ref> have been reported in the aftermath of different natural hazards.</p><p>Individual responses to traumatic events vary widely, highlighting the need to identify specific risk factors underlying different mental health outcomes <ref type="bibr" target="#b9">10</ref> . The most consistently supported risk factors for overall PTSD include female gender, (family) history of mental disorder, ethnic minority status, and trauma severity <ref type="bibr" target="#b10">11</ref> . Yet, it is important to recognise that the mental health impacts of natural hazards may differ from those of other single-event traumas, as they often entail community disruption, ongoing stressors, prolonged uncertainty, or displacement. Additional event-specific peri-or post-traumatic characteristics may play a key role in the development of mental health complaints. Early identification of vulnerable groups can support the implementation of evidence-based public health policies and preventive measures to reduce the incidence of long-term mental health outcomes.</p><p>To our knowledge, four systematic reviews or meta-analyses have investigated risk factors for mental health outcomes in the specific contexts of natural hazards <ref type="bibr" target="#b11">[12]</ref><ref type="bibr" target="#b12">[13]</ref><ref type="bibr" target="#b13">[14]</ref><ref type="bibr" target="#b14">[15]</ref> .</p><p>Across PTSD, depression, and suicidal behaviour, the most compelling risk factors were female gender, loss of family members, injury to oneself or close others, and low social support in the aftermath. However, the previous works yield several important limitations. Jafari and colleagues <ref type="bibr" target="#b11">12</ref> only conducted a narrative review, whereas the meta-analyses by Dai <ref type="bibr" target="#b14">15</ref> and Tang 14 et al. were limited to earthquake survivors. Both meta-analyses by Tang and colleagues exhibit statistical limitations, as they combine odds ratios (ORs) with risk ratios and aggregate adjusted ORs that account for different sets of covariates, raising concerns about the reliability of their results <ref type="bibr" target="#b15">16</ref> . Finally, previous work only included data published up to 2018, whereas many additional aetiological studies following natural disasters have been published since then.</p><p>Therefore, we conducted a comprehensive meta-analysis on the impact of pre-, peri-, and post-event risk factors for mental disorders in survivors of natural hazards.</p><p>We used both raw data and adjusted ORs to estimate the impact of each factor.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Results</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Overview of the database</head><p>Analyses are based on 160 unique studies, published in 190 reports (93.7% in English; 2.6% in Chinese, 1.6% in Spanish, and 0.5% in German, Italian, Turkish, and Farsi, each). Studies were conducted across 32 countries, mostly in China (19.4%), Türkiye (15.0%), and the United States (13.8%). Earthquakes represent half of the natural hazards (55.3%), followed by storms (including cyclones, hurricanes, tornados; 18.2%) and floods (7.5%). The total sample size was 268,284 participants, of which 60.1% identified as female. The weighted mean age across studies was 45.9 years. Metaanalyses focused on PTSD, depression and GAD, with limited data (i.e., &lt;4 studies) available on prolonged grief disorder, insomnia, panic disorder, alcohol and substance use disorder, bipolar disorder, dysthymia, and suicidality. An overview of included studies is provided in Supplement 1 with references listed in Supplement 2.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Evidence on pre-hazard risk factors</head><p>Results for PTSD are displayed in Fig. <ref type="figure" target="#fig_0">1</ref>, for depression in Fig. <ref type="figure">2</ref>, and for GAD in Fig. <ref type="figure">3</ref>. The largest effects were observed for a history of mental health complaints, including prior mental disorders, suicidality, or intense distress. Prior psychopathology increased the odds of PTSD approximately threefold (OR = 2.89, 95% CI 2.02-4.15) and the odds of depression by almost 5.5-fold (OR = 5.45, 95% CI 4.11-7.22). Prior exposure to a traumatic event was moreover associated with almost twice the odds of PTSD (OR = 1.94, 95% CI 1.60-2.34). However, considering the multi-hazard context driven by climate change, it is noteworthy that two individual studies found no significant effects of explicit prior exposure to other natural hazards <ref type="bibr" target="#b16">17,</ref><ref type="bibr" target="#b17">18</ref> . Female gender was a significant risk factor across PTSD, depression, and GAD, with women showing a 50-80% increase in the odds of probable diagnosis. Female gender was moreover the only risk factor that could be investigated for prolonged grief disorder with women reporting significantly higher prevalence compared to men (OR = 2.17, 95% CI 1. 13-4.19). Low education level (i.e., primary education or below) was significantly associated with increased odds of both PTSD (OR = 1.36, 95% CI 1.18-1.57) and depression (OR = 1.88, 95% CI 1.23-2.87), with no data available on GAD. Being single, aged above 40 years, not having an occupation, and belonging to an ethnic or religious minority showed varying results. Having no partner was associated with all three disorders (ORs = 1.21-1.55). Age above 40, on the other hand, was associated with increased odds of PTSD (OR = 1.31, 95% CI 1.08-1.60), but not of depression or GAD. There was insufficient data on GAD for the remaining risk factors. Survivors without an occupation (i.e., those who were unemployed, retired, or housekeepers) had 1.59 times the odds of depression (95% CI 1.10-2.30), but not increased odds of PTSD. Belonging to a minority was likewise associated with increased odds of depression (OR = 1.45, 95% CI 1.13-1.86), but not of PTSD. Finally, there was no significant effect for PTSD and religious beliefs, a low socio-economic status, living in an urban residency area, or being evacuated before the hazard. Data on risk factors and disorders for which quantitative synthesis was not possible are presented descriptively in Supplement 3.   </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Evidence on peri-hazard risk factors</head><p>The largest effects were observed for perceived exposure severity (i.e., based on personal experiences such as severity ratings or stressor checklists), with PTSD odds of 3.07 (95% CI 2.00-4.71) and depression odds of 2.18 (95% CI 1.80-2.65) among those with a high level of exposure. Large effects were furthermore observed for being physically injured in the event (OR = 2.91, 95% CI 2.35-3.59) and experiencing lifethreat (OR = 3.72, 95% CI 2.11-6.57) and PTSD, with insufficient data available for depression. Losing a close other in the event was associated with increased odds of PTSD (OR = 2.39, 95% CI 1.91-3.00), but not of depression. Additional significant risk factors for PTSD included witnessing death (e.g., seeing dead bodies, body parts, or people dying; OR = 2.27, 95% CI 1.22-4.23) and being trapped (e.g., under debris or in water) or stranded (OR = 2.58, 95% CI 1.68-3.97). No significant effects regarding PTSD prevalence were found for witnessing injury, injury of a close one, being involved in rescue activities, or being concerned about the safety of close ones (e.g., fear about family members, close ones being missed, separation from close ones). No data was available for event-related risk factors and GAD.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Evidence on post-hazard risk factors</head><p>Across PTSD, depression, and GAD, a significant increase in the odds of probable diagnosis was observed among survivors who lost their house (ORs 1.88-6.35) and who experienced low social support in the aftermath (ORs 2.88-3.84). No data was available for additional risk factors of GAD. Survivors who were displaced after the event (i.e., lived in temporary accommodations or relief camps or had relocated by the time of the study) showed increased odds for both depression (OR = 1.92, 95% CI 1.49-2.48) and PTSD (OR = 1.87, 95% CI 1.28-2.76). Results from individual studies moreover suggest that being accommodated in tents, containers, or temporary trailers <ref type="bibr" target="#b18">19,</ref><ref type="bibr" target="#b19">20</ref> and being displaced within the affected areas <ref type="bibr" target="#b20">21</ref> are particularly associated with mental health problems. Further significant risk factors for PTSD included being affected by loss of property (OR = 2.18, 95% CI 1.71-2.79), losing one's job (OR = 5.09, 95% CI 2.39-10.83) and related, experiencing financial strain (e.g., family financial burden; OR = 2.34, 95% CI 1.80-3.04), experiencing a threat to basic needs, including drinking water, food, or needed medication (OR = 1.69, 95% CI 1.18-2.40), and a family history of mental disorders (i.e., as assessed post-hazard; OR = 1.97, 95% CI 1.53-2.53).</p><p>Physical complaints following the event (including chronic diseases), damage to the house, and sleep difficulties were not associated with PTSD prevalence.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The influence of time since event and representativeness of the sample</head><p>The heterogeneity between studies was considerable in most analyses (I² &gt; 80%). To investigate possible sources of heterogeneity, we examined effects by study period and sample type. First, analyses were repeated separating studies in the immediate aftermath (i.e., 1-12 months post-event) and later assessments (i.e., ≥13 months postevent). Short-term studies (55.3%) were conducted on average 5.9 months post-event, and long-term studies (44.7%) on average four years post-event (48.4 months). The only significant difference was observed for low education and PTSD with significantly higher odds in long-term studies (OR = 1.63, 95% CI 1.33-2.02) compared to shortterm studies (OR = 1.22, 95% CI 1.03-1.45; p = .034). Full results are displayed in Supplement 4.</p><p>Analyses were further repeated separating studies targeting specific population subgroups (e.g., older adults, women, residents of temporary camps) from those including the general population (see Supplement 5). The only significant effects were observed concerning the presence of PTSD with higher effects across more representative samples for financial stress (OR = 3.09, 95% CI 2.50-3.80 vs. OR = 1.47, 95% CI 1.16-1.87, p &lt;.001) and low social support (OR = 4.47, 95% CI 2.43-8.25 vs. OR = 2.20, 95% CI 1.61-3.00, p = .042). Finally, sensitivity analyses were conducted to assess the influence of study participants who had received psychosocial support between hazard exposure and study implementation (on average 24.8% across studies).</p><p>Results showed that survivors who had received counselling or treatment had significantly higher odds for PTSD diagnosis (OR = 2.46, 95% CI 1.07-5.64).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Presence of small-study effects</head><p>No considerable small-study effects were observed across risk factors according to funnel plots asymmetry, potentially due to the inclusion criteria of a minimum of 100 participants per analysis and a minimum of 10 participants per group (i.e., with/without risk factor). The only significant effect was detected for female gender and PTSD, showing multiple studies with large standard errors and large effect sizes (t(91) = 3.39, p = .001)</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The influence of covariates on findings</head><p>As the meta-analytic results yield unadjusted OR, they were compared to adjusted OR from primary studies, which controlled for different covariates (see Supplement 6).</p><p>There was no systematic evidence of upward bias in the meta-analytic results, as adjusted ORs were both higher and lower than the unadjusted estimates.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Preliminary evidence on additional risk factors</head><p>Limited evidence (&lt;4 studies for any mental disorder) was available for several additional risk factors, including physical health problems prior to the hazard, separation from family members, availability and utilization of (mental) health care services, or insufficient governmental support. A table with the individual findings can be found in Supplement 7.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Discussion</head><p>We conducted a comprehensive meta-analysis based on raw data to investigate pre-, peri, and post-event risk factors for PTSD, depression, and GAD following exposure to natural hazards and weather extremes. Across 160 studies and 33 risk factors, we found that peri-and post-hazard risk factors show greater associations with mental disorders compared to pre-hazard variables, particularly regarding PTSD. The strongest perihazard risk factors were perceived high level of exposure, experiencing life threat and physical injury. Regarding post-hazard risk factors, low social support showed large effects across all mental disorders, whereas loss of house appeared particularly relevant for depression and GAD, and loss of job particularly relevant for PTSD and depression.</p><p>Our results on the influence of pre-hazard variables are mostly in line with findings across other trauma contexts 11 . Female gender for example consistently appears as risk factor for PTSD and depression after various traumatic events, including natural disasters <ref type="bibr" target="#b21">22,</ref><ref type="bibr" target="#b22">23</ref> , which has been attributed to a range of factors such as hormonerelated processes <ref type="bibr" target="#b23">24,</ref><ref type="bibr" target="#b24">25</ref> . However, the strong association with peri-and post-hazard risk factors highlights the importance of considering the context-specific characteristics of natural hazards. Overall, direct personal experiences during the hazard showed stronger associations with outcomes than indirect exposures such as witnessing events or involvement in rescue efforts. The latter finding appears particularly important given that high levels of mental burden are often reported for professional responders <ref type="bibr" target="#b25">26,</ref><ref type="bibr" target="#b26">27</ref> .</p><p>The substantial impact of post-hazard factors on mental health holds promises for disaster response programs, given that several of these factors are modifiable. For example, the data highlight the importance of restoring secure housing, promoting income-generating activities or early return to work, and implementing programs that foster social cohesion. The findings on physical injury, death of close ones, and displacement also imply that integrating mental health care into general hospitals, grief support groups, or temporary resettlement sites could be particularly beneficial for those who are especially vulnerable. This is confirming previous recommendations that have predominantly been based on expert opinion and program reports <ref type="bibr" target="#b27">28</ref> . Additionally, survivors with previous mental health complaints may be best reached through brief follow-up interventions, relapse prevention programs, or targeted outreach initiatives for former patients.</p><p>Disaster-settings present several challenges for research, most notably difficulties in accessing affected populations, which is why samples differ in the extent of representativeness of the general population. Our moderator analyses indicated that the sample type or study period did not systematically affect results. This is moreover important to consider as longitudinal studies on delayed-onset PTSD suggest that some risk factors (e.g., low social support) exert similar effects on delayed PTSD, whereas the influence of other risk factors (e.g., unemployment) appear to differ <ref type="bibr" target="#b28">29</ref> . Yet, large variation in effect sizes remained after consideration of these two moderators. Another potential source of heterogeneity is the type and severity of natural hazard, which were diverse across our dataset. For example, physical injuries and the risk of losing close ones differ according to hazard type <ref type="bibr" target="#b29">30</ref> , as does the vulnerability of urban versus rural residency areas <ref type="bibr" target="#b30">31,</ref><ref type="bibr" target="#b31">32</ref> .</p><p>Our meta-analysis demonstrates several strengths, including its extensive and up-to-date database and rigorous methodology. We were thus able to provide reliable estimates and shed light on relevant context-specific risk factors not considered in previous work, including displacement, experiencing financial strain, or a threat to basic needs. Experiencing food insecurity for example has previously only been associated with depression in the general population <ref type="bibr" target="#b32">33</ref> . Nevertheless, we acknowledge certain limitations. Most importantly, our analyses were based on cross-sectional data given a lack of prospective studies -a limitation that is mainly attributable to the poor predictability of natural hazards. The results therefore do not allow for causal interpretation and more longitudinal studies are needed to investigate the impact of each risk factor on the development or maintenance of mental disorders. Second, raw data on risk factors were unavailable in several primary studies and only significant ORs were reported. Although we contacted the corresponding authors to request the raw data, not all responded or were able to provide them. Therefore, a risk of upward bias in effect estimates for some risk factors cannot be ruled out. Finally, studies differed in how they defined the index traumatic event for PTSD assessment. While some explicitly required that symptoms be linked to the disaster exposure, others did not specify the trauma reference. Especially for symptoms like hypervigilance, it can be challenging to ascertain their exact origin, and this methodological difference may have influenced prevalence estimates and the magnitude of observed effects.</p><p>Given the rising frequency of natural disasters, the identification of mental health risk factors is of increasing importance for policymaking and long-term disaster management. Future studies should follow longitudinal designs, target a wider range of trauma-related disorders beyond PTSD and depression, include additional potentially relevant factors, such as insufficient financial compensation or caring for family members <ref type="bibr" target="#b33">34</ref> , and focus on global regions repeatedly affected by disasters. Moreover, conducting advanced meta-analyses based on individual participant data represents an important next step in disentangling the complex interdependencies and interactions among risk factors <ref type="bibr" target="#b34">35</ref> . Prior trauma exposure, for example, often contributes to prior mental health complaints <ref type="bibr" target="#b35">36</ref> and involuntary job loss reinforces financial burden.</p><p>Accounting for the interaction of risk factors is essential to pursue individual-centred approaches to risk determination and to refine the identification of particularly vulnerable population groups.</p><p>Overall, our meta-analysis underscores the critical role of peri-and post-hazard factors in mental health outcomes after natural hazards. The findings can inform targeted interventions addressing modifiable risk factors (e.g., low social support) and vulnerable groups (e.g., survivors with prior mental health problems). Future research should employ longitudinal designs to increase our understanding or prospective effects and individual participant data meta-analyses are needed to investigate the interplay of risk factors.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Method</head><p>This meta-analysis was registered on PROSPERO (Ref #*masked for blinded peerreview*) and its results are reported in accordance with the Preferred Reporting Items for Systematic Reviews and Meta-Analyses guidelines <ref type="bibr" target="#b36">37</ref> .</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Identification and selection of studies</head><p>We conducted multi-field key word searches (in titles, abstracts, key concepts) in Medline, PsychINFO, and Web of Science using terms related to natural hazards in combination with terms related to mental health. In addition, MeSH searches were conducted in the Medline database (see Supplement 8 for the full search strategy). All searches included publications from database inception until July 7, 2025. Google Scholar and reference lists from existing reviews and primary research articles were manually searched to complement database searches. To determine eligibility, studies were examined on title and abstract level using Rayyan <ref type="bibr" target="#b37">38</ref> . A subset of 440 hits was examined independently by four reviewers each (κ = 0.76, 84.7% agreement rate across all raters and 89.1-94.5% for individual pairs), with the remaining studies being examined by one of the reviewers and unclear cases being jointly discussed. Full-text reviews were conducted using the same procedure and 15% of studies underwent independent review by all reviewers.</p><p>To be eligible studies had to (a) include participants with a mean age ≥ 18 years who have been exposed to a natural hazard or extreme weather event, (b) include at least 100 participants, (c) assess at least one mental disorder as defined in the ICD or DSM (any edition) with a validated interview or self-report, (d) conduct the assessment at least one month after the onset of the event to ensure clinical relevance, and (e1) report the presence of probable diagnosis (i.e., according to cut-off or clinician rating) by presence vs. absence of specific pre-, peri, or post-hazard characteristics and/or (e2) report on the according (adjusted) OR. We restricted our meta-analysis to point prevalence estimates, but given the heterogeneous methods of primary studies, we included all studies that assessed the presence of mental disorders up to six months following the event. To diminish risk of bias, we excluded studies on professional first responders and samples recruited in (general or mental) health clinics, or psychosocial support programs. Studies were furthermore excluded is they specifically focused on participants without prior mental disorder (i.e., reported incidence rates) or with/without prior psychological treatment. Finally, we only included studies in which a minimum number of 10 participants presented with a certain risk factor to reduce the risk of chance findings. If studies reported on mixed events (e.g., studies on the Great Japan earthquake with subsequent tsunami and a nuclear disaster), we reviewed the reported focus of the individual studies. Agricultural diseases, pandemics or technological disasters with environmental effects were not considered as natural hazards. We applied no restrictions regarding publication language, type (including grey literature and dissertations), or geographic location. The PRISMA flow chart displaying the study selection process in shown in Supplement 9.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data Extraction</head><p>Data extraction was independently conducted by two researchers using a predefined coding manual. To create the manual, we compiled a list of relevant risk factors relating to pre-hazard sample characteristics (e.g., age, education), peri-hazard experiences (e.g., being trapped, loss of family members), and post-hazard experiences (e.g., loss of job, displacement) through discussion. We then examined 50 studies to assess how various factors reported and refined our list accordingly. The manual remained adaptable to incorporate additional factors that emerged during its application. Most risk were included as binary variables (i.e., present/yes vs. absent/no) and we excluded studies that reported respective factors with graded responses (i.e., little vs. more). We furthermore omitted studies that reported on a combination of different factors (e.g., death or injury of family member). For factors that were frequently reported across multiple categories, we employed established thresholds from previous research <ref type="bibr" target="#b38">39</ref> to categorize them into distinct groups (e.g. low social support vs. moderate and high or low socio-economic status vs. moderate and high). We ensured that the final dataset only included independent samples. If studies only reported (adjusted) OR, authors were contacted twice to obtain the raw data (58 studies; data raw data obtained for 9 studies). If two reports presented data on the same study, outcome, and risk factor, we extracted data from the larger sample size. More details on how risk factors were categorised are presented in Supplement 10.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Statistical Analyses</head><p>Our primary outcome measure was the OR for each individual risk factor, representing the likelihood of probable diagnosis of a mental disorder among individuals with versus without the specified characteristic. All analyses were conducted using RStudio (v2025.9.0.387 40 ). To account for the expected heterogeneity between studies, we performed random-effects meta-analyses using the Mantel-Haenszel method as implemented in the meta package. Meta-analyses were conducted using the log OR as the effect size, which was subsequently back-transformed to OR for the presentation of results. To assess the impact of the moderators, analyses were stratified by sample type and timing of study, using the 'byvar' argument. Cochran's Q and Higgins' I² statistics were employed to examine the heterogeneity in ORs. A full R markdown of the code will be provided along with the publication of the results.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. Risk factors for PTSD diagnosis following natural hazards. k represents number of included independent samples, n represents total sample size in analyses. OR = odds ratio, error bars represent 95% confidence intervals.</figDesc><graphic coords="6,90.00,72.00,415.00,598.20" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. Risk factors for depression diagnosis following natural hazards. k represents number of included independent samples, n represents total sample size in analyses. OR = odds ratio, error bars represent 95% confidence intervals.</figDesc><graphic coords="7,90.00,72.00,415.00,294.10" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Fig. 1 .</head><label>1</label><figDesc>Fig. 1. Risk factors for generalized anxiety disorder diagnosis following natural hazards. k represents number of included independent samples, n represents total sample size in analyses. OR = odds ratio, error bars represent 95% confidence intervals.</figDesc><graphic coords="7,90.00,450.62,415.00,157.00" type="bitmap" /></figure>
+		</body>
+		<back>
+
+			<div type="funding">
+<div><head>Funding</head><p>Preparation of the article was funded by the <rs type="funder">Deutsche Forschungsgemeinschaft (DFG, German Research Foundation</rs>) -Project <rs type="grantNumber">ID 546536456 -</rs>granted to the first author.</p><p>The funders had no role in the analysis and interpretation of the data, the writing of the manuscript, or the decision to publish the results.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_CTyveAu">
+					<idno type="grant-number">ID 546536456 -</idno>
+				</org>
+			</listOrg>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<monogr>
+		<title level="m" type="main">Disasters in Numbers</title>
+		<imprint>
+			<date type="published" when="2024">2024. 2025</date>
+			<publisher>Centre for Research on the Epidemiology of Disasters (CRED</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Centre for Research on the Epidemiology of Disasters (CRED). 2024 Disasters in Numbers, 2025.</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<author>
+			<orgName type="collaboration">IPCC</orgName>
+		</author>
+		<title level="m">Climate Change 2023: Synthesis Report. Contribution of Working Groups I, II and III to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">IPCC. Climate Change 2023: Synthesis Report. Contribution of Working Groups I, II and III to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change (2023).</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">The 2024 report of the Lancet Countdown on health and climate change: facing record-breaking threats from delayed action</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Romanello</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/S0140-6736(24)01822-1</idno>
+	</analytic>
+	<monogr>
+		<title level="j">The Lancet</title>
+		<imprint>
+			<biblScope unit="volume">404</biblScope>
+			<biblScope unit="page" from="1847" to="1896" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Romanello, M. et al. The 2024 report of the Lancet Countdown on health and climate change: facing record-breaking threats from delayed action. The Lancet 404, 1847-1896; 10.1016/S0140-6736(24)01822-1 (2024).</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Long term mental health trajectories after disasters and pandemics: A multilingual systematic review of prevalence, risk and protective factors</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">A</forename><surname>Newnham</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cpr.2022.102203</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Clin Psychol Rev</title>
+		<imprint>
+			<biblScope unit="volume">97</biblScope>
+			<biblScope unit="page">102203</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Newnham, E. A. et al. Long term mental health trajectories after disasters and pandemics: A multilingual systematic review of prevalence, risk and protective factors. Clin Psychol Rev 97, 102203; 10.1016/j.cpr.2022.102203 (2022).</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Prevalence of common mental disorders in survivors of natural hazards -a meta-analytic comparison of exposed vs. non-exposed samples</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kip</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jenvp.2025.102690</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J Environ Psychol</title>
+		<imprint>
+			<biblScope unit="volume">106</biblScope>
+			<biblScope unit="page">102690</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kip, A. et al. Prevalence of common mental disorders in survivors of natural hazards -a meta-analytic comparison of exposed vs. non-exposed samples. J Environ Psychol 106, 102690; 10.1016/j.jenvp.2025.102690 (2025).</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">A systematic review of PTSD prevalence and trajectories in DSM-5 defined trauma exposed populations: intentional and non-intentional traumatic events</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">N</forename><surname>Santiago</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0059236</idno>
+	</analytic>
+	<monogr>
+		<title level="j">PLOS ONE</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page">59236</biblScope>
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Santiago, P. N. et al. A systematic review of PTSD prevalence and trajectories in DSM-5 defined trauma exposed populations: intentional and non-intentional traumatic events. PLOS ONE 8, e59236; 10.1371/journal.pone.0059236 (2013).</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Symptoms of posttraumatic stress disorder, depression, anxiety and other mental health problems following the 2010 earthquake in Haiti: A systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Cénat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S.-E</forename><surname>Mcintee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Blais-Rochette</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jad.2020.04.046</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J Affect Disord</title>
+		<imprint>
+			<biblScope unit="volume">273</biblScope>
+			<biblScope unit="page" from="55" to="85" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Cénat, J. M., McIntee, S.-E. &amp; Blais-Rochette, C. Symptoms of posttraumatic stress disorder, depression, anxiety and other mental health problems following the 2010 earthquake in Haiti: A systematic review and meta-analysis. J Affect Disord 273, 55-85; 10.1016/j.jad.2020.04.046 (2020).</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Prevalence of Posttraumatic Stress Disorder After Flood: A Systematic Review and Meta-Analysis</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Golitaleb</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Mazaheri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Bonyadi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sahebi</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/fpsyt.2022.890671</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Front Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="page">890671</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Golitaleb, M., Mazaheri, E., Bonyadi, M. &amp; Sahebi, A. Prevalence of Post- traumatic Stress Disorder After Flood: A Systematic Review and Meta-Analysis. Front Psychiatry 13, 890671; 10.3389/fpsyt.2022.890671 (2022).</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">The prevalence of prolonged grief disorder (PGD) after the natural disasters: A systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Zareiyan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Sahebi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Nejati-Zarnaqi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Mosaed</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">B</forename><surname>Ozouni-Davaji</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.puhip.2024.100508</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Public Health Pract</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page">100508</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Zareiyan, A., Sahebi, A., Nejati-Zarnaqi, B., Mosaed, R. &amp; Ozouni-Davaji, R. B. The prevalence of prolonged grief disorder (PGD) after the natural disasters: A systematic review and meta-analysis. Public Health Pract 7, 100508; 10.1016/j.puhip.2024.100508 (2024).</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Trauma and PTSD in the WHO World Mental Health Surveys</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">C</forename><surname>Kessler</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/20008198.2017.1353383</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Eur J Psychotraumatol</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page">1353383</biblScope>
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kessler, R. C. et al. Trauma and PTSD in the WHO World Mental Health Surveys. Eur J Psychotraumatol 8, 1353383; 10.1080/20008198.2017.1353383 (2017).</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Risk factors for posttraumatic stress disorder: An umbrella review of systematic reviews and meta-analyses</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Tortella-Feliu</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neubiorev.2019.09.013</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Neurosci Biobehav Rev</title>
+		<imprint>
+			<biblScope unit="volume">107</biblScope>
+			<biblScope unit="page" from="154" to="165" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Tortella-Feliu, M. et al. Risk factors for posttraumatic stress disorder: An umbrella review of systematic reviews and meta-analyses. Neurosci Biobehav Rev 107, 154-165; 10.1016/j.neubiorev.2019.09.013 (2019).</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Risk Factors for Suicidal Behaviours after Natural Disasters: A Systematic Review</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Jafari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Heidari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Heidari</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Sayfouri</surname></persName>
+		</author>
+		<idno type="DOI">10.21315/mjms2020.27.3.3</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Malays J Med Sci</title>
+		<imprint>
+			<biblScope unit="volume">27</biblScope>
+			<biblScope unit="page" from="20" to="33" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Jafari, H., Heidari, M., Heidari, S. &amp; Sayfouri, N. Risk Factors for Suicidal Behaviours after Natural Disasters: A Systematic Review. Malays J Med Sci 27, 20-33; 10.21315/mjms2020.27.3.3 (2020).</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">A meta-analysis of risk factors for depression in adults and children after natural disasters</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Tang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">X</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Xue</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Zhang</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/1471-2458-14-623</idno>
+	</analytic>
+	<monogr>
+		<title level="j">BMC Public Health</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="page">623</biblScope>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Tang, B., Liu, X., Liu, Y., Xue, C. &amp; Zhang, L. A meta-analysis of risk factors for depression in adults and children after natural disasters. BMC Public Health 14, 623; 10.1186/1471-2458-14-623 (2014).</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">A Meta-Analysis of Risk Factors for Post-Traumatic Stress Disorder (PTSD) in Adults and Children after Earthquakes</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Tang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Q</forename><surname>Deng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Glik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Dong</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Zhang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Int J Environ Res Public Health</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="page" from="3390" to="14121537" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Tang, B., Deng, Q., Glik, D., Dong, J. &amp; Zhang, L. A Meta-Analysis of Risk Factors for Post-Traumatic Stress Disorder (PTSD) in Adults and Children after Earthquakes. Int J Environ Res Public Health 14; 10.3390/ijerph14121537 (2017).</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">The incidence of post-traumatic stress disorder among survivors after earthquakes:a systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Dai</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s12888-016-0891-9</idno>
+	</analytic>
+	<monogr>
+		<title level="j">BMC Psychiatry</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="page">188</biblScope>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Dai, W. et al. The incidence of post-traumatic stress disorder among survivors after earthquakes:a systematic review and meta-analysis. BMC Psychiatry 16, 188; 10.1186/s12888-016-0891-9 (2016).</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Meta-Analysis of Odds Ratios: Current Good Practices</title>
+		<author>
+			<persName><forename type="first">B.-H</forename><surname>Chang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">C</forename><surname>Hoaglin</surname></persName>
+		</author>
+		<idno type="DOI">10.1097/MLR.0000000000000696</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Med Care</title>
+		<imprint>
+			<biblScope unit="volume">55</biblScope>
+			<biblScope unit="page" from="328" to="335" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Chang, B.-H. &amp; Hoaglin, D. C. Meta-Analysis of Odds Ratios: Current Good Practices. Med Care 55, 328-335; 10.1097/MLR.0000000000000696 (2017).</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Psychological consequences of the 1999 earthquake in Turkey</title>
+		<author>
+			<persName><forename type="first">U</forename><surname>Tural</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10960-004-5793-9</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J Trauma Stress</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="page" from="451" to="459" />
+			<date type="published" when="2004">2004</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Tural, U. et al. Psychological consequences of the 1999 earthquake in Turkey. J Trauma Stress 17, 451-459; 10.1007/s10960-004-5793-9 (2004).</note>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Çubuk Hortumu sonrasi yetiskinlerde ortaya çikan travmatik belirtilerin degerlendirilmesi [Assessment of traumatic symptoms in adults emerging after Hurricane Çubuk</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Bozkurt</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Anadolu Psikiyatri Dergisi</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="page">266</biblScope>
+			<date type="published" when="2011">2011</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Bozkurt, A. et al. Çubuk Hortumu sonrasi yetiskinlerde ortaya çikan travmatik belirtilerin degerlendirilmesi [Assessment of traumatic symptoms in adults emerging after Hurricane Çubuk]. Anadolu Psikiyatri Dergisi 12, 266 (2011).</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Prevalence of probable post-traumatic stress disorder among survivors of the 2023 earthquakes in Türkiye</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Aslan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Ö</forename><surname>Önal</surname></persName>
+		</author>
+		<idno type="DOI">10.26719/2024.30.9.622</idno>
+	</analytic>
+	<monogr>
+		<title level="j">East Mediterr Health J</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="page" from="622" to="631" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Aslan, B. &amp; Önal, Ö. Prevalence of probable post-traumatic stress disorder among survivors of the 2023 earthquakes in Türkiye. East Mediterr Health J 30, 622-631; 10.26719/2024.30.9.622 (2024).</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Symptoms of posttraumatic stress disorder in a New Orleans workforce following Hurricane Katrina</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">B</forename><surname>Desalvo</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s11524-006-9147-1</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J Urban Health</title>
+		<imprint>
+			<biblScope unit="volume">84</biblScope>
+			<biblScope unit="page" from="142" to="152" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">DeSalvo, K. B. et al. Symptoms of posttraumatic stress disorder in a New Orleans workforce following Hurricane Katrina. J Urban Health 84, 142-152; 10.1007/s11524-006-9147-1 (2007).</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Sociopolitical Factors and Mental Health Following the Turkey-Syria Earthquake</title>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">K</forename><surname>Hou</surname></persName>
+		</author>
+		<idno type="DOI">10.1001/jamanetworkopen.2024.11413</idno>
+	</analytic>
+	<monogr>
+		<title level="j">JAMA network open</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page">2411413</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Hou, W. K. et al. Sociopolitical Factors and Mental Health Following the Turkey-Syria Earthquake. JAMA network open 7, e2411413; 10.1001/jamanetworkopen.2024.11413 (2024).</note>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">A metaanalysis on gender differences in prevalence estimates of mental disorders following exposure to natural hazards</title>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">K L</forename><surname>Nolting</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Morina</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">H</forename><surname>Hoppen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K.-P</forename><surname>Tam</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Kip</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/20008066.2025.2476809</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Eur J Psychotraumatol</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="page">2476809</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Nolting, I. K. L., Morina, N., Hoppen, T. H., Tam, K.-P. &amp; Kip, A. A meta- analysis on gender differences in prevalence estimates of mental disorders following exposure to natural hazards. Eur J Psychotraumatol 16, 2476809; 10.1080/20008066.2025.2476809 (2025).</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Sex and gender differences in risk factors for posttraumatic stress disorder: A systematic review and meta-analysis of prospective studies</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Haering</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/abn0000918</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J Psychopathol Clin Sci</title>
+		<imprint>
+			<biblScope unit="volume">133</biblScope>
+			<biblScope unit="page" from="429" to="444" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Haering, S. et al. Sex and gender differences in risk factors for posttraumatic stress disorder: A systematic review and meta-analysis of prospective studies. J Psychopathol Clin Sci 133, 429-444; 10.1037/abn0000918 (2024).</note>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Interindividual and sex differences in resilience and vulnerability to post-traumatic stress disorder (PTSD): insights from animal models</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">F</forename><surname>Mancini</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s13293-025-00732-5</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Biol Sex Differ</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">50</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mancini, G. F. et al. Interindividual and sex differences in resilience and vulnerability to post-traumatic stress disorder (PTSD): insights from animal models. Biol Sex Differ 16, 50; 10.1186/s13293-025-00732-5 (2025).</note>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Disentangling sex differences in PTSD risk factors</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Haering</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s44220-024-00236-y</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Nature Mental Health</title>
+		<imprint>
+			<biblScope unit="volume">2</biblScope>
+			<biblScope unit="page" from="605" to="615" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Haering, S. et al. Disentangling sex differences in PTSD risk factors. Nature Mental Health 2, 605-615; 10.1038/s44220-024-00236-y (2024).</note>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">First responders&apos; occupational injury and disease associated with periods of extreme bushfires</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Berecki-Gisolf</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41598-024-73886-8</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Reports</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="page">23305</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Berecki-Gisolf, J. et al. First responders&apos; occupational injury and disease associated with periods of extreme bushfires. Scientific Reports 14, 23305; 10.1038/s41598-024-73886-8 (2024).</note>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Post-traumatic stress disorder in medical workers involved in earthquake response: A systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Tahernejad</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.heliyon.2023.e12794</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Heliyon</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="page">12794</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Tahernejad, S. et al. Post-traumatic stress disorder in medical workers involved in earthquake response: A systematic review and meta-analysis. Heliyon 9, e12794; 10.1016/j.heliyon.2023.e12794 (2023).</note>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Mental health response to community disasters: a systematic review</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">S</forename><surname>North</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Pfefferbaum</surname></persName>
+		</author>
+		<idno type="DOI">10.1001/jama.2013.107799</idno>
+	</analytic>
+	<monogr>
+		<title level="j">JAMA</title>
+		<imprint>
+			<biblScope unit="volume">310</biblScope>
+			<biblScope unit="page" from="507" to="518" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">North, C. S. &amp; Pfefferbaum, B. Mental health response to community disasters: a systematic review. JAMA 310, 507-518; 10.1001/jama.2013.107799 (2013).</note>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">The Contributing Factors of Delayed-Onset Post-traumatic Stress Disorder Symptoms: A Nested Case-Control Study Conducted After the 2008 Wenchuan Earthquake</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Zeng</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Lu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Wen</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/fpubh.2021.682714</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Front Public Health</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="page">682714</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yang, Y., Zeng, W., Lu, B. &amp; Wen, J. The Contributing Factors of Delayed- Onset Post-traumatic Stress Disorder Symptoms: A Nested Case-Control Study Conducted After the 2008 Wenchuan Earthquake. Front Public Health 9, 682714; 10.3389/fpubh.2021.682714 (2021).</note>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Natural Disasters Related Traumatic Injuries/Fatalities in the United States and Their Impact on Emergency Preparedness Operations</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Gill</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sutherland</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Raslan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Mckenney</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Elkbuli</surname></persName>
+		</author>
+		<idno type="DOI">10.1097/JTN.0000000000000581</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J Trauma Nurs</title>
+		<imprint>
+			<biblScope unit="volume">28</biblScope>
+			<biblScope unit="page" from="186" to="193" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Gill, S., Sutherland, M., Raslan, S., McKenney, M. &amp; Elkbuli, A. Natural Disasters Related Traumatic Injuries/Fatalities in the United States and Their Impact on Emergency Preparedness Operations. J Trauma Nurs 28, 186-193; 10.1097/JTN.0000000000000581 (2021).</note>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">A Global Analysis of the Relationship Between Urbanization and Fatalities in Earthquake-Prone Areas</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>He</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s13753-021-00385-z</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Int J Disaster Risk Sci</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="page" from="805" to="820" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">He, C. et al. A Global Analysis of the Relationship Between Urbanization and Fatalities in Earthquake-Prone Areas. Int J Disaster Risk Sci 12, 805-820; 10.1007/s13753-021-00385-z (2021).</note>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Disruption of emergency response to vulnerable populations during floods</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Yu</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41893-020-0516-7</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Nat Sustain</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="page" from="728" to="736" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yu, D. et al. Disruption of emergency response to vulnerable populations during floods. Nat Sustain 3, 728-736; 10.1038/s41893-020-0516-7 (2020).</note>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Food insecurity and mental health: a systematic review and meta-analysis</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Pourmotabbed</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/s136898001900435x</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Public Health Nutr</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="page" from="1778" to="1790" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Pourmotabbed, A. et al. Food insecurity and mental health: a systematic review and meta-analysis. Public Health Nutr. 23, 1778-1790; 10.1017/s136898001900435x (2020).</note>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Complex Health Needs in Hurricane-Affected Youth and Their Families: Barriers, Vulnerabilities, and Mental Health Outcomes</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">T</forename><surname>Kelly</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">A</forename><surname>Danzi</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s10802-024-01279-6</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Res Child Adolesc Psychopathol</title>
+		<imprint>
+			<biblScope unit="volume">53</biblScope>
+			<biblScope unit="page" from="905" to="919" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kelly, J. T. &amp; Danzi, B. A. Complex Health Needs in Hurricane-Affected Youth and Their Families: Barriers, Vulnerabilities, and Mental Health Outcomes. Res Child Adolesc Psychopathol 53, 905-919; 10.1007/s10802-024-01279-6 (2025).</note>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Meta-analysis of individual participant data: rationale, conduct, and reporting</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">D</forename><surname>Riley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">C</forename><surname>Lambert</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Abo-Zaid</surname></persName>
+		</author>
+		<idno type="DOI">10.1136/bmj.c221</idno>
+	</analytic>
+	<monogr>
+		<title level="j">BMJ</title>
+		<imprint>
+			<biblScope unit="volume">340</biblScope>
+			<biblScope unit="page">221</biblScope>
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Riley, R. D., Lambert, P. C. &amp; Abo-Zaid, G. Meta-analysis of individual participant data: rationale, conduct, and reporting. BMJ 340, c221; 10.1136/bmj.c221 (2010).</note>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Cumulative traumas and risk thresholds: 12-month PTSD in the World Mental Health (WMH) surveys</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">G</forename><surname>Karam</surname></persName>
+		</author>
+		<idno type="DOI">10.1002/da.22169</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Depress Anxiety</title>
+		<imprint>
+			<biblScope unit="volume">31</biblScope>
+			<biblScope unit="page" from="130" to="142" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Karam, E. G. et al. Cumulative traumas and risk thresholds: 12-month PTSD in the World Mental Health (WMH) surveys. Depress Anxiety 31, 130-142; 10.1002/da.22169 (2014).</note>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">The PRISMA 2020 statement: an updated guideline for reporting systematic reviews</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Page</surname></persName>
+		</author>
+		<idno type="DOI">10.1136/bmj.n71</idno>
+	</analytic>
+	<monogr>
+		<title level="j">BMJ</title>
+		<imprint>
+			<biblScope unit="volume">372</biblScope>
+			<biblScope unit="issue">71</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Page, M. J. et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ 372, n71; 10.1136/bmj.n71 (2021).</note>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<analytic>
+		<title level="a" type="main">Rayyan-a web and mobile app for systematic reviews</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ouzzani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Hammady</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Fedorowicz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Elmagarmid</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s13643-016-0384-4</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Syst Rev</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="page">210</biblScope>
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ouzzani, M., Hammady, H., Fedorowicz, Z. &amp; Elmagarmid, A. Rayyan-a web and mobile app for systematic reviews. Syst Rev 5, 210; 10.1186/s13643-016- 0384-4 (2016).</note>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">Meta-analysis of risk factors for posttraumatic stress disorder in trauma-exposed adults</title>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">R</forename><surname>Brewin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Andrews</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Valentine</surname></persName>
+		</author>
+		<idno type="DOI">10.1037//0022-006x.68.5.748</idno>
+	</analytic>
+	<monogr>
+		<title level="j">J Consolt Clin Psychol</title>
+		<imprint>
+			<biblScope unit="volume">68</biblScope>
+			<biblScope unit="page" from="748" to="766" />
+			<date type="published" when="2000">2000</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Brewin, C. R., Andrews, B. &amp; Valentine, J. D. Meta-analysis of risk factors for posttraumatic stress disorder in trauma-exposed adults. J Consolt Clin Psychol 68, 748-766; 10.1037//0022-006x.68.5.748 (2000).</note>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<monogr>
+		<author>
+			<orgName type="collaboration">Posit Team</orgName>
+		</author>
+		<title level="m">RStudio: Integrated Development Environment for R (Posit Software</title>
+		<meeting><address><addrLine>Boston, MA</addrLine></address></meeting>
+		<imprint>
+			<publisher>PBC</publisher>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Posit Team. RStudio: Integrated Development Environment for R (Posit Software, PBC, Boston, MA, 2025).</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

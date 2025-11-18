@@ -389,9 +389,22 @@ def enqueue_extraction(self, limit: int = 200):
 # Enrichment (Crossref ↔ OpenAlex)
 # -------------------------------
 @app.task(name="osf_sync.tasks.enrich_crossref", bind=True)
-def enrich_crossref(self, limit: int = 300, ua_email: str = OPENALEX_EMAIL):
+def enrich_crossref(
+    self,
+    limit: int = 300,
+    ua_email: str = OPENALEX_EMAIL,
+    osf_id: str | None = None,
+    ref_id: str | None = None,
+    debug: bool = False,
+):
     from .augmentation.matching_crossref import enrich_missing_with_crossref
-    stats = enrich_missing_with_crossref(limit=limit, ua_email=ua_email)
+    stats = enrich_missing_with_crossref(
+        limit=limit,
+        ua_email=ua_email,
+        osf_id=osf_id,
+        ref_id=ref_id,
+        debug=debug,
+    )
     _slack("Crossref enrichment", extra=stats)
     return stats
 

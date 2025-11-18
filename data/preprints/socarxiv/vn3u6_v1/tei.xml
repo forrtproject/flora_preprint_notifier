@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Warehousing Automation Technologies and Operational Efficiency of Large Beverage Manufacturing Firms in Nairobi County, Kenya</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher>Research Bridge Publisher</publisher>
+				<availability  status="unknown">
+					<licence/>
+				</availability>
+				<date type="published" when="2025-10-31">2025-10-31</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Andrew</forename><forename type="middle">Rukungu</forename><surname>Thiong’o</surname></persName>
+						</author>
+						<author>
+							<persName><roleName>Dr</roleName><forename type="first">Thomas</forename><surname>Mose</surname></persName>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<address>
+									<settlement>Nairobi County</settlement>
+									<country key="KE">Kenya</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="institution" key="instit1">Scholar</orgName>
+								<orgName type="institution" key="instit2">Jomo Kenyatta University of Agriculture and Technology</orgName>
+								<address>
+									<country key="KE">Kenya</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Warehousing Automation Technologies and Operational Efficiency of Large Beverage Manufacturing Firms in Nairobi County, Kenya</title>
+					</analytic>
+					<monogr>
+						<title level="j" type="main">International Journal of Social Science and Humanities Research (IJSSHR) ISSN 2959-7056 (o); 2959-7048 (p)</title>
+						<title level="j" type="abbrev">ijsshr</title>
+						<idno type="ISSN">2959-7048</idno>
+						<idno type="eISSN">2959-7056</idno>
+						<imprint>
+							<publisher>Research Bridge Publisher</publisher>
+							<biblScope unit="volume">3</biblScope>
+							<biblScope unit="issue">3</biblScope>
+							<date type="published" when="2025-10-31" />
+						</imprint>
+					</monogr>
+					<idno type="MD5">B5DEF1558DE206D96F1F7EA7575945C7</idno>
+					<idno type="DOI">10.61108/ijsshr.v3i3.227</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-18T15:26+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=true, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Warehousing Automation Technologies</term>
+					<term>Automated Storage</term>
+					<term>Retrieval Systems</term>
+					<term>Autonomous Mobile Robots</term>
+					<term>Robotic Picking Systems</term>
+					<term>Operational Efficiency</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Operational efficiency is critical for large beverage manufacturing firms in Nairobi County as it directly impacts their ability to meet the country's growing demand for beverages while maintaining competitive pricing and quality standards. However, large beverage manufacturing firms in Nairobi County face significant challenges in achieving their performance. The general objective of the study is to assess the influence of warehousing automation technologies on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. Specifically, the study sought to examine the influence of automated storage, retrieval systems, autonomous mobile robots and robotic picking systems on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. This study was guided by Technology Acceptance Model (TAM), Resource-Based View (RBV) Theory, Diffusion of Innovations (DOI) Theory and Lean Management Theory. This study adopted a descriptive research design. The target population of this study was 130 registered large beverage manufacturing firms in Nairobi County as per KAM Directory 2024. The study targeted management employees. In this study, the sampling frame was a list of all 130 registered large beverage manufacturing firms in Nairobi. The Yamane formula was adopted to calculate the study sample size. Therefore, the study sample size was 264 respondents. This research used a questionnaire to collect primary data. Data from questionnaires were coded and analyzed using the latest Statistical Package for Social Sciences (SPSS) computer software. The study used descriptive and inferential statistics for data analysis. Descriptive statistics such as frequency distribution, mean (measure of dispersion), standard deviation, and percentages were used. Inferential data analysis was conducted by use of Pearson correlation coefficient, and multiple regression analysis. The study results were presented through use of tables and figures. The study concludes that automated storage, retrieval systems, autonomous mobile robots and robotic picking systems has a positive and significant effect on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. Based on the findings, the study recommends that the management of large beverage manufacturing firms in Kenya should expand the deployment of these robots within their production and warehouse operations. By leveraging their capabilities in material handling, inventory movement, and order fulfillment, firms can significantly reduce manual labor, minimize human error, and speed up processes.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>reputation and supporting economic growth at both local and national levels <ref type="bibr" target="#b25">(Odera &amp; Noor, 2023)</ref>. Large beverage manufacturing firms in Nairobi County face significant challenges in achieving cost reduction due to high production expenses, fluctuating raw material prices, and elevated energy tariffs <ref type="bibr" target="#b30">(Rotich &amp; Ndeto, 2024)</ref>. According to the Kenya National Bureau of Statistics (KNBS, 2023), the manufacturing sector experienced a 7.6% increase in average production costs in 2022, largely driven by a 13.7% rise in electricity prices and a 9.2% increase in fuel costs <ref type="bibr" target="#b16">(Maalim &amp; Moronge, 2023)</ref>. For beverage producers, these cost pressures are compounded by the rising prices of key inputs such as sugar and packaging materials, much of which are imported and thus vulnerable to currency depreciation. Additionally, logistical inefficiencies raise transportation and warehousing costs, further eroding the potential for sustained cost reduction <ref type="bibr" target="#b29">(Ominde &amp; Kiarie, 2022)</ref>. Large beverage firms also face hurdles related to outdated equipment, limited automation, and skills gaps in the workforce. A Kenya Association of Manufacturers (KAM) report <ref type="bibr">(2023)</ref> indicates that only about 35% of large beverage manufacturers in Kenya have adopted advanced automation technologies, resulting in lower overall equipment effectiveness (OEE) rates averaging 62%, compared to the global best-practice benchmark of over 85%. <ref type="bibr" target="#b25">(Odera &amp; Noor, 2023)</ref> This limits production speed and consistency, while frequent unplanned downtime reduces output. Quality challenges persist as manual handling in some processes increases the risk of contamination, packaging defects, or inconsistent product formulation-issues that, according to KAM, contribute to an average 4-6% product rejection rate in the sector <ref type="bibr" target="#b19">(Muhalia, Ngugi &amp; Moronge, 2021)</ref>. These inefficiencies directly undermine the firms' ability to enhance productivity and meet the increasingly stringent quality expectations of both local and export markets <ref type="bibr" target="#b30">(Rotich &amp; Ndeto, 2024)</ref>. Warehousing automation technologies play a pivotal role in improving operational efficiency of firms. These technologies streamline material handling, reduce manual labor requirements, and minimize human error in inventory management <ref type="bibr" target="#b16">(Maalim &amp; Moronge, 2023)</ref>. Various studies have been conducted in different parts of the world on warehousing automation technologies and operational efficiency. For instance, Muhalia, Ngugi and Moronge (2021) conducted a study on the effect of warehousing automation technologies on supply chain performance of fast-moving consumer goods manufacturers. <ref type="bibr" target="#b25">Odera and Noor (2023)</ref> assessed on the role of warehousing automation technologies on supply chain performance in distribution firms and Rotich and Ndeto (2024) investigated on warehousing automation technologies and performance of distribution firms. However, none of these studies focused on automated storage, retrieval systems, autonomous mobile robots and robotic picking systems on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. To fill the highlighted gaps, the current study sought to assess the influence of warehousing automation technologies (automated storage, retrieval systems, autonomous mobile robots and robotic picking systems) on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.3">Objective of the Study</head><p>This study was guided by both general and specific objectives.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.3.1">General objective of the Study</head><p>The general objective of the study was to assess the influence of warehousing automation technologies on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya 1.3.2 Specific Objectives i. To examine the influence of automated storage on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya</p><p>ISSN 2959-7048 (Print) ISSN 2959-7056 (online) Research Bridge Publisher, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: <ref type="url" target="https://researchbridgepublisher.com/">https://researchbridgepublisher.com/</ref> </p><p>ii. To evaluate the influence of retrieval systems on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya iii. To investigate the influence of autonomous mobile robots on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya iv.</p><p>To analyze the influence of robotic picking systems on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya 1.4 Research Questions i. What is the influence of automated storage on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya? ii. How do retrieval systems influence operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya? iii. What is the influence of autonomous mobile robots on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya? iv.</p><p>How do robotic picking systems influence operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya?</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.5">Scope of the Study</head><p>This study focused on assessing the influence of warehousing automation technologies on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. Specifically, the study sought to examine the influence of automated storage on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya, to evaluate the influence of retrieval systems on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya, to investigate the influence of autonomous mobile robots on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya and analyze the influence of robotic picking systems on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. This study was guided by Technology Acceptance Model (TAM), Resource-Based View (RBV) Theory, Diffusion of Innovations (DOI) Theory and Lean Management Theory.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.0">LITERATURE REVIEW 2.1 Theoretical Review</head><p>A theoretical framework provides a structured foundation for analyzing variables and relationships within a study <ref type="bibr">(Abend, 2018)</ref>. This research was anchored on four key theories: the Technology Acceptance Model (TAM), Resource-Based View (RBV), Diffusion of Innovations (DOI), and Lean Management Theory, which collectively explain the technological, organizational, and behavioral dimensions of operational efficiency in large beverage manufacturing firms. The TAM, developed by Davis (1986), posits that technology adoption is influenced by perceived usefulness and perceived ease of use, which shape user attitudes and behavioral intentions toward technology (Darmawan, Son &amp; Santoso, 2021). When employees perceive new systems-such as automated storage and retrieval technologies-as beneficial and easy to use, their likelihood of adoption increases (Kebede, Tilahun &amp; Feyissa, 2021; Oduma &amp; Shale, 2020). Thus, TAM helps explain how employees' acceptance of automation drives efficiency gains. The RBV theory, advanced by <ref type="bibr">Barney (1991)</ref>, asserts that a firm's unique internal resources-tangible and intangible-form the foundation of sustainable competitive advantage (Ayob, Jamel &amp; Aman, 2024). Valuable resources such as retrieval systems, advanced machinery, and skilled personnel enhance operational capabilities, reducing waste and boosting productivity <ref type="bibr" target="#b18">(Mlimbila &amp; Mbamba, 2020;</ref><ref type="bibr" target="#b24">Odadi, 2020)</ref>. The Diffusion of Innovations (DOI) Theory, proposed by Rogers (1962), explains how innovations spread within organizations over time through adopter categories such as innovators, early adopters, and laggards <ref type="bibr" target="#b15">(Köseoğlu, Çelik &amp; Pektaş, 2020)</ref>. It emphasizes factors like relative advantage, compatibility, complexity, trialability, and observability that determine adoption rates ISSN 2959-7048 (Print) ISSN 2959-7056 (online) Research Bridge Publisher, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: <ref type="url" target="https://researchbridgepublisher.com/">https://researchbridgepublisher.com/</ref> (Shitsukane, Otieno &amp; Obuhuma, 2025). DOI is relevant in understanding the gradual acceptance of technologies such as autonomous mobile robots in manufacturing environments (Abdulkareem, Ogunlesi &amp; Afolalu, 2020). Lastly, Lean Management Theory, introduced by Krafcik (1988) from the Toyota Production System, emphasizes maximizing value and minimizing waste through continuous improvement (kaizen) and employee engagement (Giannoccaro, Rausa &amp; Rizzi, 2024). Lean thinking promotes process streamlining, waste elimination, and customer-focused value creation (Ngugi, Maina &amp; Byrne, 2023), while empowering workers to contribute to problemsolving and innovation (Odhiambo &amp; Barsoget, 2024). Through data-driven decision-making and performance monitoring (Mwaringa, 2020), Lean Management ensures agility and sustained operational efficiency. Together, these theories provide a comprehensive framework linking technological acceptance, internal resource optimization, innovation diffusion, and lean principles to improved operational performance in large beverage manufacturing firms in Nairobi County, Kenya. 2.2 Conceptual Framework Independent Variables Dependent Variable Figure 2. 1: Conceptual Framework 2.3 Review of the Study Variables Automated storage involves the use of computerized systems and mechanized equipment to store, retrieve, and manage goods efficiently with minimal human intervention (Darmawan, Son &amp; Santoso, 2021). These systems integrate sensors, robotics, and inventory software to maximize space utilization, enhance accuracy, and reduce storage time. High storage capacity utilization Operational Efficiency  Cost Reduction  Increased Productivity  Improved Quality Automated Storage  Storage capacity utilization  Time taken to store items  Inventory accuracy rate Retrieval Systems  Order Picking Time  Retrieval Accuracy  Throughput Rate Robotic Picking Systems  Pick Rate  Picking Accuracy  Labor Cost Reduction Autonomous Mobile Robots  Number of trips per hour  Navigation error rate  Downtime frequency Collectively, these technologies automated storage, retrieval systems, AMRs, and robotic picking synergize to enhance operational efficiency, accuracy, and cost-effectiveness in large beverage manufacturing firms.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.4">Empirical review</head><p>Empirical studies have consistently highlighted the positive impact of automation technologies on operational efficiency across various sectors. Darmawan, Son and Santoso (2021) found that systematic frameworks for selecting automated storage systems (ASS) enhanced implementation efficiency in Indonesia, while Kebede, Tilahun and Feyissa (2021) revealed that automation improved medicine storage conditions in Ethiopian health facilities, reducing wastage. In Kenya, Oduma and Shale (2020) established that logistics automation at KEMSA minimized workforce requirements and data entry errors, significantly improving accuracy and cost efficiency. Similarly, Okinyi (2020) reported that automated storage at Kenya Power reduced defects, enhancing overall management efficiency. Abade, Noor and Namusonge (2024) confirmed that automation positively influenced performance in Kenyan food and beverage firms, moderated by supplier capabilities. Studies on retrieval systems equally underscore their efficiency benefits. Ayob, Jamel and Aman (2024) demonstrated improved accessibility and user satisfaction with retrieval systems in Malaysia, while Mlimbila and Mbamba (2020) found that information retrieval systems in Tanzanian ports reduced transport costs and improved logistics performance. In Kenya, Odadi (2020) noted that supply chain information retrieval improved inventory tracking and agility despite IT infrastructure challenges, and Kiplagat and Wachiuri (2024) observed significant positive effects of retrieval systems on performance in Nairobi's distribution firms. Nyaberi and </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.0">RESEARCH FINDINGS AND DISCUSSIONS 4.1 Response Rate</head><p>The sample size of this study was 264. The researcher distributed 264 questionnaires to the respondents during data collection process and 233 were fully filled and returned to the researcher thus making a response rate of 88.3%. Kothari (2018) argues that a response rate which is more than 50% is considered adequate while excellent response rate is usually above 70%. This implies that the response rate in this study is good for making conclusions as well as recommendations.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.">Descriptive Statistics</head><p>This section presents the results of the descriptive statistical analyses of the data and their interpretations. The descriptive statistics helped to develop the basic features of the study and form the basis of virtually every quantitative analysis of the data. The results were presented in terms of the study objectives.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.1">Automated Storage and Operational Efficiency</head><p>The first specific objective of the study was to examine the influence of automated storage on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The respondents were requested to indicate their level of agreement on statements relating to automated storage and operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The results were as presented in Table <ref type="table" target="#tab_8">4</ref>.1. From the results, the respondents agreed that the automated storage system maximizes available warehouse space efficiently (M=3.746, SD=0.709). In addition, the respondents agreed that storage layouts are optimized to accommodate a wide variety of beverage products (M=3.732, SD=0.815). Further, the respondents agreed that the automated storage system significantly reduces the time needed to store items (M=3.721, SD=0.867). From the results, the respondents agreed that the system enables quick identification and placement of products upon arrival (M=3.717, SD=0.582). In addition, the respondents agreed that the automated storage system maintains highly accurate inventory records (M=3.708, SD=0.618). Further, the respondents agreed that discrepancies between physical stock and recorded inventory are minimal (M=3.700, SD= 0.889).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table 4.1: Automated Storage and Operational Efficiency</head><p>Mean Std. Dev The automated storage system maximizes available warehouse space efficiently.</p><p>3.746 0.709 Storage layouts are optimized to accommodate a wide variety of beverage products.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.732">0.815</head><p>The automated storage system significantly reduces the time needed to store items.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.721">0.867</head><p>The system enables quick identification and placement of products upon arrival.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.717">0.582</head><p>The automated storage system maintains highly accurate inventory records.</p><p>3.708 0.618 Discrepancies between physical stock and recorded inventory are minimal.</p><p>3.700 0.889 Aggregate 3.721 0.747 4.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">Retrieval Systems and Operational Efficiency</head><p>The second specific objective of the study was to evaluate the influence of retrieval systems on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The respondents were requested to indicate their level of agreement on the statements relating to retrieval systems and operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The results were as shown in Table <ref type="table" target="#tab_8">4</ref>.2 From the results, the respondents agreed that the retrieval system reduces the time taken to pick customer orders (M=3.837, SD= 0.819). In addition, the respondents agreed that the system minimizes delays between order placement and product retrieval (M=3.826, SD=0789). Further, the respondents agreed that errors in product selection are rare due to the retrieval system's precision (M=3.810, SD= 0.881). From the results, the respondents agreed that the system ensures accurate retrieval even for similar or closely related products (M=3.806, SD= 0.735). In addition, the respondents agreed that the retrieval system handles a high volume of orders efficiently (M=3.798, SD=0.697). Further, the respondents agreed that the system maintains consistent performance regardless of workload fluctuations (M=3.766, SD=0.711). Table <ref type="table" target="#tab_8">4</ref>.2: Retrieval Systems and Operational Efficiency Mean Std. Dev The retrieval system reduces the time taken to pick customer orders.</p><p>3.837 0.819 The system minimizes delays between order placement and product retrieval.</p><p>3.826 0789 Errors in product selection are rare due to the retrieval system's precision.</p><p>3.810 0.881 The system ensures accurate retrieval even for similar or closely related products.</p><p>3.806 0.735</p><p>The retrieval system handles a high volume of orders efficiently.</p><p>3.798 0.697 The system maintains consistent performance regardless of workload fluctuations.</p><p>3.766 0.711 Aggregate 3.807 0.772 4.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.3">Autonomous Mobile Robots and Operational Efficiency</head><p>The third specific objective of the study was to investigate the influence of autonomous mobile robots on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The respondents were requested to indicate their level of agreement on various statements relating to autonomous mobile robots and operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The results were as presented in Table <ref type="table" target="#tab_8">4</ref>.3. From the results, the respondents agreed that the autonomous mobile robots complete a high number of trips per hour without delays (M=3.898, SD= 0.817). In addition, the respondents agreed that AMRs maintain consistent delivery speed even during peak operational hours (M=3.886, SD=0.801). Further, the respondents agreed that navigation errors by AMRs are rare during operations (M=3.877, SD=0.822). From the results, the respondents agreed that the system effectively avoids collisions or wrong deliveries (M=3.862, SD= 0.735). In addition, the respondents agreed that maintenance issues causing downtime are infrequent (M=3.850, SD=0.863). Further, the respondents agreed that the system quickly recovers from technical faults to resume operations (M=3.841, SD= 0.718).</p><p>Table 4.3: Autonomous Mobile Robots and Operational Efficiency Mean Std. Deviation The autonomous mobile robots complete a high number of trips per hour without delays. 3.898 0.817 AMRs maintain consistent delivery speed even during peak operational hours. 3.886 0.801 Navigation errors by AMRs are rare during operations. 3.877 0.822 The system effectively avoids collisions or wrong deliveries. 3.862 0.735 Maintenance issues causing downtime are infrequent. 3.850 0.863 The system quickly recovers from technical faults to resume operations. 3.841 0.718 Aggregate 3.869 0.795 4.2</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>.4 Robotic Picking Systems and Operational Efficiency</head><p>The fourth specific objective of the study was to analyze the influence of robotic picking systems on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The respondents were requested to indicate their level of agreement on various statements relating to robotic picking systems and operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The results were as presented in Table <ref type="table" target="#tab_8">4</ref>.4. From the results, the respondents agreed that pick rates remain stable even during peak production periods (M=3.843, SD= 0.735). In addition, the respondents agreed that the system significantly increases overall order fulfillment speed (M=3.826, SD=0.867). Further, the respondents agreed that errors in picking are minimal due to the system's precision technology (M=3.784, SD= 0.795).</p><p>From the results, the respondents agreed that the system maintains high accuracy even for items with similar size, shape, or labeling (M=3.761, SD=0.611). In addition, the respondents agreed that labor costs related to order picking have decreased since system implementation (M=3.722, SD=0.662). Further, the respondents agreed that the system allows employees to focus on highervalue tasks instead of repetitive picking (M=3.691, SD=0.881). Table <ref type="table" target="#tab_8">4</ref>.4: Robotic Picking Systems and Operational Efficiency Mean Std. Deviation Pick rates remain stable even during peak production periods.</p><p>3.843 0.735 The system significantly increases overall order fulfillment speed.</p><p>3.826 0.867 Errors in picking are minimal due to the system's precision technology. 3.784 0.795 The system maintains high accuracy even for items with similar size, shape, or labeling.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.761">0.611</head><p>Labor costs related to order picking have decreased since system implementation.</p><p>3.722 0.662</p><p>The system allows employees to focus on higher-value tasks instead of repetitive picking.</p><p>3.691 0.881 Aggregate 3.771 0.758 4.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.5">Operational Efficiency</head><p>The respondents were requested to indicate their level of agreement on various statements relating to operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The results were as presented in Table <ref type="table" target="#tab_8">4</ref>.5. From the results, the respondents agreed that their firm has minimizes wastage of raw materials in beverage production (M=3.817, SD= 0.806). In addition, the respondents agreed that the use of automation significantly reduces their overall production costs (M=3.805, SD=0.794). Further, the respondents agreed that automation and technology have increased the speed of beverage production without compromising standards (M=3.788, SD= 0.755). From the results, the respondents agreed that employees are able to handle higher workloads efficiently due to streamlined processes (M=3.767, SD=0.584). In addition, the respondents agreed that quality control systems effectively detect and address defects during production (M=3.731, SD=0.816). Further, the respondents agreed that customer feedback indicates high satisfaction with the quality of their beverage products (M=3.708, SD=0.541) Table <ref type="table" target="#tab_8">4</ref>.5: Operational Efficiency Mean Std. Dev Our firm has minimizes wastage of raw materials in beverage production.</p><p>3.817 0.806 The use of automation significantly reduces our overall production costs.</p><p>3.805 0.794 Automation and technology have increased the speed of beverage production without compromising standards.</p><p>3.788 0.755 Employees are able to handle higher workloads efficiently due to streamlined processes.</p><p>3.767 0.584 Quality control systems effectively detect and address defects during production.</p><p>3.731 0.816 Customer feedback indicates high satisfaction with the quality of our beverage products. 3.708 0.541 Aggregate 3.769 0.716 ISSN 2959-7048 (Print) ISSN 2959-7056 (online) Research Bridge Publisher, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: <ref type="url" target="https://researchbridgepublisher.com/">https://researchbridgepublisher.com/</ref> </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Inferential Statistics</head><p>Inferential statistics in the current study focused on regression analysis. Regression analysis was used to determine the relationship between dependent variable (operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya) and independent variables (automated storage, retrieval systems, autonomous mobile robots and robotic picking systems). Multivariate regression analysis was used to assess the relationship between independent variables (automated storage, retrieval systems, autonomous mobile robots and robotic picking systems) and the dependent variable (operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya).</p><p>Table 4.6: Model Summary Model R R Square Adjusted R Square Std. Error of the Estimate 1 .885 .783 .782 .10129 a. Predictors: (Constant), automated storage, retrieval systems, autonomous mobile robots and robotic picking systems</p><p>The model summary was used to explain the variation in the dependent variable that could be explained by the independent variables. The r-squared for the relationship between the independent variables and the dependent variable was 0.783. This implied that 78.3% of the variation in the dependent variable (operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya) could be explained by independent variables (automated storage, retrieval systems, autonomous mobile robots and robotic picking systems).</p><p>Table 4.7: Analysis of Variance Model Sum of Squares df Mean Square F Sig. 1 Regression 107.744 4 26.936 205.618 .000 b Residual 29.817 228 .131 Total 137.561 232 a. Dependent Variable: operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya b. Predictors: (Constant), automated storage, retrieval systems, autonomous mobile robots and robotic picking systems</p><p>The ANOVA was used to determine whether the model was a good fit for the data. F calculated was 205.618 while the F critical was 2.411. The p value was 0.000. Since the F-calculated was greater than the F-critical and the p value 0.000 was less than 0.05, the model was considered as a good fit for the data. Therefore, the model can be used to predict the influence of automated storage, retrieval systems, autonomous mobile robots and robotic picking systems on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The regression model was as follows: Y = 0.271 +0.335X1 + 0.359X2 + 0.375X3 + 0.342X4 +ε According to the results, automated storage has a significant effect on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya β1=0.335, p value= 0.003). The relationship was considered significant since the p value 0.003 was less than the significant level of 0.05. The findings are in line with the findings of Darmawan, Son and Santoso (2021) who indicated that there is a very strong relationship between automated storage and operational efficiency The results also revealed that retrieval systems has significant effect on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya, β1=0.359, p value= 0.001). The relationship was considered significant since the p value 0.001 was less than the significant level of 0.05. The findings conform to the findings of Mlimbila and Mbamba (2020) that there is a very strong relationship between retrieval systems and operational efficiency Furthermore, the results revealed that autonomous mobile robots has significant effect on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya β1=0.375, p value= 0.000). The relationship was considered significant since the p value 0.000 was less than the significant level of 0.05. The findings are in line with the findings of Köseoğlu, Çelik and Pektaş (2020) that there is a very strong relationship between autonomous mobile robots and operational efficiency In addition, the results revealed that robotic picking systems has significant effect on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya β1=0.342, p value= 0.002). The relationship was considered significant since the p value 0.002 was less than the significant level of 0.05. The findings are in line with the results of Charisi, Imai and Rinta (2021) who revealed that there is a very strong relationship between robotic picking systems and operational efficiency.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.0">CONLUSION AND RECOMMENDATIONS 5.1 Conclusion of the Study</head><p>The study concludes that automated storage has a positive and significant effect on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. Findings revealed that storage capacity utilization, time taken to store items and inventory accuracy rate influences operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. In addition, the study concludes that retrieval systems have a positive and significant effect on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. Findings revealed that order picking time, retrieval accuracy and throughput rate influences operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. Further, the study concludes that autonomous mobile robots have a positive and significant effect on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. Findings revealed that number of trips per hour, navigation error rate and downtime frequency influences operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. The study also concludes that robotic picking systems have a positive and significant effect on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. Findings revealed that pick rate, picking accuracy and labor cost reduction influence operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2">Recommendations of the Study</head><p>The study recommends that the management of large beverage manufacturing firms in Kenya should prioritize greater investment in automated storage systems to further enhance operational efficiency. By adopting advanced storage technologies such as automated retrieval systems and inventory management software, firms can minimize delays, reduce labor costs, and improve accuracy in stock handling. In addition, the study recommends that the management of large beverage manufacturing firms in Kenya should strengthen their adoption and optimization of retrieval systems to further boost operational efficiency. Firms should invest in modern, automated retrieval technologies that allow faster, more accurate, and less labor-intensive access to inventory. Further, the study recommends that the management of large beverage manufacturing firms in Kenya should expand the deployment of these robots within their production and warehouse operations. By leveraging their capabilities in material handling, inventory movement, and order fulfillment, firms can significantly reduce manual labor, minimize human error, and speed up processes. The study also recommends that the management of large beverage manufacturing firms in Kenya should increase investment in robotic picking systems to further improve operational efficiency. These systems can enhance speed, accuracy, and consistency in handling products, thereby reducing picking errors and minimizing delays in order fulfillment.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3">Areas for Further Study</head><p>This study was limited to the influence of warehousing automation technologies on operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya hence the study findings cannot be generalized to operational efficiency in other organizations in Kenya. The study therefore suggests further studies on the influence of warehousing automation technologies on operational efficiency at other organizations in Kenya. Further, the study found that the independent variables (automated storage, retrieval systems, autonomous mobile robots and robotic picking systems) could only explain 78.3% of operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya. This study therefore suggests further research on other factors affecting operational efficiency in large beverage manufacturing firms in Nairobi County, Kenya.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><figDesc>, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: https://researchbridgepublisher.com/ ensures optimal space usage and cost efficiency, while the time taken to store items measures operational responsiveness and workflow coordination<ref type="bibr" target="#b27">(Oduma &amp; Shale, 2020;</ref><ref type="bibr" target="#b28">Okinyi, 2020)</ref>. Efficient automated storage reduces handling errors and improves inventory accuracy rates, ensuring reliability in inventory tracking and replenishment, which enhances productivity and customer satisfaction<ref type="bibr" target="#b0">(Abade, Noor &amp; Namusonge, 2024)</ref>. Retrieval systems are automated mechanisms that locate and transport items from storage to processing points using real-time data and control software (Ayob, Jamel &amp; Aman, 2024). They minimize manual effort and enhance speed, precision, and consistency in material handling. Key metrics such as order picking time and retrieval accuracy gauge operational efficiency and correctness in fulfilling orders(Mlimbila &amp; Mbamba, 2020; Nyaberi &amp; Mwangangi, 2020). The throughput rate, or the volume of goods retrieved within a specific time, reflects system performance and capacity to meet demand efficiently (Kiplagat &amp; Wachiuri, 2024). Autonomous Mobile Robots (AMRs) are self-navigating, AI-powered systems designed to transport materials autonomously using sensors and mapping algorithms (Köseoğlu, Çelik &amp; Pektaş, 2020). They enhance workflow flexibility, safety, and operational continuity. Their effectiveness is measured through number of trips per hour, which indicates transport efficiency, navigation error rate, which reflects path accuracy, and downtime frequency, which signals reliability and maintenance efficiency (Abdulkareem, Ogunlesi &amp; Afolalu, 2020; Shitsukane, Otieno &amp; Obuhuma, 2025). Reduced navigation errors and downtime enhance productivity and ensure smooth material flow (Shisiali, 2022). Similarly, robotic picking systems employ robotic arms, sensors, and vision technology to identify and handle items for order fulfillment (Giannoccaro, Rausa &amp; Rizzi, 2024). These systems improve precision, speed, and consistency in high-volume operations while minimizing human error. Key indicators such as pick rate and picking accuracy assess performance, reflecting system speed and correctness in order handling (Charisi, Imai &amp; Rinta, 2021; Odhiambo &amp; Barsoget, 2024). Furthermore, automation contributes to labor cost reduction by minimizing dependence on manual labor, increasing productivity, and enabling resource reallocation to value-adding tasks (Ngugi, Maina &amp; Byrne, 2023; Mwaringa, 2020).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><figDesc>ISSN 2959-7048 (Print) ISSN 2959-7056 (online) Research Bridge Publisher, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: https://researchbridgepublisher.com/ Mwangangi (2020) similarly linked retrieval practices with higher productivity and profitability at Rift Valley Bottlers. Research on Autonomous Mobile Robots (AMRs) demonstrates similar advantages. Köseoğlu, Çelik and Pektaş (2020) found that AMRs improved mapping and navigation efficiency in Turkey, while Abdulkareem, Ogunlesi and Afolalu (2020) showed successful obstacle detection and collision avoidance in Nigerian cafeteria robots. In Kenya, Shisiali (2022) and Shitsukane, Otieno and Obuhuma (2025) developed fuzzy logic and MATLAB-based navigation models that enhanced obstacle avoidance and path efficiency, supporting the feasibility of local AMR innovation. Regarding Robotic Picking Systems, Giannoccaro, Rausa and Rizzi (2024) confirmed that vision-guided robotic pickers optimized industrial processes through faster, coordinated operations. Charisi, Imai and Rinta (2021) explored fairness perceptions in human-robot interactions, while Ngugi, Maina and Byrne (2023) and Odhiambo and Barsoget (2024) highlighted robotics' transformative potential in education and healthcare, respectively. Mwaringa (2020) further observed that robotics competitions in Kenyan institutions spurred technological advancement and innovation capacity. Collectively, these empirical findings affirm that automation technologies-automated storage, retrieval systems, AMRs, and robotic pickingenhance accuracy, reduce costs, and drive operational efficiency in manufacturing and service industries globally and locally. 3.0 RESEARCH METHODOLOGY This study adopted a descriptive research design, which allows collection of information about the current status of a phenomenon without manipulating variables (Mugenda, 2019). The design was appropriate since it facilitated both qualitative and quantitative analysis of the relationship between automation technologies and operational efficiency in large beverage manufacturing firms. The target population comprised 780 management employees drawn from 130 registered beverage firms in Nairobi County (KAM Directory, 2024), categorized into top, middle, and lower managers. The sampling frame consisted of all registered firms, and a sample size of 264 respondents was determined using the Yamane formula at a 5% margin of error (Mugenda &amp; Mugenda, 2018; Eric &amp; Marko, 2019). Stratified sampling ensured proportional representation of managerial categories. Primary data was collected using structured questionnaires, which are standardized tools effective for gathering accurate and unbiased data (Patton et al., 2019; Kothari, 2018).The questionnaires included closed-ended questions to capture quantitative responses and were self-administered to enhance convenience and reach(Rotich, 2019; Cooper &amp; Schindler,  2019). Prior to the main study, a pilot test involving 26 respondents (10% of the sample) was conducted to assess the reliability and validity of the instrument. Reliability was tested using Cronbach's Alpha, where a coefficient of 0.7 and above was considered acceptable (Cooper &amp; Schindler, 2019; Silverman, 2022). Validity was ensured through expert review by supervisors and lecturers to confirm relevance, precision, and clarity of questions (Zikmund, 2019; Thietart, 2021). Data collection followed ethical guidelines and confidentiality protocols. The collected data was coded and analyzed using the Statistical Package for Social Sciences (SPSS). Descriptive statistics such as means, standard deviations, and percentages summarized the data for interpretation, while inferential statistics including Pearson correlation and multiple regression analysis tested hypotheses and relationships among variables (Singpurwalla, 2019).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><figDesc>, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: https://researchbridgepublisher.com/</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><figDesc>, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: https://researchbridgepublisher.com/</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><figDesc>, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: https://researchbridgepublisher.com/</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><figDesc>, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: https://researchbridgepublisher.com/</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_8"><head>Table 4 . 1: Regression Coefficients Mode l</head><label>4</label><figDesc>International Journal of Social Science and Humanities Research, Vol. 3, Issue 3,</figDesc><table><row><cell></cell><cell></cell><cell></cell><cell cols="2">Unstandardized</cell><cell>Standardized</cell><cell>t</cell><cell>Sig.</cell></row><row><cell></cell><cell></cell><cell></cell><cell cols="2">Coefficients</cell><cell>Coefficients</cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell>B</cell><cell>Std. Error</cell><cell>Beta</cell><cell></cell></row><row><cell>1</cell><cell>(Constant)</cell><cell></cell><cell>0.271</cell><cell>0.071</cell><cell></cell><cell>3.817</cell><cell>0.000</cell></row><row><cell></cell><cell cols="2">automated storage</cell><cell>0.335</cell><cell>0.088</cell><cell>0.336</cell><cell>3.807</cell><cell>0.003</cell></row><row><cell></cell><cell cols="2">retrieval systems</cell><cell>0.359</cell><cell>0.093</cell><cell>0.358</cell><cell>3.860</cell><cell>0.001</cell></row><row><cell></cell><cell>autonomous</cell><cell>mobile</cell><cell>0.375</cell><cell>0.098</cell><cell>0.376</cell><cell>3.827</cell><cell>0.000</cell></row><row><cell></cell><cell>robots</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell></cell><cell>robotic</cell><cell>picking</cell><cell>0.342</cell><cell>0.091</cell><cell>0.341</cell><cell>3.758</cell><cell>0.002</cell></row><row><cell></cell><cell>systems</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell cols="7">a Dependent Variable: operational efficiency in large beverage manufacturing firms</cell></row></table><note><p>pp:(198)(199)(200)(201)(202)(203)(204)(205)(206)(207)(208)(209)(210)(211)(212)</p><p>, Month: October -December 2025, Available at: https://researchbridgepublisher.com/</p></note></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Supply chain automation storage on performance of food and beverage manufacturing firms in Kenya</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Abade</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">S</forename><surname>Noor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Namusonge</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Social Sciences Management and Entrepreneurship</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="308" to="328" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Abade, A, Noor, I. S., &amp; Namusonge, E. (2024). Supply chain automation storage on performance of food and beverage manufacturing firms in Kenya. International Journal of Social Sciences Management and Entrepreneurship, 8(1), 308-328</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Development of a smart autonomous mobile robot for cafeteria management in Nigeria</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Abdulkareem</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Ogunlesi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">S</forename><surname>Afolalu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Mechanical Engineering and Technology</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1672" to="1685" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Abdulkareem, A, Ogunlesi, V., &amp; Afolalu, A. S. (2020). Development of a smart autonomous mobile robot for cafeteria management in Nigeria. International Journal of Mechanical Engineering and Technology, 10(1), 1672-1685</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">A reliability information retrieval system for visually impaired people in Malaysia</title>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">A W M</forename><surname>Ayob</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">S S A</forename><surname>Jamel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">S</forename><surname>Aman</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Multidisciplinary Applied Research and Innovation</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="209" to="216" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ayob, N. A. W. M, Jamel, M. S. S. A., &amp; Aman, M. S. (2024). A reliability information retrieval system for visually impaired people in Malaysia. Multidisciplinary Applied Research and Innovation, 5(1), 209-216</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">An exploration of warehousing automation technologies implementations: cost, service and flexibility issues</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Baker</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Halim</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Supply Chain Management: An International Journal</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="129" to="138" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Baker, P., &amp; Halim, Z. (2020). An exploration of warehousing automation technologies implementations: cost, service and flexibility issues. Supply Chain Management: An International Journal, 12(2), 129-138.</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<monogr>
+		<author>
+			<persName><forename type="first">V</forename><surname>Charisi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Imai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Rinta</surname></persName>
+		</author>
+		<ptr target="https://www.researchgate.net/" />
+		<title level="m">Exploring the concept of fairness in everyday, imaginary and robot picking scenarios: a cross-cultural study with children in Uganda</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Charisi, V, Imai, T., &amp; Rinta, T. (2021). Exploring the concept of fairness in everyday, imaginary and robot picking scenarios: a cross-cultural study with children in Uganda. Retrieved from https://www.researchgate.net/</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">The Adoption of Warehousing Automation Technologies in Thailand</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Chayutthanabun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Suanmali</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Chinda</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Engineering, Project, and Production Management</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1" to="12" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Chayutthanabun, A., Suanmali, S., &amp; Chinda, T. (2024). The Adoption of Warehousing Automation Technologies in Thailand. Journal of Engineering, Project, and Production Management, 14(3), 1-12.</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Influence of Warehousing Automation Technologies on Service Delivery in Zimbabwean Local Authorities</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Chibaro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">T</forename><surname>Mataba</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Mupfiga</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Logistic and Operation Management Research</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="17" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Chibaro, M., Mataba, A. T., &amp; Mupfiga, C. (2024). Influence of Warehousing Automation Technologies on Service Delivery in Zimbabwean Local Authorities. Logistic and Operation Management Research, 3(1), 1-17.</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Selection process for an automated storage system: a unison framework approach in Indonesia</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Darmawan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">H</forename><surname>Son</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">B</forename><surname>Santoso</surname></persName>
+		</author>
+		<idno>ISSN 2959-7056</idno>
+		<ptr target="https://researchbridgepublisher.com/" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Social Science and Humanities Research</title>
+		<idno type="ISSN">2959-7048</idno>
+		<imprint>
+			<biblScope unit="volume">33</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="198" to="212" />
+			<date type="published" when="2021-10">2021. Month. October -December 2025</date>
+			<publisher>Research Bridge Publisher</publisher>
+		</imprint>
+	</monogr>
+	<note>Print online Indonesia Journal of Industrial Engineering</note>
+	<note type="raw_reference">Darmawan, A, Son, N. H., &amp; Santoso, H. B. (2021). Selection process for an automated storage system: a unison framework approach in Indonesia. Indonesia Journal of Industrial Engineering, 33(1), 87-100 ISSN 2959-7048 (Print) ISSN 2959-7056 (online) Research Bridge Publisher, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: https://researchbridgepublisher.com/</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Production Plant and Warehouse Automation with IoT and Industry 5.0</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Fatima</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">H</forename><surname>Tanveer</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><forename type="middle">S</forename><surname>Waseemullah</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">F</forename><surname>Naz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Khadim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Ahmed</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Tahir</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Applied Sciences</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="20" to="53" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Fatima, Z., Tanveer, M. H., Waseemullah, Z. S., Naz, L. F., Khadim, H., Ahmed, N., &amp; Tahir, M. (2022). Production Plant and Warehouse Automation with IoT and Industry 5.0. Applied Sciences, 12(10), 20-53.</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">I</forename><surname>Giannoccaro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Rausa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Rizzi</surname></persName>
+		</author>
+		<ptr target=":///C:/Users/user/Downloads/" />
+		<title level="m">An innovative vision-guided feeding system for robotic picking of different-shaped industrial components randomly arranged</title>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note>Retrieved from file</note>
+	<note type="raw_reference">Giannoccaro, N. I, Rausa, G., &amp; Rizzi, R. (2024). An innovative vision-guided feeding system for robotic picking of different-shaped industrial components randomly arranged. Retrieved from file:///C:/Users/user/Downloads/</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Adoption of Automatic Warehousing Systems in Logistics Firms: A Technology-Organization-Environment Framework</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hao</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Shi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">V</forename><surname>Shi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Yang</surname></persName>
+		</author>
+		<ptr target="///C:/Users/user/Downloads/sustainability" />
+	</analytic>
+	<monogr>
+		<title level="s">Retrieved From</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Hao, J., Shi, H., Shi, V., &amp; Yang, C. (2020). Adoption of Automatic Warehousing Systems in Logistics Firms: A Technology-Organization-Environment Framework. Retrieved From, file:///C:/Users/user/Downloads/sustainability</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<monogr>
+		<author>
+			<persName><forename type="first">V</forename><surname>Ilandarage</surname></persName>
+		</author>
+		<ptr target="https://osuva.uwasa.fi/bitstream/handle/10024/19853/" />
+		<title level="m">Digital Transformation in Warehouse Management: The Impact of Warehousing Automation Technologies on Operational Flexibility and Supply Chain Efficiency</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note>Retrieved From</note>
+	<note type="raw_reference">Ilandarage, V. (2025). Digital Transformation in Warehouse Management: The Impact of Warehousing Automation Technologies on Operational Flexibility and Supply Chain Efficiency. Retrieved From, https://osuva.uwasa.fi/bitstream/handle/10024/19853/</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Warehousing automation technologies and inventory accuracy in Nigeria</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Jamila</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Supply Chain and Logistics</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="53" to="62" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Jamila, Z. (2025). Warehousing automation technologies and inventory accuracy in Nigeria. International Journal of Supply Chain and Logistics, 9(2), 53-62.</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+		<author>
+			<persName><forename type="first">O</forename><surname>Kebede</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Tilahun</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Feyissa</surname></persName>
+		</author>
+		<ptr target="https://link.springer.com/content/pdf/" />
+		<title level="m">Automating Storage management and wastage of reproductive health medicines and associated challenges in west Wollega zone of Ethiopia: a mixed cross-sectional descriptive study</title>
+		<imprint>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kebede, O, Tilahun, G., &amp; Feyissa, D. (2021). Automating Storage management and wastage of reproductive health medicines and associated challenges in west Wollega zone of Ethiopia: a mixed cross-sectional descriptive study. Retrieved from https://link.springer.com/content/pdf/</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Retrieval system and performance of distribution firms in Nairobi city county, Kenya</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Kiplagat</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Wachiuri</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Social Sciences Management and Entrepreneurship</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="481" to="492" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kiplagat, P., &amp; Wachiuri, E. (2024). Retrieval system and performance of distribution firms in Nairobi city county, Kenya. International Journal of Social Sciences Management and Entrepreneurship, 8(4), 481-492</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<monogr>
+		<author>
+			<persName><forename type="first">M</forename><surname>Köseoğlu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><forename type="middle">M</forename><surname>Çelik</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Pektaş</surname></persName>
+		</author>
+		<ptr target="https://www.researchgate.net/" />
+		<title level="m">Design of an autonomous mobile robot based on ROS in Turkish</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Köseoğlu, M, Çelik, O. M., &amp; Pektaş, O. (2020). Design of an autonomous mobile robot based on ROS in Turkish. Retrieved from https://www.researchgate.net/</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Influence of warehousing automation technologies on logistical performance of commercial state corporations in Kenya: a case of Kenya Airports Authority</title>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">K</forename><surname>Maalim</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Moronge</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">The Strategic Journal of Business &amp; Change Management</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="153" to="169" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Maalim, I. K., &amp; Moronge, M. (2023). Influence of warehousing automation technologies on logistical performance of commercial state corporations in Kenya: a case of Kenya Airports Authority. The Strategic Journal of Business &amp; Change Management, 5(4), 153-169.</note>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<author>
+			<persName><forename type="first">C</forename><surname>Maricel</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Flormando</surname></persName>
+		</author>
+		<ptr target="///C:/Users/user/Downloads/" />
+	</analytic>
+	<monogr>
+		<title level="m">Assessment of warehousing automation technologies in an international organization in Mali: a vital component for an enhanced strategic management plan</title>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Maricel, C., &amp; Flormando, B. (2025). Assessment of warehousing automation technologies in an international organization in Mali: a vital component for an enhanced strategic management plan. Retrieved From, file:///C:/Users/user/Downloads/</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">The role of information retrieval systems usage in enhancing port logistics performance: evidence from the Dar Es&apos; Salaam port, Tanzania</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Mlimbila</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">U</forename><forename type="middle">O L</forename><surname>Mbamba</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Shipping and Trade</title>
+		<imprint>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page" from="1" to="20" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mlimbila, J., &amp; Mbamba, U. O. L. (2020). The role of information retrieval systems usage in enhancing port logistics performance: evidence from the Dar Es&apos; Salaam port, Tanzania. Journal of Shipping and Trade, 3(10), 1-20</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Effect of warehousing automation technologies on supply chain performance of fast-moving consumer goods manufacturers in Kenya</title>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">J</forename><surname>Muhalia</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">K</forename><surname>Ngugi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Moronge</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Supply Chain Management</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="11" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Muhalia, E. J., Ngugi, P. K., &amp; Moronge, M. (2021). Effect of warehousing automation technologies on supply chain performance of fast-moving consumer goods manufacturers in Kenya. International Journal of Supply Chain Management, 6(1), 1-11.</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<monogr>
+		<title level="m" type="main">The impact of robotics competitions on the level of technology in institutions of higher learning in Kenya</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">M</forename><surname>Mwaringa</surname></persName>
+		</author>
+		<ptr target="http://ir.jkuat.ac.ke/bitstream/" />
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mwaringa, L. M. (2020). The impact of robotics competitions on the level of technology in institutions of higher learning in Kenya. Retrieved from http://ir.jkuat.ac.ke/bitstream/</note>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Effect of Warehousing Automation Technologies on Supply Chain Performance: A Case of Inyange Industries Ltd</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Mwizerwa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Akumuntu</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">African Journal of Empirical Research</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="358" to="570" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mwizerwa, G., &amp; Akumuntu, J. (2024). Effect of Warehousing Automation Technologies on Supply Chain Performance: A Case of Inyange Industries Ltd. African Journal of Empirical Research, 5(2), 358-570.</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">The impact of robotic activities on secondary school students&apos; interest in physics in Kenya</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">P</forename><surname>Ngugi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">C</forename><surname>Maina</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">P</forename><surname>Byrne</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Computer Applications Technology and Research</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="53" to="59" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ngugi, M. P, Maina, M. C., &amp; Byrne, A. P. (2023). The impact of robotic activities on secondary school students&apos; interest in physics in Kenya. International Journal of Computer Applications Technology and Research, 12(1), 53-59</note>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Effects of retrieval system management practices on organization performance in Kenya: A case of Rift Valley Bottlers Limited in Uasin Gishu County</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">N</forename><surname>Nyaberi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mwangangi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Social Sciences and Entrepreneurship</title>
+		<imprint>
+			<biblScope unit="volume">1</biblScope>
+			<biblScope unit="issue">12</biblScope>
+			<biblScope unit="page" from="458" to="473" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Nyaberi, J. N., &amp; Mwangangi, P. (2020). Effects of retrieval system management practices on organization performance in Kenya: A case of Rift Valley Bottlers Limited in Uasin Gishu County. International Journal of Social Sciences and Entrepreneurship, 1(12), 458-473</note>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<analytic>
+		<title level="a" type="main">Supply chain information retrieval systems usage in inventory tracking among logistics service providers in Kenya</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">O</forename><surname>Odadi</surname></persName>
+		</author>
+		<idno>ISSN 2959-7056</idno>
+		<ptr target="https://researchbridgepublisher.com/https://erepository.uonbi.ac" />
+	</analytic>
+	<monogr>
+		<title level="m">Retrieved From</title>
+		<imprint>
+			<publisher>Research Bridge Publisher</publisher>
+			<date type="published" when="2020-10">2020. Month. October -December 2025</date>
+			<biblScope unit="volume">3</biblScope>
+			<biblScope unit="page" from="198" to="212" />
+		</imprint>
+	</monogr>
+	<note>Print online</note>
+	<note type="raw_reference">Odadi, G. O. (2020). Supply chain information retrieval systems usage in inventory tracking among logistics service providers in Kenya. Retrieved From ISSN 2959-7048 (Print) ISSN 2959-7056 (online) Research Bridge Publisher, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (198-212), Month: October -December 2025, Available at: https://researchbridgepublisher.com/ https://erepository.uonbi.ac.</note>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">Role of warehousing automation technologies on supply chain performance in distribution firms in Kenya: a case of Acceler Global Logistics Limited</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Odera</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Noor</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Management and Commerce Innovations</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="266" to="279" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Odera, D., &amp; Noor, I. (2023). Role of warehousing automation technologies on supply chain performance in distribution firms in Kenya: a case of Acceler Global Logistics Limited. International Journal of Management and Commerce Innovations, 6(1), 266-279.</note>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<monogr>
+		<author>
+			<persName><forename type="first">J</forename><surname>Odhiambo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Barsoget</surname></persName>
+		</author>
+		<ptr target="https://repository.dkut.ac.ke:8080/xmlui/bitstream/handle/" />
+		<title level="m">Robotic medical services and the future of healthcare in Kenya</title>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Odhiambo, J., &amp; Barsoget, J. (2024). Robotic medical services and the future of healthcare in Kenya. Retrieved from https://repository.dkut.ac.ke:8080/xmlui/bitstream/handle/</note>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Effect of logistics automation storage on supply chain performance in Kenya medical supplies authority</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">O</forename><surname>Oduma</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Shale</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Social Sciences and Information Technology</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="124" to="141" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Oduma, R. O., &amp; Shale, N. (2020). Effect of logistics automation storage on supply chain performance in Kenya medical supplies authority. International Journal of Social Sciences and Information Technology, 5(4), 124-141</note>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<monogr>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">O</forename><surname>Okinyi</surname></persName>
+		</author>
+		<ptr target="https://d1wqtxts1xzle7.cloudfront.net/" />
+		<title level="m">Factors affecting stores automation storage in the public sector in Kenya. A case study of Kenya power and lighting company, Thika branch</title>
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Okinyi, J. O. (2020). Factors affecting stores automation storage in the public sector in Kenya. A case study of Kenya power and lighting company, Thika branch. Retrieved from https://d1wqtxts1xzle7.cloudfront.net/</note>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Effects of warehouse automation technologies on performance of manufacturing firms in Kenya</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">O</forename><surname>Ominde</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">M</forename><surname>Kiarie</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Social Sciences and Entrepreneurship</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="26" to="53" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ominde, S. O., &amp; Kiarie, D. M. (2022). Effects of warehouse automation technologies on performance of manufacturing firms in Kenya. International Journal of Social Sciences and Entrepreneurship, 6(3), 26-53.</note>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Warehousing automation technologies and performance of distribution firms in Nairobi City County Kenya</title>
+		<author>
+			<persName><forename type="first">V</forename><forename type="middle">C</forename><surname>Rotich</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Ndeto</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Social Sciences Management and Entrepreneurship</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1110" to="1127" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Rotich, V. C., &amp; Ndeto, C. (2024). Warehousing automation technologies and performance of distribution firms in Nairobi City County Kenya. International Journal of Social Sciences Management and Entrepreneurship, 8(4), 1110-1127.</note>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<monogr>
+		<title level="m" type="main">Fuzzy logic model for obstacles avoidance mobile robot in static unknown environment in Kenya</title>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">S</forename><surname>Shisiali</surname></persName>
+		</author>
+		<ptr target="http://ir.jkuat.ac.ke/bitstream/handle/" />
+		<imprint>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Shisiali, A. S. (2022). Fuzzy logic model for obstacles avoidance mobile robot in static unknown environment in Kenya. Retrieved from http://ir.jkuat.ac.ke/bitstream/handle/</note>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Co-simulation framework using MATLAB and CoppeliaSim for path planning of nonholonomic mobile robots in Kenya</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Shitsukane</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Otieno</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Obuhuma</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Global Journal of Engineering and Technology Advances</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="6" to="19" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Shitsukane, A, Otieno, C., &amp; Obuhuma, J. (2025). Co-simulation framework using MATLAB and CoppeliaSim for path planning of nonholonomic mobile robots in Kenya. Global Journal of Engineering and Technology Advances, 23(1), 6-19</note>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<monogr>
+		<title level="m" type="main">Effect of membership functions for fuzzy logic controlled autonomous mobile robot in Kenya</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Shitsukane</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Otieno</surname></persName>
+		</author>
+		<ptr target="https://www.researchgate.net/" />
+		<imprint>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Shitsukane, A., &amp; Otieno, C. (2020). Effect of membership functions for fuzzy logic controlled autonomous mobile robot in Kenya. Retrieved from https://www.researchgate.net/</note>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Effect of Warehousing Automation Technologies on Operational Efficiency in Manufacturing Industries in Iran</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Tabrizi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">American Journal of Data, Information and Knowledge Management</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="26" to="38" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Tabrizi, A. (2024). Effect of Warehousing Automation Technologies on Operational Efficiency in Manufacturing Industries in Iran. American Journal of Data, Information and Knowledge Management, 5(1), 26-38.</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

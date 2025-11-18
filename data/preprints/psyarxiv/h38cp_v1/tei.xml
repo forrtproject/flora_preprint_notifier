@@ -1,0 +1,1017 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">The Measurement Reliability Crisis in Event-Related Potential Research: Evidence from Bilingual Language Control</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability  status="unknown">
+					<licence/>
+				</availability>
+				<date type="published" when="2025-11-01">November 1, 2025</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Projnya</forename><surname>Mojumdar¹</surname></persName>
+							<email>projnya@uctc.edu.bd</email>
+							<affiliation key="aff0">
+								<orgName type="department">Department of English</orgName>
+								<orgName type="institution">University of Creative Technology Chittagong (UCTC)</orgName>
+								<address>
+									<country key="BD">Bangladesh</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<persName><forename type="first">Purba</forename><surname>Mojumdar²</surname></persName>
+							<affiliation key="aff1">
+								<orgName type="institution">East Delta University</orgName>
+								<address>
+									<country key="BD">Bangladesh</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">The Measurement Reliability Crisis in Event-Related Potential Research: Evidence from Bilingual Language Control</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2025-11-01">November 1, 2025</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">7F2D4D734BD3586C300BBDB04855E49B</idno>
+					<note type="submission">Submitted to: Meta-Psychology Materials:</note>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-18T15:22+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=true, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>event-related potentials</term>
+					<term>psychometric reliability</term>
+					<term>difference waves</term>
+					<term>bilingual language control</term>
+					<term>N2 component</term>
+					<term>measurement crisis</term>
+					<term>classical test theory</term>
+					<term>psychometrics</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Event-related potential (ERP) research exhibits a critical methodological blind spot: intercondition correlations (ρ_XY), the parameter that mathematically determines difference wave reliability via the Lord-Novick formula, are systematically unmeasured. This creates fundamental interpretive ambiguity because Classical Test Theory demonstrates that difference wave reliability is inversely related to ρ_XY, with high correlations suppressing reliability even when constituent waveforms are psychometrically sound. Systematic examination of four foundational ERP studies in bilingual language switching (2001-2016,   N_citations ≈ 1,575)  confirms this pattern: none report difference wave reliability or intercondition correlations, despite these measures being the primary dependent variables isolating language control processes. Sensitivity analysis reveals that this vulnerability extends across the entire plausible parameter space: even when inter-condition correlations are moderate (ρ_XY = .50-.60), achieving adequate difference wave reliability (ρ_DD' ≥ .70) requires constituent reliabilities approaching the ceiling of current ERP methodology (ρ = .85-.88). When experimental control produces high correlations (ρ_XY ≥ .70, a plausible inference from structural analysis and cross-domain precedent in fMRI and other ERP components, though empirically unverified in language switching), the degradation becomes catastrophic: constituent reliabilities of .85 yield difference wave reliabilities near zero. The conspicuous absence of empirical ρ_XY measurements and reliability verification means the field cannot determine whether two decades of N2 debate reflect genuine neurocognitive complexity, measurement instability, or both in unknown proportions. If inter-condition correlations prove high in tightly controlled paradigms (as rigorous experimental design would predict), inconsistent findings become expected outcomes of unreliable measurement rather than theoretical puzzles requiring reconciliation. However, problems persist even if correlations are moderate, indicating systematic vulnerability regardless of precise parameter values. Three reforms can address this gap: mandatory reporting of difference wave reliability and inter-condition correlations (ρ ≥ .70 for group comparisons, ρ ≥ .80 for individual differences research), adoption of Generalizability Theory frameworks that partition variance across multiple sources, and single-trial analytical methods that avoid categorical subtraction. These principles extend beyond bilingual research to all ERP domains using difference waves. Systematic psychometric verification should precede theoretical elaboration; the measurement revolution Parsons (2022) called for requires not novel techniques but rigorous application of established principles.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.">Introduction</head><p>The replication crisis in psychological and neuroscientific research has prompted intense scrutiny of methodological practices, statistical analyses, and reporting standards <ref type="bibr">(Open Science Collaboration, 2015)</ref>. However, a more fundamental issue has received insufficient attention: the psychometric properties of neural measurements themselves. As <ref type="bibr" target="#b31">Parsons (2022</ref><ref type="bibr">, MP.2020</ref><ref type="bibr">.2577)</ref> argued in Meta-Psychology, "Measurement matters and I call on readers to help us move from what could be a measurement crisis towards a measurement revolution." Event-related potential (ERP) research, despite its precision in temporal resolution and widespread adoption in cognitive neuroscience, has proceeded for decades with minimal attention to a bedrock principle of measurement science: the systematic assessment and reporting of reliability. This oversight is particularly consequential because ERP research relies heavily on difference waves, calculated by subtracting one averaged waveform from another to isolate neural activity specific to a cognitive process. While conceptually elegant, this method harbors a critical vulnerability: the reliability of a difference score is not simply inherited from its constituent parts. Classical Test Theory (CTT) demonstrates that difference wave reliability is inversely related to the correlation between conditions, a correlation that paradoxically increases when researchers implement rigorous experimental control <ref type="bibr">(Lord &amp; Novick, 1968, pp. 66-67)</ref>.</p><p>This creates a counterintuitive situation where exemplary experimental design can produce psychometrically unstable measures. sessions), which assesses temporal stability but is less commonly examined in ERP research.</p><p>Reliability is not optional or supplementary; it represents a prerequisite for valid scientific inference. An unreliable measure, dominated by random error, cannot validly index the cognitive or neural process it purports to capture. Psychometric theory establishes that validity cannot exceed the square root of reliability, placing a mathematical ceiling on interpretability <ref type="bibr" target="#b29">(Nunnally &amp; Bernstein, 1994)</ref>. Without established reliability, any reported effect remains fundamentally ambiguous, potentially representing stable neural signal or measurement artifact. This principle constitutes the foundation of sound measurement, and its systematic neglect threatens the integrity of scientific conclusions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">The critical vulnerability: mathematics of difference score reliability</head><p>The psychometric challenge intensifies due to ERP research's predominant reliance on difference waves. To isolate neural activity associated with specific cognitive processes (e.g., language switching), researchers subtract averaged ERPs from matched control conditions (e.g., language repetition) from experimental condition waveforms. This subtraction aims to cancel shared neural activity, preserving only process-specific components. While conceptually sound, this approach introduces severe psychometric vulnerability.</p><p>Difference score reliability does not simply inherit from constituent reliabilities. Classical Test Theory provides the formula for difference score reliability (ρ_{DD′}) when constituent variances are equal. As articulated by <ref type="bibr">Lord and Novick (1968, pp. 66-67)</ref> and later discussed in the context of change measurement by <ref type="bibr" target="#b14">Cronbach and Furby (1970)</ref> Critical assumption: Equation 2 applies when constituent conditions have equal variances (σ²_X = σ²_Y) in addition to equal reliabilities. This assumption is typically satisfied in well-designed ERP studies where conditions have similar trial counts, undergo identical preprocessing, and use the same electrode sites. When variances differ substantially, for example, when comparing conditions with unequal trial numbers or markedly different artifact rejection rates-researchers must use the general formula (Equation <ref type="formula">1</ref>). The equal-variance assumption holds for the parameter combinations examined in this manuscript, making Equation <ref type="formula">2</ref>appropriate for the analyses presented here.</p><p>Verification of the equal-variance assumption. Equation 2 applies when constituent conditions have equal variances (σ²_X = σ²_Y) in addition to equal reliabilities. This assumption is typically satisfied in well-designed ERP studies where: (1) conditions have similar trial counts after artifact rejection (within ±20%), (2) preprocessing procedures are identical across conditions, (3) the same electrode sites and time windows are analyzed, and (4) experimental manipulations affect mean amplitude without systematically altering variance structure.</p><p>We examined trial count reporting in the four foundational studies (Table <ref type="table" target="#tab_5">3</ref>) to assess whether equal-variance assumptions are justified. Critical limitation: Original manuscripts do not consistently report conditionspecific trial counts after artifact rejection, preventing direct variance comparison. This represents an additional reporting gap beyond reliability assessment. However, the studies' methodological designs (balanced trial presentation, identical preprocessing pipelines, matched stimulus characteristics) suggest variance heterogeneity was minimal. When substantial variance differences exist (≥20% difference in retained trials, or condition-specific variance ratios &gt;1.5:1), researchers must use the general formula (Equation <ref type="formula">1</ref>) rather than the simplified form.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Understanding ρ_{XY}: the inter-condition correlation</head><p>A critical parameter in Equation <ref type="formula">2</ref> Rigorous experimental control is expected to produce high ρ_{XY} through a three-step mechanism. First, to isolate specific cognitive processes (e.g., language selection), researchers design conditions differing minimally except for the variable of interest, matching stimuli, timing, motor responses, and attentional demands. Second, this design ensures that most neural processing (visual encoding, lexical access, articulation, constituting the majority of variance based on task structure) remains identical across conditions. Third, because these shared processes dominate total variance, individual differences in these non-target processes are nearly perfectly preserved across conditions, producing high ρ_{XY}. According to Equation <ref type="formula">2</ref>, high ρ_{XY} mathematically suppresses difference wave reliability.</p><p>Consequently, standard ERP methodology may be optimized to produce potentially unstable primary measures.</p><p>Cross-domain precedent supports this inference. <ref type="bibr" target="#b19">Infantolino et al. (2018;</ref><ref type="bibr">Table 2, p. 149</ref>) reported r = .97 for amygdala responses to faces versus shapes in fMRI, a tightly controlled within-subjects contrast analogous to language switching. <ref type="bibr" target="#b12">Cofresí et al. (2022)</ref> found r = .85-.88 for P3 amplitudes to alcohol versus non-alcohol beverage cues, again, highly similar stimuli differing on a single dimension. Both studies demonstrate that rigorous experimental control can produce high inter-condition correlations. <ref type="bibr">Clayson, Baldwin, and Larson (2021)</ref> directly confirmed in ERP research that "RewP difference scores yielded poor reliability due to the high correlation between the constituent reward and non-reward ERPs," providing empirical demonstration of the mathematical relationship we describe.</p><p>However, a critical empirical gap exists: despite the mathematical centrality of ρ_{XY} to difference wave reliability, inter-condition correlations are virtually never reported in published ERP research. We found no published studies reporting these correlations for N2 components in any paradigm, let alone language switching specifically. This absence represents not merely incomplete reporting but a systematic blind spot in ERP psychometrics. The inference that language switching paradigms exhibit ρ_{XY} &gt; .70 rests on structural reasoning and cross-domain analogy rather than direct measurement. While these sources provide convergent plausibility, empirical verification remains an urgent priority.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Worked example</head><p>Suppose switch and non-switch conditions each have internal consistency reliability of .85 (excellent by standard criteria). If individuals' switch trial ERP amplitudes correlate with their non-switch trial ERP amplitudes at ρ_{XY} = .80 (meaning people with larger switch-trial N2s tend to have larger non-switch-trial N2s, preserving rank ordering across conditions), difference wave reliability becomes: Despite excellent constituent reliabilities, the difference wave is essentially unreliable (ρ = .25), far below acceptable thresholds. Note that ρ_{XY} here represents the correlation between individuals' scores across the two conditions, not simply a generic similarity between conditions. This calculation is programmatically verified in the reproducible R script available at OSF, which confirms all worked examples in Table <ref type="table" target="#tab_0">2</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Formula implications</head><p>This formula reveals a critical relationship: difference score reliability decreases as inter-condition correlation increases, even when individual conditions exhibit excellent reliability. As ρ_{XY} approaches 1, difference score reliability approaches zero regardless of constituent reliabilities. This mathematical relationship creates systematic vulnerability in cognitive neuroscience methodology. The widespread failure to compute and report difference wave reliability represents not minor oversight but failure to verify whether rigorous experimental design has inadvertently rendered the dependent variable statistically meaningless. This constitutes a potential crisis embedded in methodological design, a fundamental blind spot extending beyond single components or domains, threatening validity of theoretical claims built upon unexamined difference wave foundations.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.3">Empirical precedent: the faces-shapes reliability paradox</head><p>Empirical evidence from functional magnetic resonance imaging (fMRI) research demonstrates this problem's severity. <ref type="bibr" target="#b19">Infantolino et al. (2018;</ref><ref type="bibr">see Table 2, p. 149;</ref><ref type="bibr">N = 139)</ref> examined amygdala activation differences between face and shape stimuli, a robust, highly replicable group-level effect. Individual condition reliabilities were excellent (Spearman-Brown corrected reliability &gt; .94 for both faces and shapes conditions). However, difference score reliability (faces minus shapes) was essentially zero (r = -.06), because amygdala responses to faces and shapes correlated highly across individuals (r = .97).</p><p>Note: The original paper does not report CIs for these correlations. They report: "the internal consistency of the activation difference between faces and shapes was nearly zero (SB = -.06)" and "the amygdala response to faces and shapes was highly correlated (r = .97)." No CIs are provided in the source paper itself.</p><p>Despite robust group-level effects and excellent individual-condition reliability, the difference score (the measure of theoretical interest) was completely unreliable. This finding powerfully illustrates that experimental robustness does not guarantee measurement reliability.</p><p>Recent evidence from ERP research demonstrates that this pattern extends to electrophysiological measurements. <ref type="bibr">Clayson et al. (2021;</ref><ref type="bibr"></ref> see Figures <ref type="figure">3</ref> and <ref type="figure">6</ref>), applying Generalizability Theory (G-theory, a framework that partitions variance into multiple sources including persons, trials, and occasions) to N2 components recorded in a Go/NoGo task, found that internal consistency reached acceptable levels (dependability coefficients ≥ .70 in most conditions, within recommended thresholds for preliminary research), but test-retest reliability was substantially lower, falling below recommended thresholds. In Generalizability Theory terminology, the dependability coefficient serves the same function as the reliability coefficient in Classical Test Theory, while the generalizability coefficient addresses relative ranking of individuals. Critically, person × occasion variance was very large (comparable to between-person variance), illustrating precisely the mechanism by which high inter-condition correlations suppress temporal stability. These findings provide direct empirical demonstration that the theoretical vulnerability described here manifests in N2 measurements, supporting the hypothesis that inconsistent findings in bilingual switching studies may partially reflect measurement instability rather than solely genuine neural variability. This demonstrates the mathematical vulnerability described in Section 2.2: high inter-condition correlations suppress difference wave reliability even when constituent measures are psychometrically sound. Comparable patterns have been documented for ERN difference scores, suggesting that the reliability degradation observed for N2 difference waves represents a general property of ERP methodology rather than a component-specific limitation.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.4">The reliability paradox and implications for statistical inference</head><p>The observed pattern connects to what <ref type="bibr" target="#b18">Hedge et al. (2018)</ref> termed the "Reliability Paradox" in the context of test-retest reliability. While Hedge and colleagues focused on temporal stability (consistency across testing sessions), similar mathematical principles apply to internal consistency reliability in ERP difference waves. In both cases, low between-person variance in the measure of interest (whether a behavioral effect across time or an ERP difference wave across trials) produces low reliability coefficients, even when measurement error is minimal.</p><p>Experimental tasks producing robust, easily replicable group-level effects become popular precisely because they minimize between-subject variability. When most participants show similar effects, error bars shrink and statistical power for detecting main effects increases. However, this property (low between-subject variability in the effect size) is mathematically detrimental to reliability. For test-retest reliability, the intraclass correlation coefficient (ICC), a standardized measure of the degree of consistency or reproducibility of quantitative measurements, represents the proportion of total variance attributable to true betweensubject differences, as shown in Equation <ref type="formula">3</ref>:</p><formula xml:id="formula_0">Equation 3. Intraclass correlation coefficient</formula><p>where σ²_{between} represents between-subject variance and σ²_{error} represents error variance. When between-subject variance (σ²_{between}) is low, ICC necessarily decreases even with minimal measurement error. In simple terms: tasks where everyone shows similar effect sizes produce small error bars for group averages (good for detecting main effects) but provide little information about stable individual differences (bad for correlational analyses or test-retest reliability assessment).</p><p>The same mathematical principle applies to internal consistency of difference waves. When most participants show similar difference wave amplitudes (small between-person variance), combined with high intercondition correlations (as demonstrated in Section 2.2), the resulting difference wave reliability will be poor. Tasks optimized for demonstrating robust group-level differences become unsuitable for analyses requiring reliable individual difference measures.</p><p>This reliability challenge has cascading implications for statistical inference and replication: First, reduced statistical power: Unreliable measures require substantially larger sample sizes to achieve adequate power. A study adequately powered for reliable individual conditions may be severely underpowered for the difference wave, increasing Type II error rates and making genuine effects harder to detect.</p><p>Second, effect size instability: Unreliable measures produce unstable effect size estimates across samples. Even when true effects exist, observed effect sizes will vary substantially due to measurement error, producing high heterogeneity in meta-analyses even when paradigms are similar.</p><p>Third, contradictory findings become expected: When reliability approaches zero, observed effects reflect primarily random error rather than signal. Replication "failures" become likely even when true effects exist, because each study is essentially measuring noise rather than stable neural activity.</p><p>Fourth, publication bias interaction: Low reliability combined with publication bias means the published literature may systematically overestimate ERP difference wave effects. Studies finding significant effects (due to random error favoring the hypothesis) get published, while null findings (equally likely with unreliable measures) remain in file drawers. This creates illusory robustness in published literature while masking underlying measurement instability.</p><p>Fifth, systematic underestimation of true relationships: Low reliability does not merely reduce statistical power; it systematically distorts observed effect sizes through attenuation. Classical Test Theory provides a correction formula:</p><p>where ρ_{xx} and ρ_{yy} represent the reliabilities of measures X and Y.</p><p>Consider a plausible scenario: an observed correlation of r = .20 between an N2 difference wave (reliability ρ = .25) and a behavioral measure (reliability ρ = .80). The corrected estimate reveals the true relationship:</p><p>The observed correlation underestimates the true relationship by more than half. Many null findings in the literature, interpreted as evidence that neural and behavioral measures are dissociated, may reflect measurement artifacts rather than genuine absence of brain-behavior relationships. This has profound implications: studies concluding that "N2 amplitude does not correlate with switching costs" may be documenting measurement failure rather than theoretical insight.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Sixth, unstable group-level effects:</head><p>The reliability crisis extends beyond individual differences research to threaten group-level inference itself.</p><p>When difference waves are unreliable, the observed effect size in any particular sample reflects substantial measurement error, not just true signal. Consider a meta-analysis synthesizing 10 studies of the same N2 switching effect. If difference wave reliability is ρ = .30 (as predicted under high inter-condition correlation scenarios), each study's observed effect size is approximately:</p><p>Even when all studies measure the same true effect with identical paradigms, observed effects will vary by ±45% purely due to measurement error. Meta-analyses will report high heterogeneity (I² &gt; 75%), interpreted as genuine paradigm differences or moderator effects, when the variability actually reflects measurement instability. Researchers will develop increasingly complex theories to explain contradictions that are primarily psychometric artifacts. This isn't hypothetical: the N2 language switching literature exhibits exactly this pattern-similar paradigms producing divergent findings, spawning elaborate theoretical frameworks to reconcile results that may partially reflect unstable measurement.</p><p>The publication bias amplification effect: When measures are unreliable, publication bias doesn't merely select for significant findings-it systematically distorts the published literature in ways that compound interpretive difficulties. Consider the mechanism: A laboratory collects data on N2 language switching effects with an unreliable difference wave (ρ_DD' = .30). Across repeated studies, approximately 50% will find "significant" switching effects by chance, while 50% will find null results (also by chance, since the measure is dominated by noise). The significant findings get published with theoretical interpretations ("N2 reflects inhibitory control"), while null findings remain unpublished. Other laboratories, attempting to replicate using different paradigm variations, encounter the same reliability problem but don't realize it. Some find "significant" effects (published with alternative theoretical interpretations: "N2 reflects conflict monitoring"), others find null results (unpublished).</p><p>The published literature now contains multiple significant findings with contradictory patterns, all from unreliable measurements, none reporting reliability coefficients. Researchers interpret this as theoretical complexity requiring sophisticated reconciliation. Meta-analysts note high heterogeneity and propose moderators (paradigm type, language proficiency, training history). The field invests years developing elaborate models to explain contradictions that partially reflect measurement instability.</p><p>This isn't speculation-it's the observed pattern in N2 language switching research. Breaking this cycle requires not merely reporting reliability but making reliability a gatekeeping criterion: studies with unverified or inadequate measurement properties should not be interpretable as theoretical evidence, regardless of significance level.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.">Evidence from Bilingual Language Control Research</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">The N2 paradox: a two-decade theoretical debate</head><p>The N2 component in bilingual language switching has generated persistent controversy. <ref type="bibr" target="#b20">Jackson et al. (2001)</ref> reported enhanced N2 amplitude for switch trials compared to non-switch trials in a predictable digit-naming paradigm, interpreting this as reflecting inhibitory control required to suppress the dominant language during switches to the weaker language. In contrast, subsequent studies using unpredictable picture-naming paradigms (e.g., <ref type="bibr" target="#b4">Christoffels et al., 2007)</ref> reported different N2 patterns, with some showing attenuated or context-dependent effects.</p><p>These varying findings launched extensive theoretical efforts spanning two decades. Researchers proposed increasingly complex models invoking proactive versus reactive control mechanisms, context-dependent adaptation, training-induced plasticity, and individual differences in cognitive control capacity <ref type="bibr" target="#b16">(Green &amp; Abutalebi, 2013;</ref><ref type="bibr" target="#b0">Abutalebi &amp; Green, 2016)</ref>. The field treated this as a neurocognitive puzzle requiring sophisticated theoretical resolution.</p><p>Crucially, paradigm differences (predictable vs. unpredictable switching, digit naming vs. picture naming, varying cue-stimulus intervals) may indeed produce legitimately different neural effects. Distinguishing genuine neurocognitive differences from measurement artifacts requires demonstrated reliability. If difference waves are unreliable, any pattern of results becomes possible regardless of underlying neural reality. The argument here is not that neural complexity is absent, but that reliability must be established to separate true effects from measurement noise. The field has constructed elaborate theoretical frameworks (proactive vs. reactive control, adaptive control hypothesis) without first establishing that the measures being compared are psychometrically sound. These contradictions may reflect measurement instability rather than neural complexity, though this possibility remains empirically unverified without direct reliability assessment.</p><p>However, examination of the empirical foundations reveals a striking omission: none of the foundational or subsequent major studies report psychometric reliability for their N2 difference waves.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">The Pervasive Vulnerability: Problems Across the Parameter</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Space</head><p>Having established that difference wave reliability is mathematically determined by the Lord-Novick formula, we now examine whether this vulnerability manifests only under extreme conditions or across the plausible parameter space. Critically, our analysis reveals systematic problems even when inter-condition correlations are moderate, not merely when they approach unity.</p><p>Table <ref type="table" target="#tab_0">2</ref> demonstrates a consequential pattern: achieving adequate difference wave reliability (ρ_DD' ≥ .70) requires constituent reliabilities approaching the ceiling of current ERP methodology, even when inter-condition correlations are moderate. Consider the implications at increasingly realistic correlation values: At ρ_XY = .50 (moderate correlation): Constituent reliability must reach ρ = .85 to produce marginally adequate difference waves. While .85 falls within the typical range for well-decomposed ERP components <ref type="bibr" target="#b11">(Clayson &amp; Miller, 2017)</ref>, it represents good-not routine-measurement quality, typically requiring 40+ trials per condition with rigorous artifact rejection.</p><p>At ρ_XY = .60: Required constituent reliability increases to ρ = .88, approaching the upper range of values reported in systematic generalizability studies <ref type="bibr">(Clayson et al., 2021)</ref>.</p><p>Achieving this requires ≥60 trials per condition, optimal preprocessing, and favorable signalto-noise characteristics.</p><p>At ρ_XY = .70: Required reliability of ρ = .91 exceeds typical values and requires near-optimal measurement conditions (&gt;80 trials per condition, exceptional artifact rejection, strong component morphology).</p><p>At ρ_XY ≥ .80: Required reliabilities (ρ ≥ .94) approach theoretical limits, effectively unachievable with current ERP methodology regardless of trial count or preprocessing quality.</p><p>This sensitivity analysis reveals that the mathematical vulnerability we have demonstrated is not confined to extreme parameter combinations. Even optimistic assumptions about inter-condition correlations (ρ_XY = .50) require constituent reliabilities that, while achievable, are not routine.</p><p>Across the entire plausible parameter space, difference wave reliability cannot be assumed from constituent conditions and must be empirically verified.</p><p>The critical implication: regardless of whether empirical measurements ultimately reveal ρ_XY values of .50, .70, or .90, the fundamental vulnerability persists. The two-decade absence of such measurements represents not merely incomplete reporting but systematic epistemic neglect-the field has operated without knowing whether its primary analytical approach produces reliable measurements.  <ref type="formula">2</ref>), which assumes σ²_X = σ²_Y. When constituent variances differ substantially (≥20% difference in trial counts after artifact rejection, or variance ratios exceeding 1.5:1), apply the general formula (Equation <ref type="formula">1</ref>). The equal-variance assumption is typically satisfied in well-controlled ERP paradigms with balanced designs, though direct verification requires condition-specific variance reporting.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Confidence intervals not applicable: Table values are algebraic solutions</head><p>to the deterministic Lord-Novick formula, not empirical estimates requiring uncertainty quantification. However, empirical reliability estimates should be reported with 95% CIs using bootstrapping or G-theory variance components.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2.1">Catastrophic Degradation Under Rigorous Experimental</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Control</head><p>While the sensitivity analysis demonstrates that problems persist even at moderate intercondition correlations, the degradation becomes catastrophic when experimental design produces high correlations. If language switching paradigms exhibit ρ_XY ≥ .70-a plausible inference from structural analysis and cross-domain precedent, though empirically unverified in language switching specifically-then constituent reliabilities that appear excellent by standard psychometric criteria fail to produce adequate difference waves.</p><p>The structural reasoning: Rigorous experimental control is expected to produce high ρ_XY through a three-step mechanism. First, researchers design conditions differing minimally except for the variable of interest (e.g., language identity), matching stimuli, timing, motor responses, and attentional demands. Second, this design ensures that most neural processing (visual encoding, lexical access, phonological retrieval, articulation planning) remains identical across conditions, with these shared processes constituting the majority of variance based on task structure. Third, because shared processes dominate total variance, individual differences in these non-target processes are substantially preserved across conditions, producing high ρ_XY. Participants who show large N2 amplitudes in switch trials tend to show large N2 amplitudes in non-switch trials, reflecting stable individual differences in the shared neural machinery.</p><p>This inference assumes that shared variance (common to both conditions) exceeds switching-specific variance (unique to the difference). However, if switching costs produce large, stable individual differences, this could reduce ρ_XY by introducing substantial between-person variance in the difference wave itself. Empirical measurement of ρ_XY is therefore critical to adjudicate between these alternatives. Table 1 quantifies this degradation across parameter combinations that would be particularly consequential if they reflect actual measurement conditions in language switching research. The mathematical relationship reveals an alarming pattern: high inter-condition correlations suppress difference wave reliability even when constituent conditions achieve excellent psychometric properties by standard criteria.  <ref type="bibr">(Nunnally, 1978, pp. 245-246;</ref><ref type="bibr">Clayson &amp; Miller, 2017, p. 61)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Cross</head><p>Asterisk (*) indicates parameter combinations most consequential if tightly controlled paradigms produce high inter-condition correlations (ρ_XY ≥ .70), though direct measurement of these correlations in language switching research is critically needed. The mathematical vulnerability is established; whether it manifests at hypothesized magnitudes requires empirical verification. However, sensitivity analysis (</p><p>Table 2) demonstrates that problems persist even when ρ_XY is moderate, making this concern robust across the plausible parameter space rather than confined to extreme values. Confidence intervals not applicable: Table values are deterministic mathematical calculations from the Lord-Novick formula, not empirical estimates requiring even when constituent conditions are highly reliable. Three curves show this relationship for constituent reliabilities of ρ = .80 (adequate), .85 (good), and .90 (excellent). As the correlation between individuals' ERP amplitudes across conditions (ρ_XY, x-axis) increases, difference score reliability (ρ_DD', y-axis) systematically declines. The horizontal dashed line indicates adequate reliability (ρ ≥ .70) for group comparisons. The left vertical line (ρ_XY = .67) marks where even excellent constituent reliability (ρ = .90) fails to produce adequate difference waves. The right vertical line (ρ_XY = .70) marks a plausible value for tightly controlled language switching paradigms based on structural considerations and cross-domain analogy, though direct empirical verification is needed. The shaded region indicates psychometric pathology: negative reliability means error variance exceeds truescore variance, producing maximally misleading measurements. Calculations use the Lord &amp; Novick (1968, pp. 66-67) formula for equal-variance conditions. Complete data (288 points across three reliability curves) and R code available at OSF. 3.3 Evidence from foundational bilingual language control research Study selection rationale. To evaluate whether reliability assessment preceded theoretical interpretation, we examined foundational studies that shaped the N2 debate in bilingual language control. Our selection criteria were: (1) Citation impact: Studies with &gt;100 citations (as of October 2025) indicating foundational influence on theoretical discourse; (2) Theoretical representation: Studies representing distinct positions in the N2 debate (switch &gt; non-switch effects, context-dependent modulation, cue-stimulus interval effects, and training-induced plasticity); (3) Temporal span: Studies spanning 2001 to 2016 to capture the period during which core theoretical frameworks were established. This purposive sampling addresses a specific research question: Did the studies that established current theoretical frameworks verify their measurements? This differs from systematic review objectives (prevalence estimation across all N2 research) or meta-analytic objectives (pooled effect size estimation). We emphasize that this analysis targets theory-shaping research rather than estimating field-wide prevalence. These four studies collectively accumulated ~1,575 citations and shaped fifteen years of foundational theoretical discourse on bilingual language control (2001-2016), establishing paradigms and interpretive frameworks that subsequent research built upon. If foundational studies establishing core theoretical frameworks proceeded without reliability verification, subsequent research</p><p>building on these frameworks inherits this uncertainty. We acknowledge this approach does not establish field-wide prevalence rates. A comprehensive systematic review documenting prevalence rates across all N2 language switching studies represents critical future work that would complement the present analysis.</p><p>Table 3 documents this pattern across representative foundational studies. Consequently, the field's preference for paradigms that yield strong group effects may have inadvertently promoted psychometrically weak measures, fueling decades of theoretical debate built on unstable findings.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.">Implications and the Path Forward</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">Reinterpreting theoretical debates</head><p>The systematic absence of reliability reporting carries profound implications for theoretical interpretation. The N2 "paradox" may not represent solely a neurocognitive puzzle but also a consequence of comparing measurements of unknown psychometric quality. When primary dependent variables have unknown reliability, replication failures become as likely as successes, and contradictory findings become expected regardless of true neural differences.</p><p>This does not invalidate all prior work. Studies may have measured genuine effects. However, without demonstrated reliability, this remains unknowable. The theoretical edifice may rest partly on unverified empirical foundations. Recognizing this constitutes not scientific failure but necessary course correction.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1.1">Distinguishing measurement artifacts from neurocognitive complexity</head><p>As established in Section 3.1, paradigm variations may produce genuine neural differences. However, without reliability verification, distinguishing these from measurement artifacts remains impossible. This confounding has specific implications: high measurement error can produce spurious contradictions, masked true effects, false replication failures, and theoretical proliferation where researchers develop increasingly complex models to reconcile contradictions that partially reflect measurement artifacts.</p><p>The N2 paradox may exemplify this confounding. <ref type="bibr" target="#b20">Jackson et al.'s (2001)</ref> predictable digit-naming paradigm and <ref type="bibr">Christoffels et al.'s (2007)</ref> unpredictable picture-naming paradigm differ substantially in design, stimulus materials, and cognitive demands. These differences could produce legitimately different N2 patterns. However, neither study reported difference wave reliability or inter-condition correlations, leaving open the alternative explanation: their findings partially reflect measurement instability. Distinguishing these possibilities requires the data that has not been collected.</p><p>A note on constructive criticism: This analysis presents forceful critique of current practices, but the intent is strengthening rather than dismissing the field. The studies examined here represent rigorous, influential research that advanced understanding of bilingual cognition. The researchers involved are not being accused of negligence; they followed the prevailing methodological standards of their time. The problem is that those standards were systematically inadequate regarding psychometric verification.</p><p>Recognizing this creates opportunity: by adopting more rigorous measurement practices going forward, we can build upon existing findings with stronger empirical foundations. Science progresses not by abandoning prior work but by refining the methods that produced it. it can be used somewhere else</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2">A framework for methodological reform</head><p>Recognizing systemic problems enables systematic solutions. Following</p><p>Parsons' (2022) call to transform measurement crisis into measurement revolution, the following multi-tiered framework can guide ERP research toward greater rigor, replicability, and theoretical progress:</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.1">Tier 1: Mandatory reliability reporting (immediate implementation)</head><p>Journals, reviewers, and funding agencies should mandate reporting of psychometric reliability for all key ERP effects, particularly difference waves. This requires routine application of established psychometric principles, not novel complex analyses.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Specific requirements:</head><p>• Report internal consistency coefficients (split-half reliability, Cronbach's α, or generalizability coefficients) for all primary ERP measures • Specify calculation method clearly (e.g., odd-even split with Spearman-Brown correction)</p><p>• Justify minimum trial counts based on reliability goals rather than arbitrary cutoffs</p><p>• Include reliability assessment in pre-registration documents</p><p>• Critically, report inter-condition correlations when analyzing difference waves, enabling readers to evaluate potential reliability degradation</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Evidence-based thresholds:</head><p>The appropriate reliability threshold depends on research context.</p><p>Following principles from <ref type="bibr">Nunnally (1978, pp. 245-246)</ref> and ERP-specific guidelines from <ref type="bibr">Clayson &amp; Miller (2017, p. 61)</ref>, we establish the following standards:</p><p>• Preliminary/exploratory research: minimum ρ ≥ .70</p><p>• Confirmatory research and individual differences studies: minimum ρ ≥ .80</p><p>• Clinical applications and high-stakes decisions: minimum ρ ≥ .90</p><p>Studies falling below appropriate thresholds must explicitly acknowledge limitations and temper theoretical claims accordingly.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Practical implementation considerations:</head><p>We note that implementing these recommendations faces practical obstacles. Many legacy datasets have insufficient trials for stable reliability estimates, raw data are often unavailable for retrospective assessment, and funding structures typically do not reward methodological validation studies. However, these barriers should motivate prospective reform rather than excuse continued neglect. Researchers designing new studies can implement reliability assessment at minimal cost during pilot testing.</p><p>Journals can require verification for new submissions while grandfathering existing literature. Funding agencies can allocate modest resources for large-scale validation studies that would benefit entire research domains.</p><p>The path forward is clear even if obstacles exist.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Retrospective reliability assessment:</head><p>Researchers with existing ERP datasets can retrospectively assess difference wave reliability using straightforward procedures:</p><p>1. Split-half approach: Randomly split trials into odd and even subsets, calculate difference waves for each subset, correlate them, and apply Spearman-Brown correction: reliability = 2r/(1 + r)</p><p>2. ERA Toolbox: Use the freely available ERP Reliability Analysis (ERA)</p><p>Toolbox <ref type="bibr" target="#b9">(Clayson et al., 2016)</ref> to partition variance across multiple sources and provide generalizability coefficients 3. Transparent reporting: Report results in online supplements or brief reports, even when reliability proves inadequate. Acknowledge post-hoc nature and note as limitation. Transparent acknowledgment that published findings may rest on unreliable measurements advances the field more than continued silence.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.2">Tier 2: Adopting superior psychometric frameworks</head><p>While Classical Test Theory metrics constitute crucial first steps, Generalizability Theory (G-theory) offers more sophisticated and appropriate frameworks for ERP data <ref type="bibr" target="#b32">(Shavelson &amp; Webb, 1991;</ref><ref type="bibr" target="#b2">Brennan, 2001;</ref><ref type="bibr">Clayson et al., 2021)</ref>. In Classical Test Theory, this metric is called reliability; in Generalizability Theory, the equivalent measure for absolute decisions is called the dependability coefficient (G-theory), while the generalizability coefficient addresses relative decisions (ranking individuals within CTT frameworks).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Advantages of G-theory:</head><p>• </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Practical implementation:</head><p>The ERP Reliability Analysis (ERA) Toolbox provides freely available, userfriendly MATLAB software specifically designed for implementing G-theory with ERP data <ref type="bibr" target="#b9">(Clayson et al., 2016)</ref>. This tool eliminates practical barriers to adoption. Continued failure to assess reliability constitutes active choice to ignore available solutions rather than technical limitations.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.3">Tier 3: Moving beyond averaging (long-term paradigm shift)</head><p>While ensuring averaged waveform reliability is necessary, averaging discards valuable information in trial-to-trial variability. Advanced statistical methods leverage this variability for increased power and mechanistic insight.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Single-trial approaches:</head><p>Hierarchical Linear Models (mixed-effects models) analyze data at the single-trial level, modeling ERP amplitude as a function of categorical and continuous predictors while accounting for multiple variance sources <ref type="bibr" target="#b33">(Smith &amp; Kutas, 2015;</ref><ref type="bibr" target="#b35">Volpert-Esmond et al., 2021;</ref><ref type="bibr" target="#b1">Bagiella et al., 2000)</ref>. These methods offer important advantages:</p><p>• Transform rather than eliminate psychometric challenges: By modeling condition effects directly rather than through subtraction, single-trial approaches avoid the specific mathematical vulnerability we have demonstrated. However, reliable estimation of condition effects still requires adequate signal-to-noise ratios at the trial level, and individual differences in condition effects (random slopes) require sufficient within-subject trial sampling.</p><p>• Increase statistical power: Utilizing all trials rather than averaged waveforms provides more information for parameter estimation, particularly when incorporating trial-level covariates (response time, previous trial type, stimulus characteristics).</p><p>• Enable complex modeling: Simultaneous estimation of multiple effects and their interactions becomes tractable, avoiding the proliferation of difference waves required in traditional approaches.</p><p>Single-trial methods represent a valuable complement to, not replacement for, careful psychometric assessment of averaged measures. Different research questions require different analytical approaches: component identification and time-course characterization often rely on averaged waveforms, while individual differences and brain-behavior correlations may benefit from single-trial modeling. The key principle remains consistent across methods: verify that your measurements are reliable before building theoretical interpretations upon them.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Alternatives to difference wave subtraction:</head><p>Beyond improving difference wave reliability or adopting single-trial approaches, researchers should consider analytical methods that avoid categorical condition subtraction entirely. Regression-based ERP analysis models amplitude as a continuous function of multiple predictors simultaneously <ref type="bibr" target="#b33">(Smith &amp; Kutas, 2015;</ref><ref type="bibr" target="#b17">Hauk et al., 2006)</ref>, avoiding the need to categorize trials into discrete conditions. Multivariate pattern analysis (MVPA) classifies trials based on distributed spatial patterns rather than univariate amplitude differences, providing an alternative metric (decoding accuracy) that may exhibit better psychometric properties <ref type="bibr" target="#b21">(King &amp; Dehaene, 2014)</ref>. Time-frequency analysis decomposes EEG signals into constituent neural oscillations, offering mechanistically transparent measures: frontal midline theta (4-8 Hz) indexes conflict monitoring, alphaband suppression (8-13 Hz) reflects active inhibition, and beta-band modulation (13-30 Hz) tracks motor preparation <ref type="bibr" target="#b13">(Cohen, 2014)</ref>. Each frequency band can be analyzed independently without requiring difference waves, potentially avoiding the reliability degradation we have demonstrated.</p><p>These methods complement rather than replace traditional ERP analysis.</p><p>Difference waves remain valuable for isolating specific cognitive processes when properly validated. However, triangulating findings across multiple analytical approaches (difference waves with verified reliability, single-trial mixed models, time-frequency decomposition, and multivariate pattern analysis) provides more robust evidence than relying solely on unvalidated subtraction measures. The diversity of analytical methods available strengthens rather than undermines the case for systematic reliability assessment: each method requires its own psychometric validation.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.4">Addressing Implementation Barriers and Stakeholder</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Incentives</head><p>Implementing mandatory reliability reporting confronts practical obstacles that require systematic analysis and stakeholder-specific solutions. The ERA Toolbox has been freely available since 2016, yet adoption remains limited <ref type="bibr" target="#b6">(Clayson, 2020</ref><ref type="bibr" target="#b7">(Clayson, , 2024))</ref>. Understanding why previous tools failed to achieve widespread uptake is essential for designing effective reform.</p><p>Barrier 1: Legacy datasets and retrospective assessment Many existing datasets were not designed with reliability assessment in mind, lacking sufficient trial counts for stable estimates or appropriate trialsplitting procedures. Raw data are often unavailable for retrospective reanalysis due to storage limitations, participant consent restrictions, or institutional data retention policies. Solution: Implement requirements prospectively while grandfathering published work. Journals should establish explicit cutoff dates (e.g., "Studies submitted after January 2026 must report difference wave reliability") allowing legacy literature to remain valid while improving future practice. For influential paradigms where retrospective assessment is scientifically valuable, funding agencies could support targeted replication-withverification studies using modern psychometric frameworks. Barrier 2: Perverse incentives and publication bias Researchers may reasonably fear that transparently reporting poor reliability will reduce publication chances, creating incentive structures that reward suppression over transparency. Junior researchers lacking job security face particular pressure to produce "clean" findings that maximize publication success. Solution: Journals should explicitly commit to publishing well-designed studies regardless of reliability outcomes, provided results are transparently reported and appropriately interpreted. This requires policy statements such as: "This journal values methodological rigor and transparent reporting. Manuscripts will not be rejected solely because reliability estimates fall below optimal thresholds, provided authors acknowledge limitations and temper theoretical claims accordingly." Registered Reports format, where study designs are peer-reviewed and provisionally accepted before data collection, separates methodological quality from outcome-dependent decisions, eliminating publication bias against null findings or suboptimal psychometric properties. Barrier 3: Computational accessibility and expertise gaps The ERA Toolbox requires MATLAB (commercial license &gt;$2,000 for individuals, though institutional licenses may be available), creating access barriers particularly in under-resourced institutions and international contexts. Additionally, psychometric expertise may be limited in research groups with primarily cognitive or linguistic training, making reliability assessment technically challenging. Solution: Develop and maintain open-source implementations in R (freely available) and Python (widely used in neuroscience), expanding accessibility beyond MATLAB users. Clear tutorials with worked examples reduce technical barriers (several are emerging; Clayson et al., 2021 provides detailed walkthroughs). Encourage methodological collaboration where expertise in experimental design and psychometrics can be pooled-coauthorship with quantitative specialists benefits all parties. Some institutions have established psychometric consultation services; expanding this model could provide expertise without requiring every researcher to become a psychometrician. Barrier 4: Reviewer burden and inconsistent enforcement Requiring reviewers to evaluate reliability reports increases cognitive load without necessarily improving review quality if reviewers lack psychometric training. Inconsistent enforcement across papers and journals creates perception of unfairness: some authors face demands for reliability evidence while others do not. Solution: Develop standardized checklists and decision trees for editors and reviewers, translating psychometric principles into concrete evaluation criteria. Implement automated screening in manuscript submission systems (analogous to GRIM tests for summary statistics or word count enforcement) that flags missing reliability information before manuscripts reach reviewers, ensuring consistent application without human judgment variability. Provide reviewer training resources: brief primers on interpreting reliability coefficients, recognizing adequate versus inadequate values given study context, and distinguishing measurement issues from theoretical disputes. Barrier 5: Field-specific norms and disciplinary inertia Publication practices reflect decades of accumulated conventions. Senior researchers trained when reliability reporting was uncommon may view it as unnecessary burden rather than essential verification. Review processes institutionalize these norms through gatekeeping: manuscripts deviating from conventional practices face greater scrutiny. Solution: Prestigious journals can catalyze change by example. When highimpact outlets (e.g., Nature Neuroscience, Journal of Neuroscience, Psychophysiology) adopt mandatory reliability reporting, the practice gains legitimacy and other journals follow. Learned societies (Society for Psychophysiological Research, Cognitive Neuroscience Society) can establish best-practice guidelines with community input, building consensus around minimum standards. Award committees can explicitly value methodological rigor and transparent reporting, shifting incentive structures at the disciplinary level.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Realistic implementation timeline:</head><p>Widespread adoption will require sustained effort over 5-10 years, not immediate transformation. However, incremental progress is achievable:</p><p>• Years 1-2 (2026-2027): Major journals adopt "strongly encouraged" language in author guidelines; R/Python ERA implementations released; tutorial workshops at conferences</p><p>• Years 3-5 (2028-2030): Mandatory reporting for new studies in leading journals; Registered Reports format expands; methodological review papers synthesize reliability evidence • Years 6-10 (2031-2035): Retrospective validation of influential paradigms; meta-analyses incorporate reliability as moderator; community consensus on context-appropriate thresholds The absence of perfect solutions should not justify continued neglect. Transparency about current measurement properties, even when suboptimal, advances scientific progress more than perpetuating unmeasured assumptions. Every incremental improvement-one lab adopting G-theory, one journal requiring reliability reporting, one training workshop teaching psychometric principles-contributes to the measurement revolution this field requires. 4.2.5 Exemplars of Rigorous Practice: What Good Reliability Looks Like While this manuscript has focused on gaps in psychometric reporting, emerging research demonstrates that rigorous reliability assessment is achievable within standard ERP workflows. These exemplars provide concrete models for implementation: Clayson et al. (2021) applied Generalizability Theory to N2 components in Go/NoGo tasks across multiple studies, systematically partitioning variance into person, trial, and occasion components. Their work demonstrated that: (1) internal consistency can reach acceptable levels (dependability ≥ .70) with sufficient trial counts (typically 40-60 trials per condition), (2) testretest reliability is substantially lower than internal consistency due to large person × occasion variance, and (3) different ERP components exhibit different reliability profiles requiring component-specific optimization. Critically, they transparently reported when reliability fell below optimal thresholds and discussed implications for interpretation. Cofresí et al. (2022) examined P3 responses to alcohol cues with comprehensive psychometric assessment, reporting internal consistency, test-retest reliability, and inter-condition correlations across two independent samples. Their transparency about reliability degradation in difference scores (internal consistency r = .37, test-retest r = .20, despite excellent individual condition reliabilities) exemplifies the honest reporting this field requires. Carbine et al. (2021) demonstrated generalizability assessment for foodrelated ERPs, showing that reliability varies systematically across stimulus categories, electrode sites, and participant characteristics. Their work illustrates that adequate reliability is achievable but requires deliberate optimization rather than default parameter selection. These studies share critical features: (1) Reliability assessment was integral to the research design, not an afterthought; (2) Results were reported transparently regardless of outcomes; (3) Limitations were explicitly acknowledged when reliability proved suboptimal; (4) Theoretical claims were tempered appropriately given measurement properties. This represents the standard toward which ERP research should aspire. Importantly, none of these studies required extraordinary resources or years of additional data collection. Reliability assessment added days or weeks to the analytical timeline, not months. The barrier is not technical difficulty but disciplinary norms that have not yet made psychometric verification mandatory.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Implementation Guidelines by Stakeholder</head><p>For researchers designing new studies:</p><p>• Calculate required trial counts based on reliability goals (not arbitrary cutoffs)</p><p>• Verify reliability during pilot testing before full data collection</p><p>• Pre-register reliability assessment procedures and minimum thresholds For researchers with existing data:</p><p>• Conduct retrospective reliability analyses using methods detailed in Section 4.2.1</p><p>• Report findings transparently, even when reliability proves inadequate • Acknowledge limitations explicitly in manuscripts and presentations Additionally, this analysis critiques the absence of reliability reporting and inter-condition correlation measurement without directly demonstrating that N2 reliability is inadequate. Definitive conclusions require reanalysis of raw data from multiple laboratories calculating difference wave reliability using standardized procedures. This represents essential future work that could confirm or refute the theoretical predictions presented here.</p><p>However, the core issue transcends whether specific N2 measurements prove reliable: the field has proceeded for decades without demanding evidence that its primary measures are sound. This constitutes fundamental methodological oversight regardless of what empirical testing might reveal.</p><p>The current findings situate measurement reliability concerns within a broader framework of methodological heterogeneity in ERP research.</p><p>Recent analysis has demonstrated that between-study variability in analytical choices (time windows, electrode selection, baseline correction)</p><p>contributes substantially to divergent N2 patterns in bilingual switching <ref type="bibr" target="#b27">(Mojumdar, 2025)</ref>. The present manuscript identifies a complementary within-study source of instability: unreported difference wave reliability.</p><p>Future research should address both levels simultaneously, establishing standardized analytical protocols across laboratories while verifying psychometric properties within individual studies.</p><p>The ERP research community has initiated efforts to address these concerns. The ERA Toolbox <ref type="bibr" target="#b9">(Clayson et al., 2016</ref><ref type="bibr">(Clayson et al., , 2021) )</ref>  Confidence interval reporting limitations. Several foundational studies cited for empirical reliability values <ref type="bibr" target="#b19">(Infantolino et al., 2018;</ref><ref type="bibr" target="#b12">Cofresí et al., 2022)</ref> did not report confidence intervals for all correlation coefficients. Beyond reliability, difference waves assume measurement invariance: that ERP components reflect equivalent constructs across conditions <ref type="bibr" target="#b26">(Meredith, 1993)</ref>. Establishing invariance requires factor analytic approaches rarely applied in ERP research. This represents an additional interpretive consideration beyond the reliability issues we emphasize.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.">Conclusion</head><p>The N2 component in bilingual language switching may represent not merely a neurocognitive paradox requiring theoretical resolution but also a measurement problem requiring methodological correction. Two decades of apparent contradiction may reflect both cross-paradigm inconsistency and systematic neglect of psychometric validation. In the absence of reliability estimates or inter-condition correlations, it remains empirically uncertain whether these contradictions arise from unstable measurement or genuine neural complexity.</p><p>This issue likely extends beyond bilingual research. Apparent contradictions in ERP findings across cognitive neuroscience may similarly result from unrecognized methodological confounds. The mathematical fragility of difference scores, combined with near-total absence of psychometric reporting, undermines confidence in theoretical disputes.</p><p>Recognizing this methodological uncertainty constitutes scientific progress rather than failure. Establishing clear paradigm specifications and adopting rigorous measurement standards are prerequisites for cumulative understanding. The absence of empirical data on inter-condition correlations does not weaken this argument; it defines its urgency. The field</p><p>has not yet collected the psychometric evidence necessary to evaluate the reliability of its most frequently used analytical tools.</p><p>The path forward requires renewed commitment to foundational measurement principles, including systematic psychometric validation of ERP measures, routine reporting of inter-condition correlations for difference waves, the application of appropriate statistical frameworks such as generalizability theory and mixed-effects models, transparent documentation of reliability estimates and trial-count justifications, and explicit acknowledgment when measures fall below acceptable reliability thresholds.</p><p>By embracing psychometric discipline, ERP research can progress from debating potential artifacts toward constructing mechanistic understanding of the neural basis of cognition. This represents not abandonment of prior work but building upon it with stronger methodological foundations.</p><p>Following Parsons' (2022) call for a measurement revolution, we must recognize when our measures may not capture what we assumed they did and take systematic steps to ensure they do going forward. The question is not whether ERP difference waves can be reliable (with appropriate paradigm design and verification, they certainly can) but whether we will demand evidence that they are reliable before building theoretical edifices upon them. Two decades of debate over the N2 paradox demonstrates the cost of not asking this question and not measuring the parameters that determine psychometric quality. We cannot afford to repeat this pattern in other domains without learning this fundamental methodological lesson.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><figDesc>, we have the general form shown in Equation 1: Equation 1. General form where ρ_{XX′} and ρ_{YY′} represent reliabilities of conditions X and Y, and ρ_{XY} represents their correlation. When constituent reliabilities are equal (ρ_{XX′} = ρ_{YY′} = ρ), Equation 1 simplifies algebraically. Substituting ρ for both ρ_{XX′} and ρ_{YY′}: Factor out common terms: Cancel the factor of 2: Equation 2. Simplified form for equal variance case</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><figDesc>requires clarification. The term ρ_{XY} represents the correlation between individuals' ERP amplitudes across the two conditions, specifically, the extent to which individual differences are preserved across experimental manipulations. If a participant shows a large N2 amplitude in switch trials, do they also tend to show a large N2 in nonswitch trials? High ρ_{XY} indicates yes (preserved individual differences); low ρ_{XY} indicates individual rankings change across conditions. Terminological note: Throughout this manuscript, we use ρ (Greek rho) when discussing theoretical reliability coefficients in formulas, and r (italicized Latin) when reporting empirical correlation values from published studies. This distinction aligns with standard psychometric convention.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><figDesc>Cofresí et al. (2022; Session 1 N = 210, Session 2 N = 96) examined P3 responses to alcohol and non-alcohol beverage cues, finding excellent internal consistency (Alcohol Cue P3: r = .90, 95% CI [.88, .92]; NADrink Cue P3: r = .91, 95% CI [.89, .93]) and fair test-retest reliability (Alcohol Cue P3: r = .71, 95% CI [.59, .79]; NADrink Cue P3: r = .70, 95% CI [.58, .79]) for individual condition P3s. However, the alcohol cue-specific P3 difference score (Alcohol Cue P3 minus NADrink Cue P3) showed poor internal consistency (r = .37, 95% CI [.25, .48]) and poor test-retest reliability (r = .20, 95% CI [.02, .37]), despite constituent conditions correlating highly (r = .85 to .88).</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><figDesc>-domain precedent: While direct measurements in N2 language switching are absent, analogous within-subjects contrasts in other domains provide convergent evidence. Infantolino et al. (2018) reported r = .97 for fMRI amygdala responses to faces versus shapes, a tightly controlled contrast differing on a single stimulus dimension. Cofresí et al. (2022) found r = .85-.88 for P3 amplitudes to alcohol versus non-alcohol beverage cues. Most critically, Clayson et al. (2021) demonstrated that N2 components in Go/NoGo tasks exhibit large person × occasion variance (comparable to between-person variance), providing direct electrophysiological evidence that N2 difference measures are vulnerable to the reliability degradation we describe.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 1 .</head><label>1</label><figDesc>Figure 1. Difference score reliability degrades as inter-condition correlation increases,</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><figDesc>Partitions variance into multiple sources (persons, trials, occasions) rather than conflating error sources • Provides nuanced understanding of reliability determinants • Handles unbalanced designs common in ERP research • Distinguishes relative decisions (generalizability coefficient for ranking individuals) from absolute decisions (dependability coefficient for absolute score interpretation)</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>•</head><figDesc>Request reliability coefficients and inter-condition correlations for all difference wave effects • Question theoretical conclusions based on unmeasured psychometric properties • Recommend increased trial counts or alternative analyses if reliability inadequate • Distinguish measurement quality from theoretical merit For journal editors: • Establish reliability reporting as mandatory submission requirement • Include reliability and inter-condition correlation assessment in review criteria and checklists • Consider Registered Reports format for ERP studies requiring reliability verification before data collection • Commit to publishing well-designed studies regardless of reliability outcomes when limitations are transparently acknowledged For funding agencies: • Require reliability assessment in grant proposals • Support methodological validation studies alongside hypothesis-driven research • Fund development of open-source psychometric tools (R/Python implementations) • Incentivize multi-laboratory collaborations for paradigm validation 4.4 Limitations and future directions This analysis examines four foundational studies to illustrate systemic issues in theory-shaping research but does not constitute a comprehensive systematic review of all N2 language switching literature. A complete quantitative synthesis examining reporting rates across the full ERP literature (all components, paradigms, and domains) represents critical future work. Such systematic documentation would provide definitive evidence for field-wide reporting practices and enable meta-analytic assessment of how unmeasured reliability has affected theoretical conclusions.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><figDesc>was developed to facilitate reliability assessment, and major journals (Psychophysiology, International Journal of Psychophysiology) have encouraged (though not mandated) reliability reporting in author guidelines post-2017. However, subsequent research indicates that reliability reporting remains rare in practice. The foundational studies analyzed in Table 3 span 2001-2016, and systematic evaluation indicates that reliability reporting has not become standard practice despite available tools and journal encouragement. Critical future work includes documenting whether reliability reporting has increased in recent publications (2020-2025) and whether adoption of available tools has extended beyond measurement-focused specialists.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><figDesc><ref type="bibr" target="#b19">Infantolino et al. (2018)</ref> reported correlations (r = .97 for faces-shapes similarity; SB = -.06 for difference score reliability) without accompanying uncertainty estimates. While<ref type="bibr" target="#b12">Cofresí et al. (2022)</ref> provided 95% confidence intervals for reliability coefficients in their Tables3-4, inter-condition correlations reported in footnotes lacked uncertainty quantification. This reflects a broader reporting gap in the ERP reliability literature and underscores the need for comprehensive uncertainty reporting in psychometric assessments. Where possible, we have included confidence intervals from source papers; where unavailable, we acknowledge this limitation while noting that the absence of CIs in original publications does not diminish the theoretical validity of the mathematical relationships we demonstrate.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_0"><head>Table 2 .</head><label>2</label><figDesc>Sensitivity analysis: Required constituent reliability to achieve adequate Substituting ρ_DD' = .70: ρ = .70 + .30•ρ_XY. The "Empirical Context" column provides benchmarks from ERP reliability literature(Clayson et al., 2021;<ref type="bibr" target="#b11">Clayson &amp; Miller,</ref> </figDesc><table><row><cell cols="2">difference wave reliability (ρ_DD' ≥ .70)</cell><cell></cell></row><row><cell>Inter-</cell><cell>Required</cell><cell>Empirical Context</cell></row><row><cell>Condition</cell><cell>Constituent</cell><cell></cell></row><row><cell>Correlation</cell><cell></cell><cell></cell></row></table><note><p>Expand: ρ_DD' -ρ_DD'•ρ_XY = ρ -ρ_XY. Rearrange to isolate ρ: ρ = ρ_DD' + ρ_XY(1 -ρ_DD'). plausible parameter space. Even at ρ_XY = .50 (substantially lower than structural analysis suggests for tightly controlled paradigms), achieving adequate difference waves requires constituent reliability at the upper end of typical values. The mathematical vulnerability persists regardless of precise ρ_XY values. This analysis uses the equal-variance formula (Equation</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head>Table 1 .</head><label>1</label><figDesc>Simulated difference score reliability as function of inter-condition</figDesc><table><row><cell>correlation</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>Individual</cell><cell>Inter-</cell><cell>Difference</cell><cell cols="2">Interpretation Plausib</cell></row><row><cell>Condition</cell><cell>Condition</cell><cell>Score</cell><cell></cell><cell>le*</cell></row><row><cell>Reliability</cell><cell>Correlation</cell><cell>Reliability</cell><cell></cell><cell></cell></row><row><cell>(ρ)</cell><cell>(ρ_XY)</cell><cell>(ρ_DD')</cell><cell></cell><cell></cell></row><row><cell>.85</cell><cell>.50</cell><cell>.70</cell><cell>Adequate for</cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell>group</cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell>comparisons</cell><cell></cell></row><row><cell>.85</cell><cell>.70</cell><cell>.50</cell><cell>Inadequate for</cell><cell>*</cell></row><row><cell></cell><cell></cell><cell></cell><cell>published</cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell>research</cell><cell></cell></row><row><cell>.85</cell><cell>.85</cell><cell>.00</cell><cell>Completely</cell><cell>*</cell></row><row><cell></cell><cell></cell><cell></cell><cell>unreliable</cell><cell></cell></row><row><cell>.85</cell><cell>.90</cell><cell>-.50</cell><cell>Mathematically</cell><cell>*</cell></row><row><cell></cell><cell></cell><cell></cell><cell>unstable</cell><cell></cell></row><row><cell>.90</cell><cell>.70</cell><cell>.67</cell><cell>Marginal</cell><cell>*</cell></row><row><cell></cell><cell></cell><cell></cell><cell>despite</cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell>excellent</cell><cell></cell></row></table><note><p>(assumption typically satisfied based on methodological designs (balanced trial presentation, identical preprocessing pipelines, matched stimulus characteristics) described in the four foundational studies, though direct variance verification would require condition-specific trial counts not consistently reported in original manuscripts). For conditions with substantial variance heterogeneity (≥20% difference in retained trials after artifact rejection), researchers should use the general formula: ρ_DD' = (ρ_XX' + ρ_YY' -2ρ_XY) / [2(1 -ρ_XY)]. ρ_XY represents the correlation between individuals' ERP amplitudes across the two conditions-the extent to which individual differences are preserved across experimental manipulations. Values below .70 are generally considered inadequate for exploratory group comparisons, with higher thresholds (≥.80) recommended for confirmatory research and individual differences studies</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_5"><head>Table 3 .</head><label>3</label><figDesc>Psychometric reliability reporting in foundational N2 language</figDesc><table><row><cell cols="2">switching studies</cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell>Study</cell><cell>Citation</cell><cell>Paradigm</cell><cell>N2</cell><cell>Reliabilit</cell><cell>Reliabili</cell></row><row><cell></cell><cell>Count</cell><cell>Type</cell><cell>Finding</cell><cell>y</cell><cell>ty Value</cell></row><row><cell></cell><cell>(Approx.)</cell><cell></cell><cell></cell><cell>Reported</cell><cell></cell></row><row><cell>Jackson et</cell><cell>~414</cell><cell>Predictable</cell><cell>Switch &gt;</cell><cell>No</cell><cell>Not</cell></row><row><cell>al. (2001)</cell><cell></cell><cell>sequence,</cell><cell>Non-</cell><cell></cell><cell>Reported</cell></row><row><cell></cell><cell></cell><cell>digit naming</cell><cell>switch</cell><cell></cell><cell></cell></row><row><cell>Christoffel</cell><cell>~660</cell><cell>Unpredictable</cell><cell>Context-</cell><cell>No</cell><cell>Not</cell></row><row><cell>s et al.</cell><cell></cell><cell>, picture</cell><cell>depende</cell><cell></cell><cell>Reported</cell></row><row><cell>(2007)</cell><cell></cell><cell>naming</cell><cell>nt</cell><cell></cell><cell></cell></row><row><cell>Verhoef et</cell><cell>~396</cell><cell>Unpredictable</cell><cell>CSI-</cell><cell>No</cell><cell>Not</cell></row><row><cell>al. (2009)</cell><cell></cell><cell>, varied CSI</cell><cell>depende</cell><cell></cell><cell>Reported</cell></row><row><cell></cell><cell></cell><cell></cell><cell>nt</cell><cell></cell><cell></cell></row><row><cell>Liu et al.</cell><cell>~105</cell><cell>Training</cell><cell>Training</cell><cell>No</cell><cell>Not</cell></row><row><cell>(2016)</cell><cell></cell><cell>manipulation</cell><cell>effect on</cell><cell></cell><cell>Reported</cell></row><row><cell></cell><cell></cell><cell></cell><cell>N2</cell><cell></cell><cell></cell></row><row><cell cols="6">Note. Selection criterion: Studies with &gt;100 Google Scholar citations (as of</cell></row><row><cell cols="6">October 2025) representing distinct theoretical positions in the N2</cell></row><row><cell cols="6">language switching debate. These four studies collectively accumulated</cell></row><row><cell cols="6">~1,575 citations across predictable versus unpredictable paradigms</cell></row><row><cell cols="6">(Jackson; Christoffels; Verhoef), digit-naming versus picture-naming tasks</cell></row></table></figure>
+		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgments</head><p>The authors thank the open science community for developing tools and frameworks that enable transparent, reproducible research. Special appreciation to developers of the ERP Reliability Analysis (ERA) Toolbox for making psychometric assessment accessible to the ERP community, and to <rs type="person">Sam Parsons</rs> for articulating the call for a measurement revolution in Meta-Psychology. The authors emphasize that critique of methodological practices should not be construed as questioning the integrity or rigor of individual researchers. The studies examined followed prevailing standards, and this analysis aims to strengthen collective practice going forward. All materials are openly available at <ref type="url" target="https://osf.io/q2dkj/overview">https://osf.io/q2dkj/overview</ref> under CC-BY 4.0 license.</p></div>
+			</div>
+			
+			<div type="funding">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Funding</head><p>This research received no specific grant from any funding agency in the public, commercial, or not-for-profit sectors.</p></div>
+			</div>
+
+
+			<div type="availability">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Data Availability Statement</head><p>This theoretical analysis does not involve primary data collection. All computational materials, including R code, generated figures, verification data, and reproducibility documentation, are publicly available via the Open Science Framework under a CC-BY 4.0 license.</p></div>
+			</div>
+
+			<div type="annex">
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Author Contributions</head><p>Projnya Mojumdar: Conceptualization (lead), theoretical framework (lead), literature review (lead), writing (original draft, lead), writing (review and editing, lead), visualization (figure design), project administration. Purba Mojumdar: Methodology (mathematical modeling, simulation design), software (R code development and validation), formal analysis (computational verification), data curation (simulation datasets), writing (review and editing, technical sections).</p><p>Both authors approved the final manuscript and agree to be accountable for all aspects of the work.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conflict of Interest Statement</head><p>The authors declare no conflicts of interest</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Open Practices Statement</head><p>This manuscript presents a theoretical framework and methodological critique and does not involve original empirical data collection; all cited studies are available through their respective publishers. All supplementary materials are publicly available on the Open Science Framework at <ref type="url" target="https://osf.io/q2dkj/overview">https://osf.io/q2dkj/overview</ref> under a CC-BY 4.0 license, permitting reuse with appropriate attribution. The repository includes annotated R code that programmatically verifies Tables <ref type="table">2</ref> and <ref type="table">3</ref> and generates Figure <ref type="figure">1</ref>, as well as a comprehensive README file that serves as the primary source for reproducibility, explaining the formula, assumptions, and instructions.</p><p>Preregistration was not applicable for this conceptual analysis.</p></div>			</div>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Neuroimaging of language control in bilinguals: Neural adaptation and reserve</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Abutalebi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Green</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S1366728916000225</idno>
+		<ptr target="https://doi.org/10.1017/S1366728916000225" />
+	</analytic>
+	<monogr>
+		<title level="j">Bilingualism: Language and Cognition</title>
+		<imprint>
+			<biblScope unit="volume">19</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="689" to="698" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Abutalebi, J., &amp; Green, D. W. (2016). Neuroimaging of language control in bilinguals: Neural adaptation and reserve. Bilingualism: Language and Cognition, 19(4), 689-698. https://doi.org/10.1017/S1366728916000225</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Mixed-effects models in psychophysiology</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Bagiella</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">P</forename><surname>Sloan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">F</forename><surname>Heitjan</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/1469-8986.3710013</idno>
+		<ptr target="https://doi.org/10.1111/1469-8986.3710013" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">37</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="13" to="20" />
+			<date type="published" when="2000">2000</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Bagiella, E., Sloan, R. P., &amp; Heitjan, D. F. (2000). Mixed-effects models in psychophysiology. Psychophysiology, 37(1), 13-20. https://doi.org/10.1111/1469-8986.3710013</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<monogr>
+		<title level="m" type="main">Generalizability theory</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">L</forename><surname>Brennan</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/978-1-4757-3456-0</idno>
+		<ptr target="https://doi.org/10.1007/978-1-4757-3456-0" />
+		<imprint>
+			<date type="published" when="2001">2001</date>
+			<publisher>Springer-Verlag</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Brennan, R. L. (2001). Generalizability theory. Springer-Verlag. https://doi.org/10.1007/978-1-4757-3456-0</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Using generalizability theory and the ERP Reliability Analysis (ERA) Toolbox for assessing test-retest reliability of ERP scores. Part 2: Application to food-based tasks and stimuli</title>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">A</forename><surname>Carbine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Clayson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Baldwin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">D</forename><surname>Lecheminant</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Larson</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.ijpsycho.2021.02.015</idno>
+		<ptr target="https://doi.org/10.1016/j.ijpsycho.2021.02.015" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">166</biblScope>
+			<biblScope unit="page" from="188" to="198" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Carbine, K. A., Clayson, P. E., Baldwin, S. A., LeCheminant, J. D., &amp; Larson, M. J. (2021). Using generalizability theory and the ERP Reliability Analysis (ERA) Toolbox for assessing test-retest reliability of ERP scores. Part 2: Application to food-based tasks and stimuli. International Journal of Psychophysiology, 166, 188-198. https://doi.org/10.1016/j.ijpsycho.2021.02.015</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Bilingual language control: An event-related brain potential study</title>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">K</forename><surname>Christoffels</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Firk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">O</forename><surname>Schiller</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.brainres.2007.01.137</idno>
+		<ptr target="https://doi.org/10.1016/j.brainres.2007.01.137" />
+	</analytic>
+	<monogr>
+		<title level="j">Brain Research</title>
+		<imprint>
+			<biblScope unit="volume">1147</biblScope>
+			<biblScope unit="page" from="192" to="208" />
+			<date type="published" when="2007">2007</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Christoffels, I. K., Firk, C., &amp; Schiller, N. O. (2007). Bilingual language control: An event-related brain potential study. Brain Research, 1147, 192-208. https://doi.org/10.1016/j.brainres.2007.01.137</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Guidelines, criteria, and rules of thumb for evaluating normed and standardized assessment instruments in psychology</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">V</forename><surname>Cicchetti</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/1040-3590.6.4.284</idno>
+		<ptr target="https://doi.org/10.1037/1040-3590.6.4.284" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Assessment</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="284" to="290" />
+			<date type="published" when="1994">1994</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Cicchetti, D. V. (1994). Guidelines, criteria, and rules of thumb for evaluating normed and standardized assessment instruments in psychology. Psychological Assessment, 6(4), 284-290. https://doi.org/10.1037/1040-3590.6.4.284</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Moderators of the internal consistency of errorrelated negativity scores: A meta-analysis of internal consistency estimates</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Clayson</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/psyp.13583</idno>
+		<ptr target="https://doi.org/10.1111/psyp.13583" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">57</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page">13583</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Clayson, P. E. (2020). Moderators of the internal consistency of error- related negativity scores: A meta-analysis of internal consistency estimates. Psychophysiology, 57(6), e13583. https://doi.org/10.1111/psyp.13583</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">The psychometric upgrade psychophysiology needs</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Clayson</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/psyp.14522</idno>
+		<ptr target="https://doi.org/10.1111/psyp.14522" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">61</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">14522</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Clayson, P. E. (2024). The psychometric upgrade psychophysiology needs. Psychophysiology, 61(4), e14522. https://doi.org/10.1111/psyp.14522</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Evaluating the internal consistency of subtraction-based and residualized difference scores: Considerations for psychometric reliability analyses of eventrelated potentials</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Clayson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Baldwin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Larson</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/psyp.13762</idno>
+		<ptr target="https://doi.org/10.1111/psyp.13762" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">13762</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Clayson, P. E., Baldwin, S. A., &amp; Larson, M. J. (2021). Evaluating the internal consistency of subtraction-based and residualized difference scores: Considerations for psychometric reliability analyses of event- related potentials. Psychophysiology, 58(4), e13762. https://doi.org/10.1111/psyp.13762</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">ERP Reliability Analysis (ERA) Toolbox: An open-source toolbox for analyzing the reliability of event-related brain potentials</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Clayson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">A</forename><surname>Carbine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Baldwin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Larson</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.ijpsycho.2016.10.012</idno>
+		<ptr target="https://doi.org/10.1016/j.ijpsycho.2016.10.012" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">111</biblScope>
+			<biblScope unit="page" from="68" to="79" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Clayson, P. E., Carbine, K. A., Baldwin, S. A., &amp; Larson, M. J. (2016). ERP Reliability Analysis (ERA) Toolbox: An open-source toolbox for analyzing the reliability of event-related brain potentials. International Journal of Psychophysiology, 111, 68-79. https://doi.org/10.1016/j.ijpsycho.2016.10.012</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Using generalizability theory and the ERP Reliability Analysis (ERA) Toolbox for assessing test-retest reliability of ERP scores. Part 1: Algorithms, framework, and implementation</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Clayson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">A</forename><surname>Carbine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Baldwin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">A</forename><surname>Olsen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Larson</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.ijpsycho.2021.01.006</idno>
+		<ptr target="https://doi.org/10.1016/j.ijpsycho.2021.01.006" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">166</biblScope>
+			<biblScope unit="page" from="174" to="187" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Clayson, P. E., Carbine, K. A., Baldwin, S. A., Olsen, J. A., &amp; Larson, M. J. (2021). Using generalizability theory and the ERP Reliability Analysis (ERA) Toolbox for assessing test-retest reliability of ERP scores. Part 1: Algorithms, framework, and implementation. International Journal of Psychophysiology, 166, 174-187. https://doi.org/10.1016/j.ijpsycho.2021.01.006</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Psychometric considerations in the measurement of event-related brain potentials: Guidelines for measurement and reporting</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">E</forename><surname>Clayson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">A</forename><surname>Miller</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.ijpsycho.2016.09.005</idno>
+		<ptr target="https://doi.org/10.1016/j.ijpsycho.2016.09.005" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">111</biblScope>
+			<biblScope unit="page" from="57" to="67" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Clayson, P. E., &amp; Miller, G. A. (2017). Psychometric considerations in the measurement of event-related brain potentials: Guidelines for measurement and reporting. International Journal of Psychophysiology, 111, 57-67. https://doi.org/10.1016/j.ijpsycho.2016.09.005</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Internal consistency and test-retest reliability of the P3 event-related potential (ERP) elicited by alcoholic and non-alcoholic beverage pictures</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">U</forename><surname>Cofresí</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">M</forename><surname>Piasecki</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Hajcak</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">D</forename><surname>Bartholow</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/psyp.13967</idno>
+		<ptr target="https://doi.org/10.1111/psyp.13967" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">59</biblScope>
+			<biblScope unit="issue">10</biblScope>
+			<biblScope unit="page">14030</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Cofresí, R. U., Piasecki, T. M., Hajcak, G., &amp; Bartholow, B. D. (2022). Internal consistency and test-retest reliability of the P3 event-related potential (ERP) elicited by alcoholic and non-alcoholic beverage pictures. Psychophysiology, 59(10), e14030. https://doi.org/10.1111/psyp.13967</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<monogr>
+		<title level="m" type="main">Analyzing neural time series data: Theory and practice</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">X</forename><surname>Cohen</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2014">2014</date>
+			<publisher>MIT Press</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Cohen, M. X. (2014). Analyzing neural time series data: Theory and practice. MIT Press.</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">How we should measure &quot;change&quot;: Or should we?</title>
+		<author>
+			<persName><forename type="first">L</forename><forename type="middle">J</forename><surname>Cronbach</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Furby</surname></persName>
+		</author>
+		<idno type="DOI">10.1037/h0029382</idno>
+		<ptr target="https://doi.org/10.1037/h0029382" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychological Bulletin</title>
+		<imprint>
+			<biblScope unit="volume">74</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="68" to="80" />
+			<date type="published" when="1970">1970</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Cronbach, L. J., &amp; Furby, L. (1970). How we should measure &quot;change&quot;: Or should we? Psychological Bulletin, 74(1), 68-80. https://doi.org/10.1037/h0029382</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Is there proactive inhibitory control during bilingual and bidialectal language production?</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Declerck</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Özbakar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">W</forename><surname>Kirk</surname></persName>
+		</author>
+		<idno type="DOI">10.1371/journal.pone.0257355</idno>
+		<ptr target="https://doi.org/10.1371/journal.pone.0257355" />
+	</analytic>
+	<monogr>
+		<title level="j">PLoS ONE</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page">257355</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Declerck, M., Özbakar, E., &amp; Kirk, N. W. (2021). Is there proactive inhibitory control during bilingual and bidialectal language production? PLoS ONE, 16(9), e0257355. https://doi.org/10.1371/journal.pone.0257355</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Language control in bilinguals: The adaptive control hypothesis</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">W</forename><surname>Green</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Abutalebi</surname></persName>
+		</author>
+		<idno type="DOI">10.1080/20445911.2013.796377</idno>
+		<ptr target="https://doi.org/10.1080/20445911.2013.796377" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cognitive Psychology</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="515" to="530" />
+			<date type="published" when="2013">2013</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Green, D. W., &amp; Abutalebi, J. (2013). Language control in bilinguals: The adaptive control hypothesis. Journal of Cognitive Psychology, 25(5), 515-530. https://doi.org/10.1080/20445911.2013.796377</note>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">The time course of visual word recognition as revealed by linear regression analysis of ERP data</title>
+		<author>
+			<persName><forename type="first">O</forename><surname>Hauk</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">H</forename><surname>Davis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ford</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Pulvermüller</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">D</forename><surname>Marslen-Wilson</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neuroimage.2005.11.048</idno>
+		<ptr target="https://doi.org/10.1016/j.neuroimage.2005.11.048" />
+	</analytic>
+	<monogr>
+		<title level="j">NeuroImage</title>
+		<imprint>
+			<biblScope unit="volume">30</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1383" to="1400" />
+			<date type="published" when="2006">2006</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Hauk, O., Davis, M. H., Ford, M., Pulvermüller, F., &amp; Marslen-Wilson, W. D. (2006). The time course of visual word recognition as revealed by linear regression analysis of ERP data. NeuroImage, 30(4), 1383- 1400. https://doi.org/10.1016/j.neuroimage.2005.11.048</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">The reliability paradox: Why robust cognitive tasks do not produce reliable individual differences</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Hedge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Powell</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Sumner</surname></persName>
+		</author>
+		<idno type="DOI">10.3758/s13428-017-0935-1</idno>
+		<ptr target="https://doi.org/10.3758/s13428-017-0935-1" />
+	</analytic>
+	<monogr>
+		<title level="j">Behavior Research Methods</title>
+		<imprint>
+			<biblScope unit="volume">50</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1166" to="1186" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Hedge, C., Powell, G., &amp; Sumner, P. (2018). The reliability paradox: Why robust cognitive tasks do not produce reliable individual differences. Behavior Research Methods, 50(3), 1166-1186. https://doi.org/10.3758/s13428-017-0935-1</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">Robust is not necessarily reliable: From within-subjects fMRI contrasts to between-subjects comparisons</title>
+		<author>
+			<persName><forename type="first">Z</forename><forename type="middle">P</forename><surname>Infantolino</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><forename type="middle">R</forename><surname>Luking</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><forename type="middle">L</forename><surname>Sauder</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">J</forename><surname>Curtin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Hajcak</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.neuroimage.2018.02.024</idno>
+		<ptr target="https://doi.org/10.1016/j.neuroimage.2018.02.024" />
+	</analytic>
+	<monogr>
+		<title level="j">NeuroImage</title>
+		<imprint>
+			<biblScope unit="volume">173</biblScope>
+			<biblScope unit="page" from="146" to="152" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Infantolino, Z. P., Luking, K. R., Sauder, C. L., Curtin, J. J., &amp; Hajcak, G. (2018). Robust is not necessarily reliable: From within-subjects fMRI contrasts to between-subjects comparisons. NeuroImage, 173, 146-152. https://doi.org/10.1016/j.neuroimage.2018.02.024</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">ERP correlates of executive control during repeated language switching</title>
+		<author>
+			<persName><forename type="first">G</forename><forename type="middle">M</forename><surname>Jackson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Swainson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Cunnington</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">R</forename><surname>Jackson</surname></persName>
+		</author>
+		<idno type="DOI">10.1017/S1366728901000268</idno>
+		<ptr target="https://doi.org/10.1017/S1366728901000268" />
+	</analytic>
+	<monogr>
+		<title level="j">Bilingualism: Language and Cognition</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="169" to="178" />
+			<date type="published" when="2001">2001</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Jackson, G. M., Swainson, R., Cunnington, R., &amp; Jackson, S. R. (2001). ERP correlates of executive control during repeated language switching. Bilingualism: Language and Cognition, 4(2), 169-178. https://doi.org/10.1017/S1366728901000268</note>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Characterizing the dynamics of mental representations: The temporal generalization method</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">R</forename><surname>King</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dehaene</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.tics.2014.01.002</idno>
+		<ptr target="https://doi.org/10.1016/j.tics.2014.01.002" />
+	</analytic>
+	<monogr>
+		<title level="j">Trends in Cognitive Sciences</title>
+		<imprint>
+			<biblScope unit="volume">18</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="203" to="210" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">King, J. R., &amp; Dehaene, S. (2014). Characterizing the dynamics of mental representations: The temporal generalization method. Trends in Cognitive Sciences, 18(4), 203-210. https://doi.org/10.1016/j.tics.2014.01.002</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">A guideline of selecting and reporting intraclass correlation coefficients for reliability research</title>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">K</forename><surname>Koo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">Y</forename><surname>Li</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.jcm.2016.02.012</idno>
+		<ptr target="https://doi.org/10.1016/j.jcm.2016.02.012" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Chiropractic Medicine</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="155" to="163" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Koo, T. K., &amp; Li, M. Y. (2016). A guideline of selecting and reporting intraclass correlation coefficients for reliability research. Journal of Chiropractic Medicine, 15(2), 155-163. https://doi.org/10.1016/j.jcm.2016.02.012</note>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">The effect of domain-general inhibition-related training on language switching: An ERP study</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Liu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Liang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dunlap</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Fan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Chen</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cognition.2015.10.004</idno>
+		<ptr target="https://doi.org/10.1016/j.cognition.2015.10.004" />
+	</analytic>
+	<monogr>
+		<title level="j">Cognition</title>
+		<imprint>
+			<biblScope unit="volume">146</biblScope>
+			<biblScope unit="page" from="264" to="276" />
+			<date type="published" when="2016">2016</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Liu, H., Liang, L., Dunlap, S., Fan, N., &amp; Chen, B. (2016). The effect of domain-general inhibition-related training on language switching: An ERP study. Cognition, 146, 264-276. https://doi.org/10.1016/j.cognition.2015.10.004</note>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<monogr>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">M</forename><surname>Lord</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">R</forename><surname>Novick</surname></persName>
+		</author>
+		<title level="m">Statistical theories of mental test scores</title>
+		<imprint>
+			<publisher>Addison-Wesley Publishing Company</publisher>
+			<date type="published" when="1968">1968</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Lord, F. M., &amp; Novick, M. R. (1968). Statistical theories of mental test scores. Addison-Wesley Publishing Company.</note>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<monogr>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">J</forename><surname>Luck</surname></persName>
+		</author>
+		<title level="m">An introduction to the event-related potential technique</title>
+		<imprint>
+			<publisher>MIT Press</publisher>
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+	<note>2nd ed.</note>
+	<note type="raw_reference">Luck, S. J. (2014). An introduction to the event-related potential technique (2nd ed.). MIT Press.</note>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Measurement invariance, factor analysis and factorial invariance</title>
+		<author>
+			<persName><forename type="first">W</forename><surname>Meredith</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/BF02294825</idno>
+		<ptr target="https://doi.org/10.1007/BF02294825" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychometrika</title>
+		<imprint>
+			<biblScope unit="volume">58</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="525" to="543" />
+			<date type="published" when="1993">1993</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Meredith, W. (1993). Measurement invariance, factor analysis and factorial invariance. Psychometrika, 58(4), 525-543. https://doi.org/10.1007/BF02294825</note>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">An enigma of our own making: How methodological heterogeneity created the N2 reversal in bilingual language switching</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mojumdar</surname></persName>
+		</author>
+		<idno type="DOI">10.31234/osf.io/p56ey_v1</idno>
+		<ptr target="https://doi.org/10.31234/osf.io/p56ey_v1" />
+	</analytic>
+	<monogr>
+		<title level="j">OSF Preprints</title>
+		<imprint>
+			<date type="published" when="2025-06-20">2025, June 20</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mojumdar, P. (2025, June 20). An enigma of our own making: How methodological heterogeneity created the N2 reversal in bilingual language switching. OSF Preprints. https://doi.org/10.31234/osf.io/p56ey_v1</note>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<monogr>
+		<title level="m" type="main">Psychometric theory</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">C</forename><surname>Nunnally</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1978">1978</date>
+			<publisher>McGraw-Hill Book Company</publisher>
+		</imprint>
+	</monogr>
+	<note>2nd ed.</note>
+	<note type="raw_reference">Nunnally, J. C. (1978). Psychometric theory (2nd ed.). McGraw- Hill Book Company.</note>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<monogr>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">C</forename><surname>Nunnally</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">H</forename><surname>Bernstein</surname></persName>
+		</author>
+		<title level="m">Psychometric theory</title>
+		<imprint>
+			<publisher>McGraw-Hill, Inc</publisher>
+			<date type="published" when="1994">1994</date>
+		</imprint>
+	</monogr>
+	<note>3rd ed.</note>
+	<note type="raw_reference">Nunnally, J. C., &amp; Bernstein, I. H. (1994). Psychometric theory (3rd ed.). McGraw-Hill, Inc.</note>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Estimating the reproducibility of psychological science</title>
+		<author>
+			<orgName type="collaboration">Open Science Collaboration</orgName>
+		</author>
+		<idno type="DOI">10.1126/science.aac4716</idno>
+		<ptr target="https://doi.org/10.1126/science.aac4716" />
+	</analytic>
+	<monogr>
+		<title level="j">Science</title>
+		<imprint>
+			<biblScope unit="volume">349</biblScope>
+			<biblScope unit="issue">6251</biblScope>
+			<biblScope unit="page">4716</biblScope>
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. Science, 349(6251), aac4716. https://doi.org/10.1126/science.aac4716</note>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Exploring reliability heterogeneity with multiverse analyses: Data processing decisions unpredictably influence measurement reliability</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Parsons</surname></persName>
+		</author>
+		<idno type="DOI">10.15626/MP.2020.2577</idno>
+		<idno>MP.2020.2577</idno>
+		<ptr target="https://doi.org/10.15626/MP.2020.2577" />
+	</analytic>
+	<monogr>
+		<title level="j">Meta-Psychology</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Parsons, S. (2022). Exploring reliability heterogeneity with multiverse analyses: Data processing decisions unpredictably influence measurement reliability. Meta-Psychology, 6, MP.2020.2577. https://doi.org/10.15626/MP.2020.2577</note>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<monogr>
+		<title level="m" type="main">Generalizability theory: A primer</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">J</forename><surname>Shavelson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">M</forename><surname>Webb</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1991">1991</date>
+			<publisher>Sage Publications</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Shavelson, R. J., &amp; Webb, N. M. (1991). Generalizability theory: A primer. Sage Publications.</note>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">Regression-based estimation of ERP waveforms: I. The rERP framework</title>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">J</forename><surname>Smith</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kutas</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/psyp.12317</idno>
+		<ptr target="https://doi.org/10.1111/psyp.12317" />
+	</analytic>
+	<monogr>
+		<title level="j">Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">52</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="157" to="168" />
+			<date type="published" when="2015">2015</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Smith, N. J., &amp; Kutas, M. (2015). Regression-based estimation of ERP waveforms: I. The rERP framework. Psychophysiology, 52(2), 157- 168. https://doi.org/10.1111/psyp.12317</note>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Role of inhibition in language switching: Evidence from event-related brain potentials in overt picture naming</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Verhoef</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Roelofs</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">J</forename><surname>Chwilla</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.cognition.2008.10.013</idno>
+		<ptr target="https://doi.org/10.1016/j.cognition.2008.10.013" />
+	</analytic>
+	<monogr>
+		<title level="j">Cognition</title>
+		<imprint>
+			<biblScope unit="volume">110</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="84" to="99" />
+			<date type="published" when="2009">2009</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Verhoef, K., Roelofs, A., &amp; Chwilla, D. J. (2009). Role of inhibition in language switching: Evidence from event-related brain potentials in overt picture naming. Cognition, 110(1), 84-99. https://doi.org/10.1016/j.cognition.2008.10.013</note>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Using multilevel models for the analysis of event-related potentials</title>
+		<author>
+			<persName><forename type="first">H</forename><forename type="middle">I</forename><surname>Volpert-Esmond</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Page-Gould</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">D</forename><surname>Bartholow</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.ijpsycho.2021.02.006</idno>
+		<ptr target="https://doi.org/10.1016/j.ijpsycho.2021.02.006" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Psychophysiology</title>
+		<imprint>
+			<biblScope unit="volume">162</biblScope>
+			<biblScope unit="page" from="145" to="156" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Volpert-Esmond, H. I., Page-Gould, E., &amp; Bartholow, B. D. (2021). Using multilevel models for the analysis of event-related potentials. International Journal of Psychophysiology, 162, 145-156. https://doi.org/10.1016/j.ijpsycho.2021.02.006</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

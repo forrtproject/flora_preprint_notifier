@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">AI Tools Can Enhance, Not Threaten, Generalizability</title>
+				<funder ref="#_Z7adHk2 #_J83JASJ">
+					<orgName type="full">National Key R&amp;D Program of China</orgName>
+				</funder>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability status="unknown"><licence/></availability>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Zhicheng</forename><surname>Lin</surname></persName>
+							<affiliation key="aff0">
+								<orgName type="department">Department of Psychology</orgName>
+								<orgName type="institution">Yonsei University</orgName>
+							</affiliation>
+						</author>
+						<title level="a" type="main">AI Tools Can Enhance, Not Threaten, Generalizability</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date/>
+						</imprint>
+					</monogr>
+					<idno type="MD5">BABF35887D2A4D470FD91569494B3E8F</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-18T15:25+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=true, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Using large language models (LLMs) to replace human participants suffers from fundamental fallacies: overgeneralization from WEIRD (Western, Educated, Industrialized, Rich, Democratic) samples, conflation of linguistic form with psychological content, and neglect of embodied and social dimensions of cognition <ref type="bibr" target="#b0">[1]</ref>. Crockett and Messeri [2]  extend this critique, arguing that AI as surrogates perpetuates generalizability problems by entrenching WEIRD samples and decontextualized tasks. Their analysis is correct but incomplete: it conflates LLMs as surrogates that replace participants with LLMs as tools that make diverse human research more tractable.</p><p>The persistent lack of generalization and diversity in cognitive sciences reflects structural barriers: historical populations are inaccessible, cross-cultural studies costly, marginalized communities resistant to conventional recruitment. As methodological tools paired with human validation, LLMs lower these barriers without creating surrogates. Figure <ref type="figure">1</ref> operationalizes this distinction. When human data collection is feasible-including cross-cultural studies and rare populations-LLMs function as pilots that refine designs before human validation. When genuinely infeasible-historical populations, extreme contexts-LLMs serve as computational models validated through theoretical coherence and expert assessment. Three pathways illustrate this distinction.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Figure 1. Decision framework for using LLMs to enhance generalizability in cognitive science.</head><p>The framework distinguishes two categories based on whether human data collection is feasible. Left (feasible): when studying accessible populations-including convenience samples, cross-cultural populations, and rare groups-LLMs function as methodological tools to refine research designs before mandatory human validation. This pilot-testing approach addresses generalizability threats by identifying instrument failures, cultural blind spots, and measurement non-equivalence before committing resources to international or hard-to-reach samples.</p><p>Human data collection feasible? Yes: LLMs as pilots Examples • Convenience samples • Cross-cultural • Rare populations No: LLMs as models Examples • Historical populations • Extreme contexts(wars, pandemics, disasters) Human validation Examples • Fair task comparison • Response distributions • Components/processes • Simulation limits • Convergent evidence Generative validation Examples • Theoretical coherence • Emergent properties • Expert validation Validation requirements include fair task comparison (ensuring construct-appropriate measurement), response distribution analysis (examining central tendencies and variability), component/process testing (validating constituent mechanisms), simulation limit probing (identifying boundary conditions), and convergent evidence (triangulating across multiple empirical benchmarks). Right (infeasible): when studying temporally inaccessible populations (historical eras) or ethically/logistically constrained contexts (wars, pandemics, disasters), LLMs function as computational models that expand generalizability along dimensions unavailable to human recruitment. These applications require generative validation through theoretical coherence (consistency with established psychological frameworks), emergent properties (higher-order patterns arising from component interactions), and expert assessment (domain specialist evaluation). Both categories address generalizability constraints-the left by making diverse human research more tractable, the right by accessing phenomena otherwise excluded from empirical study-but differ in their evidentiary standards based on the availability of direct human comparison data <ref type="bibr" target="#b3">[4]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>LLMs make the impossible tractable</head><p>Temporal inaccessibility is absolute-we cannot recruit participants from past eras. This constrains psychology to a narrow temporal slice of human variation. LLMs trained on historical corpora-classical Chinese texts, Victorian literature, medieval manuscripts-enable investigation of psychological constructs across centuries <ref type="bibr" target="#b2">[3]</ref>.</p><p>Validation differs fundamentally from contemporary human research. We cannot compare LLM outputs to what Confucius actually thought but can validate against historical records, textual consistency, and theoretical coherence <ref type="bibr" target="#b3">[4]</ref>. The research question itself shifts: not "What did historical figures think?" but "Do contemporary psychological constructs show temporal stability or cultural specificity?" If a moral judgment framework calibrated on 21st-century Americans fails when applied to Song Dynasty texts, this suggests the framework lacks generalizabilityinforming contemporary cross-cultural research design.</p><p>Historical LLMs add temporal dimensions of variation that complement rather than substitute for spatial diversity in contemporary samples. Crockett and Messeri's DEAD (Decontextualized, Engineered, Anonymized, Disembodied) critique deflates here. We study texts produced in specific historical and cultural contexts, not abstract cognition from lived experience <ref type="bibr" target="#b4">[5]</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Efficient hypothesis refinement before expensive validation</head><p>Cross-cultural data collection requires international collaborators, instrument translation, cultural adaptation, and local ethics approval-processes taking years and substantial funding <ref type="bibr" target="#b5">[6]</ref>. Poorly designed instruments waste these resources. LLMs enable rapid prototyping: testing whether experimental manipulations translate across linguistic contexts, identifying ambiguous items likely to produce measurement non-equivalence, and flagging cultural blind spots before committing to international data collection. This approach makes subsequent human validation more efficient without replacing it <ref type="bibr" target="#b6">[7,</ref><ref type="bibr" target="#b7">8]</ref>. An unexpected LLM response is diagnostic, not validating. If an LLM trained on Chinese corpora responds incoherently to a moral dilemma translated from English, this signals the scenario may not translate conceptually-warranting revision before recruiting Chinese participants.</p><p>Researchers still conduct the cross-cultural study; LLM piloting reduces the probability of expensive failures.</p><p>The economic barrier matters. When piloting costs drop from tens of thousands of dollars for international samples to hundreds for LLM testing, more groups can design truly diverse studies. This becomes surrogate creation only if researchers publish findings based solely on LLM performance without plans for human validation, or if LLM use makes them less likely to recruit diverse participants.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Building capacity for real-world diversity engagement</head><p>Ethical and practical constraints limit exposure to diverse clinical populations during training. A recent study developed PATIENT-Ψ to simulate varied CBT patient presentations-different cultural backgrounds, socioeconomic contexts, presenting problems-for therapist training. Validation focuses on skill acquisition rather than absolute population accuracy [9]. Trainees must learn to recognize diverse presentations and select culturally appropriate interventions. The LLM need not perfectly represent any demographic group; it must provide sufficient variability for trainees to develop adaptive clinical reasoning.</p><p>Training with simulated patients prepares clinicians to work competently with real clients from marginalized communities but does not substitute for supervised practice with actual clients or ongoing community engagement <ref type="bibr">[10]</ref>. The validation metric-whether trainees subsequently demonstrate better outcomes with diverse real patients-determines whether this application lowers barriers or creates the illusion of generalization.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Conclusion</head><p>Crockett and Messeri's critique is essential, but it conflates distinct uses of LLMs. The persistent WEIRD dominance reflects genuine structural barriers-temporal inaccessibility, resource demands, institutional obstacles. These barriers neither excuse methodological laziness nor disappear through critique alone.</p><p>LLMs enhance generalizability when they expand phenomena inaccessible to human recruitment (historical populations, extreme contexts) or make human validation more efficient (instrument piloting, training for diversity engagement). Validation relies on theoretical coherence, historical records, and contemporary human benchmarks when appropriate.</p><p>LLMs threaten generalizability when they substitute for feasible human recruitmentdemographic prompting to make claims about marginalized groups without community engagement, publishing findings based solely on LLM performance, or enabling researchers to avoid culturally grounded research practices. Clear standards distinguishing tools from surrogates will determine whether LLMs expand or narrow cognitive science's scope. The technology is agnostic-the research practices surrounding it are not.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Correspondence</head><p>Zhicheng Lin, Department of Psychology, Yonsei University, Seoul, 03722, Republic of Korea (zhichenglin@gmail.com; X: @ZLinPsy)</p></div>		</body>
+		<back>
+
+			<div type="acknowledgement">
+<div><head>Acknowledgments</head><p>The writing was supported by the <rs type="funder">National Key R&amp;D Program of China</rs> <rs type="grantNumber">STI2030 Major</rs> Projects (<rs type="grantNumber">2021ZD0204200</rs>). The funder had no role in the decision to publish or in the preparation of the manuscript. I used <rs type="person">Claude Sonnet</rs> 4.5 and Gemini 2.5 Pro for proofreading the manuscript, following the prompts described at <ref type="url" target="https://www.nature.com/articles/s41551-024-01185-8">https://www.nature.com/articles/s41551-024-01185-8</ref>.</p></div>
+<div><head>Declaration of interests</head><p>None declared by the author.</p></div>
+			</div>
+			<listOrg type="funding">
+				<org type="funding" xml:id="_Z7adHk2">
+					<idno type="grant-number">STI2030 Major</idno>
+				</org>
+				<org type="funding" xml:id="_J83JASJ">
+					<idno type="grant-number">2021ZD0204200</idno>
+				</org>
+			</listOrg>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Six fallacies in substituting large language models for human participants</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Lin</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/25152459251357566</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Adv. Meth. Pract. Psychol. Sci</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="page">25152459251357566</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Lin, Z. (2025) Six fallacies in substituting large language models for human participants. Adv. Meth. Pract. Psychol. Sci. 8, 25152459251357566. 10.1177/25152459251357566</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">AI Surrogates and illusions of generalizability in cognitive science</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">J</forename><surname>Crockett</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Messeri</surname></persName>
+		</author>
+		<idno>1016/j.tics.2025.09.012</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Trends Cogn. Sci</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Crockett, M.J. and Messeri, L. (2025) AI Surrogates and illusions of generalizability in cognitive science. Trends Cogn. Sci. 10.1016/j.tics.2025.09.012</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Surveying the dead minds: Historical-psychological text analysis with contextualized construct representation (CCR) for classical Chinese</title>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Chen</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing (EMNLP 2024)</title>
+		<meeting>the 2024 Conference on Empirical Methods in Natural Language Processing (EMNLP 2024)</meeting>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note>Association for Computational Linguistics</note>
+	<note type="raw_reference">Chen, Y. et al. (2024). Surveying the dead minds: Historical-psychological text analysis with contextualized construct representation (CCR) for classical Chinese. Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing (EMNLP 2024). Association for Computational Linguistics</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Large language models as psychological simulators: A methodological guide</title>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Lin</surname></persName>
+		</author>
+		<idno type="DOI">arXiv:2506.16702.10.48550/arXiv.2506.16702</idno>
+		<imprint>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Lin, Z. (2025) Large language models as psychological simulators: A methodological guide. arXiv:2506.16702. 10.48550/arXiv.2506.16702</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">Large Language Models based on historical text could offer informative tools for behavioral science</title>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">E W</forename><surname>Varnum</surname></persName>
+		</author>
+		<idno type="DOI">10.1073/pnas.2407639121</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Proc. Natl. Acad. Sci. U. S. A</title>
+		<imprint>
+			<biblScope unit="volume">121</biblScope>
+			<biblScope unit="page">2407639121</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Varnum, M.E.W. et al. (2024) Large Language Models based on historical text could offer informative tools for behavioral science. Proc. Natl. Acad. Sci. U. S. A. 121, e2407639121. 10.1073/pnas.2407639121</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Cross-cultural adaptation of research instruments: Language, setting, time and statistical considerations</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Gjersing</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/1471-2288-10-13</idno>
+	</analytic>
+	<monogr>
+		<title level="j">BMC Med. Res. Methodol</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="page">13</biblScope>
+			<date type="published" when="2010">2010</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Gjersing, L. et al. (2010) Cross-cultural adaptation of research instruments: Language, setting, time and statistical considerations. BMC Med. Res. Methodol. 10, 13. 10.1186/1471-2288-10-13</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Exploring LLMs for automated generation and adaptation of questionnaires</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">M</forename><surname>Adhikari</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 7th ACM Conference on Conversational User Interfaces</title>
+		<meeting>the 7th ACM Conference on Conversational User Interfaces</meeting>
+		<imprint>
+			<publisher>Association for Computing Machinery</publisher>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Adhikari, D.M. et al. (2025). Exploring LLMs for automated generation and adaptation of questionnaires. Proceedings of the 7th ACM Conference on Conversational User Interfaces. Association for Computing Machinery</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Can machine translation match human expertise? Quantifying the performance of large language models in the translation of patient-reported outcome measures (PROMs)</title>
+		<author>
+			<persName><forename type="first">S.-C</forename><surname>Lu</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s41687-025-00926-w</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Patient-Reported Outcomes</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="page">94</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Lu, S.-C. et al. (2025) Can machine translation match human expertise? Quantifying the performance of large language models in the translation of patient-reported outcome measures (PROMs). Journal of Patient-Reported Outcomes 9, 94. 10.1186/s41687-025-00926-w</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">PATIENT-ψ: Using large language models to simulate patients for training mental health professionals</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Wang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing</title>
+		<title level="s">Association for Computational Linguistics</title>
+		<meeting>the 2024 Conference on Empirical Methods in Natural Language Processing</meeting>
+		<imprint>
+			<date type="published" when="2024">2024</date>
+			<biblScope unit="volume">10</biblScope>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Wang, R. et al. (2024). PATIENT-ψ: Using large language models to simulate patients for training mental health professionals. Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing. Association for Computational Linguistics 10.</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Effectiveness of internet-based training on psychotherapists&apos; transcultural competence: A randomized controlled trial</title>
+		<author>
+			<persName><forename type="first">M.-C</forename><surname>Atzor</surname></persName>
+		</author>
+		<idno type="DOI">10.1177/00220221231221095</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Cross-Cultural Psychology</title>
+		<imprint>
+			<biblScope unit="volume">55</biblScope>
+			<biblScope unit="page" from="260" to="277" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Atzor, M.-C. et al. (2024) Effectiveness of internet-based training on psychotherapists&apos; transcultural competence: A randomized controlled trial. Journal of Cross-Cultural Psychology 55, 260-277. 10.1177/00220221231221095</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

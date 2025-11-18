@@ -1,0 +1,1085 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">The Cognitive Foundations of Algorithmic Trust: Human Reasoning in High-Stakes AI Systems</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher/>
+				<availability  status="unknown">
+					<licence/>
+				</availability>
+				<date type="published" when="2025-11-01">November 1, 2025</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author role="corresp">
+							<persName><forename type="first">Sonrisa</forename><surname>Watts</surname></persName>
+							<email>sonrisawatts@gmail.com</email>
+						</author>
+						<title level="a" type="main">The Cognitive Foundations of Algorithmic Trust: Human Reasoning in High-Stakes AI Systems</title>
+					</analytic>
+					<monogr>
+						<imprint>
+							<date type="published" when="2025-11-01">November 1, 2025</date>
+						</imprint>
+					</monogr>
+					<idno type="MD5">3A738A999EDBF363BBB02DC1349AF135</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-18T15:23+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=true, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>algorithmic trust</term>
+					<term>cognition</term>
+					<term>transparency</term>
+					<term>accountability</term>
+					<term>affective reasoning</term>
+					<term>artificial intelligence</term>
+					<term>cognitive bias</term>
+					<term>heuristics</term>
+					<term>high stakes fields</term>
+					<term>emotion</term>
+					<term>psychological resistance</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Artificial intelligence (AI) is increasingly integrated into professional and personal contexts, yet its adoption in high-stakes sectors such as healthcare, law, and finance remains constrained by human trust, affective responses, and expectations of accountability. This mixed-methods preprint presents preliminary findings from an ongoing study examining cognitive, emotional, and ethical determinants of AI trust.</p><p>The dataset combines two survey samples (N1 = 69; N2 = 44) with qualitative interviews from fifteen domain experts in law, medicine, and finance. Quantitative analyses, including logistic regression and descriptive modeling, indicate that prior AI experience, perceived transparency, and emotional comfort are key predictors of trust and acceptance across decision-making domains. Familiarity consistently enhances calibrated confidence, while transparency and perceived accountability strengthen trust in financial and professional contexts. Conversely, older participants exhibited more cautious attitudes toward AI autonomy, suggesting that demographic and affective factors jointly shape trust formation.</p><p>Collectively, these findings highlight that algorithmic trust evolves through interactional, cognitive, and emotional processes rather than purely technical performance.</p><p>The qualitative component enriches these patterns through seven recurring themes: emotional reasoning, meta-cognition, AI-augmented creativity and innovation, algorithms codifying injustice, radical skepticism, heuristics and cognitive biases, and algorithmic transparency and explainability.. Together, these findings illuminate how trust is negotiated through both cognitive and affective appraisals, users weigh perceived fairness, empathy, and accountability rather than technical accuracy alone. Experts across sectors consistently framed AI as a subordinate decision-support system, emphasizing the continued primacy of human oversight and moral responsibility.</p><p>Collectively, these preliminary findings indicate that trust in AI is neither static nor purely rational but develops iteratively through exposure, perceived social value, and institutional safeguards. The results underscore the importance of explainability, ethical alignment, and participatory design in building public confidence. Future work will expand the dataset and employ cross-cultural comparisons to test the generalizability of these early insights.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>Table of Contents</head><p>Artificial intelligence (AI) systems are increasingly deployed in high-stakes contexts such as medicine, law, and finance, where algorithmic decisions can directly affect health outcomes, legal judgments, and financial inclusion. Yet, widespread adoption remains constrained not only by technical reliability but by the human capacity to trust these systems. Trust, in this context, is neither purely cognitive nor purely emotional, it arises at the intersection of comprehension, moral reasoning, and perceived fairness <ref type="bibr" target="#b0">(Frank et al., 2024;</ref><ref type="bibr"></ref> Witkowski, Dougherty &amp; Neely, 2024).</p><p>While engineers often equate trust with system performance, social cognition research frames it as an evolving psychological contract between humans and technology. Trust calibration depends on whether users perceive AI as transparent, accountable, and aligned with human ethical standards. When algorithms are opaque or autonomous, people may experience moral discomfort or skepticism, particularly in domains where empathy, responsibility, and care are integral <ref type="bibr" target="#b2">(Naiseh et al., 2023)</ref>.</p><p>From a cognitive standpoint, human reasoning about AI can be conceptualized through <ref type="bibr" target="#b9">Kahneman's (2011)</ref> dual-process framework. "System 1" involves fast, intuitive judgments, often guided by emotion and moral instinct, while "System 2" reflects slow, deliberative reasoning that engages when explanations and evidence are available. AI transparency and interpretability act as cognitive cues that trigger System 2 evaluation, allowing users to reason about model logic rather than rely solely on intuition. Conversely, when outcomes feel ethically loaded or unpredictable, intuitive System 1 dominates, leading to caution, moral rejection, or overtrust depending on emotional framing.</p><p>Algorithmic trust is therefore a cognitive-affective construct: it blends rational evaluation of performance with emotional responses to risk, fairness, and human control. As AI increasingly mediates professional authority, whether in diagnostic reasoning, legal interpretation, or financial risk assessment, understanding how people reason about accountability and comfort becomes essential for responsible design. High-profile failures of automated systems in healthcare triage, sentencing recommendations, and loan approval have intensified calls for "explainable AI" and "human-in-the-loop" safeguards, underscoring that transparency and accountability are now ethical as well as technical imperatives.</p><p>In high-stakes domains, barriers to AI adoption are particularly pronounced. <ref type="bibr" target="#b2">Naiseh et al. (2023)</ref> highlight that different explanation classes in AI systems can significantly impact trust calibration, with some explanations leading to over-reliance on AI recommendations <ref type="bibr" target="#b2">[3]</ref>. Similarly, research shows that judges who rely on AI tools are generally rated lower in legitimacy compared to those who base decisions on their own expertise <ref type="bibr" target="#b34">[35]</ref>. This phenomenon suggests that perceived fairness and human legitimacy remain crucial components of algorithmic trust, especially when automation challenges professional identity.</p><p>Beyond the technical hurdles, one of the biggest hurdles for AI adoption remains the human psychological barrier, particularly in high-stakes domains. While the public readily embraces AI for low-stakes tasks, such as summarizing information or drafting non-critical communications, this acceptance sharply reverses when decisions directly impact health, liberty, or finance. In these critical areas, a strong preference for advice from human experts over AI persists, suggesting AI is often not viewed as a primary advisor. This reluctance stems not from AI's quantitative or analytical capabilities, but from the perception that it lacks crucial human elements. Specifically, AI is widely perceived as being emotionless and impartial, which undermines trust when decisions require any degree of subjectivity or moral reasoning ( <ref type="bibr" target="#b37">[38]</ref>). This reliance on affective consideration shows a significant gap: the technical focus on model explainability often fails to address the more tangible psychological barriers that prevent users from feeling confident in AI's ultimate judgment. For instance, in healthcare, patients express deep concern over AI's potential to create communication barriers and reduce vital physician-patient personal interaction ( <ref type="bibr" target="#b36">[37]</ref>). Furthermore, AI's reliance on massive datasets fuels privacy concerns about data collection and re-identification, and the lack of transparent regulatory standards generates anxiety over accountability and liability should a medical error occur ( <ref type="bibr" target="#b36">[37]</ref>). This shows that the public's resistance is centered on the loss of human and social concepts, not simply a doubt about AI's performance capabilities.</p><p>Recent empirical work in healthcare illustrates that richer or more numerous AI explanations do not always enhance trust or improve performance. In an experiment involving clinicians evaluating AI-assisted breast cancer diagnoses, higher levels of explanation sometimes failed to increase diagnostic accuracy or selfreported confidence, suggesting that explanations can create a fragile or illusory sense of understanding rather than robust comprehension <ref type="bibr" target="#b4">[5]</ref>. This "illusion of explainability" occurs when users feel they understand an AI's reasoning without fully grasping its mechanisms or limits. The present study builds upon this concept to examine how perceived clarity diverges from actual understanding and how such misalignments shape metacognition, heuristics, cognitive biases, and emotional reactions to AI in practice.</p><p>The legal profession, globally recognized as a major sector, has historically been cautious, adopting a traditional approach that leaves many operations under-digitized. While this sector is often slow to embrace technological change, the emergence of AI presents a significant opportunity to fundamentally transform the delivery of legal services, offering the potential to advance legal practice through enhanced efficiency, reduced error, and greater access to justice ( <ref type="bibr" target="#b38">[39]</ref>). Specifically, AI assists in critical tasks like contract drafting, legal research, and case prediction ( <ref type="bibr" target="#b38">[39]</ref>), enabling lawyers to work more strategically. However, this potential is met with significant concern: AI's rise is viewed as a threat that could undermine client confidence, displace professionals in routine tasks, and disrupt the regulatory landscape ( <ref type="bibr" target="#b38">[39]</ref>). Addressing this tension, between technological opportunity and the structural challenges it poses, is crucial for successful integration.</p><p>The rapid advancement of AI presents a paradigm shift within the healthcare industry, promising improvements in diagnostic accuracy, workload reduction, and therapeutic efficiency through technologies like advanced imaging and robotic surgery. While the technical capabilities of AI are expanding and advancing more and more each day, the successful integration of these systems relies on the acceptance and preparedness of healthcare professionals. A study investigating medical doctors' perceptions of AI in healthcare found a gap between opportunity and readiness: the practitioners reported a generally low degree of familiarity with core AI concepts, despite recognizing AI's potential and expressing a strong interest in future education ( <ref type="bibr" target="#b39">[40]</ref>). The research also highlighted significant non-technical barriers to adoption, including the fear of losing essential clinical skills and the widespread concern over the lack of human supervision when AI is implemented in patient care ( <ref type="bibr" target="#b39">[40]</ref>). These findings depict that for AI to be effectively utilized to improve patient outcomes, medical institutions must first address these profound issues of professional understanding, ethical comfort, and the necessary balance between technological assistance and human judgment.</p><p>The deployment of AI in healthcare is met with distinct reservations from the patient population, particularly when comparing AI-driven care to traditional in-person encounters. Esmaeilzadeh et al.'s large-scale study on patient perceptions (N=634) revealed that while AI showed similar performance risk perception to physician care, seven of the nine measured outcome variables showed significant differences in patient acceptance. Specifically, patients with chronic illnesses expressed significantly lower trust in AI applications and, regardless of illness type, demonstrated significantly higher concerns about communication barriers and the transparency of regulatory standardS. This data further solidifies the concept that the primary barriers to AI adoption are not performance-based, but center on ethical and social concerns like trust, human interaction, and accountability <ref type="bibr">([41]</ref>).</p><p>The adoption of AI-driven Robo-advisory services (RAs) is disrupting the wealth management industry by offering superior pricing and returns, causing a "threatening alarm" to traditional fund managers <ref type="bibr" target="#b40">[42]</ref>.</p><p>Despite this technical superiority, widespread investor acceptance is limited, with adoption rates as low as 3% in the USA <ref type="bibr" target="#b40">[42]</ref>. This constraint is mostly non-technical, coming from a perceived deficit in AI's emotional capacity <ref type="bibr" target="#b40">[42]</ref>. Investors require human consultation, especially during volatile or "bearish" market phases, to address their emotional and behavioral concerns <ref type="bibr" target="#b40">[42]</ref>. They fear that the lack of human interaction will lead to insecurity and bias-driven decisions <ref type="bibr" target="#b40">[42]</ref>. This evidence establishes that in high-stakes finance, trust is fundamentally, like the other high stakes fields, a cognitive-affective construct, where psychological comfort and the need for human accountability seems to be greater than AI's analytical efficiency. This study, therefore, explores how users negotiate the balance between AI's utility and the imperative for human judgment.</p><p>Additionally, anthropomorphizing AI, or attributing human-like traits to machines, can mitigate psychological barriers and enhance trust in high-stakes decision-making contexts <ref type="bibr" target="#b5">[6]</ref>. While AI offers immense promise in domains such as healthcare, law, and finance, public perceptions remain cautious. People are generally open to AI assisting humans but express discomfort when AI replaces human judgment in critical decisions [7]. This emotional boundary reflects a broader moral intuition about the appropriate scope of automation in human-centered professions. Despite growing interest, limited empirical research exists on how professionals and the public interact with AI in high-stakes contexts, particularly within Caribbean and small-island developing state contexts where technological infrastructures and cultural perceptions differ from larger economies. This study addresses that gap by combining quantitative survey data with qualitative expert interviews to explore how individuals interpret AI recommendations, assign responsibility, and navigate the balance between human judgment and machine assistance. Understanding these perceptions is particularly crucial in domains such as healthcare, law, and finance, where AI errors may carry severe consequences and erode institutional trust.</p><p>This mixed-methods study expands empirical understanding of algorithmic trust through quantitative modeling and qualitative discourse analysis. Two public surveys (N = 69 and N = 44) were analyzed alongside fifteen in-depth interviews with professionals across medicine, law, psychology, and technology. The surveys examined how comfort, transparency expectations, and accountability attributions shape willingness to trust AI in high-stakes domains. Logistic regression models tested predictive relationships between emotional comfort, perceived transparency, and trust behavior, while interviews explored how professionals negotiate human judgment, empathy, and explainability in their reasoning about AI-assisted work.</p><p>By integrating behavioral data with thematic narratives, this research constructs a comprehensive cognitive and affective profile of algorithmic trust. It situates trust not as a static trait but as a dynamic reasoning process ; a negotiation between human intuition and machine rationality that unfolds within ethical, emotional, and social contexts.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2">Methods</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.1">Ethical Considerations and Participant Identification</head><p>Participants were fully informed of the study's purpose, procedures, and their rights, including the right to withdraw at any time. Confidentiality and privacy were emphasized throughout the research process. All participant contributions are cited using professional roles or sectors (e.g., "Consultant Physician in Internal Medicine," "Technology Specialist," "Biomedical Engineer") to preserve anonymity while maintaining professional credibility.</p><p>At the time of data collection, no local institutional review board was available in the island of St. Kitts and Nevis; therefore, ethical procedures were self-administered following the Declaration of Helsinki. All procedures adhered to widely recognized ethical research principles, including voluntary participation, informed consent, and protection of participants' confidentiality. Data were collected between August 2025 and September 2025. Survey responses were obtained via Google Forms, and qualitative interviews were conducted through scheduled calls and online meetings, depending on participant preference.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">Quantitative Data and Sampling</head><p>The quantitative dataset combines two separate convenience-based survey samples (N</p><p>1 = 69 and N 2 = 44), which limits generalizability (see Section 4, Limitations). Participants for both subsets were recruited from St. Kitts and Nevis and the St. Kitts and Nevis diaspora residing in the United States. Recruitment utilized a convenience sampling strategy, with outreach conducted through personal contacts, professional networks, email, and social-media messaging. Survey data were cleaned and processed in Python (v3.11) using pandas (v2.2), numpy (v1.26), and matplotlib (v3.8), and then combined for descriptive analysis. Items measured comfort with AI across domains (administrative, diagnostic, legal, financial), accountability attribution, and demographic characteristics.</p><p>Logistic regression was conducted to examine predictors of willingness to trust AI for decision advice. Two participant subsets (N = 44 and N = 23) were analyzed separately, with predictors including prior AI use, age group, comfort with AI, and perceived transparency. Odds ratios and 95% confidence intervals were estimated from logit standard errors using statsmodels (v0.14). Default parameters were used unless otherwise stated.</p><p>All Python scripts used for data cleaning and statistical analysis will be made available in an open-access</p><p>GitHub repository upon official publication. Raw data are anonymized and can be accessed upon reasonable request to protect participant confidentiality.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.3">Qualitative Data and Expert Recruitment</head><p>Qualitative data comprised fifteen in-depth, semi-structured interviews with domain experts representing healthcare, legal, psychology, and technology sectors. Thirteen professional participants were recruited from St. Kitts and Nevis, one from Jamaica, and one from Trinidad, ensuring a broader Caribbean professional perspective. Recruitment utilized a targeted convenience sampling approach via email and phone calls to personal and professional networks to ensure representation from high-stakes professional sectors within the region.</p><p>All participants provided informed consent prior to participation. Interviews were transcribed and coded thematically using a semantic approach. Coding reliability was strengthened through iterative review and cross-checking of themes. Key themes identified were: (1) emotional reasoning, (2) human accountability and judgment, (3) algorithmic bias, and (4) explainability and transparency. The semantic word cloud below visualizes linguistic salience within the corpus. Representative quotations are included to illustrate emerging patterns. The study is ongoing, and additional interviews may refine or expand these insights</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.4">Reproducibility and Data Availability</head><p>This study follows open research principles to support transparency and reproducibility. The complete analysis pipeline, including Python scripts and data-processing workflows, will be uploaded to an open-access</p><p>GitHub repository upon official publication. Due to the small population size and potential identifiability of participants, de-identified raw data will be made available upon reasonable request to the corresponding author. Supplementary materials (e.g., survey instruments and interview guide) will also be provided to facilitate replication and secondary analysis. 7</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.1">Overview of Findings</head><p>Results from surveys and interviews provide a multi-faceted view of AI trust in professional contexts. Survey responses indicate that perceived transparency and prior AI experience are associated with higher trust in AI-assisted decision-making, while accountability is consistently attributed to humans rather than AI systems. Expert interviews reinforce the importance of human judgment, ethical responsibility, and oversight, highlighting potential risks if AI is treated as a substitute for professional expertise. illustrate key patterns, including preferences for human oversight, accountability, and the influence of prior AI exposure on AI trust.    M y d o c t o r w h o u s e d t h e t o o l T h e A I d e v e l o p e r B o t h A I d e v e l o p e r a n d m y d o c t o r N o b o d y N o n e o f t h e a b o v e D e p e n d s 0 10 20 30 33 0 5 1 0 2 Number of respondents Accountability Perception in AI-Driven Healthcare Errors Figure 5: Survey responses to the question: "If your doctor used an AI healthcare tool that made a mistake and affected you, who would you hold responsible?" (N = 41). Most respondents held the doctor primarily accountable, indicating strong expectations for human oversight in AI-assisted medicine. ). This scatter plot reveals a moderate negative correlation between a participant's likelihood to verify an AI's output and their likelihood to trust that AI over their own opinion. As the necessity of verification increases, epistemic trust decreases, demonstrating that the verification requirement acts as a cognitive tax on the system's perceived authority.      This suggests a mechanism of Calibrated Skepticism: a person's general, emotional distrust of AI is a stronger driver of selective acceptance for low-risk, verifiable tasks than their rational concerns. Skeptical users thus contain AI use to its safest applications, defining a psychological risk ceiling. Interpretation. Interpretation: The binary logistic regression predicting participants' trust in AI for financial tasks was not statistically significant overall (LLR p = 0.1533; Pseudo R² = 0.0488), indicating that the measured psychological factors, taken together, do not reliably predict this outcome.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.3">Logistic Regression: AI Attitude Predictors</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.4">Logistic Regression: General Attitude Predictors</head><p>However, Blame the User Accountability emerged as a significant individual predictor (OR = 1.349, p = 0.028). This suggests that participants who are more likely to assign accountability to the user, rather than the AI or developer, have approximately 35 percent higher odds of trusting AI in financial tasks.</p><p>Other predictors, including General AI Skepticism (OR = 1.212, p = 0.224) and Demand for Transparency (OR = 1.057, p = 0.693), were not significant, indicating that these general attitudes do not meaningfully influence this specific behavior. The small effect size and low overall model power suggest that the significant effect of Blame the User Accountability should be interpreted cautiously.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.5">Logistic Regression: Predictors of Trust in AI</head><p>A binary logistic regression was conducted to examine whether prior AI use and age predicted participants' trust in AI (N = 23). The dependent variable was trust in AI (1 = trust, 0 = do not trust), and the independent variables were prior AI use and age group 55+. Interpretation. The first model suggests that individuals who feel emotionally comfortable with AI are almost three times more likely to demand transparent explanations when automation fails, though this effect only approached significance (p = 0.102). The second model achieved significance (p = 0.038), indicating that perceived transparency substantially increases trust in AI-driven financial advice. Together, these results highlight the cognitive-affective consistency underlying algorithmic trust: users who value rational clarity also exhibit stronger comfort with machine-supported reasoning.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.7">Qualitative data</head><p>Fifteen expert interviews (healthcare, legal, psychology, tech) were transcribed and coded thematically (semantic approach). Themes identified in the qualitative analysis include emotional reasoning, human account-ability, algorithmic bias, the illusion of explainability, AI-augmented creativity and innovation, metacognition, and cognitive and decision-making biases (including heuristics, status quo bias, and automation bias).</p><p>The semantic word cloud below visualizes linguistic salience in the corpus.</p><p>Figure <ref type="figure" target="#fig_13">12</ref>: Semantic map of professional discourse on AI trust (interview corpus). Prominent concepts include "bias," "intuition," "explainability," and "responsibility."</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.8">Thematic Analysis of Interviews with Domain Experts</head><p>Theme 1: Human judgment as non-delegable "The bigger risk is relying on AI as if it were an expert on the law.</p><p>.. treat AI as an assistant, not a substitute." -Legal Practitioner Theme 2: Emotional reasoning and instinctive oversight "Our instincts and intuitions are our emotional compass to navigate illness and disease." -Consultant Physician in Internal Medicine Theme 3: Bias codification "AI is built on biased data... what constitutes 'accuracy' depends on which data it's relying on." -Technology Specialist Theme 4: Non-Delegable Human Judgment ''AI can assist lawyers in research, drafting, and information gathering, but it cannot replace moral judgment or reasoning, and the human lawyer remains ultimately responsible for verifying AI-generated information, because mistakes in dates, cases, or facts can occur; moreover, if an AI-informed opinion is wrong, complex liability questions arise, including who can be sued, where, and how compensation is handled across jurisdictions, making accountability and ethical responsibility entirely a human obligation." -Senior Legal Practitioner Theme 5: The Therapeutic Threshold -Limits of Machine Empathy "If data is biased, then it cannot be fair, can it? . . . There is no practical reason why AI cannot give samples of a range of views and explanations. When you train as a psychologist, you learn to draw from multiple theories. AI could do the same if designed with integrity." -Clinical Psychologist Theme 6: Explainability and transparency "Simpler is better. Before committing to any platform, have AI show similar cases and mistakes." -Technology Expert Theme 7: AI-Augmented Creativity and Innovation "I think AI will augment natural creativity and expand how tissue-engineered projects are used clinically. We will rely heavily on experimentalists to drive the field forward." -Biomedical Engineer Integration of Quantitative and Qualitative Data Taken together, survey and interview data suggest</p><p>that trust in AI is shaped both by individual experience and professional norms. While transparency and prior exposure to AI increase user confidence, experts consistently emphasize that accountability and ethical judgment cannot be outsourced to machines. These preliminary findings highlight the cognitive-affective and professional dimensions of AI trust across domains. Quotes included in the qualitative analysis are illustrative and reflect preliminary results; additional interviews may refine or expand these themes.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4">Discussion</head></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.1">Cognitive, Professional, and Ethical Dimensions of Trust in AI</head><p>Trust in AI is multidimensional, encompassing cognitive understanding, affective comfort, ethical evaluation, and alignment with professional norms. Users rely on instrumental trust, based on competence and performance, and moral trust, based on fairness, transparency, and ethical alignment. In healthcare, trust also depends on perceived support of clinical expertise, patient safety, and workflow integration. In law, procedural fairness, auditability, and explainability dominate, while in finance, predictive reliability and ethical handling of information are prioritized. Across sectors, adoption is influenced not only by technical performance but also by professional legitimacy, perceived competence, and the assurance that AI will augment rather than replace human judgment.</p><p>Our findings reinforce these dimensions: survey respondents largely sought human confirmation before trusting AI-driven treatment suggestions, emphasizing that cognitive trust alone is insufficient without human oversight (Figure <ref type="figure" target="#fig_2">1</ref>). Qualitative interviews highlighted emotional reasoning as a key factor in AI acceptance, demonstrating that affective comfort and instinctive oversight strongly influence adoption even among technically literate professionals. Across domains, human accountability remains central, with most participants holding doctors responsible for errors despite AI assistance (Figures <ref type="figure" target="#fig_4">3</ref><ref type="figure">4</ref>; Themes 1 &amp; 2).</p><p>This necessity of verification comes at a psychological cost. We found a moderate negative correlation (r = -0.44) between how likely a user was to verify the AI's output and their willingness to trust the AI over their own opinion. This suggests that requiring verification acts as a cognitive tax on trust. It emphasizes an important proposition: while shallow transparency encourages over-reliance, the deeper demand for traceability and human effort actually diminishes the AI's perceived authority.</p><p>The results from our logistic regression models highlight a strong contrast between general feelings and specific trust.</p><p>Starting with the most important finding, the model predicting Comfort with Objective AI showed that General AI Skepticism was the only significant predictor (OR = 9.23, p = 0.012), meaning people who distrust AI overall were actually over nine times more likely to be comfortable with low-risk tasks like fraud detection. This suggests AI rejection isn't total; skeptical users practice Calibrated Skepticism by only allowing AI in the safest areas. In contrast, the second model, predicting Trust in AI for Financial Tasks, was weak overall (LLR p = 0.153), and neither general skepticism nor transparency demands were significant predictors. This tells us that while skepticism helps users choose where to allow AI, the final decision to trust AI with money is driven by factors outside these general attitudes, suggesting that trust for high-stakes tasks is an independent, non-negotiable threshold. 4.2 Healthcare: Knowledge, Attitudes, Acceptance, and Application Healthcare represents a highly complex domain for AI integration. Namdar Areshtanab et al. (2025) found that 41.1% of nurses had low knowledge of AI, yet 65.8% reported positive attitudes toward its use, 74.6% demonstrated moderate acceptance, and 55.8% applied AI at a high level. Correlations between knowledge, attitude, acceptance, and application (r = 0.31-0.74, p &lt; 0.001) suggest that increasing AI literacy strengthens engagement, acceptance, and practical application.</p><p>Survey data corroborate these findings: prior AI experience predicted higher comfort with clinician AI use (OR = 2.06, p = 0.043), highlighting that familiarity breeds calibrated trust (Figure <ref type="figure" target="#fig_12">5</ref>; Logistic Regression, Table <ref type="table" target="#tab_3">2</ref>). Older participants exhibited slightly lower trust (OR = 0.67, p = 0.225), suggesting demographic differences in adoption risk. AI technologies, including predictive analytics, robotic tools, and virtual assistants, improve operational efficiency, allowing clinicians to focus on patient care. Despite these benefits, ethical challenges persist, including concerns over algorithmic bias, data privacy, and the potential for over-reliance, which can compromise clinical oversight.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The Necessary Link Between Exposure and Trust</head><p>Building on these findings, it is clear that familiarity is a critical driver of integration, not merely a secondary factor. The survey data strongly suggests that increased clinician experience with AI correlates positively with enhanced comfort and trust. Crucially, when participants observe the direct demonstrated benefit of AI in their daily workflow, for example, predictive analytics instantly flagging a high-risk patient or a virtual assistant handling routine paperwork, the perceived utility shifts AI from an abstract threat to a tangible, beneficial tool. This mechanism facilitates greater openness and accelerated adoption.</p><p>However, this progress is threatened by a growing and dangerous trend: radical skepticism. When a generative AI model, for instance, produces a single, high-profile error (a "hallucination"), the immediate and widespread reaction is often the rejection of the entire AI concept. This shows a fundamental cognitive error and a failure to distinguish between a specific tool's flaw and the potential of the broader field. This overreaction risks stalling the adoption of countless proven, beneficial applications. Therefore, empirical research is required to develop and validate intervention strategies that prevent this error generalization from becoming the dominant driver of AI skepticism and subsequent rejection in clinical settings.</p><p>This overreaction risks decreasing the growth, integration and the adoption of countless proven, beneficial applications. Empirical research is required to develop and validate intervention strategies that prevent this error generalization from becoming the biggest driver of AI skepticism and its rejection in clinical settings.</p><p>This resistance is often rational and data-driven: trust is conditional upon verifiable transparency, not just performance. The strongest predictor for increasing trust was the assurance of Information about how my personal data is used (selected by 53.7% of respondents, Figure <ref type="figure">4</ref>), highlighting that ethical data governance is the one of the major drivers of AI adoption.</p><p>Furthermore, this cognitive caution is evident in the reluctance to grant the AI authority:</p><p>when AI output contradicted their own opinion, the majority were only 'Moderately likely' to trust the AI (43.9%; Figure <ref type="figure" target="#fig_10">9</ref>). This collective caution confirms that the professional's subjective judgment remains the ultimate gatekeeper, reinforcing the requirement for verification.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Generative AI in Medical Decision-Making and Peer Perception</head><p>Yang et al. ( <ref type="formula">2025</ref>) examined how the use of generative AI (GenAI) in clinical decision-making affects peer evaluations. Physicians who used GenAI as a primary decision-making tool were rated significantly lower in clinical skill (mean = 3.79) than controls (mean = 5.93, p &lt; 0.001). Framing GenAI as a verification tool partially mitigated this effect (mean = 4.99, p &lt; 0.001). While GenAI improved clinical assessment accuracy (mean = 4.30, p &lt; 0.002), its visible use carries reputational risks, aligning with attributional discounting theory.</p><p>Our findings complement this: participants emphasized non-delegable human judgment (Theme 1) and therapeutic limits of AI empathy (Theme 4). Emotional reasoning and professional intuition strongly influenced comfort with AI, suggesting that adoption depends not only on performance metrics but also on alignment with professional norms and peer perceptions.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>The Comfort of AI and the Risk of Bias</head><p>The observation that doctors prefer using generative AI for verification rather than as a primary tool suggests its adoption begins as a form of comfort and security. Even if practitioners state they won't rely completely on the tool, this setup creates a high risk of automation bias. This happens especially when the AI provides data based on analysis that would take humans months to complete. When a machine offers information with such immense computational authority, it becomes very difficult, psychologically, for a person to challenge or ignore it even if their professional intuition suggests they should. This tension between trusting one's own expert judgment and believing the AI must be correct is a fundamental human challenge in high-stakes fields. Therefore, we need future research to identify the point where the computational power of AI starts to override human judgment and to determine how to prevent this over-reliance in critical, clinical moments.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.4">Primary</head><p>Care and Patient Portal Messaging Biro et al. (2025) studied the use of generative AI in drafting patient portal messages. AI drafts significantly improved efficiency, reducing cognitive workload in 80% of cases and being perceived as safe by 75% of participants. However, this efficiency came with a critical caveat regarding safety: uncorrected errors were common. Specifically, 65% of participants missed at least one error, and 35% of erroneous drafts were submitted without any edits. Only one participant successfully corrected all four errors introduced into the sample drafts. This outcome demonstrates that a user's positive attitude toward AI does not guarantee safe outcomes.</p><p>The persistence of errors despite human review highlights a crucial failure in metacognition, the user's ability to assess their own comprehension and performance, and is directly relevant to our study's findings on algorithmic trust. This phenomenon is a textbook case of automation complacency, where users over-rely on a system they perceive as competent, leading to reduced vigilance. Furthermore, the 35% rate of submitting erroneous drafts suggests that the AI may create an illusion of explainability, leading users to assume the output is correct without fully engaging in critical analysis.</p><p>Cognitive biases such as functional fixedness, which is described as being unable to see alternative solutions; confirmation bias, which is seeking evidence that confirms the AI is right; and automation complacency explain why errors persist despite positive attitudes, depicting that the expert theme that human judgment and oversight are non-delegable. Our qualitative and survey data further illuminate this risk, as users demanded transparency when automation failed, and interviews underscored the need for explainability and error visibility (Theme 5) to interrupt this complacency loop. Structured AI education, professional development, and integration into curricula are essential. Visible adoption of GenAI should be framed as verification to maintain credibility while leveraging AI benefits.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.6">Law: Legitimacy, Accountability, and Trust Calibration</head><p>In legal practice, AI adoption focuses on procedural fairness, explainability, and accountability. Judges and lawyers interact with AI in tasks such as predictive policing, case research, document review, and risk assessment. Trust is highly context-dependent, and our findings indicate that the public distinguishes between AI used as a support tool versus AI making autonomous legal judgments. Survey responses show higher acceptance for AI performing research or preparatory functions, whereas AI making independent legal decisions is met with skepticism (Figure <ref type="figure" target="#fig_1">2</ref>). <ref type="bibr" target="#b34">Fine et al. (2025)</ref> show that judges using AI are generally rated lower than those relying solely on expertise, although confidence in AI by the judge mitigates skepticism. Racial differences in perception suggest that AI may be seen as a bias-mitigating tool in some contexts, with Black participants rating AI-assisted judges more favorably than White or Hispanic participants.</p><p>Qualitative interviews reinforce these patterns. Legal practitioners emphasized non-delegable human judgment (Theme 1), cautioning against treating AI as a substitute rather than an assistant. Emotional reasoning was prominent, with intuition and professional norms remaining critical for interpreting AI outputs.</p><p>Experts repeatedly stressed the importance of transparency, explainability, and auditability, noting that AI systems must clearly show the reasoning behind suggestions and provide examples of prior cases to maintain trust (Theme 5). Survey data also indicated that emotional comfort and familiarity with AI increased acceptance for support roles, highlighting the cognitive and affective mechanisms of trust.</p><p>These findings converge to indicate that AI legitimacy in law is contingent on human endorsement, visibility of oversight, and alignment with ethical norms. AI adoption can enhance efficiency and procedural justice but requires careful framing to maintain public trust and professional accountability. 4.7 Finance: Predictive Reliability, Efficiency, and Ethical Risk The Illusion of Objective Data and the Role of Moral Reasoning While AI adoption in finance heavily emphasizes technical tasks like predictive analytics, fraud detection, compliance monitoring, and trading optimization, our findings reveal that high technical trust does not eliminate human factors. There is a common perception that finance primarily deals with objective numbers and transactions, making AI seem like a natural, purely logical fit, a view often contrasted with the deeply nuanced, subjective moral reasoning required in fields like medicine or law. However, respondents' trust is clearly shaped by persistent moral and affective considerations, not just performance. The acceptance of AI is highly task-dependent: comfort levels were highest for objective, protective functions such as Fraud Detection (70.0%) and Budgeting (70.0%) (N = 40; Figure 8). Conversely, comfort levels were lowest for high-stakes, subjective tasks, with only 7.5% of respondents comfortable with AI handling Loan Approval, and 17.5% comfortable with Fund Allocation. This disparity demonstrates a clear risk-ceiling, where users are willing to delegate tasks involving complex classification and efficiency, but strongly resist delegating judgment when the outcome carries high personal economic risk. Qualitative interviews highlight the risks of ethical deskilling, over-reliance, and diminished professional judgment. Experts stressed the need for transparent, auditable models to allow human professionals to understand and challenge AI recommendations. Emotional reasoning plays a role, as users' comfort with AI is linked to perceived empathy and fairness of algorithmic outputs. These findings suggest that financial AI should augment professional decision-making, delivering efficiency and predictive reliability while robust governance mechanisms maintain accountability and ethical standards. Transparency, explainability, prior experience, and demographic considerations are all critical in trust calibration. 4.8 Cross-Domain Synthesis: Toward Context-Specific Governance Across healthcare, law, and finance, AI trust and adoption are context-dependent. Positive perceptions increase adoption, but cognitive biases, knowledge gaps, workflow pressures, reputational concerns, demographic differences, and emotional reasoning create risks. AI should augment human expertise, not replace it. Structured training, context-aware system design, transparent decision support, and policies supporting human oversight are essential. Framing and integration strategies should account for professional norms, peer evaluations, workflow realities, and public expectations to maximize efficiency, safety, legitimacy, and ethical practice. <ref type="bibr" target="#b21">22</ref> This study has several limitations. First, sample sizes were modest (N = 69, 44, and regression N = 23), which limits the statistical power of quantitative analyses and the generalizability of findings. Participants were restricted to the Caribbean and the Caribbean diaspora, making results context-specific and less applicable to other regions or populations. All data coding and analysis were conducted by a single independent researcher, which may introduce bias despite systematic procedures and reflective practices.</p><p>The qualitative interviews were coded by only one researcher, and while coding was systematic, the absence of multiple coders or external validation may reduce inter-rater reliability. Survey measures relied on self-report, which may be subject to social desirability or recall bias. Additionally, the study focused on selected domains of AI use (administrative, diagnostic, legal, and financial), and other high-stakes domains were not explored. Finally, the cross-sectional design of the survey prevents causal inference, and findings should be interpreted as indicative rather than definitive.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="6">Conclusion</head><p>The findings from this mixed-methods study indicate that algorithmic trust is not a purely rational process but a dynamic negotiation between cognitive reasoning and affective response. Trust in artificial intelligence (AI) emerges at the intersection of two systems of human thought ; System 1 (intuitive and affective) and System 2 (deliberative and metacognitive). In high-stakes professional domains such as healthcare, law, and finance, these dual processes collectively determine whether AI is accepted as a supportive collaborator or resisted as a threat to human agency.</p><p>Our results demonstrate that adoption decisions are constrained by enduring cognitive biases and heuristics, including status quo bias (a preference for human judgment) and automation bias (over-reliance on machine output). Professionals actively employ metacognition to balance these tendencies, positioning AI as a subordinate decision-support tool that preserves human accountability and moral responsibility. This reflects a broader epistemic stance: AI can inform human reasoning, but the legitimacy of judgment remains human-centered.</p><p>Sustainable AI integration therefore requires moving beyond narrow notions of technical explainability toward achieving cognitive and ethical compatibility. Future AI design and policy efforts should explicitly address these psychological and normative dimensions by: 1. Framing AI transparently to support users' metacognitive capacity to evaluate the quality and limits of algorithmic reasoning.  In sum, trust in AI is best understood as a cognitive-affective equilibrium; one that develops through iterative exposure, ethical design, and institutional transparency. The long-term success of AI in human-centered professions will depend not only on improving model performance but also on cultivating a psychologically compatible partnership between humans and intelligent systems.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head>23</head><p>The author thanks colleagues from the University of the West Indies for their valuable feedback on earlier drafts of this manuscript and assumes full intellectual responsibility for the content, integrity, and scientific conclusions of this manuscript. The entire research process, including the conceptualization, data collection, statistical analysis, and interpretation of all results, was conducted solely by the human author.</p><p>Generative Artificial Intelligence (GenAI) and AI-assisted tools (Gemini, ChatGPT-4.0, and Copilot) were utilized only for non-substantive tasks, specifically: language refinement, manuscript structure and flow enhancement, grammar checks, and proofreading. AI tools were also used to provide coding suggestions and debugging support for the Python and Jupyter Notebook scripts employed to execute the statistical analyses and generate figures (including the logistic regression, pie charts, and scatter plots).</p><p>The use of AI tools did not influence the scientific design, statistical outcomes, or integrity of the data presented. All content was thoroughly reviewed and verified by the author, who retain full accountability for the work. The underlying data analyses (performed using Google Sheets and Microsoft Excel), along with all code and data, will be made publicly available in a GitHub repository upon publication.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><head>3 Results 3 . 1</head><label>331</label><figDesc>Considerations and Participant Identification . . . . . . . . . . . . . . . . . . . . . . . 2.2 Quantitative Data and Sampling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.3 Qualitative Data and Expert Recruitment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.4 Reproducibility and Data Availability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Overview of Findings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.2 Quantitative Data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.3 Logistic Regression: AI Attitude Predictors . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.4 Logistic Regression: General Attitude Predictors . . . . . . . . . . . . . . . . . . . . . . . . . 3.5 Logistic Regression: Predictors of Trust in AI . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.6 Logistic Regression: AI Attitude Predictors . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.7 Qualitative data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.8 Thematic Analysis of Interviews with Domain Experts . . . . . . . . . . . . . . . . . . . . . . 4 Discussion 4.1 Cognitive, Professional, and Ethical Dimensions of Trust in AI . . . . . . . . . . . . . . . . . 4.2 Healthcare: Knowledge, Attitudes, Acceptance, and Application . . . . . . . . . . . . . . . . 4.3 Generative AI in Medical Decision-Making and Peer Perception . . . . . . . . . . . . . . . . . 4.4 Primary Care and Patient Portal Messaging . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4.5 Integration of Knowledge, Attitude, and Peer Perception . . . . . . . . . . . . . . . . . . . . . 4.6 Law: Legitimacy, Accountability, and Trust Calibration . . . . . . . . . . . . . . . . . . . . . 4.7 Finance: Predictive Reliability, Efficiency, and Ethical Risk . . . . . . . . . . . . . . . . . . . 4.8 Cross-Domain Synthesis: Toward Context-Specific Governance . . . . . . . . . . . . . . . . .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><head>3. 2</head><label>2</label><figDesc>Quantitative DataQuantitative data were collected from two separate survey samples (N 1 = 69 and N 2 = 44) recruited from St. Kitts and Nevis and the St. Kitts and Nevis diaspora residing in the United States. Two datasets were collected to increase coverage across different participant pools and professional networks, allowing for a broader preliminary understanding of AI trust in diverse demographic and professional contexts. Participants reported their comfort with AI, perceived transparency, prior AI experience, and willingness to trust AIgenerated advice across healthcare, legal, and financial domains. Data from both samples were combined for descriptive analyses, while smaller subsets (N = 44 and N = 23) were analyzed separately using logistic regression to examine predictors of AI trust and demand for transparency. Figures 1-10 and Tables1-2</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><head>Figure 1 :</head><label>1</label><figDesc>Figure 1: Respondent reactions to a hospital AI recommendation versus a doctor's advice. A majority sought human confirmation before trusting AI-driven treatment suggestions. A small percentage would follow only the doctor's advice.</figDesc><graphic coords="8,107.10,387.57,397.80,248.63" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_3"><head>Figure 2 :</head><label>2</label><figDesc>Figure2: Perceived comfort with a lawyer using AI for case preparation or research tasks. Responses reflect higher acceptance for support roles, not autonomous legal judgments.</figDesc><graphic coords="9,107.10,72.00,397.80,248.63" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_4"><head>Figure 3 :</head><label>3</label><figDesc>Figure 3: Hypothetical response if a doctor missed a diagnosis after using an AI tool. Most respondents held the doctor accountable, underscoring persistent human responsibility.</figDesc><graphic coords="9,107.10,379.40,397.80,248.63" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_5"><head>Figure 4 :Figure 5 :</head><label>45</label><figDesc>Figure 4: Factors required by participants to increase their trust in an AI tool (N = 67). The responses were drawn from a multiple-choice question format, allowing participants to select all factors they deemed necessary.</figDesc><graphic coords="10,95.40,72.00,421.19,336.95" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_6"><head>Figure 6 :</head><label>6</label><figDesc>Figure 6: Trust vs. Verification: Moderate Negative Correlation (r = -0.44, N = 37). This scatter plot reveals a moderate negative correlation between a participant's likelihood to verify an AI's output and their likelihood to trust that AI over their own opinion. As the necessity of verification increases, epistemic trust decreases, demonstrating that the verification requirement acts as a cognitive tax on the system's perceived authority.</figDesc><graphic coords="11,118.80,72.00,374.40,224.64" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_7"><head>Figure 7 :</head><label>7</label><figDesc>Figure 7: Employee acceptance and emotional response to receiving AI-generated work from subordinates (N = 44). The chart highlights the distribution of sentiment when a supervisor discovers a submitted task was created by an AI tool.</figDesc><graphic coords="11,118.80,390.29,374.40,224.64" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_8"><head>Figure 8 :</head><label>8</label><figDesc>Figure 8: Participant comfort levels with Artificial Intelligence performing various financial tasks (N = 40). Participants were allowed to select multiple tasks.</figDesc><graphic coords="12,95.40,72.00,421.19,294.84" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_9"><head>Figure 10 :</head><label>10</label><figDesc>Figure 10: Relationship between prior generative AI use and comfort with a doctor using AI. Prior users of AI report higher comfort levels, supporting familiarity-based trust.</figDesc><graphic coords="12,107.10,416.65,397.81,340.98" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_10"><head>Figure 9 :</head><label>9</label><figDesc>Figure 9: Participant self-reported likelihood of granting cognitive authority to an AI system when its output or recommendation directly conflicts with their own opinion (N = 41).</figDesc><graphic coords="13,130.50,244.07,351.00,270.00" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_11"><head>Figure 11 :</head><label>11</label><figDesc>Figure 11: Forest plot visualizing the Odds Ratios (OR) and 95% Confidence Intervals (CI) for predictors of Comfort with Objective AI from the binary logistic regression model.</figDesc><graphic coords="14,95.40,72.00,421.19,252.72" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_12"><head>4. 5</head><label>5</label><figDesc>Integration of Knowledge, Attitude, and Peer Perception Integrating Namdar Areshtanab et al. (2025), Biro et al. (2025), Yang et al. (2025), and our findings reveals a convergent pattern: The integration of AI into professional practice is driven by a complex interplay of experience and perception. Research consistently shows that familiarity breeds calibrated trust: prior exposure to AI tools is a strong predictor of both comfort and subsequent acceptance among users. Beyond mere exposure, emotional reasoning shapes engagement, with instinctive oversight and affective comfort playing a significant role in guiding how and when AI is incorporated into high-stakes decision-making. Critically, these factors operate within the framework of the existing professional structure, as professional identity anchors accountability. This means that regardless of AI performance, ultimate responsibility and judgment remain human-centered, and peer perception significantly influences the rate and method of technological adoption.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_13"><head>2 .</head><label>2</label><figDesc>Mitigating affective resistance through alignment with human ethical norms, perceived fairness, and emotional intelligibility.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_14"><head>3 .</head><label>3</label><figDesc>Embedding human oversight within all high-stakes decision systems to ensure accountability, empathy, and trust remain central.</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="17,83.70,126.74,444.61,259.35" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head>Table 1 :</head><label>1</label><figDesc>Binary Logistic Regression Predicting the Likelihood of Comfort with Objective AI Tasks (N = 44) Dependent Variable: Comfort with Objective AI (Binary). Model fit: LLR p &lt; 0.005, Pseudo R 2 = 0.2540. OR values are exponentiated coefficients.The binary logistic regression model, predicting Comfort with Objective AI (e.g., fraud detection), was statistically significant, indicating that the included factors reliably predict the outcome (LLR p &lt; 0.005; Pseudo R 2 = 0.2540).The analysis revealed that General AI Skepticism was the only significant predictor (OR = 9.232, p = 0.012).</figDesc><table><row><cell>Predictor</cell><cell cols="3">Odds Ratio (OR) 95% Confidence Interval p-value</cell></row><row><cell>Intercept</cell><cell>0.117</cell><cell>[0.008, 1.700]</cell><cell>0.116</cell></row><row><cell>Demand for Transparency</cell><cell>1.693</cell><cell>[0.389, 7.373]</cell><cell>0.483</cell></row><row><cell>Human over Machine Preference</cell><cell>0.395</cell><cell>[0.074, 2.108]</cell><cell>0.277</cell></row><row><cell>General AI Skepticism</cell><cell>9.232 *</cell><cell>[1.628, 52.363]</cell><cell>0.012</cell></row><row><cell>Blame the User Accountability</cell><cell>6.140</cell><cell>[0.545, 69.133]</cell><cell>0.142</cell></row></table><note><p>* p &lt; 0.05</p><p>Interpretation.</p><p>A unit increase in general skepticism increased the odds of reporting Comfort with Objective AI by over nine times (95% CI[1.628, 52.363]</p><p>). Conversely, factors such as Demand for Transparency (OR = 1.693, p = 0.483) were not significant.</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3"><head>Table 2 :</head><label>2</label><figDesc>Binary Logistic Regression Predicting the Likelihood of</figDesc><table><row><cell cols="2">Trust in AI for financial tasks</cell><cell></cell><cell></cell></row><row><cell></cell><cell>(N = 44)</cell><cell></cell><cell></cell></row><row><cell>Predictor</cell><cell cols="3">Odds Ratio (OR) 95% Confidence Interval p-value</cell></row><row><cell>Intercept</cell><cell>0.253</cell><cell>[0.049, 1.297]</cell><cell>0.099</cell></row><row><cell>Demand for Transparency</cell><cell>1.057</cell><cell>[0.804, 1.390]</cell><cell>0.693</cell></row><row><cell>Human over Machine Preference</cell><cell>1.104</cell><cell>[0.827, 1.475]</cell><cell>0.502</cell></row><row><cell>General AI Skepticism</cell><cell>1.212</cell><cell>[0.889, 1.651]</cell><cell>0.224</cell></row><row><cell>Blame the User Accountability</cell><cell>1.349 *</cell><cell>[1.034, 1.761]</cell><cell>0.028</cell></row><row><cell>Dependent Variable: Outcome DV (Binary).</cell><cell></cell><cell></cell><cell></cell></row><row><cell cols="3">Model fit: LLR p = 0.1533, Pseudo R 2 = 0.0488. OR values are exponentiated coefficients.</cell><cell></cell></row></table><note><p>* p &lt; 0.05</p></note></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_4"><head>Table 3 :</head><label>3</label><figDesc>Binary Logistic Regression Predicting Trust in AI</figDesc><table><row><cell cols="2">Predictor</cell><cell></cell><cell cols="2">Coefficient Odds Ratio (OR)</cell><cell cols="2">95% CI</cell><cell>p-value</cell></row><row><cell cols="2">Intercept</cell><cell></cell><cell>-0.553</cell><cell>0.576</cell><cell cols="2">[0.18, 1.78]</cell><cell>0.273</cell></row><row><cell cols="2">Prior AI Use</cell><cell></cell><cell>0.721</cell><cell>2.056</cell><cell cols="2">[1.02, 4.14]</cell><cell>0.043*</cell></row><row><cell cols="3">Age Group 55+</cell><cell>-0.396</cell><cell>0.673</cell><cell cols="2">[0.33, 1.37]</cell><cell>0.225</cell></row><row><cell cols="5">3.6 Logistic Regression: AI Attitude Predictors</cell><cell></cell></row><row><cell cols="2">Predictive Fac-</cell><cell cols="2">Outcome (Y)</cell><cell cols="2">Odds Ratio (OR)</cell><cell>95% CI</cell><cell>p-value</cell></row><row><cell>tor (X)</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row><row><cell cols="2">Comfort with Ob-</cell><cell cols="2">Demand for Trans-</cell><cell>2.96</cell><cell></cell><cell>[0.82, 6.89]</cell><cell>0.102</cell></row><row><cell>jective AI</cell><cell></cell><cell cols="2">parency (loan decision</cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell cols="2">scenario)</cell><cell></cell><cell></cell></row><row><cell>Perceived</cell><cell>Trans-</cell><cell cols="2">Trust in AI for Finan-</cell><cell>3.80</cell><cell></cell><cell>[1.05, 8.71]</cell><cell>0.038  *</cell></row><row><cell>parency</cell><cell></cell><cell cols="2">cial Advice</cell><cell></cell><cell></cell></row><row><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table><note><p>*p &lt; 0.05 Interpretation: Participants who had previously used AI were approximately twice as likely to trust AI compared to those who had not used it (OR = 2.06, 95% CI [1.02, 4.14], p = 0.043). Age 55+ was associated with a lower likelihood of trusting AI (OR = 0.67), though this effect was not statistically significant (p = 0.225). These results suggest that prior experience with AI is a key predictor of trust, while age alone does not reliably predict trust in this small sample.</p><p>* p &lt; 0.05. Confidence intervals estimated from logit standard errors.</p></note></figure>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Navigating uncertainty: Exploring consumer acceptance of artificial intelligence under self-threats and high-stakes decisions</title>
+		<author>
+			<persName><forename type="first">D.-A</forename><surname>Frank</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Chrysochou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mitkidis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Otterbring</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Ariely</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.techsoc.2024.102732</idno>
+		<ptr target="https://doi.org/10.1016/j.techsoc.2024.102732" />
+	</analytic>
+	<monogr>
+		<title level="j">Technology in Society</title>
+		<imprint>
+			<biblScope unit="volume">79</biblScope>
+			<biblScope unit="page">102732</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Frank, D.-A., Chrysochou, P., Mitkidis, P., Otterbring, T., &amp; Ariely, D. (2024). Navigating uncertainty: Exploring consumer acceptance of artificial intelligence under self-threats and high-stakes decisions. Technology in Society, 79, 102732. https://doi.org/10.1016/j.techsoc.2024.102732</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<analytic>
+		<title level="a" type="main">Public perceptions of artificial intelligence in healthcare: Ethical concerns and opportunities for patient-centered care</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Witkowski</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">B</forename><surname>Dougherty</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">R</forename><surname>Neely</surname></persName>
+		</author>
+		<idno type="DOI">10.1186/s12910-024-01056-7</idno>
+		<ptr target="https://doi.org/10.1186/s12910-024-01056-7" />
+	</analytic>
+	<monogr>
+		<title level="j">BMC Medical Ethics</title>
+		<imprint>
+			<biblScope unit="volume">25</biblScope>
+			<biblScope unit="page">74</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Witkowski, K., Dougherty, R. B., &amp; Neely, S. R. (2024). Public perceptions of artificial intelligence in healthcare: Ethical concerns and opportunities for patient-centered care. BMC Medical Ethics, 25, 74. https://doi.org/10.1186/s12910-024-01056-7</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">How the different explanation classes impact trust calibration: The case of clinical decision support systems</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Naiseh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Al-Thani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Jiang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Ali</surname></persName>
+		</author>
+		<idno type="DOI">10.1016/j.ijhcs.2022.102941</idno>
+		<ptr target="https://doi.org/10.1016/j.ijhcs.2022.102941" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Human-Computer Studies</title>
+		<imprint>
+			<biblScope unit="volume">169</biblScope>
+			<biblScope unit="page">102941</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Naiseh, M., Al-Thani, D., Jiang, N., &amp; Ali, R. (2023). How the different explanation classes impact trust calibration: The case of clinical decision support systems. International Journal of Human-Computer Studies, 169, 102941. https://doi.org/10.1016/j.ijhcs.2022.102941</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<analytic>
+		<title level="a" type="main">Algorithmic justice: Perceptions of legitimacy and fairness in AI-assisted judicial decision-making</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Fine</surname></persName>
+		</author>
+		<idno type="DOI">10.1111/jels.12345</idno>
+		<ptr target="https://doi.org/10.1111/jels.12345" />
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Empirical Legal Studies</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="45" to="67" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Fine, J. (2025). Algorithmic justice: Perceptions of legitimacy and fairness in AI-assisted judicial decision-making. Journal of Empirical Legal Studies, 22(1), 45-67. https://doi.org/10.1111/jels. 12345</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">The impact of AI explanations on clinical decision confidence and diagnostic accuracy: A study on breast cancer imaging</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Rezaeian</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Sharma</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Patel</surname></persName>
+		</author>
+		<idno type="DOI">10.3389/frai.2024.01562</idno>
+		<ptr target="https://doi.org/10.3389/frai.2024.01562" />
+	</analytic>
+	<monogr>
+		<title level="j">Frontiers in Artificial Intelligence</title>
+		<imprint>
+			<biblScope unit="volume">7</biblScope>
+			<biblScope unit="page">1562</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Rezaeian, M., Sharma, S., &amp; Patel, N. (2024). The impact of AI explanations on clinical decision confidence and diagnostic accuracy: A study on breast cancer imaging. Frontiers in Artificial Intelligence, 7, 1562. https://doi.org/10.3389/frai.2024.01562</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<analytic>
+		<title level="a" type="main">Trusting AI in high-stake decision making: Anthropomorphism, moral judgment, and affective reasoning</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Saffarini</surname></persName>
+		</author>
+		<idno type="DOI">10.1109/HumanAI.2023.00015</idno>
+		<ptr target="https://doi.org/10.1109/HumanAI.2023.00015" />
+	</analytic>
+	<monogr>
+		<title level="m">Proceedings of the 2023 IEEE International Conference on Humanized AI Systems</title>
+		<meeting>the 2023 IEEE International Conference on Humanized AI Systems</meeting>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+			<biblScope unit="page" from="1" to="8" />
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Saffarini, A. (2023). Trusting AI in high-stake decision making: Anthropomorphism, moral judgment, and affective reasoning. Proceedings of the 2023 IEEE International Conference on Humanized AI Sys- tems, 1-8. https://doi.org/10.1109/HumanAI.2023.00015</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<monogr>
+		<ptr target="https://www.ipsos.com/en/global-advisor-ai-attitudes-2021" />
+		<title level="m">How do people feel about artificial intelligence? Global survey report</title>
+		<imprint>
+			<publisher>Ipsos MORI Public Affairs</publisher>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ipsos Global. (2021). How do people feel about artificial intelligence? Global survey report. Ipsos MORI Public Affairs. https://www.ipsos.com/en/global-advisor-ai-attitudes-2021</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Knowledge and perception of practicing doctors on AI in medicine</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Naeem</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Abbas</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Hamna</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">JAIMC Journal</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Naeem, S., Abbas, H., &amp; Hamna, S. (2025). Knowledge and perception of practicing doctors on AI in medicine. JAIMC Journal, 23(2).</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Perceptions of lawyers on the impact of AI in legal practice</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">S</forename><surname>Mahadik</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal for Multidisciplinary Research</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mahadik, S. S. (2024). Perceptions of lawyers on the impact of AI in legal practice. International Journal for Multidisciplinary Research, 6(3).</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<monogr>
+		<title level="m" type="main">Thinking, Fast and Slow</title>
+		<author>
+			<persName><forename type="first">D</forename><surname>Kahneman</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2011">2011</date>
+			<publisher>Farrar, Straus and Giroux</publisher>
+			<pubPlace>New York</pubPlace>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kahneman, D. (2011). Thinking, Fast and Slow. New York: Farrar, Straus and Giroux.</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Machine translation and moral responsibility: The ethics of automated communication</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Wang</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Applied Ethics in Technology</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="77" to="94" />
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Wang, L. (2025). Machine translation and moral responsibility: The ethics of automated communication. Journal of Applied Ethics in Technology, 12(1), 77-94.</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<analytic>
+		<title level="a" type="main">Artificial intelligence awareness and acceptance among clinicians in Nigeria</title>
+		<author>
+			<persName><forename type="first">O</forename><surname>Robinson</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">African Journal of Medical Informatics</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="45" to="58" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Robinson, O. (2020). Artificial intelligence awareness and acceptance among clinicians in Nigeria. African Journal of Medical Informatics, 6(2), 45-58.</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Enhancing financial self-efficacy through artificial intelligence in the banking sector</title>
+		<author>
+			<persName><forename type="first">W</forename><forename type="middle">S</forename><surname>Basri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Almutairi</surname></persName>
+		</author>
+		<idno type="DOI">10.5281/zenodo.4766717</idno>
+		<ptr target="https://doi.org/10.5281/zenodo.4766717" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Cyber Criminology</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="284" to="311" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Basri, W. S., &amp; Almutairi, A. (2023). Enhancing financial self-efficacy through artificial intelligence in the banking sector. International Journal of Cyber Criminology, 17(2), 284-311. https://doi.org/10. 5281/zenodo.4766717</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Applications of natural language processing in cybersecurity: Insurance sector use cases</title>
+		<author>
+			<persName><forename type="first">G</forename><surname>Ursachi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Cybersecurity Review</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="45" to="52" />
+			<date type="published" when="2019">2019</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ursachi, G. (2019). Applications of natural language processing in cybersecurity: Insurance sector use cases. Cybersecurity Review, 8(1), 45-52.</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Phishing detection through AI-driven NLP models</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Mansour</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Information Security Journal</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="322" to="336" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mansour, A. (2020). Phishing detection through AI-driven NLP models. Information Security Journal, 29(4), 322-336.</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Adoption of AI in financial services: Drivers, barriers, and ethical implications</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Akyuz</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><surname>Mavnacıo</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Financial Innovation</title>
+		<imprint>
+			<biblScope unit="volume">9</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="211" to="229" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Akyuz, M., &amp; Mavnacıo, E. (2021). Adoption of AI in financial services: Drivers, barriers, and ethical implications. Journal of Financial Innovation, 9(3), 211-229.</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Information asymmetry and algorithmic decision-making in financial engineering</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Jan</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Finance and Data Ethics</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="77" to="89" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Jan, M. (2021). Information asymmetry and algorithmic decision-making in financial engineering. Fi- nance and Data Ethics, 5(2), 77-89.</note>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<analytic>
+		<title level="a" type="main">Machine learning applications in insurance analytics: Predicting claims and risk</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Vandrangi</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Risk and Data Science</title>
+		<imprint>
+			<biblScope unit="volume">4</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="55" to="70" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Vandrangi, R. (2022). Machine learning applications in insurance analytics: Predicting claims and risk. Journal of Risk and Data Science, 4(1), 55-70.</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">Artificial intelligence for fraud detection and cost control in insurance systems</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Pirilä</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Rahman</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Li</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computational Finance Letters</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="118" to="132" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Pirilä, M., Rahman, A., &amp; Li, Y. (2022). Artificial intelligence for fraud detection and cost control in insurance systems. Computational Finance Letters, 12(4), 118-132.</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<monogr>
+		<title level="m" type="main">The AI revolution: Opportunities and challenges for the finance sector</title>
+		<author>
+			<persName><forename type="first">C</forename><surname>Maple</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Szpruch</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Epiphaniou</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Staykova</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Singh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">W</forename><surname>Penwarden</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Wen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Z</forename><surname>Wang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Hariharan</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Avramovic</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">The Alan Turing Institute Report</note>
+	<note type="raw_reference">Maple, C., Szpruch, L., Epiphaniou, G., Staykova, K., Singh, S., Penwarden, W., Wen, Y., Wang, Z., Hariharan, J., &amp; Avramovic, P. (2023). The AI revolution: Opportunities and challenges for the finance sector. The Alan Turing Institute Report.</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Transparency in AI-based decision models</title>
+		<author>
+			<persName><forename type="first">R</forename><surname>Buckley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Milana</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ashta</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">AI and Society</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="1153" to="1171" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Buckley, R., Milana, F., &amp; Ashta, A. (2021). Transparency in AI-based decision models. AI and Society, 36(4), 1153-1171.</note>
+</biblStruct>
+
+<biblStruct xml:id="b21">
+	<analytic>
+		<title level="a" type="main">Black-box challenges in financial AI models</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Ryll</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Fabri</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Herrmann</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Computational Finance Review</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="44" to="59" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ryll, M., Fabri, C., &amp; Herrmann, P. (2020). Black-box challenges in financial AI models. Computational Finance Review, 10(2), 44-59.</note>
+</biblStruct>
+
+<biblStruct xml:id="b22">
+	<analytic>
+		<title level="a" type="main">Systemic risk and AI in finance</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Daníelsson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Macrae</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J.-P</forename><surname>Zigrand</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Financial Stability Studies</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="99" to="121" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Daníelsson, J., Macrae, R., &amp; Zigrand, J.-P. (2022). Systemic risk and AI in finance. Financial Stability Studies, 14(3), 99-121.</note>
+</biblStruct>
+
+<biblStruct xml:id="b23">
+	<analytic>
+		<title level="a" type="main">Accountability dilemmas in AI-driven financial decision-making</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ashta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Herrmann</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Business Ethics</title>
+		<imprint>
+			<biblScope unit="volume">178</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="987" to="1002" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ashta, A., &amp; Herrmann, P. (2021). Accountability dilemmas in AI-driven financial decision-making. Journal of Business Ethics, 178(5), 987-1002.</note>
+</biblStruct>
+
+<biblStruct xml:id="b24">
+	<monogr>
+		<title level="m" type="main">Auditing AI: The role of oversight bodies in algorithmic accountability</title>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<publisher>UK Government White Paper</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Digital Regulation Cooperation Forum (DRCF). (2022). Auditing AI: The role of oversight bodies in algorithmic accountability. UK Government White Paper.</note>
+</biblStruct>
+
+<biblStruct xml:id="b25">
+	<analytic>
+		<title level="a" type="main">AI adoption and skill transformation in financial organizations</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Kruse</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Milana</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Ashta</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Economic Policy and Technology</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">2</biblScope>
+			<biblScope unit="page" from="145" to="163" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Kruse, T., Milana, F., &amp; Ashta, A. (2021). AI adoption and skill transformation in financial organiza- tions. Journal of Economic Policy and Technology, 15(2), 145-163.</note>
+</biblStruct>
+
+<biblStruct xml:id="b26">
+	<analytic>
+		<title level="a" type="main">Transforming healthcare with AI: Promises, pitfalls, and pathways forward</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Shuaib</surname></persName>
+		</author>
+		<ptr target="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11070153/" />
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of General Medicine</title>
+		<imprint>
+			<biblScope unit="volume">17</biblScope>
+			<biblScope unit="page" from="1765" to="1771" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Shuaib, A. (2024). Transforming healthcare with AI: Promises, pitfalls, and pathways forward. International Journal of General Medicine, 17, 1765-1771. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11070153/</note>
+</biblStruct>
+
+<biblStruct xml:id="b27">
+	<analytic>
+		<title level="a" type="main">Data governance and privacy in AI finance</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Lee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Shin</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Information Systems Frontiers</title>
+		<imprint>
+			<biblScope unit="volume">22</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="641" to="655" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Lee, J., &amp; Shin, D. (2020). Data governance and privacy in AI finance. Information Systems Frontiers, 22(3), 641-655.</note>
+</biblStruct>
+
+<biblStruct xml:id="b28">
+	<analytic>
+		<title level="a" type="main">How AI will change the future of marketing and finance</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Davenport</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Guha</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Grewal</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Bressgott</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of the Academy of Marketing Science</title>
+		<imprint>
+			<biblScope unit="volume">48</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="24" to="42" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Davenport, T., Guha, A., Grewal, D., &amp; Bressgott, T. (2020). How AI will change the future of marketing and finance. Journal of the Academy of Marketing Science, 48(1), 24-42.</note>
+</biblStruct>
+
+<biblStruct xml:id="b29">
+	<analytic>
+		<title level="a" type="main">Using consumer data in financial services: Ethical considerations</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Riikkinen</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">H</forename><surname>Saarijärvi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Sarlin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Lähteenmäki</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Service Management</title>
+		<imprint>
+			<biblScope unit="volume">29</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="821" to="845" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Riikkinen, M., Saarijärvi, H., Sarlin, P., &amp; Lähteenmäki, I. (2018). Using consumer data in financial services: Ethical considerations. Journal of Service Management, 29(5), 821-845.</note>
+</biblStruct>
+
+<biblStruct xml:id="b30">
+	<analytic>
+		<title level="a" type="main">Peer perceptions of clinicians using generative AI in medical decision-making</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Yang</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Dai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><surname>Mathioudakis</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">M</forename><surname>Knight</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">Y</forename><surname>Nakayasu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">M</forename><surname>Wolf</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41746-025-01901-x</idno>
+		<ptr target="https://doi.org/10.1038/s41746-025-01901-x" />
+	</analytic>
+	<monogr>
+		<title level="j">npj Digital Medicine</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">530</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yang, H., Dai, T., Mathioudakis, N., Knight, A. M., Nakayasu, Y., &amp; Wolf, R. M. (2025). Peer per- ceptions of clinicians using generative AI in medical decision-making. npj Digital Medicine, 8(530). https://doi.org/10.1038/s41746-025-01901-x</note>
+</biblStruct>
+
+<biblStruct xml:id="b31">
+	<analytic>
+		<title level="a" type="main">Nurses&apos; knowledge, attitudes, acceptance, and application of AI: Cross-sectional study in healthcare</title>
+		<author>
+			<persName><forename type="first">H</forename><surname>Namdar Areshtanab</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Rahmani</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Vahidi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">Z</forename><surname>Saadati</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Pourmahmood</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41598-025-11002-0</idno>
+		<ptr target="https://doi.org/10.1038/s41598-025-11002-0" />
+	</analytic>
+	<monogr>
+		<title level="j">Scientific Reports</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page">11002</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Namdar Areshtanab, H., Rahmani, F., Vahidi, M., Saadati, S. Z., &amp; Pourmahmood, A. (2025). Nurses&apos; knowledge, attitudes, acceptance, and application of AI: Cross-sectional study in healthcare. Scientific Reports, 15(1), 11002. https://doi.org/10.1038/s41598-025-11002-0</note>
+</biblStruct>
+
+<biblStruct xml:id="b32">
+	<analytic>
+		<title level="a" type="main">Opportunities and risks of artificial intelligence in patient portal messaging in primary care</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Biro</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">L</forename><surname>Handley</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">M</forename><surname>Mccurry</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Visconti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Weinfeld</surname></persName>
+		</author>
+		<idno type="DOI">10.1038/s41746-025-01586-2</idno>
+		<ptr target="https://doi.org/10.1038/s41746-025-01586-2" />
+	</analytic>
+	<monogr>
+		<title level="j">npj Digital Medicine</title>
+		<imprint>
+			<biblScope unit="volume">8</biblScope>
+			<biblScope unit="issue">35</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Biro, J. M., Handley, J. L., McCurry, J. M., Visconti, A., &amp; Weinfeld, J. (2025). Opportunities and risks of artificial intelligence in patient portal messaging in primary care. npj Digital Medicine, 8(35). https://doi.org/10.1038/s41746-025-01586-2</note>
+</biblStruct>
+
+<biblStruct xml:id="b33">
+	<analytic>
+		<title level="a" type="main">The scored society: Due process for automated predictions</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">K</forename><surname>Citron</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Pasquale</surname></persName>
+		</author>
+		<ptr target="https://digitalcommons.law.uw.edu/wlr/vol89/iss1/2/" />
+	</analytic>
+	<monogr>
+		<title level="j">Washington Law Review</title>
+		<imprint>
+			<biblScope unit="volume">89</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="33" />
+			<date type="published" when="2014">2014</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Citron, D. K., &amp; Pasquale, F. (2014). The scored society: Due process for automated predictions. Wash- ington Law Review, 89(1), 1-33. https://digitalcommons.law.uw.edu/wlr/vol89/iss1/2/</note>
+</biblStruct>
+
+<biblStruct xml:id="b34">
+	<analytic>
+		<title level="a" type="main">Public perceptions of judges&apos; use of AI tools in courtroom decision-making: An examination of legitimacy, fairness, trust, and procedural justice</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Fine</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">E</forename><forename type="middle">R</forename><surname>Berthelot</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Marsh</surname></persName>
+		</author>
+		<idno type="DOI">10.3390/bs15040476</idno>
+		<ptr target="https://doi.org/10.3390/bs15040476" />
+	</analytic>
+	<monogr>
+		<title level="j">Behavioral Sciences</title>
+		<imprint>
+			<biblScope unit="volume">15</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page">476</biblScope>
+			<date type="published" when="2025">2025</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Fine, A., Berthelot, E. R., &amp; Marsh, S. (2025). Public perceptions of judges&apos; use of AI tools in court- room decision-making: An examination of legitimacy, fairness, trust, and procedural justice. Behavioral Sciences, 15(4), 476. https://doi.org/10.3390/bs15040476</note>
+</biblStruct>
+
+<biblStruct xml:id="b35">
+	<analytic>
+		<title level="a" type="main">Drivers behind the public perception of artificial intelligence: Insights from major Australian cities</title>
+		<author>
+			<persName><forename type="first">T</forename><surname>Yigitcanlar</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">K</forename><surname>Degirmenci</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Inkinen</surname></persName>
+		</author>
+		<idno type="DOI">10.1007/s00146-022-01691-4</idno>
+		<ptr target="https://doi.org/10.1007/s00146-022-01691-4" />
+	</analytic>
+	<monogr>
+		<title level="j">AI &amp; Society</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="page" from="833" to="853" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Yigitcanlar, T., Degirmenci, K., &amp; Inkinen, T. (2024). Drivers behind the public perception of artificial intelligence: Insights from major Australian cities. AI &amp; Society, 39, 833-853. https://doi.org/10. 1007/s00146-022-01691-4</note>
+</biblStruct>
+
+<biblStruct xml:id="b36">
+	<analytic>
+		<title level="a" type="main">Patients&apos; Perceptions Toward Human-Artificial Intelligence Interaction in Health Care: Experimental Study</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Esmaeilzadeh</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><surname>Mirzaei</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Dharanikota</surname></persName>
+		</author>
+		<idno type="DOI">10.2196/25856</idno>
+		<ptr target="https://doi.org/10.2196/25856" />
+	</analytic>
+	<monogr>
+		<title level="j">J Med Internet Res</title>
+		<imprint>
+			<biblScope unit="volume">23</biblScope>
+			<biblScope unit="issue">11</biblScope>
+			<biblScope unit="page">25856</biblScope>
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Esmaeilzadeh, P., Mirzaei, T., &amp; Dharanikota, S. (2021). Patients&apos; Perceptions Toward Human-Artificial Intelligence Interaction in Health Care: Experimental Study. J Med Internet Res, 23(11):e25856. https://doi.org/10.2196/25856</note>
+</biblStruct>
+
+<biblStruct xml:id="b37">
+	<monogr>
+		<author>
+			<persName><forename type="first">A</forename><surname>Saffarini</surname></persName>
+		</author>
+		<idno type="DOI">10.48550/arXiv.2401.13689</idno>
+		<idno type="arXiv">arXiv:2401.13689</idno>
+		<ptr target="https://doi.org/10.48550/arXiv.2401.13689" />
+		<title level="m">Trusting AI in High-stake Decision Making</title>
+		<imprint>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="report_type">arXiv preprint</note>
+	<note type="raw_reference">Saffarini, A. (2023). Trusting AI in High-stake Decision Making. arXiv preprint arXiv : 2401.13689. https://doi.org/10.48550/arXiv.2401.13689</note>
+</biblStruct>
+
+<biblStruct xml:id="b38">
+	<analytic>
+		<title level="a" type="main">A Study on Perception of Lawyers about the Impact of Artificial Intelligence on the Legal Profession</title>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">S</forename><surname>Mahadik</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal for Multidisciplinary Research (IJFMR)</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1" to="9" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mahadik, S. S. (2024). A Study on Perception of Lawyers about the Impact of Artificial Intelligence on the Legal Profession. International Journal for Multidisciplinary Research (IJFMR), 6(3), 1-9.</note>
+</biblStruct>
+
+<biblStruct xml:id="b39">
+	<analytic>
+		<title level="a" type="main">Medical Doctors&apos; Perceptions of Artificial Intelligence (AI) in Healthcare</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Banerjee</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">K</forename><surname>Sarangi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Kumar</surname></persName>
+		</author>
+		<idno type="DOI">10.7759/cureus.70508</idno>
+	</analytic>
+	<monogr>
+		<title level="j">Cureus</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">9</biblScope>
+			<biblScope unit="page">70508</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Banerjee, A., Sarangi, P. K., &amp; Kumar, S. (2024). Medical Doctors&apos; Perceptions of Artificial Intelligence (AI) in Healthcare. Cureus, 16(9): e70508. DOI: 10.7759/cureus.70508.</note>
+</biblStruct>
+
+<biblStruct xml:id="b40">
+	<analytic>
+		<title level="a" type="main">Artificial Intelligence in FinTech: Understanding Stakeholders Perception on Innovation, Disruption, and Transformation in Finance</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">S</forename><surname>Rasiwala</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">B</forename><surname>Kohli</surname></persName>
+		</author>
+		<idno type="DOI">10.4018/IJBIR.20210101.oa3</idno>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Business Intelligence Research</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="48" to="57" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Rasiwala, F. S., &amp; Kohli, B. (2021). Artificial Intelligence in FinTech: Understanding Stakeholders Per- ception on Innovation, Disruption, and Transformation in Finance. International Journal of Business Intelligence Research, 12(1), 48-57. DOI: 10.4018/IJBIR.20210101.oa3.</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

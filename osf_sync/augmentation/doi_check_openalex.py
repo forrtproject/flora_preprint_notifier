@@ -376,6 +376,12 @@ def enrich_missing_with_openalex(
         osfid = r.get("osf_id")
         refid = r.get("ref_id")
         title = (r.get("title") or "").strip()
+        raw_citation = (r.get("raw_citation") or "").strip()
+        using_raw = False
+        if not title and raw_citation:
+            title = raw_citation
+            using_raw = True
+            _log(logging.INFO, "Using raw citation text for OpenAlex search", osf_id=osfid, ref_id=refid)
         authors = r.get("authors") or []  # array in DB
         journal = r.get("journal")
         year = r.get("year")
@@ -387,6 +393,10 @@ def enrich_missing_with_openalex(
         nt = _norm(title)
         nj = _norm(journal or "")
         nauth = _norm_list(authors)
+
+        if debug:
+            _log(logging.INFO, "OpenAlex debug search title",
+                 osf_id=osfid, ref_id=refid, normalized_title=nt[:160], using_raw=using_raw)
 
         # Stage 1: strict
         try:

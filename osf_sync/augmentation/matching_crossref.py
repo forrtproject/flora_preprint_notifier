@@ -10,12 +10,30 @@ from urllib.parse import urlencode
 import requests
 from thefuzz import fuzz
 from ..dynamo.preprints_repo import PreprintsRepo
+from ..logging_setup import get_logger, with_extras
 
-logger = logging.getLogger(__name__)
-if not logger.handlers:
-    logging.basicConfig(level=logging.INFO,
-                        format="%(asctime)s %(levelname)s [%(name)s] %(message)s")
-logger.setLevel(logging.INFO)
+logger = get_logger(__name__)
+
+
+def _info(msg: str, **extras):
+    if extras:
+        with_extras(logger, **extras).info(msg)
+    else:
+        logger.info(msg)
+
+
+def _warn(msg: str, **extras):
+    if extras:
+        with_extras(logger, **extras).warning(msg)
+    else:
+        logger.warning(msg)
+
+
+def _exception(msg: str, **extras):
+    if extras:
+        with_extras(logger, **extras).exception(msg)
+    else:
+        logger.exception(msg)
 
 CROSSREF_BASE = "https://api.crossref.org/works"
 
@@ -168,26 +186,29 @@ def _crossref_request(params: Dict[str, str],
     GET Crossref with retries. Log detailed errors.
     """
     url = CROSSREF_BASE
+    _info("Crossref request start", params=params)
     for attempt in range(1, max_attempts + 1):
         try:
             r = requests.get(url, params=params, timeout=25)
             if r.status_code == 200:
+                _info("Crossref request success", url=r.url, attempt=attempt)
                 return r.json()
             else:
                 body = r.text[:600]
                 # Log both via logger and console to ensure visibility
-                logger.warning("Crossref HTTP error", extra={"status": r.status_code, "url": r.url, "body": body})
+                _warn("Crossref HTTP error", status=r.status_code, url=r.url, body=body)
                 if debug:
                     print("[Crossref HTTP error] Attempt {}/{}".format(attempt, max_attempts))
                     print("  Status:", r.status_code)
                     print("  URL:", r.url)
                     print("  Body:", body)
         except requests.RequestException as e:
-            logger.warning("Crossref network error", extra={"error": str(e)})
+            _warn("Crossref network error", error=str(e))
             if debug:
                 print("[Crossref network error] Attempt {}/{}".format(attempt, max_attempts))
                 print("  Error:", repr(e))
         time.sleep(1.2 * attempt)
+    _warn("Crossref request exhausted", attempts=max_attempts, params=params)
     return None
 
 
@@ -201,6 +222,24 @@ def _query_crossref(title: str,
     Execute Crossref query; return list of items (may be empty).
     """
     params = _build_params(title, year, journal, authors, rows=rows)
+    res = _crossref_request(params, debug=debug)
+    if not res:
+        return []
+    try:
+        items = (res.get("message") or {}).get("items") or []
+        return items
+    except Exception:
+        return []
+
+
+def _query_crossref_biblio(blob: str, rows: int, debug: bool) -> List[dict]:
+    params = {
+        "query.bibliographic": blob,
+        "rows": str(rows),
+        "select": ",".join(["DOI", "title", "issued", "author", "container-title"]),
+        "mailto": _mailto(),
+    }
+    _info("Crossref bibliographic query", blob_excerpt=blob[:200], rows=rows, debug_mode=debug)
     res = _crossref_request(params, debug=debug)
     if not res:
         return []
@@ -231,33 +270,58 @@ def enrich_missing_with_crossref(limit: int = 300,
 
     checked = updated = failed = 0
     repo = PreprintsRepo()
-    rows = repo.select_refs_missing_doi(limit=limit, osf_id=osf_id)
+    rows = repo.select_refs_missing_doi(
+        limit=limit,
+        osf_id=osf_id,
+        ref_id=ref_id,
+        include_existing=bool(ref_id and osf_id),
+    )
 
     for r in rows:
+        if ref_id and r.get("ref_id") != ref_id:
+            continue
         checked += 1
         title = (r.get("title") or "").strip()
+        raw_citation = (r.get("raw_citation") or "").strip()
+        use_raw_only = False
+        if not title and raw_citation:
+            use_raw_only = True
+            _info("Crossref search using raw citation only", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
         raw_year = r.get("year")
         year = int(raw_year) if raw_year is not None and str(raw_year).isdigit() else None
         journal = (r.get("journal") or "").strip() or None
         authors = r.get("authors") or []
 
-        # Query Crossref
-        items = _query_crossref(title, year, journal, authors, rows=30, debug=debug)
+        meta = {
+            "osf_id": r.get("osf_id"),
+            "ref_id": r.get("ref_id"),
+            "title_excerpt": title[:160],
+            "authors": authors[:3],
+            "year": year,
+            "journal": journal,
+            "using_raw_only": use_raw_only,
+        }
+        if use_raw_only:
+            _info("Crossref raw-only search", **meta)
+            items = _query_crossref_biblio(raw_citation, rows=30, debug=debug)
+        else:
+            _info("Crossref structured search", **meta)
+            items = _query_crossref(title, year, journal, authors, rows=30, debug=debug)
+            if not items and raw_citation:
+                _info("Crossref fallback to raw citation", **meta)
+                items = _query_crossref_biblio(raw_citation, rows=30, debug=debug)
         if not items:
-            logger.info("No Crossref candidates", extra={"osf_id": r.get("osf_id"), "ref_id": r.get("ref_id")})
+            _info("No Crossref candidates", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
             continue
 
         best = _pick_best(items, title, year, journal, authors, threshold=threshold, debug=debug)
         if not best:
-            logger.info(
-                "No good Crossref match",
-                extra={"osf_id": r.get("osf_id"), "ref_id": r.get("ref_id"), "candidates": len(items)},
-            )
+            _info("No good Crossref match", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"), candidates=len(items))
             continue
 
         doi = best.get("DOI")
         if not doi:
-            logger.info("Best Crossref candidate missing DOI", extra={"osf_id": r.get("osf_id"), "ref_id": r.get("ref_id")})
+            _info("Best Crossref candidate missing DOI", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
             continue
 
         # Update DB
@@ -266,8 +330,7 @@ def enrich_missing_with_crossref(limit: int = 300,
             updated += 1 if ok else 0
         except Exception:
             failed += 1
-            logger.exception("Dynamo update error in Crossref enrichment",
-                             extra={"osf_id": r.get("osf_id"), "ref_id": r.get("ref_id"), "doi": doi})
+            _exception("Dynamo update error in Crossref enrichment", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"), doi=doi)
 
     logger.info("Crossref enrichment complete")
     return {"checked": checked, "updated": updated, "failed": failed}

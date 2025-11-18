@@ -1,6 +1,7 @@
 from .client import get_dynamo_resource
 from ..logging_setup import get_logger, with_extras
 from botocore.exceptions import ClientError
+from boto3.dynamodb.conditions import Key
 from typing import List, Dict, Optional, Any
 import datetime as dt
 
@@ -211,15 +212,53 @@ class PreprintsRepo:
             return None
         return {"osf_id": it.get("osf_id"), "provider_id": it.get("provider_id"), "raw": it.get("raw")}
 
-    def select_refs_missing_doi(self, limit: int, osf_id: Optional[str] = None) -> List[Dict[str, Any]]:
-        # Basic scan with filters; optimize via GSI if needed
-        fe = "(attribute_not_exists(doi) OR doi = :empty)"
-        eav = {":empty": ""}
+    def select_refs_missing_doi(
+        self,
+        limit: int,
+        osf_id: Optional[str] = None,
+        *,
+        ref_id: Optional[str] = None,
+        include_existing: bool = False,
+    ) -> List[Dict[str, Any]]:
+        items: List[Dict[str, Any]] = []
+
         if osf_id:
-            fe = f"osf_id = :osf AND {fe}"
-            eav[":osf"] = osf_id
-        resp = self.t_refs.scan(FilterExpression=fe, ExpressionAttributeValues=eav, Limit=limit)
-        return resp.get("Items", [])
+            last_key = None
+            while True:
+                kwargs = {"KeyConditionExpression": Key("osf_id").eq(osf_id)}
+                if last_key:
+                    kwargs["ExclusiveStartKey"] = last_key
+                resp = self.t_refs.query(**kwargs)
+                chunk = resp.get("Items", [])
+                items.extend(chunk)
+                last_key = resp.get("LastEvaluatedKey")
+                if not last_key or (limit and len(items) >= limit):
+                    break
+        else:
+            fe = "(attribute_not_exists(doi) OR doi = :empty)"
+            eav = {":empty": ""}
+            resp = self.t_refs.scan(FilterExpression=fe, ExpressionAttributeValues=eav, Limit=limit)
+            items = resp.get("Items", [])
+
+        if ref_id:
+            items = [it for it in items if it and it.get("ref_id") == ref_id]
+            if include_existing and not items and osf_id:
+                item = self.t_refs.get_item(Key={"osf_id": osf_id, "ref_id": ref_id}).get("Item")
+                items = [item] if item else []
+
+        if not include_existing:
+            filtered = []
+            for it in items:
+                if not it:
+                    continue
+                doi_val = (it.get("doi") or "").strip()
+                if not doi_val:
+                    filtered.append(it)
+            items = filtered
+
+        if limit:
+            items = items[:limit]
+        return items
 
     def update_reference_doi(self, osf_id: str, ref_id: str, doi: str, *, source: str) -> bool:
         # Only set if not already set

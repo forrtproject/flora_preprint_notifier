@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xml:space="preserve" xmlns="http://www.tei-c.org/ns/1.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+	<teiHeader xml:lang="en">
+		<fileDesc>
+			<titleStmt>
+				<title level="a" type="main">Functional Strategies Implementation and Service Delivery of Kiambu County Government in Kenya</title>
+			</titleStmt>
+			<publicationStmt>
+				<publisher>Research Bridge Publisher</publisher>
+				<availability  status="unknown">
+					<licence/>
+				</availability>
+				<date type="published" when="2025-10-31">2025-10-31</date>
+			</publicationStmt>
+			<sourceDesc>
+				<biblStruct>
+					<analytic>
+						<author>
+							<persName><forename type="first">Purity</forename><forename type="middle">Nkoroi</forename><surname>Thiauri</surname></persName>
+						</author>
+						<author>
+							<persName><forename type="first">Mary</forename><surname>Ragui</surname></persName>
+							<idno type="ORCID">0000-0002-9623-8691</idno>
+						</author>
+						<author>
+							<affiliation key="aff0">
+								<orgName type="department" key="dep1">Scholar</orgName>
+								<orgName type="department" key="dep2">School of Business</orgName>
+								<orgName type="department" key="dep3">Economics and Tourism</orgName>
+								<orgName type="institution">Kenyatta University</orgName>
+								<address>
+									<country key="KE">Kenya</country>
+								</address>
+							</affiliation>
+						</author>
+						<author>
+							<affiliation key="aff1">
+								<orgName type="department" key="dep1">Senior Lecturer</orgName>
+								<orgName type="department" key="dep2">School of Business</orgName>
+								<orgName type="department" key="dep3">Economics and Tourism</orgName>
+								<orgName type="institution">Kenyatta University</orgName>
+								<address>
+									<country key="KE">Kenya</country>
+								</address>
+							</affiliation>
+						</author>
+						<title level="a" type="main">Functional Strategies Implementation and Service Delivery of Kiambu County Government in Kenya</title>
+					</analytic>
+					<monogr>
+						<title level="j" type="main">International Journal of Social Science and Humanities Research (IJSSHR) ISSN 2959-7056 (o); 2959-7048 (p)</title>
+						<title level="j" type="abbrev">ijsshr</title>
+						<idno type="ISSN">2959-7048</idno>
+						<idno type="eISSN">2959-7056</idno>
+						<imprint>
+							<publisher>Research Bridge Publisher</publisher>
+							<biblScope unit="volume">3</biblScope>
+							<biblScope unit="issue">3</biblScope>
+							<date type="published" when="2025-10-31" />
+						</imprint>
+					</monogr>
+					<idno type="MD5">77F6EF5C98F84B5D23040C1C1F5D4919</idno>
+					<idno type="DOI">10.61108/ijsshr.v3i3.228</idno>
+				</biblStruct>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<appInfo>
+				<application version="0.8.2" ident="GROBID" when="2025-11-18T15:26+0000">
+					<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>
+					<label type="revision">a91ee48</label>
+					<label type="parameters">startPage=-1, endPage=-1, consolidateCitations=0, consolidateHeader=1, consolidateFunders=0, includeRawAffiliations=false, includeRawCitations=true, includeRawCopyrights=false, generateTeiIds=false, generateTeiCoordinates=[], sentenceSegmentation=false, flavor=null</label>
+					<ref target="https://github.com/kermitt2/grobid"/>
+				</application>
+			</appInfo>
+		</encodingDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term>Functional Strategies</term>
+					<term>Human Resource Strategies</term>
+					<term>Supply Chain Strategies</term>
+					<term>Operational Strategies</term>
+					<term>Technological Strategies</term>
+					<term>Service Delivery</term>
+					<term>County Governments</term>
+				</keywords>
+			</textClass>
+			<abstract>
+<div xmlns="http://www.tei-c.org/ns/1.0"><p>Functional strategies play a pivotal role in guiding policy development and enhancing organizational effectiveness. However, public concerns have been raised regarding the timeliness, effectiveness, and achievement of set objectives in the service delivery of the Kiambu County Government in Kenya. This study sought to explore the influence of implementing functional strategies on service delivery. The specific objectives were to assess the impact of human resource, supply chain, operational, and technological strategies on service delivery. The research was grounded in Adams' Equity Theory, Systems Theory, Stakeholder Theory, and the Technology Adoption Model. A descriptive research design was utilized, with data collected via questionnaires from 120 senior, middle, and supervisory officers in Kiambu County Government, achieving a 90%response rate. Data were analyzed using SPSS version 25. Pearson correlation analysis revealed strong positive correlations between service delivery and human resource strategies(r=0.822),supply chain strategies(r=0.737),operational strategies(r=0.714)and technological strategies(r=0.811),,all statistically significant(p&lt;0.01).A multiple regression model revealed that these functional strategies collectively accounted for 52.1%of the variance in service delivery .Notably, technological strategies emerged as the most potent predictor(β=0.539), followed by human resource strategies. This indicates that while an integrated approach is essential, strategic investment in technology may currently offer the highest leverage for improving service delivery in Kiambu County. The study concludes that a concerted focus on these functional strategies is crucial for enhancing service delivery. It recommends that the county government invest in advanced technologies, enhance human resource incentives and performance evaluations, strengthen supply chain vendor accountability, and optimize operational processes for continuous improvement.</p></div>
+			</abstract>
+		</profileDesc>
+	</teiHeader>
+	<text xml:lang="en">
+		<body>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.0">INTRODUCTION 1.1 Background of the Study</head><p>Service delivery assessment permits the evaluation of the efficacy and proficiency of county governments in accomplishing their goals and providing services to the populace (Muhwezi, Tumusime, &amp; Onyutha, 2020). It establishes a foundation for accountability, enables the identification of areas requiring enhancement, and fosters transparency. In the dynamic organizational environment, the development of new strategic directions is essential for competitiveness. Functional strategies-specific plans and actions implemented to achieve set goals in different functional areas-are integral to this process (Orwa, Akuku, Kimutai, &amp; Onyango, 2022). These strategies, encompassing human resources, supply chain, operations, and technology, are formulated to optimize service provision and tackle operational obstacles <ref type="bibr" target="#b13">(Njogu &amp; Kipkorir, 2022)</ref>.</p><p>1.2 Statement of the Problem In Kenya, devolution shifted service delivery responsibilities to county governments, with the anticipated benefit of a more suitable alignment between public services and diverse citizen preferences due to physical proximity <ref type="bibr" target="#b8">(Lewis, 2021)</ref>. However, a significant disparity exists between the intended and observed service delivery outcomes of Kiambu County government <ref type="bibr" target="#b17">(Sasaki, 2019)</ref>. Despite established structures, the county faces challenges leading to sub-optimal service quality and public dissatisfaction, exacerbated by poor strategic management practices (Muwonge, Williamson, Owuor, &amp; Kinuthia,2022). While existing research has focused on the relationship between strategy implementation and organizational performance, a significant deficiency remains in examining the implementation of specific functional strategies within the context of Kiambu County government.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.3">Objective of the Study</head><p>This study was guided by both general and specific objectives.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.3.1">General objective of the Study</head><p>The general objective of the study was to examine the relationship between functional strategies and service delivery within the Kiambu County Government in Kenya 1.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.2">Specific Objectives of the Study</head><p>The specific objectives of the study were to:</p><p>i. Assess the relationship between human resource strategies and service delivery in the Kiambu County Government, Kenya. ii. Examine the influence of supply chain strategies on service delivery in the Kiambu County Government, Kenya. iii. Evaluate the effect of operational strategies on service delivery in the Kiambu County Government, Kenya. iv.</p><p>Determine the impact of technological strategies on service delivery in the Kiambu County Government, Kenya.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="1.4">Research Questions</head><p>i. To what extent do human resource strategies affect service delivery in the Kiambu County Government, Kenya? ii. How do supply chain strategies influence service delivery in the Kiambu County Government, Kenya? iii. What is the effect of operational strategies on service delivery in the Kiambu County Government, Kenya? iv.</p><p>In what ways do technological strategies influence service delivery in the Kiambu County Government, Kenya?</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.0">LITERATURE REVIEW 2.1 Theoretical Review</head><p>A theoretical framework provides a structured foundation for analyzing variables and relationships within a study <ref type="bibr">(Abend, 2018)</ref>. The study was anchored on four key theories. Adams' Equity Theory (1963) underscores the importance of fairness and equity in the workplace, providing a lens to examine how equitable human resource strategies influence employee motivation and, consequently, service delivery. The Systems Theory <ref type="bibr" target="#b1">(Bertalanffy, 1968)</ref> views the organization as an interconnected system, ideal for analyzing how supply chain strategies affect the entire service delivery value chain. Stakeholder Theory <ref type="bibr" target="#b3">(Freeman, 1984)</ref> emphasizes the need to manage relationships with all stakeholders, which is crucial for evaluating whether operational strategies align with citizen needs and expectations. Finally, the Technology Adoption Model <ref type="bibr" target="#b2">(Davis, 1989)</ref> explains how the perceived usefulness and ease of use of technology influence its adoption and effective implementation, forming the basis for assessing technological strategies.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="2.2">Conceptual Framework</head><p>Independent Variables Dependent Variable Figure <ref type="figure">2</ref>. 1: Conceptual Framework 2.4 Empirical review Empirical evidence consistently demonstrated that functional strategies play a critical role in enhancing service delivery across various organizational contexts. Human resource strategies have been widely recognized as key determinants of performance outcomes. <ref type="bibr" target="#b4">Gile et al. (2018)</ref> found that targeted human resource management interventions in hospitals led to improved organizational outcomes, while Tinti et al. (2017) revealed that effective HR policies significantly influence organizational citizenship behavior, thereby enhancing overall service quality and employee commitment. Similarly, supply chain strategies have been shown to directly impact organizational efficiency and customer satisfaction. Ndungu and Osoro (2023) established that optimizing supply chain processes in non-governmental organizations improves the timeliness and reliability of service delivery, while Güngör and Akyol (2022) observed that strategic supply chain management exerts a measurable positive influence on organizational performance and competitiveness. In addition, operational strategies are essential for achieving efficiency and consistency in service delivery. <ref type="bibr" target="#b9">Mnyazi and Makhamara (2023)</ref> reported that well-implemented operational strategies, including product development and process improvement, positively affect</p><p>ISSN 2959-7048 (Print) ISSN 2959-7056 (online) Research Bridge Publisher, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (213-220), Month: October -December 2025, Available at: <ref type="url" target="https://researchbridgepublisher.com/">https://researchbridgepublisher.com/</ref> the performance of small and medium-sized enterprises, whereas Santa et al. (2020) confirmed that aligning operational and information systems strategies leads to improved responsiveness and customer satisfaction. Lastly, technological strategies have emerged as vital enablers of organizational excellence. Breed (2014) emphasized that the integration of technology enhances productivity and operational efficiency, and Tolf et al. (2020) demonstrated that technological innovations enable continuous quality improvement by providing timely, accurate, and actionable data for decision-making. Collectively, these studies affirm that the effective implementation of human resource, supply chain, operational, and technological strategies significantly improves organizational service delivery, efficiency, and overall performance.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="3.0">RESEARCH METHODOLOGY</head><p>This study adopted a descriptive research design, which was considered the most suitable approach for systematically examining the characteristics, perceptions, and relationships between functional strategies and service delivery within the Kiambu County Government without manipulating the study environment. The target population consisted of senior administrative officers, middle-level managers, and supervisory officers drawn from the twelve sub-counties of Kiambu County Government. A purposive sampling technique was employed to select 120 respondents who were deemed knowledgeable about the subject matter. Data collection was carried out using a structured questionnaire, with all items measured on a five-point Likert scale ranging from 1 (Strongly Disagree) to 5 (Strongly Agree). The collected data were analyzed using the Statistical Package for the Social Sciences (SPSS) version 25. Descriptive statistics such as frequencies, means, and percentages were used to summarize the data, while inferential statistics, including Pearson's correlation and multiple regression analysis, were applied to determine the relationships between the study variables. The reliability of the research instrument was verified using Cronbach's Alpha, with all coefficients exceeding the acceptable threshold of 0. </p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.0">RESEARCH FINDINGS AND DISCUSSIONS 4.1 Response Rate</head><p>The study achieved a 90% response rate. Of the 108 respondents,56%were male and 44% female. A majority (61%) were 33 years or older, and 61% held at least an undergraduate degree. Most respondents (72%) had worked in their current station for over four years, and 49% were in lowerlevel management.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.2.">Descriptive Statistics</head><p>This section presents the results of the descriptive statistical analyses of the data and their interpretations. The descriptive statistics helped to develop the basic features of the study and form the basis of virtually every quantitative analysis of the data. The results were presented in terms of the study objectives. While 50% of respondents agreed that training opportunities were adequate, 50% disagreed that incentives and benefits were sufficient to encourage long-term commitment. A majority (55%) felt performance evaluations were not conducted regularly and fairly. However, 67% agreed the workplace environment was conducive to health and safety. These findings indicate a mixed performance in HR strategies. The inadequacy of incentives and irregular performance evaluations could demotivate staff, negatively impacting service delivery, as suggested by Adams' Equity Theory. This aligns with studies that link poor HR practices to low employee morale and performance <ref type="bibr" target="#b14">(Oluwafunmilayo et al.,2024)</ref>. Most respondents (72%) agreed that contractual agreements were clearly negotiated and documented. However,44% were neutral on whether vendors were held accountable for meeting obligations, and perceptions on sourcing strategies prioritizing reliability and quality were mixed. This points to a strength in procedural clarity but a critical weakness in enforcement and strategic sourcing. The lack of vendor accountability can lead to delays and substandard resources, directly impairing service delivery, a concern highlighted by Systems Theory which emphasizes the interdependence of supply chain components (Wilden,Hopkins, &amp; Sadler,2022). The county performed well in promoting ethical behavior (78% agreement) and employee awareness of ethical standards (72% agreement). A majority (67%) agreed that measures were taken to prevent recurring customer complaints. However,44% were neutral on the robustness of fraud detection systems. This shows a strong ethica1 culture but exposes a vulnerability in financial controls. Effective fraud management is crucial for safeguarding public resources, and its weakness, as per Stakeholder Theory,can erode public trust and divert funds meant for service provision (Demir, Reddick, &amp; Perlman, 2023).</p><p>There was strong agreement on basic ICT training (83%) and security measures to protect sensitive information (72%). However, 44% were neutral on the robustness of cybersecurity safeguards, and 50% were neutral on the prompt mitigation of security breaches. This reflects a good foundation in digital literacy but significant concerns over cybersecurity resilience. In an era of digital government, robust cybersecurity is non-negotiable for maintaining service integrity and citizen data privacy (Mishra, Alzoubi, Anwar, &amp; Gill, 2022). A significant 61% disagreed that services were delivered within acceptable timeframes, and 39% disagreed that the county adhered to its service charter commitments. However,83% agreed that services were consistently accessible to users. This reveals a stark contradiction between service accessibility and service timeliness/quality. The failure to meet stipulated timeframes and charter standards is a direct indicator of the service delivery challenges facing the county, leading to public dissatisfaction as noted by <ref type="bibr" target="#b11">Muwonge et al.,(2022)</ref>.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Inferential Statistics</head><p>Inferential statistics in the current study focused on correlation and regression analysis. Regression analysis was used to determine the relationship between dependent variable (Service Delivery) and independent variables (Human Resource Strategies, Supply Chain Strategies, Operational Strategies and Technological Strategies).</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.3">Correlation Analysis</head><p>Pearson correlation analysis was conducted to examine the relationships between the functional strategies and service delivery. The results, presented in Table <ref type="table">1</ref>, indicated strong, positive, and statistically significant correlations between all functional strategies and service delivery. Table 1: Pearson Correlations between Functional Strategies and Service Delivery Functional Strategies Service Delivery Sig.(2-tailed) N Human Resource Strategies .822** .000 108 Supply Chain Strategies .737** .000 108 Operational Strategies .714** .000 108 Technological Strategies</p><p>.811** .000 108 The strong correlations confirm that improvements in any of these functional areas are closely associated with enhanced service delivery. The very high correlation for human resource strategies(r=0.822) underscores the fundamental role of a motivated workforce while, the strong correlation for technology(r=0.811) highlights its role as a key enabler in modern public administration.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="4.4">Regression Analysis</head><p>A multiple regression analysis was performed to determine the combined effect of the functional strategies on service delivery. The model summary (Table <ref type="table" target="#tab_2">2</ref>) shows a multiple correlation coefficient (R) of 0.722, indicating a strong positive relationship. The R Square value of 0.521 reveals that 52.1% of the variation in service delivery is explained by the four functional strategies. Dependent Variable: service delivery b. Predictors: (Constant), Technological Strategies, Operational Strategies, Supply Chain Strategies, Human Resource Strategies The regression coefficients, shown in Table 4, indicate that all four functional strategies have a statistically significant positive effect on service delivery. ISSN 2959-7048 (Print) ISSN 2959-7056 (online) Research Bridge Publisher, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (213-220), Month: October -December 2025, Available at: <ref type="url" target="https://researchbridgepublisher.com/">https://researchbridgepublisher.com/</ref> </p><p>contribution to predicting service delivery, followed by human resource strategies (Beta =0.452), supply chain strategies (Beta=0.297),and operational strategies (Beta=0.268).This finding underscores the transformative potential of technology in public service delivery, aligning with global trends on digital government <ref type="bibr" target="#b7">(Latupeirissa et al., 2024)</ref>.However, the significant contributions of all four strategies emphasize that technological advancement alone is insufficient; it must be supported by a motivated workforce (HR),efficient logistics (Supply Chain), and sound internal processes (Operations) to achieve optimal service delivery outcomes</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.0">CONLUSION AND RECOMMENDATIONS 5.1 Conclusion of the Study</head><p>The study concludes that the implementation of functional strategies-human resource, supply chain, operational, and technological-significantly influences the service delivery of Kiambu County Government. While the county demonstrates competencies in several areas, the identified weaknesses are substantial impediments to optimal performance. The synergistic effect of these strategies highlights the need for an integrated approach to strategic management within the county.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.2">Recommendations of the Study</head><p>Based on the findings, the study offers the following recommendations: Technological Strategies: The county should prioritize investments in modern digital infrastructure, robust cybersecurity systems, and automated service platforms. Regular security audits and clear incident response protocols should be established. Human Resource Strategies: There is a need to review and enhance incentive and benefits packages to improve staff motivation and retention. A structured, transparent, and regular performance evaluation system should be implemented, complemented by continuous training and capacity building. Supply Chain Strategies: The county should strengthen vendor accountability mechanisms through stricter performance metrics and monitoring. Sourcing strategies must be refined to consistently prioritize reliability, quality, and sustainability. Operational Strategies: Robust systems for fraud detection and prevention need to be implemented and made visible. The county should build on its strengths by continuing to promote ethical behavior and leveraging customer feedback for continuous service quality improvement. By focusing on these functional areas, the Kiambu County Government can institutionalize performance excellence, leading to significant and sustainable improvements in service delivery for its citizens.</p></div>
+<div xmlns="http://www.tei-c.org/ns/1.0"><head n="5.3">Areas for Further Study</head><p>Future research should expand on the findings of this study by exploring additional moderating and mediating factors influencing the relationship between functional strategies and service delivery. Although this study established that functional strategies explained 52.1% of the variance in service delivery, the remaining 47.9% suggests the existence of other critical determinants such as leadership style, organizational culture, and stakeholder engagement that warrant investigation. Comparative studies across multiple counties could statistically validate whether the strong positive correlations identified here-human resource strategies (r = 0.822), supply chain strategies (r = 0.737), operational strategies (r = 0.714), and technological strategies (r = 0.811)-are consistent across different governance contexts. Further, longitudinal research could examine causal relationships over time, particularly assessing the long-term effects of technological innovations and digital transformation initiatives on public sector efficiency. Such studies would provide comprehensive evidence to guide strategic management reforms for improved countylevel service delivery in Kenya.</p></div><figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_0"><figDesc>7, indicating high internal consistency. The study employed the following multiple linear regression model to assess the influence of functional strategies on service delivery: Y=β0+β1X1+β2X2+β3X3+β4X4+e Where: Y = Service Delivery β0 = Constant β1-β4 = Coefficients of the independent variables X1= Human Resource Strategies X2= Supply Chain Strategies X3= Operational Strategies X4 = Technological Strategies e= Error term .</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_1"><figDesc>, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (213-220), Month: October -December 2025, Available at: https://researchbridgepublisher.com/</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" xml:id="fig_2"><figDesc>, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (213-220), Month: October -December 2025, Available at: https://researchbridgepublisher.com/</figDesc></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0"><graphic coords="3,93.35,139.70,416.30,350.25" type="bitmap" /></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_2"><head>Table 2 :</head><label>2</label><figDesc>Regression Model SummaryConstant), Technological strategies, Operational strategies, Supply chain strategies, Human Resource strategies The Analysis of Variance (ANOVA) results in Table3confirm that the regression model is statistically significant,F(4,103)=28.022,p=0.000.</figDesc><table><row><cell>Model</cell><cell>R</cell><cell>R Square</cell><cell>Adjusted R Square</cell><cell>Std. Error of the Estimate</cell></row><row><cell>1</cell><cell>.722a</cell><cell>.521</cell><cell>.503</cell><cell>.28660</cell></row><row><cell cols="2">a. Predictors: (</cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_3"><head>Table 3 :</head><label>3</label><figDesc>Analysis of Variance (ANOVA)</figDesc><table><row><cell></cell><cell></cell><cell></cell><cell></cell><cell>Mean</cell><cell></cell><cell></cell></row><row><cell>Model</cell><cell></cell><cell>Sum of Squares</cell><cell>df</cell><cell>Square</cell><cell>F</cell><cell>Sig.</cell></row><row><cell>1</cell><cell>Regression</cell><cell>9.206</cell><cell>4</cell><cell>2.302</cell><cell>28.022</cell><cell>.000</cell></row><row><cell></cell><cell>Residual</cell><cell>8.460</cell><cell>103</cell><cell>.082</cell><cell></cell><cell></cell></row><row><cell></cell><cell>Total</cell><cell>17.667</cell><cell>107</cell><cell></cell><cell></cell><cell></cell></row><row><cell>a.</cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+<figure xmlns="http://www.tei-c.org/ns/1.0" type="table" xml:id="tab_5"><head>Table 4 :</head><label>4</label><figDesc>Regression CoefficientsThe analysis reveals that technological strategies (Beta= 0.539) have the strongest unique</figDesc><table><row><cell>Model</cell><cell cols="2">Unstandardized</cell><cell>Standardized</cell><cell>t</cell><cell>Sig.</cell></row><row><cell></cell><cell cols="2">Coefficients</cell><cell>Coefficients</cell><cell></cell><cell></cell></row><row><cell></cell><cell>B</cell><cell>Std.Error</cell><cell>Beta</cell><cell></cell><cell></cell></row><row><cell>1 (Constant)</cell><cell>.543</cell><cell>.129</cell><cell></cell><cell>4.209</cell><cell>.000</cell></row><row><cell>HR strategies</cell><cell>.408</cell><cell>.053</cell><cell>.452</cell><cell>7.698</cell><cell>.000</cell></row><row><cell>Supply chain strategies</cell><cell>.336</cell><cell>.059</cell><cell>.297</cell><cell>5.593</cell><cell>.000</cell></row><row><cell>Operational strategies</cell><cell>.305</cell><cell>.054</cell><cell>.268</cell><cell>5.648</cell><cell>.001</cell></row><row><cell>Technological strategies</cell><cell>.442</cell><cell>.062</cell><cell>.539</cell><cell>7.129</cell><cell>.000</cell></row><row><cell cols="2">a.Dependent Variable: Service Delivery</cell><cell></cell><cell></cell><cell></cell><cell></cell></row></table></figure>
+			<note xmlns="http://www.tei-c.org/ns/1.0" place="foot" xml:id="foot_0"><p>ISSN 2959-7048 (Print) ISSN 2959-7056 (online) Research Bridge Publisher, International Journal of Social Science and Humanities Research, Vol. 3, Issue 3, pp: (213-220), Month: October -December 2025, Available at: https://researchbridgepublisher.com/</p></note>
+		</body>
+		<back>
+			<div type="references">
+
+				<listBibl>
+
+<biblStruct xml:id="b0">
+	<analytic>
+		<title level="a" type="main">Towards an understanding of inequity</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">S</forename><surname>Adams</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Abnormal and Sociaal Psychology</title>
+		<imprint>
+			<biblScope unit="volume">67</biblScope>
+			<biblScope unit="issue">5</biblScope>
+			<biblScope unit="page" from="422" to="436" />
+			<date type="published" when="1963">1963</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Adams,J.S.(1963). Towards an understanding of inequity. Journal of Abnormal and Sociaal Psychology, 67(5),422-436.</note>
+</biblStruct>
+
+<biblStruct xml:id="b1">
+	<monogr>
+		<title level="m" type="main">General system theory: Foundations</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Bertalanffy</surname></persName>
+		</author>
+		<author>
+			<persName><surname>Von</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1968">1968</date>
+			<publisher>George Braziller</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Bertalanffy, L. von. (1968). General system theory: Foundations.George Braziller.</note>
+</biblStruct>
+
+<biblStruct xml:id="b2">
+	<analytic>
+		<title level="a" type="main">Perceived usefulness, perceived ease of use, and user acceptance of information technology</title>
+		<author>
+			<persName><forename type="first">F</forename><forename type="middle">D</forename><surname>Davis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">MIS Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="319" to="339" />
+			<date type="published" when="1989">1989</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Davis, F.D. (1989). Perceived usefulness, perceived ease of use, and user acceptance of information technology. MIS Quarterly, 13(3),319-339.</note>
+</biblStruct>
+
+<biblStruct xml:id="b3">
+	<monogr>
+		<title level="m" type="main">Strategic management: A stakeholder approach</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">E</forename><surname>Freeman</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="1984">1984</date>
+			<publisher>Pitman</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Freeman, R. E. (1984). Strategic management: A stakeholder approach. Pitman.</note>
+</biblStruct>
+
+<biblStruct xml:id="b4">
+	<analytic>
+		<title level="a" type="main">The effect of human resource management on performance in hospitals in Sub-Saharan Africa: A systematic literature review</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">P</forename><surname>Gile</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Buljac-Samardzic</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Van De Klundert</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Human Resources for Health</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="21" />
+			<date type="published" when="2018">2018</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Gile,P.P.,Buljac-Samardzic, M., &amp; Van De Klundert, J. (2018). The effect of human resource management on performance in hospitals in Sub-Saharan Africa: A systematic literature review.Human Resources for Health,16(1),1-21.</note>
+</biblStruct>
+
+<biblStruct xml:id="b5">
+	<monogr>
+		<title level="m" type="main">Effects of Supply Chain Strategies on Business Performance</title>
+		<author>
+			<persName><forename type="first">P</forename><forename type="middle">D</forename><surname>Güngör</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">E</forename><surname>Akyol</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<pubPlace>Izmir UOD</pubPlace>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Güngör, P.D., &amp; Akyol, D. E. (2022). Effects of Supply Chain Strategies on Business Performance.Izmir UOD.</note>
+</biblStruct>
+
+<biblStruct xml:id="b6">
+	<analytic>
+		<title level="a" type="main">Understanding public service supply chain management: a systematic literature review</title>
+		<author>
+			<persName><forename type="first">S.-M</forename><surname>Katarzyna</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Management Review Quarterly</title>
+		<imprint>
+			<biblScope unit="volume">74</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="1879" to="1943" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Katarzyna, S.-M.,&amp;Maciej, S. (2024). Understanding public service supply chain management: a systematic literature review. Management Review Quarterly, 74(3),1879-1943.</note>
+</biblStruct>
+
+<biblStruct xml:id="b7">
+	<analytic>
+		<title level="a" type="main">Transforming Public Service Delivery: A Comprehensive Review of Digitization Initiatives</title>
+		<author>
+			<persName><forename type="first">J</forename><forename type="middle">J P</forename><surname>Latupeirissa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">N</forename><forename type="middle">L Y</forename><surname>Dewi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">K R</forename><surname>Prayana</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><forename type="middle">B</forename><surname>Srikandi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">A</forename><surname>Ramadiansyah</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><forename type="middle">B G A Y</forename><surname>Pramana</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Sustainability</title>
+		<imprint>
+			<biblScope unit="volume">16</biblScope>
+			<biblScope unit="issue">7</biblScope>
+			<biblScope unit="page">2818</biblScope>
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Latupeirissa,J.J.P.,Dewi,N.L.Y.,Prayana, I. K. R., Srikandi, M. B., Ramadiansyah, S. A., &amp; Pramana, I. B. G. A. Y. (2024). Transforming Public Service Delivery: A Comprehensive Review of Digitization Initiatives. Sustainability, 16(7),2818.</note>
+</biblStruct>
+
+<biblStruct xml:id="b8">
+	<analytic>
+		<title level="a" type="main">Does local government proliferation improve public service delivery? Evidence from Indonesia</title>
+		<author>
+			<persName><forename type="first">B</forename><forename type="middle">D</forename><surname>Lewis</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Urban Affairs</title>
+		<imprint>
+			<biblScope unit="volume">39</biblScope>
+			<biblScope unit="issue">8</biblScope>
+			<biblScope unit="page" from="1047" to="1065" />
+			<date type="published" when="2021">2021</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Lewis,B.D.(2021).Does local government proliferation improve public service delivery? Evidence from Indonesia. Journal of Urban Affairs, 39(8),1047-1065.</note>
+</biblStruct>
+
+<biblStruct xml:id="b9">
+	<analytic>
+		<title level="a" type="main">Operational Strategies and Performance of Small and Medium Enterprises in Nairobi City County, Kenya</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Mnyazi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Makhamara</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Business Management, Entrepreneurship and Innovation</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="18" />
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Mnyazi, M., &amp; Makhamara, F.(2023). Operational Strategies and Performance of Small and Medium Enterprises in Nairobi City County, Kenya. International Journal of Business Management, Entrepreneurship and Innovation,5(1),1-18.</note>
+</biblStruct>
+
+<biblStruct xml:id="b10">
+	<analytic>
+		<title level="a" type="main">Assessment of the Effects of Procurement Planning Processes on Performance of Construction Contracts in Local Governments in Uganda</title>
+		<author>
+			<persName><forename type="first">L</forename><surname>Muhwezi</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">F</forename><surname>Tumusime Musiime</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Onyutha</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Civil,Construction and Environmental Engineering</title>
+		<imprint>
+			<biblScope unit="volume">5</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page">151</biblScope>
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Muhwezi,L., Tumusime Musiime, F., &amp; Onyutha, C. (2020). Assessment of the Effects of Procurement Planning Processes on Performance of Construction Contracts in Local Governments in Uganda.Journal of Civil,Construction and Environmental Engineering,5(6),151.</note>
+</biblStruct>
+
+<biblStruct xml:id="b11">
+	<monogr>
+		<title level="m" type="main">Making Devolution Work for Service Delivery in Kenya</title>
+		<author>
+			<persName><forename type="first">A</forename><surname>Muwonge</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">T</forename><forename type="middle">S</forename><surname>Williamson</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Owuor</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">M</forename><surname>Kinuthia</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2022">2022</date>
+			<publisher>World Bank</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Muwonge, A., Williamson, T.S., Owuor, C., &amp; Kinuthia,M. (2022). Making Devolution Work for Service Delivery in Kenya. World Bank.</note>
+</biblStruct>
+
+<biblStruct xml:id="b12">
+	<analytic>
+		<title level="a" type="main">Supply Chain Optimization Strategies and Performance Of International Non-Governmental Organizations In Nairobi City County, Kenya</title>
+		<author>
+			<persName><forename type="first">P</forename><surname>Ndungu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Osoro</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Scientific and Research Publications</title>
+		<imprint>
+			<biblScope unit="volume">13</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<date type="published" when="2023">2023</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Ndungu, P., &amp; Osoro, A. (2023). Supply Chain Optimization Strategies and Performance Of International Non-Governmental Organizations In Nairobi City County, Kenya. International Journal of Scientific and Research Publications, 13(4).</note>
+</biblStruct>
+
+<biblStruct xml:id="b13">
+	<analytic>
+		<title level="a" type="main">Functional Strategies and Performance: Empirical Evidence from Commercial Banks in Nakuru County in Kenya</title>
+		<author>
+			<persName><forename type="first">K</forename><surname>Njogu</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><forename type="middle">C S</forename><surname>Kipkorir</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Business and Management Review</title>
+		<imprint>
+			<biblScope unit="volume">10</biblScope>
+			<biblScope unit="issue">4</biblScope>
+			<biblScope unit="page" from="17" to="36" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Njogu, K., &amp; Kipkorir, S. C. S. (2022). Functional Strategies and Performance: Empirical Evidence from Commercial Banks in Nakuru County in Kenya. International Journal of Business and Management Review, 10(4),17-36.</note>
+</biblStruct>
+
+<biblStruct xml:id="b14">
+	<analytic>
+		<title level="a" type="main">Human resource strategies for resilient supply chains in logistics and transportation: A critical review</title>
+		<author>
+			<persName><forename type="first">E</forename><surname>Oluwafunmilayo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><forename type="middle">A</forename><surname>Funmilayo</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">O</forename><surname>Olufunke</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">International Journal of Science and Research Archive</title>
+		<imprint>
+			<biblScope unit="volume">12</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="82" to="102" />
+			<date type="published" when="2024">2024</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Oluwafunmilayo, E., Funmilayo, A. A., &amp; Olufunke, O. (2024). Human resource strategies for resilient supply chains in logistics and transportation: A critical review. International Journal of Science and Research Archive, 12(1),082-102.</note>
+</biblStruct>
+
+<biblStruct xml:id="b15">
+	<analytic>
+		<title level="a" type="main">Effect of Functional Strategies on Competitiveness of Sugar Industry in Western Kenya</title>
+		<author>
+			<persName><forename type="first">D</forename><forename type="middle">O</forename><surname>Orwa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">C</forename><surname>Akuku</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">G</forename><surname>Kimutai</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">R</forename><surname>Onyango</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Journal of Business Management and Economic Research</title>
+		<imprint>
+			<biblScope unit="volume">6</biblScope>
+			<biblScope unit="issue">3</biblScope>
+			<biblScope unit="page" from="66" to="90" />
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Orwa,D.O.,Akuku, C., Kimutai, G., &amp; Onyango, R. (2022). Effect of Functional Strategies on Competitiveness of Sugar Industry in Western Kenya. Journal of Business Management and Economic Research, 6(3),66-90.</note>
+</biblStruct>
+
+<biblStruct xml:id="b16">
+	<analytic>
+		<title level="a" type="main">Corporate, operational, and information systems strategies: Alignment and firm performance</title>
+		<author>
+			<persName><forename type="first">R</forename><forename type="middle">A</forename><surname>Santa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Acosta</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">S</forename><surname>Borrero</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Scavarda</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Estudios Gerenciales</title>
+		<imprint>
+			<biblScope unit="volume">36</biblScope>
+			<biblScope unit="page" from="454" to="464" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Santa, R. A., Acosta, A.,Borrero, S., &amp; Scavarda, A. (2020). Corporate, operational, and information systems strategies: Alignment and firm performance. Estudios Gerenciales,36,454-464.</note>
+</biblStruct>
+
+<biblStruct xml:id="b17">
+	<monogr>
+		<title level="m" type="main">Trust in Contemporary Society</title>
+		<author>
+			<persName><forename type="first">M</forename><surname>Sasaki</surname></persName>
+		</author>
+		<imprint>
+			<date type="published" when="2019">2019</date>
+			<publisher>Brill</publisher>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Sasaki, M. (2019). Trust in Contemporary Society. Brill.</note>
+</biblStruct>
+
+<biblStruct xml:id="b18">
+	<analytic>
+		<title level="a" type="main">The impact of human resources policies and practices on organizational citizenship behaviors</title>
+		<author>
+			<persName><forename type="first">J</forename><surname>Tinti</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">L</forename><surname>Venelli-Costa</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Vieira</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">A</forename><surname>Cappellozza</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">Brazilian Business Review</title>
+		<imprint>
+			<biblScope unit="volume">14</biblScope>
+			<biblScope unit="issue">6</biblScope>
+			<biblScope unit="page" from="636" to="653" />
+			<date type="published" when="2017">2017</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Tinti,J.,Venelli-Costa, L., Vieira, A., &amp; Cappellozza, A. (2017). The impact of human resources policies and practices on organizational citizenship behaviors. Brazilian Business Review, 14(6),636- 653.</note>
+</biblStruct>
+
+<biblStruct xml:id="b19">
+	<analytic>
+		<title level="a" type="main">How can technology support quality improvement? Lessons learned from the adoption of an analytics tool for advanced performance measurement in a hospital unit</title>
+		<author>
+			<persName><forename type="first">S</forename><surname>Tolf</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">J</forename><surname>Mesterton</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">D</forename><surname>Söderberg</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">I</forename><surname>Amer-Wåhlin</surname></persName>
+		</author>
+		<author>
+			<persName><forename type="first">P</forename><surname>Mazzocato</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">BMC Health Services Research</title>
+		<imprint>
+			<biblScope unit="volume">20</biblScope>
+			<biblScope unit="issue">1</biblScope>
+			<biblScope unit="page" from="1" to="12" />
+			<date type="published" when="2020">2020</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Tolf,S.,Mesterton, J., Söderberg, D., Amer-Wåhlin, I., &amp; Mazzocato,P.(2020).How can technology support quality improvement? Lessons learned from the adoption of an analytics tool for advanced performance measurement in a hospital unit. BMC Health Services Research, 20(1),1-12.</note>
+</biblStruct>
+
+<biblStruct xml:id="b20">
+	<analytic>
+		<title level="a" type="main">Designing and delivering public services in the digital age</title>
+		<author>
+			<persName><forename type="first">B</forename><surname>Welby</surname></persName>
+		</author>
+	</analytic>
+	<monogr>
+		<title level="j">OECD Going Digital Toolkit Notes</title>
+		<imprint>
+			<biblScope unit="page">22</biblScope>
+			<date type="published" when="2022">2022</date>
+		</imprint>
+	</monogr>
+	<note type="raw_reference">Welby, B.(2022).Designing and delivering public services in the digital age. OECD Going Digital Toolkit Notes, 22.</note>
+</biblStruct>
+
+				</listBibl>
+			</div>
+		</back>
+	</text>
+</TEI>

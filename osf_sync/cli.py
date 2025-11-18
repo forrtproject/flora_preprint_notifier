@@ -33,7 +33,15 @@ def cmd_enqueue_extraction(args):
 
 def cmd_enrich_crossref(args):
     from osf_sync.celery_app import app
-    r = app.send_task("osf_sync.tasks.enrich_crossref", kwargs={"limit": args.limit})
+    r = app.send_task(
+        "osf_sync.tasks.enrich_crossref",
+        kwargs={
+            "limit": args.limit,
+            "osf_id": args.osf_id,
+            "ref_id": args.ref_id,
+            "debug": args.debug,
+        },
+    )
     print("enqueued:", r.id)
 
 def cmd_enrich_openalex(args):
@@ -74,6 +82,9 @@ def main():
 
     p6 = sub.add_parser("enrich-crossref", help="Enrich missing reference DOIs via Crossref")
     p6.add_argument("--limit", type=int, default=200)
+    p6.add_argument("--osf-id", default=None, help="Restrict to this OSF ID")
+    p6.add_argument("--ref-id", default=None, help="Restrict to a specific reference ID")
+    p6.add_argument("--debug", action="store_true", help="Enable verbose Crossref logging")
     p6.set_defaults(func=cmd_enrich_crossref)
 
     p7 = sub.add_parser("enrich-openalex", help="Enrich remaining missing reference DOIs via OpenAlex")

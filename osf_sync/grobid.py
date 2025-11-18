@@ -9,6 +9,7 @@ from .iter_preprints import SESSION
 
 GROBID_URL = os.environ.get("GROBID_URL", "http://grobid:8070")
 DATA_ROOT   = os.environ.get("PDF_DEST_ROOT", "/data/preprints")
+INCLUDE_RAW_CITATIONS = os.environ.get("GROBID_INCLUDE_RAW_CITATIONS", "true").lower() in {"1", "true", "yes"}
 
 def _pdf_path(provider_id: str, osf_id: str) -> Optional[Path]:
     # New structure
@@ -42,6 +43,8 @@ def process_pdf_to_tei(provider_id: str, osf_id: str) -> Tuple[bool, Optional[st
     url = f"{GROBID_URL.rstrip('/')}/api/processFulltextDocument"
     files = {"input": ("file.pdf", open(pdf, "rb"), "application/pdf")}
     params = {"consolidateHeader": "1"}
+    if INCLUDE_RAW_CITATIONS:
+        params["includeRawCitations"] = "1"
     try:
         with SESSION.post(url, files=files, data=params, timeout=(10, 120)) as r:
             r.raise_for_status()
