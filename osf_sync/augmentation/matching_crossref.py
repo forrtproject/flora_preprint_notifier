@@ -4,6 +4,7 @@ import os
 import time
 import json
 import logging
+import re
 from typing import Dict, List, Optional, Tuple
 from urllib.parse import urlencode
 
@@ -36,6 +37,10 @@ def _exception(msg: str, **extras):
         logger.exception(msg)
 
 CROSSREF_BASE = "https://api.crossref.org/works"
+RAW_MIN_FUZZ = 60
+RAW_MIN_SOLR_SCORE = 30.0
+STRUCTURED_MIN_SOLR_SCORE = 52.0
+TITLE_MIN_RATIO = 88
 
 # -----------------------
 # Utilities
@@ -102,67 +107,262 @@ def _safe_get_issued_year(item: dict) -> Optional[int]:
     return None
 
 
-def _score_candidate(cand: dict,
-                     title: str,
-                     year: Optional[int],
-                     journal: Optional[str],
-                     authors: List[str]) -> int:
+def _score_candidate_structured(cand: dict,
+                                title: str,
+                                year: Optional[int],
+                                journal: Optional[str]) -> int:
     """
-    Combine fuzzy title, journal similarity, author overlap, and year proximity.
-    Return 0..100.
+    Require close agreement on each available component (title, journal, year).
+    Score is 100 only when all provided components pass their thresholds.
     """
-    score = 0
+    checks = 0
+    passed = 0
 
-    # Title
+    # Title match: accept when fuzzy ratio is high enough
     ctitles = cand.get("title") or []
     ctitle = ctitles[0] if ctitles else ""
-    score += fuzz.token_set_ratio(ctitle, title) * 0.6  # 60%
+    if ctitle and title:
+        checks += 1
+        ratio = fuzz.token_set_ratio(ctitle, title)
+        if ratio >= TITLE_MIN_RATIO:
+            passed += 1
 
-    # Journal
+    # Journal match: must match exactly (after normalization)
     cjour_list = cand.get("container-title") or []
     cjour = cjour_list[0] if cjour_list else ""
-    if journal:
-        score += fuzz.token_set_ratio(cjour, journal) * 0.2  # 20%
+    if cjour and journal:
+        checks += 1
+        if _normalize_text(cjour) == _normalize_text(journal):
+            passed += 1
 
-    # Year distance
+    # Year match: exact equality only
     cyear = _safe_get_issued_year(cand)
-    if year and cyear:
-        diff = abs(int(year) - int(cyear))
-        if diff == 0:
-            score += 12  # exact year bonus
-        elif diff == 1:
-            score += 6   # near-miss year
-        # else no bonus
+    if year is not None and cyear is not None:
+        checks += 1
+        if int(year) == int(cyear):
+            passed += 1
 
-    # Author overlap (very light weight)
+    if checks == 0:
+        return 0
+    return int(round(100 * (passed / checks)))
+
+
+def _score_candidate_raw(cand: dict, raw_blob: str, authors: List[str]) -> int:
+    if not raw_blob:
+        return 0
+    parts: List[str] = []
+    parts.extend(cand.get("title") or [])
+    parts.extend(cand.get("short-container-title") or [])
+    parts.extend(cand.get("container-title") or [])
+    parts.extend([f"{a.get('given', '')} {a.get('family', '')}".strip()
+                  for a in (cand.get("author") or []) if a])
+    # Add reversed/different orderings to capture initial vs expanded names
+    for a in cand.get("author") or []:
+        given = (a.get("given") or "").strip()
+        family = (a.get("family") or "").strip()
+        if given and family:
+            parts.append(f"{family} {given}")
+            parts.append(f"{given[0]}. {family}" if given else family)
+    parts.extend(authors or [])
+    for key in ("volume", "issue", "page"):
+        val = cand.get(key)
+        if isinstance(val, list):
+            parts.extend([str(x) for x in val if x])
+        elif val:
+            parts.append(str(val))
+    year = _safe_get_issued_year(cand)
+    if year:
+        parts.append(str(year))
+    doc = " ".join(p for p in parts if p)
+    if not doc:
+        return 0
+    return fuzz.token_set_ratio(doc, raw_blob)
+
+
+def _normalize_text(value: str) -> str:
+    if value is None:
+        return ""
+    return re.sub(r"[^a-z0-9]+", "", value.lower())
+
+
+def _title_matches(cand_title: Optional[str], ref_title: Optional[str]) -> bool:
+    if not cand_title or not ref_title:
+        return False if ref_title else True
+    ratio = fuzz.token_set_ratio(cand_title, ref_title)
+    return ratio >= TITLE_MIN_RATIO
+
+
+def _coerce_author_string(author) -> str:
+    if isinstance(author, str):
+        return author
+    if isinstance(author, dict):
+        for key in ("family", "name", "text", "literal", "S"):
+            val = author.get(key)
+            if val:
+                return str(val)
+        given = author.get("given")
+        family = author.get("family")
+        if given or family:
+            return f"{given or ''} {family or ''}".strip()
+    return str(author or "")
+
+
+def _last_name_tokens_from_strings(authors: List) -> List[str]:
+    tokens: List[str] = []
+    for raw in authors:
+        value = _coerce_author_string(raw)
+        if not value:
+            continue
+        cleaned = re.sub(r"[,\.;]", " ", value)
+        parts = [p for p in cleaned.split() if p]
+        if parts:
+            tokens.append(_normalize_text(parts[-1]))
+    return [t for t in tokens if t]
+
+
+def _candidate_author_last_names(cand: dict) -> List[str]:
+    cands = []
+    for a in cand.get("author") or []:
+        if not isinstance(a, dict):
+            cands.append(_normalize_text(str(a)))
+            continue
+        fam = a.get("family")
+        if fam:
+            cands.append(_normalize_text(fam))
+            continue
+        literal = a.get("name") or a.get("literal")
+        if literal:
+            cleaned = re.sub(r"[,\.;]", " ", literal)
+            parts = [p for p in cleaned.split() if p]
+            if parts:
+                cands.append(_normalize_text(parts[-1]))
+    return [c for c in cands if c]
+
+
+def _authors_overlap(cand: dict, ref_authors: List) -> bool:
+    ref_tokens = _last_name_tokens_from_strings(ref_authors)
+    cand_tokens = _candidate_author_last_names(cand)
+    if not ref_tokens or not cand_tokens:
+        return True
+    ref_set = set(ref_tokens)
+    cand_set = set(cand_tokens)
+    overlap = ref_set & cand_set
+    if len(ref_set) >= 3:
+        return bool(overlap)
+    return True
+
+
+def _raw_candidate_valid(
+    cand: dict,
+    raw_blob: str,
+    authors: List[str],
+    journal: Optional[str],
+    year: Optional[int],
+) -> bool:
+    raw_score = _score_candidate_raw(cand, raw_blob, authors)
+    if raw_score < RAW_MIN_FUZZ:
+        logger.info("Raw score too low", raw_score=raw_score, doi=cand.get("DOI"))
+        return False
+    cyear = _safe_get_issued_year(cand)
+    if year is not None and cyear is not None and int(year) != int(cyear):
+        logger.info("Year mismatch in raw candidate", year = year, cyear=cyear)
+        return False
+    cjour = (cand.get("container-title") or [""])[0]
+    if journal and cjour:
+        if _normalize_text(cjour) != _normalize_text(journal):
+            logger.info("Journal mismatch in raw candidate")
+            return False
     if authors:
-        c_auth = cand.get("author") or []
-        c_names = []
-        for a in c_auth:
-            n = a.get("family") or a.get("name") or ""
-            if n:
-                c_names.append(n)
-        # take first author only for now
-        want = (authors[0] or "").strip().lower()
-        if want:
-            best_a = max((fuzz.partial_ratio(want, x.lower()) for x in c_names), default=0)
-            score += min(best_a, 100) * 0.08  # 8%
+        if not _authors_overlap(cand, authors):
+            logger.info("Author mismatch in raw candidate")
+            return False
+    return True
 
-    return int(round(score))
+
+def _structured_candidate_valid(
+    cand: dict,
+    title: Optional[str],
+    journal: Optional[str],
+    year: Optional[int],
+    authors: Optional[List[str]],
+) -> bool:
+    ctitles = cand.get("title") or []
+    ctitle = ctitles[0] if ctitles else ""
+    if title:
+        if not _title_matches(ctitle, title):
+            return False
+    cjour = (cand.get("container-title") or [""])[0]
+    if journal and cjour:
+        if _normalize_text(cjour) != _normalize_text(journal):
+            return False
+    cyear = _safe_get_issued_year(cand)
+    if year is not None and cyear is not None and int(year) != int(cyear):
+        return False
+    if authors:
+        if not _authors_overlap(cand, authors):
+            return False
+    return True
 
 
 def _pick_best(cands: List[dict],
                title: str,
                year: Optional[int],
                journal: Optional[str],
-               authors: List[str],
                threshold: int,
-               debug: bool = False) -> Optional[dict]:
+               debug: bool = False,
+               raw_blob: Optional[str] = None,
+               structured_authors: Optional[List[str]] = None,
+               raw_search: bool = False) -> Optional[dict]:
     best = None
     best_score = -1
 
     for c in cands:
-        sc = _score_candidate(c, title, year, journal, authors)
+        ref_count = c.get("references-count")
+        if ref_count == 0:
+            if debug:
+                doi = c.get("DOI")
+                print(f"SKIP zero-ref-count DOI={doi}")
+            continue
+        solr_score = c.get("score")
+        if raw_blob and solr_score is not None and solr_score < RAW_MIN_SOLR_SCORE:
+            if debug:
+                doi = c.get("DOI")
+                print(f"SKIP low-solr-score DOI={doi} SOLR={solr_score:.1f}")
+            continue
+        if raw_blob and not _raw_candidate_valid(
+            c,
+            raw_blob,
+            structured_authors or [],
+            journal,
+            year,
+        ):
+            if debug:
+                doi = c.get("DOI")
+                print(f"SKIP raw-invalid DOI={doi}")
+            continue
+        if not raw_blob:
+            if solr_score is not None and solr_score < STRUCTURED_MIN_SOLR_SCORE:
+                if debug:
+                    doi = c.get("DOI")
+                    print(f"SKIP low-structured-score DOI={doi} SOLR={solr_score:.1f}")
+                continue
+            if not _structured_candidate_valid(
+                c,
+                title,
+                journal,
+                year,
+                structured_authors or [],
+            ):
+                if debug:
+                    doi = c.get("DOI")
+                    print(f"SKIP structured-invalid DOI={doi}")
+                continue
+        sc = solr_score
+        if sc is None:
+            if raw_blob:
+                sc = _score_candidate_raw(c, raw_blob, structured_authors or [])
+            else:
+                sc = _score_candidate_structured(c, title, year, journal)
         if debug:
             doi = c.get("DOI")
             cyear = _safe_get_issued_year(c)
@@ -174,7 +374,8 @@ def _pick_best(cands: List[dict],
             best_score = sc
             best = c
 
-    if best and best_score >= threshold:
+    effective_threshold = threshold if not raw_search else min(40, max(10, threshold // 3))
+    if best and best_score >= effective_threshold:
         return best
     return None
 
@@ -234,9 +435,9 @@ def _query_crossref(title: str,
 
 def _query_crossref_biblio(blob: str, rows: int, debug: bool) -> List[dict]:
     params = {
-        "query.bibliographic": blob,
-        "rows": str(rows),
-        "select": ",".join(["DOI", "title", "issued", "author", "container-title"]),
+        "query": blob,
+        # "rows": str(rows),
+        # "select": ",".join(["DOI", "title", "issued", "author", "container-title"]),
         "mailto": _mailto(),
     }
     _info("Crossref bibliographic query", blob_excerpt=blob[:200], rows=rows, debug_mode=debug)
@@ -301,6 +502,7 @@ def enrich_missing_with_crossref(limit: int = 300,
             "journal": journal,
             "using_raw_only": use_raw_only,
         }
+        raw_mode = use_raw_only
         if use_raw_only:
             _info("Crossref raw-only search", **meta)
             items = _query_crossref_biblio(raw_citation, rows=30, debug=debug)
@@ -310,11 +512,22 @@ def enrich_missing_with_crossref(limit: int = 300,
             if not items and raw_citation:
                 _info("Crossref fallback to raw citation", **meta)
                 items = _query_crossref_biblio(raw_citation, rows=30, debug=debug)
+                raw_mode = True
         if not items:
             _info("No Crossref candidates", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
             continue
 
-        best = _pick_best(items, title, year, journal, authors, threshold=threshold, debug=debug)
+        best = _pick_best(
+            items,
+            title,
+            year,
+            journal,
+            threshold=threshold,
+            debug=debug,
+            raw_blob=raw_citation if raw_mode else None,
+            structured_authors=authors,
+            raw_search=raw_mode,
+        )
         if not best:
             _info("No good Crossref match", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"), candidates=len(items))
             continue
