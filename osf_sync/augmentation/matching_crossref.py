@@ -96,15 +96,34 @@ def _build_params(title: str,
     return params
 
 
-def _safe_get_issued_year(item: dict) -> Optional[int]:
+def _first_year_from_date_parts(blob: Optional[dict]) -> Optional[int]:
+    if not blob:
+        return None
     try:
-        issued = item.get("issued") or {}
-        parts = issued.get("date-parts") or []
+        parts = blob.get("date-parts") or []
         if parts and isinstance(parts[0], list) and parts[0]:
             return int(parts[0][0])
     except Exception:
-        pass
+        return None
     return None
+
+
+def _safe_get_issued_year(item: dict) -> Optional[int]:
+    """
+    Prefer the journal issue's published-print year when available; fall back to Crossref's
+    canonical issued/published dates.
+    """
+    journal_issue = item.get("journal-issue") or {}
+    year = _first_year_from_date_parts(journal_issue.get("published-print"))
+    if year is not None:
+        return year
+    year = _first_year_from_date_parts(journal_issue.get("published-online"))
+    if year is not None:
+        return year
+    year = _first_year_from_date_parts(item.get("published-print"))
+    if year is not None:
+        return year
+    return _first_year_from_date_parts(item.get("issued"))
 
 
 def _score_candidate_structured(cand: dict,
@@ -261,20 +280,20 @@ def _raw_candidate_valid(
 ) -> bool:
     raw_score = _score_candidate_raw(cand, raw_blob, authors)
     if raw_score < RAW_MIN_FUZZ:
-        logger.info("Raw score too low", raw_score=raw_score, doi=cand.get("DOI"))
+        _info("Raw score too low", raw_score=raw_score, doi=cand.get("DOI"))
         return False
     cyear = _safe_get_issued_year(cand)
     if year is not None and cyear is not None and int(year) != int(cyear):
-        logger.info("Year mismatch in raw candidate", year = year, cyear=cyear)
+        _info("Year mismatch in raw candidate", candidate_year=cyear, ref_year=year, doi=cand.get("DOI"))
         return False
     cjour = (cand.get("container-title") or [""])[0]
     if journal and cjour:
         if _normalize_text(cjour) != _normalize_text(journal):
-            logger.info("Journal mismatch in raw candidate")
+            _info("Journal mismatch in raw candidate", doi=cand.get("DOI"), candidate_journal=cjour, ref_journal=journal)
             return False
     if authors:
         if not _authors_overlap(cand, authors):
-            logger.info("Author mismatch in raw candidate")
+            _info("Author mismatch in raw candidate", doi=cand.get("DOI"))
             return False
     return True
 
@@ -368,7 +387,11 @@ def _pick_best(cands: List[dict],
             cyear = _safe_get_issued_year(c)
             ctitles = c.get("title") or []
             ctitle = ctitles[0] if ctitles else ""
-            print(f"SCORE={sc:3d}  YEAR={cyear!s:>4}  DOI={doi}  TITLE={ctitle}")
+            if isinstance(sc, (int, float)):
+                score_str = f"{sc:6.2f}"
+            else:
+                score_str = str(sc)
+            print(f"SCORE={score_str}  YEAR={cyear!s:>4}  DOI={doi}  TITLE={ctitle}")
 
         if sc > best_score:
             best_score = sc
@@ -489,6 +512,7 @@ def enrich_missing_with_crossref(limit: int = 300,
             use_raw_only = True
             _info("Crossref search using raw citation only", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
         raw_year = r.get("year")
+        _info(raw_citation)
         year = int(raw_year) if raw_year is not None and str(raw_year).isdigit() else None
         journal = (r.get("journal") or "").strip() or None
         authors = r.get("authors") or []
