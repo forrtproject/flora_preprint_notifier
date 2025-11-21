@@ -396,6 +396,7 @@ def enrich_crossref(
     osf_id: str | None = None,
     ref_id: str | None = None,
     debug: bool = False,
+    dump_misses: str | None = None,
 ):
     from .augmentation.matching_crossref import enrich_missing_with_crossref
     stats = enrich_missing_with_crossref(
@@ -404,6 +405,7 @@ def enrich_crossref(
         osf_id=osf_id,
         ref_id=ref_id,
         debug=debug,
+        dump_misses=dump_misses,
     )
     _slack("Crossref enrichment", extra=stats)
     return stats

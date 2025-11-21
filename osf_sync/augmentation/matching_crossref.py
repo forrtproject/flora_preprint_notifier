@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import html
 import time
 import json
 import logging
@@ -37,7 +38,7 @@ def _exception(msg: str, **extras):
         logger.exception(msg)
 
 CROSSREF_BASE = "https://api.crossref.org/works"
-RAW_MIN_FUZZ = 60
+RAW_MIN_FUZZ = 50
 RAW_MIN_SOLR_SCORE = 30.0
 STRUCTURED_MIN_SOLR_SCORE = 52.0
 TITLE_MIN_RATIO = 88
@@ -201,7 +202,9 @@ def _score_candidate_raw(cand: dict, raw_blob: str, authors: List[str]) -> int:
 def _normalize_text(value: str) -> str:
     if value is None:
         return ""
-    return re.sub(r"[^a-z0-9]+", "", value.lower())
+    # Decode HTML entities (e.g., &amp;) before stripping punctuation/case
+    unescaped = html.unescape(value)
+    return re.sub(r"[^a-z0-9]+", "", unescaped.lower())
 
 
 def _title_matches(cand_title: Optional[str], ref_title: Optional[str]) -> bool:
@@ -293,7 +296,7 @@ def _raw_candidate_valid(
             return False
     if authors:
         if not _authors_overlap(cand, authors):
-            _info("Author mismatch in raw candidate", doi=cand.get("DOI"))
+            _info("Author mismatch in raw candidate", doi=cand.get("DOI"), authors=authors)
             return False
     return True
 
@@ -331,22 +334,18 @@ def _pick_best(cands: List[dict],
                debug: bool = False,
                raw_blob: Optional[str] = None,
                structured_authors: Optional[List[str]] = None,
-               raw_search: bool = False) -> Optional[dict]:
+               raw_search: bool = False) -> Tuple[Optional[dict], Optional[str]]:
     best = None
     best_score = -1
+    last_reason: Optional[str] = None
 
     for c in cands:
-        ref_count = c.get("references-count")
-        if ref_count == 0:
-            if debug:
-                doi = c.get("DOI")
-                print(f"SKIP zero-ref-count DOI={doi}")
-            continue
         solr_score = c.get("score")
         if raw_blob and solr_score is not None and solr_score < RAW_MIN_SOLR_SCORE:
             if debug:
                 doi = c.get("DOI")
                 print(f"SKIP low-solr-score DOI={doi} SOLR={solr_score:.1f}")
+            last_reason = "low-solr-score"
             continue
         if raw_blob and not _raw_candidate_valid(
             c,
@@ -358,12 +357,14 @@ def _pick_best(cands: List[dict],
             if debug:
                 doi = c.get("DOI")
                 print(f"SKIP raw-invalid DOI={doi}")
+            last_reason = "raw-validation-failed"
             continue
         if not raw_blob:
             if solr_score is not None and solr_score < STRUCTURED_MIN_SOLR_SCORE:
                 if debug:
                     doi = c.get("DOI")
                     print(f"SKIP low-structured-score DOI={doi} SOLR={solr_score:.1f}")
+                last_reason = "low-structured-score"
                 continue
             if not _structured_candidate_valid(
                 c,
@@ -375,6 +376,7 @@ def _pick_best(cands: List[dict],
                 if debug:
                     doi = c.get("DOI")
                     print(f"SKIP structured-invalid DOI={doi}")
+                last_reason = "structured-validation-failed"
                 continue
         sc = solr_score
         if sc is None:
@@ -396,11 +398,12 @@ def _pick_best(cands: List[dict],
         if sc > best_score:
             best_score = sc
             best = c
+            last_reason = None
 
     effective_threshold = threshold if not raw_search else min(40, max(10, threshold // 3))
     if best and best_score >= effective_threshold:
-        return best
-    return None
+        return best, None
+    return None, last_reason or "below-threshold"
 
 
 def _crossref_request(params: Dict[str, str],
@@ -483,7 +486,8 @@ def enrich_missing_with_crossref(limit: int = 300,
                                  ua_email: Optional[str] = None,
                                  osf_id: Optional[str] = None,
                                  ref_id: Optional[str] = None,
-                                 debug: bool = False) -> Dict[str, int]:
+                                 debug: bool = False,
+                                 dump_misses: Optional[str] = None) -> Dict[str, int]:
     """
     For references missing a DOI (or weakly populated), try Crossref.
     If osf_id/ref_id supplied, only process that reference.
@@ -493,6 +497,8 @@ def enrich_missing_with_crossref(limit: int = 300,
     logger.info("Crossref lookup start")
 
     checked = updated = failed = 0
+    misses: List[Dict[str, str]] = []
+    misses: List[Dict[str, str]] = []
     repo = PreprintsRepo()
     rows = repo.select_refs_missing_doi(
         limit=limit,
@@ -511,6 +517,15 @@ def enrich_missing_with_crossref(limit: int = 300,
         if not title and raw_citation:
             use_raw_only = True
             _info("Crossref search using raw citation only", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
+        if not title and not raw_citation:
+            _info("Skipping Crossref search: missing title and raw citation", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
+            misses.append({
+                "osf_id": r.get("osf_id"),
+                "ref_id": r.get("ref_id"),
+                "raw_citation": raw_citation,
+                "reason": "missing-title-and-raw",
+            })
+            continue
         raw_year = r.get("year")
         _info(raw_citation)
         year = int(raw_year) if raw_year is not None and str(raw_year).isdigit() else None
@@ -539,9 +554,15 @@ def enrich_missing_with_crossref(limit: int = 300,
                 raw_mode = True
         if not items:
             _info("No Crossref candidates", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
+            misses.append({
+                "osf_id": r.get("osf_id"),
+                "ref_id": r.get("ref_id"),
+                "raw_citation": raw_citation,
+                "reason": "no-candidates",
+            })
             continue
 
-        best = _pick_best(
+        best, miss_reason = _pick_best(
             items,
             title,
             year,
@@ -554,6 +575,12 @@ def enrich_missing_with_crossref(limit: int = 300,
         )
         if not best:
             _info("No good Crossref match", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"), candidates=len(items))
+            misses.append({
+                "osf_id": r.get("osf_id"),
+                "ref_id": r.get("ref_id"),
+                "raw_citation": raw_citation,
+                "reason": miss_reason or "no-good-match",
+            })
             continue
 
         doi = best.get("DOI")
@@ -570,4 +597,14 @@ def enrich_missing_with_crossref(limit: int = 300,
             _exception("Dynamo update error in Crossref enrichment", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"), doi=doi)
 
     logger.info("Crossref enrichment complete")
+    if dump_misses and misses:
+        import csv
+        try:
+            with open(dump_misses, "w", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=["osf_id", "ref_id", "raw_citation", "reason"])
+                writer.writeheader()
+                writer.writerows(misses)
+            _info("Crossref misses written", path=dump_misses, count=len(misses))
+        except Exception as e:
+            _warn("Failed to write Crossref misses CSV", path=dump_misses, error=str(e))
     return {"checked": checked, "updated": updated, "failed": failed}
