@@ -329,7 +329,12 @@ def _candidate_author_last_names(cand: dict) -> List[str]:
             continue
         fam = a.get("family")
         if fam:
-            cands.append(_normalize_text(fam))
+            norm = _normalize_text(fam)
+            cands.append(norm)
+            # Also consider the last token of a multi-word family name (e.g., "Maneesha ... Rajan")
+            parts = [p for p in re.sub(r"[,\.;]", " ", fam).split() if p]
+            if parts:
+                cands.append(_normalize_text(parts[-1]))
             continue
         literal = a.get("name") or a.get("literal")
         if literal:
@@ -375,7 +380,7 @@ def _raw_candidate_valid(
             return False
     if authors:
         if not _authors_overlap(cand, authors):
-            _info("Author mismatch in raw candidate", doi=cand.get("DOI"), authors=authors)
+            _info("Author mismatch in raw candidate", doi=cand.get("DOI"), authors=authors, candidate_authors=cand.get("author"))
             return False
     return True
 
