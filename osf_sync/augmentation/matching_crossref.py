@@ -38,10 +38,11 @@ def _exception(msg: str, **extras):
         logger.exception(msg)
 
 CROSSREF_BASE = "https://api.crossref.org/works"
-RAW_MIN_FUZZ = 50
+RAW_MIN_FUZZ = 70
 RAW_MIN_SOLR_SCORE = 30.0
 STRUCTURED_MIN_SOLR_SCORE = 52.0
 TITLE_MIN_RATIO = 88
+SBMV_THRESHOLD_DEFAULT = 75.0  # composite score cutoff for SBMV-style scoring
 
 # -----------------------
 # Utilities
@@ -127,44 +128,109 @@ def _safe_get_issued_year(item: dict) -> Optional[int]:
     return _first_year_from_date_parts(item.get("issued"))
 
 
-def _score_candidate_structured(cand: dict,
-                                title: str,
-                                year: Optional[int],
-                                journal: Optional[str]) -> int:
+def _score_candidate_sbmv(
+    cand: dict,
+    title: Optional[str],
+    journal: Optional[str],
+    year: Optional[int],
+    authors: Optional[List[str]],
+    volume: Optional[str] = None,
+    issue: Optional[str] = None,
+    page: Optional[str] = None,
+) -> float:
     """
-    Require close agreement on each available component (title, journal, year).
-    Score is 100 only when all provided components pass their thresholds.
+    Crossref-style SBMV-inspired scoring: weighted blend of title, authors, journal,
+    year, and volume/issue/page where available.
     """
-    checks = 0
-    passed = 0
+    weights = {
+        "title": 0.45,
+        "authors": 0.2,
+        "journal": 0.15,
+        "year": 0.1,
+        "vip": 0.1,  # volume/issue/page bucket
+    }
 
-    # Title match: accept when fuzzy ratio is high enough
+    scores: Dict[str, float] = {}
+
+    # Title
     ctitles = cand.get("title") or []
     ctitle = ctitles[0] if ctitles else ""
     if ctitle and title:
-        checks += 1
-        ratio = fuzz.token_set_ratio(ctitle, title)
-        if ratio >= TITLE_MIN_RATIO:
-            passed += 1
+        scores["title"] = fuzz.token_set_ratio(ctitle, title)
 
-    # Journal match: must match exactly (after normalization)
-    cjour_list = cand.get("container-title") or []
-    cjour = cjour_list[0] if cjour_list else ""
-    if cjour and journal:
-        checks += 1
-        if _normalize_text(cjour) == _normalize_text(journal):
-            passed += 1
+    # Authors (overlap ratio of last names)
+    if authors:
+        ref_tokens = set(_last_name_tokens_from_strings(authors))
+        cand_tokens = set(_candidate_author_last_names(cand))
+        if ref_tokens and cand_tokens:
+            overlap = len(ref_tokens & cand_tokens)
+            scores["authors"] = 100.0 * overlap / max(1, len(ref_tokens))
 
-    # Year match: exact equality only
+    # Journal
+    cjour = (cand.get("container-title") or [""])[0]
+    if journal and cjour:
+        if _journal_matches(cjour, journal):
+            scores["journal"] = 100.0
+        else:
+            scores["journal"] = float(fuzz.token_set_ratio(cjour.lower(), journal.lower()))
+
+    # Year
     cyear = _safe_get_issued_year(cand)
     if year is not None and cyear is not None:
-        checks += 1
-        if int(year) == int(cyear):
-            passed += 1
+        diff = abs(int(year) - int(cyear))
+        if diff == 0:
+            scores["year"] = 100.0
+        elif diff == 1:
+            scores["year"] = 80.0
+        elif diff == 2:
+            scores["year"] = 50.0
+        else:
+            scores["year"] = 0.0
 
-    if checks == 0:
-        return 0
-    return int(round(100 * (passed / checks)))
+    # Volume/Issue/Page
+    vip_score = 0.0
+    vip_checks = 0
+    if volume:
+        cv = str(cand.get("volume") or "")
+        if cv:
+            vip_checks += 1
+            vip_score += 100.0 if _normalize_text(cv) == _normalize_text(volume) else 0.0
+    if issue:
+        ci = str(cand.get("issue") or "")
+        if ci:
+            vip_checks += 1
+            vip_score += 100.0 if _normalize_text(ci) == _normalize_text(issue) else 0.0
+    if page:
+        cp = str(cand.get("page") or "")
+        if cp:
+            vip_checks += 1
+            vip_score += 100.0 if _normalize_text(cp) == _normalize_text(page) else 0.0
+    if vip_checks:
+        scores["vip"] = vip_score / vip_checks
+
+    # Weighted average over available components
+    total_weight = 0.0
+    total_score = 0.0
+    for key, val in scores.items():
+        w = weights.get(key, 0.0)
+        if val is None:
+            continue
+        total_weight += w
+        total_score += w * float(val)
+    if total_weight == 0:
+        return 0.0
+    return total_score / total_weight
+
+
+def _score_candidate_structured(cand: dict,
+                                title: str,
+                                year: Optional[int],
+                                journal: Optional[str],
+                                authors: Optional[List[str]] = None,
+                                volume: Optional[str] = None,
+                                issue: Optional[str] = None,
+                                page: Optional[str] = None) -> float:
+    return _score_candidate_sbmv(cand, title, journal, year, authors, volume, issue, page)
 
 
 def _score_candidate_raw(cand: dict, raw_blob: str, authors: List[str]) -> int:
@@ -205,6 +271,19 @@ def _normalize_text(value: str) -> str:
     # Decode HTML entities (e.g., &amp;) before stripping punctuation/case
     unescaped = html.unescape(value)
     return re.sub(r"[^a-z0-9]+", "", unescaped.lower())
+
+
+def _journal_matches(cand_journal: str, ref_journal: str, fuzz_threshold: int = 94) -> bool:
+    """
+    Consider journals matching if normalized strings are equal, or if fuzzy token_set_ratio
+    clears a high bar to allow minor spelling variants (e.g., Specialities vs Specialties).
+    """
+    if not cand_journal or not ref_journal:
+        return False
+    if _normalize_text(cand_journal) == _normalize_text(ref_journal):
+        return True
+    ratio = fuzz.token_set_ratio(cand_journal.lower(), ref_journal.lower())
+    return ratio >= fuzz_threshold
 
 
 def _title_matches(cand_title: Optional[str], ref_title: Optional[str]) -> bool:
@@ -291,7 +370,7 @@ def _raw_candidate_valid(
         return False
     cjour = (cand.get("container-title") or [""])[0]
     if journal and cjour:
-        if _normalize_text(cjour) != _normalize_text(journal):
+        if not _journal_matches(cjour, journal):
             _info("Journal mismatch in raw candidate", doi=cand.get("DOI"), candidate_journal=cjour, ref_journal=journal)
             return False
     if authors:
@@ -315,7 +394,7 @@ def _structured_candidate_valid(
             return False
     cjour = (cand.get("container-title") or [""])[0]
     if journal and cjour:
-        if _normalize_text(cjour) != _normalize_text(journal):
+        if not _journal_matches(cjour, journal):
             return False
     cyear = _safe_get_issued_year(cand)
     if year is not None and cyear is not None and int(year) != int(cyear):
@@ -334,6 +413,9 @@ def _pick_best(cands: List[dict],
                debug: bool = False,
                raw_blob: Optional[str] = None,
                structured_authors: Optional[List[str]] = None,
+               ref_volume: Optional[str] = None,
+               ref_issue: Optional[str] = None,
+               ref_page: Optional[str] = None,
                raw_search: bool = False) -> Tuple[Optional[dict], Optional[str]]:
     best = None
     best_score = -1
@@ -383,7 +465,7 @@ def _pick_best(cands: List[dict],
             if raw_blob:
                 sc = _score_candidate_raw(c, raw_blob, structured_authors or [])
             else:
-                sc = _score_candidate_structured(c, title, year, journal)
+                sc = _score_candidate_structured(c, title, year, journal, structured_authors, ref_volume, ref_issue, ref_page)
         if debug:
             doi = c.get("DOI")
             cyear = _safe_get_issued_year(c)
@@ -400,7 +482,7 @@ def _pick_best(cands: List[dict],
             best = c
             last_reason = None
 
-    effective_threshold = threshold if not raw_search else min(40, max(10, threshold // 3))
+    effective_threshold = threshold if not raw_search else max(15, threshold // 2)
     if best and best_score >= effective_threshold:
         return best, None
     return None, last_reason or "below-threshold"
@@ -498,7 +580,6 @@ def enrich_missing_with_crossref(limit: int = 300,
 
     checked = updated = failed = 0
     misses: List[Dict[str, str]] = []
-    misses: List[Dict[str, str]] = []
     repo = PreprintsRepo()
     rows = repo.select_refs_missing_doi(
         limit=limit,
@@ -531,6 +612,9 @@ def enrich_missing_with_crossref(limit: int = 300,
         year = int(raw_year) if raw_year is not None and str(raw_year).isdigit() else None
         journal = (r.get("journal") or "").strip() or None
         authors = r.get("authors") or []
+        volume = (r.get("volume") or "").strip() or None
+        issue = (r.get("issue") or "").strip() or None
+        page = (r.get("page") or "").strip() or None
 
         meta = {
             "osf_id": r.get("osf_id"),
@@ -571,6 +655,9 @@ def enrich_missing_with_crossref(limit: int = 300,
             debug=debug,
             raw_blob=raw_citation if raw_mode else None,
             structured_authors=authors,
+            ref_volume=volume,
+            ref_issue=issue,
+            ref_page=page,
             raw_search=raw_mode,
         )
         if not best:
