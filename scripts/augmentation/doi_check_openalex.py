@@ -1,8 +1,10 @@
 import copy
 import json
+import os
+import hashlib
+import time
 import requests
 from thefuzz import fuzz
-import time
 
 # TODO
 # 1. Get list of papers with the same title - with year, journal name, author name fields also selected
@@ -14,6 +16,51 @@ import time
 
 # TODO Set a threshold via experimentation
 FUZZY_MATCH_THRESHOLD = 75
+OPENALEX_CACHE_PATH = os.environ.get("OPENALEX_CACHE_PATH", os.path.join("data", "openalex_cache.json"))
+OPENALEX_CACHE_TTL_HOURS = int(os.environ.get("OPENALEX_CACHE_TTL_HOURS", "24"))
+
+
+class _JsonCache:
+    def __init__(self, path: str, ttl_hours: int):
+        self.path = path
+        self.ttl_seconds = max(1, ttl_hours) * 3600
+        self._store = {}
+        self._load()
+
+    def _load(self):
+        try:
+            with open(self.path, "r", encoding="utf-8") as f:
+                self._store = json.load(f)
+        except FileNotFoundError:
+            self._store = {}
+        except Exception:
+            self._store = {}
+
+    def save(self):
+        try:
+            os.makedirs(os.path.dirname(self.path) or ".", exist_ok=True)
+            with open(self.path, "w", encoding="utf-8") as f:
+                json.dump(self._store, f)
+        except Exception:
+            pass
+
+    def _expired(self, entry):
+        ts = entry.get("ts") or 0
+        return (time.time() - ts) > self.ttl_seconds
+
+    def get(self, key):
+        entry = self._store.get(key)
+        if not entry:
+            return None
+        if self._expired(entry):
+            return None
+        return entry.get("data")
+
+    def set(self, key, value):
+        self._store[key] = {"ts": time.time(), "data": value}
+
+
+_CACHE = _JsonCache(OPENALEX_CACHE_PATH, OPENALEX_CACHE_TTL_HOURS)
 
 #TODO Implement test mode: Test OpenAlex accuracy by querying on objects that have a DOI in input - after fixing querying problems
 test_mode = False
@@ -71,14 +118,21 @@ def parse_query_results(query_output):
 
 def match_title_and_year(title,year):
     url = 'https://api.openalex.org/works?filter=title.search:"{title}"&mailto=cruzersoulthrender@gmail.com'.format(title=title, year=year) #TODO Generic email
-    #print(url)
-    #TODO Paging (returns max 25 results otherwise)
+    # Cache by URL
+    key = hashlib.sha1(url.encode("utf-8")).hexdigest()
+    cached = _CACHE.get(key)
+    if cached is not None:
+        return cached
+
     response = requests.get(url)
     try:
         res = response.json()
-        #print(response.elapsed.total_seconds())
-        #print(res)
         title_matches = parse_query_results(res)
+        try:
+            _CACHE.set(key, title_matches)
+            _CACHE.save()
+        except Exception:
+            pass
         return title_matches
     except json.decoder.JSONDecodeError:
         print(response)

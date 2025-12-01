@@ -260,6 +260,56 @@ class PreprintsRepo:
             items = items[:limit]
         return items
 
+    def select_refs_with_doi(
+        self,
+        limit: int,
+        osf_id: Optional[str] = None,
+        *,
+        ref_id: Optional[str] = None,
+        only_unchecked: bool = True,
+    ) -> List[Dict[str, Any]]:
+        """
+        Return references that already have a DOI. Optionally restrict to rows without FORRT status.
+        """
+        items: List[Dict[str, Any]] = []
+
+        if osf_id:
+            last_key = None
+            while True:
+                kwargs = {"KeyConditionExpression": Key("osf_id").eq(osf_id)}
+                if last_key:
+                    kwargs["ExclusiveStartKey"] = last_key
+                resp = self.t_refs.query(**kwargs)
+                chunk = resp.get("Items", [])
+                items.extend(chunk)
+                last_key = resp.get("LastEvaluatedKey")
+                if not last_key or (limit and len(items) >= limit):
+                    break
+        else:
+            fe = "(attribute_exists(doi) AND doi <> :empty)"
+            eav = {":empty": ""}
+            resp = self.t_refs.scan(FilterExpression=fe, ExpressionAttributeValues=eav, Limit=limit)
+            items = resp.get("Items", [])
+
+        if ref_id:
+            items = [it for it in items if it and it.get("ref_id") == ref_id]
+
+        if only_unchecked:
+            filtered: List[Dict[str, Any]] = []
+            for it in items:
+                if not it:
+                    continue
+                status_val = it.get("forrt_lookup_status")
+                has_output = it.get("forrt_lookup_has_output")
+                # retry if no status yet, or explicitly False, or known missing output
+                if status_val in (None, False) or has_output is False:
+                    filtered.append(it)
+            items = filtered
+
+        if limit:
+            items = items[:limit]
+        return items
+
     def update_reference_doi(self, osf_id: str, ref_id: str, doi: str, *, source: str) -> bool:
         # Only set if not already set
         now = dt.datetime.utcnow().isoformat()
@@ -277,3 +327,105 @@ class PreprintsRepo:
             if e.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
                 return False
             raise
+
+    def update_reference_forrt(
+        self,
+        osf_id: str,
+        ref_id: str,
+        *,
+        status: bool,
+        payload: Optional[Dict[str, Any]] = None,
+        original_doi: Optional[str] = None,
+        has_output: Optional[bool] = None,
+    ) -> None:
+        """
+        Persist FORRT lookup result onto a reference row.
+        """
+        now = dt.datetime.utcnow().isoformat()
+
+        expr_parts = ["forrt_lookup_status=:s", "forrt_checked_at=:t"]
+        eav: Dict[str, Any] = {":s": bool(status), ":t": now}
+
+        if payload is not None:
+            expr_parts.append("forrt_lookup_payload=:p")
+            eav[":p"] = payload
+        if original_doi is not None:
+            expr_parts.append("forrt_lookup_original_doi=:o")
+            eav[":o"] = original_doi
+        if has_output is not None:
+            expr_parts.append("forrt_lookup_has_output=:h")
+            eav[":h"] = bool(has_output)
+
+        ue = "SET " + ", ".join(expr_parts)
+
+        self.t_refs.update_item(
+            Key={"osf_id": osf_id, "ref_id": ref_id},
+            UpdateExpression=ue,
+            ExpressionAttributeValues=eav,
+            ReturnValues="NONE",
+        )
+
+    def select_refs_with_forrt_original(
+        self,
+        limit: int,
+        osf_id: Optional[str] = None,
+        *,
+        ref_id: Optional[str] = None,
+        include_missing_original: bool = False,
+    ) -> List[Dict[str, Any]]:
+        """
+        Return references that have a FORRT-derived original DOI (or at least a FORRT status when include_missing_original=True).
+        """
+        items: List[Dict[str, Any]] = []
+
+        if osf_id:
+            last_key = None
+            while True:
+                kwargs = {"KeyConditionExpression": Key("osf_id").eq(osf_id)}
+                if last_key:
+                    kwargs["ExclusiveStartKey"] = last_key
+                resp = self.t_refs.query(**kwargs)
+                chunk = resp.get("Items", [])
+                items.extend(chunk)
+                last_key = resp.get("LastEvaluatedKey")
+                if not last_key or (limit and len(items) >= limit):
+                    break
+        else:
+            fe = "attribute_exists(forrt_lookup_original_doi)"
+            resp = self.t_refs.scan(FilterExpression=fe, Limit=limit)
+            items = resp.get("Items", [])
+
+        if ref_id:
+            items = [it for it in items if it and it.get("ref_id") == ref_id]
+
+        # Only keep rows that actually carry the original DOI attribute
+        if not include_missing_original:
+            filtered = []
+            for it in items:
+                if not it:
+                    continue
+                if "forrt_lookup_original_doi" in it and it.get("forrt_lookup_original_doi"):
+                    filtered.append(it)
+            items = filtered
+
+        if limit:
+            items = items[:limit]
+        return items
+
+    def update_reference_forrt_screening(
+        self,
+        osf_id: str,
+        ref_id: str,
+        *,
+        original_cited: bool,
+    ) -> None:
+        """
+        Persist whether the FORRT original DOI is already cited in the same reference list.
+        """
+        now = dt.datetime.utcnow().isoformat()
+        self.t_refs.update_item(
+            Key={"osf_id": osf_id, "ref_id": ref_id},
+            UpdateExpression="SET forrt_original_cited=:c, forrt_screened_at=:t",
+            ExpressionAttributeValues={":c": bool(original_cited), ":t": now},
+            ReturnValues="NONE",
+        )

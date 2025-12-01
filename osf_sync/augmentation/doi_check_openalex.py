@@ -6,6 +6,8 @@ import time
 import unicodedata
 import logging
 import requests
+import json
+import hashlib
 
 from thefuzz import fuzz
 from ..dynamo.preprints_repo import PreprintsRepo
@@ -35,6 +37,8 @@ def _log(level: int, msg: str, **extras: Any) -> None:
 # -----------------------
 OPENALEX_MAILTO = os.environ.get("OPENALEX_EMAIL") or os.environ.get("OPENALEX_MAILTO") or "changeme@example.com"
 OPENALEX_BASE = "https://api.openalex.org"
+OPENALEX_CACHE_PATH = os.environ.get("OPENALEX_CACHE_PATH", os.path.join("data", "openalex_cache.json"))
+OPENALEX_CACHE_TTL_HOURS = int(os.environ.get("OPENALEX_CACHE_TTL_HOURS", "24"))
 
 # -----------------------
 # Normalization helpers
@@ -70,11 +74,76 @@ def _norm_list(xs: Optional[List[str]]) -> List[str]:
     return [_norm(x) for x in xs if x]
 
 
+class _JsonCache:
+    def __init__(self, path: str, ttl_hours: int):
+        self.path = path
+        self.ttl_seconds = max(1, ttl_hours) * 3600
+        self._store: Dict[str, dict] = {}
+        self._load()
+
+    def _load(self) -> None:
+        try:
+            with open(self.path, "r", encoding="utf-8") as f:
+                self._store = json.load(f)
+        except FileNotFoundError:
+            self._store = {}
+        except Exception:
+            self._store = {}
+
+    def save(self) -> None:
+        try:
+            os.makedirs(os.path.dirname(self.path) or ".", exist_ok=True)
+            with open(self.path, "w", encoding="utf-8") as f:
+                json.dump(self._store, f)
+        except Exception:
+            pass
+
+    def _expired(self, entry: dict) -> bool:
+        ts = entry.get("ts") or 0
+        return (time.time() - ts) > self.ttl_seconds
+
+    def get(self, key: str) -> Optional[dict]:
+        entry = self._store.get(key)
+        if not entry:
+            return None
+        if self._expired(entry):
+            return None
+        return entry.get("data")
+
+    def set(self, key: str, value: dict) -> None:
+        self._store[key] = {"ts": time.time(), "data": value}
+
+
 # -----------------------
 # OpenAlex small utilities
 # -----------------------
 def _sget(sess: requests.Session, url: str, params: Dict[str, str], timeout: int = 30) -> Optional[requests.Response]:
+    cache = _JsonCache(OPENALEX_CACHE_PATH, OPENALEX_CACHE_TTL_HOURS)
+    key_raw = url + "?" + "&".join(f"{k}={params[k]}" for k in sorted(params))
+    key = hashlib.sha1(key_raw.encode("utf-8")).hexdigest()
+
+    cached = cache.get(key)
+    if cached is not None:
+        class _DummyResp:
+            def __init__(self, data, url):
+                self._data = data
+                self.status_code = 200
+                self.url = url
+
+            def json(self):
+                return self._data
+
+            def raise_for_status(self):
+                return None
+        return _DummyResp(cached, url + "?" + "&".join(f"{k}={params[k]}" for k in sorted(params)))
+
     r = sess.get(url, params=params, timeout=timeout)
+    try:
+        if r.status_code == 200:
+            cache.set(key, r.json())
+            cache.save()
+    except Exception:
+        pass
     return r
 
 

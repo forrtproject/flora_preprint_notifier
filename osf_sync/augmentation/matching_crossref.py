@@ -6,6 +6,7 @@ import time
 import json
 import logging
 import re
+import hashlib
 from typing import Dict, List, Optional, Tuple
 from urllib.parse import urlencode
 
@@ -43,6 +44,8 @@ RAW_MIN_SOLR_SCORE = 30.0
 STRUCTURED_MIN_SOLR_SCORE = 52.0
 TITLE_MIN_RATIO = 88
 SBMV_THRESHOLD_DEFAULT = 75.0  # composite score cutoff for SBMV-style scoring
+CROSSREF_CACHE_PATH = os.environ.get("CROSSREF_CACHE_PATH", os.path.join("data", "crossref_cache.json"))
+CROSSREF_CACHE_TTL_HOURS = int(os.environ.get("CROSSREF_CACHE_TTL_HOURS", "24"))
 
 # -----------------------
 # Utilities
@@ -96,6 +99,46 @@ def _build_params(title: str,
             params["query.author"] = a
 
     return params
+
+
+class _JsonCache:
+    def __init__(self, path: str, ttl_hours: int):
+        self.path = path
+        self.ttl_seconds = max(1, ttl_hours) * 3600
+        self._store: Dict[str, dict] = {}
+        self._load()
+
+    def _load(self) -> None:
+        try:
+            with open(self.path, "r", encoding="utf-8") as f:
+                self._store = json.load(f)
+        except FileNotFoundError:
+            self._store = {}
+        except Exception:
+            self._store = {}
+
+    def save(self) -> None:
+        try:
+            os.makedirs(os.path.dirname(self.path) or ".", exist_ok=True)
+            with open(self.path, "w", encoding="utf-8") as f:
+                json.dump(self._store, f)
+        except Exception:
+            pass
+
+    def _expired(self, entry: dict) -> bool:
+        ts = entry.get("ts") or 0
+        return (time.time() - ts) > self.ttl_seconds
+
+    def get(self, key: str) -> Optional[dict]:
+        entry = self._store.get(key)
+        if not entry:
+            return None
+        if self._expired(entry):
+            return None
+        return entry.get("data")
+
+    def set(self, key: str, value: dict) -> None:
+        self._store[key] = {"ts": time.time(), "data": value}
 
 
 def _first_year_from_date_parts(blob: Optional[dict]) -> Optional[int]:
@@ -500,13 +543,25 @@ def _crossref_request(params: Dict[str, str],
     GET Crossref with retries. Log detailed errors.
     """
     url = CROSSREF_BASE
+    cache = _JsonCache(CROSSREF_CACHE_PATH, CROSSREF_CACHE_TTL_HOURS)
+    key_raw = url + "?" + urlencode(sorted(params.items()))
+    key = hashlib.sha1(key_raw.encode("utf-8")).hexdigest()
+
+    cached = cache.get(key)
+    if cached is not None:
+        _info("Crossref request cache hit", url=url, params=params)
+        return cached
+
     _info("Crossref request start", params=params)
     for attempt in range(1, max_attempts + 1):
         try:
             r = requests.get(url, params=params, timeout=25)
             if r.status_code == 200:
                 _info("Crossref request success", url=r.url, attempt=attempt)
-                return r.json()
+                data = r.json()
+                cache.set(key, data)
+                cache.save()
+                return data
             else:
                 body = r.text[:600]
                 # Log both via logger and console to ensure visibility

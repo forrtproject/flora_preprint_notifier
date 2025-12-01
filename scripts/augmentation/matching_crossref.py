@@ -1,6 +1,9 @@
 from __future__ import annotations
 import logging
 import time
+import os
+import json
+import hashlib
 from typing import Dict, List, Optional, Tuple
 
 import requests
@@ -20,6 +23,8 @@ DEFAULT_MAX_RESULTS = 40
 DEFAULT_SLEEP = 0.3
 DEFAULT_ROWS = 20                 # per page
 DEFAULT_UA_EMAIL = "you@example.com"
+CROSSREF_CACHE_PATH = os.environ.get("CROSSREF_CACHE_PATH", os.path.join("data", "crossref_cache.json"))
+CROSSREF_CACHE_TTL_HOURS = int(os.environ.get("CROSSREF_CACHE_TTL_HOURS", "24"))
 
 logger = logging.getLogger(__name__)
 if not logger.handlers:
@@ -28,6 +33,52 @@ if not logger.handlers:
         format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
     )
 logger.setLevel(logging.INFO)
+
+
+# -------------------
+# Simple JSON cache
+# -------------------
+class _JsonCache:
+    def __init__(self, path: str, ttl_hours: int):
+        self.path = path
+        self.ttl_seconds = max(1, ttl_hours) * 3600
+        self._store: Dict[str, dict] = {}
+        self._load()
+
+    def _load(self) -> None:
+        try:
+            with open(self.path, "r", encoding="utf-8") as f:
+                self._store = json.load(f)
+        except FileNotFoundError:
+            self._store = {}
+        except Exception:
+            self._store = {}
+
+    def save(self) -> None:
+        try:
+            os.makedirs(os.path.dirname(self.path) or ".", exist_ok=True)
+            with open(self.path, "w", encoding="utf-8") as f:
+                json.dump(self._store, f)
+        except Exception:
+            pass
+
+    def _expired(self, entry: dict) -> bool:
+        ts = entry.get("ts") or 0
+        return (time.time() - ts) > self.ttl_seconds
+
+    def get(self, key: str) -> Optional[dict]:
+        entry = self._store.get(key)
+        if not entry:
+            return None
+        if self._expired(entry):
+            return None
+        return entry.get("data")
+
+    def set(self, key: str, value: dict) -> None:
+        self._store[key] = {"ts": time.time(), "data": value}
+
+
+_CACHE = _JsonCache(CROSSREF_CACHE_PATH, CROSSREF_CACHE_TTL_HOURS)
 
 
 # -------------------
@@ -112,6 +163,23 @@ def crossref_search(
         # Restrict by pub-year range around the target year
         params["filter"] = f"from-pub-date:{year}-01-01,until-pub-date:{year}-12-31"
 
+    # Cache key: use params + pagination limits
+    key_raw = json.dumps(
+        {
+            "biblio": biblio,
+            "year": year,
+            "journal": journal,
+            "authors": authors[:3],  # limit to keep key small
+            "rows": rows,
+            "max_results": max_results,
+        },
+        sort_keys=True,
+    )
+    key = hashlib.sha1(key_raw.encode("utf-8")).hexdigest()
+    cached = _CACHE.get(key)
+    if cached is not None:
+        return cached
+
     results: List[Dict] = []
     cursor = "*"
     while len(results) < max_results:
@@ -134,7 +202,13 @@ def crossref_search(
         if len(results) < max_results:
             time.sleep(DEFAULT_SLEEP)
 
-    return results[:max_results]
+    out = results[:max_results]
+    try:
+        _CACHE.set(key, out)
+        _CACHE.save()
+    except Exception:
+        pass
+    return out
 
 
 # -------------------
