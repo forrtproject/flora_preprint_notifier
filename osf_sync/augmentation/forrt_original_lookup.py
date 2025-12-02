@@ -59,31 +59,6 @@ def normalize_doi(doi: Optional[str]) -> Optional[str]:
     return m.group(0) if m else None
 
 
-def _extract_original_doi(payload: Any) -> Optional[str]:
-    """
-    Best-effort extraction of an original DOI from the FORRT response payload.
-    """
-    if isinstance(payload, dict):
-        for key in ("original_doi", "original", "originating_doi", "origin_doi"):
-            val = payload.get(key)
-            norm = normalize_doi(val) if isinstance(val, str) else None
-            if norm:
-                return norm
-        # Walk nested structures
-        for val in payload.values():
-            found = _extract_original_doi(val)
-            if found:
-                return found
-    elif isinstance(payload, list):
-        for item in payload:
-            found = _extract_original_doi(item)
-            if found:
-                return found
-    elif isinstance(payload, str):
-        return normalize_doi(payload)
-    return None
-
-
 def _prune_nulls(obj: Any):
     """
     Recursively drop None/null entries and empty containers.
@@ -105,6 +80,67 @@ def _prune_nulls(obj: Any):
                 cleaned_items.append(cleaned)
         return cleaned_items or None
     return obj
+
+
+def _collect_strings(value: Any) -> List[str]:
+    out: List[str] = []
+    if value is None:
+        return out
+    if isinstance(value, str):
+        v = value.strip()
+        if v:
+            out.append(v)
+    elif isinstance(value, list):
+        for v in value:
+            out.extend(_collect_strings(v))
+    elif isinstance(value, dict):
+        for v in value.values():
+            out.extend(_collect_strings(v))
+    else:
+        try:
+            v = str(value).strip()
+            if v:
+                out.append(v)
+        except Exception:
+            pass
+    return out
+
+
+def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
+    """
+    Extract array of {doi_r, apa_ref_o, apa_ref_r} objects from the payload.
+    Deduplicates exact tuples.
+    """
+    out: List[Dict[str, Optional[str]]] = []
+
+    def _walk(obj: Any):
+        if isinstance(obj, dict):
+            has_keys = any(k in obj for k in ("doi_r", "apa_ref_o", "apa_ref_r"))
+            if has_keys:
+                rec = {
+                    "doi_r": normalize_doi(obj.get("doi_r")) if obj.get("doi_r") else None,
+                    "apa_ref_o": obj.get("apa_ref_o"),
+                    "apa_ref_r": obj.get("apa_ref_r"),
+                }
+                out.append(rec)
+            for v in obj.values():
+                _walk(v)
+        elif isinstance(obj, list):
+            for item in obj:
+                _walk(item)
+
+    _walk(payload)
+
+    # deduplicate while preserving order
+    seen = set()
+    uniq_out = []
+    for rec in out:
+        key = (rec.get("doi_r"), rec.get("apa_ref_o"), rec.get("apa_ref_r"))
+        if key in seen:
+            continue
+        seen.add(key)
+        uniq_out.append(rec)
+    return uniq_out
 
 
 # -----------------------
@@ -228,31 +264,41 @@ def lookup_originals_with_forrt(
             stats["cache_hits"] += 1
             payload = cached.get("payload")
             payload_clean = _prune_nulls(payload)
-            has_output = payload_clean is not None
             status = bool(payload_clean)
-            orig = _extract_original_doi(payload_clean) if payload_clean else None
+            ref_objs = _extract_ref_objects(payload_clean) if payload_clean else []
             try:
-                repo.update_reference_forrt(osfid, refid, status=status, payload=payload_clean, original_doi=orig, has_output=has_output)
+                repo.update_reference_forrt(
+                    osfid,
+                    refid,
+                    status=status,
+                    payload=payload_clean,
+                    ref_objects=ref_objs,
+                )
             except Exception:
                 stats["failed"] += 1
             # refresh cache entry with cleaned payload + corrected status
-            cache.set(doi, {"status": status, "payload": payload_clean, "original_doi": orig, "has_output": has_output})
+            cache.set(doi, {"status": status, "payload": payload_clean, "refs": ref_objs})
             continue
 
         result = _call_forrt(sess, doi, debug=debug)
         payload = result.get("payload")
-        status = bool(result.get("payload"))
         payload_clean = _prune_nulls(payload)
-        original_doi = _extract_original_doi(payload_clean) if payload_clean else None
-        has_output = payload_clean is not None
+        status = bool(payload_clean)
+        ref_objs = _extract_ref_objects(payload_clean) if payload_clean else []
 
         try:
-            repo.update_reference_forrt(osfid, refid, status=status, payload=payload_clean, original_doi=original_doi, has_output=has_output)
+            repo.update_reference_forrt(
+                osfid,
+                refid,
+                status=status,
+                payload=payload_clean,
+                ref_objects=ref_objs,
+            )
             stats["updated"] += 1
         except Exception:
             stats["failed"] += 1
 
-        cache.set(doi, {"status": status, "payload": payload_clean, "original_doi": original_doi, "has_output": has_output})
+        cache.set(doi, {"status": status, "payload": payload_clean, "refs": ref_objs})
         time.sleep(0.1)  # be polite
 
     cache.save()

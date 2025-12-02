@@ -300,9 +300,8 @@ class PreprintsRepo:
                 if not it:
                     continue
                 status_val = it.get("forrt_lookup_status")
-                has_output = it.get("forrt_lookup_has_output")
-                # retry if no status yet, or explicitly False, or known missing output
-                if status_val in (None, False) or has_output is False:
+                # retry if no status yet, or explicitly False
+                if status_val in (None, False):
                     filtered.append(it)
             items = filtered
 
@@ -335,8 +334,7 @@ class PreprintsRepo:
         *,
         status: bool,
         payload: Optional[Dict[str, Any]] = None,
-        original_doi: Optional[str] = None,
-        has_output: Optional[bool] = None,
+        ref_objects: Optional[List[Dict[str, Any]]] = None,
     ) -> None:
         """
         Persist FORRT lookup result onto a reference row.
@@ -349,12 +347,9 @@ class PreprintsRepo:
         if payload is not None:
             expr_parts.append("forrt_lookup_payload=:p")
             eav[":p"] = payload
-        if original_doi is not None:
-            expr_parts.append("forrt_lookup_original_doi=:o")
-            eav[":o"] = original_doi
-        if has_output is not None:
-            expr_parts.append("forrt_lookup_has_output=:h")
-            eav[":h"] = bool(has_output)
+        if ref_objects is not None:
+            expr_parts.append("forrt_refs=:fr")
+            eav[":fr"] = ref_objects
 
         ue = "SET " + ", ".join(expr_parts)
 
@@ -374,7 +369,7 @@ class PreprintsRepo:
         include_missing_original: bool = False,
     ) -> List[Dict[str, Any]]:
         """
-        Return references that have a FORRT-derived original DOI (or at least a FORRT status when include_missing_original=True).
+        Return references that have a FORRT lookup (status/output); original DOI field is no longer used.
         """
         items: List[Dict[str, Any]] = []
 
@@ -391,7 +386,7 @@ class PreprintsRepo:
                 if not last_key or (limit and len(items) >= limit):
                     break
         else:
-            fe = "attribute_exists(forrt_lookup_original_doi)"
+            fe = "attribute_exists(forrt_lookup_status)"
             resp = self.t_refs.scan(FilterExpression=fe, Limit=limit)
             items = resp.get("Items", [])
 
@@ -404,7 +399,8 @@ class PreprintsRepo:
             for it in items:
                 if not it:
                     continue
-                if "forrt_lookup_original_doi" in it and it.get("forrt_lookup_original_doi"):
+                status_val = it.get("forrt_lookup_status")
+                if status_val:
                     filtered.append(it)
             items = filtered
 

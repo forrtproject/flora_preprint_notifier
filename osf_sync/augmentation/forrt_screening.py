@@ -75,9 +75,10 @@ def screen_forrt_replications(
         retained_refs: List[Dict[str, Any]] = []
 
         for r in refs:
-            orig = normalize_doi(r.get("forrt_lookup_original_doi"))
-            refid = r.get("ref_id")
+            # Original DOI is treated as the same as the replication DOI; field is no longer stored separately
             replication_doi = normalize_doi(r.get("doi"))
+            orig = replication_doi
+            refid = r.get("ref_id")
             already_cited = orig in all_dois if orig else False
 
             if persist_flags:
@@ -157,6 +158,7 @@ if __name__ == "__main__":
     ap.add_argument("--limit", type=int, default=500)
     ap.add_argument("--limit-lookup", type=int, default=200, help="How many rows to send to FORRT lookup before screening")
     ap.add_argument("--osf_id", default=None)
+    ap.add_argument("--only-osf-id", dest="osf_id", default=None, help="Alias for --osf_id to process a single OSF id")
     ap.add_argument("--ref_id", default=None)
     ap.add_argument("--no-persist", action="store_true", help="Do not write screening flags back to Dynamo.")
     ap.add_argument("--no-lookup-first", action="store_true", help="Skip the lookup stage and only screen existing FORRT results")
