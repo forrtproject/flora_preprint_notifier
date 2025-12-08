@@ -108,7 +108,7 @@ def _collect_strings(value: Any) -> List[str]:
 
 def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
     """
-    Extract array of {doi_r, apa_ref_o, apa_ref_r} objects from the payload.
+    Extract array of {doi_o, doi_r, apa_ref_o, apa_ref_r} objects from the payload.
     Deduplicates exact tuples.
     """
     out: List[Dict[str, Optional[str]]] = []
@@ -118,6 +118,7 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
             has_keys = any(k in obj for k in ("doi_r", "apa_ref_o", "apa_ref_r"))
             if has_keys:
                 rec = {
+                    "doi_o": normalize_doi(obj.get("doi_o")) if obj.get("doi_o") else None,
                     "doi_r": normalize_doi(obj.get("doi_r")) if obj.get("doi_r") else None,
                     "apa_ref_o": obj.get("apa_ref_o"),
                     "apa_ref_r": obj.get("apa_ref_r"),
@@ -135,7 +136,7 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
     seen = set()
     uniq_out = []
     for rec in out:
-        key = (rec.get("doi_r"), rec.get("apa_ref_o"), rec.get("apa_ref_r"))
+        key = (rec.get("doi_o"), rec.get("doi_r"), rec.get("apa_ref_o"), rec.get("apa_ref_r"))
         if key in seen:
             continue
         seen.add(key)

@@ -34,9 +34,9 @@ def screen_forrt_replications(
     debug: bool = False,
 ) -> List[Dict[str, Any]]:
     """
-    For each preprint, look at references that have a FORRT original DOI mapping (replication -> original),
-    check whether the original DOI is already cited in the same reference list. If not, flag the preprint
-    as eligible for inclusion.
+    For each preprint, match the preprint's own DOI to FORRT originals (doi_o) and see whether
+    any paired replication DOI (doi_r) is already cited in the same reference list. If a replication DOI
+    is present, mark the reference as cited.
     """
     repo = PreprintsRepo()
     rows = repo.select_refs_with_forrt_original(
@@ -55,6 +55,8 @@ def screen_forrt_replications(
     results: List[Dict[str, Any]] = []
 
     for pid, refs in grouped.items():
+        preprint_doi = normalize_doi(repo.get_preprint_doi(pid))
+
         # Collect all DOIs cited in this preprint (normalize)
         all_dois: Set[str] = set()
         for r in refs:
@@ -75,27 +77,35 @@ def screen_forrt_replications(
         retained_refs: List[Dict[str, Any]] = []
 
         for r in refs:
-            # Original DOI is treated as the same as the replication DOI; field is no longer stored separately
-            replication_doi = normalize_doi(r.get("doi"))
-            orig = replication_doi
             refid = r.get("ref_id")
-            already_cited = orig in all_dois if orig else False
+
+            # Filter FORRT ref objects so we only consider pairs whose doi_o matches the preprint DOI
+            ref_objs = r.get("forrt_refs") or []
+            matching_pairs = []
+            for obj in ref_objs:
+                doi_o = normalize_doi(obj.get("doi_o"))
+                doi_r = normalize_doi(obj.get("doi_r"))
+                if preprint_doi and doi_o and preprint_doi == doi_o:
+                    matching_pairs.append({"doi_o": doi_o, "doi_r": doi_r})
+
+            replication_dois = [p["doi_r"] for p in matching_pairs if p.get("doi_r")]
+            replication_cited = any((d in all_dois) for d in replication_dois) if replication_dois else False
 
             if persist_flags:
                 try:
-                    repo.update_reference_forrt_screening(pid, refid, original_cited=already_cited)
+                    repo.update_reference_forrt_screening(pid, refid, original_cited=replication_cited)
                 except Exception as e:
                     _warn("Failed to persist FORRT screening flag", osf_id=pid, ref_id=refid, error=str(e))
 
             payload = {
                 "osf_id": pid,
                 "ref_id": refid,
-                "replication_doi": replication_doi,
-                "original_doi": orig,
-                "original_cited": already_cited,
+                "original_doi": preprint_doi,
+                "matching_replication_dois": replication_dois,
+                "replication_cited": replication_cited,
             }
             retained_refs.append(payload)
-            if not already_cited:
+            if not replication_cited:
                 eligible_refs.append(payload)
 
         if eligible_refs:

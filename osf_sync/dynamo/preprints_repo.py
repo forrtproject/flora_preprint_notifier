@@ -212,6 +212,15 @@ class PreprintsRepo:
             return None
         return {"osf_id": it.get("osf_id"), "provider_id": it.get("provider_id"), "raw": it.get("raw")}
 
+    def get_preprint_doi(self, osf_id: str) -> Optional[str]:
+        """
+        Return the DOI stored on the preprint record (if any).
+        """
+        it = self.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item")
+        if not it:
+            return None
+        return it.get("doi")
+
     def select_refs_missing_doi(
         self,
         limit: int,
