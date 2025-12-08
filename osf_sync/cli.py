@@ -97,7 +97,7 @@ def main():
 
     p7 = sub.add_parser("enrich-openalex", help="Enrich remaining missing reference DOIs via OpenAlex")
     p7.add_argument("--limit", type=int, default=200)
-    p7.add_argument("--threshold", type=int, default=70, help="Score threshold for OpenAlex matches.")
+    p7.add_argument("--threshold", type=int, default=78, help="Score threshold for OpenAlex matches.")
     p7.add_argument("--mailto", default=None, help="Override OpenAlex contact email.")
     p7.add_argument("--osf-id", default=None, help="Restrict to this OSF ID")
     p7.add_argument("--debug", action="store_true", help="Enable verbose OpenAlex logging")

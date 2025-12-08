@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional, Tuple
 import os
 import re
+import html
 import time
 import unicodedata
 import logging
@@ -35,6 +36,8 @@ def _log(level: int, msg: str, **extras: Any) -> None:
 # -----------------------
 OPENALEX_MAILTO = os.environ.get("OPENALEX_EMAIL") or os.environ.get("OPENALEX_MAILTO") or "changeme@example.com"
 OPENALEX_BASE = "https://api.openalex.org"
+OPENALEX_THRESHOLD_DEFAULT = 78  # align with the Crossref matching strictness
+TITLE_MIN_RATIO = 88
 
 # -----------------------
 # Normalization helpers
@@ -70,66 +73,78 @@ def _norm_list(xs: Optional[List[str]]) -> List[str]:
     return [_norm(x) for x in xs if x]
 
 
+def _normalize_text(value: str) -> str:
+    """Normalize for equality/fuzzy checks similar to Crossref scoring."""
+    if value is None:
+        return ""
+    unescaped = html.unescape(value)
+    return re.sub(r"[^a-z0-9]+", "", unescaped.lower())
+
+
+def _journal_matches(cand_journal: str, ref_journal: str, fuzz_threshold: int = 94) -> bool:
+    """Consider journals matching if normalized strings are equal or clear a high fuzzy bar."""
+    if not cand_journal or not ref_journal:
+        return False
+    if _normalize_text(cand_journal) == _normalize_text(ref_journal):
+        return True
+    ratio = fuzz.token_set_ratio(cand_journal.lower(), ref_journal.lower())
+    return ratio >= fuzz_threshold
+
+
+def _title_matches(cand_title: Optional[str], ref_title: Optional[str]) -> bool:
+    if not cand_title or not ref_title:
+        return False if ref_title else True
+    ratio = fuzz.token_set_ratio(cand_title, ref_title)
+    return ratio >= TITLE_MIN_RATIO
+
+
+def _last_name_tokens_from_strings(authors: List[Any]) -> List[str]:
+    tokens: List[str] = []
+    for raw in authors:
+        value = str(raw or "")
+        if not value:
+            continue
+        cleaned = re.sub(r"[,.;]", " ", value)
+        parts = [p for p in cleaned.split() if p]
+        if parts:
+            tokens.append(_normalize_text(parts[-1]))
+    return [t for t in tokens if t]
+
+
+def _candidate_author_last_names(cand: Dict[str, Any]) -> List[str]:
+    cands: List[str] = []
+    for au in cand.get("authorships") or []:
+        try:
+            dn = (au.get("author") or {}).get("display_name") or ""
+            if dn:
+                cleaned = re.sub(r"[,.;]", " ", dn)
+                parts = [p for p in cleaned.split() if p]
+                if parts:
+                    cands.append(_normalize_text(parts[-1]))
+        except Exception:
+            continue
+    return [c for c in cands if c]
+
+
+def _authors_overlap(cand: Dict[str, Any], ref_authors: List[Any]) -> bool:
+    ref_tokens = _last_name_tokens_from_strings(ref_authors)
+    cand_tokens = _candidate_author_last_names(cand)
+    if not ref_tokens or not cand_tokens:
+        return True
+    ref_set = set(ref_tokens)
+    cand_set = set(cand_tokens)
+    overlap = ref_set & cand_set
+    if len(ref_set) >= 3:
+        return bool(overlap)
+    return True
+
+
 # -----------------------
 # OpenAlex small utilities
 # -----------------------
 def _sget(sess: requests.Session, url: str, params: Dict[str, str], timeout: int = 30) -> Optional[requests.Response]:
     r = sess.get(url, params=params, timeout=timeout)
     return r
-
-
-def _resolve_source_id(sess: requests.Session, journal_name: Optional[str]) -> Optional[str]:
-    """Resolve a journal/display name to OpenAlex source.id (Sxxxx)."""
-    if not journal_name:
-        return None
-    try:
-        params = {"search": journal_name, "per_page": "5", "mailto": OPENALEX_MAILTO}
-        r = _sget(sess, f"{OPENALEX_BASE}/sources", params)
-        _log(logging.INFO, "OpenAlex sources lookup", url=(r.url if r else None))
-        if not r:
-            return None
-        r.raise_for_status()
-        data = r.json() or {}
-        for src in data.get("results", []):
-            # choose best by name similarity
-            dn = (src.get("display_name") or "").strip()
-            if not dn:
-                continue
-            score = max(fuzz.ratio(_norm(journal_name), _norm(dn)),
-                        fuzz.token_set_ratio(_norm(journal_name), _norm(dn)))
-            if score >= 85:
-                return src.get("id")  # eg "https://openalex.org/Sxxxx"
-        return None
-    except Exception as e:
-        _log(logging.WARNING, "OpenAlex sources resolve error", error=str(e))
-        return None
-
-
-def _resolve_author_ids(sess: requests.Session, names: List[str]) -> List[str]:
-    """Resolve a few author names to OpenAlex author IDs (Axxxx). Best-effort."""
-    ids: List[str] = []
-    for nm in names[:3]:  # cap to 3 to avoid many calls
-        try:
-            params = {"search": nm, "per_page": "3", "mailto": OPENALEX_MAILTO}
-            r = _sget(sess, f"{OPENALEX_BASE}/authors", params)
-            if not r:
-                continue
-            r.raise_for_status()
-            js = r.json() or {}
-            best_id = None
-            best_score = 0
-            for au in js.get("results", []):
-                disp = (au.get("display_name") or "").strip()
-                sc = max(fuzz.ratio(_norm(nm), _norm(disp)),
-                         fuzz.token_set_ratio(_norm(nm), _norm(disp)))
-                if sc > best_score:
-                    best_score = sc
-                    best_id = au.get("id")
-            if best_id and best_score >= 85:
-                ids.append(best_id)  # full URL like https://openalex.org/Axxxx
-        except Exception as e:
-            _log(logging.WARNING, "OpenAlex author resolve error", name=nm, error=str(e))
-    return ids
 
 
 # -----------------------
@@ -139,14 +154,12 @@ def _fetch_candidates_strict(
     sess: requests.Session,
     title: str,
     year: Optional[int],
-    journal: Optional[str],
-    author_names: List[str],
     debug: bool = False,
 ) -> List[Dict[str, Any]]:
     """
     Strict query using OpenAlex 'filter=' style:
-      filter=title.search:<title>,from_publication_date:YYYY-01-01,to_publication_date:YYYY-12-31,
-             primary_location.source.id:Sxxxx,authorships.author.id:Axxxx,...
+      filter=title.search:<title>,from_publication_date:YYYY-01-01,to_publication_date:YYYY-12-31
+    Title-only search by request; we rely on scoring (like Crossref) instead of adding author/source filters.
     """
     # Start filter with title.search:
     filters: List[str] = [f"title.search:{title}"]
@@ -155,21 +168,11 @@ def _fetch_candidates_strict(
         filters.append(f"from_publication_date:{year}-01-01")
         filters.append(f"to_publication_date:{year}-12-31")
 
-    # Resolve optional constraints
-    s_id = _resolve_source_id(sess, journal) if journal else None
-    if s_id:
-        sid_short = s_id.rsplit("/", 1)[-1]
-        filters.append(f"primary_location.source.id:{sid_short}")
-
-    auth_ids = _resolve_author_ids(sess, author_names) if author_names else []
-    for aid in auth_ids:
-        aid_short = aid.rsplit("/", 1)[-1]
-        filters.append(f"authorships.author.id:{aid_short}")
-
     params: Dict[str, str] = {
         "filter": ",".join(filters),
         "per_page": "25",
         "mailto": OPENALEX_MAILTO,
+        "sort": "relevance_score:desc",
     }
 
     try:
@@ -217,6 +220,7 @@ def _fetch_candidates_relaxed(
         "filter": ",".join(filters),
         "per_page": "50",
         "mailto": mailto,
+        "sort": "relevance_score:desc",
     }
 
     try:
@@ -250,88 +254,177 @@ def _fetch_candidates_relaxed(
 # -----------------------
 # Scoring
 # -----------------------
-def _last_name(s: str) -> str:
-    # very simple: last token; robust enough for overlap test
-    parts = _norm(s).split()
-    return parts[-1] if parts else ""
-
-
-def _author_overlap(ref_authors: List[str], cand_auths: List[str]) -> float:
-    """Return overlap (0..100) of last-name sets."""
-    ra = {_last_name(a) for a in ref_authors if a}
-    ca = {_last_name(a) for a in cand_auths if a}
-    ra.discard("")
-    ca.discard("")
-    if not ra or not ca:
-        return 0.0
-    inter = len(ra & ca)
-    base = max(len(ra), len(ca))
-    return 100.0 * inter / base if base else 0.0
-
-
-def _cand_fields(c: Dict[str, Any]) -> Tuple[str, Optional[int], str]:
-    title = _norm(c.get("title"))
-    year = c.get("publication_year")
-    jname = ""
+def _safe_publication_year(cand: Dict[str, Any]) -> Optional[int]:
     try:
-        pl = c.get("primary_location") or {}
-        src = pl.get("source") or {}
-        jname = _norm(src.get("display_name"))
+        y = cand.get("publication_year")
+        return int(y) if y is not None else None
     except Exception:
-        jname = ""
-    return title, year, jname
+        return None
+
+
+def _structured_candidate_valid(
+    cand: Dict[str, Any],
+    title: Optional[str],
+    journal: Optional[str],
+    year: Optional[int],
+    authors: Optional[List[Any]],
+) -> bool:
+    ct = _norm(cand.get("title"))
+    nt = _norm(title) if title else ""
+    if title and not _title_matches(ct, nt):
+        return False
+    cjour = ""
+    try:
+        pl = cand.get("primary_location") or {}
+        src = pl.get("source") or {}
+        cjour = src.get("display_name") or ""
+    except Exception:
+        cjour = ""
+    if journal and cjour:
+        if not _journal_matches(cjour, journal):
+            return False
+    cyear = _safe_publication_year(cand)
+    if year is not None and cyear is not None and int(year) != int(cyear):
+        return False
+    if authors:
+        if not _authors_overlap(cand, authors):
+            return False
+    return True
+
+
+def _score_candidate_sbmv(
+    cand: Dict[str, Any],
+    title: Optional[str],
+    journal: Optional[str],
+    year: Optional[int],
+    authors: Optional[List[Any]],
+    debug: bool = False,
+) -> float:
+    """
+    Crossref-inspired SBMV scoring adapted for OpenAlex fields.
+    """
+    weights = {
+        "title": 0.5,
+        "authors": 0.2,
+        "journal": 0.15,
+        "year": 0.15,
+    }
+
+    scores: Dict[str, float] = {}
+
+    # Title
+    ctitle = _norm(cand.get("title"))
+    nt = _norm(title) if title else ""
+    title_ratio: Optional[float] = None
+    if ctitle and nt:
+        title_ratio = float(fuzz.token_set_ratio(ctitle, nt))
+        scores["title"] = title_ratio
+
+    # Authors (overlap ratio of last names)
+    author_overlap: Optional[float] = None
+    if authors:
+        ref_tokens = set(_last_name_tokens_from_strings(authors))
+        cand_tokens = set(_candidate_author_last_names(cand))
+        if ref_tokens and cand_tokens:
+            overlap = len(ref_tokens & cand_tokens)
+            author_overlap = 100.0 * overlap / max(1, len(ref_tokens))
+            scores["authors"] = author_overlap
+
+    # Journal
+    cjour = ""
+    try:
+        pl = cand.get("primary_location") or {}
+        src = pl.get("source") or {}
+        cjour = src.get("display_name") or ""
+    except Exception:
+        cjour = ""
+    journal_ratio: Optional[float] = None
+    if journal and cjour:
+        if _journal_matches(cjour, journal):
+            scores["journal"] = 100.0
+        else:
+            journal_ratio = float(fuzz.token_set_ratio(cjour.lower(), journal.lower()))
+            scores["journal"] = journal_ratio
+
+    # Year
+    cyear = _safe_publication_year(cand)
+    year_diff: Optional[int] = None
+    if year is not None and cyear is not None:
+        year_diff = abs(int(year) - int(cyear))
+        if year_diff == 0:
+            scores["year"] = 100.0
+        elif year_diff == 1:
+            scores["year"] = 80.0
+        elif year_diff == 2:
+            scores["year"] = 50.0
+        else:
+            scores["year"] = 0.0
+
+    if debug:
+        try:
+            detail = (
+                f"title_ratio={title_ratio if title_ratio is not None else 'NA'} "
+                f"authors_overlap={author_overlap if author_overlap is not None else 'NA'} "
+                f"journal_ratio={journal_ratio if journal_ratio is not None else 'NA'} "
+                f"year_diff={year_diff if year_diff is not None else 'NA'} "
+                f"cand_year={cyear}"
+            )
+            comp = []
+            for k in ("title", "authors", "journal", "year"):
+                if k in scores:
+                    comp.append(f"{k}:{scores[k]:.1f} (w {weights[k]*100:.0f}%)")
+            print(f"  DEBUG details: {detail}")
+            if comp:
+                print(f"  DEBUG weighted: " + "; ".join(comp))
+        except Exception:
+            pass
+
+    total_weight = 0.0
+    total_score = 0.0
+    for key, val in scores.items():
+        w = weights.get(key, 0.0)
+        if val is None:
+            continue
+        total_weight += w
+        total_score += w * float(val)
+    if total_weight == 0:
+        return 0.0
+    return total_score / total_weight
 
 
 def _pick_best(
     title: str,
     year: Optional[int],
     journal: Optional[str],
-    authors: List[str],
+    authors: List[Any],
     candidates: List[Dict[str, Any]],
-    threshold: int = 70,
-    year_slack: int = 3,
+    threshold: int = OPENALEX_THRESHOLD_DEFAULT,
+    debug: bool = False,
 ) -> Optional[Dict[str, Any]]:
-    nt = _norm(title)
-    nj = _norm(journal or "")
-    nauth = _norm_list(authors)
-
     best = None
     best_score = -1.0
+    best_rel = -1.0
 
     for c in candidates:
-        ct, cy, cj = _cand_fields(c)
+        if not _structured_candidate_valid(c, title, journal, year, authors):
+            continue
 
-        # Title similarity
-        tscore = max(fuzz.ratio(nt, ct), fuzz.token_set_ratio(nt, ct))
+        sc = _score_candidate_sbmv(c, title, journal, year, authors, debug=debug)
+        rel = c.get("relevance_score")
 
-        # Authors overlap (use authorships list)
-        cauths = []
-        try:
-            for au in (c.get("authorships") or []):
-                dn = au.get("author", {}).get("display_name")
-                if dn:
-                    cauths.append(dn)
-        except Exception:
-            pass
-        ascore = _author_overlap(nauth, cauths)
+        if debug:
+            try:
+                print(
+                    f"SCORE={sc:6.2f}  REL={rel!s:>6}  YEAR={c.get('publication_year')!s:>4}  "
+                    f"DOI={c.get('doi')}  TITLE={c.get('title')}"
+                )
+            except Exception:
+                pass
 
-        # Journal similarity (if both present)
-        jscore = fuzz.ratio(nj, cj) if (nj and cj) else 0
-
-        # Year compatibility
-        yscore = 100.0
-        if year is not None and cy is not None:
-            if abs(int(cy) - int(year)) > year_slack:
-                yscore = 0.0  # too far, penalize hard
-
-        # Weighted total: emphasize title
-        total = 0.7 * tscore + 0.2 * ascore + 0.1 * jscore
-        if yscore == 0.0:
-            total *= 0.6  # harsher if year far away
-
-        if total > best_score:
+        if (sc > best_score) or (sc == best_score and rel is not None and rel > best_rel):
             best = c
-            best_score = total
+            best_score = sc
+            best_rel = rel if rel is not None else best_rel
 
     if best and best_score >= float(threshold):
         return best
@@ -351,7 +444,7 @@ def enrich_missing_with_openalex(
     *,
     osf_id: Optional[str] = None,
     limit: int = 200,
-    threshold: int = 70,
+    threshold: int = OPENALEX_THRESHOLD_DEFAULT,
     debug: bool = False,
     mailto: Optional[str] = None,
 ) -> Dict[str, int]:
@@ -377,11 +470,10 @@ def enrich_missing_with_openalex(
         refid = r.get("ref_id")
         title = (r.get("title") or "").strip()
         raw_citation = (r.get("raw_citation") or "").strip()
-        using_raw = False
-        if not title and raw_citation:
-            title = raw_citation
-            using_raw = True
-            _log(logging.INFO, "Using raw citation text for OpenAlex search", osf_id=osfid, ref_id=refid)
+        if not title:
+            _log(logging.INFO, "Skipping OpenAlex search: missing title", osf_id=osfid, ref_id=refid)
+            checked += 1
+            continue
         authors = r.get("authors") or []  # array in DB
         journal = r.get("journal")
         year = r.get("year")
@@ -391,16 +483,14 @@ def enrich_missing_with_openalex(
 
         # Normalize once
         nt = _norm(title)
-        nj = _norm(journal or "")
-        nauth = _norm_list(authors)
 
         if debug:
             _log(logging.INFO, "OpenAlex debug search title",
-                 osf_id=osfid, ref_id=refid, normalized_title=nt[:160], using_raw=using_raw)
+                 osf_id=osfid, ref_id=refid, normalized_title=nt[:160], using_raw=False)
 
         # Stage 1: strict
         try:
-            cands = _fetch_candidates_strict(sess, nt, year, nj, nauth, debug=debug)
+            cands = _fetch_candidates_strict(sess, nt, year, debug=debug)
         except Exception as e:
             _log(logging.WARNING, "OpenAlex error (strict)", osf_id=osfid, ref_id=refid, error=str(e))
             cands = []
@@ -418,7 +508,7 @@ def enrich_missing_with_openalex(
             checked += 1
             continue
 
-        best = _pick_best(title, year, journal, authors, cands, threshold=threshold, year_slack=3)
+        best = _pick_best(title, year, journal, authors, cands, threshold=threshold, debug=debug)
         if not best:
             _log(logging.INFO, "No candidate passed threshold",
                  osf_id=osfid, ref_id=refid, cand_count=len(cands))
@@ -458,7 +548,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--osf_id", default=None)
     ap.add_argument("--limit", type=int, default=50)
-    ap.add_argument("--threshold", type=int, default=70)
+    ap.add_argument("--threshold", type=int, default=OPENALEX_THRESHOLD_DEFAULT)
     ap.add_argument("--debug", action="store_true")
     ap.add_argument("--mailto", default=None)
     args = ap.parse_args()

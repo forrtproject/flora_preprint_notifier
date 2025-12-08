@@ -415,7 +415,7 @@ def enrich_crossref(
 def enrich_openalex(
     self,
     limit: int = 200,
-    threshold: int = 70,
+    threshold: int = 78,
     mailto: Optional[str] = None,
     osf_id: Optional[str] = None,
     debug: bool = False,
