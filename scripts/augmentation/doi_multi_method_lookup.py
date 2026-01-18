@@ -15,6 +15,11 @@ import json
 import requests
 from dotenv import load_dotenv
 
+try:
+    from rapidfuzz import fuzz as rf_fuzz
+except Exception:
+    rf_fuzz = None
+
 # Allow running directly (python scripts/augmentation/doi_multi_method_lookup.py)
 HERE = Path(__file__).resolve()
 REPO_ROOT = HERE.parents[2]
@@ -36,6 +41,8 @@ from osf_sync.augmentation.doi_check_openalex import (
     _structured_candidate_valid as _oa_structured_valid,
 )
 from osf_sync.augmentation.matching_crossref import (
+    RAW_MIN_FUZZ,
+    RAW_MIN_JACCARD,
     RAW_MIN_SOLR_SCORE,
     SBMV_THRESHOLD_DEFAULT,
     STRUCTURED_MIN_SOLR_SCORE,
@@ -44,6 +51,7 @@ from osf_sync.augmentation.matching_crossref import (
     _authors_overlap as _cr_authors_overlap,
     _safe_get_issued_year as _cr_safe_get_issued_year,
     _normalize_text as _cr_normalize_text,
+    _build_raw_candidate_doc as _cr_build_raw_candidate_doc,
     _query_crossref,
     _query_crossref_biblio,
     _raw_candidate_valid,
@@ -73,6 +81,8 @@ _CACHE_KEY_ATTR = "cache_key"
 _CACHE_VALUE_ATTR = "cache_value"
 _CACHE_TTL_ATTR = "ttl"
 _CACHE_NONE_ATTR = "is_none"
+YEAR_MAX_DIFF = 1
+YEAR_RAW_PARTIAL_FACTOR = 0.9
 
 
 class DynamoCache:
@@ -255,6 +265,8 @@ def _strip_urls(val: Optional[str]) -> Optional[str]:
     return " ".join(cleaned.split()).strip()
 
 
+
+
 def _levenshtein_distance(a: str, b: str) -> int:
     """Simple Levenshtein distance for modest-length citation strings."""
     if a == b:
@@ -294,12 +306,216 @@ def _string_distance(a: Optional[str], b: Optional[str]) -> Optional[int]:
     return _levenshtein_distance(pa, pb)
 
 
+def _normalized_string_distance(a: Optional[str], b: Optional[str]) -> float:
+    """Normalized distance in [0,1]; 1.0 means maximally different or missing."""
+    pa = _prep_for_distance(a)
+    pb = _prep_for_distance(b)
+    if not pa or not pb:
+        return 1.0
+    max_len = max(len(pa), len(pb))
+    if max_len == 0:
+        return 0.0
+    return min(1.0, _levenshtein_distance(pa, pb) / max_len)
+
+
 def _raw_citation_has_year(raw: str) -> bool:
     """Check if a raw citation string appears to include a 4-digit year."""
     if not raw:
         return False
     return bool(_YEAR_RE.search(raw))
 
+
+def _tokenize_simple(text: str) -> List[str]:
+    return re.findall(r"[a-z0-9]+", (text or "").lower())
+
+
+def _raw_score_reason_details(raw_citation: str, doc: str) -> Dict[str, Any]:
+    raw_tokens = set(_tokenize_simple(raw_citation))
+    doc_tokens = set(_tokenize_simple(doc))
+    overlap = raw_tokens & doc_tokens
+    raw_only = raw_tokens - doc_tokens
+    doc_only = doc_tokens - raw_tokens
+    denom = len(raw_tokens | doc_tokens) or 1
+    return {
+        "raw_token_count": len(raw_tokens),
+        "doc_token_count": len(doc_tokens),
+        "overlap_token_count": len(overlap),
+        "jaccard": round(len(overlap) / denom, 3),
+        "overlap_tokens": sorted(list(overlap))[:12],
+        "raw_only_tokens": sorted(list(raw_only))[:12],
+        "doc_only_tokens": sorted(list(doc_only))[:12],
+    }
+
+
+def _debug_print(enabled: bool, msg: str) -> None:
+    if enabled:
+        print(msg)
+
+
+def _subset_inflation_penalty_core(
+    ref_text: str, cand_text: str, min_token_set_ratio: float
+) -> Tuple[float, Dict[str, Any]]:
+    if rf_fuzz is None or not ref_text or not cand_text:
+        return 0.0, {"reason": "disabled_or_empty"}
+
+    try:
+        token_set_ratio = rf_fuzz.token_set_ratio(ref_text, cand_text)
+        if token_set_ratio < min_token_set_ratio:
+            return 0.0, {"token_set_ratio": token_set_ratio, "reason": "low_token_set"}
+        token_sort_ratio = rf_fuzz.token_sort_ratio(ref_text, cand_text)
+    except Exception:
+        return 0.0, {"reason": "fuzz_error"}
+
+    ref_tokens = set(_tokenize_simple(ref_text))
+    cand_tokens = set(_tokenize_simple(cand_text))
+    if not ref_tokens or not cand_tokens:
+        return 0.0, {"reason": "no_tokens"}
+
+    ref_subset = ref_tokens < cand_tokens
+    cand_subset = cand_tokens < ref_tokens
+    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens), len(cand_tokens))
+    penalty = 0.0
+
+    if ref_subset and size_ratio < 0.80 and token_sort_ratio < 95:
+        penalty += min(18.0, (0.80 - size_ratio) * 60.0)
+
+    if cand_subset and size_ratio < 0.70 and token_sort_ratio < 92:
+        penalty += min(12.0, (0.70 - size_ratio) * 50.0)
+
+    GENERIC = {
+        "proceedings",
+        "conference",
+        "symposium",
+        "workshop",
+        "meeting",
+        "international",
+        "annual",
+        "edition",
+        "volume",
+        "vol",
+        "series",
+        "lecture",
+        "notes",
+        "springer",
+        "acm",
+        "ieee",
+    }
+    extra_tokens = []
+    if ref_subset:
+        extra_tokens = list(cand_tokens - ref_tokens)
+    elif cand_subset:
+        extra_tokens = list(ref_tokens - cand_tokens)
+
+    generic_extra = [t for t in extra_tokens if t in GENERIC]
+    if extra_tokens:
+        generic_ratio = len(generic_extra) / max(1, len(extra_tokens))
+        if len(extra_tokens) >= 3 and generic_ratio >= 0.40:
+            penalty += 6.0
+    else:
+        generic_ratio = 0.0
+
+    meta = {
+        "token_set_ratio": token_set_ratio,
+        "token_sort_ratio": token_sort_ratio,
+        "ref_tokens": len(ref_tokens),
+        "cand_tokens": len(cand_tokens),
+        "size_ratio": round(size_ratio, 3),
+        "ref_subset": ref_subset,
+        "cand_subset": cand_subset,
+        "extra_tokens": sorted(extra_tokens)[:12],
+        "generic_extra_ratio": round(generic_ratio, 3),
+    }
+    return penalty, meta
+
+
+def _subset_inflation_penalty(ref_text: str, cand_text: str) -> Tuple[float, Dict[str, Any]]:
+    return _subset_inflation_penalty_core(ref_text, cand_text, min_token_set_ratio=99.0)
+
+
+def _subset_inflation_penalty_raw(ref_text: str, cand_text: str) -> Tuple[float, Dict[str, Any]]:
+    # Raw-citation matching is prone to subset inflation; be more aggressive by skipping the token_set gate.
+    return _subset_inflation_penalty_core(ref_text, cand_text, min_token_set_ratio=0.0)
+
+
+def _subset_title_hard_cap(ref_text: str, cand_text: str, max_score: float) -> Tuple[Optional[float], Dict[str, Any]]:
+    if rf_fuzz is None or not ref_text or not cand_text:
+        return None, {"reason": "disabled_or_empty"}
+    try:
+        token_set_ratio = rf_fuzz.token_set_ratio(ref_text, cand_text)
+        if token_set_ratio < 99:
+            return None, {"token_set_ratio": token_set_ratio, "reason": "low_token_set"}
+        token_sort_ratio = rf_fuzz.token_sort_ratio(ref_text, cand_text)
+    except Exception:
+        return None, {"reason": "fuzz_error"}
+
+    ref_tokens = set(_tokenize_simple(ref_text))
+    cand_tokens = set(_tokenize_simple(cand_text))
+    if not ref_tokens or not cand_tokens:
+        return None, {"reason": "no_tokens"}
+    ref_subset = ref_tokens < cand_tokens
+    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens), len(cand_tokens))
+
+    cap = None
+    if ref_subset and size_ratio < 0.85 and token_sort_ratio < 95:
+        cap = max_score
+    meta = {
+        "token_set_ratio": token_set_ratio,
+        "token_sort_ratio": token_sort_ratio,
+        "ref_tokens": len(ref_tokens),
+        "cand_tokens": len(cand_tokens),
+        "size_ratio": round(size_ratio, 3),
+        "ref_subset": ref_subset,
+        "cap": cap,
+    }
+    return cap, meta
+
+
+def _distance_tiebreak(
+    raw_citation: str,
+    bests: List[Dict[str, Any]],
+    method_to_citation: Dict[str, Optional[str]],
+    epsilon: float = 1.0,
+) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    if not raw_citation or len(bests) < 2:
+        return None, None
+    max_score = max(c["score"] for c in bests)
+    tied = [c for c in bests if (max_score - c["score"]) <= epsilon]
+    if len(tied) < 2:
+        return None, None
+
+    scored: List[Tuple[float, Dict[str, Any]]] = []
+    for cand in tied:
+        method = cand.get("method")
+        cite = method_to_citation.get(method)
+        dist = _normalized_string_distance(raw_citation, cite)
+        scored.append((dist, cand))
+
+    scored.sort(key=lambda x: (x[0], METHOD_PRIORITY.index(x[1]["method"])))
+    return scored[0][1], "distance-tiebreak"
+
+
+def _raw_citation_validity(raw: str) -> Tuple[bool, List[str]]:
+    reasons: List[str] = []
+    if not raw:
+        return False, ["empty"]
+    txt = " ".join(raw.split())
+    length = len(txt)
+    if length < 20:
+        reasons.append("too_short")
+    if length > 600:
+        reasons.append("too_long")
+    if not _YEAR_RE.search(txt):
+        reasons.append("missing_year")
+    if not re.search(r"\b[A-Za-z]+,\s*[A-Za-z]", txt):
+        reasons.append("missing_author_pattern")
+    tokens = _tokenize_simple(txt)
+    if tokens:
+        numeric_tokens = [t for t in tokens if t.isdigit()]
+        if len(numeric_tokens) / max(1, len(tokens)) > 0.35:
+            reasons.append("too_many_numbers")
+    if txt.count("(") + txt.count(")") > 20:
+        reasons.append("too_many_parentheses")
+    return (len(reasons) == 0), reasons
 
 def _last_name_tokens_from_strings(authors: List[Any]) -> List[str]:
     tokens: List[str] = []
@@ -404,6 +620,56 @@ def _normalize_simple(value: Any) -> str:
     return re.sub(r"[^a-z0-9]+", "", str(value).lower())
 
 
+def _year_within_window(ref_year: Optional[int], cand_year: Optional[int], max_diff: int) -> Tuple[bool, Optional[int]]:
+    if ref_year is None or cand_year is None:
+        return True, None
+    try:
+        diff = abs(int(ref_year) - int(cand_year))
+    except Exception:
+        return True, None
+    return diff <= max_diff, diff
+
+
+def _crossref_candidate_title(cand: Optional[Dict[str, Any]]) -> str:
+    if not cand:
+        return ""
+    titles = cand.get("title") or []
+    return titles[0] if titles else ""
+
+
+def _generic_title_penalty(cand_title: str, ref_title: str) -> Tuple[float, Dict[str, Any]]:
+    generic_titles = {
+        "index",
+        "contents",
+        "table of contents",
+        "front matter",
+        "preface",
+        "introduction",
+        "cover",
+    }
+    ct = (cand_title or "").strip()
+    if not ct:
+        return 0.0, {"reason": "empty_title"}
+    norm = _normalize_simple(ct)
+    if not norm:
+        return 0.0, {"reason": "no_norm"}
+    title_tokens = _tokenize_simple(ct)
+    is_generic = norm in {_normalize_simple(t) for t in generic_titles}
+    title_match = _cr_title_matches(ct, ref_title) if ref_title else False
+    penalty = 0.0
+    if is_generic and not title_match:
+        penalty += 12.0
+    elif not title_match and len(title_tokens) <= 3:
+        penalty += 6.0
+    meta = {
+        "cand_title": ct,
+        "title_tokens": len(title_tokens),
+        "is_generic": is_generic,
+        "title_match": title_match,
+    }
+    return penalty, meta
+
+
 def _match_details(
     *,
     method: str,
@@ -503,23 +769,137 @@ def _fetch_citation_for_doi(doi: Optional[str], style: str = "apa") -> Optional[
 
 def _score_crossref_raw(
     raw_citation: str,
+    ref_title: Optional[str],
     authors: List[str],
     journal: Optional[str],
     year: Optional[int],
     items: List[Dict[str, Any]],
     threshold: int,
+    debug: bool = False,
 ) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
     scored: List[Dict[str, Any]] = []
     for idx, cand in enumerate(items, 1):
         doi = _normalize_doi(cand.get("DOI"))
         if not doi:
+            if debug:
+                logger.info("Crossref raw candidate skipped: missing DOI")
+                _debug_print(debug, "Crossref raw candidate skipped: missing DOI")
+            continue
+        cyear = _cr_safe_get_issued_year(cand)
+        year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
+        if not year_ok:
+            if debug:
+                logger.info(
+                    "Crossref raw candidate skipped: year_out_of_range doi=%s ref_year=%s cand_year=%s diff=%s",
+                    doi,
+                    year,
+                    cyear,
+                    year_diff,
+                )
+                _debug_print(
+                    debug,
+                    f"Crossref raw candidate skipped: year_out_of_range doi={doi} ref_year={year} cand_year={cyear} diff={year_diff}",
+                )
             continue
         solr = cand.get("score")
         if solr is not None and solr < RAW_MIN_SOLR_SCORE:
-            continue
-        if not _raw_candidate_valid(cand, raw_citation, authors, journal, year):
+            if debug:
+                logger.info("Crossref raw candidate skipped: solr_score_below_min doi=%s solr=%s", doi, solr)
+                _debug_print(debug, f"Crossref raw candidate skipped: solr_score_below_min doi={doi} solr={solr}")
             continue
         calc_score = _score_candidate_raw(cand, raw_citation, authors)
+        if debug:
+            doc = _cr_build_raw_candidate_doc(cand, authors)
+            cjour = (cand.get("container-title") or [""])[0]
+            raw_score_ok = calc_score >= RAW_MIN_FUZZ
+            year_ok = True if year_diff is None else year_diff <= YEAR_MAX_DIFF
+            journal_ok = True if (not journal or not cjour) else _cr_journal_matches(cjour, journal)
+            authors_ok = True if not authors else _cr_authors_overlap(cand, authors)
+            reason = _raw_score_reason_details(raw_citation, doc)
+            jaccard_ok = reason["jaccard"] >= RAW_MIN_JACCARD
+            logger.info(
+                "Crossref raw candidate validation doi=%s raw_ok=%s jaccard_ok=%s year_ok=%s journal_ok=%s authors_ok=%s ref_year=%s cand_year=%s ref_journal=%s cand_journal=%s",
+                doi,
+                raw_score_ok,
+                jaccard_ok,
+                year_ok,
+                journal_ok,
+                authors_ok,
+                year,
+                cyear,
+                journal,
+                cjour,
+            )
+            _debug_print(
+                debug,
+                f"Crossref raw candidate validation doi={doi} raw_ok={raw_score_ok} jaccard_ok={jaccard_ok} "
+                f"jaccard={reason['jaccard']} "
+                f"year_ok={year_ok} "
+                f"journal_ok={journal_ok} authors_ok={authors_ok} ref_year={year} cand_year={cyear} "
+                f"ref_journal={journal} cand_journal={cjour}",
+            )
+            logger.info(
+                "Crossref raw candidate score doi=%s raw_score=%s solr=%s doc_excerpt=%s raw_tokens=%s doc_tokens=%s overlap=%s jaccard=%s overlap_tokens=%s raw_only=%s doc_only=%s",
+                doi,
+                calc_score,
+                solr,
+                doc[:200],
+                reason["raw_token_count"],
+                reason["doc_token_count"],
+                reason["overlap_token_count"],
+                reason["jaccard"],
+                reason["overlap_tokens"],
+                reason["raw_only_tokens"],
+                reason["doc_only_tokens"],
+            )
+            _debug_print(
+                debug,
+                f"Crossref raw candidate score doi={doi} raw_score={calc_score} solr={solr} "
+                f"jaccard={reason['jaccard']} overlap_tokens={reason['overlap_tokens']} "
+                f"raw_only={reason['raw_only_tokens']} doc_only={reason['doc_only_tokens']}",
+            )
+        doc = _cr_build_raw_candidate_doc(cand, authors)
+        penalty, meta = _subset_inflation_penalty_raw(raw_citation, doc)
+        if penalty:
+            penalty = min(10.0, penalty)
+            calc_score = float(calc_score) - penalty
+            if debug:
+                logger.info("Crossref raw candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
+                _debug_print(debug, f"Crossref raw candidate penalty doi={doi} penalty={penalty} meta={meta}")
+        cand_title = _crossref_candidate_title(cand)
+        title_penalty, title_meta = _generic_title_penalty(cand_title, ref_title or "")
+        if title_penalty:
+            calc_score = float(calc_score) - title_penalty
+            if debug:
+                logger.info(
+                    "Crossref raw candidate title penalty doi=%s penalty=%s meta=%s",
+                    doi,
+                    title_penalty,
+                    title_meta,
+                )
+                _debug_print(
+                    debug,
+                    f"Crossref raw candidate title penalty doi={doi} penalty={title_penalty} meta={title_meta}",
+                )
+        if year_diff == 1:
+            calc_score = float(calc_score) * YEAR_RAW_PARTIAL_FACTOR
+            if debug:
+                logger.info(
+                    "Crossref raw candidate year adjustment doi=%s factor=%s ref_year=%s cand_year=%s",
+                    doi,
+                    YEAR_RAW_PARTIAL_FACTOR,
+                    year,
+                    cyear,
+                )
+                _debug_print(
+                    debug,
+                    f"Crossref raw candidate year adjustment doi={doi} factor={YEAR_RAW_PARTIAL_FACTOR} ref_year={year} cand_year={cyear}",
+                )
+        if not _raw_candidate_valid(cand, raw_citation, authors, journal, None):
+            if debug:
+                logger.info("Crossref raw candidate rejected by validation doi=%s", doi)
+                _debug_print(debug, f"Crossref raw candidate rejected by validation doi={doi}")
+            continue
         scored.append(
             {
                 "doi": doi,
@@ -531,6 +911,9 @@ def _score_crossref_raw(
                 "candidate_number": idx,
             }
         )
+        if debug:
+            logger.info("Crossref raw candidate accepted doi=%s raw_score=%s", doi, calc_score)
+            _debug_print(debug, f"Crossref raw candidate accepted doi={doi} raw_score={calc_score}")
 
     scored.sort(key=lambda x: x["score"], reverse=True)
     for idx, entry in enumerate(scored, 1):
@@ -551,16 +934,68 @@ def _score_crossref_title(
     page: Optional[str],
     items: List[Dict[str, Any]],
     threshold: int,
+    debug: bool = False,
 ) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
     scored: List[Dict[str, Any]] = []
     for idx, cand in enumerate(items, 1):
         doi = _normalize_doi(cand.get("DOI"))
         if not doi:
+            if debug:
+                logger.info("Crossref title candidate skipped: missing DOI")
+                _debug_print(debug, "Crossref title candidate skipped: missing DOI")
+            continue
+        cyear = _cr_safe_get_issued_year(cand)
+        year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
+        if not year_ok:
+            if debug:
+                logger.info(
+                    "Crossref title candidate skipped: year_out_of_range doi=%s ref_year=%s cand_year=%s diff=%s",
+                    doi,
+                    year,
+                    cyear,
+                    year_diff,
+                )
+                _debug_print(
+                    debug,
+                    f"Crossref title candidate skipped: year_out_of_range doi={doi} ref_year={year} cand_year={cyear} diff={year_diff}",
+                )
             continue
         solr = cand.get("score")
         if solr is not None and solr < STRUCTURED_MIN_SOLR_SCORE:
+            if debug:
+                logger.info("Crossref title candidate skipped: solr_score_below_min doi=%s solr=%s", doi, solr)
+                _debug_print(debug, f"Crossref title candidate skipped: solr_score_below_min doi={doi} solr={solr}")
             continue
-        if not _cr_structured_valid(cand, title, journal, year, authors):
+        if debug:
+            ctitles = cand.get("title") or []
+            ctitle = ctitles[0] if ctitles else ""
+            cjour = (cand.get("container-title") or [""])[0]
+            title_ok = _cr_title_matches(ctitle, title) if title else True
+            journal_ok = True if (not journal or not cjour) else _cr_journal_matches(cjour, journal)
+            year_ok = True if year_diff is None else year_diff <= YEAR_MAX_DIFF
+            authors_ok = True if not authors else _cr_authors_overlap(cand, authors)
+            logger.info(
+                "Crossref title candidate validation doi=%s title_ok=%s journal_ok=%s year_ok=%s authors_ok=%s ref_year=%s cand_year=%s ref_journal=%s cand_journal=%s",
+                doi,
+                title_ok,
+                journal_ok,
+                year_ok,
+                authors_ok,
+                year,
+                cyear,
+                journal,
+                cjour,
+            )
+            _debug_print(
+                debug,
+                f"Crossref title candidate validation doi={doi} title_ok={title_ok} journal_ok={journal_ok} "
+                f"year_ok={year_ok} authors_ok={authors_ok} ref_year={year} cand_year={cyear} "
+                f"ref_journal={journal} cand_journal={cjour}",
+            )
+        if not _cr_structured_valid(cand, title, journal, None, authors):
+            if debug:
+                logger.info("Crossref title candidate rejected by validation doi=%s", doi)
+                _debug_print(debug, f"Crossref title candidate rejected by validation doi={doi}")
             continue
         calc_score = _score_candidate_structured(
             cand,
@@ -572,6 +1007,22 @@ def _score_crossref_title(
             issue,
             page,
         )
+        ctitle = (cand.get("title") or [""])[0]
+        penalty, meta = _subset_inflation_penalty(title, ctitle)
+        if penalty:
+            calc_score = float(calc_score) - penalty
+            if debug:
+                logger.info("Crossref title candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
+                _debug_print(debug, f"Crossref title candidate penalty doi={doi} penalty={penalty} meta={meta}")
+        cap, cap_meta = _subset_title_hard_cap(title, ctitle, max_score=88.0)
+        if cap is not None and calc_score > cap:
+            calc_score = float(cap)
+            if debug:
+                logger.info("Crossref title candidate hard cap doi=%s cap=%s meta=%s", doi, cap, cap_meta)
+                _debug_print(debug, f"Crossref title candidate hard cap doi={doi} cap={cap} meta={cap_meta}")
+        if debug:
+            logger.info("Crossref title candidate score doi=%s calc_score=%s solr=%s", doi, calc_score, solr)
+            _debug_print(debug, f"Crossref title candidate score doi={doi} calc_score={calc_score} solr={solr}")
         scored.append(
             {
                 "doi": doi,
@@ -583,6 +1034,9 @@ def _score_crossref_title(
                 "candidate_number": idx,
             }
         )
+        if debug:
+            logger.info("Crossref title candidate accepted doi=%s calc_score=%s", doi, calc_score)
+            _debug_print(debug, f"Crossref title candidate accepted doi={doi} calc_score={calc_score}")
 
     scored.sort(key=lambda x: x["score"], reverse=True)
     for idx, entry in enumerate(scored, 1):
@@ -626,11 +1080,83 @@ def _score_openalex_title(
     for idx, cand in enumerate(cands or [], 1):
         doi = _normalize_doi(cand.get("doi"))
         if not doi:
+            if debug:
+                logger.info("OpenAlex candidate skipped: missing DOI")
+                _debug_print(debug, "OpenAlex candidate skipped: missing DOI")
             continue
-        if not _oa_structured_valid(cand, title, journal, year, authors):
+        cyear = _oa_safe_publication_year(cand)
+        year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
+        if not year_ok:
+            if debug:
+                logger.info(
+                    "OpenAlex candidate skipped: year_out_of_range doi=%s ref_year=%s cand_year=%s diff=%s",
+                    doi,
+                    year,
+                    cyear,
+                    year_diff,
+                )
+                _debug_print(
+                    debug,
+                    f"OpenAlex candidate skipped: year_out_of_range doi={doi} ref_year={year} cand_year={cyear} diff={year_diff}",
+                )
+            continue
+        if debug:
+            ctitle = cand.get("title") or ""
+            cjour = ""
+            try:
+                pl = cand.get("primary_location") or {}
+                src = pl.get("source") or {}
+                cjour = src.get("display_name") or ""
+            except Exception:
+                cjour = ""
+            title_ok = _oa_title_matches(ctitle, title) if title else True
+            journal_ok = True if (not journal or not cjour) else _oa_journal_matches(cjour, journal)
+            year_ok = True if year_diff is None else year_diff <= YEAR_MAX_DIFF
+            authors_ok = True if not authors else _oa_authors_overlap(cand, authors)
+            logger.info(
+                "OpenAlex candidate validation doi=%s title_ok=%s journal_ok=%s year_ok=%s authors_ok=%s ref_year=%s cand_year=%s ref_journal=%s cand_journal=%s",
+                doi,
+                title_ok,
+                journal_ok,
+                year_ok,
+                authors_ok,
+                year,
+                cyear,
+                journal,
+                cjour,
+            )
+            _debug_print(
+                debug,
+                f"OpenAlex candidate validation doi={doi} title_ok={title_ok} journal_ok={journal_ok} "
+                f"year_ok={year_ok} authors_ok={authors_ok} ref_year={year} cand_year={cyear} "
+                f"ref_journal={journal} cand_journal={cjour}",
+            )
+        if not _oa_structured_valid(cand, title, journal, None, authors):
+            if debug:
+                logger.info("OpenAlex candidate rejected by validation doi=%s", doi)
+                _debug_print(debug, f"OpenAlex candidate rejected by validation doi={doi}")
             continue
         score = _oa_score_sbmv(cand, title, journal, year, authors, debug=debug)
+        ctitle = cand.get("title") or ""
+        penalty, meta = _subset_inflation_penalty(title, ctitle)
+        if penalty:
+            score = float(score) - penalty
+            if debug:
+                logger.info("OpenAlex candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
+                _debug_print(debug, f"OpenAlex candidate penalty doi={doi} penalty={penalty} meta={meta}")
+        cap, cap_meta = _subset_title_hard_cap(title, ctitle, max_score=88.0)
+        if cap is not None and score > cap:
+            score = float(cap)
+            if debug:
+                logger.info("OpenAlex candidate hard cap doi=%s cap=%s meta=%s", doi, cap, cap_meta)
+                _debug_print(debug, f"OpenAlex candidate hard cap doi={doi} cap={cap} meta={cap_meta}")
+        if debug:
+            logger.info("OpenAlex candidate score doi=%s calc_score=%s", doi, score)
+            _debug_print(debug, f"OpenAlex candidate score doi={doi} calc_score={score}")
         scored.append({"doi": doi, "score": float(score), "candidate": cand, "candidate_number": idx})
+        if debug:
+            logger.info("OpenAlex candidate accepted doi=%s calc_score=%s", doi, score)
+            _debug_print(debug, f"OpenAlex candidate accepted doi={doi} calc_score={score}")
 
     scored.sort(key=lambda x: x["score"], reverse=True)
     for idx, entry in enumerate(scored, 1):
@@ -711,7 +1237,16 @@ def process_reference(
     else:
         title_items = []
 
-    best_raw, raw_scored = _score_crossref_raw(raw_citation, authors, journal, year, raw_items or [], threshold)
+    best_raw, raw_scored = _score_crossref_raw(
+        raw_citation,
+        title,
+        authors,
+        journal,
+        year,
+        raw_items or [],
+        threshold,
+        debug=debug,
+    )
     if best_raw:
         best_raw = dict(best_raw, method="crossref_raw")
 
@@ -725,6 +1260,7 @@ def process_reference(
         page,
         title_items or [],
         threshold,
+        debug=debug,
     )
     if best_title:
         best_title = dict(best_title, method="crossref_title")
@@ -764,6 +1300,45 @@ def process_reference(
         "crossref_title": crossref_title_citation_string_distance,
         "openalex_title": openalex_raw_citation_string_distance,
     }
+    method_to_citation = {
+        "crossref_raw": crossref_citation,
+        "crossref_title": crossref_title_citation,
+        "openalex_title": openalex_raw_citation,
+    }
+
+    active_bests = [c for c in [best_raw, best_title, best_oa] if c]
+    if active_bests:
+        scores = sorted((c["score"] for c in active_bests), reverse=True)
+        score_gap = scores[0] - scores[1] if len(scores) > 1 else None
+    else:
+        score_gap = None
+
+    if status == "conflict" or final_choice is None or (score_gap is not None and score_gap <= 1.0):
+        tiebreak_choice, reason = _distance_tiebreak(raw_citation, active_bests, method_to_citation, epsilon=1.0)
+        if tiebreak_choice:
+            final_choice = tiebreak_choice
+            status = "matched"
+            if reason:
+                conflict_reason = f"{conflict_reason};{reason}" if conflict_reason else reason
+
+    if final_choice and final_choice.get("method") == "crossref_raw" and title:
+        raw_title = _crossref_candidate_title(best_raw.get("candidate") if best_raw else None)
+        title_title = _crossref_candidate_title(best_title.get("candidate") if best_title else None)
+        raw_title_ok = _cr_title_matches(raw_title, title) if raw_title else False
+        title_title_ok = _cr_title_matches(title_title, title) if title_title else False
+        if title_title_ok and not raw_title_ok:
+            final_choice = best_title
+            status = "matched"
+            conflict_reason = f"{conflict_reason};title-override" if conflict_reason else "title-override"
+            if debug:
+                logger.info(
+                    "Title override applied raw_doi=%s title_doi=%s raw_title=%s title_title=%s",
+                    best_raw.get("doi") if best_raw else None,
+                    best_title.get("doi") if best_title else None,
+                    raw_title,
+                    title_title,
+                )
+
     final_citation_string_distance = method_distance_map.get(final_choice.get("method")) if final_choice else None
 
     crossref_raw_query_score = best_raw.get("query_score") if best_raw else None
@@ -965,6 +1540,13 @@ def main():
     ap.add_argument("--include-existing", action="store_true", help="Include refs that already have a DOI (useful for re-checking)")
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
+
+    if args.debug:
+        logger.info(
+            "Debug environment executable=%s rapidfuzz_available=%s",
+            sys.executable,
+            rf_fuzz is not None,
+        )
 
     mailto = args.mailto or os.environ.get("OPENALEX_MAILTO") or os.environ.get("OPENALEX_EMAIL") or OPENALEX_MAILTO
     out_path = Path(args.output)

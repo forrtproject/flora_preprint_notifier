@@ -39,6 +39,7 @@ def _exception(msg: str, **extras):
 
 CROSSREF_BASE = "https://api.crossref.org/works"
 RAW_MIN_FUZZ = 70
+RAW_MIN_JACCARD = float(os.environ.get("RAW_MIN_JACCARD", 0.12))
 RAW_MIN_SOLR_SCORE = 30.0
 STRUCTURED_MIN_SOLR_SCORE = 52.0
 TITLE_MIN_RATIO = 88
@@ -76,7 +77,8 @@ def _build_params(title: str,
     params = {
         "query.title": title,
         "rows": str(rows),
-        "select": ",".join(["DOI", "title", "issued", "author", "container-title"]),
+        # Include score so consumers can surface the Crossref relevance score.
+        "select": ",".join(["DOI", "title", "issued", "author", "container-title", "score"]),
         "mailto": _mailto(),
     }
 
@@ -233,9 +235,7 @@ def _score_candidate_structured(cand: dict,
     return _score_candidate_sbmv(cand, title, journal, year, authors, volume, issue, page)
 
 
-def _score_candidate_raw(cand: dict, raw_blob: str, authors: List[str]) -> int:
-    if not raw_blob:
-        return 0
+def _build_raw_candidate_doc(cand: dict, authors: List[str]) -> str:
     parts: List[str] = []
     parts.extend(cand.get("title") or [])
     parts.extend(cand.get("short-container-title") or [])
@@ -259,7 +259,13 @@ def _score_candidate_raw(cand: dict, raw_blob: str, authors: List[str]) -> int:
     year = _safe_get_issued_year(cand)
     if year:
         parts.append(str(year))
-    doc = " ".join(p for p in parts if p)
+    return " ".join(p for p in parts if p)
+
+
+def _score_candidate_raw(cand: dict, raw_blob: str, authors: List[str]) -> int:
+    if not raw_blob:
+        return 0
+    doc = _build_raw_candidate_doc(cand, authors)
     if not doc:
         return 0
     return fuzz.token_set_ratio(doc, raw_blob)
@@ -271,6 +277,18 @@ def _normalize_text(value: str) -> str:
     # Decode HTML entities (e.g., &amp;) before stripping punctuation/case
     unescaped = html.unescape(value)
     return re.sub(r"[^a-z0-9]+", "", unescaped.lower())
+
+
+def _tokenize_simple(text: str) -> List[str]:
+    return re.findall(r"[a-z0-9]+", (text or "").lower())
+
+
+def _jaccard_similarity(a: str, b: str) -> float:
+    aset = set(_tokenize_simple(a))
+    bset = set(_tokenize_simple(b))
+    if not aset and not bset:
+        return 0.0
+    return len(aset & bset) / max(1, len(aset | bset))
 
 
 def _journal_matches(cand_journal: str, ref_journal: str, fuzz_threshold: int = 94) -> bool:
@@ -367,7 +385,27 @@ def _raw_candidate_valid(
 ) -> bool:
     raw_score = _score_candidate_raw(cand, raw_blob, authors)
     if raw_score < RAW_MIN_FUZZ:
-        _info("Raw score too low", raw_score=raw_score, doi=cand.get("DOI"))
+        doc = _build_raw_candidate_doc(cand, authors)
+        _info(
+            "Raw score too low",
+            raw_score=raw_score,
+            doi=cand.get("DOI"),
+            raw_excerpt=raw_blob[:200],
+            doc_excerpt=doc[:200],
+            raw_len=len(raw_blob or ""),
+            doc_len=len(doc or ""),
+        )
+        return False
+    doc = _build_raw_candidate_doc(cand, authors)
+    jacc = _jaccard_similarity(doc, raw_blob)
+    if jacc < RAW_MIN_JACCARD:
+        _info(
+            "Raw jaccard too low",
+            jaccard=jacc,
+            doi=cand.get("DOI"),
+            raw_excerpt=raw_blob[:200],
+            doc_excerpt=doc[:200],
+        )
         return False
     cyear = _safe_get_issued_year(cand)
     if year is not None and cyear is not None and int(year) != int(cyear):

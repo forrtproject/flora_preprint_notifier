@@ -277,3 +277,11 @@ class PreprintsRepo:
             if e.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
                 return False
             raise
+
+    def update_reference_raw_citation_validity(self, osf_id: str, ref_id: str, validity: str) -> None:
+        now = dt.datetime.utcnow().isoformat()
+        self.t_refs.update_item(
+            Key={"osf_id": osf_id, "ref_id": ref_id},
+            UpdateExpression="SET raw_citation_validity=:v, raw_citation_validity_updated_at=:t",
+            ExpressionAttributeValues={":v": validity, ":t": now},
+        )
