@@ -7,6 +7,7 @@ import os
 import re
 import sys
 import time
+import html
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 import functools
@@ -44,13 +45,11 @@ from osf_sync.augmentation.matching_crossref import (
     RAW_MIN_FUZZ,
     RAW_MIN_JACCARD,
     RAW_MIN_SOLR_SCORE,
-    SBMV_THRESHOLD_DEFAULT,
     STRUCTURED_MIN_SOLR_SCORE,
     _title_matches as _cr_title_matches,
     _journal_matches as _cr_journal_matches,
     _authors_overlap as _cr_authors_overlap,
     _safe_get_issued_year as _cr_safe_get_issued_year,
-    _normalize_text as _cr_normalize_text,
     _build_raw_candidate_doc as _cr_build_raw_candidate_doc,
     _query_crossref,
     _query_crossref_biblio,
@@ -83,6 +82,17 @@ _CACHE_TTL_ATTR = "ttl"
 _CACHE_NONE_ATTR = "is_none"
 YEAR_MAX_DIFF = 1
 YEAR_RAW_PARTIAL_FACTOR = 0.9
+TOP_N_PER_STRATEGY = int(os.environ.get("DOI_MULTI_METHOD_TOP_N", 5))
+STRUCTURED_THRESHOLD_DEFAULT = float(os.environ.get("DOI_MULTI_METHOD_STRUCTURED_THRESHOLD", 70.0))
+UNPARSED_THRESHOLD_DEFAULT = float(os.environ.get("DOI_MULTI_METHOD_UNPARSED_THRESHOLD", 60.0))
+TITLE_FUZZ_THRESHOLD = float(os.environ.get("DOI_MULTI_METHOD_TITLE_FUZZ_THRESHOLD", 90.0))
+PARSED_WEIGHTS = {
+    "title": 0.6,
+    "year": 0.2,
+    "journal": 0.1,
+    "authors": 0.1,
+}
+METADATA_PRIORITY = ["crossref_title", "crossref_raw", "openalex_title"]
 
 
 class DynamoCache:
@@ -255,6 +265,7 @@ def _ascii_sanitize(val: Optional[str]) -> Optional[str]:
 
 _URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
 _YEAR_RE = re.compile(r"\b(19|20)\d{2}\b")
+_TAG_RE = re.compile(r"<[^>]+>")
 
 
 def _strip_urls(val: Optional[str]) -> Optional[str]:
@@ -262,6 +273,13 @@ def _strip_urls(val: Optional[str]) -> Optional[str]:
     if val is None:
         return None
     cleaned = _URL_RE.sub("", val)
+    return " ".join(cleaned.split()).strip()
+
+def _clean_title_text(text: str) -> str:
+    if not text:
+        return ""
+    unescaped = html.unescape(text)
+    cleaned = _TAG_RE.sub(" ", unescaped)
     return " ".join(cleaned.split()).strip()
 
 
@@ -323,6 +341,26 @@ def _raw_citation_has_year(raw: str) -> bool:
     if not raw:
         return False
     return bool(_YEAR_RE.search(raw))
+
+
+def _extract_year_from_raw(raw: str) -> Optional[int]:
+    """Extract the last 4-digit year from a raw citation string."""
+    if not raw:
+        return None
+    for match in re.finditer(r"\((19|20)\d{2}\)", raw):
+        try:
+            return int(match.group(0).strip("()"))
+        except Exception:
+            break
+    last_year = None
+    for match in _YEAR_RE.finditer(raw):
+        last_year = match.group(0)
+    if not last_year:
+        return None
+    try:
+        return int(last_year)
+    except Exception:
+        return None
 
 
 def _tokenize_simple(text: str) -> List[str]:
@@ -494,6 +532,36 @@ def _distance_tiebreak(
     return scored[0][1], "distance-tiebreak"
 
 
+def _distance_tiebreak_deduped(
+    raw_citation: str, candidates: List[Dict[str, Any]], epsilon: float = 1.0
+) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    if not raw_citation or len(candidates) < 2:
+        return None, None
+    max_score = max(c["score"] for c in candidates)
+    tied = [c for c in candidates if (max_score - c["score"]) <= epsilon]
+    if len(tied) < 2:
+        return None, None
+
+    def _method_rank(method: Optional[str]) -> int:
+        if method in METHOD_PRIORITY:
+            return METHOD_PRIORITY.index(method)
+        return len(METHOD_PRIORITY)
+
+    scored: List[Tuple[float, Dict[str, Any]]] = []
+    for cand in tied:
+        doi = cand.get("doi")
+        citation = (
+            _cached(_cache_key("doi_cite", {"doi": doi, "style": "apa"}), _fetch_citation_for_doi, doi)
+            if doi
+            else None
+        )
+        dist = _normalized_string_distance(raw_citation, citation)
+        scored.append((dist, cand))
+
+    scored.sort(key=lambda x: (x[0], _method_rank(x[1].get("method"))))
+    return scored[0][1], "distance-tiebreak"
+
+
 def _raw_citation_validity(raw: str) -> Tuple[bool, List[str]]:
     reasons: List[str] = []
     if not raw:
@@ -637,6 +705,95 @@ def _crossref_candidate_title(cand: Optional[Dict[str, Any]]) -> str:
     return titles[0] if titles else ""
 
 
+def _fuzzy_ratio(a: str, b: str) -> float:
+    if not a or not b:
+        return 0.0
+    if rf_fuzz is not None:
+        try:
+            return float(rf_fuzz.token_set_ratio(a, b))
+        except Exception:
+            return 0.0
+    na = _normalize_simple(a)
+    nb = _normalize_simple(b)
+    if not na or not nb:
+        return 0.0
+    dist = _levenshtein_distance(na, nb)
+    return max(0.0, 100.0 * (1.0 - dist / max(len(na), len(nb))))
+
+
+def _title_match_score(ref_title: str, cand_title: str) -> Tuple[bool, float, Dict[str, Any]]:
+    ref_clean = _clean_title_text(ref_title)
+    cand_clean = _clean_title_text(cand_title)
+    if not ref_clean or not cand_clean:
+        return False, 0.0, {"reason": "empty"}
+    nref = _normalize_simple(ref_clean)
+    ncand = _normalize_simple(cand_clean)
+    contained = False
+    if nref and ncand:
+        contained = nref in ncand or ncand in nref
+    ratio = _fuzzy_ratio(ref_clean, cand_clean)
+    matched = contained or ratio >= TITLE_FUZZ_THRESHOLD
+    score = 100.0 if contained else ratio
+
+    ref_tokens = set(_tokenize_simple(ref_clean))
+    cand_tokens = set(_tokenize_simple(cand_clean))
+    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens), len(cand_tokens)) if ref_tokens and cand_tokens else 0.0
+    cand_subset = cand_tokens < ref_tokens if ref_tokens and cand_tokens else False
+    if matched and cand_subset and len(cand_tokens) <= 2 and size_ratio < 0.5:
+        return False, 0.0, {
+            "reason": "candidate_too_short_subset",
+            "ratio": round(ratio, 2),
+            "ref_tokens": len(ref_tokens),
+            "cand_tokens": len(cand_tokens),
+            "size_ratio": round(size_ratio, 3),
+            "threshold": TITLE_FUZZ_THRESHOLD,
+        }
+
+    meta = {
+        "contained": contained,
+        "ratio": round(ratio, 2),
+        "threshold": TITLE_FUZZ_THRESHOLD,
+        "ref_tokens": len(ref_tokens),
+        "cand_tokens": len(cand_tokens),
+        "size_ratio": round(size_ratio, 3),
+        "cand_subset": cand_subset,
+    }
+    return matched, score, meta
+
+
+def _journal_score(ref_journal: Optional[str], cand_journal: Optional[str]) -> Optional[float]:
+    if not ref_journal or not cand_journal:
+        return None
+    return _fuzzy_ratio(ref_journal, cand_journal)
+
+
+def _author_score(ref_authors: List[Any], cand_authors: List[str]) -> Optional[float]:
+    if not ref_authors:
+        return None
+    ref_tokens = set(_last_name_tokens_from_strings(ref_authors))
+    cand_tokens = set(_last_name_tokens_from_strings(cand_authors))
+    if not ref_tokens or not cand_tokens:
+        return None
+    overlap = len(ref_tokens & cand_tokens)
+    return 100.0 * overlap / max(1, len(ref_tokens))
+
+
+def _asymmetric_subsequence_score(raw: str, citation: str) -> float:
+    raw_tokens = _tokenize_simple(raw or "")
+    cand_tokens = _tokenize_simple(citation or "")
+    if not raw_tokens or not cand_tokens:
+        return 0.0
+    j = 0
+    matched = 0
+    for token in raw_tokens:
+        while j < len(cand_tokens) and cand_tokens[j] != token:
+            j += 1
+        if j < len(cand_tokens):
+            matched += 1
+            j += 1
+    return 100.0 * matched / max(1, len(raw_tokens))
+
+
 def _generic_title_penalty(cand_title: str, ref_title: str) -> Tuple[float, Dict[str, Any]]:
     generic_titles = {
         "index",
@@ -668,6 +825,172 @@ def _generic_title_penalty(cand_title: str, ref_title: str) -> Tuple[float, Dict
         "title_match": title_match,
     }
     return penalty, meta
+
+
+def _candidate_scoring_fields(cand: Dict[str, Any], method: str) -> Dict[str, Any]:
+    core = _candidate_core_fields(cand, method)
+    return {
+        "title": core.get("title") or "",
+        "journal": core.get("journal") or "",
+        "year": core.get("year"),
+        "authors": _candidate_author_names(cand, method),
+    }
+
+
+def _score_candidate_parsed(
+    *,
+    ref_title: str,
+    ref_journal: Optional[str],
+    ref_year: Optional[int],
+    ref_authors: List[Any],
+    cand: Dict[str, Any],
+    method: str,
+    debug: bool = False,
+    merged_fields: Optional[Dict[str, Any]] = None,
+) -> Tuple[Optional[float], Dict[str, Any]]:
+    fields = merged_fields if merged_fields is not None else _candidate_scoring_fields(cand, method)
+    cand_title = fields["title"]
+    cand_journal = fields["journal"]
+    cand_year = fields["year"]
+    cand_authors = fields["authors"]
+
+    ref_title_clean = _clean_title_text(ref_title)
+    cand_title_clean = _clean_title_text(cand_title)
+
+    year_ok, year_diff = _year_within_window(ref_year, cand_year, YEAR_MAX_DIFF)
+    if not year_ok:
+        return None, {"reason": "year_out_of_range", "cand_year": cand_year, "ref_year": ref_year, "diff": year_diff}
+
+    title_match, title_score, title_meta = _title_match_score(ref_title_clean, cand_title_clean)
+    if not title_match:
+        return None, {"reason": "title_mismatch", "title_meta": title_meta}
+
+    scores: Dict[str, float] = {"title": float(title_score)}
+    if ref_year is not None and cand_year is not None:
+        if year_diff == 0:
+            scores["year"] = 100.0
+        elif year_diff == 1:
+            scores["year"] = 80.0
+    journal_score = _journal_score(ref_journal, cand_journal)
+    if journal_score is not None:
+        scores["journal"] = journal_score
+    author_score = _author_score(ref_authors, cand_authors)
+    if author_score is not None:
+        scores["authors"] = author_score
+
+    total_weight = 0.0
+    weighted = 0.0
+    for key, weight in PARSED_WEIGHTS.items():
+        if key in scores:
+            total_weight += weight
+            weighted += weight * scores[key]
+    if total_weight <= 0.0:
+        return None, {"reason": "no_scores"}
+    calc_score = weighted / total_weight
+
+    penalty, penalty_meta = _subset_inflation_penalty(ref_title_clean, cand_title_clean)
+    if penalty:
+        calc_score = float(calc_score) - penalty
+    cap, cap_meta = _subset_title_hard_cap(ref_title_clean, cand_title_clean, max_score=88.0)
+    if cap is not None and calc_score > cap:
+        calc_score = float(cap)
+
+    meta = {
+        "scores": scores,
+        "title_meta": title_meta,
+        "year_diff": year_diff,
+        "penalty": penalty,
+        "penalty_meta": penalty_meta,
+        "cap": cap,
+        "cap_meta": cap_meta,
+    }
+    return float(calc_score), meta
+
+
+def _score_candidate_unparsed(raw_citation: str, doi: str) -> Tuple[Optional[float], Dict[str, Any]]:
+    citation = _cached(_cache_key("doi_cite", {"doi": doi, "style": "apa"}), _fetch_citation_for_doi, doi)
+    if not citation:
+        return None, {"reason": "no_citation"}
+    score = _asymmetric_subsequence_score(raw_citation, citation)
+    return float(score), {"citation": citation}
+
+
+def _build_method_candidates(items: List[Dict[str, Any]], method: str) -> List[Dict[str, Any]]:
+    entries: List[Dict[str, Any]] = []
+    for idx, cand in enumerate(items or [], 1):
+        doi = _normalize_doi(cand.get("DOI") or cand.get("doi"))
+        if not doi:
+            continue
+        entry = {
+            "doi": doi,
+            "method": method,
+            "candidate": cand,
+            "candidate_number": idx,
+        }
+        if method.startswith("crossref"):
+            entry["query_score"] = cand.get("score")
+        elif method.startswith("openalex"):
+            entry["query_score"] = cand.get("relevance_score")
+        entries.append(entry)
+    return entries
+
+
+def _pick_canonical_entry(entries: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def _priority(entry: Dict[str, Any]) -> int:
+        method = entry.get("method") or ""
+        if method in METADATA_PRIORITY:
+            return METADATA_PRIORITY.index(method)
+        return len(METADATA_PRIORITY)
+
+    return sorted(entries, key=_priority)[0]
+
+
+def _merge_candidate_fields(entries: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def _priority(entry: Dict[str, Any]) -> int:
+        method = entry.get("method") or ""
+        if method in METADATA_PRIORITY:
+            return METADATA_PRIORITY.index(method)
+        return len(METADATA_PRIORITY)
+
+    ordered = sorted(entries, key=_priority)
+    merged = {"title": "", "journal": "", "year": None, "authors": []}
+    for entry in ordered:
+        fields = _candidate_scoring_fields(entry["candidate"], entry["method"])
+        if not merged["title"] and fields.get("title"):
+            merged["title"] = fields["title"]
+        if not merged["journal"] and fields.get("journal"):
+            merged["journal"] = fields["journal"]
+        if merged["year"] is None and fields.get("year") is not None:
+            merged["year"] = fields["year"]
+        if not merged["authors"] and fields.get("authors"):
+            merged["authors"] = fields["authors"]
+    return merged
+
+
+def _dedupe_candidates(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    by_doi: Dict[str, Dict[str, Any]] = {}
+    for entry in entries:
+        doi = entry["doi"]
+        rec = by_doi.setdefault(
+            doi,
+            {"doi": doi, "sources": [], "entries": []},
+        )
+        rec["sources"].append(entry["method"])
+        rec["entries"].append(entry)
+    merged: List[Dict[str, Any]] = []
+    for doi, rec in by_doi.items():
+        canonical = _pick_canonical_entry(rec["entries"])
+        merged_fields = _merge_candidate_fields(rec["entries"])
+        merged.append(
+            {
+                "doi": doi,
+                "sources": sorted(set(rec["sources"])),
+                "canonical": canonical,
+                "entries": rec["entries"],
+                "merged_fields": merged_fields,
+            }
+        )
+    return merged
 
 
 def _match_details(
@@ -1046,6 +1369,31 @@ def _score_crossref_title(
     return best, scored
 
 
+def _fetch_openalex_candidates(title: str, year: Optional[int], mailto: str, debug: bool) -> List[Dict[str, Any]]:
+    if not title:
+        return []
+
+    sess = requests.Session()
+    nt = _norm(title)
+    strict_mailto = OPENALEX_MAILTO  # _fetch_candidates_strict uses this internally
+    cands = []
+    strict_key = _cache_key("oa_strict", {"title": nt, "year": year, "mailto": strict_mailto})
+    try:
+        cands = _cached(strict_key, _fetch_candidates_strict, sess, nt, year, debug)
+    except Exception:
+        cands = []
+
+    if not cands:
+        keep_year_key = _cache_key("oa_relaxed_keep_year", {"title": nt, "year": year, "mailto": mailto})
+        cands = _cached(keep_year_key, _fetch_candidates_relaxed, sess, nt, year, mailto, True)
+
+    if not cands:
+        no_year_key = _cache_key("oa_relaxed_no_year", {"title": nt, "year": None, "mailto": mailto})
+        cands = _cached(no_year_key, _fetch_candidates_relaxed, sess, nt, None, mailto, False)
+
+    return cands or []
+
+
 def _score_openalex_title(
     title: str,
     year: Optional[int],
@@ -1206,9 +1554,21 @@ def process_reference(
     except Exception:
         year = None
 
+    raw_year = _extract_year_from_raw(raw_citation)
+    match_year = raw_year if raw_year is not None else year
+    query_year = match_year
+
+    parsed_available = bool(title)
+
     if raw_citation:
-        raw_key = _cache_key("cr_biblio", {"blob": raw_citation.strip(), "rows": 30})
-        raw_items = _cached(raw_key, _query_crossref_biblio, blob=raw_citation, rows=30, debug=debug)
+        raw_key = _cache_key("cr_biblio", {"blob": raw_citation.strip(), "rows": TOP_N_PER_STRATEGY})
+        raw_items = _cached(
+            raw_key,
+            _query_crossref_biblio,
+            blob=raw_citation,
+            rows=TOP_N_PER_STRATEGY,
+            debug=debug,
+        )
     else:
         raw_items = []
 
@@ -1218,66 +1578,209 @@ def process_reference(
             "cr_title",
             {
                 "title": title.strip(),
-                "year": year,
+                "year": query_year,
                 "journal": journal,
                 "authors": [a for a in (authors or []) if a],
-                "rows": 30,
+                "rows": TOP_N_PER_STRATEGY,
             },
         )
         title_items = _cached(
             title_key,
             _query_crossref,
             title=title,
-            year=year,
+            year=query_year,
             journal=journal,
             authors=authors,
-            rows=30,
+            rows=TOP_N_PER_STRATEGY,
             debug=debug,
         )
     else:
         title_items = []
 
-    best_raw, raw_scored = _score_crossref_raw(
-        raw_citation,
-        title,
-        authors,
-        journal,
-        year,
-        raw_items or [],
-        threshold,
-        debug=debug,
-    )
-    if best_raw:
-        best_raw = dict(best_raw, method="crossref_raw")
+    oa_items = _fetch_openalex_candidates(title, query_year, mailto, debug) if title else []
 
-    best_title, title_scored = _score_crossref_title(
-        title,
-        year,
-        journal,
-        authors,
-        volume,
-        issue,
-        page,
-        title_items or [],
-        threshold,
-        debug=debug,
-    )
-    if best_title:
-        best_title = dict(best_title, method="crossref_title")
+    raw_items = (raw_items or [])[:TOP_N_PER_STRATEGY]
+    title_items = (title_items or [])[:TOP_N_PER_STRATEGY]
+    oa_items = (oa_items or [])[:TOP_N_PER_STRATEGY]
 
-    best_oa, oa_scored = _score_openalex_title(
-        title,
-        year,
-        journal,
-        authors,
-        mailto,
-        threshold,
-        debug,
-    )
-    if best_oa:
-        best_oa = dict(best_oa, method="openalex_title")
+    raw_entries = _build_method_candidates(raw_items, "crossref_raw")
+    title_entries = _build_method_candidates(title_items, "crossref_title")
+    oa_entries = _build_method_candidates(oa_items, "openalex_title")
 
-    final_choice, status, conflict_reason = _resolve_final_choice([best_raw, best_title, best_oa])
+    def _score_entries(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        scored: List[Dict[str, Any]] = []
+        def _short(val: Optional[str], limit: int = 140) -> str:
+            if not val:
+                return ""
+            return val if len(val) <= limit else f"{val[:limit]}..."
+
+        for entry in entries:
+            if parsed_available:
+                merged_fields = entry.get("merged_fields")
+                score, meta = _score_candidate_parsed(
+                    ref_title=title,
+                    ref_journal=journal,
+                    ref_year=match_year,
+                    ref_authors=authors,
+                    cand=entry["candidate"],
+                    method=entry["method"],
+                    debug=debug,
+                    merged_fields=merged_fields,
+                )
+            else:
+                if not raw_citation:
+                    continue
+                score, meta = _score_candidate_unparsed(raw_citation, entry["doi"])
+
+            if score is None:
+                if debug:
+                    if parsed_available:
+                        cand_fields = _candidate_scoring_fields(entry["candidate"], entry["method"])
+                        logger.info(
+                            "Candidate rejected doi=%s method=%s reason=%s cand_title=%s cand_journal=%s cand_year=%s ref_year=%s year_diff=%s title_meta=%s query_score=%s",
+                            entry.get("doi"),
+                            entry.get("method"),
+                            meta.get("reason"),
+                            _short(cand_fields.get("title")),
+                            _short(cand_fields.get("journal")),
+                            cand_fields.get("year"),
+                            match_year,
+                            meta.get("year_diff"),
+                            meta.get("title_meta"),
+                            entry.get("query_score"),
+                        )
+                        if entry.get("method") == "openalex_title":
+                            logger.info(
+                                "OpenAlex candidate rejected doi=%s reason=%s title=%s journal=%s year=%s ref_year=%s year_diff=%s title_meta=%s relevance=%s",
+                                entry.get("doi"),
+                                meta.get("reason"),
+                                _short(cand_fields.get("title")),
+                                _short(cand_fields.get("journal")),
+                                cand_fields.get("year"),
+                                match_year,
+                                meta.get("year_diff"),
+                                meta.get("title_meta"),
+                                entry.get("query_score"),
+                            )
+                    else:
+                        logger.info(
+                            "Candidate rejected doi=%s method=%s reason=%s query_score=%s",
+                            entry.get("doi"),
+                            entry.get("method"),
+                            meta.get("reason"),
+                            entry.get("query_score"),
+                        )
+                continue
+
+            scored_entry = dict(entry)
+            scored_entry["score"] = float(score)
+            scored_entry["score_meta"] = meta
+            scored.append(scored_entry)
+
+            if debug and parsed_available:
+                logger.info(
+                    "Candidate accepted doi=%s method=%s score=%s scores=%s year_diff=%s title_meta=%s query_score=%s",
+                    entry.get("doi"),
+                    entry.get("method"),
+                    score,
+                    meta.get("scores"),
+                    meta.get("year_diff"),
+                    meta.get("title_meta"),
+                    entry.get("query_score"),
+                )
+                if entry.get("method") == "openalex_title":
+                    cand_fields = _candidate_scoring_fields(entry["candidate"], entry["method"])
+                    logger.info(
+                        "OpenAlex candidate accepted doi=%s score=%s scores=%s title=%s journal=%s year=%s ref_year=%s year_diff=%s title_meta=%s relevance=%s",
+                        entry.get("doi"),
+                        score,
+                        meta.get("scores"),
+                        _short(cand_fields.get("title")),
+                        _short(cand_fields.get("journal")),
+                        cand_fields.get("year"),
+                        match_year,
+                        meta.get("year_diff"),
+                        meta.get("title_meta"),
+                        entry.get("query_score"),
+                    )
+                penalty = meta.get("penalty") or 0.0
+                if penalty:
+                    logger.info(
+                        "Candidate subset penalty doi=%s method=%s penalty=%s meta=%s",
+                        entry.get("doi"),
+                        entry.get("method"),
+                        penalty,
+                        meta.get("penalty_meta"),
+                    )
+                cap = meta.get("cap")
+                if cap is not None:
+                    logger.info(
+                        "Candidate hard cap doi=%s method=%s cap=%s meta=%s",
+                        entry.get("doi"),
+                        entry.get("method"),
+                        cap,
+                        meta.get("cap_meta"),
+                    )
+            elif debug:
+                logger.info(
+                    "Candidate accepted doi=%s method=%s score=%s query_score=%s",
+                    entry.get("doi"),
+                    entry.get("method"),
+                    score,
+                    entry.get("query_score"),
+                )
+
+        scored.sort(key=lambda x: x["score"], reverse=True)
+        for idx, entry in enumerate(scored, 1):
+            entry["rank"] = idx
+        return scored
+
+    raw_scored = _score_entries(raw_entries)
+    title_scored = _score_entries(title_entries)
+    oa_scored = _score_entries(oa_entries)
+
+    # Best per strategy (pre-dedup), for evaluation only.
+    best_raw = raw_scored[0] if raw_scored else None
+    best_title = title_scored[0] if title_scored else None
+    best_oa = oa_scored[0] if oa_scored else None
+
+    all_entries = raw_entries + title_entries + oa_entries
+    deduped = _dedupe_candidates(all_entries)
+    canonical_entries: List[Dict[str, Any]] = []
+    for rec in deduped:
+        entry = dict(rec["canonical"])
+        entry["sources"] = rec["sources"]
+        entry["merged_fields"] = rec.get("merged_fields")
+        canonical_entries.append(entry)
+
+    deduped_scored = _score_entries(canonical_entries)
+
+    structured_threshold = float(threshold)
+    unparsed_threshold = float(UNPARSED_THRESHOLD_DEFAULT)
+    threshold_used = structured_threshold if parsed_available else unparsed_threshold
+
+    final_choice: Optional[Dict[str, Any]] = None
+    status = "no_match"
+    conflict_reason: Optional[str] = None
+
+    if deduped_scored:
+        max_score = deduped_scored[0]["score"]
+        if max_score >= threshold_used:
+            final_choice = deduped_scored[0]
+            status = "matched"
+            tied = [c for c in deduped_scored if abs(c["score"] - max_score) < 1e-6]
+            if len(tied) > 1:
+                status = "conflict"
+                conflict_reason = "multiple-dois-same-score"
+            score_gap = max_score - deduped_scored[1]["score"] if len(deduped_scored) > 1 else None
+            if status == "conflict" or (score_gap is not None and score_gap <= 1.0):
+                tiebreak_choice, reason = _distance_tiebreak_deduped(raw_citation, deduped_scored, epsilon=1.0)
+                if tiebreak_choice:
+                    final_choice = tiebreak_choice
+                    status = "matched"
+                    conflict_reason = reason
+                elif status == "conflict":
+                    final_choice = None
 
     doi_raw = best_raw.get("doi") if best_raw else None
     doi_title = best_title.get("doi") if best_title else None
@@ -1295,51 +1798,15 @@ def process_reference(
     crossref_title_citation_string_distance = _string_distance(raw_citation, crossref_title_citation)
     openalex_raw_citation_string_distance = _string_distance(raw_citation, openalex_raw_citation)
 
-    method_distance_map = {
-        "crossref_raw": crossref_citation_string_distance,
-        "crossref_title": crossref_title_citation_string_distance,
-        "openalex_title": openalex_raw_citation_string_distance,
-    }
-    method_to_citation = {
-        "crossref_raw": crossref_citation,
-        "crossref_title": crossref_title_citation,
-        "openalex_title": openalex_raw_citation,
-    }
-
-    active_bests = [c for c in [best_raw, best_title, best_oa] if c]
-    if active_bests:
-        scores = sorted((c["score"] for c in active_bests), reverse=True)
-        score_gap = scores[0] - scores[1] if len(scores) > 1 else None
-    else:
-        score_gap = None
-
-    if status == "conflict" or final_choice is None or (score_gap is not None and score_gap <= 1.0):
-        tiebreak_choice, reason = _distance_tiebreak(raw_citation, active_bests, method_to_citation, epsilon=1.0)
-        if tiebreak_choice:
-            final_choice = tiebreak_choice
-            status = "matched"
-            if reason:
-                conflict_reason = f"{conflict_reason};{reason}" if conflict_reason else reason
-
-    if final_choice and final_choice.get("method") == "crossref_raw" and title:
-        raw_title = _crossref_candidate_title(best_raw.get("candidate") if best_raw else None)
-        title_title = _crossref_candidate_title(best_title.get("candidate") if best_title else None)
-        raw_title_ok = _cr_title_matches(raw_title, title) if raw_title else False
-        title_title_ok = _cr_title_matches(title_title, title) if title_title else False
-        if title_title_ok and not raw_title_ok:
-            final_choice = best_title
-            status = "matched"
-            conflict_reason = f"{conflict_reason};title-override" if conflict_reason else "title-override"
-            if debug:
-                logger.info(
-                    "Title override applied raw_doi=%s title_doi=%s raw_title=%s title_title=%s",
-                    best_raw.get("doi") if best_raw else None,
-                    best_title.get("doi") if best_title else None,
-                    raw_title,
-                    title_title,
-                )
-
-    final_citation_string_distance = method_distance_map.get(final_choice.get("method")) if final_choice else None
+    final_citation_raw = None
+    if final_choice:
+        final_citation_raw = _cached(
+            _cache_key("doi_cite", {"doi": final_choice.get("doi"), "style": "apa"}),
+            _fetch_citation_for_doi,
+            final_choice.get("doi"),
+        )
+    final_citation = _ascii_sanitize(_strip_urls(final_citation_raw))
+    final_citation_string_distance = _string_distance(raw_citation, final_citation)
 
     crossref_raw_query_score = best_raw.get("query_score") if best_raw else None
     crossref_title_query_score = best_title.get("query_score") if best_title else None
@@ -1387,7 +1854,7 @@ def process_reference(
                 method=final_choice.get("method") or "",
                 ref_title=title,
                 ref_journal=journal,
-                ref_year=year,
+                ref_year=match_year,
                 ref_volume=volume,
                 ref_issue=issue,
                 ref_page=page,
@@ -1442,7 +1909,7 @@ def process_reference(
                 "ref_title": title,
                 "ref_raw_citation": raw_citation,
                 "ref_journal": journal,
-                "ref_year": year,
+                "ref_year": match_year,
                 "ref_volume": volume,
                 "ref_issue": issue,
                 "ref_page": page,
@@ -1524,7 +1991,12 @@ def main():
     ap.add_argument("--ref-id", help="Optional ref_id filter when using --osf-id")
     ap.add_argument("--limit", type=int, default=400, help="Max references to fetch when using --osf-id")
     ap.add_argument("--output", default="doi_multi_method.csv", help="CSV output path")
-    ap.add_argument("--threshold", type=int, default=int(SBMV_THRESHOLD_DEFAULT), help="SBMV score threshold")
+    ap.add_argument(
+        "--threshold",
+        type=int,
+        default=int(STRUCTURED_THRESHOLD_DEFAULT),
+        help="Structured score threshold (parsed metadata available)",
+    )
     ap.add_argument("--title", help="Title to search (standalone mode)")
     ap.add_argument("--raw", help="Raw citation to search (standalone mode)")
     ap.add_argument(
