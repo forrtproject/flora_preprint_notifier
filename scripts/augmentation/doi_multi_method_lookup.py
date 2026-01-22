@@ -8,6 +8,7 @@ import re
 import sys
 import time
 import html
+import random
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 import functools
@@ -266,6 +267,10 @@ def _ascii_sanitize(val: Optional[str]) -> Optional[str]:
 _URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
 _YEAR_RE = re.compile(r"\b(19|20)\d{2}\b")
 _TAG_RE = re.compile(r"<[^>]+>")
+_RAW_SCREEN_RE = re.compile(
+    r"(^|[^0-9])\d{4}([^0-9]|$)|\bn\.\s*d\.($|[^A-Za-z])|\bunder review\b|\bin press\b|\bin preparation\b|\baccepted in principle\b|\baccepted\b",
+    re.IGNORECASE,
+)
 
 
 def _strip_urls(val: Optional[str]) -> Optional[str]:
@@ -341,6 +346,12 @@ def _raw_citation_has_year(raw: str) -> bool:
     if not raw:
         return False
     return bool(_YEAR_RE.search(raw))
+
+
+def _raw_citation_passes_screen(raw: str) -> bool:
+    if not raw:
+        return False
+    return bool(_RAW_SCREEN_RE.search(raw))
 
 
 def _extract_year_from_raw(raw: str) -> Optional[int]:
@@ -1539,6 +1550,7 @@ def process_reference(
     *,
     threshold: int,
     mailto: str,
+    screen_raw: bool = False,
     debug: bool = False,
 ) -> Dict[str, Any]:
     raw_citation = (ref.get("raw_citation") or "").strip()
@@ -1560,7 +1572,18 @@ def process_reference(
 
     parsed_available = bool(title)
 
-    if raw_citation:
+    screened_out = False
+    if screen_raw and raw_citation and not _raw_citation_passes_screen(raw_citation):
+        screened_out = True
+        if debug:
+            logger.info(
+                "Raw citation screened out ref_id=%s osf_id=%s raw_snippet=%s",
+                ref.get("ref_id"),
+                ref.get("osf_id"),
+                raw_citation[:160],
+            )
+
+    if raw_citation and not screened_out:
         raw_key = _cache_key("cr_biblio", {"blob": raw_citation.strip(), "rows": TOP_N_PER_STRATEGY})
         raw_items = _cached(
             raw_key,
@@ -1572,7 +1595,7 @@ def process_reference(
     else:
         raw_items = []
 
-    if title:
+    if title and not screened_out:
         # matching_crossref._build_params only uses the first author string, but include all for safety.
         title_key = _cache_key(
             "cr_title",
@@ -1597,7 +1620,7 @@ def process_reference(
     else:
         title_items = []
 
-    oa_items = _fetch_openalex_candidates(title, query_year, mailto, debug) if title else []
+    oa_items = _fetch_openalex_candidates(title, query_year, mailto, debug) if title and not screened_out else []
 
     raw_items = (raw_items or [])[:TOP_N_PER_STRATEGY]
     title_items = (title_items or [])[:TOP_N_PER_STRATEGY]
@@ -1781,6 +1804,8 @@ def process_reference(
                     conflict_reason = reason
                 elif status == "conflict":
                     final_choice = None
+    if screened_out and status == "no_match" and conflict_reason is None:
+        conflict_reason = "screened_out_raw_citation"
 
     doi_raw = best_raw.get("doi") if best_raw else None
     doi_title = best_title.get("doi") if best_title else None
@@ -2010,6 +2035,8 @@ def main():
     ap.add_argument("--mailto", default=None, help="Override OPENALEX_MAILTO/OPENALEX_EMAIL for OpenAlex requests")
     ap.add_argument("--from-db", action="store_true", help="Read references from Dynamo preprint_references")
     ap.add_argument("--include-existing", action="store_true", help="Include refs that already have a DOI (useful for re-checking)")
+    ap.add_argument("--screen-raw", action="store_true", help="Screen raw citation with regex before querying APIs")
+    ap.add_argument("--random-sample", action="store_true", help="Process a random sample of refs (limit still applies)")
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
 
@@ -2039,8 +2066,18 @@ def main():
                 ref_id=args.ref_id,
                 include_existing=args.include_existing,
             )
+        if args.random_sample:
+            random.shuffle(refs)
         for ref in refs:
-            rows.append(process_reference(ref, threshold=args.threshold, mailto=mailto, debug=args.debug))
+            rows.append(
+                process_reference(
+                    ref,
+                    threshold=args.threshold,
+                    mailto=mailto,
+                    screen_raw=args.screen_raw,
+                    debug=args.debug,
+                )
+            )
     elif args.osf_id:
         repo = PreprintsRepo()
         refs = repo.select_refs_missing_doi(
@@ -2049,8 +2086,18 @@ def main():
             ref_id=args.ref_id,
             include_existing=True,
         )
+        if args.random_sample:
+            random.shuffle(refs)
         for ref in refs:
-            rows.append(process_reference(ref, threshold=args.threshold, mailto=mailto, debug=args.debug))
+            rows.append(
+                process_reference(
+                    ref,
+                    threshold=args.threshold,
+                    mailto=mailto,
+                    screen_raw=args.screen_raw,
+                    debug=args.debug,
+                )
+            )
     else:
         if not (args.title or args.raw):
             ap.error("Provide --osf-id or at least one of --title/--raw")
@@ -2066,7 +2113,15 @@ def main():
             "issue": None,
             "page": None,
         }
-        rows.append(process_reference(ref, threshold=args.threshold, mailto=mailto, debug=args.debug))
+        rows.append(
+            process_reference(
+                ref,
+                threshold=args.threshold,
+                mailto=mailto,
+                screen_raw=args.screen_raw,
+                debug=args.debug,
+            )
+        )
 
     _write_csv(rows, out_path)
     print(f"Wrote {len(rows)} rows to {out_path}")
