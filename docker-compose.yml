@@ -121,7 +121,7 @@ services:
         condition: service_started
 
   grobid:
-    image: grobid/grobid:0.8.2-full
+    image: grobid/grobid:0.8.2.1-full
     restart: unless-stopped
     ports: ["8070:8070"]
     environment:
