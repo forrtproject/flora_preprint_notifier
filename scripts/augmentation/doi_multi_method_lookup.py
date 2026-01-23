@@ -10,7 +10,7 @@ import time
 import html
 import random
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Iterator, List, Optional, Tuple
 import functools
 import json
 
@@ -213,16 +213,25 @@ CSV_FIELDS = [
     "status",
     "conflict_reason",
 ]
+LOG_EVERY = 100
 
-def _scan_all_refs(repo: PreprintsRepo, limit: int, ref_id: Optional[str], include_existing: bool) -> List[Dict[str, Any]]:
+def _iter_all_refs(
+    repo: PreprintsRepo,
+    limit: int,
+    ref_id: Optional[str],
+    include_existing: bool,
+) -> Iterator[Dict[str, Any]]:
     """
-    Fetch references from Dynamo across the entire preprint_references table.
+    Yield references from Dynamo across the entire preprint_references table.
     Applies ref_id and include_existing filtering while respecting the limit.
     """
-    items: List[Dict[str, Any]] = []
+    emitted = 0
     last_key = None
-    while len(items) < limit:
-        kwargs: Dict[str, Any] = {"Limit": min(1000, limit)}
+    while emitted < limit:
+        remaining = limit - emitted
+        if remaining <= 0:
+            break
+        kwargs: Dict[str, Any] = {"Limit": min(1000, remaining)}
         if last_key:
             kwargs["ExclusiveStartKey"] = last_key
         resp = repo.t_refs.scan(**kwargs)
@@ -236,13 +245,22 @@ def _scan_all_refs(repo: PreprintsRepo, limit: int, ref_id: Optional[str], inclu
                 doi_val = (it.get("doi") or "").strip()
                 if doi_val:
                     continue
-            items.append(it)
-            if len(items) >= limit:
+            yield it
+            emitted += 1
+            if emitted >= limit:
                 break
         last_key = resp.get("LastEvaluatedKey")
         if not last_key:
             break
-    return items[:limit]
+
+
+def _maybe_log_progress(processed: int, log_every: int, out_file) -> None:
+    if log_every and processed % log_every == 0:
+        logger.info("Processed %s references", processed)
+        try:
+            out_file.flush()
+        except Exception:
+            pass
 
 
 def _normalize_doi(doi: Optional[str]) -> Optional[str]:
@@ -1996,15 +2014,6 @@ def process_reference(
     return row
 
 
-def _write_csv(rows: List[Dict[str, Any]], path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=CSV_FIELDS)
-        writer.writeheader()
-        for r in rows:
-            writer.writerow(r)
-
-
 def main():
     ap = argparse.ArgumentParser(
         description=(
@@ -2050,81 +2059,88 @@ def main():
     mailto = args.mailto or os.environ.get("OPENALEX_MAILTO") or os.environ.get("OPENALEX_EMAIL") or OPENALEX_MAILTO
     out_path = Path(args.output)
 
-    rows: List[Dict[str, Any]] = []
-
     if args.raw_stdin:
         args.raw = sys.stdin.read().strip()
 
-    if args.from_db:
-        repo = PreprintsRepo()
-        if not args.osf_id:
-            refs = _scan_all_refs(repo, args.limit, args.ref_id, args.include_existing)
-        else:
+    processed = 0
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=CSV_FIELDS)
+        writer.writeheader()
+
+        if args.from_db:
+            repo = PreprintsRepo()
+            if not args.osf_id:
+                refs = _iter_all_refs(repo, args.limit, args.ref_id, args.include_existing)
+            else:
+                refs = repo.select_refs_missing_doi(
+                    limit=args.limit,
+                    osf_id=args.osf_id,
+                    ref_id=args.ref_id,
+                    include_existing=args.include_existing,
+                )
+            if args.random_sample:
+                if not isinstance(refs, list):
+                    refs = list(refs)
+                random.shuffle(refs)
+            for ref in refs:
+                row = process_reference(
+                    ref,
+                    threshold=args.threshold,
+                    mailto=mailto,
+                    screen_raw=args.screen_raw,
+                    debug=args.debug,
+                )
+                writer.writerow(row)
+                processed += 1
+                _maybe_log_progress(processed, LOG_EVERY, f)
+        elif args.osf_id:
+            repo = PreprintsRepo()
             refs = repo.select_refs_missing_doi(
                 limit=args.limit,
                 osf_id=args.osf_id,
                 ref_id=args.ref_id,
-                include_existing=args.include_existing,
+                include_existing=True,
             )
-        if args.random_sample:
-            random.shuffle(refs)
-        for ref in refs:
-            rows.append(
-                process_reference(
+            if args.random_sample:
+                random.shuffle(refs)
+            for ref in refs:
+                row = process_reference(
                     ref,
                     threshold=args.threshold,
                     mailto=mailto,
                     screen_raw=args.screen_raw,
                     debug=args.debug,
                 )
-            )
-    elif args.osf_id:
-        repo = PreprintsRepo()
-        refs = repo.select_refs_missing_doi(
-            limit=args.limit,
-            osf_id=args.osf_id,
-            ref_id=args.ref_id,
-            include_existing=True,
-        )
-        if args.random_sample:
-            random.shuffle(refs)
-        for ref in refs:
-            rows.append(
-                process_reference(
-                    ref,
-                    threshold=args.threshold,
-                    mailto=mailto,
-                    screen_raw=args.screen_raw,
-                    debug=args.debug,
-                )
-            )
-    else:
-        if not (args.title or args.raw):
-            ap.error("Provide --osf-id or at least one of --title/--raw")
-        ref = {
-            "osf_id": None,
-            "ref_id": None,
-            "raw_citation": args.raw or "",
-            "title": args.title or "",
-            "year": args.year,
-            "journal": args.journal,
-            "authors": args.authors or [],
-            "volume": None,
-            "issue": None,
-            "page": None,
-        }
-        rows.append(
-            process_reference(
+                writer.writerow(row)
+                processed += 1
+                _maybe_log_progress(processed, LOG_EVERY, f)
+        else:
+            if not (args.title or args.raw):
+                ap.error("Provide --osf-id or at least one of --title/--raw")
+            ref = {
+                "osf_id": None,
+                "ref_id": None,
+                "raw_citation": args.raw or "",
+                "title": args.title or "",
+                "year": args.year,
+                "journal": args.journal,
+                "authors": args.authors or [],
+                "volume": None,
+                "issue": None,
+                "page": None,
+            }
+            row = process_reference(
                 ref,
                 threshold=args.threshold,
                 mailto=mailto,
                 screen_raw=args.screen_raw,
                 debug=args.debug,
             )
-        )
+            writer.writerow(row)
+            processed = 1
 
-    _write_csv(rows, out_path)
-    print(f"Wrote {len(rows)} rows to {out_path}")
+    print(f"Wrote {processed} rows to {out_path}", flush=True)
 
 
 if __name__ == "__main__":
