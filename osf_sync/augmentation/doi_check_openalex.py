@@ -7,8 +7,6 @@ import time
 import unicodedata
 import logging
 import requests
-import json
-import hashlib
 
 from thefuzz import fuzz
 from ..dynamo.preprints_repo import PreprintsRepo
@@ -310,32 +308,7 @@ def _authors_overlap(cand: Dict[str, Any], ref_authors: List[Any]) -> bool:
 # OpenAlex small utilities
 # -----------------------
 def _sget(sess: requests.Session, url: str, params: Dict[str, str], timeout: int = 30) -> Optional[requests.Response]:
-    cache = _JsonCache(OPENALEX_CACHE_PATH, OPENALEX_CACHE_TTL_HOURS)
-    key_raw = url + "?" + "&".join(f"{k}={params[k]}" for k in sorted(params))
-    key = hashlib.sha1(key_raw.encode("utf-8")).hexdigest()
-
-    cached = cache.get(key)
-    if cached is not None:
-        class _DummyResp:
-            def __init__(self, data, url):
-                self._data = data
-                self.status_code = 200
-                self.url = url
-
-            def json(self):
-                return self._data
-
-            def raise_for_status(self):
-                return None
-        return _DummyResp(cached, url + "?" + "&".join(f"{k}={params[k]}" for k in sorted(params)))
-
     r = sess.get(url, params=params, timeout=timeout)
-    try:
-        if r.status_code == 200:
-            cache.set(key, r.json())
-            cache.save()
-    except Exception:
-        pass
     return r
 
 
