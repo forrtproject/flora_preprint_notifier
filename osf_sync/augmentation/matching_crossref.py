@@ -6,7 +6,7 @@ import time
 import json
 import logging
 import re
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlencode
 
 import requests
@@ -44,6 +44,10 @@ RAW_MIN_SOLR_SCORE = 30.0
 STRUCTURED_MIN_SOLR_SCORE = 52.0
 TITLE_MIN_RATIO = 88
 SBMV_THRESHOLD_DEFAULT = 75.0  # composite score cutoff for SBMV-style scoring
+YEAR_MAX_DIFF = 1
+
+_YEAR_RE = re.compile(r"\b(19|20)\d{2}\b")
+_TAG_RE = re.compile(r"<[^>]+>")
 
 # -----------------------
 # Utilities
@@ -63,6 +67,43 @@ def _year_window(year: Optional[int]) -> Optional[Tuple[str, str]]:
         return (f"{y}-01-01", f"{y}-12-31")
     except Exception:
         return None
+
+
+def _year_within_window(ref_year: Optional[int], cand_year: Optional[int], max_diff: int) -> Tuple[bool, Optional[int]]:
+    if ref_year is None or cand_year is None:
+        return True, None
+    try:
+        diff = abs(int(ref_year) - int(cand_year))
+    except Exception:
+        return True, None
+    return diff <= max_diff, diff
+
+
+def _extract_year_from_raw(raw: str) -> Optional[int]:
+    if not raw:
+        return None
+    for match in re.finditer(r"\((19|20)\d{2}\)", raw):
+        try:
+            return int(match.group(0).strip("()"))
+        except Exception:
+            break
+    last_year = None
+    for match in _YEAR_RE.finditer(raw):
+        last_year = match.group(0)
+    if not last_year:
+        return None
+    try:
+        return int(last_year)
+    except Exception:
+        return None
+
+
+def _clean_title_text(text: str) -> str:
+    if not text:
+        return ""
+    unescaped = html.unescape(text)
+    cleaned = _TAG_RE.sub(" ", unescaped)
+    return " ".join(cleaned.split()).strip()
 
 
 def _build_params(title: str,
@@ -156,9 +197,11 @@ def _score_candidate_sbmv(
 
     # Title
     ctitles = cand.get("title") or []
-    ctitle = ctitles[0] if ctitles else ""
-    if ctitle and title:
-        scores["title"] = fuzz.token_set_ratio(ctitle, title)
+    ctitle_raw = ctitles[0] if ctitles else ""
+    ctitle = _clean_title_text(ctitle_raw)
+    rtitle = _clean_title_text(title or "")
+    if ctitle and rtitle:
+        scores["title"] = fuzz.token_set_ratio(ctitle, rtitle)
 
     # Authors (overlap ratio of last names)
     if authors:
@@ -184,8 +227,6 @@ def _score_candidate_sbmv(
             scores["year"] = 100.0
         elif diff == 1:
             scores["year"] = 80.0
-        elif diff == 2:
-            scores["year"] = 50.0
         else:
             scores["year"] = 0.0
 
@@ -221,7 +262,16 @@ def _score_candidate_sbmv(
         total_score += w * float(val)
     if total_weight == 0:
         return 0.0
-    return total_score / total_weight
+    score = total_score / total_weight
+
+    penalty, _ = _subset_inflation_penalty(rtitle, ctitle)
+    if penalty:
+        score = float(score) - penalty
+    cap, _ = _subset_title_hard_cap(rtitle, ctitle, max_score=88.0)
+    if cap is not None and score > cap:
+        score = float(cap)
+
+    return float(score)
 
 
 def _score_candidate_structured(cand: dict,
@@ -237,9 +287,9 @@ def _score_candidate_structured(cand: dict,
 
 def _build_raw_candidate_doc(cand: dict, authors: List[str]) -> str:
     parts: List[str] = []
-    parts.extend(cand.get("title") or [])
-    parts.extend(cand.get("short-container-title") or [])
-    parts.extend(cand.get("container-title") or [])
+    parts.extend([_clean_title_text(t) for t in (cand.get("title") or []) if t])
+    parts.extend([_clean_title_text(t) for t in (cand.get("short-container-title") or []) if t])
+    parts.extend([_clean_title_text(t) for t in (cand.get("container-title") or []) if t])
     parts.extend([f"{a.get('given', '')} {a.get('family', '')}".strip()
                   for a in (cand.get("author") or []) if a])
     # Add reversed/different orderings to capture initial vs expanded names
@@ -283,6 +333,120 @@ def _tokenize_simple(text: str) -> List[str]:
     return re.findall(r"[a-z0-9]+", (text or "").lower())
 
 
+def _subset_inflation_penalty_core(ref_text: str, cand_text: str, min_token_set_ratio: float) -> Tuple[float, Dict[str, Any]]:
+    if not ref_text or not cand_text:
+        return 0.0, {"reason": "empty"}
+    try:
+        token_set_ratio = fuzz.token_set_ratio(ref_text, cand_text)
+        if token_set_ratio < min_token_set_ratio:
+            return 0.0, {"token_set_ratio": token_set_ratio, "reason": "low_token_set"}
+        token_sort_ratio = fuzz.token_sort_ratio(ref_text, cand_text)
+    except Exception:
+        return 0.0, {"reason": "fuzz_error"}
+
+    ref_tokens = set(_tokenize_simple(ref_text))
+    cand_tokens = set(_tokenize_simple(cand_text))
+    if not ref_tokens or not cand_tokens:
+        return 0.0, {"reason": "no_tokens"}
+
+    ref_subset = ref_tokens < cand_tokens
+    cand_subset = cand_tokens < ref_tokens
+    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens), len(cand_tokens))
+    penalty = 0.0
+
+    if ref_subset and size_ratio < 0.80 and token_sort_ratio < 95:
+        penalty += min(18.0, (0.80 - size_ratio) * 60.0)
+
+    if cand_subset and size_ratio < 0.70 and token_sort_ratio < 92:
+        penalty += min(12.0, (0.70 - size_ratio) * 50.0)
+
+    GENERIC = {
+        "proceedings",
+        "conference",
+        "symposium",
+        "workshop",
+        "meeting",
+        "international",
+        "annual",
+        "edition",
+        "volume",
+        "vol",
+        "series",
+        "lecture",
+        "notes",
+        "springer",
+        "acm",
+        "ieee",
+    }
+    extra_tokens = []
+    if ref_subset:
+        extra_tokens = list(cand_tokens - ref_tokens)
+    elif cand_subset:
+        extra_tokens = list(ref_tokens - cand_tokens)
+
+    generic_extra = [t for t in extra_tokens if t in GENERIC]
+    if extra_tokens:
+        generic_ratio = len(generic_extra) / max(1, len(extra_tokens))
+        if len(extra_tokens) >= 3 and generic_ratio >= 0.40:
+            penalty += 6.0
+    else:
+        generic_ratio = 0.0
+
+    meta = {
+        "token_set_ratio": token_set_ratio,
+        "token_sort_ratio": token_sort_ratio,
+        "ref_tokens": len(ref_tokens),
+        "cand_tokens": len(cand_tokens),
+        "size_ratio": round(size_ratio, 3),
+        "ref_subset": ref_subset,
+        "cand_subset": cand_subset,
+        "extra_tokens": sorted(extra_tokens)[:12],
+        "generic_extra_ratio": round(generic_ratio, 3),
+    }
+    return penalty, meta
+
+
+def _subset_inflation_penalty(ref_text: str, cand_text: str) -> Tuple[float, Dict[str, Any]]:
+    return _subset_inflation_penalty_core(ref_text, cand_text, min_token_set_ratio=99.0)
+
+
+def _subset_inflation_penalty_raw(ref_text: str, cand_text: str) -> Tuple[float, Dict[str, Any]]:
+    return _subset_inflation_penalty_core(ref_text, cand_text, min_token_set_ratio=0.0)
+
+
+def _subset_title_hard_cap(ref_text: str, cand_text: str, max_score: float) -> Tuple[Optional[float], Dict[str, Any]]:
+    if not ref_text or not cand_text:
+        return None, {"reason": "empty"}
+    try:
+        token_set_ratio = fuzz.token_set_ratio(ref_text, cand_text)
+        if token_set_ratio < 99:
+            return None, {"token_set_ratio": token_set_ratio, "reason": "low_token_set"}
+        token_sort_ratio = fuzz.token_sort_ratio(ref_text, cand_text)
+    except Exception:
+        return None, {"reason": "fuzz_error"}
+
+    ref_tokens = set(_tokenize_simple(ref_text))
+    cand_tokens = set(_tokenize_simple(cand_text))
+    if not ref_tokens or not cand_tokens:
+        return None, {"reason": "no_tokens"}
+    ref_subset = ref_tokens < cand_tokens
+    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens), len(cand_tokens))
+
+    cap = None
+    if ref_subset and size_ratio < 0.85 and token_sort_ratio < 95:
+        cap = max_score
+    meta = {
+        "token_set_ratio": token_set_ratio,
+        "token_sort_ratio": token_sort_ratio,
+        "ref_tokens": len(ref_tokens),
+        "cand_tokens": len(cand_tokens),
+        "size_ratio": round(size_ratio, 3),
+        "ref_subset": ref_subset,
+        "cap": cap,
+    }
+    return cap, meta
+
+
 def _jaccard_similarity(a: str, b: str) -> float:
     aset = set(_tokenize_simple(a))
     bset = set(_tokenize_simple(b))
@@ -307,7 +471,17 @@ def _journal_matches(cand_journal: str, ref_journal: str, fuzz_threshold: int = 
 def _title_matches(cand_title: Optional[str], ref_title: Optional[str]) -> bool:
     if not cand_title or not ref_title:
         return False if ref_title else True
-    ratio = fuzz.token_set_ratio(cand_title, ref_title)
+    ref_clean = _clean_title_text(ref_title)
+    cand_clean = _clean_title_text(cand_title)
+    if not ref_clean or not cand_clean:
+        return False if ref_title else True
+    ref_tokens = set(_tokenize_simple(ref_clean))
+    cand_tokens = set(_tokenize_simple(cand_clean))
+    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens), len(cand_tokens)) if ref_tokens and cand_tokens else 0.0
+    cand_subset = cand_tokens < ref_tokens if ref_tokens and cand_tokens else False
+    if cand_subset and len(cand_tokens) <= 2 and size_ratio < 0.5:
+        return False
+    ratio = fuzz.token_set_ratio(cand_clean, ref_clean)
     return ratio >= TITLE_MIN_RATIO
 
 
@@ -408,8 +582,15 @@ def _raw_candidate_valid(
         )
         return False
     cyear = _safe_get_issued_year(cand)
-    if year is not None and cyear is not None and int(year) != int(cyear):
-        _info("Year mismatch in raw candidate", candidate_year=cyear, ref_year=year, doi=cand.get("DOI"))
+    year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
+    if not year_ok:
+        _info(
+            "Year mismatch in raw candidate",
+            candidate_year=cyear,
+            ref_year=year,
+            year_diff=year_diff,
+            doi=cand.get("DOI"),
+        )
         return False
     cjour = (cand.get("container-title") or [""])[0]
     if journal and cjour:
@@ -440,7 +621,8 @@ def _structured_candidate_valid(
         if not _journal_matches(cjour, journal):
             return False
     cyear = _safe_get_issued_year(cand)
-    if year is not None and cyear is not None and int(year) != int(cyear):
+    year_ok, _ = _year_within_window(year, cyear, YEAR_MAX_DIFF)
+    if not year_ok:
         return False
     if authors:
         if not _authors_overlap(cand, authors):
@@ -509,6 +691,11 @@ def _pick_best(cands: List[dict],
                 sc = _score_candidate_raw(c, raw_blob, structured_authors or [])
             else:
                 sc = _score_candidate_structured(c, title, year, journal, structured_authors, ref_volume, ref_issue, ref_page)
+        if raw_blob:
+            doc = _build_raw_candidate_doc(c, structured_authors or [])
+            penalty, _ = _subset_inflation_penalty_raw(raw_blob, doc)
+            if penalty:
+                sc = float(sc) - min(10.0, penalty)
         if debug:
             doi = c.get("DOI")
             cyear = _safe_get_issued_year(c)
@@ -650,9 +837,13 @@ def enrich_missing_with_crossref(limit: int = 300,
                 "reason": "missing-title-and-raw",
             })
             continue
-        raw_year = r.get("year")
+        raw_year = _extract_year_from_raw(raw_citation)
         _info(raw_citation)
-        year = int(raw_year) if raw_year is not None and str(raw_year).isdigit() else None
+        if raw_year is not None:
+            year = raw_year
+        else:
+            raw_year = r.get("year")
+            year = int(raw_year) if raw_year is not None and str(raw_year).isdigit() else None
         journal = (r.get("journal") or "").strip() or None
         authors = r.get("authors") or []
         volume = (r.get("volume") or "").strip() or None
