@@ -228,7 +228,8 @@ class TEIExtractor:
                 'has_title': False,
                 'has_authors': False,
                 'has_journal': False,
-                'has_year': False
+                'has_year': False,
+                'raw_citation': None,
             }
             
             # Extract ref ID
@@ -311,6 +312,12 @@ class TEIExtractor:
                         ref['has_year'] = True
                         break
             
+            # Raw citation text (if includeRawCitations enabled)
+            raw_notes = biblstruct.xpath('.//tei:note[@type="raw_reference"]/text()', namespaces=self.ns)
+            raw_clean = [t.strip() for t in raw_notes if t and t.strip()]
+            if raw_clean:
+                ref['raw_citation'] = " ".join(raw_clean)
+
             return ref
         
         except Exception as e:

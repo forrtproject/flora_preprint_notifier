@@ -34,6 +34,7 @@ All code runs against **DynamoDB** (local or AWS), **Redis/Celery** handles sche
 
 ```dotenv
 GROBID_URL=http://grobid:8070
+GROBID_INCLUDE_RAW_CITATIONS=true
 CELERY_BROKER_URL=redis://redis:6379/0
 AWS_REGION=eu-north-1
 AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
@@ -48,6 +49,7 @@ LOG_LEVEL=INFO
 
 - For **AWS DynamoDB**, comment out `DYNAMO_LOCAL_URL` and set real AWS credentials (or rely on an IAM role).
 - The table names can be overridden with `DDB_TABLE_*` env vars.
+- Set `GROBID_INCLUDE_RAW_CITATIONS=false` if you do not want raw citation sections in the TEI output.
 
 ---
 
@@ -211,6 +213,8 @@ Each extraction job calls `osf_sync.augmentation.run_extract.extract_for_osf_id`
 ```bash
 docker compose run --rm app python -m osf_sync.cli enrich-crossref --limit 400
 docker compose run --rm app python -m osf_sync.cli enrich-openalex --limit 400 --threshold 75
+# Target a single reference:
+# docker compose run --rm app python -m osf_sync.cli enrich-crossref --osf-id <OSF_ID> --ref-id <REF_ID> --debug
 ```
 
 `celery-beat` already schedules the daily sync, PDF/GROBID queues, and enrichment tasks; adjust in `osf_sync/celery_app.py`.

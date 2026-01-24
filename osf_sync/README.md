@@ -31,6 +31,7 @@ Run everything via `python -m osf_sync.cli <command> [options]`.
 | `enqueue-extraction`  | Parse TEI XML from disk and write TEI/refs to DynamoDB.|
 | `enrich-crossref`     | Fill missing reference DOIs via Crossref.              |
 | `enrich-openalex`     | Remaining DOI enrichment via OpenAlex.                |
+| `enrich-crossref --osf-id <ID> --ref-id <RID>` | Re-run Crossref enrichment for a single reference. |
 | `fetch-one`           | Fetch a single OSF preprint by ID/DOI and upsert it.   |
 
 Each CLI command wraps Celery tasks or helper functions defined inside this package.
@@ -47,8 +48,8 @@ Each CLI command wraps Celery tasks or helper functions defined inside this pack
 | `osf_sync.tasks.enqueue_grobid`           | default  | Selects items via `preprints.by_queue_grobid` GSI.              |
 | `osf_sync.tasks.grobid_single`            | `grobid` | Runs GROBID and marks `queue_grobid`/`queue_extract`.           |
 | `osf_sync.tasks.enqueue_extraction`       | default  | Selects items via `preprints.by_queue_extract` GSI.             |
-| `osf_sync.tasks.enrich_crossref`          | default  | Updates `preprint_references` via `matching_crossref`.         |
-| `osf_sync.tasks.enrich_openalex`          | default  | Updates references via OpenAlex API, custom threshold/mailto.  |
+| `osf_sync.tasks.enrich_crossref`          | default  | Updates `preprint_references` via the multi-method DOI pipeline. |
+| `osf_sync.tasks.enrich_openalex`          | default  | Updates references via the multi-method DOI pipeline.          |
 
 The `PreprintsRepo` class centralizes all DynamoDB CRUD and queue-selection logic so tasks remain concise.
 

@@ -77,6 +77,7 @@ def write_extraction(
                 "has_journal": bool(ref.get("has_journal")),
                 "has_year": bool(ref.get("has_year")),
                 "doi_source": "tei" if ref.get("doi") else None,
+                "raw_citation": _safe_str(ref.get("raw_citation")),
             }
             try:
                 repo.upsert_reference(osf_id, item)
