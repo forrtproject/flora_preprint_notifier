@@ -5,7 +5,7 @@ from collections import defaultdict
 from typing import Any, Dict, List, Optional, Set
 
 from ..dynamo.preprints_repo import PreprintsRepo
-from .forrt_original_lookup import normalize_doi, lookup_originals_with_forrt
+from .forrt_original_lookup import normalize_doi, lookup_originals_with_forrt, _extract_ref_objects
 from ..logging_setup import get_logger, with_extras
 
 logger = get_logger(__name__)
@@ -81,6 +81,10 @@ def screen_forrt_replications(
 
             # Filter FORRT ref objects so we only consider pairs whose doi_o matches the preprint DOI
             ref_objs = r.get("forrt_refs") or []
+            if not ref_objs:
+                payload = r.get("forrt_lookup_payload")
+                if payload:
+                    ref_objs = _extract_ref_objects(payload)
             matching_pairs = []
             for obj in ref_objs:
                 doi_o = normalize_doi(obj.get("doi_o"))
@@ -136,6 +140,7 @@ def lookup_and_screen_forrt(
     osf_id: Optional[str] = None,
     ref_id: Optional[str] = None,
     cache_ttl_hours: Optional[int] = None,
+    ignore_cache: bool = False,
     persist_flags: bool = True,
     only_unchecked: bool = True,
     debug: bool = False,
@@ -150,6 +155,7 @@ def lookup_and_screen_forrt(
         ref_id=ref_id,
         only_unchecked=only_unchecked,
         cache_ttl_hours=cache_ttl_hours,
+        ignore_cache=ignore_cache,
         debug=debug,
     )
     screen_results = screen_forrt_replications(
@@ -174,6 +180,7 @@ if __name__ == "__main__":
     ap.add_argument("--no-lookup-first", action="store_true", help="Skip the lookup stage and only screen existing FORRT results")
     ap.add_argument("--include-checked", action="store_true", help="Re-run lookup even for rows with prior FORRT status")
     ap.add_argument("--cache-ttl-hours", type=int, default=None)
+    ap.add_argument("--ignore-cache", action="store_true", help="Bypass database cache and call FORRT again")
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
 
@@ -193,6 +200,7 @@ if __name__ == "__main__":
             osf_id=args.osf_id,
             ref_id=args.ref_id,
             cache_ttl_hours=args.cache_ttl_hours,
+            ignore_cache=args.ignore_cache,
             persist_flags=not args.no_persist,
             only_unchecked=not args.include_checked,
             debug=args.debug,

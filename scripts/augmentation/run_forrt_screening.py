@@ -17,6 +17,7 @@ def main() -> None:
     ap.add_argument("--osf_id", default=None, help="Optional OSF id to scope work")
     ap.add_argument("--ref_id", default=None, help="Optional ref id to scope work")
     ap.add_argument("--cache-ttl-hours", type=int, default=None, help="Override FORRT cache TTL")
+    ap.add_argument("--ignore-cache", action="store_true", help="Bypass database cache and call FORRT again")
     ap.add_argument("--include-checked", action="store_true", help="Re-run lookup even if status exists")
     ap.add_argument("--no-persist", action="store_true", help="Do not write screening flags back to DB")
     ap.add_argument("--debug", action="store_true", help="Enable debug logging in the underlying module")
@@ -28,6 +29,7 @@ def main() -> None:
         osf_id=args.osf_id,
         ref_id=args.ref_id,
         cache_ttl_hours=args.cache_ttl_hours,
+        ignore_cache=args.ignore_cache,
         persist_flags=not args.no_persist,
         only_unchecked=not args.include_checked,
         debug=args.debug,

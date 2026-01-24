@@ -28,7 +28,7 @@ Celery task `osf_sync.tasks.enqueue_extraction` queues these jobs using the `by_
 | `matching_crossref.py`     | Scores Crossref results to fill missing DOIs. Uses repo methods for selection + conditional updates.      |
 | `doi_check_openalex.py`    | Multi-stage OpenAlex lookup with fuzzy matching + threshold control.                                      |
 | `enrich_doi.py`            | Legacy helper combining Crossref/OpenAlex logic; uses the same repo update helpers.                       |
-| `forrt_original_lookup.py` | Calls FORRT original-lookup for existing DOIs; caches responses and writes lookup results back to Dynamo. |
+| `forrt_original_lookup.py` | Calls FORRT original-lookup for existing DOIs; caches responses in Dynamo and writes lookup results back. |
 | `forrt_screening.py`       | Combined lookup + screening to flag replications that lack the original citation.                         |
 
 Key functions:

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import json
-import logging
+import datetime as dt
 import os
 import re
 import time
@@ -15,7 +14,6 @@ from ..logging_setup import get_logger, with_extras
 logger = get_logger(__name__)
 
 FORRT_ENDPOINT = os.environ.get("FORRT_ORIGINAL_LOOKUP_URL", "https://rep-api.forrt.org/v1/original-lookup")
-FORRT_CACHE_PATH_DEFAULT = os.environ.get("FORRT_CACHE_PATH", os.path.join("data", "forrt_lookup_cache.json"))
 FORRT_CACHE_TTL_HOURS_DEFAULT = int(os.environ.get("FORRT_CACHE_TTL_HOURS", "48"))
 
 
@@ -113,17 +111,74 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
     """
     out: List[Dict[str, Optional[str]]] = []
 
+    def _append_pair(
+        doi_o: Optional[str],
+        doi_r: Optional[str],
+        apa_ref_o: Optional[str],
+        apa_ref_r: Optional[str],
+    ) -> None:
+        rec = {
+            "doi_o": normalize_doi(doi_o) if doi_o else None,
+            "doi_r": normalize_doi(doi_r) if doi_r else None,
+            "apa_ref_o": apa_ref_o,
+            "apa_ref_r": apa_ref_r,
+        }
+        out.append(rec)
+
+    def _ensure_list(value: Any) -> List[Dict[str, Any]]:
+        if value is None:
+            return []
+        if isinstance(value, list):
+            return [v for v in value if isinstance(v, dict)]
+        if isinstance(value, dict):
+            return [value]
+        return []
+
+    def _from_record_lists(originals: Any, replications: Any) -> None:
+        originals_list = _ensure_list(originals)
+        replications_list = _ensure_list(replications)
+
+        if originals_list and replications_list:
+            for original in originals_list:
+                for replication in replications_list:
+                    _append_pair(
+                        original.get("doi"),
+                        replication.get("doi"),
+                        original.get("apa_ref"),
+                        replication.get("apa_ref"),
+                    )
+        else:
+            for original in originals_list:
+                _append_pair(
+                    original.get("doi"),
+                    None,
+                    original.get("apa_ref"),
+                    None,
+                )
+            for replication in replications_list:
+                _append_pair(
+                    None,
+                    replication.get("doi"),
+                    None,
+                    replication.get("apa_ref"),
+                )
+
     def _walk(obj: Any):
         if isinstance(obj, dict):
-            has_keys = any(k in obj for k in ("doi_r", "apa_ref_o", "apa_ref_r"))
+            if any(k in obj for k in ("originals", "replications")):
+                _from_record_lists(
+                    obj.get("originals"),
+                    obj.get("replications"),
+                )
+
+            has_keys = any(k in obj for k in ("doi_o", "doi_r", "apa_ref_o", "apa_ref_r"))
             if has_keys:
-                rec = {
-                    "doi_o": normalize_doi(obj.get("doi_o")) if obj.get("doi_o") else None,
-                    "doi_r": normalize_doi(obj.get("doi_r")) if obj.get("doi_r") else None,
-                    "apa_ref_o": obj.get("apa_ref_o"),
-                    "apa_ref_r": obj.get("apa_ref_r"),
-                }
-                out.append(rec)
+                _append_pair(
+                    obj.get("doi_o"),
+                    obj.get("doi_r"),
+                    obj.get("apa_ref_o"),
+                    obj.get("apa_ref_r"),
+                )
             for v in obj.values():
                 _walk(v)
         elif isinstance(obj, list):
@@ -145,51 +200,27 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
 
 
 # -----------------------
-# Simple file-backed cache
+# Cache helpers
 # -----------------------
 
-class ForrtCache:
-    def __init__(self, path: str, ttl_seconds: int):
-        self.path = path
-        self.ttl = ttl_seconds
-        self._store: Dict[str, Dict[str, Any]] = {}
-        self._load()
+def _parse_checked_at(value: Optional[str]) -> Optional[dt.datetime]:
+    if not value or not isinstance(value, str):
+        return None
+    try:
+        ts = dt.datetime.fromisoformat(value)
+    except ValueError:
+        return None
+    if ts.tzinfo is not None:
+        ts = ts.astimezone(dt.timezone.utc).replace(tzinfo=None)
+    return ts
 
-    def _load(self) -> None:
-        try:
-            with open(self.path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            if isinstance(data, dict):
-                self._store = data
-        except FileNotFoundError:
-            self._store = {}
-        except Exception as e:
-            _warn("Failed to load FORRT cache", error=str(e), path=self.path)
-            self._store = {}
 
-    def save(self) -> None:
-        try:
-            os.makedirs(os.path.dirname(self.path) or ".", exist_ok=True)
-            with open(self.path, "w", encoding="utf-8") as f:
-                json.dump(self._store, f)
-        except Exception as e:
-            _warn("Failed to save FORRT cache", error=str(e), path=self.path)
-
-    def get(self, doi: str) -> Optional[Dict[str, Any]]:
-        now = time.time()
-        entry = self._store.get(doi)
-        if not entry:
-            return None
-        ts = entry.get("ts") or 0
-        if now - ts > self.ttl:
-            # Expired
-            return None
-        return entry
-
-    def set(self, doi: str, payload: Dict[str, Any]) -> None:
-        payload = dict(payload or {})
-        payload["ts"] = time.time()
-        self._store[doi] = payload
+def _is_fresh_cache(checked_at: Optional[str], ttl_seconds: int) -> bool:
+    ts = _parse_checked_at(checked_at)
+    if not ts:
+        return False
+    age = (dt.datetime.utcnow() - ts).total_seconds()
+    return age <= ttl_seconds
 
 
 # -----------------------
@@ -197,7 +228,7 @@ class ForrtCache:
 # -----------------------
 
 def _call_forrt(sess: requests.Session, doi: str, debug: bool = False) -> Dict[str, Any]:
-    params = {"doi": doi}
+    params = {"dois": doi}
     url = FORRT_ENDPOINT
     try:
         r = sess.get(url, params=params, timeout=25)
@@ -236,16 +267,20 @@ def lookup_originals_with_forrt(
     only_unchecked: bool = True,
     cache_path: Optional[str] = None,
     cache_ttl_hours: Optional[int] = None,
+    ignore_cache: bool = False,
     debug: bool = False,
 ) -> Dict[str, int]:
     """
     Fetch references with DOIs from Dynamo, call FORRT original-lookup, and persist results.
+    Uses DynamoDB payloads as a cache when the prior check is within the TTL.
     """
     repo = PreprintsRepo()
     rows = repo.select_refs_with_doi(limit=limit, osf_id=osf_id, ref_id=ref_id, only_unchecked=only_unchecked)
 
     ttl_hours = cache_ttl_hours if cache_ttl_hours is not None else FORRT_CACHE_TTL_HOURS_DEFAULT
-    cache = ForrtCache(cache_path or FORRT_CACHE_PATH_DEFAULT, ttl_seconds=int(ttl_hours * 3600))
+    ttl_seconds = int(ttl_hours * 3600)
+    if cache_path:
+        _warn("FORRT cache_path is ignored; using database cache", cache_path=cache_path)
 
     stats = {"checked": 0, "updated": 0, "failed": 0, "cache_hits": 0}
     sess = requests.Session()
@@ -260,11 +295,17 @@ def lookup_originals_with_forrt(
 
         stats["checked"] += 1
 
-        cached = cache.get(doi)
-        if cached:
+        cached_payload = r.get("forrt_lookup_payload")
+        cached_status = r.get("forrt_lookup_status")
+        cached_checked_at = r.get("forrt_checked_at")
+        cache_ready = (
+            not ignore_cache
+            and _is_fresh_cache(cached_checked_at, ttl_seconds)
+            and (cached_payload is not None or cached_status is False)
+        )
+        if cache_ready:
             stats["cache_hits"] += 1
-            payload = cached.get("payload")
-            payload_clean = _prune_nulls(payload)
+            payload_clean = _prune_nulls(cached_payload)
             status = bool(payload_clean)
             ref_objs = _extract_ref_objects(payload_clean) if payload_clean else []
             try:
@@ -277,8 +318,6 @@ def lookup_originals_with_forrt(
                 )
             except Exception:
                 stats["failed"] += 1
-            # refresh cache entry with cleaned payload + corrected status
-            cache.set(doi, {"status": status, "payload": payload_clean, "refs": ref_objs})
             continue
 
         result = _call_forrt(sess, doi, debug=debug)
@@ -299,10 +338,8 @@ def lookup_originals_with_forrt(
         except Exception:
             stats["failed"] += 1
 
-        cache.set(doi, {"status": status, "payload": payload_clean, "refs": ref_objs})
         time.sleep(0.1)  # be polite
 
-    cache.save()
     return stats
 
 
@@ -314,8 +351,9 @@ if __name__ == "__main__":
     ap.add_argument("--osf_id", default=None)
     ap.add_argument("--ref_id", default=None)
     ap.add_argument("--no-only-unchecked", action="store_true", help="Process all DOI rows even if already checked.")
-    ap.add_argument("--cache-path", default=None)
+    ap.add_argument("--cache-path", default=None, help="Deprecated; ignored (database cache is used).")
     ap.add_argument("--cache-ttl-hours", type=int, default=None)
+    ap.add_argument("--ignore-cache", action="store_true", help="Bypass database cache and call FORRT again.")
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
 
@@ -326,6 +364,7 @@ if __name__ == "__main__":
         only_unchecked=not args.no_only_unchecked,
         cache_path=args.cache_path,
         cache_ttl_hours=args.cache_ttl_hours,
+        ignore_cache=args.ignore_cache,
         debug=args.debug,
     )
     print(out)
