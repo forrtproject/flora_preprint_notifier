@@ -1,4 +1,35 @@
 from __future__ import annotations
+from osf_sync.dynamo.preprints_repo import PreprintsRepo
+from osf_sync.dynamo.client import get_dynamo_resource
+from osf_sync.augmentation.matching_crossref import (
+    RAW_MIN_FUZZ,
+    RAW_MIN_JACCARD,
+    RAW_MIN_SOLR_SCORE,
+    STRUCTURED_MIN_SOLR_SCORE,
+    _title_matches as _cr_title_matches,
+    _journal_matches as _cr_journal_matches,
+    _authors_overlap as _cr_authors_overlap,
+    _safe_get_issued_year as _cr_safe_get_issued_year,
+    _build_raw_candidate_doc as _cr_build_raw_candidate_doc,
+    _query_crossref,
+    _query_crossref_biblio,
+    _raw_candidate_valid,
+    _score_candidate_raw,
+    _score_candidate_structured,
+    _structured_candidate_valid as _cr_structured_valid,
+)
+from osf_sync.augmentation.doi_check_openalex import (
+    OPENALEX_MAILTO,
+    _fetch_candidates_relaxed,
+    _fetch_candidates_strict,
+    _norm,
+    _title_matches as _oa_title_matches,
+    _journal_matches as _oa_journal_matches,
+    _safe_publication_year as _oa_safe_publication_year,
+    _authors_overlap as _oa_authors_overlap,
+    _score_candidate_sbmv as _oa_score_sbmv,
+    _structured_candidate_valid as _oa_structured_valid,
+)
 
 import argparse
 import csv
@@ -30,37 +61,6 @@ if str(REPO_ROOT) not in sys.path:
 
 load_dotenv()
 
-from osf_sync.augmentation.doi_check_openalex import (
-    OPENALEX_MAILTO,
-    _fetch_candidates_relaxed,
-    _fetch_candidates_strict,
-    _norm,
-    _title_matches as _oa_title_matches,
-    _journal_matches as _oa_journal_matches,
-    _safe_publication_year as _oa_safe_publication_year,
-    _authors_overlap as _oa_authors_overlap,
-    _score_candidate_sbmv as _oa_score_sbmv,
-    _structured_candidate_valid as _oa_structured_valid,
-)
-from osf_sync.augmentation.matching_crossref import (
-    RAW_MIN_FUZZ,
-    RAW_MIN_JACCARD,
-    RAW_MIN_SOLR_SCORE,
-    STRUCTURED_MIN_SOLR_SCORE,
-    _title_matches as _cr_title_matches,
-    _journal_matches as _cr_journal_matches,
-    _authors_overlap as _cr_authors_overlap,
-    _safe_get_issued_year as _cr_safe_get_issued_year,
-    _build_raw_candidate_doc as _cr_build_raw_candidate_doc,
-    _query_crossref,
-    _query_crossref_biblio,
-    _raw_candidate_valid,
-    _score_candidate_raw,
-    _score_candidate_structured,
-    _structured_candidate_valid as _cr_structured_valid,
-)
-from osf_sync.dynamo.client import get_dynamo_resource
-from osf_sync.dynamo.preprints_repo import PreprintsRepo
 
 # Ensure UTF-8 stdout to avoid Windows cp1252 logging issues.
 if hasattr(sys.stdout, "reconfigure"):
@@ -71,12 +71,15 @@ if hasattr(sys.stdout, "reconfigure"):
 
 logger = logging.getLogger(__name__)
 if not logger.handlers:
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)s %(levelname)s %(message)s")
 logger.setLevel(logging.INFO)
 
-DOI_MULTI_METHOD_CACHE_TABLE = os.environ.get("DOI_MULTI_METHOD_CACHE_TABLE", "doi_multi_method_cache")
+DOI_MULTI_METHOD_CACHE_TABLE = os.environ.get(
+    "DOI_MULTI_METHOD_CACHE_TABLE", "doi_multi_method_cache")
 # Default cache TTL: one week.
-DOI_MULTI_METHOD_CACHE_TTL_SECS = float(os.environ.get("DOI_MULTI_METHOD_CACHE_TTL_SECS", 7 * 24 * 3600))
+DOI_MULTI_METHOD_CACHE_TTL_SECS = float(os.environ.get(
+    "DOI_MULTI_METHOD_CACHE_TTL_SECS", 7 * 24 * 3600))
 _CACHE_KEY_ATTR = "cache_key"
 _CACHE_VALUE_ATTR = "cache_value"
 _CACHE_TTL_ATTR = "ttl"
@@ -84,9 +87,12 @@ _CACHE_NONE_ATTR = "is_none"
 YEAR_MAX_DIFF = 1
 YEAR_RAW_PARTIAL_FACTOR = 0.9
 TOP_N_PER_STRATEGY = int(os.environ.get("DOI_MULTI_METHOD_TOP_N", 5))
-STRUCTURED_THRESHOLD_DEFAULT = float(os.environ.get("DOI_MULTI_METHOD_STRUCTURED_THRESHOLD", 70.0))
-UNPARSED_THRESHOLD_DEFAULT = float(os.environ.get("DOI_MULTI_METHOD_UNPARSED_THRESHOLD", 60.0))
-TITLE_FUZZ_THRESHOLD = float(os.environ.get("DOI_MULTI_METHOD_TITLE_FUZZ_THRESHOLD", 90.0))
+STRUCTURED_THRESHOLD_DEFAULT = float(os.environ.get(
+    "DOI_MULTI_METHOD_STRUCTURED_THRESHOLD", 70.0))
+UNPARSED_THRESHOLD_DEFAULT = float(os.environ.get(
+    "DOI_MULTI_METHOD_UNPARSED_THRESHOLD", 60.0))
+TITLE_FUZZ_THRESHOLD = float(os.environ.get(
+    "DOI_MULTI_METHOD_TITLE_FUZZ_THRESHOLD", 90.0))
 PARSED_WEIGHTS = {
     "title": 0.6,
     "year": 0.2,
@@ -116,8 +122,10 @@ class DynamoCache:
             try:
                 self.ddb.create_table(
                     TableName=self.table_name,
-                    KeySchema=[{"AttributeName": _CACHE_KEY_ATTR, "KeyType": "HASH"}],
-                    AttributeDefinitions=[{"AttributeName": _CACHE_KEY_ATTR, "AttributeType": "S"}],
+                    KeySchema=[
+                        {"AttributeName": _CACHE_KEY_ATTR, "KeyType": "HASH"}],
+                    AttributeDefinitions=[
+                        {"AttributeName": _CACHE_KEY_ATTR, "AttributeType": "S"}],
                     BillingMode="PAY_PER_REQUEST",
                 )
                 self.table = self.ddb.Table(self.table_name)
@@ -128,7 +136,8 @@ class DynamoCache:
 
     def get(self, key: str) -> Tuple[bool, Optional[Any]]:
         try:
-            resp = self.table.get_item(Key={_CACHE_KEY_ATTR: key}, ConsistentRead=False)
+            resp = self.table.get_item(
+                Key={_CACHE_KEY_ATTR: key}, ConsistentRead=False)
         except Exception:
             return False, None
         item = resp.get("Item")
@@ -154,13 +163,15 @@ class DynamoCache:
             if value is None:
                 item[_CACHE_NONE_ATTR] = True
             else:
-                item[_CACHE_VALUE_ATTR] = json.dumps(value, ensure_ascii=True, default=str)
+                item[_CACHE_VALUE_ATTR] = json.dumps(
+                    value, ensure_ascii=True, default=str)
             self.table.put_item(Item=item)
         except Exception:
             pass
 
 
-_dynamo_cache = DynamoCache(DOI_MULTI_METHOD_CACHE_TABLE, DOI_MULTI_METHOD_CACHE_TTL_SECS)
+_dynamo_cache = DynamoCache(
+    DOI_MULTI_METHOD_CACHE_TABLE, DOI_MULTI_METHOD_CACHE_TTL_SECS)
 
 
 def _cache_key(prefix: str, payload: Any) -> str:
@@ -168,7 +179,8 @@ def _cache_key(prefix: str, payload: Any) -> str:
     Build a stable cache key from a JSON-ish payload.
     """
     try:
-        blob = json.dumps(payload, ensure_ascii=True, sort_keys=True, default=str)
+        blob = json.dumps(payload, ensure_ascii=True,
+                          sort_keys=True, default=str)
     except Exception:
         blob = repr(payload)
     return f"{prefix}::{blob}"
@@ -181,6 +193,7 @@ def _cached(key: str, fn, *args, **kwargs):
     val = fn(*args, **kwargs)
     _dynamo_cache.set(key, val)
     return val
+
 
 METHOD_PRIORITY = ["crossref_raw", "crossref_title", "openalex_title"]
 CSV_FIELDS = [
@@ -214,6 +227,7 @@ CSV_FIELDS = [
     "conflict_reason",
 ]
 LOG_EVERY = 100
+
 
 def _iter_all_refs(
     repo: PreprintsRepo,
@@ -269,7 +283,7 @@ def _normalize_doi(doi: Optional[str]) -> Optional[str]:
     d = doi.strip().lower()
     for pref in ("https://doi.org/", "http://doi.org/", "doi:"):
         if d.startswith(pref):
-            d = d[len(pref) :]
+            d = d[len(pref):]
     return d or None
 
 
@@ -283,10 +297,10 @@ def _ascii_sanitize(val: Optional[str]) -> Optional[str]:
 
 
 _URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
-_YEAR_RE = re.compile(r"\b(19|20)\d{2}\b")
+_YEAR_RE = re.compile(r"\b(18|19|20)\d{2}\b")
 _TAG_RE = re.compile(r"<[^>]+>")
 _RAW_SCREEN_RE = re.compile(
-    r"(^|[^0-9])\d{4}([^0-9]|$)|\bn\.\s*d\.($|[^A-Za-z])|\bunder review\b|\bin press\b|\bin preparation\b|\baccepted in principle\b|\baccepted\b",
+    r"\b(18|19|20)\d{2}[a-z]?\b|\bn\.\s*d\.($|[^A-Za-z])|\bunder review\b|\bin press\b|\bin preparation\b|\baccepted in principle\b|\baccepted\b",
     re.IGNORECASE,
 )
 
@@ -298,14 +312,13 @@ def _strip_urls(val: Optional[str]) -> Optional[str]:
     cleaned = _URL_RE.sub("", val)
     return " ".join(cleaned.split()).strip()
 
+
 def _clean_title_text(text: str) -> str:
     if not text:
         return ""
     unescaped = html.unescape(text)
     cleaned = _TAG_RE.sub(" ", unescaped)
     return " ".join(cleaned.split()).strip()
-
-
 
 
 def _levenshtein_distance(a: str, b: str) -> int:
@@ -324,7 +337,8 @@ def _levenshtein_distance(a: str, b: str) -> int:
         current = [i]
         for j, ch_a in enumerate(a, 1):
             cost = 0 if ch_a == ch_b else 1
-            current.append(min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + cost))
+            current.append(
+                min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + cost))
         previous = current
     return previous[-1]
 
@@ -369,7 +383,8 @@ def _raw_citation_has_year(raw: str) -> bool:
 def _raw_citation_passes_screen(raw: str) -> bool:
     if not raw:
         return False
-    return bool(_RAW_SCREEN_RE.search(raw))
+    cleaned = _strip_urls(raw)
+    return bool(_RAW_SCREEN_RE.search(cleaned or ""))
 
 
 def _extract_year_from_raw(raw: str) -> Optional[int]:
@@ -440,7 +455,8 @@ def _subset_inflation_penalty_core(
 
     ref_subset = ref_tokens < cand_tokens
     cand_subset = cand_tokens < ref_tokens
-    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens), len(cand_tokens))
+    size_ratio = min(len(ref_tokens), len(cand_tokens)) / \
+        max(len(ref_tokens), len(cand_tokens))
     penalty = 0.0
 
     if ref_subset and size_ratio < 0.80 and token_sort_ratio < 95:
@@ -520,7 +536,8 @@ def _subset_title_hard_cap(ref_text: str, cand_text: str, max_score: float) -> T
     if not ref_tokens or not cand_tokens:
         return None, {"reason": "no_tokens"}
     ref_subset = ref_tokens < cand_tokens
-    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens), len(cand_tokens))
+    size_ratio = min(len(ref_tokens), len(cand_tokens)) / \
+        max(len(ref_tokens), len(cand_tokens))
 
     cap = None
     if ref_subset and size_ratio < 0.85 and token_sort_ratio < 95:
@@ -580,7 +597,8 @@ def _distance_tiebreak_deduped(
     for cand in tied:
         doi = cand.get("doi")
         citation = (
-            _cached(_cache_key("doi_cite", {"doi": doi, "style": "apa"}), _fetch_citation_for_doi, doi)
+            _cached(_cache_key("doi_cite", {
+                    "doi": doi, "style": "apa"}), _fetch_citation_for_doi, doi)
             if doi
             else None
         )
@@ -613,6 +631,7 @@ def _raw_citation_validity(raw: str) -> Tuple[bool, List[str]]:
     if txt.count("(") + txt.count(")") > 20:
         reasons.append("too_many_parentheses")
     return (len(reasons) == 0), reasons
+
 
 def _last_name_tokens_from_strings(authors: List[Any]) -> List[str]:
     tokens: List[str] = []
@@ -766,7 +785,8 @@ def _title_match_score(ref_title: str, cand_title: str) -> Tuple[bool, float, Di
 
     ref_tokens = set(_tokenize_simple(ref_clean))
     cand_tokens = set(_tokenize_simple(cand_clean))
-    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens), len(cand_tokens)) if ref_tokens and cand_tokens else 0.0
+    size_ratio = min(len(ref_tokens), len(cand_tokens)) / max(len(ref_tokens),
+                                                              len(cand_tokens)) if ref_tokens and cand_tokens else 0.0
     cand_subset = cand_tokens < ref_tokens if ref_tokens and cand_tokens else False
     if matched and cand_subset and len(cand_tokens) <= 2 and size_ratio < 0.5:
         return False, 0.0, {
@@ -877,7 +897,8 @@ def _score_candidate_parsed(
     debug: bool = False,
     merged_fields: Optional[Dict[str, Any]] = None,
 ) -> Tuple[Optional[float], Dict[str, Any]]:
-    fields = merged_fields if merged_fields is not None else _candidate_scoring_fields(cand, method)
+    fields = merged_fields if merged_fields is not None else _candidate_scoring_fields(
+        cand, method)
     cand_title = fields["title"]
     cand_journal = fields["journal"]
     cand_year = fields["year"]
@@ -886,11 +907,13 @@ def _score_candidate_parsed(
     ref_title_clean = _clean_title_text(ref_title)
     cand_title_clean = _clean_title_text(cand_title)
 
-    year_ok, year_diff = _year_within_window(ref_year, cand_year, YEAR_MAX_DIFF)
+    year_ok, year_diff = _year_within_window(
+        ref_year, cand_year, YEAR_MAX_DIFF)
     if not year_ok:
         return None, {"reason": "year_out_of_range", "cand_year": cand_year, "ref_year": ref_year, "diff": year_diff}
 
-    title_match, title_score, title_meta = _title_match_score(ref_title_clean, cand_title_clean)
+    title_match, title_score, title_meta = _title_match_score(
+        ref_title_clean, cand_title_clean)
     if not title_match:
         return None, {"reason": "title_mismatch", "title_meta": title_meta}
 
@@ -917,10 +940,12 @@ def _score_candidate_parsed(
         return None, {"reason": "no_scores"}
     calc_score = weighted / total_weight
 
-    penalty, penalty_meta = _subset_inflation_penalty(ref_title_clean, cand_title_clean)
+    penalty, penalty_meta = _subset_inflation_penalty(
+        ref_title_clean, cand_title_clean)
     if penalty:
         calc_score = float(calc_score) - penalty
-    cap, cap_meta = _subset_title_hard_cap(ref_title_clean, cand_title_clean, max_score=88.0)
+    cap, cap_meta = _subset_title_hard_cap(
+        ref_title_clean, cand_title_clean, max_score=88.0)
     if cap is not None and calc_score > cap:
         calc_score = float(cap)
 
@@ -937,7 +962,8 @@ def _score_candidate_parsed(
 
 
 def _score_candidate_unparsed(raw_citation: str, doi: str) -> Tuple[Optional[float], Dict[str, Any]]:
-    citation = _cached(_cache_key("doi_cite", {"doi": doi, "style": "apa"}), _fetch_citation_for_doi, doi)
+    citation = _cached(_cache_key(
+        "doi_cite", {"doi": doi, "style": "apa"}), _fetch_citation_for_doi, doi)
     if not citation:
         return None, {"reason": "no_citation"}
     score = _asymmetric_subsequence_score(raw_citation, citation)
@@ -1043,13 +1069,19 @@ def _match_details(
     cand_page = cand_fields.get("page")
 
     if method.startswith("crossref"):
-        title_match = _cr_title_matches(cand_title, ref_title) if ref_title else None
-        journal_match = _cr_journal_matches(cand_journal, ref_journal) if ref_journal and cand_journal else None
-        authors_match = _cr_authors_overlap(cand, ref_authors) if ref_authors else None
+        title_match = _cr_title_matches(
+            cand_title, ref_title) if ref_title else None
+        journal_match = _cr_journal_matches(
+            cand_journal, ref_journal) if ref_journal and cand_journal else None
+        authors_match = _cr_authors_overlap(
+            cand, ref_authors) if ref_authors else None
     elif method.startswith("openalex"):
-        title_match = _oa_title_matches(cand_title, ref_title) if ref_title else None
-        journal_match = _oa_journal_matches(cand_journal, ref_journal) if ref_journal and cand_journal else None
-        authors_match = _oa_authors_overlap(cand, ref_authors) if ref_authors else None
+        title_match = _oa_title_matches(
+            cand_title, ref_title) if ref_title else None
+        journal_match = _oa_journal_matches(
+            cand_journal, ref_journal) if ref_journal and cand_journal else None
+        authors_match = _oa_authors_overlap(
+            cand, ref_authors) if ref_authors else None
     else:
         title_match = None
         journal_match = None
@@ -1061,13 +1093,16 @@ def _match_details(
 
     volume_match = None
     if ref_volume and cand_volume:
-        volume_match = _normalize_simple(ref_volume) == _normalize_simple(cand_volume)
+        volume_match = _normalize_simple(
+            ref_volume) == _normalize_simple(cand_volume)
     issue_match = None
     if ref_issue and cand_issue:
-        issue_match = _normalize_simple(ref_issue) == _normalize_simple(cand_issue)
+        issue_match = _normalize_simple(
+            ref_issue) == _normalize_simple(cand_issue)
     page_match = None
     if ref_page and cand_page:
-        page_match = _normalize_simple(ref_page) == _normalize_simple(cand_page)
+        page_match = _normalize_simple(
+            ref_page) == _normalize_simple(cand_page)
 
     return {
         "ref_title": ref_title,
@@ -1090,6 +1125,7 @@ def _match_details(
         "page_match": page_match,
         "authors_match": authors_match,
     }
+
 
 @functools.lru_cache(maxsize=256)
 def _fetch_citation_for_doi(doi: Optional[str], style: str = "apa") -> Optional[str]:
@@ -1135,7 +1171,8 @@ def _score_crossref_raw(
         if not doi:
             if debug:
                 logger.info("Crossref raw candidate skipped: missing DOI")
-                _debug_print(debug, "Crossref raw candidate skipped: missing DOI")
+                _debug_print(
+                    debug, "Crossref raw candidate skipped: missing DOI")
             continue
         cyear = _cr_safe_get_issued_year(cand)
         year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
@@ -1156,8 +1193,10 @@ def _score_crossref_raw(
         solr = cand.get("score")
         if solr is not None and solr < RAW_MIN_SOLR_SCORE:
             if debug:
-                logger.info("Crossref raw candidate skipped: solr_score_below_min doi=%s solr=%s", doi, solr)
-                _debug_print(debug, f"Crossref raw candidate skipped: solr_score_below_min doi={doi} solr={solr}")
+                logger.info(
+                    "Crossref raw candidate skipped: solr_score_below_min doi=%s solr=%s", doi, solr)
+                _debug_print(
+                    debug, f"Crossref raw candidate skipped: solr_score_below_min doi={doi} solr={solr}")
             continue
         calc_score = _score_candidate_raw(cand, raw_citation, authors)
         if debug:
@@ -1165,8 +1204,10 @@ def _score_crossref_raw(
             cjour = (cand.get("container-title") or [""])[0]
             raw_score_ok = calc_score >= RAW_MIN_FUZZ
             year_ok = True if year_diff is None else year_diff <= YEAR_MAX_DIFF
-            journal_ok = True if (not journal or not cjour) else _cr_journal_matches(cjour, journal)
-            authors_ok = True if not authors else _cr_authors_overlap(cand, authors)
+            journal_ok = True if (
+                not journal or not cjour) else _cr_journal_matches(cjour, journal)
+            authors_ok = True if not authors else _cr_authors_overlap(
+                cand, authors)
             reason = _raw_score_reason_details(raw_citation, doc)
             jaccard_ok = reason["jaccard"] >= RAW_MIN_JACCARD
             logger.info(
@@ -1216,10 +1257,13 @@ def _score_crossref_raw(
             penalty = min(10.0, penalty)
             calc_score = float(calc_score) - penalty
             if debug:
-                logger.info("Crossref raw candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
-                _debug_print(debug, f"Crossref raw candidate penalty doi={doi} penalty={penalty} meta={meta}")
+                logger.info(
+                    "Crossref raw candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
+                _debug_print(
+                    debug, f"Crossref raw candidate penalty doi={doi} penalty={penalty} meta={meta}")
         cand_title = _crossref_candidate_title(cand)
-        title_penalty, title_meta = _generic_title_penalty(cand_title, ref_title or "")
+        title_penalty, title_meta = _generic_title_penalty(
+            cand_title, ref_title or "")
         if title_penalty:
             calc_score = float(calc_score) - title_penalty
             if debug:
@@ -1249,8 +1293,10 @@ def _score_crossref_raw(
                 )
         if not _raw_candidate_valid(cand, raw_citation, authors, journal, None):
             if debug:
-                logger.info("Crossref raw candidate rejected by validation doi=%s", doi)
-                _debug_print(debug, f"Crossref raw candidate rejected by validation doi={doi}")
+                logger.info(
+                    "Crossref raw candidate rejected by validation doi=%s", doi)
+                _debug_print(
+                    debug, f"Crossref raw candidate rejected by validation doi={doi}")
             continue
         scored.append(
             {
@@ -1264,8 +1310,10 @@ def _score_crossref_raw(
             }
         )
         if debug:
-            logger.info("Crossref raw candidate accepted doi=%s raw_score=%s", doi, calc_score)
-            _debug_print(debug, f"Crossref raw candidate accepted doi={doi} raw_score={calc_score}")
+            logger.info(
+                "Crossref raw candidate accepted doi=%s raw_score=%s", doi, calc_score)
+            _debug_print(
+                debug, f"Crossref raw candidate accepted doi={doi} raw_score={calc_score}")
 
     scored.sort(key=lambda x: x["score"], reverse=True)
     for idx, entry in enumerate(scored, 1):
@@ -1294,7 +1342,8 @@ def _score_crossref_title(
         if not doi:
             if debug:
                 logger.info("Crossref title candidate skipped: missing DOI")
-                _debug_print(debug, "Crossref title candidate skipped: missing DOI")
+                _debug_print(
+                    debug, "Crossref title candidate skipped: missing DOI")
             continue
         cyear = _cr_safe_get_issued_year(cand)
         year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
@@ -1315,17 +1364,21 @@ def _score_crossref_title(
         solr = cand.get("score")
         if solr is not None and solr < STRUCTURED_MIN_SOLR_SCORE:
             if debug:
-                logger.info("Crossref title candidate skipped: solr_score_below_min doi=%s solr=%s", doi, solr)
-                _debug_print(debug, f"Crossref title candidate skipped: solr_score_below_min doi={doi} solr={solr}")
+                logger.info(
+                    "Crossref title candidate skipped: solr_score_below_min doi=%s solr=%s", doi, solr)
+                _debug_print(
+                    debug, f"Crossref title candidate skipped: solr_score_below_min doi={doi} solr={solr}")
             continue
         if debug:
             ctitles = cand.get("title") or []
             ctitle = ctitles[0] if ctitles else ""
             cjour = (cand.get("container-title") or [""])[0]
             title_ok = _cr_title_matches(ctitle, title) if title else True
-            journal_ok = True if (not journal or not cjour) else _cr_journal_matches(cjour, journal)
+            journal_ok = True if (
+                not journal or not cjour) else _cr_journal_matches(cjour, journal)
             year_ok = True if year_diff is None else year_diff <= YEAR_MAX_DIFF
-            authors_ok = True if not authors else _cr_authors_overlap(cand, authors)
+            authors_ok = True if not authors else _cr_authors_overlap(
+                cand, authors)
             logger.info(
                 "Crossref title candidate validation doi=%s title_ok=%s journal_ok=%s year_ok=%s authors_ok=%s ref_year=%s cand_year=%s ref_journal=%s cand_journal=%s",
                 doi,
@@ -1346,8 +1399,10 @@ def _score_crossref_title(
             )
         if not _cr_structured_valid(cand, title, journal, None, authors):
             if debug:
-                logger.info("Crossref title candidate rejected by validation doi=%s", doi)
-                _debug_print(debug, f"Crossref title candidate rejected by validation doi={doi}")
+                logger.info(
+                    "Crossref title candidate rejected by validation doi=%s", doi)
+                _debug_print(
+                    debug, f"Crossref title candidate rejected by validation doi={doi}")
             continue
         calc_score = _score_candidate_structured(
             cand,
@@ -1364,17 +1419,23 @@ def _score_crossref_title(
         if penalty:
             calc_score = float(calc_score) - penalty
             if debug:
-                logger.info("Crossref title candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
-                _debug_print(debug, f"Crossref title candidate penalty doi={doi} penalty={penalty} meta={meta}")
+                logger.info(
+                    "Crossref title candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
+                _debug_print(
+                    debug, f"Crossref title candidate penalty doi={doi} penalty={penalty} meta={meta}")
         cap, cap_meta = _subset_title_hard_cap(title, ctitle, max_score=88.0)
         if cap is not None and calc_score > cap:
             calc_score = float(cap)
             if debug:
-                logger.info("Crossref title candidate hard cap doi=%s cap=%s meta=%s", doi, cap, cap_meta)
-                _debug_print(debug, f"Crossref title candidate hard cap doi={doi} cap={cap} meta={cap_meta}")
+                logger.info(
+                    "Crossref title candidate hard cap doi=%s cap=%s meta=%s", doi, cap, cap_meta)
+                _debug_print(
+                    debug, f"Crossref title candidate hard cap doi={doi} cap={cap} meta={cap_meta}")
         if debug:
-            logger.info("Crossref title candidate score doi=%s calc_score=%s solr=%s", doi, calc_score, solr)
-            _debug_print(debug, f"Crossref title candidate score doi={doi} calc_score={calc_score} solr={solr}")
+            logger.info(
+                "Crossref title candidate score doi=%s calc_score=%s solr=%s", doi, calc_score, solr)
+            _debug_print(
+                debug, f"Crossref title candidate score doi={doi} calc_score={calc_score} solr={solr}")
         scored.append(
             {
                 "doi": doi,
@@ -1387,8 +1448,10 @@ def _score_crossref_title(
             }
         )
         if debug:
-            logger.info("Crossref title candidate accepted doi=%s calc_score=%s", doi, calc_score)
-            _debug_print(debug, f"Crossref title candidate accepted doi={doi} calc_score={calc_score}")
+            logger.info(
+                "Crossref title candidate accepted doi=%s calc_score=%s", doi, calc_score)
+            _debug_print(
+                debug, f"Crossref title candidate accepted doi={doi} calc_score={calc_score}")
 
     scored.sort(key=lambda x: x["score"], reverse=True)
     for idx, entry in enumerate(scored, 1):
@@ -1406,19 +1469,25 @@ def _fetch_openalex_candidates(title: str, year: Optional[int], mailto: str, deb
     nt = _norm(title)
     strict_mailto = OPENALEX_MAILTO  # _fetch_candidates_strict uses this internally
     cands = []
-    strict_key = _cache_key("oa_strict", {"title": nt, "year": year, "mailto": strict_mailto})
+    strict_key = _cache_key(
+        "oa_strict", {"title": nt, "year": year, "mailto": strict_mailto})
     try:
-        cands = _cached(strict_key, _fetch_candidates_strict, sess, nt, year, debug)
+        cands = _cached(strict_key, _fetch_candidates_strict,
+                        sess, nt, year, debug)
     except Exception:
         cands = []
 
     if not cands:
-        keep_year_key = _cache_key("oa_relaxed_keep_year", {"title": nt, "year": year, "mailto": mailto})
-        cands = _cached(keep_year_key, _fetch_candidates_relaxed, sess, nt, year, mailto, True)
+        keep_year_key = _cache_key("oa_relaxed_keep_year", {
+                                   "title": nt, "year": year, "mailto": mailto})
+        cands = _cached(keep_year_key, _fetch_candidates_relaxed,
+                        sess, nt, year, mailto, True)
 
     if not cands:
-        no_year_key = _cache_key("oa_relaxed_no_year", {"title": nt, "year": None, "mailto": mailto})
-        cands = _cached(no_year_key, _fetch_candidates_relaxed, sess, nt, None, mailto, False)
+        no_year_key = _cache_key("oa_relaxed_no_year", {
+                                 "title": nt, "year": None, "mailto": mailto})
+        cands = _cached(no_year_key, _fetch_candidates_relaxed,
+                        sess, nt, None, mailto, False)
 
     return cands or []
 
@@ -1439,19 +1508,25 @@ def _score_openalex_title(
     nt = _norm(title)
     strict_mailto = OPENALEX_MAILTO  # _fetch_candidates_strict uses this internally
     cands = []
-    strict_key = _cache_key("oa_strict", {"title": nt, "year": year, "mailto": strict_mailto})
+    strict_key = _cache_key(
+        "oa_strict", {"title": nt, "year": year, "mailto": strict_mailto})
     try:
-        cands = _cached(strict_key, _fetch_candidates_strict, sess, nt, year, debug)
+        cands = _cached(strict_key, _fetch_candidates_strict,
+                        sess, nt, year, debug)
     except Exception:
         cands = []
 
     if not cands:
-        keep_year_key = _cache_key("oa_relaxed_keep_year", {"title": nt, "year": year, "mailto": mailto})
-        cands = _cached(keep_year_key, _fetch_candidates_relaxed, sess, nt, year, mailto, True)
+        keep_year_key = _cache_key("oa_relaxed_keep_year", {
+                                   "title": nt, "year": year, "mailto": mailto})
+        cands = _cached(keep_year_key, _fetch_candidates_relaxed,
+                        sess, nt, year, mailto, True)
 
     if not cands:
-        no_year_key = _cache_key("oa_relaxed_no_year", {"title": nt, "year": None, "mailto": mailto})
-        cands = _cached(no_year_key, _fetch_candidates_relaxed, sess, nt, None, mailto, False)
+        no_year_key = _cache_key("oa_relaxed_no_year", {
+                                 "title": nt, "year": None, "mailto": mailto})
+        cands = _cached(no_year_key, _fetch_candidates_relaxed,
+                        sess, nt, None, mailto, False)
 
     scored: List[Dict[str, Any]] = []
     for idx, cand in enumerate(cands or [], 1):
@@ -1487,9 +1562,11 @@ def _score_openalex_title(
             except Exception:
                 cjour = ""
             title_ok = _oa_title_matches(ctitle, title) if title else True
-            journal_ok = True if (not journal or not cjour) else _oa_journal_matches(cjour, journal)
+            journal_ok = True if (
+                not journal or not cjour) else _oa_journal_matches(cjour, journal)
             year_ok = True if year_diff is None else year_diff <= YEAR_MAX_DIFF
-            authors_ok = True if not authors else _oa_authors_overlap(cand, authors)
+            authors_ok = True if not authors else _oa_authors_overlap(
+                cand, authors)
             logger.info(
                 "OpenAlex candidate validation doi=%s title_ok=%s journal_ok=%s year_ok=%s authors_ok=%s ref_year=%s cand_year=%s ref_journal=%s cand_journal=%s",
                 doi,
@@ -1510,30 +1587,42 @@ def _score_openalex_title(
             )
         if not _oa_structured_valid(cand, title, journal, None, authors):
             if debug:
-                logger.info("OpenAlex candidate rejected by validation doi=%s", doi)
-                _debug_print(debug, f"OpenAlex candidate rejected by validation doi={doi}")
+                logger.info(
+                    "OpenAlex candidate rejected by validation doi=%s", doi)
+                _debug_print(
+                    debug, f"OpenAlex candidate rejected by validation doi={doi}")
             continue
-        score = _oa_score_sbmv(cand, title, journal, year, authors, debug=debug)
+        score = _oa_score_sbmv(cand, title, journal,
+                               year, authors, debug=debug)
         ctitle = cand.get("title") or ""
         penalty, meta = _subset_inflation_penalty(title, ctitle)
         if penalty:
             score = float(score) - penalty
             if debug:
-                logger.info("OpenAlex candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
-                _debug_print(debug, f"OpenAlex candidate penalty doi={doi} penalty={penalty} meta={meta}")
+                logger.info(
+                    "OpenAlex candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
+                _debug_print(
+                    debug, f"OpenAlex candidate penalty doi={doi} penalty={penalty} meta={meta}")
         cap, cap_meta = _subset_title_hard_cap(title, ctitle, max_score=88.0)
         if cap is not None and score > cap:
             score = float(cap)
             if debug:
-                logger.info("OpenAlex candidate hard cap doi=%s cap=%s meta=%s", doi, cap, cap_meta)
-                _debug_print(debug, f"OpenAlex candidate hard cap doi={doi} cap={cap} meta={cap_meta}")
+                logger.info(
+                    "OpenAlex candidate hard cap doi=%s cap=%s meta=%s", doi, cap, cap_meta)
+                _debug_print(
+                    debug, f"OpenAlex candidate hard cap doi={doi} cap={cap} meta={cap_meta}")
         if debug:
-            logger.info("OpenAlex candidate score doi=%s calc_score=%s", doi, score)
-            _debug_print(debug, f"OpenAlex candidate score doi={doi} calc_score={score}")
-        scored.append({"doi": doi, "score": float(score), "candidate": cand, "candidate_number": idx})
+            logger.info(
+                "OpenAlex candidate score doi=%s calc_score=%s", doi, score)
+            _debug_print(
+                debug, f"OpenAlex candidate score doi={doi} calc_score={score}")
+        scored.append({"doi": doi, "score": float(score),
+                      "candidate": cand, "candidate_number": idx})
         if debug:
-            logger.info("OpenAlex candidate accepted doi=%s calc_score=%s", doi, score)
-            _debug_print(debug, f"OpenAlex candidate accepted doi={doi} calc_score={score}")
+            logger.info(
+                "OpenAlex candidate accepted doi=%s calc_score=%s", doi, score)
+            _debug_print(
+                debug, f"OpenAlex candidate accepted doi={doi} calc_score={score}")
 
     scored.sort(key=lambda x: x["score"], reverse=True)
     for idx, entry in enumerate(scored, 1):
@@ -1602,7 +1691,8 @@ def process_reference(
             )
 
     if raw_citation and not screened_out:
-        raw_key = _cache_key("cr_biblio", {"blob": raw_citation.strip(), "rows": TOP_N_PER_STRATEGY})
+        raw_key = _cache_key(
+            "cr_biblio", {"blob": raw_citation.strip(), "rows": TOP_N_PER_STRATEGY})
         raw_items = _cached(
             raw_key,
             _query_crossref_biblio,
@@ -1638,7 +1728,8 @@ def process_reference(
     else:
         title_items = []
 
-    oa_items = _fetch_openalex_candidates(title, query_year, mailto, debug) if title and not screened_out else []
+    oa_items = _fetch_openalex_candidates(
+        title, query_year, mailto, debug) if title and not screened_out else []
 
     raw_items = (raw_items or [])[:TOP_N_PER_STRATEGY]
     title_items = (title_items or [])[:TOP_N_PER_STRATEGY]
@@ -1650,6 +1741,7 @@ def process_reference(
 
     def _score_entries(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         scored: List[Dict[str, Any]] = []
+
         def _short(val: Optional[str], limit: int = 140) -> str:
             if not val:
                 return ""
@@ -1671,12 +1763,14 @@ def process_reference(
             else:
                 if not raw_citation:
                     continue
-                score, meta = _score_candidate_unparsed(raw_citation, entry["doi"])
+                score, meta = _score_candidate_unparsed(
+                    raw_citation, entry["doi"])
 
             if score is None:
                 if debug:
                     if parsed_available:
-                        cand_fields = _candidate_scoring_fields(entry["candidate"], entry["method"])
+                        cand_fields = _candidate_scoring_fields(
+                            entry["candidate"], entry["method"])
                         logger.info(
                             "Candidate rejected doi=%s method=%s reason=%s cand_title=%s cand_journal=%s cand_year=%s ref_year=%s year_diff=%s title_meta=%s query_score=%s",
                             entry.get("doi"),
@@ -1730,7 +1824,8 @@ def process_reference(
                     entry.get("query_score"),
                 )
                 if entry.get("method") == "openalex_title":
-                    cand_fields = _candidate_scoring_fields(entry["candidate"], entry["method"])
+                    cand_fields = _candidate_scoring_fields(
+                        entry["candidate"], entry["method"])
                     logger.info(
                         "OpenAlex candidate accepted doi=%s score=%s scores=%s title=%s journal=%s year=%s ref_year=%s year_diff=%s title_meta=%s relevance=%s",
                         entry.get("doi"),
@@ -1809,13 +1904,16 @@ def process_reference(
         if max_score >= threshold_used:
             final_choice = deduped_scored[0]
             status = "matched"
-            tied = [c for c in deduped_scored if abs(c["score"] - max_score) < 1e-6]
+            tied = [c for c in deduped_scored if abs(
+                c["score"] - max_score) < 1e-6]
             if len(tied) > 1:
                 status = "conflict"
                 conflict_reason = "multiple-dois-same-score"
-            score_gap = max_score - deduped_scored[1]["score"] if len(deduped_scored) > 1 else None
+            score_gap = max_score - \
+                deduped_scored[1]["score"] if len(deduped_scored) > 1 else None
             if status == "conflict" or (score_gap is not None and score_gap <= 1.0):
-                tiebreak_choice, reason = _distance_tiebreak_deduped(raw_citation, deduped_scored, epsilon=1.0)
+                tiebreak_choice, reason = _distance_tiebreak_deduped(
+                    raw_citation, deduped_scored, epsilon=1.0)
                 if tiebreak_choice:
                     final_choice = tiebreak_choice
                     status = "matched"
@@ -1829,30 +1927,42 @@ def process_reference(
     doi_title = best_title.get("doi") if best_title else None
     doi_oa = best_oa.get("doi") if best_oa else None
 
-    crossref_citation_raw = _cached(_cache_key("doi_cite", {"doi": doi_raw, "style": "apa"}), _fetch_citation_for_doi, doi_raw) if doi_raw else None
-    crossref_title_citation_raw = _cached(_cache_key("doi_cite", {"doi": doi_title, "style": "apa"}), _fetch_citation_for_doi, doi_title) if doi_title else None
-    openalex_raw_citation_raw = _cached(_cache_key("doi_cite", {"doi": doi_oa, "style": "apa"}), _fetch_citation_for_doi, doi_oa) if doi_oa else None
+    crossref_citation_raw = _cached(_cache_key("doi_cite", {
+                                    "doi": doi_raw, "style": "apa"}), _fetch_citation_for_doi, doi_raw) if doi_raw else None
+    crossref_title_citation_raw = _cached(_cache_key("doi_cite", {
+                                          "doi": doi_title, "style": "apa"}), _fetch_citation_for_doi, doi_title) if doi_title else None
+    openalex_raw_citation_raw = _cached(_cache_key("doi_cite", {
+                                        "doi": doi_oa, "style": "apa"}), _fetch_citation_for_doi, doi_oa) if doi_oa else None
 
     crossref_citation = _ascii_sanitize(_strip_urls(crossref_citation_raw))
-    crossref_title_citation = _ascii_sanitize(_strip_urls(crossref_title_citation_raw))
-    openalex_raw_citation = _ascii_sanitize(_strip_urls(openalex_raw_citation_raw))
+    crossref_title_citation = _ascii_sanitize(
+        _strip_urls(crossref_title_citation_raw))
+    openalex_raw_citation = _ascii_sanitize(
+        _strip_urls(openalex_raw_citation_raw))
 
-    crossref_citation_string_distance = _string_distance(raw_citation, crossref_citation)
-    crossref_title_citation_string_distance = _string_distance(raw_citation, crossref_title_citation)
-    openalex_raw_citation_string_distance = _string_distance(raw_citation, openalex_raw_citation)
+    crossref_citation_string_distance = _string_distance(
+        raw_citation, crossref_citation)
+    crossref_title_citation_string_distance = _string_distance(
+        raw_citation, crossref_title_citation)
+    openalex_raw_citation_string_distance = _string_distance(
+        raw_citation, openalex_raw_citation)
 
     final_citation_raw = None
     if final_choice:
         final_citation_raw = _cached(
-            _cache_key("doi_cite", {"doi": final_choice.get("doi"), "style": "apa"}),
+            _cache_key(
+                "doi_cite", {"doi": final_choice.get("doi"), "style": "apa"}),
             _fetch_citation_for_doi,
             final_choice.get("doi"),
         )
     final_citation = _ascii_sanitize(_strip_urls(final_citation_raw))
-    final_citation_string_distance = _string_distance(raw_citation, final_citation)
+    final_citation_string_distance = _string_distance(
+        raw_citation, final_citation)
 
-    crossref_raw_query_score = best_raw.get("query_score") if best_raw else None
-    crossref_title_query_score = best_title.get("query_score") if best_title else None
+    crossref_raw_query_score = best_raw.get(
+        "query_score") if best_raw else None
+    crossref_title_query_score = best_title.get(
+        "query_score") if best_title else None
 
     row = {
         "raw_citation": _ascii_sanitize(raw_citation),
@@ -1892,7 +2002,8 @@ def process_reference(
     if debug:
         if final_choice:
             cand = final_choice.get("candidate") or {}
-            author_detail = _author_overlap_details(authors, cand, final_choice.get("method") or "")
+            author_detail = _author_overlap_details(
+                authors, cand, final_choice.get("method") or "")
             match_detail = _match_details(
                 method=final_choice.get("method") or "",
                 ref_title=title,
@@ -2022,9 +2133,12 @@ def main():
         )
     )
     ap.add_argument("--osf-id", help="OSF preprint id to process")
-    ap.add_argument("--ref-id", help="Optional ref_id filter when using --osf-id")
-    ap.add_argument("--limit", type=int, default=400, help="Max references to fetch when using --osf-id")
-    ap.add_argument("--output", default="doi_multi_method.csv", help="CSV output path")
+    ap.add_argument(
+        "--ref-id", help="Optional ref_id filter when using --osf-id")
+    ap.add_argument("--limit", type=int, default=400,
+                    help="Max references to fetch when using --osf-id")
+    ap.add_argument("--output", default="doi_multi_method.csv",
+                    help="CSV output path")
     ap.add_argument(
         "--threshold",
         type=int,
@@ -2040,13 +2154,20 @@ def main():
     )
     ap.add_argument("--year", type=int, help="Year hint (standalone mode)")
     ap.add_argument("--journal", help="Journal hint (standalone mode)")
-    ap.add_argument("--author", action="append", dest="authors", help="Repeatable author (standalone mode)")
-    ap.add_argument("--mailto", default=None, help="Override OPENALEX_MAILTO/OPENALEX_EMAIL for OpenAlex requests")
-    ap.add_argument("--from-db", action="store_true", help="Read references from Dynamo preprint_references")
-    ap.add_argument("--include-existing", action="store_true", help="Include refs that already have a DOI (useful for re-checking)")
-    ap.add_argument("--screen-raw", action="store_true", help="Screen raw citation with regex before querying APIs")
-    ap.add_argument("--random-sample", action="store_true", help="Process a random sample of refs (limit still applies)")
+    ap.add_argument("--author", action="append", dest="authors",
+                    help="Repeatable author (standalone mode)")
+    ap.add_argument("--mailto", default=None,
+                    help="Override OPENALEX_MAILTO/OPENALEX_EMAIL for OpenAlex requests")
+    ap.add_argument("--from-db", action="store_true",
+                    help="Read references from Dynamo preprint_references")
+    ap.add_argument("--include-existing", action="store_true",
+                    help="Include refs that already have a DOI (useful for re-checking)")
+    ap.add_argument("--no-screen-raw", dest="screen_raw",
+                    action="store_false", help="Disable raw citation screening")
+    ap.add_argument("--random-sample", action="store_true",
+                    help="Process a random sample of refs (limit still applies)")
     ap.add_argument("--debug", action="store_true")
+    ap.set_defaults(screen_raw=True)
     args = ap.parse_args()
 
     if args.debug:
@@ -2056,7 +2177,8 @@ def main():
             rf_fuzz is not None,
         )
 
-    mailto = args.mailto or os.environ.get("OPENALEX_MAILTO") or os.environ.get("OPENALEX_EMAIL") or OPENALEX_MAILTO
+    mailto = args.mailto or os.environ.get("OPENALEX_MAILTO") or os.environ.get(
+        "OPENALEX_EMAIL") or OPENALEX_MAILTO
     out_path = Path(args.output)
 
     if args.raw_stdin:
@@ -2071,7 +2193,8 @@ def main():
         if args.from_db:
             repo = PreprintsRepo()
             if not args.osf_id:
-                refs = _iter_all_refs(repo, args.limit, args.ref_id, args.include_existing)
+                refs = _iter_all_refs(
+                    repo, args.limit, args.ref_id, args.include_existing)
             else:
                 refs = repo.select_refs_missing_doi(
                     limit=args.limit,
