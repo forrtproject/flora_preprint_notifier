@@ -398,14 +398,13 @@ def enrich_crossref(
     debug: bool = False,
     dump_misses: str | None = None,
 ):
-    from .augmentation.matching_crossref import enrich_missing_with_crossref
-    stats = enrich_missing_with_crossref(
+    from .augmentation.doi_multi_method import enrich_missing_with_multi_method
+    stats = enrich_missing_with_multi_method(
         limit=limit,
-        ua_email=ua_email,
+        mailto=ua_email,
         osf_id=osf_id,
         ref_id=ref_id,
         debug=debug,
-        dump_misses=dump_misses,
     )
     _slack("Crossref enrichment", extra=stats)
     return stats
@@ -415,14 +414,14 @@ def enrich_crossref(
 def enrich_openalex(
     self,
     limit: int = 200,
-    threshold: int = 70,
+    threshold: int = 78,
     mailto: Optional[str] = None,
     osf_id: Optional[str] = None,
     debug: bool = False,
 ):
-    from .augmentation.doi_check_openalex import enrich_missing_with_openalex
+    from .augmentation.doi_multi_method import enrich_missing_with_multi_method
 
-    stats = enrich_missing_with_openalex(
+    stats = enrich_missing_with_multi_method(
         limit=limit,
         threshold=threshold,
         mailto=mailto,

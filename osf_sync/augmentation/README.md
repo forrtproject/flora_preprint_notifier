@@ -35,7 +35,13 @@ Key functions:
 
 - `matching_crossref.enrich_missing_with_crossref(limit, threshold, ua_email, ...)`
 - `doi_check_openalex.enrich_missing_with_openalex(limit, threshold, mailto, osf_id, debug)`
+- `doi_multi_method.enrich_missing_with_multi_method(limit, threshold, mailto, osf_id, ref_id, ...)`
 - `enrich_doi.enrich_missing_with_crossref()` / `enrich_missing_with_openalex()` (thin wrappers around the modules above).
+
+Matching notes:
+- Title matching strips HTML tags/entities before scoring.
+- Year matching allows a +/-1 window.
+- Subset-inflation penalties and hard caps are applied to prevent short-title false positives.
 
 All enrichment functions:
 
@@ -43,7 +49,7 @@ All enrichment functions:
 2. Query the respective API.
 3. Use `repo.update_reference_doi(osf_id, ref_id, doi, source=...)` for conditional updates.
 
-Celery tasks (`osf_sync.tasks.enrich_crossref` / `enrich_openalex`) pass parameters (limit, threshold, mailto) down to these functions.
+Celery tasks (`osf_sync.tasks.enrich_crossref` / `enrich_openalex`) now call the multi-method pipeline via `doi_multi_method.enrich_missing_with_multi_method`.
 
 ---
 
