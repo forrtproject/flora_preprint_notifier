@@ -5,3 +5,4 @@
 /osf_sync/__pycache__
 /osf_sync/augmentation/__pycache__
 /osf_sync/dynamo/__pycache__
+*.pyc
