@@ -1173,85 +1173,55 @@ def _assign_pdf_emails(rows: List[Dict[str, Any]], pdf_emails: List[str]) -> int
     return assigned
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Extract author info from DynamoDB preprints with on-demand PDF/GROBID."
-    )
-    parser.add_argument("--osf-id", action="append", dest="osf_ids", default=[])
-    parser.add_argument("--ids-file", default=None, help="Text file with one OSF id per line.")
-    parser.add_argument("--limit", type=int, default=None, help="Limit scan count when no ids specified.")
-    parser.add_argument(
-        "--out",
-        default=str(EXTRACTION_DIR / "authorList_ext.csv"),
-        help="Output CSV path.",
-    )
-    parser.add_argument(
-        "--pdf-root",
-        default=os.environ.get("PDF_DEST_ROOT", "/data/preprints"),
-        help="Base folder for PDF/TEI storage.",
-    )
-    parser.add_argument(
-        "--keep-files",
-        action="store_true",
-        help="Keep PDFs/TEI after processing (default deletes).",
-    )
-    parser.add_argument(
-        "--debug",
-        action="store_true",
-        help="Enable step-by-step debug logging.",
-    )
-    parser.add_argument(
-        "--debug-log",
-        default=None,
-        help="Write logs to this file (in addition to stdout).",
-    )
-    parser.add_argument(
-        "--match-emails-file",
-        default=None,
-        help="CSV file to fuzzy-match emails to authors and write back in-place.",
-    )
-    parser.add_argument(
-        "--match-emails-threshold",
-        type=float,
-        default=0.90,
-        help="Similarity threshold for review flag.",
-    )
-    args = parser.parse_args()
-    global _LOG_FH
-    if args.debug_log:
-        _LOG_FH = open(args.debug_log, "w", encoding="utf-8")
-    delete_files = not args.keep_files
-    global DEBUG
-    DEBUG = bool(args.debug)
+def run_author_extract(
+    *,
+    osf_ids: Optional[List[str]] = None,
+    ids_file: Optional[str] = None,
+    limit: Optional[int] = None,
+    out: Optional[str] = None,
+    pdf_root: Optional[str] = None,
+    keep_files: bool = False,
+    debug: bool = False,
+    debug_log: Optional[str] = None,
+    match_emails_file: Optional[str] = None,
+    match_emails_threshold: float = 0.90,
+    auto_match_emails: bool = True,
+) -> int:
+    global _LOG_FH, DEBUG
+    if debug_log:
+        _LOG_FH = open(debug_log, "w", encoding="utf-8")
+    delete_files = not keep_files
+    DEBUG = bool(debug)
     if DEBUG:
         _log("Debug logging: enabled")
     _log("File cleanup: enabled" if delete_files else "File cleanup: disabled")
 
-    if args.match_emails_file:
-        _log(f"Matching emails in {args.match_emails_file} (threshold={args.match_emails_threshold})")
-        _match_emails_in_csv(args.match_emails_file, args.match_emails_threshold)
+    if match_emails_file:
+        _log(f"Matching emails in {match_emails_file} (threshold={match_emails_threshold})")
+        _match_emails_in_csv(match_emails_file, match_emails_threshold)
         _log("Email matching complete")
         if _LOG_FH:
             _LOG_FH.close()
         return 0
 
-    ids = list(args.osf_ids or [])
-    if args.ids_file:
-        with open(args.ids_file, "r", encoding="utf-8") as fh:
+    ids = list(osf_ids or [])
+    if ids_file:
+        with open(ids_file, "r", encoding="utf-8") as fh:
             ids.extend([line.strip() for line in fh if line.strip()])
     ids = list(dict.fromkeys(ids))
 
     repo = PreprintsRepo()
-    items = _iter_items_by_ids(repo, ids) if ids else _iter_items_scan(repo, args.limit)
+    items = _iter_items_by_ids(repo, ids) if ids else _iter_items_scan(repo, limit)
 
-    grobid.DATA_ROOT = args.pdf_root
+    pdf_root = pdf_root or os.environ.get("PDF_DEST_ROOT", "/data/preprints")
+    grobid.DATA_ROOT = pdf_root
 
     osf_user_cache: Dict[str, dict] = {}
     orcid_cache: Dict[str, dict] = {}
     orcid_name_cache: Dict[Tuple[str, str], Optional[str]] = {}
     orcid_affil_cache: Dict[str, List[str]] = {}
 
-    out_path = Path(args.out)
+    out_path = Path(out or (EXTRACTION_DIR / "authorList_ext.csv"))
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     count_rows = 0
@@ -1266,7 +1236,7 @@ def main() -> int:
             try:
                 rows = _process_preprint(
                     item,
-                    args.pdf_root,
+                    pdf_root,
                     osf_user_cache,
                     orcid_cache,
                     orcid_name_cache,
@@ -1285,6 +1255,10 @@ def main() -> int:
                 _log(f"[warn] {osf_id}: {exc}")
 
     _log(f"Wrote {count_rows} rows to {out_path}")
+    if auto_match_emails:
+        _log(f"Matching emails in {out_path} (threshold={match_emails_threshold})")
+        _match_emails_in_csv(str(out_path), match_emails_threshold)
+        _log("Email matching complete")
     _log("Stats summary:")
     _log(
         f"preprints total={stats.get('preprints_total', 0)} "
@@ -1329,6 +1303,70 @@ def main() -> int:
     if _LOG_FH:
         _LOG_FH.close()
     return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Extract author info from DynamoDB preprints with on-demand PDF/GROBID."
+    )
+    parser.add_argument("--osf-id", action="append", dest="osf_ids", default=[])
+    parser.add_argument("--ids-file", default=None, help="Text file with one OSF id per line.")
+    parser.add_argument("--limit", type=int, default=None, help="Limit scan count when no ids specified.")
+    parser.add_argument(
+        "--out",
+        default=str(EXTRACTION_DIR / "authorList_ext.csv"),
+        help="Output CSV path.",
+    )
+    parser.add_argument(
+        "--pdf-root",
+        default=os.environ.get("PDF_DEST_ROOT", "/data/preprints"),
+        help="Base folder for PDF/TEI storage.",
+    )
+    parser.add_argument(
+        "--keep-files",
+        action="store_true",
+        help="Keep PDFs/TEI after processing (default deletes).",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Enable step-by-step debug logging.",
+    )
+    parser.add_argument(
+        "--debug-log",
+        default=None,
+        help="Write logs to this file (in addition to stdout).",
+    )
+    parser.add_argument(
+        "--match-emails-file",
+        default=None,
+        help="CSV file to fuzzy-match emails to authors and write back in-place.",
+    )
+    parser.add_argument(
+        "--match-emails-threshold",
+        type=float,
+        default=0.90,
+        help="Similarity threshold for review flag.",
+    )
+    parser.add_argument(
+        "--no-match-emails",
+        action="store_true",
+        help="Disable auto email matching on the output CSV.",
+    )
+    args = parser.parse_args()
+    return run_author_extract(
+        osf_ids=args.osf_ids,
+        ids_file=args.ids_file,
+        limit=args.limit,
+        out=args.out,
+        pdf_root=args.pdf_root,
+        keep_files=args.keep_files,
+        debug=args.debug,
+        debug_log=args.debug_log,
+        match_emails_file=args.match_emails_file,
+        match_emails_threshold=args.match_emails_threshold,
+        auto_match_emails=not args.no_match_emails,
+    )
 
 
 if __name__ == "__main__":
