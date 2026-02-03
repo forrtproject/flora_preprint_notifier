@@ -77,9 +77,9 @@ logger.setLevel(logging.INFO)
 
 DOI_MULTI_METHOD_CACHE_TABLE = os.environ.get(
     "DOI_MULTI_METHOD_CACHE_TABLE", "doi_multi_method_cache")
-# Default cache TTL: one week.
+# Default cache TTL: six months (approx, 30-day months).
 DOI_MULTI_METHOD_CACHE_TTL_SECS = float(os.environ.get(
-    "DOI_MULTI_METHOD_CACHE_TTL_SECS", 7 * 24 * 3600))
+    "DOI_MULTI_METHOD_CACHE_TTL_SECS", 6 * 30 * 24 * 3600))
 _CACHE_KEY_ATTR = "cache_key"
 _CACHE_VALUE_ATTR = "cache_value"
 _CACHE_TTL_ATTR = "ttl"
@@ -115,9 +115,28 @@ class DynamoCache:
         self.table = self.ddb.Table(table_name)
         self._ensure_table()
 
+    def _ensure_ttl(self) -> None:
+        client = self.ddb.meta.client
+        try:
+            ttl = client.describe_time_to_live(
+                TableName=self.table_name).get("TimeToLiveDescription", {})
+            status = ttl.get("TimeToLiveStatus")
+            if status != "ENABLED":
+                client.update_time_to_live(
+                    TableName=self.table_name,
+                    TimeToLiveSpecification={
+                        "Enabled": True,
+                        "AttributeName": _CACHE_TTL_ATTR,
+                    },
+                )
+        except Exception:
+            # Ignore TTL errors (e.g., local DynamoDB doesn't support TTL)
+            pass
+
     def _ensure_table(self) -> None:
         try:
             self.table.load()
+            self._ensure_ttl()
         except Exception:
             try:
                 self.ddb.create_table(
@@ -130,6 +149,7 @@ class DynamoCache:
                 )
                 self.table = self.ddb.Table(self.table_name)
                 self.table.wait_until_exists()
+                self._ensure_ttl()
             except Exception:
                 # If we cannot create/load the table, cache becomes a no-op.
                 pass
@@ -1127,9 +1147,16 @@ def _match_details(
     }
 
 
+def _cache_bucket(ttl_seconds: float) -> int:
+    return int(time.time() // ttl_seconds)
+
+
 @functools.lru_cache(maxsize=256)
-def _fetch_citation_for_doi(doi: Optional[str], style: str = "apa") -> Optional[str]:
-    """Resolve a DOI into a formatted citation text."""
+def _fetch_citation_for_doi_cached(
+    doi: Optional[str], style: str, ttl_bucket: int
+) -> Optional[str]:
+    # ttl_bucket is unused by the function body; it scopes the cache to the TTL window.
+    del ttl_bucket
     if not doi:
         return None
     try:
@@ -1153,6 +1180,13 @@ def _fetch_citation_for_doi(doi: Optional[str], style: str = "apa") -> Optional[
     except Exception:
         pass
     return None
+
+
+def _fetch_citation_for_doi(doi: Optional[str], style: str = "apa") -> Optional[str]:
+    """Resolve a DOI into a formatted citation text."""
+    return _fetch_citation_for_doi_cached(
+        doi, style, _cache_bucket(DOI_MULTI_METHOD_CACHE_TTL_SECS)
+    )
 
 
 def _score_crossref_raw(

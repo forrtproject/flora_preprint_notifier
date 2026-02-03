@@ -4,6 +4,7 @@ from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
 from typing import List, Dict, Optional, Any
 import datetime as dt
+from ..preprint_filters import original_publication_date_from_item
 
 
 def _strip_nones(d: Dict[str, Any]) -> Dict[str, Any]:
@@ -57,6 +58,7 @@ class PreprintsRepo:
                         "date_created": a.get("date_created"),
                         "date_modified": a.get("date_modified"),
                         "date_published": a.get("date_published") or "",
+                        "original_publication_date": a.get("original_publication_date"),
                         "is_published": is_published,
                         "version": a.get("version"),
                         "is_latest_version": a.get("is_latest_version"),
@@ -202,6 +204,57 @@ class PreprintsRepo:
     # --- utilities / other operations ---
     def delete_preprint(self, osf_id: str) -> None:
         self.t_preprints.delete_item(Key={"osf_id": osf_id})
+
+    def delete_preprint_and_related(self, osf_id: str) -> None:
+        # Delete references in batches to avoid leaking orphaned rows.
+        try:
+            last_key = None
+            with self.t_refs.batch_writer() as bw:
+                while True:
+                    kwargs = {"KeyConditionExpression": Key("osf_id").eq(osf_id)}
+                    if last_key:
+                        kwargs["ExclusiveStartKey"] = last_key
+                    resp = self.t_refs.query(**kwargs)
+                    for item in resp.get("Items", []):
+                        ref_id = item.get("ref_id")
+                        if ref_id:
+                            bw.delete_item(Key={"osf_id": osf_id, "ref_id": ref_id})
+                    last_key = resp.get("LastEvaluatedKey")
+                    if not last_key:
+                        break
+        except Exception as e:
+            with_extras(log, osf_id=osf_id, err=str(e)).warning("reference delete failed")
+
+        try:
+            self.t_tei.delete_item(Key={"osf_id": osf_id})
+        except Exception as e:
+            with_extras(log, osf_id=osf_id, err=str(e)).warning("tei delete failed")
+
+        try:
+            self.t_preprints.delete_item(Key={"osf_id": osf_id})
+        except Exception as e:
+            with_extras(log, osf_id=osf_id, err=str(e)).warning("preprint delete failed")
+
+    def purge_preprints_before_date(self, min_date: dt.date) -> int:
+        deleted = 0
+        last_key = None
+        while True:
+            kwargs = {"ProjectionExpression": "osf_id, original_publication_date, raw"}
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_preprints.scan(**kwargs)
+            for item in resp.get("Items", []):
+                osf_id = item.get("osf_id")
+                if not osf_id:
+                    continue
+                pub_date = original_publication_date_from_item(item)
+                if pub_date and pub_date < min_date:
+                    self.delete_preprint_and_related(osf_id)
+                    deleted += 1
+            last_key = resp.get("LastEvaluatedKey")
+            if not last_key:
+                break
+        return deleted
 
     def exists_preprint(self, osf_id: str) -> bool:
         return bool(self.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item"))
