@@ -7,7 +7,6 @@ from urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 from typing import Optional, Iterable, List, Dict
 from dotenv import load_dotenv
-from .preprint_filters import should_keep_preprint, get_min_original_publication_date
 
 load_dotenv()
 API_TOKEN = os.environ.get("OSF_API_TOKEN")
@@ -15,7 +14,6 @@ HEADERS = {'Authorization': f'Bearer {API_TOKEN}'} if API_TOKEN else {}
 OSF_API = "https://api.osf.io/v2"
 MAX_PAGE = 100
 DEFAULT_BATCH = 1000
-MIN_ORIGINAL_PUBLICATION_DATE = get_min_original_publication_date()
 
 # 🔧 Create a single resilient Session with retries & backoff
 def _build_session() -> requests.Session:
@@ -98,8 +96,6 @@ def iter_preprints_batches(
     while url:
         data = _fetch_page(url, params if url.endswith("/preprints/") else None)
         items = data.get("data", [])
-        if items and MIN_ORIGINAL_PUBLICATION_DATE:
-            items = [it for it in items if should_keep_preprint(it, MIN_ORIGINAL_PUBLICATION_DATE)]
         batch.extend(items)
 
         if len(batch) >= batch_size:
@@ -155,8 +151,6 @@ def iter_preprints_range(
     while url:
         data = _fetch_page(url, params if url.endswith("/preprints/") else None)
         items = data.get("data", [])
-        if items and MIN_ORIGINAL_PUBLICATION_DATE:
-            items = [it for it in items if should_keep_preprint(it, MIN_ORIGINAL_PUBLICATION_DATE)]
         batch.extend(items)
 
         if len(batch) >= batch_size:

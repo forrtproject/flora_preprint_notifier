@@ -19,7 +19,6 @@ from .celery_app import app
 from .db import init_db
 from .upsert import upsert_batch
 from .iter_preprints import iter_preprints_batches, iter_preprints_range
-from .preprint_filters import get_min_original_publication_date
 
 # Your existing helper modules
 from .pdf import mark_downloaded, ensure_pdf_available_or_delete
@@ -55,26 +54,6 @@ if not logger.handlers:
         format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
     )
 logger.setLevel(logging.INFO)
-
-_PURGE_DONE = False
-
-
-def _purge_preprints_before_min_date(repo: PreprintsRepo) -> int:
-    global _PURGE_DONE
-    if _PURGE_DONE:
-        return 0
-    min_date = get_min_original_publication_date()
-    if not min_date:
-        _PURGE_DONE = True
-        return 0
-    deleted = repo.purge_preprints_before_date(min_date)
-    _PURGE_DONE = True
-    if deleted:
-        logger.info(
-            "purged preprints before min original publication date",
-            extra={"deleted": deleted, "min_date": min_date.isoformat()},
-        )
-    return deleted
 
 
 def _make_session() -> requests.Session:
@@ -173,8 +152,6 @@ def sync_from_osf(
     Daily incremental sync based on date_published cursor per subject.
     """
     init_db()
-    repo = PreprintsRepo()
-    _purge_preprints_before_min_date(repo)
     source_key = f"osf:{subject_text}" if subject_text else SOURCE_KEY_ALL
 
     since_dt = _get_cursor(source_key)
@@ -219,8 +196,6 @@ def sync_from_date_to_now(
     Ad-hoc ingestion from start_date (YYYY-MM-DD) to today. Does not touch sync_state.
     """
     init_db()
-    repo = PreprintsRepo()
-    _purge_preprints_before_min_date(repo)
     total = 0
     logger.info("sync_from_date_to_now", extra={"start": start_date, "subject": subject_text})
     for batch in iter_preprints_range(
