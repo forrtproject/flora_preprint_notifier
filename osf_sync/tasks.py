@@ -25,6 +25,7 @@ from .pdf import mark_downloaded, ensure_pdf_available_or_delete
 from .grobid import process_pdf_to_tei, mark_tei
 
 from .fetch_one import fetch_preprint_by_id, fetch_preprint_by_doi, upsert_one_preprint
+from extraction.extract_author_list import run_author_extract
 
 # -------------------------------
 # Config / env
@@ -383,6 +384,42 @@ def enqueue_extraction(self, limit: int = 200):
     out = {"queued": len(items)}
     _slack("Enqueued TEI extraction", extra=out)
     return out
+
+
+# -------------------------------
+# Author extraction (CSV)
+# -------------------------------
+@app.task(name="osf_sync.tasks.author_extract", bind=True)
+def author_extract(
+    self,
+    osf_ids: Optional[list] = None,
+    ids_file: Optional[str] = None,
+    limit: Optional[int] = None,
+    out: Optional[str] = None,
+    pdf_root: Optional[str] = None,
+    keep_files: bool = False,
+    debug: bool = False,
+    debug_log: Optional[str] = None,
+    match_emails_file: Optional[str] = None,
+    match_emails_threshold: float = 0.90,
+    auto_match_emails: bool = True,
+):
+    """
+    Run author extraction as a Celery task.
+    """
+    return run_author_extract(
+        osf_ids=osf_ids,
+        ids_file=ids_file,
+        limit=limit,
+        out=out,
+        pdf_root=pdf_root,
+        keep_files=keep_files,
+        debug=debug,
+        debug_log=debug_log,
+        match_emails_file=match_emails_file,
+        match_emails_threshold=match_emails_threshold,
+        auto_match_emails=auto_match_emails,
+    )
 
 
 # -------------------------------
