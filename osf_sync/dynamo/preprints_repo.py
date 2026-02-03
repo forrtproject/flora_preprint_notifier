@@ -212,6 +212,15 @@ class PreprintsRepo:
             return None
         return {"osf_id": it.get("osf_id"), "provider_id": it.get("provider_id"), "raw": it.get("raw")}
 
+    def get_preprint_doi(self, osf_id: str) -> Optional[str]:
+        """
+        Return the DOI stored on the preprint record (if any).
+        """
+        it = self.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item")
+        if not it:
+            return None
+        return it.get("doi")
+
     def select_refs_missing_doi(
         self,
         limit: int,
@@ -253,6 +262,55 @@ class PreprintsRepo:
                     continue
                 doi_val = (it.get("doi") or "").strip()
                 if not doi_val:
+                    filtered.append(it)
+            items = filtered
+
+        if limit:
+            items = items[:limit]
+        return items
+
+    def select_refs_with_doi(
+        self,
+        limit: int,
+        osf_id: Optional[str] = None,
+        *,
+        ref_id: Optional[str] = None,
+        only_unchecked: bool = True,
+    ) -> List[Dict[str, Any]]:
+        """
+        Return references that already have a DOI. Optionally restrict to rows without FORRT status.
+        """
+        items: List[Dict[str, Any]] = []
+
+        if osf_id:
+            last_key = None
+            while True:
+                kwargs = {"KeyConditionExpression": Key("osf_id").eq(osf_id)}
+                if last_key:
+                    kwargs["ExclusiveStartKey"] = last_key
+                resp = self.t_refs.query(**kwargs)
+                chunk = resp.get("Items", [])
+                items.extend(chunk)
+                last_key = resp.get("LastEvaluatedKey")
+                if not last_key or (limit and len(items) >= limit):
+                    break
+        else:
+            fe = "(attribute_exists(doi) AND doi <> :empty)"
+            eav = {":empty": ""}
+            resp = self.t_refs.scan(FilterExpression=fe, ExpressionAttributeValues=eav, Limit=limit)
+            items = resp.get("Items", [])
+
+        if ref_id:
+            items = [it for it in items if it and it.get("ref_id") == ref_id]
+
+        if only_unchecked:
+            filtered: List[Dict[str, Any]] = []
+            for it in items:
+                if not it:
+                    continue
+                status_val = it.get("forrt_lookup_status")
+                # retry if no status yet, or explicitly False
+                if status_val in (None, False):
                     filtered.append(it)
             items = filtered
 

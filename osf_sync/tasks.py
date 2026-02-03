@@ -467,3 +467,34 @@ def enrich_openalex(
     )
     _slack("OpenAlex enrichment", extra=stats)
     return stats
+
+
+@app.task(name="osf_sync.tasks.lookup_and_screen_forrt", bind=True)
+def lookup_and_screen_forrt(
+    self,
+    limit_lookup: int = 200,
+    limit_screen: int = 500,
+    osf_id: Optional[str] = None,
+    ref_id: Optional[str] = None,
+    cache_ttl_hours: Optional[int] = None,
+    persist_flags: bool = True,
+    only_unchecked: bool = True,
+    debug: bool = False,
+):
+    """
+    Combined FORRT lookup + screening in one task.
+    """
+    from .augmentation.forrt_screening import lookup_and_screen_forrt
+
+    out = lookup_and_screen_forrt(
+        limit_lookup=limit_lookup,
+        limit_screen=limit_screen,
+        osf_id=osf_id,
+        ref_id=ref_id,
+        cache_ttl_hours=cache_ttl_hours,
+        persist_flags=persist_flags,
+        only_unchecked=only_unchecked,
+        debug=debug,
+    )
+    _slack("FORRT lookup+screen", extra={"checked": len(out.get('screen', [])), "lookup": out.get("lookup")})
+    return out
