@@ -1,7 +1,7 @@
 # OSF Preprints - Modular Pipeline
 
-## Read This First (Plain English)
 This repo runs a pipeline for OSF preprints. It does four big jobs:
+
 1. Ingestion: fetch preprints from the OSF API and store them in DynamoDB (the database).
 2. PDF + GROBID: download files and turn PDFs into TEI XML (GROBID is the PDF parser).
 3. TEI extraction: parse TEI XML and write references back to DynamoDB.
@@ -10,20 +10,21 @@ This repo runs a pipeline for OSF preprints. It does four big jobs:
 If you are not sure what to run, follow "Quick Start" below.
 
 ## Quick Start (Local dev)
+
 1. Fill `.env` (example below). For local dev, keep `DYNAMO_LOCAL_URL` and use fake AWS keys.
 2. Start services:
-`docker compose up -d dynamodb-local redis`
-`docker compose up -d celery-worker celery-pdf celery-grobid celery-beat flower`
+   `docker compose up -d dynamodb-local redis`
+   `docker compose up -d celery-worker celery-pdf celery-grobid celery-beat flower`
 3. Create DynamoDB tables (run once):
-`docker compose run --rm app python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"`
+   `docker compose run --rm app python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"`
 4. Run a small sync:
-`docker compose run --rm app python -m osf_sync.cli sync-from-date --start 2025-07-01`
+   `docker compose run --rm app python -m osf_sync.cli sync-from-date --start 2025-07-01`
 5. Queue the pipeline:
-`docker compose run --rm app python -m osf_sync.cli enqueue-pdf --limit 50`
-`docker compose run --rm app python -m osf_sync.cli enqueue-grobid --limit 25`
-`docker compose run --rm app python -m osf_sync.cli enqueue-extraction --limit 200`
+   `docker compose run --rm app python -m osf_sync.cli enqueue-pdf --limit 50`
+   `docker compose run --rm app python -m osf_sync.cli enqueue-grobid --limit 25`
+   `docker compose run --rm app python -m osf_sync.cli enqueue-extraction --limit 200`
 6. Enrich references:
-`docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400`
+   `docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400`
 
 ---
 
@@ -241,14 +242,14 @@ docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400
 
 All scripts live under `scripts/manual_post_grobid/`. They work from the repo root after installing dependencies (`pip install -r requirements.txt`) and setting `PYTHONPATH`. Summary:
 
-| Script                           | Description                                                               |
-| ------------------------------- | ------------------------------------------------------------------------- |
-| `run_extraction.py`             | Parse TEI XML from disk and write TEI/refs into DynamoDB.                 |
-| `doi_multi_method_lookup.py`    | Run multi-method DOI matching and write a CSV. Does not update DynamoDB.  |
-| `run_forrt_screening.py`        | Run FORRT lookup + screening.                                            |
-| `analyze_doi_sources.py`        | Count DOI coverage per source.                                            |
-| `dump_missing_doi_refs.py`      | Dump references that still lack DOI information.                          |
-| `select_low_doi_coverage.py`    | Find OSF IDs below a DOI coverage threshold (optional ref dumps).         |
+| Script                       | Description                                                              |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| `run_extraction.py`          | Parse TEI XML from disk and write TEI/refs into DynamoDB.                |
+| `doi_multi_method_lookup.py` | Run multi-method DOI matching and write a CSV. Does not update DynamoDB. |
+| `run_forrt_screening.py`     | Run FORRT lookup + screening.                                            |
+| `analyze_doi_sources.py`     | Count DOI coverage per source.                                           |
+| `dump_missing_doi_refs.py`   | Dump references that still lack DOI information.                         |
+| `select_low_doi_coverage.py` | Find OSF IDs below a DOI coverage threshold (optional ref dumps).        |
 
 Run scripts with:
 
