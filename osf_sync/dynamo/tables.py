@@ -1,6 +1,12 @@
 from .client import get_dynamo_resource
 from botocore.exceptions import ClientError
+import logging
+import os
 import time
+
+log = logging.getLogger(__name__)
+
+API_CACHE_TABLE = os.environ.get("DDB_TABLE_API_CACHE", "api_cache")
 
 TABLES = {
   "preprints": {
@@ -74,7 +80,16 @@ TABLES = {
     "KeySchema":[{"AttributeName":"source_key","KeyType":"HASH"}],
     "AttributeDefinitions":[{"AttributeName":"source_key","AttributeType":"S"}],
     "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+  },
+  API_CACHE_TABLE: {
+    "KeySchema":[{"AttributeName":"cache_key","KeyType":"HASH"}],
+    "AttributeDefinitions":[{"AttributeName":"cache_key","AttributeType":"S"}],
+    "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
   }
+}
+
+TABLE_TTLS = {
+    API_CACHE_TABLE: "expires_at",
 }
 
 def ensure_tables():
@@ -90,6 +105,9 @@ def ensure_tables():
                     raise
         # Always ensure GSIs exist even for pre-existing tables
         _ensure_gsis(ddb, name, spec)
+        ttl_attr = TABLE_TTLS.get(name)
+        if ttl_attr:
+            _ensure_ttl(ddb, name, ttl_attr)
 
 
 def _ensure_gsis(ddb, table_name: str, spec: dict) -> None:
@@ -140,3 +158,33 @@ def _ensure_gsis(ddb, table_name: str, spec: dict) -> None:
         # Optionally, wait briefly for index to progress on local dev
         # Avoid long waits on AWS; just short sleep
         time.sleep(0.2)
+
+
+def _ensure_ttl(ddb, table_name: str, ttl_attr: str) -> None:
+    client = ddb.meta.client
+    try:
+        desc = client.describe_time_to_live(TableName=table_name).get("TimeToLiveDescription", {})
+    except ClientError as e:
+        code = e.response.get("Error", {}).get("Code")
+        if code in {"ValidationException", "ResourceNotFoundException"}:
+            # DynamoDB Local may not support TTL or table may not be ready yet.
+            log.warning("TTL not available for table", extra={"table": table_name, "error": code})
+            return
+        raise
+
+    status = desc.get("TimeToLiveStatus")
+    attr = desc.get("AttributeName")
+    if status in {"ENABLED", "ENABLING"} and attr == ttl_attr:
+        return
+
+    try:
+        client.update_time_to_live(
+            TableName=table_name,
+            TimeToLiveSpecification={"Enabled": True, "AttributeName": ttl_attr},
+        )
+    except ClientError as e:
+        code = e.response.get("Error", {}).get("Code")
+        if code in {"ValidationException", "ResourceInUseException"}:
+            log.warning("TTL update skipped", extra={"table": table_name, "error": code})
+            return
+        raise

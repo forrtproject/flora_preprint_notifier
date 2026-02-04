@@ -2,8 +2,9 @@ from .client import get_dynamo_resource
 from ..logging_setup import get_logger, with_extras
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Optional, Any, Iterable, Set
 import datetime as dt
+import os
 
 
 def _strip_nones(d: Dict[str, Any]) -> Dict[str, Any]:
@@ -15,6 +16,7 @@ log = get_logger(__name__)
 class PreprintsRepo:
     def __init__(self):
         ddb = get_dynamo_resource()
+        self.ddb = ddb
         self.t_preprints = ddb.Table("preprints")
         self.t_refs = ddb.Table("preprint_references")
         self.t_tei = ddb.Table("preprint_tei")
@@ -35,6 +37,18 @@ class PreprintsRepo:
 
     # --- upsert preprints batch ---
     def upsert_preprints(self, rows: List[Dict]) -> int:
+        skip_existing = os.environ.get("OSF_INGEST_SKIP_EXISTING", "false").lower() in {"1", "true", "yes"}
+        if skip_existing and rows:
+            ids = [r.get("id") for r in rows if r.get("id")]
+            existing = self._fetch_existing_ids(ids)
+            if existing:
+                before = len(rows)
+                rows = [r for r in rows if r.get("id") not in existing]
+                skipped = before - len(rows)
+                if skipped:
+                    with_extras(log, skipped=skipped, incoming=before).info("skipping existing preprints")
+            if not rows:
+                return 0
         # Dynamo BatchWrite (25/item max per request); keep it simple
         count = 0
         with self.t_preprints.batch_writer(overwrite_by_pkeys=["osf_id"]) as bw:
@@ -79,6 +93,53 @@ class PreprintsRepo:
                 except Exception as e:
                     with_extras(log, osf_id=obj.get("id"), err=str(e)).warning("preprint upsert failed")
         return count
+
+    def _fetch_existing_ids(self, ids: Iterable[str]) -> Set[str]:
+        """
+        Batch-get existing osf_id values to support skip-existing ingest.
+        """
+        key_schema = self.t_preprints.key_schema or []
+        hash_key = next((k["AttributeName"] for k in key_schema if k.get("KeyType") == "HASH"), None)
+        range_key = next((k["AttributeName"] for k in key_schema if k.get("KeyType") == "RANGE"), None)
+        if not hash_key:
+            with_extras(log, table=self.t_preprints.name).warning("preprints table missing hash key; skipping exists check")
+            return set()
+        if range_key:
+            with_extras(log, table=self.t_preprints.name, range_key=range_key).warning(
+                "preprints table has range key; skipping exists check"
+            )
+            return set()
+        ddb = self.ddb
+        table_name = self.t_preprints.name
+        existing: Set[str] = set()
+        id_list = [str(i) for i in ids if i]
+        for chunk in _chunks(id_list, 100):
+            keys = [{hash_key: i} for i in chunk]
+            request = {table_name: {"Keys": keys, "ProjectionExpression": hash_key}}
+            resp = ddb.batch_get_item(RequestItems=request)
+            existing.update(_extract_key_values(resp.get("Responses", {}).get(table_name, []), hash_key))
+            unprocessed = resp.get("UnprocessedKeys") or {}
+            while unprocessed:
+                resp = ddb.batch_get_item(RequestItems=unprocessed)
+                existing.update(_extract_key_values(resp.get("Responses", {}).get(table_name, []), hash_key))
+                unprocessed = resp.get("UnprocessedKeys") or {}
+        return existing
+
+
+def _chunks(seq: List[str], size: int) -> Iterable[List[str]]:
+    for i in range(0, len(seq), size):
+        yield seq[i:i + size]
+
+
+def _extract_key_values(items: List[Dict[str, Any]], key_name: str) -> Set[str]:
+    out: Set[str] = set()
+    for item in items:
+        val = item.get(key_name)
+        if isinstance(val, dict) and "S" in val:
+            out.add(val.get("S"))
+        elif isinstance(val, str):
+            out.add(val)
+    return out
 
     # --- PDF / TEI flags ---
     def mark_pdf(self, osf_id: str, ok: bool, path: Optional[str] = None):

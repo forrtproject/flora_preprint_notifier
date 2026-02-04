@@ -309,12 +309,13 @@ def main():
         scan_some(ddb, args.table, args.limit)
     else:
         # Known tables (env-overridable names)
-        tables: List[str] = [
-            preprints_table,
-            _env_name("DDB_TABLE_REFERENCES", "preprint_references"),
-            _env_name("DDB_TABLE_TEI", "preprint_tei"),
-            _env_name("DDB_TABLE_SYNCSTATE", "sync_state"),
-        ]
+    tables: List[str] = [
+        preprints_table,
+        _env_name("DDB_TABLE_REFERENCES", "preprint_references"),
+        _env_name("DDB_TABLE_TEI", "preprint_tei"),
+        _env_name("DDB_TABLE_SYNCSTATE", "sync_state"),
+        _env_name("DDB_TABLE_API_CACHE", "api_cache"),
+    ]
 
         existing = set(list_tables(ddb))
         print("Tables:", sorted(existing))

@@ -25,7 +25,7 @@ from .pdf import mark_downloaded, ensure_pdf_available_or_delete
 from .grobid import process_pdf_to_tei, mark_tei
 
 from .fetch_one import fetch_preprint_by_id, fetch_preprint_by_doi, upsert_one_preprint
-from extraction.extract_author_list import run_author_extract
+from .extraction.extract_author_list import run_author_extract
 
 # -------------------------------
 # Config / env

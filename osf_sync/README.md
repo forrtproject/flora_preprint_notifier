@@ -19,6 +19,27 @@ This is the main Python package. It contains the background jobs (Celery tasks),
 
 ---
 
+## Ingestion filters
+
+When `OSF_INGEST_ANCHOR_DATE` is set (ISO date or timestamp), ingestion only keeps
+preprints whose `original_publication_date` (if present) or `date_published` falls
+within the 6-month window ending on the anchor date. If a preprint has `links.doi`
+and that DOI link is not an OSF or Zenodo link (`osf.io`, `zenodo.org`, or a
+Zenodo DOI like `10.5281/zenodo...`), it is skipped.
+
+Set `OSF_INGEST_SKIP_EXISTING=true` to skip upserting records that already exist
+in the preprints table (adds a read-before-write check).
+
+---
+
+## API cache table
+
+`ensure_tables()` now creates an `api_cache` table (or `DDB_TABLE_API_CACHE` override)
+with PK `cache_key` and enables TTL on the `expires_at` attribute. Default TTL
+horizon is 6 months via `API_CACHE_TTL_MONTHS` (see `osf_sync/dynamo/api_cache_repo.py`).
+
+---
+
 ## CLI entrypoints
 
 Run everything via `python -m osf_sync.cli <command> [options]`.

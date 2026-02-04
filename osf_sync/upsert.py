@@ -1,12 +1,159 @@
 from __future__ import annotations
-from typing import Iterable, Dict
+from typing import Iterable, Dict, List, Optional, Any, Tuple
+import calendar
+import datetime as dt
+import logging
+import os
 
 from .dynamo.preprints_repo import PreprintsRepo
+
+_INGEST_ANCHOR_ENV = "OSF_INGEST_ANCHOR_DATE"
+_WINDOW_MONTHS = 6
+
+log = logging.getLogger(__name__)
+
+
+def _parse_iso_dt(value: Optional[str]) -> Optional[dt.datetime]:
+    if not value:
+        return None
+    try:
+        v = value.replace("Z", "+00:00")
+        d = dt.datetime.fromisoformat(v)
+        if d.tzinfo is None:
+            d = d.replace(tzinfo=dt.timezone.utc)
+        else:
+            d = d.astimezone(dt.timezone.utc)
+        return d
+    except Exception:
+        return None
+
+
+def _parse_anchor_dt() -> Optional[dt.datetime]:
+    raw = os.environ.get(_INGEST_ANCHOR_ENV)
+    if not raw:
+        return None
+    raw = raw.strip()
+    if not raw:
+        return None
+    if len(raw) == 10:
+        try:
+            d = dt.date.fromisoformat(raw)
+            return dt.datetime(d.year, d.month, d.day, tzinfo=dt.timezone.utc)
+        except Exception:
+            log.warning("Invalid %s value", _INGEST_ANCHOR_ENV, extra={"value": raw})
+            return None
+    parsed = _parse_iso_dt(raw)
+    if not parsed:
+        log.warning("Invalid %s value", _INGEST_ANCHOR_ENV, extra={"value": raw})
+    return parsed
+
+
+def _subtract_months(d: dt.date, months: int) -> dt.date:
+    year = d.year
+    month = d.month - months
+    while month <= 0:
+        month += 12
+        year -= 1
+    day = min(d.day, calendar.monthrange(year, month)[1])
+    return dt.date(year, month, day)
+
+
+def _effective_pub_dt(attrs: Dict[str, Any]) -> Optional[dt.datetime]:
+    if attrs.get("original_publication_date"):
+        return _parse_iso_dt(attrs.get("original_publication_date"))
+    return _parse_iso_dt(attrs.get("date_published"))
+
+
+def _within_anchor_window(pub_dt: Optional[dt.datetime], anchor_dt: Optional[dt.datetime]) -> bool:
+    if anchor_dt is None:
+        return True
+    if pub_dt is None:
+        return False
+    anchor_date = anchor_dt.date()
+    window_start = _subtract_months(anchor_date, _WINDOW_MONTHS)
+    pub_date = pub_dt.date()
+    return window_start <= pub_date <= anchor_date
+
+
+def _contains_osf_link(value: Any) -> bool:
+    if isinstance(value, str):
+        return "osf.io" in value
+    if isinstance(value, dict):
+        return any(_contains_osf_link(v) for v in value.values())
+    if isinstance(value, list):
+        return any(_contains_osf_link(v) for v in value)
+    return False
+
+
+def _passes_link_rule(links: Optional[Dict[str, Any]]) -> bool:
+    if not links:
+        return True
+    doi_val = links.get("doi")
+    if doi_val:
+        # Require the DOI link itself to be an OSF or Zenodo link.
+        return _contains_osf_link(doi_val) or _contains_zenodo_link(doi_val)
+    return True
+
+
+def _contains_zenodo_link(value: Any) -> bool:
+    if isinstance(value, str):
+        v = value.lower()
+        return ("zenodo.org" in v) or ("doi.org/10.5281/zenodo" in v) or v.startswith("10.5281/zenodo")
+    if isinstance(value, dict):
+        return any(_contains_zenodo_link(v) for v in value.values())
+    if isinstance(value, list):
+        return any(_contains_zenodo_link(v) for v in value)
+    return False
+
+
+def _filter_ingest_rows(
+    rows: List[Dict[str, Any]],
+) -> Tuple[List[Dict[str, Any]], int, int, List[Dict[str, Any]]]:
+    anchor_dt = _parse_anchor_dt()
+    kept: List[Dict[str, Any]] = []
+    skipped_records: List[Dict[str, Any]] = []
+    skipped_date = 0
+    skipped_links = 0
+    for obj in rows:
+        attrs = obj.get("attributes") or {}
+        pub_dt = _effective_pub_dt(attrs)
+        if not _within_anchor_window(pub_dt, anchor_dt):
+            skipped_date += 1
+            skipped_records.append(
+                {"osf_id": obj.get("id"), "reason": "date_window", "pub_dt": attrs.get("date_published")}
+            )
+            continue
+        if not _passes_link_rule(obj.get("links") or {}):
+            skipped_links += 1
+            skipped_records.append(
+                {"osf_id": obj.get("id"), "reason": "links_doi_not_osf_or_zenodo", "links": obj.get("links")}
+            )
+            continue
+        kept.append(obj)
+    return kept, skipped_date, skipped_links, skipped_records
 
 
 def upsert_batch(objs: Iterable[Dict]) -> int:
     rows = list(objs)
     if not rows:
         return 0
+    filtered, skipped_date, skipped_links, skipped_records = _filter_ingest_rows(rows)
+    if skipped_date or skipped_links:
+        log.info(
+            "ingest filter skipped rows",
+            extra={
+                "skipped_date": skipped_date,
+                "skipped_links": skipped_links,
+                "incoming": len(rows),
+                "kept": len(filtered),
+                "anchor_env": _INGEST_ANCHOR_ENV,
+            },
+        )
+        for rec in skipped_records:
+            osf_id = rec.get("osf_id")
+            reason = rec.get("reason")
+            log.info("ingest filter skip osf_id=%s reason=%s", osf_id, reason, extra=rec)
+    if not filtered:
+        return 0
     repo = PreprintsRepo()
-    return repo.upsert_preprints(rows)
+    return repo.upsert_preprints(filtered)

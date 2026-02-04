@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import datetime as dt
 import os
 import re
 import time
@@ -9,6 +8,7 @@ from typing import Any, Dict, List, Optional
 import requests
 
 from ..dynamo.preprints_repo import PreprintsRepo
+from ..dynamo.api_cache_repo import ApiCacheRepo
 from ..logging_setup import get_logger, with_extras
 
 logger = get_logger(__name__)
@@ -55,6 +55,10 @@ def normalize_doi(doi: Optional[str]) -> Optional[str]:
     v = re.sub(r"^https?://(dx\.)?doi\.org/", "", v)
     m = _DOI_PATTERN.search(v)
     return m.group(0) if m else None
+
+
+def _cache_key_for_doi(doi: str) -> str:
+    return f"forrt_original:{doi}"
 
 
 def _prune_nulls(obj: Any):
@@ -200,30 +204,6 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
 
 
 # -----------------------
-# Cache helpers
-# -----------------------
-
-def _parse_checked_at(value: Optional[str]) -> Optional[dt.datetime]:
-    if not value or not isinstance(value, str):
-        return None
-    try:
-        ts = dt.datetime.fromisoformat(value)
-    except ValueError:
-        return None
-    if ts.tzinfo is not None:
-        ts = ts.astimezone(dt.timezone.utc).replace(tzinfo=None)
-    return ts
-
-
-def _is_fresh_cache(checked_at: Optional[str], ttl_seconds: int) -> bool:
-    ts = _parse_checked_at(checked_at)
-    if not ts:
-        return False
-    age = (dt.datetime.utcnow() - ts).total_seconds()
-    return age <= ttl_seconds
-
-
-# -----------------------
 # API call
 # -----------------------
 
@@ -275,6 +255,7 @@ def lookup_originals_with_forrt(
     Uses DynamoDB payloads as a cache when the prior check is within the TTL.
     """
     repo = PreprintsRepo()
+    cache_repo = ApiCacheRepo()
     rows = repo.select_refs_with_doi(limit=limit, osf_id=osf_id, ref_id=ref_id, only_unchecked=only_unchecked)
 
     ttl_hours = cache_ttl_hours if cache_ttl_hours is not None else FORRT_CACHE_TTL_HOURS_DEFAULT
@@ -295,18 +276,19 @@ def lookup_originals_with_forrt(
 
         stats["checked"] += 1
 
-        cached_payload = r.get("forrt_lookup_payload")
-        cached_status = r.get("forrt_lookup_status")
-        cached_checked_at = r.get("forrt_checked_at")
+        cache_key = _cache_key_for_doi(doi)
+        cached_item = cache_repo.get(cache_key) if not ignore_cache else None
+        cached_payload = cached_item.get("payload") if cached_item else None
+        cached_status = cached_item.get("status") if cached_item else None
         cache_ready = (
             not ignore_cache
-            and _is_fresh_cache(cached_checked_at, ttl_seconds)
+            and cache_repo.is_fresh(cached_item, ttl_seconds=ttl_seconds)
             and (cached_payload is not None or cached_status is False)
         )
         if cache_ready:
             stats["cache_hits"] += 1
             payload_clean = _prune_nulls(cached_payload)
-            status = bool(payload_clean)
+            status = bool(payload_clean) if cached_status is None else bool(cached_status)
             ref_objs = _extract_ref_objects(payload_clean) if payload_clean else []
             try:
                 repo.update_reference_forrt(
@@ -327,6 +309,13 @@ def lookup_originals_with_forrt(
         ref_objs = _extract_ref_objects(payload_clean) if payload_clean else []
 
         try:
+            cache_repo.put(
+                cache_key,
+                payload_clean,
+                source="forrt_original",
+                ttl_seconds=ttl_seconds,
+                status=status,
+            )
             repo.update_reference_forrt(
                 osfid,
                 refid,

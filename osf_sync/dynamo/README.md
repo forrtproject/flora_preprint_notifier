@@ -13,6 +13,7 @@ Utilities that encapsulate all DynamoDB access for the OSF pipeline.
 | `client.py`      | Creates a boto3 DynamoDB resource. Switches between local (`DYNAMO_LOCAL_URL`) and AWS. |
 | `tables.py`      | Declarative table + GSI specs and `ensure_tables()` helper (creates tables + GSIs).     |
 | `preprints_repo.py` | High-level repository for CRUD, queue selection, and state transitions.                 |
+| `api_cache_repo.py` | Simple cache table helper with TTL-based expiry.                                       |
 
 ---
 
@@ -39,6 +40,7 @@ table = ddb.Table("preprints")
 - `preprint_references`: composite PK (`osf_id`, `ref_id`), GSI `by_doi_source`.
 - `preprint_tei`: PK `osf_id`.
 - `sync_state`: PK `source_key`.
+- `api_cache` (or `DDB_TABLE_API_CACHE` override): PK `cache_key`, TTL attribute `expires_at` (enabled by `ensure_tables()`).
 
 `ensure_tables()`:
 1. Creates missing tables.
@@ -82,4 +84,3 @@ These attributes back the GSIs, giving efficient queue queries without scans.
 ## Testing / inspection
 
 Use `python -m osf_sync.dump_ddb --limit 5 --queues` or AWS CLI commands to verify table contents and queue state.
-
