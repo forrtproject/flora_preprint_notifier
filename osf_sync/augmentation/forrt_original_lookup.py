@@ -289,14 +289,13 @@ def lookup_originals_with_forrt(
             stats["cache_hits"] += 1
             payload_clean = _prune_nulls(cached_payload)
             status = bool(payload_clean) if cached_status is None else bool(cached_status)
-            ref_objs = _extract_ref_objects(payload_clean) if payload_clean else []
+            ref_pairs = _extract_ref_objects(payload_clean) if payload_clean else []
             try:
                 repo.update_reference_forrt(
                     osfid,
                     refid,
                     status=status,
-                    payload=payload_clean,
-                    ref_objects=ref_objs,
+                    ref_pairs=ref_pairs,
                 )
             except Exception:
                 stats["failed"] += 1
@@ -306,8 +305,7 @@ def lookup_originals_with_forrt(
         payload = result.get("payload")
         payload_clean = _prune_nulls(payload)
         status = bool(payload_clean)
-        ref_objs = _extract_ref_objects(payload_clean) if payload_clean else []
-
+        ref_pairs = _extract_ref_objects(payload_clean) if payload_clean else []
         try:
             cache_repo.put(
                 cache_key,
@@ -320,8 +318,7 @@ def lookup_originals_with_forrt(
                 osfid,
                 refid,
                 status=status,
-                payload=payload_clean,
-                ref_objects=ref_objs,
+                ref_pairs=ref_pairs,
             )
             stats["updated"] += 1
         except Exception:

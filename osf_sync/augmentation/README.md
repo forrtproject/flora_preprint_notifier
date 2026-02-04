@@ -30,7 +30,7 @@ Celery task `osf_sync.tasks.enqueue_extraction` queues these jobs using the `by_
 | `matching_crossref.py`     | Scores Crossref results to fill missing DOIs. Uses repo methods for selection + conditional updates.      |
 | `doi_check_openalex.py`    | Multi-stage OpenAlex lookup with fuzzy matching + threshold control.                                      |
 | `enrich_doi.py`            | Legacy helper combining Crossref/OpenAlex logic; uses the same repo update helpers.                       |
-| `forrt_original_lookup.py` | Calls FORRT original-lookup for existing DOIs; caches responses in Dynamo and writes lookup results back. |
+| `forrt_original_lookup.py` | Calls FORRT original-lookup for existing DOIs; caches responses in Dynamo and writes lookup status back.  |
 | `forrt_screening.py`       | Combined lookup + screening to flag replications that lack the original citation.                         |
 
 Key functions:
@@ -52,6 +52,12 @@ All enrichment functions:
 3. Use `repo.update_reference_doi(osf_id, ref_id, doi, source=...)` for conditional updates.
 
 Celery task `osf_sync.tasks.enrich_references` calls the multi-method pipeline via `doi_multi_method.enrich_missing_with_multi_method`.
+
+FORRT persistence:
+- `forrt_lookup_status` + `forrt_checked_at` are stored on `preprint_references`.
+- `forrt_ref_pairs` (extracted via `_extract_ref_objects`) are stored per reference.
+- Screening writes `forrt_original_cited` per reference.
+- Full API payloads are cached in `api_cache` with TTL (not stored on `preprint_references`).
 
 ---
 

@@ -5,7 +5,8 @@ from collections import defaultdict
 from typing import Any, Dict, List, Optional, Set
 
 from ..dynamo.preprints_repo import PreprintsRepo
-from .forrt_original_lookup import normalize_doi, lookup_originals_with_forrt, _extract_ref_objects
+from ..dynamo.api_cache_repo import ApiCacheRepo
+from .forrt_original_lookup import normalize_doi, lookup_originals_with_forrt, _extract_ref_objects, _cache_key_for_doi
 from ..logging_setup import get_logger, with_extras
 
 logger = get_logger(__name__)
@@ -39,6 +40,7 @@ def screen_forrt_replications(
     is present, mark the reference as cited.
     """
     repo = PreprintsRepo()
+    cache_repo = ApiCacheRepo()
     rows = repo.select_refs_with_forrt_original(
         limit=limit,
         osf_id=osf_id,
@@ -65,9 +67,11 @@ def screen_forrt_replications(
                 all_dois.add(d)
         # Also consider other references without FORRT mapping (so fetch them too)
         try:
-            extra = repo.select_refs_with_doi(limit=500, osf_id=pid, only_unchecked=False)
+            extra = repo.select_refs_with_doi(
+                limit=500, osf_id=pid, only_unchecked=False)
         except TypeError:
-            extra = repo.select_refs_with_doi(limit=500, osf_id=pid)  # fallback for older signature
+            extra = repo.select_refs_with_doi(
+                limit=500, osf_id=pid)  # fallback for older signature
         for r in extra:
             d = normalize_doi(r.get("doi"))
             if d:
@@ -80,11 +84,19 @@ def screen_forrt_replications(
             refid = r.get("ref_id")
 
             # Filter FORRT ref objects so we only consider pairs whose doi_o matches the preprint DOI
-            ref_objs = r.get("forrt_refs") or []
+            ref_objs = r.get("forrt_ref_pairs") or []
             if not ref_objs:
                 payload = r.get("forrt_lookup_payload")
                 if payload:
                     ref_objs = _extract_ref_objects(payload)
+                else:
+                    doi_key = normalize_doi(r.get("doi"))
+                    if doi_key:
+                        cached = cache_repo.get(_cache_key_for_doi(doi_key))
+                        cached_payload = cached.get(
+                            "payload") if cached else None
+                        if cached_payload:
+                            ref_objs = _extract_ref_objects(cached_payload)
             matching_pairs = []
             for obj in ref_objs:
                 doi_o = normalize_doi(obj.get("doi_o"))
@@ -92,14 +104,21 @@ def screen_forrt_replications(
                 if preprint_doi and doi_o and preprint_doi == doi_o:
                     matching_pairs.append({"doi_o": doi_o, "doi_r": doi_r})
 
-            replication_dois = [p["doi_r"] for p in matching_pairs if p.get("doi_r")]
-            replication_cited = any((d in all_dois) for d in replication_dois) if replication_dois else False
+            replication_dois = [p["doi_r"]
+                                for p in matching_pairs if p.get("doi_r")]
+            replication_cited = any(
+                (d in all_dois) for d in replication_dois) if replication_dois else False
 
             if persist_flags:
                 try:
-                    repo.update_reference_forrt_screening(pid, refid, original_cited=replication_cited)
+                    repo.update_reference_forrt_screening(
+                        pid,
+                        refid,
+                        original_cited=replication_cited,
+                    )
                 except Exception as e:
-                    _warn("Failed to persist FORRT screening flag", osf_id=pid, ref_id=refid, error=str(e))
+                    _warn("Failed to persist FORRT screening flag",
+                          osf_id=pid, ref_id=refid, error=str(e))
 
             payload = {
                 "osf_id": pid,
@@ -128,7 +147,8 @@ def screen_forrt_replications(
             })
 
         if debug:
-            _info("FORRT screening", osf_id=pid, eligible_count=len(eligible_refs), total=len(retained_refs))
+            _info("FORRT screening", osf_id=pid, eligible_count=len(
+                eligible_refs), total=len(retained_refs))
 
     return results
 
@@ -170,17 +190,24 @@ def lookup_and_screen_forrt(
 
 if __name__ == "__main__":
     import argparse
-    ap = argparse.ArgumentParser(description="Screen replication DOIs via FORRT original lookup comparison.")
+    ap = argparse.ArgumentParser(
+        description="Screen replication DOIs via FORRT original lookup comparison.")
     ap.add_argument("--limit", type=int, default=500)
-    ap.add_argument("--limit-lookup", type=int, default=200, help="How many rows to send to FORRT lookup before screening")
+    ap.add_argument("--limit-lookup", type=int, default=200,
+                    help="How many rows to send to FORRT lookup before screening")
     ap.add_argument("--osf_id", default=None)
-    ap.add_argument("--only-osf-id", dest="osf_id", default=None, help="Alias for --osf_id to process a single OSF id")
+    ap.add_argument("--only-osf-id", dest="osf_id", default=None,
+                    help="Alias for --osf_id to process a single OSF id")
     ap.add_argument("--ref_id", default=None)
-    ap.add_argument("--no-persist", action="store_true", help="Do not write screening flags back to Dynamo.")
-    ap.add_argument("--no-lookup-first", action="store_true", help="Skip the lookup stage and only screen existing FORRT results")
-    ap.add_argument("--include-checked", action="store_true", help="Re-run lookup even for rows with prior FORRT status")
+    ap.add_argument("--no-persist", action="store_true",
+                    help="Do not write screening flags back to Dynamo.")
+    ap.add_argument("--no-lookup-first", action="store_true",
+                    help="Skip the lookup stage and only screen existing FORRT results")
+    ap.add_argument("--include-checked", action="store_true",
+                    help="Re-run lookup even for rows with prior FORRT status")
     ap.add_argument("--cache-ttl-hours", type=int, default=None)
-    ap.add_argument("--ignore-cache", action="store_true", help="Bypass database cache and call FORRT again")
+    ap.add_argument("--ignore-cache", action="store_true",
+                    help="Bypass database cache and call FORRT again")
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
 
