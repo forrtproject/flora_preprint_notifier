@@ -19,6 +19,15 @@ This is the main Python package. It contains the background jobs (Celery tasks),
 
 ---
 
+## Ingestion filters
+
+When `OSF_INGEST_ANCHOR_DATE` is set (ISO date or timestamp), ingestion only keeps
+preprints whose `original_publication_date` (if present) or `date_published` falls
+within the 6-month window ending on the anchor date. If a preprint has `links.doi`
+and that DOI link is not an OSF link (`osf.io`), it is skipped.
+
+---
+
 ## CLI entrypoints
 
 Run everything via `python -m osf_sync.cli <command> [options]`.

@@ -62,11 +62,16 @@ DDB_TABLE_SYNCSTATE=sync_state
 OPENALEX_EMAIL=<PERSONAL_EMAIL_ID>
 PDF_DEST_ROOT=/data/preprints
 LOG_LEVEL=INFO
+OSF_INGEST_ANCHOR_DATE=YYYY-MM-DD
 ```
 
 - For **AWS DynamoDB**, comment out `DYNAMO_LOCAL_URL` and set real AWS credentials (or rely on an IAM role).
 - The table names can be overridden with `DDB_TABLE_*` env vars.
 - Set `GROBID_INCLUDE_RAW_CITATIONS=false` if you do not want raw citation sections in the TEI output.
+- When `OSF_INGEST_ANCHOR_DATE` is set, ingestion only keeps preprints whose
+  `original_publication_date` (if present) or `date_published` falls within the
+  6-month window ending on the anchor date. If a preprint has `links.doi` and
+  that DOI link is not an OSF link (`osf.io`), it is skipped.
 
 ---
 
