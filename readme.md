@@ -65,6 +65,7 @@ LOG_LEVEL=INFO
 OSF_INGEST_ANCHOR_DATE=YYYY-MM-DD
 API_CACHE_TTL_MONTHS=6
 DDB_TABLE_API_CACHE=api_cache
+OSF_INGEST_SKIP_EXISTING=false
 ```
 
 - For **AWS DynamoDB**, comment out `DYNAMO_LOCAL_URL` and set real AWS credentials (or rely on an IAM role).
@@ -73,9 +74,12 @@ DDB_TABLE_API_CACHE=api_cache
 - When `OSF_INGEST_ANCHOR_DATE` is set, ingestion only keeps preprints whose
   `original_publication_date` (if present) or `date_published` falls within the
   6-month window ending on the anchor date. If a preprint has `links.doi` and
-  that DOI link is not an OSF link (`osf.io`), it is skipped.
+  that DOI link is not an OSF or Zenodo link (`osf.io`, `zenodo.org`, or a
+  Zenodo DOI like `10.5281/zenodo...`), it is skipped.
 - `API_CACHE_TTL_MONTHS` controls the default TTL horizon for the `api_cache` table
   (used for API response caching). DynamoDB TTL is enabled on `expires_at`.
+- `OSF_INGEST_SKIP_EXISTING=true` skips upserting records that already exist in
+  the preprints table (adds a read-before-write check).
 
 ---
 

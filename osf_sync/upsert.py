@@ -90,9 +90,20 @@ def _passes_link_rule(links: Optional[Dict[str, Any]]) -> bool:
         return True
     doi_val = links.get("doi")
     if doi_val:
-        # Require the DOI link itself to be an OSF link.
-        return _contains_osf_link(doi_val)
+        # Require the DOI link itself to be an OSF or Zenodo link.
+        return _contains_osf_link(doi_val) or _contains_zenodo_link(doi_val)
     return True
+
+
+def _contains_zenodo_link(value: Any) -> bool:
+    if isinstance(value, str):
+        v = value.lower()
+        return ("zenodo.org" in v) or ("doi.org/10.5281/zenodo" in v) or v.startswith("10.5281/zenodo")
+    if isinstance(value, dict):
+        return any(_contains_zenodo_link(v) for v in value.values())
+    if isinstance(value, list):
+        return any(_contains_zenodo_link(v) for v in value)
+    return False
 
 
 def _filter_ingest_rows(
@@ -115,7 +126,7 @@ def _filter_ingest_rows(
         if not _passes_link_rule(obj.get("links") or {}):
             skipped_links += 1
             skipped_records.append(
-                {"osf_id": obj.get("id"), "reason": "links_doi_not_osf", "links": obj.get("links")}
+                {"osf_id": obj.get("id"), "reason": "links_doi_not_osf_or_zenodo", "links": obj.get("links")}
             )
             continue
         kept.append(obj)

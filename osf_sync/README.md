@@ -24,7 +24,11 @@ This is the main Python package. It contains the background jobs (Celery tasks),
 When `OSF_INGEST_ANCHOR_DATE` is set (ISO date or timestamp), ingestion only keeps
 preprints whose `original_publication_date` (if present) or `date_published` falls
 within the 6-month window ending on the anchor date. If a preprint has `links.doi`
-and that DOI link is not an OSF link (`osf.io`), it is skipped.
+and that DOI link is not an OSF or Zenodo link (`osf.io`, `zenodo.org`, or a
+Zenodo DOI like `10.5281/zenodo...`), it is skipped.
+
+Set `OSF_INGEST_SKIP_EXISTING=true` to skip upserting records that already exist
+in the preprints table (adds a read-before-write check).
 
 ---
 
