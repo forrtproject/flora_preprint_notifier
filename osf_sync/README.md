@@ -28,6 +28,14 @@ and that DOI link is not an OSF link (`osf.io`), it is skipped.
 
 ---
 
+## API cache table
+
+`ensure_tables()` now creates an `api_cache` table (or `DDB_TABLE_API_CACHE` override)
+with PK `cache_key` and enables TTL on the `expires_at` attribute. Default TTL
+horizon is 6 months via `API_CACHE_TTL_MONTHS` (see `osf_sync/dynamo/api_cache_repo.py`).
+
+---
+
 ## CLI entrypoints
 
 Run everything via `python -m osf_sync.cli <command> [options]`.

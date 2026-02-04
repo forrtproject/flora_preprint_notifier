@@ -63,6 +63,8 @@ OPENALEX_EMAIL=<PERSONAL_EMAIL_ID>
 PDF_DEST_ROOT=/data/preprints
 LOG_LEVEL=INFO
 OSF_INGEST_ANCHOR_DATE=YYYY-MM-DD
+API_CACHE_TTL_MONTHS=6
+DDB_TABLE_API_CACHE=api_cache
 ```
 
 - For **AWS DynamoDB**, comment out `DYNAMO_LOCAL_URL` and set real AWS credentials (or rely on an IAM role).
@@ -72,6 +74,8 @@ OSF_INGEST_ANCHOR_DATE=YYYY-MM-DD
   `original_publication_date` (if present) or `date_published` falls within the
   6-month window ending on the anchor date. If a preprint has `links.doi` and
   that DOI link is not an OSF link (`osf.io`), it is skipped.
+- `API_CACHE_TTL_MONTHS` controls the default TTL horizon for the `api_cache` table
+  (used for API response caching). DynamoDB TTL is enabled on `expires_at`.
 
 ---
 
