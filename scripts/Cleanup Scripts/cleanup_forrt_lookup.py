@@ -70,9 +70,27 @@ def has_null_marker(obj):
 ddb = get_dynamo_resource()
 table = ddb.Table("preprint_references")
 
+FORRT_FIELDS = [
+    "forrt_lookup_status",
+    "forrt_lookup_payload",
+    "forrt_lookup_original_doi",
+    "forrt_checked_at",
+    "forrt_original_cited",
+    "forrt_ref_pairs",
+    "forrt_ref_pairs_count",
+    "forrt_refs",
+    "forrt_refs_count",
+    "forrt_matching_replication_dois",
+    "forrt_lookup_has_output",
+    "forrt_doi_r_set",
+    "forrt_apa_ref_o_set",
+    "forrt_apa_ref_r_set",
+]
+
+filter_parts = [f"attribute_exists({f})" for f in FORRT_FIELDS]
 scan_kwargs = {
-    "FilterExpression": "attribute_exists(forrt_lookup_status) OR attribute_exists(forrt_lookup_payload) OR attribute_exists(forrt_lookup_original_doi)",
-    "ProjectionExpression": "osf_id, ref_id, forrt_lookup_status, forrt_lookup_payload, forrt_lookup_original_doi",
+    "FilterExpression": " OR ".join(filter_parts),
+    "ProjectionExpression": "osf_id, ref_id, " + ", ".join(FORRT_FIELDS),
 }
 
 items = []
@@ -89,16 +107,9 @@ updated = 0
 for it in items:
     osf_id = it["osf_id"]
     ref_id = it["ref_id"]
-    payload = it.get("forrt_lookup_payload")
-    removes = ["forrt_lookup_original_doi", "forrt_lookup_has_output"]
+    removes = list(FORRT_FIELDS)
     sets = []
     eav = {}
-
-    # If payload empty/null-like or carries null markers/None inside, clear it and set status flags false
-    if is_empty_payload(payload) or has_null_marker(payload) or contains_none(payload):
-        removes.append("forrt_lookup_payload")
-        sets.append("forrt_lookup_status = :s")
-        eav[":s"] = False
 
     # Nothing to do
     if not removes and not sets:

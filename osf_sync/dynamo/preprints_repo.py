@@ -125,22 +125,6 @@ class PreprintsRepo:
                 unprocessed = resp.get("UnprocessedKeys") or {}
         return existing
 
-
-def _chunks(seq: List[str], size: int) -> Iterable[List[str]]:
-    for i in range(0, len(seq), size):
-        yield seq[i:i + size]
-
-
-def _extract_key_values(items: List[Dict[str, Any]], key_name: str) -> Set[str]:
-    out: Set[str] = set()
-    for item in items:
-        val = item.get(key_name)
-        if isinstance(val, dict) and "S" in val:
-            out.add(val.get("S"))
-        elif isinstance(val, str):
-            out.add(val)
-    return out
-
     # --- PDF / TEI flags ---
     def mark_pdf(self, osf_id: str, ok: bool, path: Optional[str] = None):
         now = dt.datetime.utcnow().isoformat()
@@ -379,6 +363,59 @@ def _extract_key_values(items: List[Dict[str, Any]], key_name: str) -> Set[str]:
             items = items[:limit]
         return items
 
+    def select_refs_with_forrt_original(
+        self,
+        limit: int,
+        osf_id: Optional[str] = None,
+        *,
+        ref_id: Optional[str] = None,
+        include_missing_original: bool = False,
+    ) -> List[Dict[str, Any]]:
+        """
+        Return references that have been processed by FORRT lookup.
+        If include_missing_original is True, include rows with status=False.
+        """
+        items: List[Dict[str, Any]] = []
+
+        def _has_forrt(it: Dict[str, Any]) -> bool:
+            status = it.get("forrt_lookup_status")
+            has_payload = it.get("forrt_lookup_payload") is not None
+            has_refs = bool(it.get("forrt_refs"))
+            if include_missing_original:
+                return (status is not None) or has_payload or has_refs
+            return (status is True) or has_payload or has_refs
+
+        if osf_id:
+            last_key = None
+            while True:
+                kwargs = {"KeyConditionExpression": Key("osf_id").eq(osf_id)}
+                if last_key:
+                    kwargs["ExclusiveStartKey"] = last_key
+                resp = self.t_refs.query(**kwargs)
+                chunk = resp.get("Items", [])
+                items.extend([it for it in chunk if it and _has_forrt(it)])
+                last_key = resp.get("LastEvaluatedKey")
+                if not last_key or (limit and len(items) >= limit):
+                    break
+        else:
+            if include_missing_original:
+                fe = "attribute_exists(forrt_lookup_status) OR attribute_exists(forrt_lookup_payload) OR attribute_exists(forrt_refs)"
+                eav = None
+            else:
+                fe = "forrt_lookup_status = :true OR attribute_exists(forrt_lookup_payload) OR attribute_exists(forrt_refs)"
+                eav = {":true": True}
+            scan_kwargs = {"FilterExpression": fe, "Limit": limit}
+            if eav is not None:
+                scan_kwargs["ExpressionAttributeValues"] = eav
+            resp = self.t_refs.scan(**scan_kwargs)
+            items = resp.get("Items", [])
+
+        if ref_id:
+            items = [it for it in items if it and it.get("ref_id") == ref_id]
+        if limit:
+            items = items[:limit]
+        return items
+
     def update_reference_doi(self, osf_id: str, ref_id: str, doi: str, *, source: str) -> bool:
         # Only set if not already set
         now = dt.datetime.utcnow().isoformat()
@@ -404,3 +441,64 @@ def _extract_key_values(items: List[Dict[str, Any]], key_name: str) -> Set[str]:
             UpdateExpression="SET raw_citation_validity=:v, raw_citation_validity_updated_at=:t",
             ExpressionAttributeValues={":v": validity, ":t": now},
         )
+
+    def update_reference_forrt(
+        self,
+        osf_id: str,
+        ref_id: str,
+        *,
+        status: bool,
+        ref_pairs: Optional[List[Dict[str, Any]]] = None,
+    ) -> None:
+        now = dt.datetime.utcnow().isoformat()
+        set_exprs = ["forrt_lookup_status=:s", "forrt_checked_at=:t", "updated_at=:t"]
+        remove_exprs = ["forrt_lookup_payload", "forrt_refs", "forrt_refs_count", "forrt_ref_pairs", "forrt_ref_pairs_count"]
+        eav: Dict[str, Any] = {":s": bool(status), ":t": now}
+
+        if ref_pairs is not None:
+            set_exprs.append("forrt_ref_pairs=:p")
+            eav[":p"] = ref_pairs
+            set_exprs.append("forrt_ref_pairs_count=:pc")
+            eav[":pc"] = len(ref_pairs)
+            remove_exprs = [r for r in remove_exprs if r not in {"forrt_ref_pairs", "forrt_ref_pairs_count"}]
+
+        update_expr = "SET " + ", ".join(set_exprs)
+        if remove_exprs:
+            update_expr += " REMOVE " + ", ".join(remove_exprs)
+
+        self.t_refs.update_item(
+            Key={"osf_id": osf_id, "ref_id": ref_id},
+            UpdateExpression=update_expr,
+            ExpressionAttributeValues=eav,
+        )
+
+    def update_reference_forrt_screening(
+        self,
+        osf_id: str,
+        ref_id: str,
+        *,
+        original_cited: bool,
+    ) -> None:
+        now = dt.datetime.utcnow().isoformat()
+        update_expr = "SET forrt_original_cited=:v, forrt_screened_at=:t, updated_at=:t REMOVE forrt_matching_replication_dois"
+        self.t_refs.update_item(
+            Key={"osf_id": osf_id, "ref_id": ref_id},
+            UpdateExpression=update_expr,
+            ExpressionAttributeValues={":v": bool(original_cited), ":t": now},
+        )
+
+
+def _chunks(seq: List[str], size: int) -> Iterable[List[str]]:
+    for i in range(0, len(seq), size):
+        yield seq[i:i + size]
+
+
+def _extract_key_values(items: List[Dict[str, Any]], key_name: str) -> Set[str]:
+    out: Set[str] = set()
+    for item in items:
+        val = item.get(key_name)
+        if isinstance(val, dict) and "S" in val:
+            out.add(val.get("S"))
+        elif isinstance(val, str):
+            out.add(val)
+    return out

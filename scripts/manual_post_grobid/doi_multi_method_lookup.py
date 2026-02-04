@@ -1,6 +1,6 @@
 from __future__ import annotations
 from osf_sync.dynamo.preprints_repo import PreprintsRepo
-from osf_sync.dynamo.client import get_dynamo_resource
+from osf_sync.dynamo.api_cache_repo import ApiCacheRepo
 from osf_sync.augmentation.matching_crossref import (
     RAW_MIN_FUZZ,
     RAW_MIN_JACCARD,
@@ -75,15 +75,9 @@ if not logger.handlers:
                         format="%(asctime)s %(levelname)s %(message)s")
 logger.setLevel(logging.INFO)
 
-DOI_MULTI_METHOD_CACHE_TABLE = os.environ.get(
-    "DOI_MULTI_METHOD_CACHE_TABLE", "doi_multi_method_cache")
 # Default cache TTL: one week.
 DOI_MULTI_METHOD_CACHE_TTL_SECS = float(os.environ.get(
     "DOI_MULTI_METHOD_CACHE_TTL_SECS", 7 * 24 * 3600))
-_CACHE_KEY_ATTR = "cache_key"
-_CACHE_VALUE_ATTR = "cache_value"
-_CACHE_TTL_ATTR = "ttl"
-_CACHE_NONE_ATTR = "is_none"
 YEAR_MAX_DIFF = 1
 YEAR_RAW_PARTIAL_FACTOR = 0.9
 TOP_N_PER_STRATEGY = int(os.environ.get("DOI_MULTI_METHOD_TOP_N", 5))
@@ -102,76 +96,7 @@ PARSED_WEIGHTS = {
 METADATA_PRIORITY = ["crossref_title", "crossref_raw", "openalex_title"]
 
 
-class DynamoCache:
-    """
-    DynamoDB-backed cache for API responses.
-    Stores JSON-serialized values with TTL.
-    """
-
-    def __init__(self, table_name: str, ttl_seconds: float):
-        self.table_name = table_name
-        self.ttl_seconds = ttl_seconds
-        self.ddb = get_dynamo_resource()
-        self.table = self.ddb.Table(table_name)
-        self._ensure_table()
-
-    def _ensure_table(self) -> None:
-        try:
-            self.table.load()
-        except Exception:
-            try:
-                self.ddb.create_table(
-                    TableName=self.table_name,
-                    KeySchema=[
-                        {"AttributeName": _CACHE_KEY_ATTR, "KeyType": "HASH"}],
-                    AttributeDefinitions=[
-                        {"AttributeName": _CACHE_KEY_ATTR, "AttributeType": "S"}],
-                    BillingMode="PAY_PER_REQUEST",
-                )
-                self.table = self.ddb.Table(self.table_name)
-                self.table.wait_until_exists()
-            except Exception:
-                # If we cannot create/load the table, cache becomes a no-op.
-                pass
-
-    def get(self, key: str) -> Tuple[bool, Optional[Any]]:
-        try:
-            resp = self.table.get_item(
-                Key={_CACHE_KEY_ATTR: key}, ConsistentRead=False)
-        except Exception:
-            return False, None
-        item = resp.get("Item")
-        if not item:
-            return False, None
-        ttl = item.get(_CACHE_TTL_ATTR)
-        if ttl is not None and float(ttl) < time.time():
-            return False, None
-        if item.get(_CACHE_NONE_ATTR):
-            return True, None
-        try:
-            raw = item.get(_CACHE_VALUE_ATTR)
-            if raw is None:
-                return True, None
-            return True, json.loads(raw)
-        except Exception:
-            return False, None
-
-    def set(self, key: str, value: Optional[Any]) -> None:
-        try:
-            expires = int(time.time() + self.ttl_seconds)
-            item = {_CACHE_KEY_ATTR: key, _CACHE_TTL_ATTR: expires}
-            if value is None:
-                item[_CACHE_NONE_ATTR] = True
-            else:
-                item[_CACHE_VALUE_ATTR] = json.dumps(
-                    value, ensure_ascii=True, default=str)
-            self.table.put_item(Item=item)
-        except Exception:
-            pass
-
-
-_dynamo_cache = DynamoCache(
-    DOI_MULTI_METHOD_CACHE_TABLE, DOI_MULTI_METHOD_CACHE_TTL_SECS)
+_api_cache = ApiCacheRepo()
 
 
 def _cache_key(prefix: str, payload: Any) -> str:
@@ -186,12 +111,33 @@ def _cache_key(prefix: str, payload: Any) -> str:
     return f"{prefix}::{blob}"
 
 
+def _cache_get(key: str) -> Tuple[bool, Optional[Any]]:
+    item = _api_cache.get(key)
+    if not item or not _api_cache.is_fresh(item, ttl_seconds=int(DOI_MULTI_METHOD_CACHE_TTL_SECS)):
+        return False, None
+    payload = item.get("payload")
+    if isinstance(payload, dict) and payload.get("_none") is True:
+        return True, None
+    return True, payload
+
+
+def _cache_set(key: str, value: Optional[Any]) -> None:
+    payload = {"_none": True} if value is None else value
+    _api_cache.put(
+        key,
+        payload,
+        source="doi_multi_method",
+        ttl_seconds=int(DOI_MULTI_METHOD_CACHE_TTL_SECS),
+        status=value is not None,
+    )
+
+
 def _cached(key: str, fn, *args, **kwargs):
-    found, hit = _dynamo_cache.get(key)
+    found, hit = _cache_get(key)
     if found:
         return hit
     val = fn(*args, **kwargs)
-    _dynamo_cache.set(key, val)
+    _cache_set(key, val)
     return val
 
 

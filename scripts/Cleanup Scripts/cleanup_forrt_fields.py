@@ -46,10 +46,12 @@ scan_kwargs = {
     "FilterExpression": (
         "attribute_exists(forrt_refs) OR attribute_exists(forrt_doi_r_set) "
         "OR attribute_exists(forrt_apa_ref_o_set) OR attribute_exists(forrt_apa_ref_r_set) "
-        "OR attribute_exists(forrt_lookup_payload)"
+        "OR attribute_exists(forrt_lookup_payload) OR attribute_exists(forrt_matching_replication_dois) "
+        "OR attribute_exists(forrt_refs_count)"
     ),
     "ProjectionExpression": "osf_id, ref_id, forrt_lookup_payload, forrt_lookup_status, "
-                            "forrt_refs, forrt_doi_r_set, forrt_apa_ref_o_set, forrt_apa_ref_r_set",
+                            "forrt_refs, forrt_doi_r_set, forrt_apa_ref_o_set, forrt_apa_ref_r_set, "
+                            "forrt_matching_replication_dois, forrt_refs_count",
 }
 
 items = []
@@ -67,7 +69,8 @@ for it in items:
     osf_id = it["osf_id"]
     ref_id = it["ref_id"]
     payload = it.get("forrt_lookup_payload")
-    removes = ["forrt_refs", "forrt_doi_r_set", "forrt_apa_ref_o_set", "forrt_apa_ref_r_set"]
+    removes = ["forrt_refs", "forrt_doi_r_set", "forrt_apa_ref_o_set", "forrt_apa_ref_r_set",
+               "forrt_matching_replication_dois", "forrt_refs_count"]
     sets = []
     eav = {}
 
