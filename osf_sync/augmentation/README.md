@@ -1,5 +1,7 @@
 # osf_sync.augmentation
 
+Plain English: this folder holds TEI parsing and DOI enrichment helpers.
+
 Utilities that parse TEI XML, write structured data back to DynamoDB, and enrich references via Crossref / OpenAlex.
 
 ---
@@ -49,7 +51,7 @@ All enrichment functions:
 2. Query the respective API.
 3. Use `repo.update_reference_doi(osf_id, ref_id, doi, source=...)` for conditional updates.
 
-Celery tasks (`osf_sync.tasks.enrich_crossref` / `enrich_openalex`) now call the multi-method pipeline via `doi_multi_method.enrich_missing_with_multi_method`.
+Celery task `osf_sync.tasks.enrich_references` calls the multi-method pipeline via `doi_multi_method.enrich_missing_with_multi_method`.
 
 ---
 

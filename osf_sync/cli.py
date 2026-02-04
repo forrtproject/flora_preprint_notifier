@@ -31,30 +31,18 @@ def cmd_enqueue_extraction(args):
     r = app.send_task("osf_sync.tasks.enqueue_extraction", kwargs={"limit": args.limit})
     print("enqueued:", r.id)
 
-def cmd_enrich_crossref(args):
+def cmd_enrich_references(args):
     from osf_sync.celery_app import app
     r = app.send_task(
-        "osf_sync.tasks.enrich_crossref",
-        kwargs={
-            "limit": args.limit,
-            "osf_id": args.osf_id,
-            "ref_id": args.ref_id,
-            "debug": args.debug,
-            "dump_misses": args.dump_misses,
-        },
-    )
-    print("enqueued:", r.id)
-
-def cmd_enrich_openalex(args):
-    from osf_sync.celery_app import app
-    r = app.send_task(
-        "osf_sync.tasks.enrich_openalex",
+        "osf_sync.tasks.enrich_references",
         kwargs={
             "limit": args.limit,
             "threshold": args.threshold,
             "mailto": args.mailto,
             "osf_id": args.osf_id,
+            "ref_id": args.ref_id,
             "debug": args.debug,
+            "dump_misses": args.dump_misses,
         },
     )
     print("enqueued:", r.id)
@@ -87,21 +75,15 @@ def main():
     p5.add_argument("--limit", type=int, default=200)
     p5.set_defaults(func=cmd_enqueue_extraction)
 
-    p6 = sub.add_parser("enrich-crossref", help="Enrich missing reference DOIs via Crossref")
-    p6.add_argument("--limit", type=int, default=200)
+    p6 = sub.add_parser("enrich-references", help="Enrich missing reference DOIs via the multi-method pipeline")
+    p6.add_argument("--limit", type=int, default=300)
+    p6.add_argument("--threshold", type=int, default=None, help="Score threshold for structured matches.")
+    p6.add_argument("--mailto", default=None, help="Override OpenAlex contact email.")
     p6.add_argument("--osf-id", default=None, help="Restrict to this OSF ID")
     p6.add_argument("--ref-id", default=None, help="Restrict to a specific reference ID")
-    p6.add_argument("--debug", action="store_true", help="Enable verbose Crossref logging")
+    p6.add_argument("--debug", action="store_true", help="Enable verbose logging")
     p6.add_argument("--dump-misses", default=None, help="Optional path to write CSV of non-matches with reasons")
-    p6.set_defaults(func=cmd_enrich_crossref)
-
-    p7 = sub.add_parser("enrich-openalex", help="Enrich remaining missing reference DOIs via OpenAlex")
-    p7.add_argument("--limit", type=int, default=200)
-    p7.add_argument("--threshold", type=int, default=78, help="Score threshold for OpenAlex matches.")
-    p7.add_argument("--mailto", default=None, help="Override OpenAlex contact email.")
-    p7.add_argument("--osf-id", default=None, help="Restrict to this OSF ID")
-    p7.add_argument("--debug", action="store_true", help="Enable verbose OpenAlex logging")
-    p7.set_defaults(func=cmd_enrich_openalex)
+    p6.set_defaults(func=cmd_enrich_references)
 
     args = p.parse_args()
     args.func(args)

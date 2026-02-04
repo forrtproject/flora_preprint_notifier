@@ -1,6 +1,8 @@
 # Manual post-GROBID scripts
 
-Run the downstream steps (GROBID, TEI extraction, enrichment) directly from your local Python environment — no Docker containers or Celery workers required. These scripts load `.env`, ensure DynamoDB tables exist, and use the same repo helpers as the main pipeline.
+Plain English: these are run-by-hand scripts for when you do not want Docker or Celery.
+
+Run the downstream steps (GROBID, TEI extraction, enrichment) directly from your local Python environment - no Docker containers or Celery workers required. These scripts load `.env`, ensure DynamoDB tables exist, and use the same repo helpers as the main pipeline.
 
 ---
 
@@ -31,11 +33,12 @@ python scripts/manual_post_grobid/run_extraction.py --limit 25
 | Script                                   | Description                                                                       |
 | ---------------------------------------- | --------------------------------------------------------------------------------- |
 | `run_extraction.py`                      | Parses TEI XML from disk and writes TEI/references back to DynamoDB.              |
-| `run_enrich_crossref.py`                 | Fills missing DOIs via Crossref.                                                  |
-| `run_enrich_openalex.py`                 | Fills missing DOIs via OpenAlex.                                                  |
-| `analyze_doi_sources.py`                 | Summarises DOI coverage (`by_source`, missing counts).                            |
+| `doi_multi_method_lookup.py`             | Multi-method DOI matching and CSV output. Does not update DynamoDB.               |
+| `run_forrt_screening.py`                 | FORRT lookup + screening to flag replications.                                    |
+| `analyze_doi_sources.py`                 | Summarizes DOI coverage (`by_source`, missing counts).                            |
 | `dump_missing_doi_refs.py`               | Dumps remaining references without DOIs (JSON lines).                             |
 | `select_low_doi_coverage.py`             | Lists OSF IDs whose reference sets have <X% DOI coverage (optional ref dumps).    |
+| `enqueue_author_extract.py`              | Enqueue author extraction tasks (optional helper).                                |
 
 Each script supports `--limit` (and optional `--dry-run`/`--sleep`) arguments; run with `-h` for details.
 
@@ -47,11 +50,11 @@ Each script supports `--limit` (and optional `--dry-run`/`--sleep`) arguments; r
 # Parse 100 TEI files and write references
 python scripts/manual_post_grobid/run_extraction.py --limit 100
 
-# Crossref enrichment with stricter threshold
-python scripts/manual_post_grobid/run_enrich_crossref.py --limit 300 --threshold 80
+# Multi-method DOI matching (writes CSV only)
+python scripts/manual_post_grobid/doi_multi_method_lookup.py --from-db --limit 200 --output doi_multi_method.csv
 
-# OpenAlex enrichment with custom contact email
-python scripts/manual_post_grobid/run_enrich_openalex.py --limit 200 --mailto you@example.com
+# FORRT lookup + screening
+python scripts/manual_post_grobid/run_forrt_screening.py --limit-lookup 200 --limit 500
 
 # DOI coverage stats
 python scripts/manual_post_grobid/analyze_doi_sources.py
@@ -62,5 +65,7 @@ python scripts/manual_post_grobid/dump_missing_doi_refs.py --output missing.json
 # OSF IDs with <20% DOI coverage and at least 30 refs (plus reference dumps)
 python scripts/manual_post_grobid/select_low_doi_coverage.py --threshold 0.2 --min-refs 30 --dump-refs-dir low_refs
 ```
+
+Note: `doi_multi_method_lookup.py` writes a CSV only. To update DynamoDB DOIs, use the `enrich-references` Celery task.
 
 These mirror the Docker/Celery tasks but execute sequentially on your local machine for quick experiments or ad-hoc runs.

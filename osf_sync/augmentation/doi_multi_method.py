@@ -4,7 +4,7 @@ import logging
 from typing import Dict, Optional
 
 from ..dynamo.preprints_repo import PreprintsRepo
-from scripts.augmentation.doi_multi_method_lookup import (
+from scripts.manual_post_grobid.doi_multi_method_lookup import (
     OPENALEX_MAILTO,
     STRUCTURED_THRESHOLD_DEFAULT,
     process_reference,
@@ -57,7 +57,8 @@ def enrich_missing_with_multi_method(
     """
     repo = PreprintsRepo()
     checked = updated = failed = 0
-    use_threshold = int(threshold) if threshold is not None else int(STRUCTURED_THRESHOLD_DEFAULT)
+    use_threshold = int(threshold) if threshold is not None else int(
+        STRUCTURED_THRESHOLD_DEFAULT)
     use_mailto = mailto or OPENALEX_MAILTO
 
     rows = repo.select_refs_missing_doi(
@@ -82,14 +83,16 @@ def enrich_missing_with_multi_method(
             if not doi or status != "matched":
                 continue
             source = _resolve_source(row.get("final_method"))
-            ok = repo.update_reference_doi(ref.get("osf_id"), ref.get("ref_id"), doi, source=source)
+            ok = repo.update_reference_doi(
+                ref.get("osf_id"), ref.get("ref_id"), doi, source=source)
             if ok:
                 updated += 1
         except Exception:
             failed += 1
             logger.exception(
                 "Multi-method enrichment failed",
-                extra={"osf_id": ref.get("osf_id"), "ref_id": ref.get("ref_id")},
+                extra={"osf_id": ref.get(
+                    "osf_id"), "ref_id": ref.get("ref_id")},
             )
 
     return {"checked": checked, "updated": updated, "failed": failed}

@@ -1,13 +1,30 @@
-# OSF Preprints – Modular Pipeline
+# OSF Preprints - Modular Pipeline
 
-This repository houses multiple task families that work together or independently:
+This repo runs a pipeline for OSF preprints. It does four big jobs:
 
-1. **Ingestion** – Fetch preprints from OSF and persist structured documents in DynamoDB.
-2. **PDF/GROBID pipeline** – Download source files, run GROBID, and parse TEI references.
-3. **Enrichment** – Augment references via Crossref/OpenAlex and write enriched DOIs.
-4. **Analytics scripts** – Inspect coverage, dump missing references, and surface gaps without running containers.
+1. Ingestion: fetch preprints from the OSF API and store them in DynamoDB (the database).
+2. PDF + GROBID: download files and turn PDFs into TEI XML (GROBID is the PDF parser).
+3. TEI extraction: parse TEI XML and write references back to DynamoDB.
+4. Enrichment: look up missing DOIs using Crossref and OpenAlex.
 
-All code runs against **DynamoDB** (local or AWS), **Redis/Celery** handles scheduling/queues, and helper scripts allow running the post-TEI steps locally for ad-hoc analysis.
+If you are not sure what to run, follow "Quick Start" below.
+
+## Quick Start (Local dev)
+
+1. Fill `.env` (example below). For local dev, keep `DYNAMO_LOCAL_URL` and use fake AWS keys.
+2. Start services:
+   `docker compose up -d dynamodb-local redis`
+   `docker compose up -d celery-worker celery-pdf celery-grobid celery-beat flower`
+3. Create DynamoDB tables (run once):
+   `docker compose run --rm app python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"`
+4. Run a small sync:
+   `docker compose run --rm app python -m osf_sync.cli sync-from-date --start 2025-07-01`
+5. Queue the pipeline:
+   `docker compose run --rm app python -m osf_sync.cli enqueue-pdf --limit 50`
+   `docker compose run --rm app python -m osf_sync.cli enqueue-grobid --limit 25`
+   `docker compose run --rm app python -m osf_sync.cli enqueue-extraction --limit 200`
+6. Enrich references:
+   `docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400`
 
 ---
 
@@ -16,7 +33,7 @@ All code runs against **DynamoDB** (local or AWS), **Redis/Celery** handles sche
 - Incremental OSF ingestion with DynamoDB-backed cursors.
 - PDF/GROBID pipeline with queue flags stored on each preprint.
 - TEI parsing + reference extraction using the same data path.
-- Enrichment tasks for Crossref/OpenAlex with fallback scripts.
+- Enrichment via Crossref + OpenAlex using the multi-method pipeline.
 - Extensive analytics scripts (no Docker required) to inspect coverage, dump references, or compute metrics.
 
 ---
@@ -211,10 +228,10 @@ Each extraction job calls `osf_sync.augmentation.run_extract.extract_for_osf_id`
 ### Enrichment tasks
 
 ```bash
-docker compose run --rm app python -m osf_sync.cli enrich-crossref --limit 400
-docker compose run --rm app python -m osf_sync.cli enrich-openalex --limit 400 --threshold 75
+docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400
+docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400 --threshold 75
 # Target a single reference:
-# docker compose run --rm app python -m osf_sync.cli enrich-crossref --osf-id <OSF_ID> --ref-id <REF_ID> --debug
+# docker compose run --rm app python -m osf_sync.cli enrich-references --osf-id <OSF_ID> --ref-id <REF_ID> --debug
 ```
 
 `celery-beat` already schedules the daily sync, PDF/GROBID queues, and enrichment tasks; adjust in `osf_sync/celery_app.py`.
@@ -225,13 +242,14 @@ docker compose run --rm app python -m osf_sync.cli enrich-openalex --limit 400 -
 
 All scripts live under `scripts/manual_post_grobid/`. They work from the repo root after installing dependencies (`pip install -r requirements.txt`) and setting `PYTHONPATH`. Summary:
 
-| Script                                              | Description                                                               |
-| --------------------------------------------------- | ------------------------------------------------------------------------- |
-| `run_extraction.py`                                 | Parse TEI XML from disk and write TEI/refs into DynamoDB.                 |
-| `run_enrich_crossref.py` / `run_enrich_openalex.py` | Run Crossref/OpenAlex enrichment sequentially.                            |
-| `analyze_doi_sources.py`                            | Count DOI coverage per source.                                            |
-| `dump_missing_doi_refs.py`                          | Dump references that still lack DOI information.                          |
-| `select_low_doi_coverage.py`                        | Find OSF IDs below a DOI coverage threshold (optionally dump references). |
+| Script                       | Description                                                              |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| `run_extraction.py`          | Parse TEI XML from disk and write TEI/refs into DynamoDB.                |
+| `doi_multi_method_lookup.py` | Run multi-method DOI matching and write a CSV. Does not update DynamoDB. |
+| `run_forrt_screening.py`     | Run FORRT lookup + screening.                                            |
+| `analyze_doi_sources.py`     | Count DOI coverage per source.                                           |
+| `dump_missing_doi_refs.py`   | Dump references that still lack DOI information.                         |
+| `select_low_doi_coverage.py` | Find OSF IDs below a DOI coverage threshold (optional ref dumps).        |
 
 Run scripts with:
 
@@ -245,16 +263,6 @@ python scripts/manual_post_grobid/select_low_doi_coverage.py --threshold 0.2 --m
 
 See `scripts/manual_post_grobid/README.md` for details on each script.
 
-## Troubleshooting tips
-
-| Symptom                                 | Fix                                                                                                 |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `service "app" is not running`          | Expected – `app` runs init + CLI help then exits. Use `docker compose run --rm app ...` as needed.  |
-| `ValidationException` querying GSIs     | Ensure `init_db()` was run so GSIs exist, or delete local data dir (`rm -rf .dynamodb`) and restart |
-| `Unable to locate credentials`          | Set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, and (for local) `DYNAMO_LOCAL_URL`. |
-| Local edits not reflected in containers | Source is bind-mounted; restart the service if Python module caching causes issues.                 |
-| Need to inspect Dynamo data quickly     | `python -m osf_sync.dump_ddb --limit 5 --queues` (host) or `docker compose exec app ...`            |
-
 ---
 
 ## Manual scripts (no Docker required)
@@ -263,12 +271,14 @@ After configuring `.env` and installing dependencies locally, you can run the po
 
 ```bash
 python scripts/manual_post_grobid/run_extraction.py --limit 200
-python scripts/manual_post_grobid/run_enrich_crossref.py --limit 400 --threshold 78
-python scripts/manual_post_grobid/run_enrich_openalex.py --limit 400 --threshold 75
+python scripts/manual_post_grobid/doi_multi_method_lookup.py --from-db --limit 400 --output doi_multi_method.csv
+python scripts/manual_post_grobid/run_forrt_screening.py --limit-lookup 200 --limit 500
 python scripts/manual_post_grobid/analyze_doi_sources.py
 python scripts/manual_post_grobid/dump_missing_doi_refs.py --output missing.jsonl
 python scripts/manual_post_grobid/select_low_doi_coverage.py --threshold 0.2 --min-refs 30 --dump-refs-dir low_refs
 ```
+
+Note: `doi_multi_method_lookup.py` writes a CSV only. To update DynamoDB, use the `enrich-references` task.
 
 See `scripts/manual_post_grobid/README.md` for details and extra flags (`--dry-run`, `--sleep`, etc.).
 
@@ -306,8 +316,7 @@ docker compose run --rm app python -m osf_sync.cli enqueue-grobid --limit 25
 
 # 5. Parse TEI XML and enrich references
 docker compose run --rm app python -m osf_sync.cli enqueue-extraction --limit 200
-docker compose run --rm app python -m osf_sync.cli enrich-crossref --limit 400
-docker compose run --rm app python -m osf_sync.cli enrich-openalex --limit 400 --threshold 75
+docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400
 ```
 
 Happy syncing!
