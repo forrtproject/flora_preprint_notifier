@@ -423,38 +423,18 @@ def author_extract(
 
 
 # -------------------------------
-# Enrichment (Crossref ↔ OpenAlex)
+# Enrichment (multi-method DOI lookup)
 # -------------------------------
-@app.task(name="osf_sync.tasks.enrich_crossref", bind=True)
-def enrich_crossref(
+@app.task(name="osf_sync.tasks.enrich_references", bind=True)
+def enrich_references(
     self,
     limit: int = 300,
-    ua_email: str = OPENALEX_EMAIL,
-    osf_id: str | None = None,
-    ref_id: str | None = None,
-    debug: bool = False,
-    dump_misses: str | None = None,
-):
-    from .augmentation.doi_multi_method import enrich_missing_with_multi_method
-    stats = enrich_missing_with_multi_method(
-        limit=limit,
-        mailto=ua_email,
-        osf_id=osf_id,
-        ref_id=ref_id,
-        debug=debug,
-    )
-    _slack("Crossref enrichment", extra=stats)
-    return stats
-
-
-@app.task(name="osf_sync.tasks.enrich_openalex", bind=True)
-def enrich_openalex(
-    self,
-    limit: int = 200,
-    threshold: int = 78,
-    mailto: Optional[str] = None,
+    threshold: Optional[int] = None,
+    mailto: Optional[str] = OPENALEX_EMAIL,
     osf_id: Optional[str] = None,
+    ref_id: Optional[str] = None,
     debug: bool = False,
+    dump_misses: Optional[str] = None,
 ):
     from .augmentation.doi_multi_method import enrich_missing_with_multi_method
 
@@ -463,9 +443,10 @@ def enrich_openalex(
         threshold=threshold,
         mailto=mailto,
         osf_id=osf_id,
+        ref_id=ref_id,
         debug=debug,
     )
-    _slack("OpenAlex enrichment", extra=stats)
+    _slack("Reference enrichment", extra=stats)
     return stats
 
 

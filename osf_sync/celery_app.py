@@ -52,14 +52,14 @@ app.conf.beat_schedule.update({
 })
 
 app.conf.beat_schedule.update({
-    "enrich-crossref-daily": {
-        "task": "osf_sync.tasks.enrich_crossref",
+    "enrich-references-structured-daily": {
+        "task": "osf_sync.tasks.enrich_references",
         "schedule": crontab(minute=30, hour=4),  # 04:30 Europe/Berlin
         "args": [400],  # limit
-        "kwargs": {"threshold": 78, "ua_email": OPENALEX_EMAIL},
+        "kwargs": {"threshold": 78, "mailto": OPENALEX_EMAIL},
     },
-    "enrich-openalex-daily": {
-        "task": "osf_sync.tasks.enrich_openalex",
+    "enrich-references-lower-threshold-daily": {
+        "task": "osf_sync.tasks.enrich_references",
         "schedule": crontab(minute=0, hour=5),   # run after Crossref
         "args": [400],
         "kwargs": {"threshold": 75, "mailto": OPENALEX_EMAIL},

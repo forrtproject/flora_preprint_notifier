@@ -1,6 +1,7 @@
 # osf_sync package overview
 
-Core Python package for the OSF Preprints pipeline. It contains the Celery tasks, CLI entrypoints, DynamoDB helpers, and augmentation utilities used by the stack.
+## Plain English
+This is the main Python package. It contains the background jobs (Celery tasks), the command line entrypoints, and the DynamoDB helpers used by the pipeline.
 
 ---
 
@@ -9,7 +10,7 @@ Core Python package for the OSF Preprints pipeline. It contains the Celery tasks
 | Module                          | Purpose                                                                                  |
 | ------------------------------- | ---------------------------------------------------------------------------------------- |
 | `celery_app.py`                 | Celery configuration + beat schedules (+ queue routing).                                 |
-| `cli.py`                        | Click-based CLI invoked via `python -m osf_sync.cli …`.                                   |
+| `cli.py`                        | Argparse-based CLI invoked via `python -m osf_sync.cli ...`.                              |
 | `tasks.py`                      | Celery tasks (OSF sync, PDF download, GROBID, TEI extraction, enrichments, etc.).        |
 | `dynamo/`                       | Boto3 client, table definitions, and `PreprintsRepo` for DynamoDB CRUD helpers.         |
 | `augmentation/`                 | TEI parser integration and enrichment utilities (Crossref, OpenAlex, etc.).             |
@@ -29,9 +30,8 @@ Run everything via `python -m osf_sync.cli <command> [options]`.
 | `enqueue-pdf`         | Queue PDFs for download.                               |
 | `enqueue-grobid`      | Queue GROBID jobs for downloaded PDFs.                 |
 | `enqueue-extraction`  | Parse TEI XML from disk and write TEI/refs to DynamoDB.|
-| `enrich-crossref`     | Fill missing reference DOIs via Crossref.              |
-| `enrich-openalex`     | Remaining DOI enrichment via OpenAlex.                |
-| `enrich-crossref --osf-id <ID> --ref-id <RID>` | Re-run Crossref enrichment for a single reference. |
+| `enrich-references`   | Fill missing reference DOIs using the multi-method pipeline. |
+| `enrich-references --osf-id <ID> --ref-id <RID>` | Re-run enrichment for a single reference. |
 | `fetch-one`           | Fetch a single OSF preprint by ID/DOI and upsert it.   |
 
 Each CLI command wraps Celery tasks or helper functions defined inside this package.
@@ -48,8 +48,7 @@ Each CLI command wraps Celery tasks or helper functions defined inside this pack
 | `osf_sync.tasks.enqueue_grobid`           | default  | Selects items via `preprints.by_queue_grobid` GSI.              |
 | `osf_sync.tasks.grobid_single`            | `grobid` | Runs GROBID and marks `queue_grobid`/`queue_extract`.           |
 | `osf_sync.tasks.enqueue_extraction`       | default  | Selects items via `preprints.by_queue_extract` GSI.             |
-| `osf_sync.tasks.enrich_crossref`          | default  | Updates `preprint_references` via the multi-method DOI pipeline. |
-| `osf_sync.tasks.enrich_openalex`          | default  | Updates references via the multi-method DOI pipeline.          |
+| `osf_sync.tasks.enrich_references`        | default  | Updates references via the multi-method DOI pipeline.           |
 
 The `PreprintsRepo` class centralizes all DynamoDB CRUD and queue-selection logic so tasks remain concise.
 
@@ -58,9 +57,9 @@ The `PreprintsRepo` class centralizes all DynamoDB CRUD and queue-selection logi
 ## Augmentation pipeline
 
 1. `grobid.py` saves TEI XML to `/data/preprints/<provider>/<osf_id>/tei.xml`.
-2. `augmentation/run_extract.py` parses each TEI file with the repo’s TEI extractor.
+2. `augmentation/run_extract.py` parses each TEI file with the repo's TEI extractor.
 3. `augmentation/extract_to_db.py` writes structured TEI and reference data through `PreprintsRepo`.
-4. Enrichment tasks (`matching_crossref`, `doi_check_openalex`, `enrich_doi`) fill missing DOIs.
+4. Enrichment uses the multi-method DOI pipeline to fill missing DOIs.
 
 All augmentation modules assume DynamoDB as the backing store and use the helpers in `dynamo/preprints_repo.py`.
 
@@ -68,9 +67,8 @@ All augmentation modules assume DynamoDB as the backing store and use the helper
 
 ## Helper scripts
 
-- `dump_ddb.py` – scan/query Dynamo tables and GSIs for quick inspection (works in containers and on host).
-- `augmentation/run_extract.py` – entrypoint for parsing a single TEI file (used by Celery tasks).
-- `augmentation/*` scripts (under `scripts/augmentation/`) – legacy helpers usable from the container if needed.
+- `dump_ddb.py` - scan/query Dynamo tables and GSIs for quick inspection (works in containers and on host).
+- `augmentation/run_extract.py` - entrypoint for parsing a single TEI file (used by Celery tasks).
+- Scripts under `scripts/manual_post_grobid/` are for running steps by hand (no Docker).
 
 Use `python -m osf_sync.dump_ddb --help` for inspection options.
-

@@ -1,5 +1,7 @@
 # osf_sync.dynamo
 
+Plain English: this package wraps all DynamoDB reads and writes for the pipeline.
+
 Utilities that encapsulate all DynamoDB access for the OSF pipeline.
 
 ---
@@ -54,7 +56,7 @@ High-level API used across the codebase:
 | ----------------------------- | -------------------------------------------------------------------------- |
 | `upsert_preprints(rows)`      | Batch-writes OSF payloads, strips `None`, sets queue flags.                |
 | `get_preprint_basic(osf_id)` | Returns `{osf_id, provider_id, raw}` projection.                           |
-| `mark_pdf()` / `mark_tei()`   | Updates status flags + queue transitions (pdf→grobid→extract).            |
+| `mark_pdf()` / `mark_tei()`   | Updates status flags + queue transitions (pdf->grobid->extract).            |
 | `select_for_pdf(limit)`       | Query `by_queue_pdf` GSI (fallback to scan).                              |
 | `select_for_grobid(limit)`    | Query `by_queue_grobid` GSI (fallback to scan).                           |
 | `select_for_extraction(limit)`| Query `by_queue_extract` GSI (fallback to scan).                          |
