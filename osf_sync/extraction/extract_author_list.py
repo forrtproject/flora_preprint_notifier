@@ -7,9 +7,10 @@ import os
 import re
 import sys
 import time
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 import requests
 from lxml import etree
@@ -124,7 +125,7 @@ EMAIL_BLACKLIST_LOCAL = {
 }
 
 
-def _clean_email(raw: Optional[str]) -> Optional[str]:
+def _clean_email(raw: Optional[str], *, allow_blacklist: bool = False) -> Optional[str]:
     if not raw:
         return None
     txt = raw.strip().strip("<>").strip().strip(";").strip(",")
@@ -139,12 +140,13 @@ def _clean_email(raw: Optional[str]) -> Optional[str]:
         return None
     local_l = local.lower()
     domain_l = domain.lower()
-    if domain_l in EMAIL_BLACKLIST_DOMAINS:
-        return None
-    if local_l in EMAIL_BLACKLIST_LOCAL:
-        return None
-    if local_l.startswith("no-reply") or local_l.startswith("noreply"):
-        return None
+    if not allow_blacklist:
+        if domain_l in EMAIL_BLACKLIST_DOMAINS:
+            return None
+        if local_l in EMAIL_BLACKLIST_LOCAL:
+            return None
+        if local_l.startswith("no-reply") or local_l.startswith("noreply"):
+            return None
     return txt
 
 
@@ -219,7 +221,9 @@ def _inc(stats: Dict[str, int], key: str, n: int = 1) -> None:
 def _normalize_name(text: str) -> str:
     if not text:
         return ""
-    txt = text.lower()
+    txt = unicodedata.normalize("NFKD", text)
+    txt = "".join(ch for ch in txt if not unicodedata.combining(ch))
+    txt = txt.lower()
     txt = re.sub(r"[\W\d_]+", "", txt, flags=re.UNICODE)
     txt = re.sub(r"[^a-z]", "", txt)
     return txt
@@ -236,6 +240,19 @@ def _initials(text: str) -> str:
         return ""
     parts = re.split(r"\s+", text.strip())
     return "".join(p[0] for p in parts if p)
+
+
+def _strip_middle_initials(text: str) -> str:
+    if not text:
+        return ""
+    parts = [p for p in re.split(r"\s+", text.strip()) if p]
+    cleaned = []
+    for p in parts:
+        p_clean = p.strip(".")
+        if len(p_clean) == 1:
+            continue
+        cleaned.append(p)
+    return " ".join(cleaned)
 
 
 def _levenshtein_distance(a: str, b: str) -> int:
@@ -818,10 +835,10 @@ def _fill_orcid_details(
             row["name.surname.orcid"] = family
             names_added += 1
         emails = (person.get("emails") or {}).get("email") or []
-        if not row.get("email") and emails:
+        if emails and (not row.get("email") or (row.get("email.source") == "pdf")):
             first = emails[0]
             val = (first or {}).get("email")
-            clean = _clean_email(val)
+            clean = _clean_email(val, allow_blacklist=True)
             if clean:
                 row["email"] = clean
                 row["email.source"] = "orcid"
@@ -1039,17 +1056,26 @@ def _email_candidates_from_row(row: Dict[str, Any]) -> List[str]:
     return list(dict.fromkeys(cleaned))
 
 
-def _best_email_for_author(given: str, surname: str, emails: List[str]) -> Tuple[Optional[str], float]:
+def _best_email_for_author(
+    given: str,
+    surname: str,
+    emails: List[str],
+    preferred_emails: Optional[Set[str]] = None,
+    preferred_boost: float = 0.15,
+) -> Tuple[Optional[str], float]:
     if not emails:
         return None, 0.0
     best_email = None
     best_sim = 0.0
     given_n = _normalize_name(given)
     surname_n = _normalize_name(surname)
+    given_no_mid = _strip_middle_initials(given)
+    given_no_mid_n = _normalize_name(given_no_mid)
     full_gs = _normalize_name(f"{given} {surname}".strip())
     full_sg = _normalize_name(f"{surname} {given}".strip())
-    init_s = _normalize_name(f"{_first_name(given)[:1]} {surname}".strip()) if given else _normalize_name(surname)
-    variants = [v for v in {full_gs, full_sg, init_s, given_n, surname_n} if v]
+    full_gs_no_mid = _normalize_name(f"{given_no_mid} {surname}".strip())
+    init_s = _normalize_name(f"{_first_name(given_no_mid)[:1]} {surname}".strip()) if given_no_mid else _normalize_name(surname)
+    variants = [v for v in {full_gs, full_sg, full_gs_no_mid, init_s, given_n, given_no_mid_n, surname_n} if v]
     for email in emails:
         local_raw = email.split("@", 1)[0].lower()
         local = _normalize_name(local_raw)
@@ -1062,6 +1088,8 @@ def _best_email_for_author(given: str, surname: str, emails: List[str]) -> Tuple
                 sims.append(len(local) / len(v))
             if local in v:
                 sims.append(len(local) / len(v))
+            if v in local:
+                sims.append(len(v) / len(local))
         sim = max(sims) if sims else 0.0
         # Prefer locals that contain both given + surname over single-token matches
         if given_n and surname_n:
@@ -1069,6 +1097,8 @@ def _best_email_for_author(given: str, surname: str, emails: List[str]) -> Tuple
                 sim += 0.20
             elif local == surname_n:
                 sim -= 0.10
+        if preferred_emails and email in preferred_emails:
+            sim += preferred_boost
         if sim > 1.0:
             sim = 1.0
         if sim > best_sim:
@@ -1102,16 +1132,12 @@ def _match_emails_in_csv(path: str, threshold: float) -> None:
         return ""
 
     given_keys = [
-        "name.given",
-        "name.given.orcid",
         "given",
         "first_name",
         "first",
         "fname",
     ]
     surname_keys = [
-        "name.surname",
-        "name.surname.orcid",
         "surname",
         "last_name",
         "last",
@@ -1119,22 +1145,58 @@ def _match_emails_in_csv(path: str, threshold: float) -> None:
         "family",
     ]
 
+    def _score_with_names(given: str, surname: str, candidates: List[str], preferred_orcid: Set[str]) -> Tuple[Optional[str], float]:
+        if not given or not surname:
+            return None, 0.0
+        return _best_email_for_author(
+            given,
+            surname,
+            candidates,
+            preferred_emails=preferred_orcid,
+        )
+
     for pid, group in by_id.items():
         candidates: List[str] = []
+        preferred_orcid: Set[str] = set()
         for row in group:
             candidates.extend(_email_candidates_from_row(row))
+            source = (row.get("email.source") or "").strip().lower()
+            if source == "orcid":
+                val = (row.get("email") or "").strip()
+                clean = _clean_email(val, allow_blacklist=True)
+                if clean:
+                    preferred_orcid.add(clean)
+                    candidates.append(clean)
         candidates = list(dict.fromkeys(candidates))
         for row in group:
-            given = _pick(row, given_keys)
-            surname = _pick(row, surname_keys)
-            if not given or not surname:
+            scores: List[Tuple[Optional[str], float]] = []
+
+            # OSF names
+            osf_given = _pick(row, ["osf.name.given"])
+            osf_surname = _pick(row, ["osf.name.surname"])
+            scores.append(_score_with_names(osf_given, osf_surname, candidates, preferred_orcid))
+
+            # ORCID names
+            orcid_given = _pick(row, ["name.given.orcid"])
+            orcid_surname = _pick(row, ["name.surname.orcid"])
+            scores.append(_score_with_names(orcid_given, orcid_surname, candidates, preferred_orcid))
+
+            # PDF/TEI names
+            tei_given = _pick(row, ["name.given"] + given_keys)
+            tei_surname = _pick(row, ["name.surname"] + surname_keys)
+            scores.append(_score_with_names(tei_given, tei_surname, candidates, preferred_orcid))
+
+            # Fallback to any full name if all sources missing
+            if not any(sim > 0 for _, sim in scores):
                 full = _pick(row, ["osf.name", "name", "full_name"])
                 if full:
                     parts = full.split()
                     if len(parts) >= 2:
-                        surname = surname or parts[-1]
-                        given = given or " ".join(parts[:-1])
-            best_email, best_sim = _best_email_for_author(given, surname, candidates)
+                        fallback_given = " ".join(parts[:-1])
+                        fallback_surname = parts[-1]
+                        scores.append(_score_with_names(fallback_given, fallback_surname, candidates, preferred_orcid))
+
+            best_email, best_sim = max(scores, key=lambda s: s[1]) if scores else (None, 0.0)
             row["email.possible"] = best_email or "NA"
             row["email.similarity"] = f"{best_sim:.3f}" if best_email else "0.000"
             existing = (row.get("email") or "").strip()
