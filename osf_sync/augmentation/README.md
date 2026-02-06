@@ -10,7 +10,7 @@ Helpers for TEI extraction and reference enrichment.
 | `extract_to_db.py` | Persist parsed TEI + references to DynamoDB via `PreprintsRepo`. |
 
 Flow:
-1. `run_extract.extract_for_osf_id(provider_id, osf_id, base_dir)` loads `/data/preprints/<provider>/<osf_id>/tei.xml`.
+1. `run_extract.extract_for_osf_id(provider_id, osf_id, base_dir)` loads `data/preprints/<provider>/<osf_id>/tei.xml`.
 2. TEI parser extracts preprint metadata and references.
 3. `write_extraction()` persists results and marks `preprints.tei_extracted`.
 
@@ -41,7 +41,7 @@ python -m osf_sync.pipeline run --stage flora --limit-lookup 200 --limit-screen 
 python -m osf_sync.augmentation.matching_crossref --limit 200 --threshold 78
 python -m osf_sync.augmentation.doi_check_openalex --osf_id <OSF_ID> --limit 50 --threshold 70 --debug
 python -m osf_sync.augmentation.flora_screening --limit-lookup 200 --limit 500
-python -m osf_sync.augmentation.run_extract --osf_id <OSF_ID> --provider-id <PROVIDER> --base /data/preprints
+python -m osf_sync.augmentation.run_extract --osf_id <OSF_ID> --provider-id <PROVIDER> --base ./data/preprints
 ```
 
 ## Notes
