@@ -28,6 +28,7 @@ Use `python -m osf_sync.pipeline <command>`.
 | `run-all` | Bounded sequential run across major stages, including `author` by default (`--skip-author` to disable). Author keeps files by default (`--cleanup-author-files` to delete) and is DynamoDB-only unless `--write-debug-csv` is set. |
 | `sync-from-date` | Ad-hoc ingestion from a given start date. |
 | `fetch-one` | Fetch one preprint by OSF id or DOI. |
+| `author-randomize` | Assign only unassigned preprints using a Dynamo-backed author network (initializes on first run, augments thereafter). |
 
 All commands support bounded execution (`--limit`, `--max-seconds`) and `--dry-run` where applicable.
 
