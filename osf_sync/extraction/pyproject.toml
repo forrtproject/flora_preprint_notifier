@@ -1,7 +1,7 @@
 [project]
 name = "pdf_extraction"
 version = "0.1.0"
-description = "dependencies for get_mail_from_pdf.py and extract_emails_from_pdfs.py files."
+description = "Dependencies for extraction helpers and author extraction workflows."
 readme = "../README.md"
 requires-python = ">=3.13"
 dependencies = [
