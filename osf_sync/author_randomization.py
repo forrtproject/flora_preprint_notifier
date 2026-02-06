@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Set, Tuple
 
 from .dynamo.preprints_repo import PreprintsRepo
+from .exclusion_logging import log_preprint_exclusion
 
 logger = logging.getLogger(__name__)
 
@@ -781,7 +782,7 @@ def _persist_run(
     clusters: Dict[str, Dict[str, Any]],
     touched_cluster_ids: Set[str],
     assignments: List[Dict[str, Any]],
-) -> None:
+) -> List[Dict[str, Any]]:
     node_items = [nodes[nid].to_item(now_iso) for nid in sorted(touched_node_ids) if nid in nodes]
     cluster_items = [clusters[cid] for cid in sorted(touched_cluster_ids) if cid in clusters]
 
@@ -811,6 +812,7 @@ def _persist_run(
     repo.put_trial_clusters(cluster_items)
     if accepted_assignments:
         repo.put_trial_assignments(accepted_assignments)
+    return accepted_assignments
 
 
 def _initialize_network(
@@ -1228,7 +1230,7 @@ def run_author_randomization(
     next_seed = random.Random(seed_used).randrange(1, 2**63 - 1)
 
     if not dry_run:
-        _persist_run(
+        accepted_assignments = _persist_run(
             repo=repo,
             run_id=run_id,
             now_iso=now_iso,
@@ -1239,6 +1241,15 @@ def run_author_randomization(
             touched_cluster_ids=touched_clusters,
             assignments=assignments,
         )
+        for row in accepted_assignments:
+            if str(row.get("status") or "") != "excluded":
+                continue
+            log_preprint_exclusion(
+                reason=str(row.get("reason") or "randomization_excluded"),
+                osf_id=str(row.get("preprint_id") or ""),
+                stage="author-randomize",
+                details={"matched_cluster_ids": row.get("matched_cluster_ids") or []},
+            )
 
         state_item = dict(state)
         state_item.update(
