@@ -40,7 +40,6 @@ import sys
 import time
 import html
 import random
-from pathlib import Path
 from typing import Any, Dict, Iterator, List, Optional, Tuple
 import functools
 import json
@@ -52,12 +51,6 @@ try:
     from rapidfuzz import fuzz as rf_fuzz
 except Exception:
     rf_fuzz = None
-
-# Allow running directly (python scripts/augmentation/doi_multi_method_lookup.py)
-HERE = Path(__file__).resolve()
-REPO_ROOT = HERE.parents[2]
-if str(REPO_ROOT) not in sys.path:
-    sys.path.insert(0, str(REPO_ROOT))
 
 load_dotenv()
 

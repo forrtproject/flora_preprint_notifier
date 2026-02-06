@@ -4,7 +4,7 @@ import logging
 from typing import Dict, Optional
 
 from ..dynamo.preprints_repo import PreprintsRepo
-from scripts.manual_post_grobid.doi_multi_method_lookup import (
+from .doi_multi_method_lookup import (
     OPENALEX_MAILTO,
     STRUCTURED_THRESHOLD_DEFAULT,
     process_reference,
