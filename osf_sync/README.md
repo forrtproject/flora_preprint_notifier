@@ -69,6 +69,7 @@ Each CLI command wraps Celery tasks or helper functions defined inside this pack
 | `osf_sync.tasks.grobid_single`         | `grobid` | Runs GROBID and marks `queue_grobid`/`queue_extract`.    |
 | `osf_sync.tasks.enqueue_extraction`    | default  | Selects items via `preprints.by_queue_extract` GSI.      |
 | `osf_sync.tasks.enrich_references`     | default  | Updates references via the multi-method DOI pipeline.    |
+| `osf_sync.tasks.author_extract`        | default  | Extracts author data + writes `author_email_candidates`. |
 
 The `PreprintsRepo` class centralizes all DynamoDB CRUD and queue-selection logic so tasks remain concise.
 
@@ -90,5 +91,18 @@ All augmentation modules assume DynamoDB as the backing store and use the helper
 - `dump_ddb.py` - scan/query Dynamo tables and GSIs for quick inspection (works in containers and on host).
 - `augmentation/run_extract.py` - entrypoint for parsing a single TEI file (used by Celery tasks).
 - Scripts under `scripts/manual_post_grobid/` are for running steps by hand (no Docker).
+
+---
+
+## Author extraction notes
+
+`author_extract` builds rows from OSF contributors, enriches with TEI/ORCID, and writes
+`author_email_candidates` to the `preprints` table. Candidates are computed per preprint:
+
+- If any row has `review_needed=FALSE`, store **all** of those rows.
+- If all rows have `review_needed=TRUE`, store the **single highest-score** row.
+
+The CSV output (`osf_sync/extraction/authorList_ext.csv` by default) now includes
+`email.possible`, `email.similarity`, and `review_needed` columns.
 
 Use `python -m osf_sync.dump_ddb --help` for inspection options.

@@ -24,7 +24,7 @@ def _parse_args():
     ap.add_argument("--debug-log", default=None)
     ap.add_argument("--match-emails-file", default=None)
     ap.add_argument("--match-emails-threshold", type=float, default=0.90)
-    ap.add_argument("--no-match-emails", action="store_true")
+    ap.add_argument("--include-existing", action="store_true")
     return ap.parse_args()
 
 
@@ -41,7 +41,7 @@ def main() -> int:
         "debug_log": args.debug_log,
         "match_emails_file": args.match_emails_file,
         "match_emails_threshold": args.match_emails_threshold,
-        "auto_match_emails": not args.no_match_emails,
+        "include_existing": args.include_existing,
     }
     # Remove Nones to keep task args clean
     payload = {k: v for k, v in payload.items() if v is not None}
