@@ -13,7 +13,7 @@ from typing import Any, Dict, Optional
 import requests
 
 from .augmentation.doi_multi_method import enrich_missing_with_multi_method
-from .augmentation.forrt_screening import lookup_and_screen_forrt
+from .augmentation.flora_screening import lookup_and_screen_flora
 from .augmentation.run_extract import extract_for_osf_id
 from .db import init_db
 from .dynamo.preprints_repo import PreprintsRepo
@@ -477,7 +477,7 @@ def process_enrich_batch(
     return out
 
 
-def process_forrt_batch(
+def process_flora_batch(
     *,
     limit_lookup: int = 200,
     limit_screen: int = 500,
@@ -491,12 +491,12 @@ def process_forrt_batch(
 ) -> Dict[str, Any]:
     if dry_run:
         return {
-            "stage": "forrt",
+            "stage": "flora",
             "lookup": {"checked": 0, "updated": 0, "failed": 0},
             "screen": [],
             "dry_run": True,
         }
-    out = lookup_and_screen_forrt(
+    out = lookup_and_screen_flora(
         limit_lookup=limit_lookup,
         limit_screen=limit_screen,
         osf_id=osf_id,
@@ -506,9 +506,9 @@ def process_forrt_batch(
         only_unchecked=only_unchecked,
         debug=debug,
     )
-    result = {"stage": "forrt", **out, "dry_run": False}
+    result = {"stage": "flora", **out, "dry_run": False}
     _slack(
-        "FORRT lookup/screen finished",
+        "FLORA lookup/screen finished",
         extra={"lookup": out.get("lookup", {}), "screen_count": len(out.get("screen", []))},
     )
     return result
@@ -527,6 +527,7 @@ def process_author_batch(
     match_emails_file: Optional[str] = None,
     match_emails_threshold: float = 0.90,
     include_existing: bool = False,
+    write_debug_csv: bool = False,
     dry_run: bool = False,
 ) -> Dict[str, Any]:
     if dry_run:
@@ -543,6 +544,7 @@ def process_author_batch(
         match_emails_file=match_emails_file,
         match_emails_threshold=match_emails_threshold,
         include_existing=include_existing,
+        write_debug_csv=write_debug_csv,
     )
     out = {"stage": "author", "exit_code": code, "dry_run": False}
     _slack("Author extraction finished", extra=out)
@@ -635,8 +637,8 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
             debug=args.debug,
             dry_run=args.dry_run,
         )
-    if stage == "forrt":
-        return process_forrt_batch(
+    if stage == "flora":
+        return process_flora_batch(
             limit_lookup=args.limit_lookup,
             limit_screen=args.limit_screen,
             osf_id=args.osf_id,
@@ -660,6 +662,7 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
             match_emails_file=args.match_emails_file,
             match_emails_threshold=args.match_emails_threshold,
             include_existing=args.include_existing,
+            write_debug_csv=args.write_debug_csv,
             dry_run=args.dry_run,
         )
     raise ValueError(f"Unsupported stage: {stage}")
@@ -705,7 +708,7 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         debug=args.debug,
         dry_run=args.dry_run,
     )
-    out["stages"]["forrt"] = process_forrt_batch(
+    out["stages"]["flora"] = process_flora_batch(
         limit_lookup=args.limit_lookup,
         limit_screen=args.limit_screen,
         osf_id=args.osf_id,
@@ -730,6 +733,7 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
             match_emails_file=args.match_emails_file,
             match_emails_threshold=args.match_emails_threshold,
             include_existing=args.include_existing,
+            write_debug_csv=args.write_debug_csv,
             dry_run=args.dry_run,
         )
 
@@ -741,7 +745,7 @@ def build_parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="cmd", required=True)
 
     p_run = sub.add_parser("run", help="Run a single pipeline stage")
-    p_run.add_argument("--stage", required=True, choices=["sync", "pdf", "grobid", "extract", "enrich", "forrt", "author"])
+    p_run.add_argument("--stage", required=True, choices=["sync", "pdf", "grobid", "extract", "enrich", "flora", "author"])
     p_run.add_argument("--limit", type=int, default=None)
     p_run.add_argument("--max-seconds", type=int, default=None)
     p_run.add_argument("--dry-run", action="store_true")
@@ -752,7 +756,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--lease-seconds", type=int, default=DEFAULT_LEASE_SECONDS)
     p_run.add_argument("--threshold", type=int, default=None)
     p_run.add_argument("--mailto", default=OPENALEX_EMAIL)
-    p_run.add_argument("--osf-id", default=None, help="Restrict enrich/FORRT to a specific OSF id")
+    p_run.add_argument("--osf-id", default=None, help="Restrict enrich/FLORA to a specific OSF id")
     p_run.add_argument("--author-osf-id", action="append", dest="author_osf_ids", default=[])
     p_run.add_argument("--ids-file", default=None)
     p_run.add_argument("--out", default=None)
@@ -762,6 +766,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--match-emails-file", default=None)
     p_run.add_argument("--match-emails-threshold", type=float, default=0.90)
     p_run.add_argument("--include-existing", action="store_true")
+    p_run.add_argument("--write-debug-csv", action="store_true")
     p_run.add_argument("--ref-id", default=None)
     p_run.add_argument("--limit-lookup", type=int, default=200)
     p_run.add_argument("--limit-screen", type=int, default=500)
@@ -787,7 +792,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_all.add_argument("--mailto", default=OPENALEX_EMAIL)
     p_all.add_argument("--owner", default=None)
     p_all.add_argument("--lease-seconds", type=int, default=DEFAULT_LEASE_SECONDS)
-    p_all.add_argument("--osf-id", default=None, help="Restrict enrich/FORRT to a specific OSF id")
+    p_all.add_argument("--osf-id", default=None, help="Restrict enrich/FLORA to a specific OSF id")
     p_all.add_argument("--author-osf-id", action="append", dest="author_osf_ids", default=[])
     p_all.add_argument("--ids-file", default=None)
     p_all.add_argument("--out", default=None)
@@ -802,6 +807,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_all.add_argument("--match-emails-file", default=None)
     p_all.add_argument("--match-emails-threshold", type=float, default=0.90)
     p_all.add_argument("--include-existing", action="store_true")
+    p_all.add_argument("--write-debug-csv", action="store_true")
     p_all.add_argument("--ref-id", default=None)
     p_all.add_argument("--cache-ttl-hours", type=int, default=None)
     p_all.add_argument("--no-persist", action="store_true")

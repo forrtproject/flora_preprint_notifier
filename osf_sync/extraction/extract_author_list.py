@@ -69,6 +69,7 @@ CSV_COLUMNS = [
     "email.similarity",
     "review_needed",
 ]
+DEFAULT_DEBUG_CSV = EXTRACTION_DIR / "authorList_ext.debug.csv"
 
 
 def _log(msg: str):
@@ -1331,6 +1332,7 @@ def run_author_extract(
     match_emails_file: Optional[str] = None,
     match_emails_threshold: float = 0.90,
     include_existing: bool = False,
+    write_debug_csv: bool = False,
 ) -> int:
     global _LOG_FH, DEBUG
     if debug_log:
@@ -1366,15 +1368,24 @@ def run_author_extract(
     orcid_name_cache: Dict[Tuple[str, str], Optional[str]] = {}
     orcid_affil_cache: Dict[str, List[str]] = {}
 
-    out_path = Path(out or (EXTRACTION_DIR / "authorList_ext.csv"))
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    should_write_csv = bool(out or write_debug_csv)
+    out_path: Optional[Path] = None
+    writer: Optional[csv.DictWriter] = None
+    csv_fh = None
+    if should_write_csv:
+        out_path = Path(out) if out else DEFAULT_DEBUG_CSV
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        csv_fh = open(out_path, "w", newline="", encoding="utf-8")
+        writer = csv.DictWriter(csv_fh, fieldnames=CSV_COLUMNS)
+        writer.writeheader()
+        _log(f"Local CSV output: enabled ({out_path})")
+    else:
+        _log("Local CSV output: disabled (DynamoDB-only mode)")
 
     count_rows = 0
     count_preprints = 0
     stats: Dict[str, int] = {}
-    with open(out_path, "w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=CSV_COLUMNS)
-        writer.writeheader()
+    try:
         for item in items:
             osf_id = item.get("osf_id")
             _inc(stats, "preprints_total")
@@ -1398,19 +1409,26 @@ def run_author_extract(
                         repo.update_preprint_author_email_candidates(osf_id, candidates)
                     except Exception as exc:
                         _log(f"[warn] {osf_id}: author_email_candidates update failed ({exc})")
-                    for row in rows:
-                        writer.writerow(_row_for_csv(row))
+                    if writer:
+                        for row in rows:
+                            writer.writerow(_row_for_csv(row))
                     count_rows += len(rows)
                 count_preprints += 1
                 if count_preprints % 50 == 0:
                     _log(f"Processed {count_preprints} preprints")
             except Exception as exc:
                 _log(f"[warn] {osf_id}: {exc}")
+    finally:
+        if csv_fh:
+            csv_fh.close()
 
-    _log(f"Wrote {count_rows} rows to {out_path}")
-    _log(f"Matching emails in {out_path} (threshold={match_emails_threshold})")
-    _match_emails_in_csv(str(out_path), match_emails_threshold)
-    _log("Email matching complete")
+    if out_path:
+        _log(f"Wrote {count_rows} rows to {out_path}")
+        _log(f"Matching emails in {out_path} (threshold={match_emails_threshold})")
+        _match_emails_in_csv(str(out_path), match_emails_threshold)
+        _log("Email matching complete")
+    else:
+        _log(f"Processed {count_rows} rows (no local CSV output)")
     _log("Stats summary:")
     _log(
         f"preprints total={stats.get('preprints_total', 0)} "
@@ -1466,8 +1484,13 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=None, help="Limit scan count when no ids specified.")
     parser.add_argument(
         "--out",
-        default=str(EXTRACTION_DIR / "authorList_ext.csv"),
-        help="Output CSV path.",
+        default=None,
+        help="Optional local debug CSV path (written when --write-debug-csv or --out is set).",
+    )
+    parser.add_argument(
+        "--write-debug-csv",
+        action="store_true",
+        help=f"Write a local debug CSV snapshot (default path: {DEFAULT_DEBUG_CSV}).",
     )
     parser.add_argument(
         "--pdf-root",
@@ -1518,6 +1541,7 @@ def main() -> int:
         match_emails_file=args.match_emails_file,
         match_emails_threshold=args.match_emails_threshold,
         include_existing=args.include_existing,
+        write_debug_csv=args.write_debug_csv,
     )
 
 

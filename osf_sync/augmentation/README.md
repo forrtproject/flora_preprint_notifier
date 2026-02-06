@@ -26,13 +26,13 @@ python -m osf_sync.pipeline run --stage extract --limit 200
 | `matching_crossref.py` | Crossref scoring pipeline. |
 | `doi_check_openalex.py` | OpenAlex lookup/fuzzy matching. |
 | `doi_multi_method.py` | Combined DOI enrichment strategy used in the pipeline stage. |
-| `forrt_original_lookup.py` | FORRT lookup + cache persistence. |
-| `forrt_screening.py` | FORRT lookup/screen orchestration. |
+| `flora_original_lookup.py` | FLoRA lookup + cache persistence. |
+| `flora_screening.py` | FLoRA lookup/screen orchestration. |
 
 Pipeline commands:
 ```bash
 python -m osf_sync.pipeline run --stage enrich --limit 300
-python -m osf_sync.pipeline run --stage forrt --limit-lookup 200 --limit-screen 500
+python -m osf_sync.pipeline run --stage flora --limit-lookup 200 --limit-screen 500
 ```
 
 ## Manual commands
@@ -40,11 +40,11 @@ python -m osf_sync.pipeline run --stage forrt --limit-lookup 200 --limit-screen 
 ```bash
 python -m osf_sync.augmentation.matching_crossref --limit 200 --threshold 78
 python -m osf_sync.augmentation.doi_check_openalex --osf_id <OSF_ID> --limit 50 --threshold 70 --debug
-python -m osf_sync.augmentation.forrt_screening --limit-lookup 200 --limit 500
+python -m osf_sync.augmentation.flora_screening --limit-lookup 200 --limit 500
 python -m osf_sync.augmentation.run_extract --osf_id <OSF_ID> --provider-id <PROVIDER> --base /data/preprints
 ```
 
 ## Notes
 
 - All writes happen through `PreprintsRepo`.
-- FORRT payloads are cached in `api_cache` with TTL.
+- FLoRA payloads are cached in `api_cache` with TTL.
