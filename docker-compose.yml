@@ -9,28 +9,6 @@ services:
     environment:
       - AWS_REGION=eu-north-1
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: osf-sync-app:latest
-    env_file: [.env]
-    environment:
-      PYTHONPATH: /app
-    volumes:
-      - ./data:/data
-      - ./certs:/certs:ro
-      - ./scripts:/app/scripts
-      - ./:/app
-    depends_on:
-      dynamodb-local:
-        condition: service_started
-    command: >
-      sh -lc "
-        python -c 'from osf_sync.db import init_db; init_db(); print(\"Dynamo tables ready\")' &&
-        python -m osf_sync.pipeline --help
-      "
-
   grobid:
     image: grobid/grobid:0.8.2.1-full
     restart: unless-stopped

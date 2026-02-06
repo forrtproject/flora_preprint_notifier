@@ -7,7 +7,7 @@ from requests.exceptions import RequestException, Timeout, ConnectionError
 from .dynamo.preprints_repo import PreprintsRepo
 from .iter_preprints import SESSION
 
-GROBID_URL = os.environ.get("GROBID_URL", "http://grobid:8070")
+GROBID_URL = os.environ.get("GROBID_URL")
 DATA_ROOT   = os.environ.get("PDF_DEST_ROOT", "/data/preprints")
 INCLUDE_RAW_CITATIONS = os.environ.get("GROBID_INCLUDE_RAW_CITATIONS", "true").lower() in {"1", "true", "yes"}
 
@@ -39,6 +39,8 @@ def process_pdf_to_tei(provider_id: str, osf_id: str) -> Tuple[bool, Optional[st
     pdf = _pdf_path(provider_id, osf_id)
     if not pdf:
         return (False, None, "PDF missing")
+    if not GROBID_URL:
+        return (False, None, "GROBID_URL is not set")
 
     url = f"{GROBID_URL.rstrip('/')}/api/processFulltextDocument"
     files = {"input": ("file.pdf", open(pdf, "rb"), "application/pdf")}

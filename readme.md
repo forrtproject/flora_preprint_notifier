@@ -16,23 +16,33 @@ The `flora` stage checks whether originals have replications cited in the FLoRA 
 
 ## Quick Start (Local)
 
-1. Configure `.env`.
-2. Start local dependencies:
+1. Create a virtual environment and install Python dependencies:
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+2. Install LibreOffice (`soffice`) locally if you need DOCX -> PDF conversion in the `pdf` stage.
+3. Configure `.env`:
+```bash
+cp .env.example .env
+```
+4. Start local infrastructure services (optional if you use AWS DynamoDB and/or a remote GROBID):
 ```bash
 docker compose up -d dynamodb-local grobid
 ```
-3. Initialize DynamoDB tables:
+5. Initialize DynamoDB tables:
 ```bash
-docker compose run --rm app python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"
+python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"
 ```
-4. Run pipeline stages:
+6. Run pipeline stages:
 ```bash
-docker compose run --rm app python -m osf_sync.pipeline run --stage sync --limit 1000
-docker compose run --rm app python -m osf_sync.pipeline run --stage pdf --limit 100
-docker compose run --rm app python -m osf_sync.pipeline run --stage grobid --limit 50
-docker compose run --rm app python -m osf_sync.pipeline run --stage extract --limit 200
-docker compose run --rm app python -m osf_sync.pipeline run --stage enrich --limit 300
-docker compose run --rm app python -m osf_sync.pipeline run --stage flora --limit-lookup 200 --limit-screen 500
+python -m osf_sync.pipeline run --stage sync --limit 1000
+python -m osf_sync.pipeline run --stage pdf --limit 100
+python -m osf_sync.pipeline run --stage grobid --limit 50
+python -m osf_sync.pipeline run --stage extract --limit 200
+python -m osf_sync.pipeline run --stage enrich --limit 300
+python -m osf_sync.pipeline run --stage flora --limit-lookup 200 --limit-screen 500
 ```
 
 ## Main Commands
@@ -93,8 +103,12 @@ python -m osf_sync.pipeline author-randomize --dry-run
 ## Environment (`.env`)
 
 ```dotenv
-GROBID_URL=http://grobid:8070
+# local Docker GROBID:
+GROBID_URL=http://localhost:8070
+# remote GROBID example:
+# GROBID_URL=https://grobid.example.org
 GROBID_INCLUDE_RAW_CITATIONS=true
+DYNAMO_LOCAL_URL=http://localhost:8000
 AWS_REGION=eu-north-1
 AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
 AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
@@ -103,7 +117,7 @@ DDB_TABLE_REFERENCES=preprint_references
 DDB_TABLE_SYNCSTATE=sync_state
 DDB_TABLE_API_CACHE=api_cache
 OPENALEX_EMAIL=<PERSONAL_EMAIL_ID>
-PDF_DEST_ROOT=/data/preprints
+PDF_DEST_ROOT=./data/preprints
 LOG_LEVEL=INFO
 OSF_INGEST_ANCHOR_DATE=YYYY-MM-DD
 OSF_INGEST_SKIP_EXISTING=false
