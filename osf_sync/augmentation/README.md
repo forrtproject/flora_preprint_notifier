@@ -48,4 +48,3 @@ python -m osf_sync.augmentation.run_extract --osf_id <OSF_ID> --provider-id <PRO
 
 - All writes happen through `PreprintsRepo`.
 - FLoRA payloads are cached in `api_cache` with TTL.
-- Use `python -m osf_sync.dump_ddb --table preprint_references --limit 10` to inspect updates.

@@ -7,7 +7,6 @@ Core pipeline package for OSF ingestion and enrichment without Celery.
 | Module | Purpose |
 | --- | --- |
 | `pipeline.py` | Stage runner CLI and direct stage orchestration (`run`, `run-all`, `sync-from-date`, `fetch-one`). |
-| `cli.py` | Thin alias to `pipeline.py` for compatibility of module path. |
 | `dynamo/` | Boto3 client, table definitions, and `PreprintsRepo` helpers for DynamoDB CRUD/state transitions. |
 | `augmentation/` | TEI extraction and DOI/FLoRA enrichment utilities. |
 | `fetch_one.py`, `iter_preprints.py` | OSF API helpers used by pipeline stages. |
@@ -60,5 +59,3 @@ Set `OSF_INGEST_SKIP_EXISTING=true` to avoid upserting records already present i
 
 `ensure_tables()` creates `api_cache` (or `DDB_TABLE_API_CACHE`) with TTL on `expires_at`.
 Default TTL horizon is 6 months (`API_CACHE_TTL_MONTHS`).
-
-Use `python -m osf_sync.dump_ddb --help` for table and queue inspection.

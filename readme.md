@@ -63,8 +63,6 @@ python -m osf_sync.pipeline fetch-one --id <OSF_ID>
 python -m osf_sync.pipeline fetch-one --doi <DOI_OR_URL>
 ```
 
-`python -m osf_sync.cli ...` is now a thin alias to the same pipeline CLI.
-
 ## Common Options
 
 - `--limit`: max items for the stage.
@@ -116,14 +114,10 @@ Recommended pattern:
 
 Queue stages use claim/lease metadata (`claim_*_owner`, `claim_*_until`) and error tracking fields (`last_error_*`, `retry_count_*`).
 
-## Manual Post-GROBID Scripts
+## DOI Experiment Command
 
-Scripts under `scripts/manual_post_grobid/` still work for ad-hoc analysis and downstream jobs.
+Use the module entrypoint directly for DOI matching experiments:
 
-Examples:
 ```bash
-python scripts/manual_post_grobid/run_extraction.py --limit 200
-python scripts/manual_post_grobid/doi_multi_method_lookup.py --from-db --limit 400 --output doi_multi_method.csv
-python scripts/manual_post_grobid/run_flora_screening.py --limit-lookup 200 --limit 500
-python scripts/manual_post_grobid/enqueue_author_extract.py --limit 100
+python -m osf_sync.augmentation.doi_multi_method_lookup --from-db --limit 400 --output doi_multi_method.csv
 ```

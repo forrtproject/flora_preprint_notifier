@@ -47,8 +47,3 @@ init_db()
 repo = PreprintsRepo()
 print(repo.select_for_pdf(limit=10))
 ```
-
-Inspection:
-```bash
-python -m osf_sync.dump_ddb --limit 5 --queues
-```
