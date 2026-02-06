@@ -35,9 +35,10 @@ def screen_flora_replications(
     debug: bool = False,
 ) -> List[Dict[str, Any]]:
     """
-    For each preprint, match the preprint's own DOI to FLORA originals (doi_o) and see whether
-    any paired replication DOI (doi_r) is already cited in the same reference list. If a replication DOI
-    is present, mark the reference as cited.
+    For each preprint, evaluate cited reference DOIs against FLORA original DOIs (doi_o).
+    A reference is a baseline target only when its own DOI is an original with at least one
+    linked replication DOI (doi_r). Then check whether any of those linked replications are
+    already cited in the same preprint reference list.
     """
     repo = PreprintsRepo()
     cache_repo = ApiCacheRepo()
@@ -57,21 +58,19 @@ def screen_flora_replications(
     results: List[Dict[str, Any]] = []
 
     for pid, refs in grouped.items():
-        preprint_doi = normalize_doi(repo.get_preprint_doi(pid))
-
         # Collect all DOIs cited in this preprint (normalize)
         all_dois: Set[str] = set()
         for r in refs:
             d = normalize_doi(r.get("doi"))
             if d:
                 all_dois.add(d)
-        # Also consider other references without FLORA mapping (so fetch them too)
+        # Also consider other references without FLORA mapping (so fetch all DOI refs for this preprint).
         try:
             extra = repo.select_refs_with_doi(
-                limit=500, osf_id=pid, only_unchecked=False)
+                limit=0, osf_id=pid, only_unchecked=False)
         except TypeError:
             extra = repo.select_refs_with_doi(
-                limit=500, osf_id=pid)  # fallback for older signature
+                limit=0, osf_id=pid)  # fallback for older signature
         for r in extra:
             d = normalize_doi(r.get("doi"))
             if d:
@@ -82,8 +81,9 @@ def screen_flora_replications(
 
         for r in refs:
             refid = r.get("ref_id")
+            ref_doi = normalize_doi(r.get("doi"))
 
-            # Filter FLORA ref objects so we only consider pairs whose doi_o matches the preprint DOI
+            # Keep only FLORA pairs where the current cited reference is an original DOI.
             ref_objs = r.get("flora_ref_pairs") or []
             if not ref_objs:
                 payload = r.get("flora_lookup_payload")
@@ -101,13 +101,34 @@ def screen_flora_replications(
             for obj in ref_objs:
                 doi_o = normalize_doi(obj.get("doi_o"))
                 doi_r = normalize_doi(obj.get("doi_r"))
-                if preprint_doi and doi_o and preprint_doi == doi_o:
+                if ref_doi and doi_o and ref_doi == doi_o:
                     matching_pairs.append({"doi_o": doi_o, "doi_r": doi_r})
 
-            replication_dois = [p["doi_r"]
-                                for p in matching_pairs if p.get("doi_r")]
+            replication_dois: List[str] = []
+            seen_replication_dois: Set[str] = set()
+            for p in matching_pairs:
+                doi_r = p.get("doi_r")
+                if not doi_r or doi_r in seen_replication_dois:
+                    continue
+                seen_replication_dois.add(doi_r)
+                replication_dois.append(doi_r)
+
+            # Not a baseline target: the cited DOI is not an original with known linked replications.
+            if not replication_dois:
+                if persist_flags:
+                    try:
+                        repo.update_reference_flora_screening(
+                            pid,
+                            refid,
+                            original_cited=False,
+                        )
+                    except Exception as e:
+                        _warn("Failed to persist FLORA screening flag",
+                              osf_id=pid, ref_id=refid, error=str(e))
+                continue
+
             replication_cited = any(
-                (d in all_dois) for d in replication_dois) if replication_dois else False
+                (d in all_dois) for d in replication_dois)
 
             if persist_flags:
                 try:
@@ -123,7 +144,7 @@ def screen_flora_replications(
             payload = {
                 "osf_id": pid,
                 "ref_id": refid,
-                "original_doi": preprint_doi,
+                "original_doi": ref_doi,
                 "matching_replication_dois": replication_dois,
                 "replication_cited": replication_cited,
             }
