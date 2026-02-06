@@ -25,6 +25,7 @@ if str(EXTRACTION_DIR) not in sys.path:
     sys.path.insert(0, str(EXTRACTION_DIR))
 
 from osf_sync.dynamo.preprints_repo import PreprintsRepo
+from osf_sync.exclusion_logging import log_preprint_exclusion
 from osf_sync.iter_preprints import SESSION, OSF_API
 from osf_sync.pdf import ensure_pdf_available_or_skip
 import osf_sync.grobid as grobid
@@ -359,7 +360,7 @@ def _ensure_pdf(
     dest_root: str,
 ) -> Optional[Path]:
     start = time.perf_counter()
-    kind, path = ensure_pdf_available_or_skip(
+    kind, path, _reason = ensure_pdf_available_or_skip(
         osf_id=osf_id,
         provider_id=provider_id,
         raw=raw,
@@ -367,6 +368,13 @@ def _ensure_pdf(
     )
     _dbg(f"[{osf_id}] pdf: kind={kind} path={path} in {time.perf_counter() - start:.2f}s")
     if kind == "skipped" or not path:
+        if _reason:
+            log_preprint_exclusion(
+                reason=_reason,
+                osf_id=osf_id,
+                stage="author",
+                details={"provider_id": provider_id},
+            )
         return None
     return Path(path)
 
@@ -1007,7 +1015,7 @@ def _process_preprint(
 def _iter_items_by_ids(repo: PreprintsRepo, ids: List[str]) -> Iterable[dict]:
     for osf_id in ids:
         it = repo.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item")
-        if it:
+        if it and not it.get("excluded"):
             yield it
 
 
@@ -1015,7 +1023,10 @@ def _iter_items_scan(repo: PreprintsRepo, limit: Optional[int]) -> Iterable[dict
     last_key = None
     scanned = 0
     while True:
-        kwargs: Dict[str, Any] = {}
+        kwargs: Dict[str, Any] = {
+            "FilterExpression": "(attribute_not_exists(excluded) OR excluded = :false)",
+            "ExpressionAttributeValues": {":false": False},
+        }
         if last_key:
             kwargs["ExclusiveStartKey"] = last_key
         if limit:
@@ -1273,6 +1284,15 @@ def _score_group_email_matches(
     return author_candidates
 
 
+def _count_contactable_candidates(candidates: List[Dict[str, Any]]) -> int:
+    count = 0
+    for cand in candidates:
+        email = _clean_email((cand or {}).get("email"))
+        if email:
+            count += 1
+    return count
+
+
 def _match_emails_in_csv(path: str, threshold: float) -> None:
     in_path = Path(path)
     tmp_path = in_path.with_suffix(in_path.suffix + ".tmp")
@@ -1405,6 +1425,13 @@ def run_author_extract(
                 )
                 if rows:
                     candidates = _score_group_email_matches(rows, match_emails_threshold)
+                    if _count_contactable_candidates(candidates) == 0:
+                        log_preprint_exclusion(
+                            reason="no_author_contacts_extracted",
+                            osf_id=osf_id,
+                            stage="author",
+                            details={"provider_id": item.get("provider_id"), "rows": len(rows)},
+                        )
                     try:
                         repo.update_preprint_author_email_candidates(osf_id, candidates)
                     except Exception as exc:
@@ -1413,6 +1440,13 @@ def run_author_extract(
                         for row in rows:
                             writer.writerow(_row_for_csv(row))
                     count_rows += len(rows)
+                else:
+                    log_preprint_exclusion(
+                        reason="no_author_contacts_extracted",
+                        osf_id=osf_id,
+                        stage="author",
+                        details={"provider_id": item.get("provider_id"), "rows": 0},
+                    )
                 count_preprints += 1
                 if count_preprints % 50 == 0:
                     _log(f"Processed {count_preprints} preprints")
