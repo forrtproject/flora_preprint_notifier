@@ -60,6 +60,7 @@ class PreprintsRepo:
         while True:
             kwargs: Dict[str, Any] = {
                 "FilterExpression": Attr("trial_assignment_status").not_exists(),
+                "ProjectionExpression": "osf_id, provider_id, date_created, date_published, author_email_candidates",
             }
             if last_key:
                 kwargs["ExclusiveStartKey"] = last_key
@@ -190,7 +191,7 @@ class PreprintsRepo:
         reason: Optional[str] = None,
         matched_cluster_ids: Optional[List[str]] = None,
         run_id: Optional[str] = None,
-    ) -> None:
+    ) -> bool:
         set_exprs = [
             "trial_assignment_status=:status",
             "trial_assigned_at=:assigned_at",
@@ -217,11 +218,21 @@ class PreprintsRepo:
             set_exprs.append("trial_assignment_run_id=:run_id")
             eav[":run_id"] = run_id
 
-        self.t_preprints.update_item(
-            Key={"osf_id": osf_id},
-            UpdateExpression="SET " + ", ".join(set_exprs),
-            ExpressionAttributeValues=eav,
-        )
+        try:
+            self.t_preprints.update_item(
+                Key={"osf_id": osf_id},
+                UpdateExpression="SET " + ", ".join(set_exprs),
+                ExpressionAttributeValues=eav,
+                ConditionExpression="attribute_not_exists(trial_assignment_status)",
+            )
+            return True
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
+                with_extras(log, osf_id=osf_id).info(
+                    "trial assignment skipped; preprint already has trial_assignment_status"
+                )
+                return False
+            raise
 
     # --- upsert preprints batch ---
     def upsert_preprints(self, rows: List[Dict]) -> int:

@@ -12,7 +12,7 @@ import unicodedata
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Set, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Set, Tuple
 
 from .dynamo.preprints_repo import PreprintsRepo
 
@@ -624,6 +624,13 @@ def _parse_int(raw: Any, default: int) -> int:
         return default
 
 
+def _parse_int_or_none(raw: Any) -> Optional[int]:
+    try:
+        return int(raw)
+    except Exception:
+        return None
+
+
 def _coerce_cluster_counts(cluster_item: Dict[str, Any]) -> Tuple[int, int, int]:
     preprints_total = _parse_int(cluster_item.get("preprints_total"), 0)
     contactable_preprints = _parse_int(cluster_item.get("contactable_preprints"), 0)
@@ -672,21 +679,33 @@ def _load_unassigned_preprints(
         preprint_id = _clean_value(item.get("osf_id"))
         if not preprint_id:
             continue
+
+        basic_item: Optional[Dict[str, Any]] = None
+        provider_id = _clean_value(item.get("provider_id"))
+        raw_preprint: Dict[str, Any] = {}
+
         csv_rows = author_rows.get(preprint_id, [])
         if csv_rows:
             mentions = _build_mentions_from_csv(preprint_id, csv_rows)
         else:
+            basic_item = repo.get_preprint_basic(preprint_id) or {}
+            raw_preprint = _coerce_raw_preprint(basic_item.get("raw"))
+            provider_id = provider_id or _clean_value(basic_item.get("provider_id"))
             mentions = _build_mentions_fallback(
                 repo=repo,
                 preprint_id=preprint_id,
-                raw_preprint=_coerce_raw_preprint(item.get("raw")),
+                raw_preprint=raw_preprint,
                 tei_cache=tei_cache,
             )
 
+        provider_source = {
+            "provider_id": provider_id or item.get("provider_id"),
+            "raw": raw_preprint if raw_preprint else (basic_item or {}).get("raw"),
+        }
         out.append(
             PreprintEntry(
                 preprint_id=preprint_id,
-                provider_id=_choose_provider(item),
+                provider_id=_choose_provider(provider_source),
                 date_created=_parse_iso_to_date(item.get("date_created") or item.get("date_published")),
                 mentions=mentions,
                 contactable_email_count=_contactable_count(item, csv_rows),
@@ -770,17 +789,11 @@ def _persist_run(
         item["updated_at"] = now_iso
         item.setdefault("created_at", now_iso)
 
+    accepted_assignments: List[Dict[str, Any]] = []
     for row in assignments:
         row["run_id"] = run_id
         row["assigned_at"] = now_iso
-
-    repo.put_trial_nodes(node_items)
-    repo.put_trial_token_map(token_map_updates)
-    repo.put_trial_clusters(cluster_items)
-    repo.put_trial_assignments(assignments)
-
-    for row in assignments:
-        repo.mark_preprint_trial_assignment(
+        ok = repo.mark_preprint_trial_assignment(
             osf_id=row["preprint_id"],
             status=row.get("status") or "excluded",
             assigned_at=row["assigned_at"],
@@ -790,6 +803,14 @@ def _persist_run(
             matched_cluster_ids=row.get("matched_cluster_ids") or [],
             run_id=row["run_id"],
         )
+        if ok:
+            accepted_assignments.append(row)
+
+    repo.put_trial_nodes(node_items)
+    repo.put_trial_token_map(token_map_updates)
+    repo.put_trial_clusters(cluster_items)
+    if accepted_assignments:
+        repo.put_trial_assignments(accepted_assignments)
 
 
 def _initialize_network(
@@ -834,7 +855,7 @@ def _initialize_network(
 
     components = _connected_components(adjacency)
     node_to_cluster: Dict[str, str] = {}
-    for idx, comp in enumerate(sorted(components, key=lambda c: min(c)), start=1):
+    for idx, comp in enumerate(sorted(components, key=min), start=1):
         cluster_id = _format_cluster_id(idx)
         for node_id in comp:
             node_to_cluster[node_id] = cluster_id
@@ -1108,7 +1129,14 @@ def run_author_randomization(
         if item.get("cluster_id")
     }
 
-    network_initialized = bool(state.get("initialized")) or bool(clusters)
+    state_initialized = bool(state.get("initialized"))
+    if clusters and not state_initialized:
+        raise RuntimeError(
+            "Trial clusters exist but network state is missing/uninitialized for "
+            f"key '{network_state_key}'. Refusing to augment with ambiguous state."
+        )
+
+    network_initialized = state_initialized
     x_threshold = _parse_int(state.get("x_threshold"), 0)
     if x_threshold <= 0:
         x_threshold = compute_large_author_threshold([len(p.mentions) for p in candidates], percentile=0.95)
@@ -1117,7 +1145,7 @@ def run_author_randomization(
     if seed_used <= 0:
         seed_used = secrets.randbits(63) or 1
 
-    run_id = dt.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    run_id = dt.datetime.utcnow().strftime("%Y%m%dT%H%M%S%fZ") + f"-{secrets.token_hex(3)}"
     now_iso = dt.datetime.utcnow().isoformat()
 
     nodes_by_id: Dict[str, NodeRecord] = {}
@@ -1137,11 +1165,35 @@ def run_author_randomization(
         nodes_by_id = {}
         token_map = {}
 
-    max_existing_node = max([_parse_int((nid or "")[1:], 0) for nid in nodes_by_id.keys() if str(nid).startswith("N")], default=0)
+    if network_initialized:
+        all_existing_nodes = repo.list_trial_nodes()
+        max_existing_node = max(
+            [_parse_int((str(item.get("node_id") or "")[1:]), 0) for item in all_existing_nodes if str(item.get("node_id") or "").startswith("N")],
+            default=0,
+        )
+    else:
+        max_existing_node = max([_parse_int((nid or "")[1:], 0) for nid in nodes_by_id.keys() if str(nid).startswith("N")], default=0)
     max_existing_cluster = max([_parse_int((cid or "")[1:], 0) for cid in clusters.keys() if str(cid).startswith("C")], default=0)
 
-    next_node_seq = max(_parse_int(state.get("next_node_seq"), 1), max_existing_node + 1)
-    next_cluster_seq = max(_parse_int(state.get("next_cluster_seq"), 1), max_existing_cluster + 1)
+    raw_next_node_seq = _parse_int_or_none(state.get("next_node_seq"))
+    raw_next_cluster_seq = _parse_int_or_none(state.get("next_cluster_seq"))
+
+    if network_initialized:
+        if raw_next_node_seq is None or raw_next_node_seq < max_existing_node + 1:
+            raise RuntimeError(
+                "Refusing to augment without valid next_node_seq in state: "
+                f"{raw_next_node_seq} (max_existing_node={max_existing_node})"
+            )
+        if raw_next_cluster_seq is None or raw_next_cluster_seq < max_existing_cluster + 1:
+            raise RuntimeError(
+                "Refusing to augment without valid next_cluster_seq in state: "
+                f"{raw_next_cluster_seq} (max_existing_cluster={max_existing_cluster})"
+            )
+        next_node_seq = raw_next_node_seq
+        next_cluster_seq = raw_next_cluster_seq
+    else:
+        next_node_seq = max(_parse_int(state.get("next_node_seq"), 1), max_existing_node + 1)
+        next_cluster_seq = max(_parse_int(state.get("next_cluster_seq"), 1), max_existing_cluster + 1)
 
     if not network_initialized:
         assignments, touched_nodes, touched_clusters = _initialize_network(
