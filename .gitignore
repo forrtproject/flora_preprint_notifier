@@ -6,3 +6,6 @@
 /osf_sync/augmentation/__pycache__
 /osf_sync/dynamo/__pycache__
 *.pyc
+/osf_sync/extraction/authorInfo.csv
+/osf_sync/extraction/authorList_ext.csv
+/osf_sync/extraction/authorList_ext.debug.csv

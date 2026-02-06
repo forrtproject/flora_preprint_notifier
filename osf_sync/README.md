@@ -9,7 +9,7 @@ Core pipeline package for OSF ingestion and enrichment without Celery.
 | `pipeline.py` | Stage runner CLI and direct stage orchestration (`run`, `run-all`, `sync-from-date`, `fetch-one`). |
 | `cli.py` | Thin alias to `pipeline.py` for compatibility of module path. |
 | `dynamo/` | Boto3 client, table definitions, and `PreprintsRepo` helpers for DynamoDB CRUD/state transitions. |
-| `augmentation/` | TEI extraction and DOI/FORRT enrichment utilities. |
+| `augmentation/` | TEI extraction and DOI/FLoRA enrichment utilities. |
 | `fetch_one.py`, `iter_preprints.py` | OSF API helpers used by pipeline stages. |
 | `pdf.py`, `grobid.py` | PDF download/conversion and TEI generation helpers. |
 
@@ -24,9 +24,9 @@ Use `python -m osf_sync.pipeline <command>`.
 | `run --stage grobid` | Process `queue_grobid=pending` and generate TEI XML. |
 | `run --stage extract` | Process `queue_extract=pending` and write TEI/references. |
 | `run --stage enrich` | Multi-method DOI enrichment. |
-| `run --stage forrt` | FORRT lookup + screening. |
+| `run --stage flora` | FLoRA lookup + screening. |
 | `run --stage author` | Author extraction and `author_email_candidates` updates. |
-| `run-all` | Bounded sequential run across major stages, including `author` by default (`--skip-author` to disable). Author keeps files by default (`--cleanup-author-files` to delete). |
+| `run-all` | Bounded sequential run across major stages, including `author` by default (`--skip-author` to disable). Author keeps files by default (`--cleanup-author-files` to delete) and is DynamoDB-only unless `--write-debug-csv` is set. |
 | `sync-from-date` | Ad-hoc ingestion from a given start date. |
 | `fetch-one` | Fetch one preprint by OSF id or DOI. |
 | `author-randomize` | Assign only unassigned preprints using a Dynamo-backed author network (initializes on first run, augments thereafter). |

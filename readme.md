@@ -8,10 +8,11 @@ Pipeline stages:
 3. `grobid`: generate TEI from PDFs
 4. `extract`: parse TEI and write references
 5. `enrich`: fill missing reference DOIs
-6. `forrt`: FORRT lookup + screening
+6. `flora`: FLoRA lookup + screening
 7. `author`: author/email candidate extraction
 
 All stages run as normal Python commands and exit. Scheduling is external (cron or GitHub Actions).
+The `flora` stage checks whether originals have replications cited in the FLoRA database (the FORRT Library of Replication Attempts).
 
 ## Quick Start (Local)
 
@@ -31,14 +32,14 @@ docker compose run --rm app python -m osf_sync.pipeline run --stage pdf --limit 
 docker compose run --rm app python -m osf_sync.pipeline run --stage grobid --limit 50
 docker compose run --rm app python -m osf_sync.pipeline run --stage extract --limit 200
 docker compose run --rm app python -m osf_sync.pipeline run --stage enrich --limit 300
-docker compose run --rm app python -m osf_sync.pipeline run --stage forrt --limit-lookup 200 --limit-screen 500
+docker compose run --rm app python -m osf_sync.pipeline run --stage flora --limit-lookup 200 --limit-screen 500
 ```
 
 ## Main Commands
 
 Single stage:
 ```bash
-python -m osf_sync.pipeline run --stage <sync|pdf|grobid|extract|enrich|forrt|author> [options]
+python -m osf_sync.pipeline run --stage <sync|pdf|grobid|extract|enrich|flora|author> [options]
 ```
 
 Full bounded run:
@@ -48,6 +49,7 @@ python -m osf_sync.pipeline run-all \
 ```
 `run-all` includes the `author` stage by default; use `--skip-author` to disable it for a run.
 By default, `run-all` keeps local PDF/TEI files during `author`; use `--cleanup-author-files` to allow cleanup.
+By default, `author` updates DynamoDB only (no local CSV output). Use `--write-debug-csv` (and optionally `--out`) for local debug snapshots.
 
 Ad-hoc window sync:
 ```bash
@@ -87,6 +89,7 @@ python -m osf_sync.pipeline author-randomize --dry-run
 - `--owner` and `--lease-seconds` (queue stages): override DynamoDB claim ownership/lease duration.
 - `--skip-author` (`run-all`): skip author extraction when needed.
 - `--cleanup-author-files` (`run-all`): allow author stage file deletion (off by default).
+- `--write-debug-csv` (`author` stage): write a local debug CSV snapshot (`--out` overrides the default path).
 
 ## Environment (`.env`)
 
@@ -136,6 +139,6 @@ Examples:
 ```bash
 python scripts/manual_post_grobid/run_extraction.py --limit 200
 python scripts/manual_post_grobid/doi_multi_method_lookup.py --from-db --limit 400 --output doi_multi_method.csv
-python scripts/manual_post_grobid/run_forrt_screening.py --limit-lookup 200 --limit 500
+python scripts/manual_post_grobid/run_flora_screening.py --limit-lookup 200 --limit 500
 python scripts/manual_post_grobid/enqueue_author_extract.py --limit 100
 ```

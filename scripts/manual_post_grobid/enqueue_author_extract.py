@@ -21,6 +21,7 @@ def _parse_args():
     ap.add_argument("--match-emails-file", default=None)
     ap.add_argument("--match-emails-threshold", type=float, default=0.90)
     ap.add_argument("--include-existing", action="store_true")
+    ap.add_argument("--write-debug-csv", action="store_true")
     return ap.parse_args()
 
 
@@ -38,6 +39,7 @@ def main() -> int:
         match_emails_file=args.match_emails_file,
         match_emails_threshold=args.match_emails_threshold,
         include_existing=args.include_existing,
+        write_debug_csv=args.write_debug_csv,
     )
 
 
