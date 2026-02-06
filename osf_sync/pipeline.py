@@ -527,6 +527,7 @@ def process_author_batch(
     match_emails_file: Optional[str] = None,
     match_emails_threshold: float = 0.90,
     include_existing: bool = False,
+    write_debug_csv: bool = False,
     dry_run: bool = False,
 ) -> Dict[str, Any]:
     if dry_run:
@@ -543,6 +544,7 @@ def process_author_batch(
         match_emails_file=match_emails_file,
         match_emails_threshold=match_emails_threshold,
         include_existing=include_existing,
+        write_debug_csv=write_debug_csv,
     )
     out = {"stage": "author", "exit_code": code, "dry_run": False}
     _slack("Author extraction finished", extra=out)
@@ -660,6 +662,7 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
             match_emails_file=args.match_emails_file,
             match_emails_threshold=args.match_emails_threshold,
             include_existing=args.include_existing,
+            write_debug_csv=args.write_debug_csv,
             dry_run=args.dry_run,
         )
     raise ValueError(f"Unsupported stage: {stage}")
@@ -730,6 +733,7 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
             match_emails_file=args.match_emails_file,
             match_emails_threshold=args.match_emails_threshold,
             include_existing=args.include_existing,
+            write_debug_csv=args.write_debug_csv,
             dry_run=args.dry_run,
         )
 
@@ -762,6 +766,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--match-emails-file", default=None)
     p_run.add_argument("--match-emails-threshold", type=float, default=0.90)
     p_run.add_argument("--include-existing", action="store_true")
+    p_run.add_argument("--write-debug-csv", action="store_true")
     p_run.add_argument("--ref-id", default=None)
     p_run.add_argument("--limit-lookup", type=int, default=200)
     p_run.add_argument("--limit-screen", type=int, default=500)
@@ -802,6 +807,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_all.add_argument("--match-emails-file", default=None)
     p_all.add_argument("--match-emails-threshold", type=float, default=0.90)
     p_all.add_argument("--include-existing", action="store_true")
+    p_all.add_argument("--write-debug-csv", action="store_true")
     p_all.add_argument("--ref-id", default=None)
     p_all.add_argument("--cache-ttl-hours", type=int, default=None)
     p_all.add_argument("--no-persist", action="store_true")

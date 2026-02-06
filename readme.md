@@ -48,6 +48,7 @@ python -m osf_sync.pipeline run-all \
 ```
 `run-all` includes the `author` stage by default; use `--skip-author` to disable it for a run.
 By default, `run-all` keeps local PDF/TEI files during `author`; use `--cleanup-author-files` to allow cleanup.
+By default, `author` updates DynamoDB only (no local CSV output). Use `--write-debug-csv` (and optionally `--out`) for local debug snapshots.
 
 Ad-hoc window sync:
 ```bash
@@ -72,6 +73,7 @@ python -m osf_sync.pipeline fetch-one --doi <DOI_OR_URL>
 - `--owner` and `--lease-seconds` (queue stages): override DynamoDB claim ownership/lease duration.
 - `--skip-author` (`run-all`): skip author extraction when needed.
 - `--cleanup-author-files` (`run-all`): allow author stage file deletion (off by default).
+- `--write-debug-csv` (`author` stage): write a local debug CSV snapshot (`--out` overrides the default path).
 
 ## Environment (`.env`)
 

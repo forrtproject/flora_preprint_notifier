@@ -26,7 +26,7 @@ Use `python -m osf_sync.pipeline <command>`.
 | `run --stage enrich` | Multi-method DOI enrichment. |
 | `run --stage forrt` | FORRT lookup + screening. |
 | `run --stage author` | Author extraction and `author_email_candidates` updates. |
-| `run-all` | Bounded sequential run across major stages, including `author` by default (`--skip-author` to disable). Author keeps files by default (`--cleanup-author-files` to delete). |
+| `run-all` | Bounded sequential run across major stages, including `author` by default (`--skip-author` to disable). Author keeps files by default (`--cleanup-author-files` to delete) and is DynamoDB-only unless `--write-debug-csv` is set. |
 | `sync-from-date` | Ad-hoc ingestion from a given start date. |
 | `fetch-one` | Fetch one preprint by OSF id or DOI. |
 
