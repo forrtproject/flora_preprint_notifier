@@ -15,6 +15,7 @@ import requests
 from .augmentation.doi_multi_method import enrich_missing_with_multi_method
 from .augmentation.forrt_screening import lookup_and_screen_forrt
 from .augmentation.run_extract import extract_for_osf_id
+from .author_randomization import run_author_randomization
 from .db import init_db
 from .dynamo.preprints_repo import PreprintsRepo
 from .fetch_one import fetch_preprint_by_doi, fetch_preprint_by_id, upsert_one_preprint
@@ -844,6 +845,38 @@ def build_parser() -> argparse.ArgumentParser:
             doi_or_url=args.doi,
             run_pdf_and_grobid=not args.metadata_only,
             run_extract=not args.skip_extract,
+        )
+    )
+
+    p_rand = sub.add_parser(
+        "author-randomize",
+        help="Assign unassigned preprints via a Dynamo-backed author network (initialize or augment)",
+    )
+    p_rand.add_argument(
+        "--authors-csv",
+        default="osf_sync/extraction/authorList_ext.csv",
+        help="Optional enriched author CSV used for identity resolution (fallbacks to TEI/raw)",
+    )
+    p_rand.add_argument(
+        "--limit-preprints",
+        type=int,
+        default=None,
+        help="Optional cap on unassigned preprints processed in this run",
+    )
+    p_rand.add_argument("--seed", type=int, default=None, help="Explicit seed override")
+    p_rand.add_argument(
+        "--network-state-key",
+        default="trial:author_network_state",
+        help="sync_state key storing network metadata (x-threshold, next ids, seed chain)",
+    )
+    p_rand.add_argument("--dry-run", action="store_true")
+    p_rand.set_defaults(
+        func=lambda args: run_author_randomization(
+            authors_csv=args.authors_csv,
+            limit_preprints=args.limit_preprints,
+            seed=args.seed,
+            network_state_key=args.network_state_key,
+            dry_run=args.dry_run,
         )
     )
 

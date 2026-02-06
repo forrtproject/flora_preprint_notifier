@@ -1,7 +1,7 @@
 from .client import get_dynamo_resource
 from ..logging_setup import get_logger, with_extras
 from botocore.exceptions import ClientError
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Attr, Key
 from typing import List, Dict, Optional, Any, Iterable, Set
 import datetime as dt
 import os
@@ -25,10 +25,14 @@ class PreprintsRepo:
     def __init__(self):
         ddb = get_dynamo_resource()
         self.ddb = ddb
-        self.t_preprints = ddb.Table("preprints")
-        self.t_refs = ddb.Table("preprint_references")
-        self.t_tei = ddb.Table("preprint_tei")
-        self.t_sync = ddb.Table("sync_state")
+        self.t_preprints = ddb.Table(os.environ.get("DDB_TABLE_PREPRINTS", "preprints"))
+        self.t_refs = ddb.Table(os.environ.get("DDB_TABLE_REFERENCES", "preprint_references"))
+        self.t_tei = ddb.Table(os.environ.get("DDB_TABLE_TEI", "preprint_tei"))
+        self.t_sync = ddb.Table(os.environ.get("DDB_TABLE_SYNCSTATE", "sync_state"))
+        self.t_trial_nodes = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_AUTHOR_NODES", "trial_author_nodes"))
+        self.t_trial_tokens = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_AUTHOR_TOKENS", "trial_author_tokens"))
+        self.t_trial_clusters = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_CLUSTERS", "trial_clusters"))
+        self.t_trial_assignments = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_ASSIGNMENTS", "trial_preprint_assignments"))
 
     # --- cursors (sync_state) ---
     def get_cursor(self, source_key: str) -> Optional[str]:
@@ -42,6 +46,182 @@ class PreprintsRepo:
             "last_seen_published": last_seen_iso,
             "last_run_at": now
         })
+
+    def get_sync_item(self, source_key: str) -> Dict[str, Any]:
+        return self.t_sync.get_item(Key={"source_key": source_key}).get("Item") or {}
+
+    def put_sync_item(self, item: Dict[str, Any]) -> None:
+        self.t_sync.put_item(Item=item)
+
+    # --- trial allocation state ---
+    def select_unassigned_preprints(self, limit: Optional[int] = None) -> List[Dict[str, Any]]:
+        out: List[Dict[str, Any]] = []
+        last_key = None
+        while True:
+            kwargs: Dict[str, Any] = {
+                "FilterExpression": Attr("trial_assignment_status").not_exists(),
+            }
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            if limit:
+                kwargs["Limit"] = max(1, limit - len(out))
+
+            resp = self.t_preprints.scan(**kwargs)
+            out.extend(resp.get("Items", []))
+            if limit and len(out) >= limit:
+                return out[:limit]
+            last_key = resp.get("LastEvaluatedKey")
+            if not last_key:
+                return out
+
+    def list_trial_clusters(self) -> List[Dict[str, Any]]:
+        out: List[Dict[str, Any]] = []
+        last_key = None
+        while True:
+            kwargs: Dict[str, Any] = {}
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_trial_clusters.scan(**kwargs)
+            out.extend(resp.get("Items", []))
+            last_key = resp.get("LastEvaluatedKey")
+            if not last_key:
+                return out
+
+    def list_trial_nodes(self) -> List[Dict[str, Any]]:
+        out: List[Dict[str, Any]] = []
+        last_key = None
+        while True:
+            kwargs: Dict[str, Any] = {}
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_trial_nodes.scan(**kwargs)
+            out.extend(resp.get("Items", []))
+            last_key = resp.get("LastEvaluatedKey")
+            if not last_key:
+                return out
+
+    def get_trial_nodes(self, node_ids: Iterable[str]) -> Dict[str, Dict[str, Any]]:
+        wanted = [n for n in node_ids if n]
+        if not wanted:
+            return {}
+        out: Dict[str, Dict[str, Any]] = {}
+        for chunk in _chunks(wanted, 100):
+            keys = [{"node_id": nid} for nid in chunk]
+            request = {self.t_trial_nodes.name: {"Keys": keys}}
+            resp = self.ddb.batch_get_item(RequestItems=request)
+            for item in resp.get("Responses", {}).get(self.t_trial_nodes.name, []):
+                node_id = item.get("node_id")
+                if node_id:
+                    out[node_id] = item
+            unprocessed = resp.get("UnprocessedKeys") or {}
+            while unprocessed:
+                resp = self.ddb.batch_get_item(RequestItems=unprocessed)
+                for item in resp.get("Responses", {}).get(self.t_trial_nodes.name, []):
+                    node_id = item.get("node_id")
+                    if node_id:
+                        out[node_id] = item
+                unprocessed = resp.get("UnprocessedKeys") or {}
+        return out
+
+    def get_trial_token_map(self, tokens: Iterable[str]) -> Dict[str, str]:
+        wanted = [t for t in tokens if t]
+        if not wanted:
+            return {}
+        out: Dict[str, str] = {}
+        for chunk in _chunks(wanted, 100):
+            keys = [{"token": token} for token in chunk]
+            request = {self.t_trial_tokens.name: {"Keys": keys}}
+            resp = self.ddb.batch_get_item(RequestItems=request)
+            for item in resp.get("Responses", {}).get(self.t_trial_tokens.name, []):
+                token = item.get("token")
+                node_id = item.get("node_id")
+                if token and node_id:
+                    out[token] = node_id
+            unprocessed = resp.get("UnprocessedKeys") or {}
+            while unprocessed:
+                resp = self.ddb.batch_get_item(RequestItems=unprocessed)
+                for item in resp.get("Responses", {}).get(self.t_trial_tokens.name, []):
+                    token = item.get("token")
+                    node_id = item.get("node_id")
+                    if token and node_id:
+                        out[token] = node_id
+                unprocessed = resp.get("UnprocessedKeys") or {}
+        return out
+
+    def put_trial_nodes(self, nodes: Iterable[Dict[str, Any]]) -> None:
+        with self.t_trial_nodes.batch_writer(overwrite_by_pkeys=["node_id"]) as bw:
+            for node in nodes:
+                node_id = node.get("node_id")
+                if not node_id:
+                    continue
+                bw.put_item(Item=_strip_nones(node))
+
+    def put_trial_token_map(self, token_to_node: Dict[str, str]) -> None:
+        with self.t_trial_tokens.batch_writer(overwrite_by_pkeys=["token"]) as bw:
+            for token, node_id in token_to_node.items():
+                if not token or not node_id:
+                    continue
+                bw.put_item(Item={"token": token, "node_id": node_id, "updated_at": dt.datetime.utcnow().isoformat()})
+
+    def put_trial_clusters(self, clusters: Iterable[Dict[str, Any]]) -> None:
+        with self.t_trial_clusters.batch_writer(overwrite_by_pkeys=["cluster_id"]) as bw:
+            for cluster in clusters:
+                cluster_id = cluster.get("cluster_id")
+                if not cluster_id:
+                    continue
+                bw.put_item(Item=_strip_nones(cluster))
+
+    def put_trial_assignments(self, assignments: Iterable[Dict[str, Any]]) -> None:
+        with self.t_trial_assignments.batch_writer(overwrite_by_pkeys=["preprint_id"]) as bw:
+            for row in assignments:
+                preprint_id = row.get("preprint_id")
+                if not preprint_id:
+                    continue
+                bw.put_item(Item=_strip_nones(row))
+
+    def mark_preprint_trial_assignment(
+        self,
+        *,
+        osf_id: str,
+        status: str,
+        assigned_at: str,
+        arm: Optional[str] = None,
+        cluster_id: Optional[str] = None,
+        reason: Optional[str] = None,
+        matched_cluster_ids: Optional[List[str]] = None,
+        run_id: Optional[str] = None,
+    ) -> None:
+        set_exprs = [
+            "trial_assignment_status=:status",
+            "trial_assigned_at=:assigned_at",
+            "updated_at=:updated_at",
+        ]
+        eav: Dict[str, Any] = {
+            ":status": status,
+            ":assigned_at": assigned_at,
+            ":updated_at": assigned_at,
+        }
+        if arm is not None:
+            set_exprs.append("trial_arm=:arm")
+            eav[":arm"] = arm
+        if cluster_id is not None:
+            set_exprs.append("trial_cluster_id=:cluster")
+            eav[":cluster"] = cluster_id
+        if reason is not None:
+            set_exprs.append("trial_assignment_reason=:reason")
+            eav[":reason"] = reason
+        if matched_cluster_ids is not None:
+            set_exprs.append("trial_matched_cluster_ids=:matched")
+            eav[":matched"] = matched_cluster_ids
+        if run_id is not None:
+            set_exprs.append("trial_assignment_run_id=:run_id")
+            eav[":run_id"] = run_id
+
+        self.t_preprints.update_item(
+            Key={"osf_id": osf_id},
+            UpdateExpression="SET " + ", ".join(set_exprs),
+            ExpressionAttributeValues=eav,
+        )
 
     # --- upsert preprints batch ---
     def upsert_preprints(self, rows: List[Dict]) -> int:

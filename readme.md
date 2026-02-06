@@ -61,6 +61,21 @@ python -m osf_sync.pipeline fetch-one --id <OSF_ID>
 python -m osf_sync.pipeline fetch-one --doi <DOI_OR_URL>
 ```
 
+Author-cluster randomisation (standalone, not in `run-all`):
+```bash
+python -m osf_sync.pipeline author-randomize \
+  --authors-csv osf_sync/extraction/authorList_ext.csv \
+  --network-state-key trial:author_network_state
+```
+Status: this workflow is not yet validated end-to-end in production and should be treated as experimental.
+This command processes only unassigned preprints.
+If no prior trial network exists, it initializes one from those preprints; otherwise it loads the latest network from DynamoDB and augments it.
+Allocations, graph state, and run metadata are stored in DynamoDB trial tables plus `sync_state`.
+Use `--dry-run` to preview candidate processing and allocation counts without writing to DynamoDB:
+```bash
+python -m osf_sync.pipeline author-randomize --dry-run
+```
+
 `python -m osf_sync.cli ...` is now a thin alias to the same pipeline CLI.
 
 ## Common Options

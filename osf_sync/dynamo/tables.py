@@ -7,6 +7,10 @@ import time
 log = logging.getLogger(__name__)
 
 API_CACHE_TABLE = os.environ.get("DDB_TABLE_API_CACHE", "api_cache")
+TRIAL_AUTHOR_NODES_TABLE = os.environ.get("DDB_TABLE_TRIAL_AUTHOR_NODES", "trial_author_nodes")
+TRIAL_AUTHOR_TOKENS_TABLE = os.environ.get("DDB_TABLE_TRIAL_AUTHOR_TOKENS", "trial_author_tokens")
+TRIAL_CLUSTERS_TABLE = os.environ.get("DDB_TABLE_TRIAL_CLUSTERS", "trial_clusters")
+TRIAL_ASSIGNMENTS_TABLE = os.environ.get("DDB_TABLE_TRIAL_ASSIGNMENTS", "trial_preprint_assignments")
 
 TABLES = {
   "preprints": {
@@ -84,6 +88,79 @@ TABLES = {
   API_CACHE_TABLE: {
     "KeySchema":[{"AttributeName":"cache_key","KeyType":"HASH"}],
     "AttributeDefinitions":[{"AttributeName":"cache_key","AttributeType":"S"}],
+    "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+  },
+  TRIAL_AUTHOR_NODES_TABLE: {
+    "KeySchema":[{"AttributeName":"node_id","KeyType":"HASH"}],
+    "AttributeDefinitions":[
+        {"AttributeName":"node_id","AttributeType":"S"},
+        {"AttributeName":"cluster_id","AttributeType":"S"}
+    ],
+    "GlobalSecondaryIndexes":[
+        { "IndexName":"by_cluster",
+          "KeySchema":[
+              {"AttributeName":"cluster_id","KeyType":"HASH"},
+              {"AttributeName":"node_id","KeyType":"RANGE"}
+          ],
+          "Projection":{"ProjectionType":"ALL"},
+          "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+        }
+    ],
+    "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+  },
+  TRIAL_AUTHOR_TOKENS_TABLE: {
+    "KeySchema":[{"AttributeName":"token","KeyType":"HASH"}],
+    "AttributeDefinitions":[
+        {"AttributeName":"token","AttributeType":"S"},
+        {"AttributeName":"node_id","AttributeType":"S"}
+    ],
+    "GlobalSecondaryIndexes":[
+        { "IndexName":"by_node",
+          "KeySchema":[
+              {"AttributeName":"node_id","KeyType":"HASH"},
+              {"AttributeName":"token","KeyType":"RANGE"}
+          ],
+          "Projection":{"ProjectionType":"ALL"},
+          "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+        }
+    ],
+    "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+  },
+  TRIAL_CLUSTERS_TABLE: {
+    "KeySchema":[{"AttributeName":"cluster_id","KeyType":"HASH"}],
+    "AttributeDefinitions":[
+        {"AttributeName":"cluster_id","AttributeType":"S"},
+        {"AttributeName":"stratum","AttributeType":"S"}
+    ],
+    "GlobalSecondaryIndexes":[
+        { "IndexName":"by_stratum",
+          "KeySchema":[
+              {"AttributeName":"stratum","KeyType":"HASH"},
+              {"AttributeName":"cluster_id","KeyType":"RANGE"}
+          ],
+          "Projection":{"ProjectionType":"ALL"},
+          "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+        }
+    ],
+    "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+  },
+  TRIAL_ASSIGNMENTS_TABLE: {
+    "KeySchema":[{"AttributeName":"preprint_id","KeyType":"HASH"}],
+    "AttributeDefinitions":[
+        {"AttributeName":"preprint_id","AttributeType":"S"},
+        {"AttributeName":"status","AttributeType":"S"},
+        {"AttributeName":"assigned_at","AttributeType":"S"}
+    ],
+    "GlobalSecondaryIndexes":[
+        { "IndexName":"by_status",
+          "KeySchema":[
+              {"AttributeName":"status","KeyType":"HASH"},
+              {"AttributeName":"assigned_at","KeyType":"RANGE"}
+          ],
+          "Projection":{"ProjectionType":"ALL"},
+          "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+        }
+    ],
     "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
   }
 }
