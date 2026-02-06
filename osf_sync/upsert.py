@@ -3,12 +3,11 @@ from typing import Iterable, Dict, List, Optional, Any, Tuple
 import calendar
 import datetime as dt
 import logging
-import os
 
 from .dynamo.preprints_repo import PreprintsRepo
+from .runtime_config import RUNTIME_CONFIG
 
-_INGEST_ANCHOR_ENV = "OSF_INGEST_ANCHOR_DATE"
-_WINDOW_MONTHS = 6
+_WINDOW_MONTHS = RUNTIME_CONFIG.ingest.window_months
 
 log = logging.getLogger(__name__)
 
@@ -29,7 +28,7 @@ def _parse_iso_dt(value: Optional[str]) -> Optional[dt.datetime]:
 
 
 def _parse_anchor_dt() -> Optional[dt.datetime]:
-    raw = os.environ.get(_INGEST_ANCHOR_ENV)
+    raw = RUNTIME_CONFIG.ingest.anchor_date
     if not raw:
         return None
     raw = raw.strip()
@@ -40,11 +39,11 @@ def _parse_anchor_dt() -> Optional[dt.datetime]:
             d = dt.date.fromisoformat(raw)
             return dt.datetime(d.year, d.month, d.day, tzinfo=dt.timezone.utc)
         except Exception:
-            log.warning("Invalid %s value", _INGEST_ANCHOR_ENV, extra={"value": raw})
+            log.warning("Invalid ingest.anchor_date value", extra={"value": raw})
             return None
     parsed = _parse_iso_dt(raw)
     if not parsed:
-        log.warning("Invalid %s value", _INGEST_ANCHOR_ENV, extra={"value": raw})
+        log.warning("Invalid ingest.anchor_date value", extra={"value": raw})
     return parsed
 
 
@@ -146,7 +145,7 @@ def upsert_batch(objs: Iterable[Dict]) -> int:
                 "skipped_links": skipped_links,
                 "incoming": len(rows),
                 "kept": len(filtered),
-                "anchor_env": _INGEST_ANCHOR_ENV,
+                "anchor_date": RUNTIME_CONFIG.ingest.anchor_date,
             },
         )
         for rec in skipped_records:

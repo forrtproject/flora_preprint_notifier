@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import os
 import re
 import time
 from typing import Any, Dict, List, Optional
@@ -10,16 +9,12 @@ import requests
 from ..dynamo.preprints_repo import PreprintsRepo
 from ..dynamo.api_cache_repo import ApiCacheRepo
 from ..logging_setup import get_logger, with_extras
+from ..runtime_config import RUNTIME_CONFIG
 
 logger = get_logger(__name__)
 
-FLORA_ENDPOINT = os.environ.get(
-    "FLORA_ORIGINAL_LOOKUP_URL",
-    "https://rep-api.forrt.org/v1/original-lookup",
-)
-FLORA_CACHE_TTL_HOURS_DEFAULT = int(
-    os.environ.get("FLORA_CACHE_TTL_HOURS", "48")
-)
+FLORA_ENDPOINT = RUNTIME_CONFIG.flora.original_lookup_url
+FLORA_CACHE_TTL_HOURS_DEFAULT = RUNTIME_CONFIG.flora.cache_ttl_hours
 
 
 def _info(msg: str, **extras: Any) -> None:

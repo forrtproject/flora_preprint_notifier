@@ -48,3 +48,4 @@ python -m osf_sync.augmentation.run_extract --osf_id <OSF_ID> --provider-id <PRO
 
 - All writes happen through `PreprintsRepo`.
 - FLoRA payloads are cached in `api_cache` with TTL.
+- FLORA endpoint and default cache TTL are configured in `config/runtime.toml` (`flora.original_lookup_url`, `flora.cache_ttl_hours`).
