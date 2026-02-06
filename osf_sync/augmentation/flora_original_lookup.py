@@ -13,8 +13,13 @@ from ..logging_setup import get_logger, with_extras
 
 logger = get_logger(__name__)
 
-FORRT_ENDPOINT = os.environ.get("FORRT_ORIGINAL_LOOKUP_URL", "https://rep-api.forrt.org/v1/original-lookup")
-FORRT_CACHE_TTL_HOURS_DEFAULT = int(os.environ.get("FORRT_CACHE_TTL_HOURS", "48"))
+FLORA_ENDPOINT = os.environ.get(
+    "FLORA_ORIGINAL_LOOKUP_URL",
+    "https://rep-api.forrt.org/v1/original-lookup",
+)
+FLORA_CACHE_TTL_HOURS_DEFAULT = int(
+    os.environ.get("FLORA_CACHE_TTL_HOURS", "48")
+)
 
 
 def _info(msg: str, **extras: Any) -> None:
@@ -58,7 +63,7 @@ def normalize_doi(doi: Optional[str]) -> Optional[str]:
 
 
 def _cache_key_for_doi(doi: str) -> str:
-    return f"forrt_original:{doi}"
+    return f"flora_original:{doi}"
 
 
 def _prune_nulls(obj: Any):
@@ -207,13 +212,13 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
 # API call
 # -----------------------
 
-def _call_forrt(sess: requests.Session, doi: str, debug: bool = False) -> Dict[str, Any]:
+def _call_flora(sess: requests.Session, doi: str, debug: bool = False) -> Dict[str, Any]:
     params = {"dois": doi}
-    url = FORRT_ENDPOINT
+    url = FLORA_ENDPOINT
     try:
         r = sess.get(url, params=params, timeout=25)
         if debug:
-            _info("FORRT request", status=r.status_code, url=r.url)
+            _info("FLORA request", status=r.status_code, url=r.url)
         if r.status_code == 404:
             return {"status": "not_found", "payload": None}
         if r.status_code != 200:
@@ -222,16 +227,16 @@ def _call_forrt(sess: requests.Session, doi: str, debug: bool = False) -> Dict[s
                 body = r.text[:500]
             except Exception:
                 pass
-            _warn("FORRT HTTP error", status=r.status_code, url=r.url, body=body)
+            _warn("FLORA HTTP error", status=r.status_code, url=r.url, body=body)
             return {"status": f"http_{r.status_code}", "payload": None}
         try:
             js = r.json()
         except ValueError:
-            _warn("FORRT invalid JSON", url=r.url)
+            _warn("FLORA invalid JSON", url=r.url)
             return {"status": "bad_json", "payload": None}
         return {"status": "ok", "payload": js}
     except requests.RequestException as e:
-        _warn("FORRT network error", error=str(e), doi=doi)
+        _warn("FLORA network error", error=str(e), doi=doi)
         return {"status": "network_error", "payload": None}
 
 
@@ -239,7 +244,7 @@ def _call_forrt(sess: requests.Session, doi: str, debug: bool = False) -> Dict[s
 # Public entry
 # -----------------------
 
-def lookup_originals_with_forrt(
+def lookup_originals_with_flora(
     *,
     limit: int = 200,
     osf_id: Optional[str] = None,
@@ -251,17 +256,17 @@ def lookup_originals_with_forrt(
     debug: bool = False,
 ) -> Dict[str, int]:
     """
-    Fetch references with DOIs from Dynamo, call FORRT original-lookup, and persist results.
+    Fetch references with DOIs from Dynamo, call FLORA original-lookup, and persist results.
     Uses DynamoDB payloads as a cache when the prior check is within the TTL.
     """
     repo = PreprintsRepo()
     cache_repo = ApiCacheRepo()
     rows = repo.select_refs_with_doi(limit=limit, osf_id=osf_id, ref_id=ref_id, only_unchecked=only_unchecked)
 
-    ttl_hours = cache_ttl_hours if cache_ttl_hours is not None else FORRT_CACHE_TTL_HOURS_DEFAULT
+    ttl_hours = cache_ttl_hours if cache_ttl_hours is not None else FLORA_CACHE_TTL_HOURS_DEFAULT
     ttl_seconds = int(ttl_hours * 3600)
     if cache_path:
-        _warn("FORRT cache_path is ignored; using database cache", cache_path=cache_path)
+        _warn("FLORA cache_path is ignored; using database cache", cache_path=cache_path)
 
     stats = {"checked": 0, "updated": 0, "failed": 0, "cache_hits": 0}
     sess = requests.Session()
@@ -291,7 +296,7 @@ def lookup_originals_with_forrt(
             status = bool(payload_clean) if cached_status is None else bool(cached_status)
             ref_pairs = _extract_ref_objects(payload_clean) if payload_clean else []
             try:
-                repo.update_reference_forrt(
+                repo.update_reference_flora(
                     osfid,
                     refid,
                     status=status,
@@ -301,7 +306,7 @@ def lookup_originals_with_forrt(
                 stats["failed"] += 1
             continue
 
-        result = _call_forrt(sess, doi, debug=debug)
+        result = _call_flora(sess, doi, debug=debug)
         payload = result.get("payload")
         payload_clean = _prune_nulls(payload)
         status = bool(payload_clean)
@@ -310,11 +315,11 @@ def lookup_originals_with_forrt(
             cache_repo.put(
                 cache_key,
                 payload_clean,
-                source="forrt_original",
+                source="flora_original",
                 ttl_seconds=ttl_seconds,
                 status=status,
             )
-            repo.update_reference_forrt(
+            repo.update_reference_flora(
                 osfid,
                 refid,
                 status=status,
@@ -332,18 +337,18 @@ def lookup_originals_with_forrt(
 if __name__ == "__main__":
     import argparse
 
-    ap = argparse.ArgumentParser(description="Lookup originals via FORRT API for references that already have DOIs.")
+    ap = argparse.ArgumentParser(description="Lookup originals via FLORA API for references that already have DOIs.")
     ap.add_argument("--limit", type=int, default=200)
     ap.add_argument("--osf_id", default=None)
     ap.add_argument("--ref_id", default=None)
     ap.add_argument("--no-only-unchecked", action="store_true", help="Process all DOI rows even if already checked.")
     ap.add_argument("--cache-path", default=None, help="Deprecated; ignored (database cache is used).")
     ap.add_argument("--cache-ttl-hours", type=int, default=None)
-    ap.add_argument("--ignore-cache", action="store_true", help="Bypass database cache and call FORRT again.")
+    ap.add_argument("--ignore-cache", action="store_true", help="Bypass database cache and call FLORA again.")
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
 
-    out = lookup_originals_with_forrt(
+    out = lookup_originals_with_flora(
         limit=args.limit,
         osf_id=args.osf_id,
         ref_id=args.ref_id,
