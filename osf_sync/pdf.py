@@ -130,3 +130,50 @@ def ensure_pdf_available_or_delete(
 
     delete_preprint(osf_id)
     return "deleted", None
+
+
+def ensure_pdf_available_or_skip(
+    osf_id: str,
+    provider_id: str,
+    raw: dict,
+    dest_root: str,
+) -> Tuple[str, Optional[str]]:
+    """
+    Non-destructive variant used by late/optional stages (e.g., author extraction).
+    Unsupported/missing files are skipped and the preprint row is never deleted.
+
+    Returns (kind, path|None) where kind in {"pdf","docx->pdf","skipped"}.
+    """
+    url, ctype, name = resolve_primary_file_info_from_raw(raw)
+    if not url:
+        return "skipped", None
+
+    folder = _safe_dir(dest_root, provider_id, osf_id)
+    pdf_path = folder / "file.pdf"
+
+    is_pdf = (ctype in ACCEPT_PDF) or (ctype is None and _looks_pdf(name))
+    is_docx = (ctype in ACCEPT_DOCX) or (ctype is None and _looks_docx(name))
+
+    if is_pdf:
+        _download_to(pdf_path, url)
+        return "pdf", str(pdf_path)
+
+    if is_docx:
+        docx_path = folder / "file.docx"
+        _download_to(docx_path, url)
+        ok = _convert_docx_to_pdf(docx_path, pdf_path)
+        try:
+            if docx_path.exists():
+                docx_path.unlink()
+        except Exception:
+            pass
+        if ok:
+            return "docx->pdf", str(pdf_path)
+        try:
+            if pdf_path.exists():
+                pdf_path.unlink()
+        except Exception:
+            pass
+        return "skipped", None
+
+    return "skipped", None

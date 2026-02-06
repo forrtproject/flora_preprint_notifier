@@ -13,6 +13,14 @@ def _strip_nones(d: Dict[str, Any]) -> Dict[str, Any]:
 
 log = get_logger(__name__)
 
+
+_STAGE_CLAIM_FIELDS = {
+    "pdf": ("queue_pdf", "claim_pdf_owner", "claim_pdf_until"),
+    "grobid": ("queue_grobid", "claim_grobid_owner", "claim_grobid_until"),
+    "extract": ("queue_extract", "claim_extract_owner", "claim_extract_until"),
+}
+
+
 class PreprintsRepo:
     def __init__(self):
         ddb = get_dynamo_resource()
@@ -133,7 +141,8 @@ class PreprintsRepo:
                 Key={"osf_id": osf_id},
                 UpdateExpression=(
                     "SET pdf_downloaded=:ok, pdf_path=:p, pdf_downloaded_at=:t, updated_at=:t, "
-                    "queue_pdf=:done, queue_grobid=:pending"
+                    "queue_pdf=:done, queue_grobid=:pending "
+                    "REMOVE claim_pdf_owner, claim_pdf_until"
                 ),
                 ExpressionAttributeValues={":ok": True, ":p": path, ":t": now, ":done": "done", ":pending": "pending"},
             )
@@ -142,7 +151,8 @@ class PreprintsRepo:
             self.t_preprints.update_item(
                 Key={"osf_id": osf_id},
                 UpdateExpression=(
-                    "SET pdf_downloaded=:ok, pdf_downloaded_at=:t, updated_at=:t, queue_pdf=:done"
+                    "SET pdf_downloaded=:ok, pdf_downloaded_at=:t, updated_at=:t, queue_pdf=:done "
+                    "REMOVE claim_pdf_owner, claim_pdf_until"
                 ),
                 ExpressionAttributeValues={":ok": bool(ok), ":t": now, ":done": "done"},
             )
@@ -154,7 +164,8 @@ class PreprintsRepo:
                 Key={"osf_id": osf_id},
                 UpdateExpression=(
                     "SET tei_generated=:ok, tei_path=:p, tei_generated_at=:t, updated_at=:t, "
-                    "queue_grobid=:done, queue_extract=:pending"
+                    "queue_grobid=:done, queue_extract=:pending "
+                    "REMOVE claim_grobid_owner, claim_grobid_until"
                 ),
                 ExpressionAttributeValues={":ok": True, ":p": tei_path, ":t": now, ":done": "done", ":pending": "pending"},
             )
@@ -162,7 +173,8 @@ class PreprintsRepo:
             self.t_preprints.update_item(
                 Key={"osf_id": osf_id},
                 UpdateExpression=(
-                    "SET tei_generated=:ok, tei_generated_at=:t, updated_at=:t, queue_grobid=:done"
+                    "SET tei_generated=:ok, tei_generated_at=:t, updated_at=:t, queue_grobid=:done "
+                    "REMOVE claim_grobid_owner, claim_grobid_until"
                 ),
                 ExpressionAttributeValues={":ok": bool(ok), ":t": now, ":done": "done"},
             )
@@ -171,9 +183,85 @@ class PreprintsRepo:
         self.t_preprints.update_item(
             Key={"osf_id": osf_id},
             UpdateExpression=(
-                "SET tei_extracted=:v, updated_at=:t, queue_extract=:done"
+                "SET tei_extracted=:v, updated_at=:t, queue_extract=:done "
+                "REMOVE claim_extract_owner, claim_extract_until"
             ),
             ExpressionAttributeValues={":v": True, ":t": dt.datetime.utcnow().isoformat(), ":done": "done"}
+        )
+
+    def claim_stage_item(self, stage: str, osf_id: str, *, owner: str, lease_seconds: int = 1800) -> bool:
+        fields = _STAGE_CLAIM_FIELDS.get(stage)
+        if not fields:
+            raise ValueError(f"Unsupported claim stage: {stage}")
+        queue_field, owner_field, until_field = fields
+        now_epoch = int(dt.datetime.utcnow().timestamp())
+        until_epoch = now_epoch + max(int(lease_seconds), 1)
+        now_iso = dt.datetime.utcnow().isoformat()
+        try:
+            self.t_preprints.update_item(
+                Key={"osf_id": osf_id},
+                UpdateExpression="SET #owner=:owner, #until=:until, updated_at=:t",
+                ConditionExpression=(
+                    "#queue = :pending AND ("
+                    "attribute_not_exists(#owner) OR attribute_not_exists(#until) OR #until < :now"
+                    ")"
+                ),
+                ExpressionAttributeNames={
+                    "#queue": queue_field,
+                    "#owner": owner_field,
+                    "#until": until_field,
+                },
+                ExpressionAttributeValues={
+                    ":pending": "pending",
+                    ":owner": owner,
+                    ":until": until_epoch,
+                    ":now": now_epoch,
+                    ":t": now_iso,
+                },
+            )
+            return True
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
+                return False
+            raise
+
+    def release_stage_claim(self, stage: str, osf_id: str) -> None:
+        fields = _STAGE_CLAIM_FIELDS.get(stage)
+        if not fields:
+            raise ValueError(f"Unsupported claim stage: {stage}")
+        _, owner_field, until_field = fields
+        self.t_preprints.update_item(
+            Key={"osf_id": osf_id},
+            UpdateExpression="SET updated_at=:t REMOVE #owner, #until",
+            ExpressionAttributeNames={"#owner": owner_field, "#until": until_field},
+            ExpressionAttributeValues={":t": dt.datetime.utcnow().isoformat()},
+        )
+
+    def record_stage_error(self, stage: str, osf_id: str, message: str) -> None:
+        fields = _STAGE_CLAIM_FIELDS.get(stage)
+        if not fields:
+            raise ValueError(f"Unsupported claim stage: {stage}")
+        _, owner_field, until_field = fields
+        now = dt.datetime.utcnow().isoformat()
+        retry_field = f"retry_count_{stage}"
+        self.t_preprints.update_item(
+            Key={"osf_id": osf_id},
+            UpdateExpression=(
+                "SET last_error_stage=:stage, last_error_message=:msg, last_error_at=:t, updated_at=:t "
+                "ADD #retry :inc "
+                "REMOVE #owner, #until"
+            ),
+            ExpressionAttributeNames={
+                "#owner": owner_field,
+                "#until": until_field,
+                "#retry": retry_field,
+            },
+            ExpressionAttributeValues={
+                ":stage": stage,
+                ":msg": str(message)[:2000],
+                ":t": now,
+                ":inc": 1,
+            },
         )
 
     # --- select queues ---
@@ -183,7 +271,8 @@ class PreprintsRepo:
             resp = self.t_preprints.query(
                 IndexName="by_queue_pdf",
                 KeyConditionExpression="queue_pdf = :q",
-                ExpressionAttributeValues={":q": "pending"},
+                FilterExpression="attribute_not_exists(pdf_downloaded) OR pdf_downloaded = :false",
+                ExpressionAttributeValues={":q": "pending", ":false": False},
                 Limit=limit,
                 ScanIndexForward=True,
             )
@@ -201,7 +290,10 @@ class PreprintsRepo:
             resp = self.t_preprints.query(
                 IndexName="by_queue_grobid",
                 KeyConditionExpression="queue_grobid = :q",
-                ExpressionAttributeValues={":q": "pending"},
+                FilterExpression=(
+                    "pdf_downloaded = :true AND (attribute_not_exists(tei_generated) OR tei_generated = :false)"
+                ),
+                ExpressionAttributeValues={":q": "pending", ":true": True, ":false": False},
                 Limit=limit,
                 ScanIndexForward=True,
             )
@@ -219,7 +311,11 @@ class PreprintsRepo:
             resp = self.t_preprints.query(
                 IndexName="by_queue_extract",
                 KeyConditionExpression="queue_extract = :q",
-                ExpressionAttributeValues={":q": "pending"},
+                FilterExpression=(
+                    "pdf_downloaded = :true AND tei_generated = :true AND "
+                    "(attribute_not_exists(tei_extracted) OR tei_extracted = :false)"
+                ),
+                ExpressionAttributeValues={":q": "pending", ":true": True, ":false": False},
                 Limit=limit,
                 ScanIndexForward=True,
             )

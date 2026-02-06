@@ -1,97 +1,51 @@
 # osf_sync.augmentation
 
-Plain English: this folder holds TEI parsing and DOI enrichment helpers.
+Helpers for TEI extraction and reference enrichment.
 
-Utilities that parse TEI XML, write structured data back to DynamoDB, and enrich references via Crossref / OpenAlex.
+## TEI extraction
 
----
+| File | Purpose |
+| --- | --- |
+| `run_extract.py` | Parse TEI XML for one preprint and return extraction summary. |
+| `extract_to_db.py` | Persist parsed TEI + references to DynamoDB via `PreprintsRepo`. |
 
-## TEI parsing & extraction
+Flow:
+1. `run_extract.extract_for_osf_id(provider_id, osf_id, base_dir)` loads `/data/preprints/<provider>/<osf_id>/tei.xml`.
+2. TEI parser extracts preprint metadata and references.
+3. `write_extraction()` persists results and marks `preprints.tei_extracted`.
 
-| File               | Purpose                                                                              |
-| ------------------ | ------------------------------------------------------------------------------------ |
-| `run_extract.py`   | Entry point used by Celery tasks. Loads TEI XML from disk and invokes the extractor. |
-| `extract_to_db.py` | Writes parsed preprint metadata + reference rows into DynamoDB via `PreprintsRepo`.  |
+The pipeline stage for this is:
+```bash
+python -m osf_sync.pipeline run --stage extract --limit 200
+```
 
-Workflow:
+## DOI enrichment
 
-1. `run_extract.extract_for_osf_id(provider_id, osf_id, base_dir)` locates `/data/preprints/<provider>/<osf_id>/tei.xml`.
-2. Uses the shared `TEIExtractor` to parse title/doi/authors + reference items.
-3. `write_extraction()` persists TEI summary + references and marks `preprints.tei_extracted`.
+| File | Description |
+| --- | --- |
+| `matching_crossref.py` | Crossref scoring pipeline. |
+| `doi_check_openalex.py` | OpenAlex lookup/fuzzy matching. |
+| `doi_multi_method.py` | Combined DOI enrichment strategy used in the pipeline stage. |
+| `forrt_original_lookup.py` | FORRT lookup + cache persistence. |
+| `forrt_screening.py` | FORRT lookup/screen orchestration. |
 
-Celery task `osf_sync.tasks.enqueue_extraction` queues these jobs using the `by_queue_extract` GSI.
+Pipeline commands:
+```bash
+python -m osf_sync.pipeline run --stage enrich --limit 300
+python -m osf_sync.pipeline run --stage forrt --limit-lookup 200 --limit-screen 500
+```
 
----
-
-## Reference enrichment
-
-| File                       | Description                                                                                               |
-| -------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `matching_crossref.py`     | Scores Crossref results to fill missing DOIs. Uses repo methods for selection + conditional updates.      |
-| `doi_check_openalex.py`    | Multi-stage OpenAlex lookup with fuzzy matching + threshold control.                                      |
-| `enrich_doi.py`            | Legacy helper combining Crossref/OpenAlex logic; uses the same repo update helpers.                       |
-| `forrt_original_lookup.py` | Calls FORRT original-lookup for existing DOIs; caches responses in Dynamo and writes lookup status back.  |
-| `forrt_screening.py`       | Combined lookup + screening to flag replications that lack the original citation.                         |
-
-Key functions:
-
-- `matching_crossref.enrich_missing_with_crossref(limit, threshold, ua_email, ...)`
-- `doi_check_openalex.enrich_missing_with_openalex(limit, threshold, mailto, osf_id, debug)`
-- `doi_multi_method.enrich_missing_with_multi_method(limit, threshold, mailto, osf_id, ref_id, ...)`
-- `enrich_doi.enrich_missing_with_crossref()` / `enrich_missing_with_openalex()` (thin wrappers around the modules above).
-
-Matching notes:
-- Title matching strips HTML tags/entities before scoring.
-- Year matching allows a +/-1 window.
-- Subset-inflation penalties and hard caps are applied to prevent short-title false positives.
-
-All enrichment functions:
-
-1. Call `repo.select_refs_missing_doi(...)` to fetch work.
-2. Query the respective API.
-3. Use `repo.update_reference_doi(osf_id, ref_id, doi, source=...)` for conditional updates.
-
-Celery task `osf_sync.tasks.enrich_references` calls the multi-method pipeline via `doi_multi_method.enrich_missing_with_multi_method`.
-
-FORRT persistence:
-- `forrt_lookup_status` + `forrt_checked_at` are stored on `preprint_references`.
-- `forrt_ref_pairs` (extracted via `_extract_ref_objects`) are stored per reference.
-- Screening writes `forrt_original_cited` per reference.
-- Full API payloads are cached in `api_cache` with TTL (not stored on `preprint_references`).
-
----
-
-## Running manually
-
-Inside the container:
+## Manual commands
 
 ```bash
-# Crossref enrichment
 python -m osf_sync.augmentation.matching_crossref --limit 200 --threshold 78
-
-# OpenAlex enrichment (debug mode, specific OSF id)
 python -m osf_sync.augmentation.doi_check_openalex --osf_id <OSF_ID> --limit 50 --threshold 70 --debug
-
-# FORRT lookup + screening (use --include-checked to re-run lookup even if already processed)
 python -m osf_sync.augmentation.forrt_screening --limit-lookup 200 --limit 500
-
-# Single TEI extraction (helpful for debugging)
 python -m osf_sync.augmentation.run_extract --osf_id <OSF_ID> --provider-id <PROVIDER> --base /data/preprints
 ```
 
-> The CLI arguments map directly to the `argparse` definitions at the bottom of each module.
+## Notes
 
----
-
-## Dependencies
-
-- `requests`, `thefuzz`, and TEI extractor utilities for parsing.
-- `PreprintsRepo` for DynamoDB reads/writes (no direct SQLAlchemy usage).
-- Rate-limited sleeps are built-in to avoid hitting Crossref/OpenAlex quotas.
-
----
-
-## Tips
-
-- Use `python -m osf_sync.dump_ddb --table preprint_references --limit 10` before/after enrichment to verify updates.
-- When testing parsing, keep `PDF_DEST_ROOT` mounted locally so TEI files are accessible to `run_extract.py`.
+- All writes happen through `PreprintsRepo`.
+- FORRT payloads are cached in `api_cache` with TTL.
+- Use `python -m osf_sync.dump_ddb --table preprint_references --limit 10` to inspect updates.
