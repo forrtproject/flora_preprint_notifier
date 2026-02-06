@@ -1,25 +1,22 @@
 from __future__ import annotations
 
+import csv
+import datetime as dt
 import os
 import re
-import time
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import requests
 
 from ..dynamo.preprints_repo import PreprintsRepo
-from ..dynamo.api_cache_repo import ApiCacheRepo
 from ..logging_setup import get_logger, with_extras
 
 logger = get_logger(__name__)
 
-FLORA_ENDPOINT = os.environ.get(
-    "FLORA_ORIGINAL_LOOKUP_URL",
-    "https://rep-api.forrt.org/v1/original-lookup",
-)
-FLORA_CACHE_TTL_HOURS_DEFAULT = int(
-    os.environ.get("FLORA_CACHE_TTL_HOURS", "48")
-)
+FLORA_CSV_URL = "https://raw.githubusercontent.com/forrtproject/FReD-data/refs/heads/main/output/flora.csv"
+FLORA_CSV_PATH_ENV = "FLORA_CSV_PATH"
+FLORA_CSV_PATH_DEFAULT = "data/flora.csv"
 
 
 def _info(msg: str, **extras: Any) -> None:
@@ -43,10 +40,6 @@ def _exception(msg: str, **extras: Any) -> None:
         logger.exception(msg)
 
 
-# -----------------------
-# DOI helpers
-# -----------------------
-
 _DOI_PATTERN = re.compile(r"10\.\S+", re.IGNORECASE)
 
 
@@ -62,61 +55,10 @@ def normalize_doi(doi: Optional[str]) -> Optional[str]:
     return m.group(0) if m else None
 
 
-def _cache_key_for_doi(doi: str) -> str:
-    return f"flora_original:{doi}"
-
-
-def _prune_nulls(obj: Any):
-    """
-    Recursively drop None/null entries and empty containers.
-    """
-    if obj is None:
-        return None
-    if isinstance(obj, dict):
-        new = {}
-        for k, v in obj.items():
-            cleaned = _prune_nulls(v)
-            if cleaned is not None:
-                new[k] = cleaned
-        return new or None
-    if isinstance(obj, list):
-        cleaned_items = []
-        for v in obj:
-            cleaned = _prune_nulls(v)
-            if cleaned is not None:
-                cleaned_items.append(cleaned)
-        return cleaned_items or None
-    return obj
-
-
-def _collect_strings(value: Any) -> List[str]:
-    out: List[str] = []
-    if value is None:
-        return out
-    if isinstance(value, str):
-        v = value.strip()
-        if v:
-            out.append(v)
-    elif isinstance(value, list):
-        for v in value:
-            out.extend(_collect_strings(v))
-    elif isinstance(value, dict):
-        for v in value.values():
-            out.extend(_collect_strings(v))
-    else:
-        try:
-            v = str(value).strip()
-            if v:
-                out.append(v)
-        except Exception:
-            pass
-    return out
-
-
 def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
     """
-    Extract array of {doi_o, doi_r, apa_ref_o, apa_ref_r} objects from the payload.
-    Deduplicates exact tuples.
+    Extract array of {doi_o, doi_r, apa_ref_o, apa_ref_r} objects from a payload.
+    Used for backwards compatibility with legacy persisted payload rows.
     """
     out: List[Dict[str, Optional[str]]] = []
 
@@ -126,13 +68,14 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
         apa_ref_o: Optional[str],
         apa_ref_r: Optional[str],
     ) -> None:
-        rec = {
-            "doi_o": normalize_doi(doi_o) if doi_o else None,
-            "doi_r": normalize_doi(doi_r) if doi_r else None,
-            "apa_ref_o": apa_ref_o,
-            "apa_ref_r": apa_ref_r,
-        }
-        out.append(rec)
+        out.append(
+            {
+                "doi_o": normalize_doi(doi_o) if doi_o else None,
+                "doi_r": normalize_doi(doi_r) if doi_r else None,
+                "apa_ref_o": apa_ref_o,
+                "apa_ref_r": apa_ref_r,
+            }
+        )
 
     def _ensure_list(value: Any) -> List[Dict[str, Any]]:
         if value is None:
@@ -146,7 +89,6 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
     def _from_record_lists(originals: Any, replications: Any) -> None:
         originals_list = _ensure_list(originals)
         replications_list = _ensure_list(replications)
-
         if originals_list and replications_list:
             for original in originals_list:
                 for replication in replications_list:
@@ -172,16 +114,11 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
                     replication.get("apa_ref"),
                 )
 
-    def _walk(obj: Any):
+    def _walk(obj: Any) -> None:
         if isinstance(obj, dict):
             if any(k in obj for k in ("originals", "replications")):
-                _from_record_lists(
-                    obj.get("originals"),
-                    obj.get("replications"),
-                )
-
-            has_keys = any(k in obj for k in ("doi_o", "doi_r", "apa_ref_o", "apa_ref_r"))
-            if has_keys:
+                _from_record_lists(obj.get("originals"), obj.get("replications"))
+            if any(k in obj for k in ("doi_o", "doi_r", "apa_ref_o", "apa_ref_r")):
                 _append_pair(
                     obj.get("doi_o"),
                     obj.get("doi_r"),
@@ -196,9 +133,8 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
 
     _walk(payload)
 
-    # deduplicate while preserving order
     seen = set()
-    uniq_out = []
+    uniq_out: List[Dict[str, Optional[str]]] = []
     for rec in out:
         key = (rec.get("doi_o"), rec.get("doi_r"), rec.get("apa_ref_o"), rec.get("apa_ref_r"))
         if key in seen:
@@ -208,41 +144,105 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
     return uniq_out
 
 
-# -----------------------
-# API call
-# -----------------------
+def _normalize_field_name(name: Optional[str]) -> str:
+    return (name or "").replace("\ufeff", "").strip().strip('"').strip()
 
-def _call_flora(sess: requests.Session, doi: str, debug: bool = False) -> Dict[str, Any]:
-    params = {"dois": doi}
-    url = FLORA_ENDPOINT
+
+def _clean_text(value: Any) -> Optional[str]:
+    if value is None:
+        return None
+    if not isinstance(value, str):
+        value = str(value)
+    value = value.strip()
+    return value or None
+
+
+def _resolve_flora_csv_path(cache_path: Optional[str]) -> Path:
+    raw = cache_path or os.environ.get(FLORA_CSV_PATH_ENV) or FLORA_CSV_PATH_DEFAULT
+    return Path(raw).expanduser()
+
+
+def _is_file_from_today(path: Path) -> bool:
     try:
-        r = sess.get(url, params=params, timeout=25)
-        if debug:
-            _info("FLORA request", status=r.status_code, url=r.url)
-        if r.status_code == 404:
-            return {"status": "not_found", "payload": None}
-        if r.status_code != 200:
-            body = ""
+        mtime = dt.datetime.fromtimestamp(path.stat().st_mtime)
+    except FileNotFoundError:
+        return False
+    except Exception:
+        return False
+    return mtime.date() >= dt.date.today()
+
+
+def _download_flora_csv(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
+    try:
+        with requests.get(FLORA_CSV_URL, stream=True, timeout=(20, 180)) as resp:
+            resp.raise_for_status()
+            with tmp_path.open("wb") as handle:
+                for chunk in resp.iter_content(chunk_size=1024 * 1024):
+                    if chunk:
+                        handle.write(chunk)
+        tmp_path.replace(path)
+    finally:
+        if tmp_path.exists():
             try:
-                body = r.text[:500]
-            except Exception:
+                tmp_path.unlink()
+            except OSError:
                 pass
-            _warn("FLORA HTTP error", status=r.status_code, url=r.url, body=body)
-            return {"status": f"http_{r.status_code}", "payload": None}
-        try:
-            js = r.json()
-        except ValueError:
-            _warn("FLORA invalid JSON", url=r.url)
-            return {"status": "bad_json", "payload": None}
-        return {"status": "ok", "payload": js}
-    except requests.RequestException as e:
-        _warn("FLORA network error", error=str(e), doi=doi)
-        return {"status": "network_error", "payload": None}
 
 
-# -----------------------
-# Public entry
-# -----------------------
+def _ensure_fresh_flora_csv(path: Path, *, debug: bool = False) -> Dict[str, Any]:
+    if _is_file_from_today(path):
+        return {"downloaded": False, "used_stale": False}
+
+    try:
+        _download_flora_csv(path)
+        if debug:
+            _info("Downloaded fresh FLORA CSV", path=str(path), source=FLORA_CSV_URL)
+        return {"downloaded": True, "used_stale": False}
+    except Exception as exc:
+        if path.exists():
+            _warn(
+                "Failed to refresh FLORA CSV; using existing local copy",
+                path=str(path),
+                error=str(exc),
+            )
+            return {"downloaded": False, "used_stale": True}
+        raise RuntimeError(f"Unable to download FLORA CSV to {path}") from exc
+
+
+def _load_flora_pairs_by_original(path: Path) -> Dict[str, List[Dict[str, Optional[str]]]]:
+    pairs_by_original: Dict[str, List[Dict[str, Optional[str]]]] = {}
+    seen_by_original: Dict[str, set] = {}
+
+    with path.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = csv.DictReader(handle)
+        if not reader.fieldnames:
+            return pairs_by_original
+        field_map = {_normalize_field_name(name): name for name in reader.fieldnames}
+
+        def _row_value(row: Dict[str, Any], key: str) -> Optional[str]:
+            return _clean_text(row.get(field_map.get(key, key)))
+
+        for row in reader:
+            doi_o = normalize_doi(_row_value(row, "doi_o"))
+            if not doi_o:
+                continue
+            rec = {
+                "doi_o": doi_o,
+                "doi_r": normalize_doi(_row_value(row, "doi_r")),
+                "apa_ref_o": _row_value(row, "apa_ref_o"),
+                "apa_ref_r": _row_value(row, "apa_ref_r"),
+            }
+            key = (rec["doi_o"], rec["doi_r"], rec["apa_ref_o"], rec["apa_ref_r"])
+            seen = seen_by_original.setdefault(doi_o, set())
+            if key in seen:
+                continue
+            seen.add(key)
+            pairs_by_original.setdefault(doi_o, []).append(rec)
+
+    return pairs_by_original
+
 
 def lookup_originals_with_flora(
     *,
@@ -256,69 +256,43 @@ def lookup_originals_with_flora(
     debug: bool = False,
 ) -> Dict[str, int]:
     """
-    Fetch references with DOIs from Dynamo, call FLORA original-lookup, and persist results.
-    Uses DynamoDB payloads as a cache when the prior check is within the TTL.
+    Populate FLORA original/replication pairs from local flora.csv data.
+    The file is refreshed once per day from FLORA's public CSV source.
     """
     repo = PreprintsRepo()
-    cache_repo = ApiCacheRepo()
     rows = repo.select_refs_with_doi(limit=limit, osf_id=osf_id, ref_id=ref_id, only_unchecked=only_unchecked)
+    if only_unchecked:
+        # Treat status=False as terminal for local CSV mode; only process never-checked rows.
+        rows = [r for r in rows if r and r.get("flora_lookup_status") is None]
 
-    ttl_hours = cache_ttl_hours if cache_ttl_hours is not None else FLORA_CACHE_TTL_HOURS_DEFAULT
-    ttl_seconds = int(ttl_hours * 3600)
-    if cache_path:
-        _warn("FLORA cache_path is ignored; using database cache", cache_path=cache_path)
+    if cache_ttl_hours is not None:
+        _warn("cache_ttl_hours is ignored for local FLORA CSV lookup", cache_ttl_hours=cache_ttl_hours)
+    if ignore_cache:
+        _warn("ignore_cache is ignored for local FLORA CSV lookup")
 
-    stats = {"checked": 0, "updated": 0, "failed": 0, "cache_hits": 0}
-    sess = requests.Session()
+    flora_path = _resolve_flora_csv_path(cache_path)
+    refresh_meta = _ensure_fresh_flora_csv(flora_path, debug=debug)
+    flora_pairs = _load_flora_pairs_by_original(flora_path)
+
+    stats: Dict[str, int] = {
+        "checked": 0,
+        "updated": 0,
+        "failed": 0,
+        "cache_hits": 0,
+        "csv_downloaded": 1 if refresh_meta.get("downloaded") else 0,
+    }
 
     for r in rows:
         osfid = r.get("osf_id")
         refid = r.get("ref_id")
-        doi_raw = r.get("doi")
-        doi = normalize_doi(doi_raw)
+        doi = normalize_doi(r.get("doi"))
         if not doi:
             continue
 
         stats["checked"] += 1
-
-        cache_key = _cache_key_for_doi(doi)
-        cached_item = cache_repo.get(cache_key) if not ignore_cache else None
-        cached_payload = cached_item.get("payload") if cached_item else None
-        cached_status = cached_item.get("status") if cached_item else None
-        cache_ready = (
-            not ignore_cache
-            and cache_repo.is_fresh(cached_item, ttl_seconds=ttl_seconds)
-            and (cached_payload is not None or cached_status is False)
-        )
-        if cache_ready:
-            stats["cache_hits"] += 1
-            payload_clean = _prune_nulls(cached_payload)
-            status = bool(payload_clean) if cached_status is None else bool(cached_status)
-            ref_pairs = _extract_ref_objects(payload_clean) if payload_clean else []
-            try:
-                repo.update_reference_flora(
-                    osfid,
-                    refid,
-                    status=status,
-                    ref_pairs=ref_pairs,
-                )
-            except Exception:
-                stats["failed"] += 1
-            continue
-
-        result = _call_flora(sess, doi, debug=debug)
-        payload = result.get("payload")
-        payload_clean = _prune_nulls(payload)
-        status = bool(payload_clean)
-        ref_pairs = _extract_ref_objects(payload_clean) if payload_clean else []
+        ref_pairs = flora_pairs.get(doi) or []
+        status = bool(ref_pairs)
         try:
-            cache_repo.put(
-                cache_key,
-                payload_clean,
-                source="flora_original",
-                ttl_seconds=ttl_seconds,
-                status=status,
-            )
             repo.update_reference_flora(
                 osfid,
                 refid,
@@ -328,8 +302,12 @@ def lookup_originals_with_flora(
             stats["updated"] += 1
         except Exception:
             stats["failed"] += 1
-
-        time.sleep(0.1)  # be polite
+            _exception(
+                "Failed to update FLORA lookup result",
+                osf_id=osfid,
+                ref_id=refid,
+                match_found=status,
+            )
 
     return stats
 
@@ -337,14 +315,29 @@ def lookup_originals_with_flora(
 if __name__ == "__main__":
     import argparse
 
-    ap = argparse.ArgumentParser(description="Lookup originals via FLORA API for references that already have DOIs.")
+    ap = argparse.ArgumentParser(
+        description="Lookup originals via local FLORA CSV for references that already have DOIs."
+    )
     ap.add_argument("--limit", type=int, default=200)
     ap.add_argument("--osf_id", default=None)
     ap.add_argument("--ref_id", default=None)
     ap.add_argument("--no-only-unchecked", action="store_true", help="Process all DOI rows even if already checked.")
-    ap.add_argument("--cache-path", default=None, help="Deprecated; ignored (database cache is used).")
-    ap.add_argument("--cache-ttl-hours", type=int, default=None)
-    ap.add_argument("--ignore-cache", action="store_true", help="Bypass database cache and call FLORA again.")
+    ap.add_argument(
+        "--cache-path",
+        default=None,
+        help="Override FLORA CSV path (defaults to FLORA_CSV_PATH or data/flora.csv).",
+    )
+    ap.add_argument(
+        "--cache-ttl-hours",
+        type=int,
+        default=None,
+        help="Deprecated; ignored when using local FLORA CSV lookup.",
+    )
+    ap.add_argument(
+        "--ignore-cache",
+        action="store_true",
+        help="Deprecated; ignored when using local FLORA CSV lookup.",
+    )
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
 

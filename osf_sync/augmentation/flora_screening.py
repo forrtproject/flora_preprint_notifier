@@ -1,12 +1,9 @@
 from __future__ import annotations
-
-import logging
 from collections import defaultdict
 from typing import Any, Dict, List, Optional, Set
 
 from ..dynamo.preprints_repo import PreprintsRepo
-from ..dynamo.api_cache_repo import ApiCacheRepo
-from .flora_original_lookup import normalize_doi, lookup_originals_with_flora, _extract_ref_objects, _cache_key_for_doi
+from .flora_original_lookup import normalize_doi, lookup_originals_with_flora, _extract_ref_objects
 from ..logging_setup import get_logger, with_extras
 
 logger = get_logger(__name__)
@@ -41,7 +38,6 @@ def screen_flora_replications(
     already cited in the same preprint reference list.
     """
     repo = PreprintsRepo()
-    cache_repo = ApiCacheRepo()
     rows = repo.select_refs_with_flora_original(
         limit=limit,
         osf_id=osf_id,
@@ -89,14 +85,6 @@ def screen_flora_replications(
                 payload = r.get("flora_lookup_payload")
                 if payload:
                     ref_objs = _extract_ref_objects(payload)
-                else:
-                    doi_key = normalize_doi(r.get("doi"))
-                    if doi_key:
-                        cached = cache_repo.get(_cache_key_for_doi(doi_key))
-                        cached_payload = cached.get(
-                            "payload") if cached else None
-                        if cached_payload:
-                            ref_objs = _extract_ref_objects(cached_payload)
             matching_pairs = []
             for obj in ref_objs:
                 doi_o = normalize_doi(obj.get("doi_o"))
@@ -187,7 +175,7 @@ def lookup_and_screen_flora(
     debug: bool = False,
 ) -> Dict[str, Any]:
     """
-    Convenience wrapper: first run FLORA lookup to populate original DOIs, then screen.
+    Convenience wrapper: first run FLORA local CSV lookup to populate original DOIs, then screen.
     Returns {"lookup": {...stats...}, "screen": [...results...]}.
     """
     lookup_stats = lookup_originals_with_flora(
@@ -212,10 +200,10 @@ def lookup_and_screen_flora(
 if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser(
-        description="Screen replication DOIs via FLORA original lookup comparison.")
+        description="Screen replication DOIs via FLORA local CSV comparison.")
     ap.add_argument("--limit", type=int, default=500)
     ap.add_argument("--limit-lookup", type=int, default=200,
-                    help="How many rows to send to FLORA lookup before screening")
+                    help="How many rows to run through FLORA local CSV lookup before screening")
     ap.add_argument("--osf_id", default=None)
     ap.add_argument("--only-osf-id", dest="osf_id", default=None,
                     help="Alias for --osf_id to process a single OSF id")
@@ -228,7 +216,7 @@ if __name__ == "__main__":
                     help="Re-run lookup even for rows with prior FLORA status")
     ap.add_argument("--cache-ttl-hours", type=int, default=None)
     ap.add_argument("--ignore-cache", action="store_true",
-                    help="Bypass database cache and call FLORA again")
+                    help="Deprecated; ignored for local FLORA CSV lookup")
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
 

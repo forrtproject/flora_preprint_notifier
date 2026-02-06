@@ -26,7 +26,7 @@ python -m osf_sync.pipeline run --stage extract --limit 200
 | `matching_crossref.py` | Crossref scoring pipeline. |
 | `doi_check_openalex.py` | OpenAlex lookup/fuzzy matching. |
 | `doi_multi_method.py` | Combined DOI enrichment strategy used in the pipeline stage. |
-| `flora_original_lookup.py` | FLoRA lookup + cache persistence. |
+| `flora_original_lookup.py` | FLoRA lookup from local `flora.csv` (auto-refreshed daily). |
 | `flora_screening.py` | FLoRA lookup/screen orchestration. |
 
 Pipeline commands:
@@ -47,4 +47,4 @@ python -m osf_sync.augmentation.run_extract --osf_id <OSF_ID> --provider-id <PRO
 ## Notes
 
 - All writes happen through `PreprintsRepo`.
-- FLoRA payloads are cached in `api_cache` with TTL.
+- FLoRA lookup uses a local CSV file (`FLORA_CSV_PATH`) refreshed daily from FReD-data.
