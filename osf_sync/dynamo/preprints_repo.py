@@ -487,6 +487,18 @@ class PreprintsRepo:
             ExpressionAttributeValues={":v": bool(original_cited), ":t": now},
         )
 
+    def update_preprint_author_email_candidates(
+        self,
+        osf_id: str,
+        candidates: List[Dict[str, Any]],
+    ) -> None:
+        now = dt.datetime.utcnow().isoformat()
+        self.t_preprints.update_item(
+            Key={"osf_id": osf_id},
+            UpdateExpression="SET author_email_candidates=:c, updated_at=:t",
+            ExpressionAttributeValues={":c": candidates, ":t": now},
+        )
+
 
 def _chunks(seq: List[str], size: int) -> Iterable[List[str]]:
     for i in range(0, len(seq), size):

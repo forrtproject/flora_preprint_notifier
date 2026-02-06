@@ -65,6 +65,9 @@ CSV_COLUMNS = [
     "orcid.source",
     "pdf.email",
     "affiliation.orcid",
+    "email.possible",
+    "email.similarity",
+    "review_needed",
 ]
 
 
@@ -240,6 +243,18 @@ def _initials(text: str) -> str:
         return ""
     parts = re.split(r"\s+", text.strip())
     return "".join(p[0] for p in parts if p)
+
+
+def _initials_only(text: str) -> str:
+    if not text:
+        return ""
+    parts = [p for p in re.split(r"\s+", text.strip()) if p]
+    initials = []
+    for p in parts:
+        p_clean = p.strip(".")
+        if p_clean:
+            initials.append(p_clean[0])
+    return "".join(initials)
 
 
 def _strip_middle_initials(text: str) -> str:
@@ -1076,6 +1091,10 @@ def _best_email_for_author(
     full_gs_no_mid = _normalize_name(f"{given_no_mid} {surname}".strip())
     init_s = _normalize_name(f"{_first_name(given_no_mid)[:1]} {surname}".strip()) if given_no_mid else _normalize_name(surname)
     variants = [v for v in {full_gs, full_sg, full_gs_no_mid, init_s, given_n, given_no_mid_n, surname_n} if v]
+    initials_raw = _initials_only(f"{given_no_mid} {surname}".strip())
+    initials_norm = _normalize_name(initials_raw)
+    initials_raw_full = _initials_only(f"{given} {surname}".strip())
+    initials_norm_full = _normalize_name(initials_raw_full)
     for email in emails:
         local_raw = email.split("@", 1)[0].lower()
         local = _normalize_name(local_raw)
@@ -1097,6 +1116,21 @@ def _best_email_for_author(
                 sim += 0.20
             elif local == surname_n:
                 sim -= 0.10
+        # Boost emails that are primarily initials (e.g., stz2)
+        if initials_norm or initials_norm_full:
+            local_alpha = _normalize_name(re.sub(r"\d+", "", local_raw))
+            for init in [initials_norm_full, initials_norm]:
+                if not init:
+                    continue
+                if local_alpha == init:
+                    sim = max(sim, 0.90)
+                    break
+                if local_alpha.startswith(init):
+                    sim = max(sim, 0.75)
+                    break
+                if init in local_alpha:
+                    sim = max(sim, 0.65)
+                    break
         if preferred_emails and email in preferred_emails:
             sim += preferred_boost
         if sim > 1.0:
@@ -1107,23 +1141,10 @@ def _best_email_for_author(
     return best_email, best_sim
 
 
-def _match_emails_in_csv(path: str, threshold: float) -> None:
-    in_path = Path(path)
-    tmp_path = in_path.with_suffix(in_path.suffix + ".tmp")
-    with open(in_path, "r", encoding="utf-8", newline="") as fh:
-        reader = csv.DictReader(fh)
-        rows = list(reader)
-        fieldnames = list(reader.fieldnames or [])
-
-    for col in ["email.possible", "email.similarity", "review_needed"]:
-        if col not in fieldnames:
-            fieldnames.append(col)
-
-    by_id: Dict[str, List[Dict[str, Any]]] = {}
-    for row in rows:
-        pid = row.get("id") or row.get("osf_id") or ""
-        by_id.setdefault(pid, []).append(row)
-
+def _score_group_email_matches(
+    group: List[Dict[str, Any]],
+    threshold: float,
+) -> List[Dict[str, Any]]:
     def _pick(row: Dict[str, Any], keys: List[str]) -> str:
         for k in keys:
             val = row.get(k)
@@ -1145,7 +1166,28 @@ def _match_emails_in_csv(path: str, threshold: float) -> None:
         "family",
     ]
 
-    def _score_with_names(given: str, surname: str, candidates: List[str], preferred_orcid: Set[str]) -> Tuple[Optional[str], float]:
+    def _full_name_from_row(row: Dict[str, Any]) -> str:
+        # Prefer TEI/ORCID names over OSF display name for author_email_candidates
+        given = (row.get("name.given") or "").strip()
+        surname = (row.get("name.surname") or "").strip()
+        if given or surname:
+            return " ".join([given, surname]).strip()
+        given = (row.get("name.given.orcid") or "").strip()
+        surname = (row.get("name.surname.orcid") or "").strip()
+        if given or surname:
+            return " ".join([given, surname]).strip()
+        for k in ["osf.name", "name", "full_name"]:
+            val = (row.get(k) or "").strip()
+            if val and val.upper() != "NA":
+                return val
+        return ""
+
+    def _score_with_names(
+        given: str,
+        surname: str,
+        candidates: List[str],
+        preferred_orcid: Set[str],
+    ) -> Tuple[Optional[str], float]:
         if not given or not surname:
             return None, 0.0
         return _best_email_for_author(
@@ -1155,59 +1197,100 @@ def _match_emails_in_csv(path: str, threshold: float) -> None:
             preferred_emails=preferred_orcid,
         )
 
+    candidates: List[str] = []
+    preferred_orcid: Set[str] = set()
+    for row in group:
+        candidates.extend(_email_candidates_from_row(row))
+        source = (row.get("email.source") or "").strip().lower()
+        if source == "orcid":
+            val = (row.get("email") or "").strip()
+            clean = _clean_email(val, allow_blacklist=True)
+            if clean:
+                preferred_orcid.add(clean)
+                candidates.append(clean)
+    candidates = list(dict.fromkeys(candidates))
+
+    for row in group:
+        scores: List[Tuple[Optional[str], float]] = []
+
+        # OSF names
+        osf_given = _pick(row, ["osf.name.given"])
+        osf_surname = _pick(row, ["osf.name.surname"])
+        scores.append(_score_with_names(osf_given, osf_surname, candidates, preferred_orcid))
+
+        # ORCID names
+        orcid_given = _pick(row, ["name.given.orcid"])
+        orcid_surname = _pick(row, ["name.surname.orcid"])
+        scores.append(_score_with_names(orcid_given, orcid_surname, candidates, preferred_orcid))
+
+        # PDF/TEI names
+        tei_given = _pick(row, ["name.given"] + given_keys)
+        tei_surname = _pick(row, ["name.surname"] + surname_keys)
+        scores.append(_score_with_names(tei_given, tei_surname, candidates, preferred_orcid))
+
+        # Fallback to any full name if all sources missing
+        if not any(sim > 0 for _, sim in scores):
+            full = _pick(row, ["osf.name", "name", "full_name"])
+            if full:
+                parts = full.split()
+                if len(parts) >= 2:
+                    fallback_given = " ".join(parts[:-1])
+                    fallback_surname = parts[-1]
+                    scores.append(_score_with_names(fallback_given, fallback_surname, candidates, preferred_orcid))
+
+        best_email, best_sim = max(scores, key=lambda s: s[1]) if scores else (None, 0.0)
+        row["email.possible"] = best_email or "NA"
+        row["email.similarity"] = f"{best_sim:.3f}" if best_email else "0.000"
+        existing = (row.get("email") or "").strip()
+        if existing.upper() == "NA":
+            existing = ""
+        review = (
+            (not best_email)
+            or (best_sim < threshold)
+            or (existing and best_email and existing.lower() != best_email.lower())
+        )
+        row["review_needed"] = "TRUE" if review else "FALSE"
+
+    false_rows = [r for r in group if (r.get("review_needed") or "").strip().upper() == "FALSE"]
+    chosen_rows = false_rows
+    if not chosen_rows:
+        def _score_val(r: Dict[str, Any]) -> float:
+            try:
+                return float(r.get("email.similarity") or 0.0)
+            except Exception:
+                return 0.0
+        chosen_rows = [max(group, key=_score_val)] if group else []
+
+    author_candidates: List[Dict[str, Any]] = []
+    for r in chosen_rows:
+        full_name = _full_name_from_row(r)
+        email_possible = (r.get("email.possible") or "").strip()
+        if email_possible.upper() == "NA":
+            email_possible = "NA"
+        author_candidates.append({"name": full_name, "email": email_possible})
+
+    return author_candidates
+
+
+def _match_emails_in_csv(path: str, threshold: float) -> None:
+    in_path = Path(path)
+    tmp_path = in_path.with_suffix(in_path.suffix + ".tmp")
+    with open(in_path, "r", encoding="utf-8", newline="") as fh:
+        reader = csv.DictReader(fh)
+        rows = list(reader)
+        fieldnames = list(reader.fieldnames or [])
+
+    for col in ["email.possible", "email.similarity", "review_needed"]:
+        if col not in fieldnames:
+            fieldnames.append(col)
+
+    by_id: Dict[str, List[Dict[str, Any]]] = {}
+    for row in rows:
+        pid = row.get("id") or row.get("osf_id") or ""
+        by_id.setdefault(pid, []).append(row)
+
     for pid, group in by_id.items():
-        candidates: List[str] = []
-        preferred_orcid: Set[str] = set()
-        for row in group:
-            candidates.extend(_email_candidates_from_row(row))
-            source = (row.get("email.source") or "").strip().lower()
-            if source == "orcid":
-                val = (row.get("email") or "").strip()
-                clean = _clean_email(val, allow_blacklist=True)
-                if clean:
-                    preferred_orcid.add(clean)
-                    candidates.append(clean)
-        candidates = list(dict.fromkeys(candidates))
-        for row in group:
-            scores: List[Tuple[Optional[str], float]] = []
-
-            # OSF names
-            osf_given = _pick(row, ["osf.name.given"])
-            osf_surname = _pick(row, ["osf.name.surname"])
-            scores.append(_score_with_names(osf_given, osf_surname, candidates, preferred_orcid))
-
-            # ORCID names
-            orcid_given = _pick(row, ["name.given.orcid"])
-            orcid_surname = _pick(row, ["name.surname.orcid"])
-            scores.append(_score_with_names(orcid_given, orcid_surname, candidates, preferred_orcid))
-
-            # PDF/TEI names
-            tei_given = _pick(row, ["name.given"] + given_keys)
-            tei_surname = _pick(row, ["name.surname"] + surname_keys)
-            scores.append(_score_with_names(tei_given, tei_surname, candidates, preferred_orcid))
-
-            # Fallback to any full name if all sources missing
-            if not any(sim > 0 for _, sim in scores):
-                full = _pick(row, ["osf.name", "name", "full_name"])
-                if full:
-                    parts = full.split()
-                    if len(parts) >= 2:
-                        fallback_given = " ".join(parts[:-1])
-                        fallback_surname = parts[-1]
-                        scores.append(_score_with_names(fallback_given, fallback_surname, candidates, preferred_orcid))
-
-            best_email, best_sim = max(scores, key=lambda s: s[1]) if scores else (None, 0.0)
-            row["email.possible"] = best_email or "NA"
-            row["email.similarity"] = f"{best_sim:.3f}" if best_email else "0.000"
-            existing = (row.get("email") or "").strip()
-            if existing.upper() == "NA":
-                existing = ""
-            review = (
-                (not best_email)
-                or (best_sim < threshold)
-                or (existing and best_email and existing.lower() != best_email.lower())
-            )
-            row["review_needed"] = "TRUE" if review else "FALSE"
+        _score_group_email_matches(group, threshold)
 
     with open(tmp_path, "w", encoding="utf-8", newline="") as fh:
         writer = csv.DictWriter(fh, fieldnames=fieldnames)
@@ -1247,7 +1330,7 @@ def run_author_extract(
     debug_log: Optional[str] = None,
     match_emails_file: Optional[str] = None,
     match_emails_threshold: float = 0.90,
-    auto_match_emails: bool = True,
+    include_existing: bool = False,
 ) -> int:
     global _LOG_FH, DEBUG
     if debug_log:
@@ -1296,6 +1379,9 @@ def run_author_extract(
             osf_id = item.get("osf_id")
             _inc(stats, "preprints_total")
             try:
+                if not include_existing and item.get("author_email_candidates"):
+                    _dbg(f"[{osf_id}] skip: author_email_candidates already present")
+                    continue
                 rows = _process_preprint(
                     item,
                     pdf_root,
@@ -1307,6 +1393,11 @@ def run_author_extract(
                     stats=stats,
                 )
                 if rows:
+                    candidates = _score_group_email_matches(rows, match_emails_threshold)
+                    try:
+                        repo.update_preprint_author_email_candidates(osf_id, candidates)
+                    except Exception as exc:
+                        _log(f"[warn] {osf_id}: author_email_candidates update failed ({exc})")
                     for row in rows:
                         writer.writerow(_row_for_csv(row))
                     count_rows += len(rows)
@@ -1317,10 +1408,9 @@ def run_author_extract(
                 _log(f"[warn] {osf_id}: {exc}")
 
     _log(f"Wrote {count_rows} rows to {out_path}")
-    if auto_match_emails:
-        _log(f"Matching emails in {out_path} (threshold={match_emails_threshold})")
-        _match_emails_in_csv(str(out_path), match_emails_threshold)
-        _log("Email matching complete")
+    _log(f"Matching emails in {out_path} (threshold={match_emails_threshold})")
+    _match_emails_in_csv(str(out_path), match_emails_threshold)
+    _log("Email matching complete")
     _log("Stats summary:")
     _log(
         f"preprints total={stats.get('preprints_total', 0)} "
@@ -1411,9 +1501,9 @@ def main() -> int:
         help="Similarity threshold for review flag.",
     )
     parser.add_argument(
-        "--no-match-emails",
+        "--include-existing",
         action="store_true",
-        help="Disable auto email matching on the output CSV.",
+        help="Process preprints even if author_email_candidates already present.",
     )
     args = parser.parse_args()
     return run_author_extract(
@@ -1427,7 +1517,7 @@ def main() -> int:
         debug_log=args.debug_log,
         match_emails_file=args.match_emails_file,
         match_emails_threshold=args.match_emails_threshold,
-        auto_match_emails=not args.no_match_emails,
+        include_existing=args.include_existing,
     )
 
 

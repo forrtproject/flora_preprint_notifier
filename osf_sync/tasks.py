@@ -402,7 +402,7 @@ def author_extract(
     debug_log: Optional[str] = None,
     match_emails_file: Optional[str] = None,
     match_emails_threshold: float = 0.90,
-    auto_match_emails: bool = True,
+    include_existing: bool = False,
 ):
     """
     Run author extraction as a Celery task.
@@ -418,7 +418,7 @@ def author_extract(
         debug_log=debug_log,
         match_emails_file=match_emails_file,
         match_emails_threshold=match_emails_threshold,
-        auto_match_emails=auto_match_emails,
+        include_existing=include_existing,
     )
 
 

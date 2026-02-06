@@ -2,6 +2,7 @@ import os
 from celery import Celery
 from celery.schedules import crontab
 from dotenv import load_dotenv
+load_dotenv()
 
 OPENALEX_EMAIL = os.environ["OPENALEX_EMAIL"]
 
@@ -9,7 +10,7 @@ app = Celery(
     "osf_sync",
     broker=os.getenv("CELERY_BROKER_URL", "redis://redis:6379/0"),
     backend=os.getenv("CELERY_RESULT_BACKEND", "redis://redis:6379/0"),
-    include=["osf_sync.tasks", "osf_sync.augmentation"],            
+    include=["osf_sync.tasks", "osf_sync.augmentation"],
 )
 
 app.conf.update(
@@ -21,7 +22,7 @@ app.conf.update(
 
 app.conf.task_routes = {
     "osf_sync.tasks.download_single_pdf": {"queue": "pdf"},
-}   
+}
 
 app.conf.beat_schedule.update({
     "queue-pdf-downloads-daily": {
