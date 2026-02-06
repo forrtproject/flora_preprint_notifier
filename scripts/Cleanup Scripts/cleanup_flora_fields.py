@@ -44,14 +44,14 @@ table = ddb.Table("preprint_references")
 
 scan_kwargs = {
     "FilterExpression": (
-        "attribute_exists(forrt_refs) OR attribute_exists(forrt_doi_r_set) "
-        "OR attribute_exists(forrt_apa_ref_o_set) OR attribute_exists(forrt_apa_ref_r_set) "
-        "OR attribute_exists(forrt_lookup_payload) OR attribute_exists(forrt_matching_replication_dois) "
-        "OR attribute_exists(forrt_refs_count)"
+        "attribute_exists(flora_refs) OR attribute_exists(flora_doi_r_set) "
+        "OR attribute_exists(flora_apa_ref_o_set) OR attribute_exists(flora_apa_ref_r_set) "
+        "OR attribute_exists(flora_lookup_payload) OR attribute_exists(flora_matching_replication_dois) "
+        "OR attribute_exists(flora_refs_count)"
     ),
-    "ProjectionExpression": "osf_id, ref_id, forrt_lookup_payload, forrt_lookup_status, "
-                            "forrt_refs, forrt_doi_r_set, forrt_apa_ref_o_set, forrt_apa_ref_r_set, "
-                            "forrt_matching_replication_dois, forrt_refs_count",
+    "ProjectionExpression": "osf_id, ref_id, flora_lookup_payload, flora_lookup_status, "
+                            "flora_refs, flora_doi_r_set, flora_apa_ref_o_set, flora_apa_ref_r_set, "
+                            "flora_matching_replication_dois, flora_refs_count",
 }
 
 items = []
@@ -68,15 +68,15 @@ updated = 0
 for it in items:
     osf_id = it["osf_id"]
     ref_id = it["ref_id"]
-    payload = it.get("forrt_lookup_payload")
-    removes = ["forrt_refs", "forrt_doi_r_set", "forrt_apa_ref_o_set", "forrt_apa_ref_r_set",
-               "forrt_matching_replication_dois", "forrt_refs_count"]
+    payload = it.get("flora_lookup_payload")
+    removes = ["flora_refs", "flora_doi_r_set", "flora_apa_ref_o_set", "flora_apa_ref_r_set",
+               "flora_matching_replication_dois", "flora_refs_count"]
     sets = []
     eav = {}
 
     if is_empty_payload(payload) or has_null_marker(payload):
-        removes.append("forrt_lookup_payload")
-        sets.append("forrt_lookup_status = :s")
+        removes.append("flora_lookup_payload")
+        sets.append("flora_lookup_status = :s")
         eav[":s"] = False
 
     # nothing to do

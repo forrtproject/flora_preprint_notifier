@@ -419,7 +419,7 @@ class PreprintsRepo:
         only_unchecked: bool = True,
     ) -> List[Dict[str, Any]]:
         """
-        Return references that already have a DOI. Optionally restrict to rows without FORRT status.
+        Return references that already have a DOI. Optionally restrict to rows without FLORA status.
         """
         items: List[Dict[str, Any]] = []
 
@@ -449,7 +449,7 @@ class PreprintsRepo:
             for it in items:
                 if not it:
                     continue
-                status_val = it.get("forrt_lookup_status")
+                status_val = it.get("flora_lookup_status")
                 # retry if no status yet, or explicitly False
                 if status_val in (None, False):
                     filtered.append(it)
@@ -459,7 +459,7 @@ class PreprintsRepo:
             items = items[:limit]
         return items
 
-    def select_refs_with_forrt_original(
+    def select_refs_with_flora_original(
         self,
         limit: int,
         osf_id: Optional[str] = None,
@@ -468,15 +468,15 @@ class PreprintsRepo:
         include_missing_original: bool = False,
     ) -> List[Dict[str, Any]]:
         """
-        Return references that have been processed by FORRT lookup.
+        Return references that have been processed by FLORA lookup.
         If include_missing_original is True, include rows with status=False.
         """
         items: List[Dict[str, Any]] = []
 
-        def _has_forrt(it: Dict[str, Any]) -> bool:
-            status = it.get("forrt_lookup_status")
-            has_payload = it.get("forrt_lookup_payload") is not None
-            has_refs = bool(it.get("forrt_refs"))
+        def _has_flora(it: Dict[str, Any]) -> bool:
+            status = it.get("flora_lookup_status")
+            has_payload = it.get("flora_lookup_payload") is not None
+            has_refs = bool(it.get("flora_refs"))
             if include_missing_original:
                 return (status is not None) or has_payload or has_refs
             return (status is True) or has_payload or has_refs
@@ -489,16 +489,16 @@ class PreprintsRepo:
                     kwargs["ExclusiveStartKey"] = last_key
                 resp = self.t_refs.query(**kwargs)
                 chunk = resp.get("Items", [])
-                items.extend([it for it in chunk if it and _has_forrt(it)])
+                items.extend([it for it in chunk if it and _has_flora(it)])
                 last_key = resp.get("LastEvaluatedKey")
                 if not last_key or (limit and len(items) >= limit):
                     break
         else:
             if include_missing_original:
-                fe = "attribute_exists(forrt_lookup_status) OR attribute_exists(forrt_lookup_payload) OR attribute_exists(forrt_refs)"
+                fe = "attribute_exists(flora_lookup_status) OR attribute_exists(flora_lookup_payload) OR attribute_exists(flora_refs)"
                 eav = None
             else:
-                fe = "forrt_lookup_status = :true OR attribute_exists(forrt_lookup_payload) OR attribute_exists(forrt_refs)"
+                fe = "flora_lookup_status = :true OR attribute_exists(flora_lookup_payload) OR attribute_exists(flora_refs)"
                 eav = {":true": True}
             scan_kwargs = {"FilterExpression": fe, "Limit": limit}
             if eav is not None:
@@ -538,7 +538,7 @@ class PreprintsRepo:
             ExpressionAttributeValues={":v": validity, ":t": now},
         )
 
-    def update_reference_forrt(
+    def update_reference_flora(
         self,
         osf_id: str,
         ref_id: str,
@@ -547,16 +547,16 @@ class PreprintsRepo:
         ref_pairs: Optional[List[Dict[str, Any]]] = None,
     ) -> None:
         now = dt.datetime.utcnow().isoformat()
-        set_exprs = ["forrt_lookup_status=:s", "forrt_checked_at=:t", "updated_at=:t"]
-        remove_exprs = ["forrt_lookup_payload", "forrt_refs", "forrt_refs_count", "forrt_ref_pairs", "forrt_ref_pairs_count"]
+        set_exprs = ["flora_lookup_status=:s", "flora_checked_at=:t", "updated_at=:t"]
+        remove_exprs = ["flora_lookup_payload", "flora_refs", "flora_refs_count", "flora_ref_pairs", "flora_ref_pairs_count"]
         eav: Dict[str, Any] = {":s": bool(status), ":t": now}
 
         if ref_pairs is not None:
-            set_exprs.append("forrt_ref_pairs=:p")
+            set_exprs.append("flora_ref_pairs=:p")
             eav[":p"] = ref_pairs
-            set_exprs.append("forrt_ref_pairs_count=:pc")
+            set_exprs.append("flora_ref_pairs_count=:pc")
             eav[":pc"] = len(ref_pairs)
-            remove_exprs = [r for r in remove_exprs if r not in {"forrt_ref_pairs", "forrt_ref_pairs_count"}]
+            remove_exprs = [r for r in remove_exprs if r not in {"flora_ref_pairs", "flora_ref_pairs_count"}]
 
         update_expr = "SET " + ", ".join(set_exprs)
         if remove_exprs:
@@ -568,7 +568,7 @@ class PreprintsRepo:
             ExpressionAttributeValues=eav,
         )
 
-    def update_reference_forrt_screening(
+    def update_reference_flora_screening(
         self,
         osf_id: str,
         ref_id: str,
@@ -576,7 +576,7 @@ class PreprintsRepo:
         original_cited: bool,
     ) -> None:
         now = dt.datetime.utcnow().isoformat()
-        update_expr = "SET forrt_original_cited=:v, forrt_screened_at=:t, updated_at=:t REMOVE forrt_matching_replication_dois"
+        update_expr = "SET flora_original_cited=:v, flora_screened_at=:t, updated_at=:t REMOVE flora_matching_replication_dois"
         self.t_refs.update_item(
             Key={"osf_id": osf_id, "ref_id": ref_id},
             UpdateExpression=update_expr,

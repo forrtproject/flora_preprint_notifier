@@ -70,27 +70,27 @@ def has_null_marker(obj):
 ddb = get_dynamo_resource()
 table = ddb.Table("preprint_references")
 
-FORRT_FIELDS = [
-    "forrt_lookup_status",
-    "forrt_lookup_payload",
-    "forrt_lookup_original_doi",
-    "forrt_checked_at",
-    "forrt_original_cited",
-    "forrt_ref_pairs",
-    "forrt_ref_pairs_count",
-    "forrt_refs",
-    "forrt_refs_count",
-    "forrt_matching_replication_dois",
-    "forrt_lookup_has_output",
-    "forrt_doi_r_set",
-    "forrt_apa_ref_o_set",
-    "forrt_apa_ref_r_set",
+FLORA_FIELDS = [
+    "flora_lookup_status",
+    "flora_lookup_payload",
+    "flora_lookup_original_doi",
+    "flora_checked_at",
+    "flora_original_cited",
+    "flora_ref_pairs",
+    "flora_ref_pairs_count",
+    "flora_refs",
+    "flora_refs_count",
+    "flora_matching_replication_dois",
+    "flora_lookup_has_output",
+    "flora_doi_r_set",
+    "flora_apa_ref_o_set",
+    "flora_apa_ref_r_set",
 ]
 
-filter_parts = [f"attribute_exists({f})" for f in FORRT_FIELDS]
+filter_parts = [f"attribute_exists({f})" for f in FLORA_FIELDS]
 scan_kwargs = {
     "FilterExpression": " OR ".join(filter_parts),
-    "ProjectionExpression": "osf_id, ref_id, " + ", ".join(FORRT_FIELDS),
+    "ProjectionExpression": "osf_id, ref_id, " + ", ".join(FLORA_FIELDS),
 }
 
 items = []
@@ -107,7 +107,7 @@ updated = 0
 for it in items:
     osf_id = it["osf_id"]
     ref_id = it["ref_id"]
-    removes = list(FORRT_FIELDS)
+    removes = list(FLORA_FIELDS)
     sets = []
     eav = {}
 

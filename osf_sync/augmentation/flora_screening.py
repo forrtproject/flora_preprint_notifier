@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional, Set
 
 from ..dynamo.preprints_repo import PreprintsRepo
 from ..dynamo.api_cache_repo import ApiCacheRepo
-from .forrt_original_lookup import normalize_doi, lookup_originals_with_forrt, _extract_ref_objects, _cache_key_for_doi
+from .flora_original_lookup import normalize_doi, lookup_originals_with_flora, _extract_ref_objects, _cache_key_for_doi
 from ..logging_setup import get_logger, with_extras
 
 logger = get_logger(__name__)
@@ -26,7 +26,7 @@ def _warn(msg: str, **extras: Any) -> None:
         logger.warning(msg)
 
 
-def screen_forrt_replications(
+def screen_flora_replications(
     *,
     limit: int = 500,
     osf_id: Optional[str] = None,
@@ -35,14 +35,14 @@ def screen_forrt_replications(
     debug: bool = False,
 ) -> List[Dict[str, Any]]:
     """
-    For each preprint, evaluate cited reference DOIs against FORRT original DOIs (doi_o).
+    For each preprint, evaluate cited reference DOIs against FLORA original DOIs (doi_o).
     A reference is a baseline target only when its own DOI is an original with at least one
     linked replication DOI (doi_r). Then check whether any of those linked replications are
     already cited in the same preprint reference list.
     """
     repo = PreprintsRepo()
     cache_repo = ApiCacheRepo()
-    rows = repo.select_refs_with_forrt_original(
+    rows = repo.select_refs_with_flora_original(
         limit=limit,
         osf_id=osf_id,
         ref_id=ref_id,
@@ -64,7 +64,7 @@ def screen_forrt_replications(
             d = normalize_doi(r.get("doi"))
             if d:
                 all_dois.add(d)
-        # Also consider other references without FORRT mapping (so fetch all DOI refs for this preprint).
+        # Also consider other references without FLORA mapping (so fetch all DOI refs for this preprint).
         try:
             extra = repo.select_refs_with_doi(
                 limit=0, osf_id=pid, only_unchecked=False)
@@ -83,10 +83,10 @@ def screen_forrt_replications(
             refid = r.get("ref_id")
             ref_doi = normalize_doi(r.get("doi"))
 
-            # Keep only FORRT pairs where the current cited reference is an original DOI.
-            ref_objs = r.get("forrt_ref_pairs") or []
+            # Keep only FLORA pairs where the current cited reference is an original DOI.
+            ref_objs = r.get("flora_ref_pairs") or []
             if not ref_objs:
-                payload = r.get("forrt_lookup_payload")
+                payload = r.get("flora_lookup_payload")
                 if payload:
                     ref_objs = _extract_ref_objects(payload)
                 else:
@@ -117,13 +117,13 @@ def screen_forrt_replications(
             if not replication_dois:
                 if persist_flags:
                     try:
-                        repo.update_reference_forrt_screening(
+                        repo.update_reference_flora_screening(
                             pid,
                             refid,
                             original_cited=False,
                         )
                     except Exception as e:
-                        _warn("Failed to persist FORRT screening flag",
+                        _warn("Failed to persist FLORA screening flag",
                               osf_id=pid, ref_id=refid, error=str(e))
                 continue
 
@@ -132,13 +132,13 @@ def screen_forrt_replications(
 
             if persist_flags:
                 try:
-                    repo.update_reference_forrt_screening(
+                    repo.update_reference_flora_screening(
                         pid,
                         refid,
                         original_cited=replication_cited,
                     )
                 except Exception as e:
-                    _warn("Failed to persist FORRT screening flag",
+                    _warn("Failed to persist FLORA screening flag",
                           osf_id=pid, ref_id=refid, error=str(e))
 
             payload = {
@@ -168,13 +168,13 @@ def screen_forrt_replications(
             })
 
         if debug:
-            _info("FORRT screening", osf_id=pid, eligible_count=len(
+            _info("FLORA screening", osf_id=pid, eligible_count=len(
                 eligible_refs), total=len(retained_refs))
 
     return results
 
 
-def lookup_and_screen_forrt(
+def lookup_and_screen_flora(
     *,
     limit_lookup: int = 200,
     limit_screen: int = 500,
@@ -187,10 +187,10 @@ def lookup_and_screen_forrt(
     debug: bool = False,
 ) -> Dict[str, Any]:
     """
-    Convenience wrapper: first run FORRT lookup to populate original DOIs, then screen.
+    Convenience wrapper: first run FLORA lookup to populate original DOIs, then screen.
     Returns {"lookup": {...stats...}, "screen": [...results...]}.
     """
-    lookup_stats = lookup_originals_with_forrt(
+    lookup_stats = lookup_originals_with_flora(
         limit=limit_lookup,
         osf_id=osf_id,
         ref_id=ref_id,
@@ -199,7 +199,7 @@ def lookup_and_screen_forrt(
         ignore_cache=ignore_cache,
         debug=debug,
     )
-    screen_results = screen_forrt_replications(
+    screen_results = screen_flora_replications(
         limit=limit_screen,
         osf_id=osf_id,
         ref_id=ref_id,
@@ -212,10 +212,10 @@ def lookup_and_screen_forrt(
 if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser(
-        description="Screen replication DOIs via FORRT original lookup comparison.")
+        description="Screen replication DOIs via FLORA original lookup comparison.")
     ap.add_argument("--limit", type=int, default=500)
     ap.add_argument("--limit-lookup", type=int, default=200,
-                    help="How many rows to send to FORRT lookup before screening")
+                    help="How many rows to send to FLORA lookup before screening")
     ap.add_argument("--osf_id", default=None)
     ap.add_argument("--only-osf-id", dest="osf_id", default=None,
                     help="Alias for --osf_id to process a single OSF id")
@@ -223,17 +223,17 @@ if __name__ == "__main__":
     ap.add_argument("--no-persist", action="store_true",
                     help="Do not write screening flags back to Dynamo.")
     ap.add_argument("--no-lookup-first", action="store_true",
-                    help="Skip the lookup stage and only screen existing FORRT results")
+                    help="Skip the lookup stage and only screen existing FLORA results")
     ap.add_argument("--include-checked", action="store_true",
-                    help="Re-run lookup even for rows with prior FORRT status")
+                    help="Re-run lookup even for rows with prior FLORA status")
     ap.add_argument("--cache-ttl-hours", type=int, default=None)
     ap.add_argument("--ignore-cache", action="store_true",
-                    help="Bypass database cache and call FORRT again")
+                    help="Bypass database cache and call FLORA again")
     ap.add_argument("--debug", action="store_true")
     args = ap.parse_args()
 
     if args.no_lookup_first:
-        out = screen_forrt_replications(
+        out = screen_flora_replications(
             limit=args.limit,
             osf_id=args.osf_id,
             ref_id=args.ref_id,
@@ -242,7 +242,7 @@ if __name__ == "__main__":
         )
         print(out)
     else:
-        out = lookup_and_screen_forrt(
+        out = lookup_and_screen_flora(
             limit_lookup=args.limit_lookup,
             limit_screen=args.limit,
             osf_id=args.osf_id,
