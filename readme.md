@@ -1,335 +1,126 @@
-# OSF Preprints - Modular Pipeline
+# OSF Preprints - Modular Pipeline (No Celery)
 
-This repo runs a pipeline for OSF preprints. It does four big jobs:
+This repository runs a bounded, stage-based pipeline for OSF preprints using DynamoDB as the single source of truth.
 
-1. Ingestion: fetch preprints from the OSF API and store them in DynamoDB (the database).
-2. PDF + GROBID: download files and turn PDFs into TEI XML (GROBID is the PDF parser).
-3. TEI extraction: parse TEI XML and write references back to DynamoDB.
-4. Enrichment: look up missing DOIs using Crossref and OpenAlex.
+Pipeline stages:
+1. `sync`: ingest preprints from OSF
+2. `pdf`: download/convert primary files
+3. `grobid`: generate TEI from PDFs
+4. `extract`: parse TEI and write references
+5. `enrich`: fill missing reference DOIs
+6. `forrt`: FORRT lookup + screening
+7. `author`: author/email candidate extraction
 
-If you are not sure what to run, follow "Quick Start" below.
+All stages run as normal Python commands and exit. Scheduling is external (cron or GitHub Actions).
 
-## Quick Start (Local dev)
+## Quick Start (Local)
 
-1. Fill `.env` (example below). For local dev, keep `DYNAMO_LOCAL_URL` and use fake AWS keys.
-2. Start services:
-   `docker compose up -d dynamodb-local redis`
-   `docker compose up -d celery-worker celery-pdf celery-grobid celery-beat flower`
-3. Create DynamoDB tables (run once):
-   `docker compose run --rm app python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"`
-4. Run a small sync:
-   `docker compose run --rm app python -m osf_sync.cli sync-from-date --start 2025-07-01`
-5. Queue the pipeline:
-   `docker compose run --rm app python -m osf_sync.cli enqueue-pdf --limit 50`
-   `docker compose run --rm app python -m osf_sync.cli enqueue-grobid --limit 25`
-   `docker compose run --rm app python -m osf_sync.cli enqueue-extraction --limit 200`
-6. Enrich references:
-   `docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400`
+1. Configure `.env`.
+2. Start local dependencies:
+```bash
+docker compose up -d dynamodb-local grobid
+```
+3. Initialize DynamoDB tables:
+```bash
+docker compose run --rm app python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"
+```
+4. Run pipeline stages:
+```bash
+docker compose run --rm app python -m osf_sync.pipeline run --stage sync --limit 1000
+docker compose run --rm app python -m osf_sync.pipeline run --stage pdf --limit 100
+docker compose run --rm app python -m osf_sync.pipeline run --stage grobid --limit 50
+docker compose run --rm app python -m osf_sync.pipeline run --stage extract --limit 200
+docker compose run --rm app python -m osf_sync.pipeline run --stage enrich --limit 300
+docker compose run --rm app python -m osf_sync.pipeline run --stage forrt --limit-lookup 200 --limit-screen 500
+```
 
----
+## Main Commands
 
-## Feature overview
+Single stage:
+```bash
+python -m osf_sync.pipeline run --stage <sync|pdf|grobid|extract|enrich|forrt|author> [options]
+```
 
-- Incremental OSF ingestion with DynamoDB-backed cursors.
-- PDF/GROBID pipeline with queue flags stored on each preprint.
-- TEI parsing + reference extraction using the same data path.
-- Enrichment via Crossref + OpenAlex using the multi-method pipeline.
-- Extensive analytics scripts (no Docker required) to inspect coverage, dump references, or compute metrics.
+Full bounded run:
+```bash
+python -m osf_sync.pipeline run-all \
+  --sync-limit 1000 --pdf-limit 100 --grobid-limit 50 --extract-limit 200 --enrich-limit 300
+```
+`run-all` includes the `author` stage by default; use `--skip-author` to disable it for a run.
+By default, `run-all` keeps local PDF/TEI files during `author`; use `--cleanup-author-files` to allow cleanup.
 
----
+Ad-hoc window sync:
+```bash
+python -m osf_sync.pipeline sync-from-date --start 2025-07-01
+```
 
-## Requirements
+One-off preprint:
+```bash
+python -m osf_sync.pipeline fetch-one --id <OSF_ID>
+# or
+python -m osf_sync.pipeline fetch-one --doi <DOI_OR_URL>
+```
 
-- Docker Desktop 4GB+ RAM
-- Python 3.11 (for local helpers) + pip/venv (optional)
-- AWS CLI (optional, for querying AWS DynamoDB)
-- OSF API token and optional AWS credentials (for hosted DynamoDB)
+`python -m osf_sync.cli ...` is now a thin alias to the same pipeline CLI.
 
----
+## Common Options
 
-## Environment Configuration (`.env`)
+- `--limit`: max items for the stage.
+- `--max-seconds`: stop the stage after N seconds.
+- `--dry-run`: compute/select work without executing mutations.
+- `--debug`: enable verbose logging.
+- `--owner` and `--lease-seconds` (queue stages): override DynamoDB claim ownership/lease duration.
+- `--skip-author` (`run-all`): skip author extraction when needed.
+- `--cleanup-author-files` (`run-all`): allow author stage file deletion (off by default).
+
+## Environment (`.env`)
 
 ```dotenv
 GROBID_URL=http://grobid:8070
 GROBID_INCLUDE_RAW_CITATIONS=true
-CELERY_BROKER_URL=redis://redis:6379/0
 AWS_REGION=eu-north-1
 AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
 AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
 DDB_TABLE_PREPRINTS=preprints
 DDB_TABLE_REFERENCES=preprint_references
 DDB_TABLE_SYNCSTATE=sync_state
+DDB_TABLE_API_CACHE=api_cache
 OPENALEX_EMAIL=<PERSONAL_EMAIL_ID>
 PDF_DEST_ROOT=/data/preprints
 LOG_LEVEL=INFO
 OSF_INGEST_ANCHOR_DATE=YYYY-MM-DD
-API_CACHE_TTL_MONTHS=6
-DDB_TABLE_API_CACHE=api_cache
 OSF_INGEST_SKIP_EXISTING=false
+API_CACHE_TTL_MONTHS=6
+PIPELINE_CLAIM_LEASE_SECONDS=1800
 ```
 
-- For **AWS DynamoDB**, comment out `DYNAMO_LOCAL_URL` and set real AWS credentials (or rely on an IAM role).
-- The table names can be overridden with `DDB_TABLE_*` env vars.
-- Set `GROBID_INCLUDE_RAW_CITATIONS=false` if you do not want raw citation sections in the TEI output.
-- When `OSF_INGEST_ANCHOR_DATE` is set, ingestion only keeps preprints whose
-  `original_publication_date` (if present) or `date_published` falls within the
-  6-month window ending on the anchor date. If a preprint has `links.doi` and
-  that DOI link is not an OSF or Zenodo link (`osf.io`, `zenodo.org`, or a
-  Zenodo DOI like `10.5281/zenodo...`), it is skipped.
-- `API_CACHE_TTL_MONTHS` controls the default TTL horizon for the `api_cache` table
-  (used for API response caching). DynamoDB TTL is enabled on `expires_at`.
-- `OSF_INGEST_SKIP_EXISTING=true` skips upserting records that already exist in
-  the preprints table (adds a read-before-write check).
+## Scheduling
 
----
+Use either:
+- Cron/systemd timers on a VM, or
+- GitHub Actions `schedule` workflows.
 
-## Running the ingestion stack
+Recommended pattern:
+- Run each stage independently on a cadence with bounded limits.
+- Allow overlap; claim/lease fields in DynamoDB prevent duplicate processing.
 
-```bash
-docker compose up -d dynamodb-local redis
-docker compose up -d celery-worker celery-pdf celery-grobid celery-beat flower
-```
+## DynamoDB Queue Flow
 
-- The `app` service is a helper container that initializes tables and prints CLI usage before exiting. Run one-off commands via `docker compose run --rm app ...`.
-- Source code is bind-mounted into the containers, so edits in your IDE take effect immediately.
+1. `sync` sets `queue_pdf=pending` when eligible.
+2. `pdf` marks `queue_pdf=done`, `queue_grobid=pending`.
+3. `grobid` marks `queue_grobid=done`, `queue_extract=pending`.
+4. `extract` marks `queue_extract=done`.
 
-### Common commands
+Queue stages use claim/lease metadata (`claim_*_owner`, `claim_*_until`) and error tracking fields (`last_error_*`, `retry_count_*`).
 
-| Action                     | Command                                                                      |
-| -------------------------- | ---------------------------------------------------------------------------- |
-| Build images               | `docker compose build`                                                       |
-| Start stack                | `docker compose up -d`                                                       |
-| Inspect Celery worker logs | `docker compose logs -f celery-worker`                                       |
-| Inspect PDF/GROBID logs    | `docker compose logs -f celery-pdf` / `docker compose logs -f celery-grobid` |
-| Flower dashboard           | visit `http://localhost:5555`                                                |
+## Manual Post-GROBID Scripts
 
----
+Scripts under `scripts/manual_post_grobid/` still work for ad-hoc analysis and downstream jobs.
 
-## DynamoDB: Local vs AWS
-
-### Local DynamoDB (default dev workflow)
-
-1. `docker compose up -d dynamodb-local`
-2. Ensure `.env` still contains `DYNAMO_LOCAL_URL=http://dynamodb-local:8000` and dummy AWS credentials.
-3. Initialize tables/GSIs (only needed once):
-   ```bash
-   docker compose run --rm app python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"
-   ```
-
-### AWS-hosted DynamoDB
-
-1. Comment/remove `DYNAMO_LOCAL_URL` in `.env`.
-2. Export valid `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_REGION` (or rely on an IAM role).
-3. Run `init_db()` once to create tables + GSIs in AWS:
-   ```bash
-   python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"
-   ```
-4. Restart services so they use the AWS endpoint.
-
-> `init_db()` auto-creates tables and adds any missing GSIs. It is idempotent; rerun it after deploying schema changes.
-
----
-
-## Inspecting DynamoDB Data
-
-### Helper script (hosts & containers)
-
-Run from repo root:
-
-```bash
-# Host (ensure env vars/venv installed)
-python -m osf_sync.dump_ddb --limit 5 --queues
-
-# Container
-docker compose exec app python /app/osf_sync/dump_ddb.py --limit 5 --queues
-```
-
-Flags:
-
-- `--table preprints` scans only that table.
-- `--queues` queries `by_queue_pdf`, `by_queue_grobid`, `by_queue_extract` GSIs (falls back to scans if missing).
-
-### AWS CLI snippets
-
-Add `--endpoint-url http://localhost:8000` to point commands at local DynamoDB.
-
-```powershell
-# List tables
-aws dynamodb list-tables --region eu-north-1
-
-# Scan 10 preprints
-aws dynamodb scan --table-name preprints --limit 10 --region eu-north-1
-
-# Get a single preprint
-aws dynamodb get-item --table-name preprints `
-  --key '{"osf_id":{"S":"<OSF_ID>"}}' `
-  --region eu-north-1
-
-# Get a reference (composite key)
-aws dynamodb get-item --table-name preprint_references `
-  --key '{"osf_id":{"S":"<OSF_ID>"},"ref_id":{"S":"<REF_ID>"}}' `
-  --region eu-north-1
-
-# Queue queries
-aws dynamodb query --table-name preprints `
-  --index-name by_queue_pdf `
-  --key-condition-expression "queue_pdf = :q" `
-  --expression-attribute-values '{":q":{"S":"pending"}}' `
-  --limit 20 --region eu-north-1
-
-aws dynamodb query --table-name preprints `
-  --index-name by_queue_grobid `
-  --key-condition-expression "queue_grobid = :q" `
-  --expression-attribute-values '{":q":{"S":"pending"}}' `
-  --limit 20 --region eu-north-1
-
-aws dynamodb query --table-name preprints `
-  --index-name by_queue_extract `
-  --key-condition-expression "queue_extract = :q" `
-  --expression-attribute-values '{":q":{"S":"pending"}}' `
-  --limit 20 --region eu-north-1
-```
-
-> The AWS PowerShell module (`AWS.Tools.DynamoDBv2`) exposes equivalent cmdlets (`Get-DDBItem`, `Get-DDBTableList`, etc.) if you prefer native PowerShell syntax.
-
----
-
-## Task families
-
-### Ingestion (Celery tasks/CLI)
-
-### Sync OSF preprints
-
-```bash
-docker compose run --rm app python -m osf_sync.cli sync-from-date --start 2025-07-01
-# Add --subject Psychology to filter
-```
-
-### Enqueue PDF downloads
-
-```bash
-docker compose run --rm app python -m osf_sync.cli enqueue-pdf --limit 50
-docker compose logs -f celery-pdf
-```
-
-### PDF + GROBID + TEI (Celery tasks)
-
-```bash
-docker compose run --rm app python -m osf_sync.cli enqueue-grobid --limit 25
-docker compose logs -f celery-grobid
-```
-
-### Parse existing TEI XML and write references
-
-- After GROBID finishes, TEI files live under `/data/preprints/<provider>/<osf_id>/tei.xml`.
-- `enqueue-extraction` walks that folder, parses each TEI XML, and writes structured TEI + reference records back into DynamoDB.
-
-```bash
-# Batch extraction (reads TEI XML directly, no OSF/API calls)
-docker compose run --rm app python -m osf_sync.cli enqueue-extraction --limit 200
-
-# Inspect logs
-docker compose logs -f celery-worker
-```
-
-Each extraction job calls `osf_sync.augmentation.run_extract.extract_for_osf_id`, which:
-
-1. Loads the TEI XML.
-2. Uses the TEI parser to pull structured fields and references.
-3. Persists output via `write_extraction`, updating `preprint_tei`, `preprint_references`, and `preprints.tei_extracted`.
-
-### Enrichment tasks
-
-```bash
-docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400
-docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400 --threshold 75
-# Target a single reference:
-# docker compose run --rm app python -m osf_sync.cli enrich-references --osf-id <OSF_ID> --ref-id <REF_ID> --debug
-```
-
-`celery-beat` already schedules the daily sync, PDF/GROBID queues, and enrichment tasks; adjust in `osf_sync/celery_app.py`.
-
----
-
-## Analytics & local scripts (no Docker)
-
-All scripts live under `scripts/manual_post_grobid/`. They work from the repo root after installing dependencies (`pip install -r requirements.txt`) and setting `PYTHONPATH`. Summary:
-
-| Script                       | Description                                                              |
-| ---------------------------- | ------------------------------------------------------------------------ |
-| `run_extraction.py`          | Parse TEI XML from disk and write TEI/refs into DynamoDB.                |
-| `doi_multi_method_lookup.py` | Run multi-method DOI matching and write a CSV. Does not update DynamoDB. |
-| `run_forrt_screening.py`     | Run FORRT lookup + screening.                                            |
-| `analyze_doi_sources.py`     | Count DOI coverage per source.                                           |
-| `dump_missing_doi_refs.py`   | Dump references that still lack DOI information.                         |
-| `select_low_doi_coverage.py` | Find OSF IDs below a DOI coverage threshold (optional ref dumps).        |
-
-Run scripts with:
-
-```bash
-cd H:\fred_preprint_bot
-$env:PYTHONPATH = "$PWD"    # PowerShell; use set/export on cmd/bash
-python scripts/manual_post_grobid/analyze_doi_sources.py
-python scripts/manual_post_grobid/dump_missing_doi_refs.py --output missing.jsonl
-python scripts/manual_post_grobid/select_low_doi_coverage.py --threshold 0.2 --min-refs 30 --dump-refs-dir low_refs
-```
-
-See `scripts/manual_post_grobid/README.md` for details on each script.
-
----
-
-## Manual scripts (no Docker required)
-
-After configuring `.env` and installing dependencies locally, you can run the post-GROBID steps directly:
-
+Examples:
 ```bash
 python scripts/manual_post_grobid/run_extraction.py --limit 200
 python scripts/manual_post_grobid/doi_multi_method_lookup.py --from-db --limit 400 --output doi_multi_method.csv
 python scripts/manual_post_grobid/run_forrt_screening.py --limit-lookup 200 --limit 500
-python scripts/manual_post_grobid/analyze_doi_sources.py
-python scripts/manual_post_grobid/dump_missing_doi_refs.py --output missing.jsonl
-python scripts/manual_post_grobid/select_low_doi_coverage.py --threshold 0.2 --min-refs 30 --dump-refs-dir low_refs
+python scripts/manual_post_grobid/enqueue_author_extract.py --limit 100
 ```
-
-Note: `doi_multi_method_lookup.py` writes a CSV only. To update DynamoDB, use the `enrich-references` task.
-
-See `scripts/manual_post_grobid/README.md` for details and extra flags (`--dry-run`, `--sleep`, etc.).
-
----
-
-## One-off Celery tasks
-
-```bash
-# Download a specific PDF
-docker compose run --rm app sh -lc \
-  "celery -A osf_sync.celery_app.app call osf_sync.tasks.download_single_pdf --args '[\"<OSF_ID>\"]'"
-
-# Run GROBID for a specific preprint
-docker compose run --rm app sh -lc \
-  "celery -A osf_sync.celery_app.app call osf_sync.tasks.grobid_single --args '[\"<OSF_ID>\"]'"
-```
-
----
-
-## Quickstart Recap
-
-```bash
-# 1. Configure .env (local Dynamo or AWS)
-# 2. Build + start services
-docker compose build
-docker compose up -d
-
-# 3. Initialize DynamoDB tables/GSIs (first run)
-docker compose run --rm app python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"
-
-# 4. Sync, download PDFs, run GROBID
-docker compose run --rm app python -m osf_sync.cli sync-from-date --start 2025-07-01
-docker compose run --rm app python -m osf_sync.cli enqueue-pdf --limit 50
-docker compose run --rm app python -m osf_sync.cli enqueue-grobid --limit 25
-
-# 5. Parse TEI XML and enrich references
-docker compose run --rm app python -m osf_sync.cli enqueue-extraction --limit 200
-docker compose run --rm app python -m osf_sync.cli enrich-references --limit 400
-```
-
-Happy syncing!

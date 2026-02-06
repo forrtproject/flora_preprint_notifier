@@ -26,7 +26,7 @@ if str(EXTRACTION_DIR) not in sys.path:
 
 from osf_sync.dynamo.preprints_repo import PreprintsRepo
 from osf_sync.iter_preprints import SESSION, OSF_API
-from osf_sync.pdf import ensure_pdf_available_or_delete
+from osf_sync.pdf import ensure_pdf_available_or_skip
 import osf_sync.grobid as grobid
 from get_mail_from_pdf import get_mail_from_pdf
 from get_orcid_from_pdf import get_orcid_from_pdf
@@ -358,14 +358,14 @@ def _ensure_pdf(
     dest_root: str,
 ) -> Optional[Path]:
     start = time.perf_counter()
-    kind, path = ensure_pdf_available_or_delete(
+    kind, path = ensure_pdf_available_or_skip(
         osf_id=osf_id,
         provider_id=provider_id,
         raw=raw,
         dest_root=dest_root,
     )
     _dbg(f"[{osf_id}] pdf: kind={kind} path={path} in {time.perf_counter() - start:.2f}s")
-    if kind == "deleted" or not path:
+    if kind == "skipped" or not path:
         return None
     return Path(path)
 

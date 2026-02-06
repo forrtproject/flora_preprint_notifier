@@ -3,7 +3,7 @@ import os
 import logging
 import traceback
 from .extract_to_db import write_extraction
-from scripts.augmentation.extract_preprints_and_references import TEIExtractor  # reuse your parser
+from .extract_preprints_and_references import TEIExtractor
 
 # -------------------------------------------------------------------
 # Logging setup
