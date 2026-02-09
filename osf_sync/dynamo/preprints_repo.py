@@ -29,6 +29,7 @@ class PreprintsRepo:
         self.t_refs = ddb.Table(os.environ.get("DDB_TABLE_REFERENCES", "preprint_references"))
         self.t_tei = ddb.Table(os.environ.get("DDB_TABLE_TEI", "preprint_tei"))
         self.t_sync = ddb.Table(os.environ.get("DDB_TABLE_SYNCSTATE", "sync_state"))
+        self.t_excluded = ddb.Table(os.environ.get("DDB_TABLE_EXCLUDED_PREPRINTS", "excluded_preprints"))
         self.t_trial_nodes = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_AUTHOR_NODES", "trial_author_nodes"))
         self.t_trial_tokens = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_AUTHOR_TOKENS", "trial_author_tokens"))
         self.t_trial_clusters = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_CLUSTERS", "trial_clusters"))
@@ -53,13 +54,121 @@ class PreprintsRepo:
     def put_sync_item(self, item: Dict[str, Any]) -> None:
         self.t_sync.put_item(Item=item)
 
+    def mark_preprint_excluded(
+        self,
+        *,
+        osf_id: str,
+        reason: str,
+        stage: Optional[str] = None,
+        occurred_at: Optional[dt.datetime] = None,
+        details: Optional[Dict[str, Any]] = None,
+    ) -> bool:
+        osf_id_val = str(osf_id or "").strip()
+        if not osf_id_val:
+            raise ValueError("osf_id is required")
+        reason_val = str(reason or "").strip()
+        if not reason_val:
+            raise ValueError("reason is required")
+        ts = occurred_at or dt.datetime.now(dt.timezone.utc)
+        if ts.tzinfo is None:
+            ts = ts.replace(tzinfo=dt.timezone.utc)
+        else:
+            ts = ts.astimezone(dt.timezone.utc)
+        excluded_at = ts.isoformat()
+        exclusion_date = ts.date().isoformat()
+        item: Dict[str, Any] = {
+            "osf_id": osf_id_val,
+            "excluded_at": excluded_at,
+            "exclusion_date": exclusion_date,
+            "exclusion_reason": reason_val,
+            "created_at": excluded_at,
+            "updated_at": excluded_at,
+        }
+        if stage:
+            item["exclusion_stage"] = stage
+        if details:
+            item["exclusion_details"] = details
+
+        try:
+            self.t_excluded.put_item(
+                Item=item,
+                ConditionExpression="attribute_not_exists(osf_id)",
+            )
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
+                return False
+            raise
+
+        try:
+            expr_values = {
+                ":true": True,
+                ":reason": reason_val,
+                ":at": excluded_at,
+                ":date": exclusion_date,
+                ":t": excluded_at,
+            }
+            set_exprs = [
+                "excluded=:true",
+                "excluded_reason=:reason",
+                "excluded_at=:at",
+                "excluded_date=:date",
+                "updated_at=:t",
+            ]
+            if stage:
+                expr_values[":stage"] = stage
+                set_exprs.append("excluded_stage=:stage")
+            self.t_preprints.update_item(
+                Key={"osf_id": osf_id_val},
+                ConditionExpression="attribute_exists(osf_id)",
+                UpdateExpression=(
+                    "SET " + ", ".join(set_exprs) + " "
+                    "REMOVE queue_pdf, queue_grobid, queue_extract, "
+                    "claim_pdf_owner, claim_pdf_until, "
+                    "claim_grobid_owner, claim_grobid_until, "
+                    "claim_extract_owner, claim_extract_until"
+                ),
+                ExpressionAttributeValues=expr_values,
+            )
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") != "ConditionalCheckFailedException":
+                raise
+
+        return True
+
+    def is_preprint_excluded(self, osf_id: str) -> bool:
+        if not osf_id:
+            return False
+        item = self.t_excluded.get_item(Key={"osf_id": osf_id}).get("Item")
+        return bool(item)
+
+    def summarize_excluded_preprints(self) -> Dict[str, Any]:
+        counts: Dict[str, int] = {}
+        total = 0
+        last_key = None
+        while True:
+            kwargs: Dict[str, Any] = {"ProjectionExpression": "osf_id, exclusion_reason"}
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_excluded.scan(**kwargs)
+            items = resp.get("Items", [])
+            for item in items:
+                total += 1
+                reason = str(item.get("exclusion_reason") or "unknown")
+                counts[reason] = counts.get(reason, 0) + 1
+            last_key = resp.get("LastEvaluatedKey")
+            if not last_key:
+                break
+        return {"total_excluded_preprints": total, "by_reason": counts}
+
     # --- trial allocation state ---
     def select_unassigned_preprints(self, limit: Optional[int] = None) -> List[Dict[str, Any]]:
         out: List[Dict[str, Any]] = []
         last_key = None
         while True:
             kwargs: Dict[str, Any] = {
-                "FilterExpression": Attr("trial_assignment_status").not_exists(),
+                "FilterExpression": Attr("trial_assignment_status").not_exists() & (
+                    Attr("excluded").not_exists() | Attr("excluded").eq(False)
+                ),
                 "ProjectionExpression": "osf_id, provider_id, date_created, date_published, author_email_candidates",
             }
             if last_key:
@@ -237,6 +346,17 @@ class PreprintsRepo:
     # --- upsert preprints batch ---
     def upsert_preprints(self, rows: List[Dict]) -> int:
         skip_existing = os.environ.get("OSF_INGEST_SKIP_EXISTING", "false").lower() in {"1", "true", "yes"}
+        if rows:
+            ids = [r.get("id") for r in rows if r.get("id")]
+            excluded_ids = self._fetch_excluded_ids(ids)
+            if excluded_ids:
+                before = len(rows)
+                rows = [r for r in rows if r.get("id") not in excluded_ids]
+                skipped = before - len(rows)
+                if skipped:
+                    with_extras(log, skipped=skipped, incoming=before).info("skipping excluded preprints")
+            if not rows:
+                return 0
         if skip_existing and rows:
             ids = [r.get("id") for r in rows if r.get("id")]
             existing = self._fetch_existing_ids(ids)
@@ -321,6 +441,22 @@ class PreprintsRepo:
             while unprocessed:
                 resp = ddb.batch_get_item(RequestItems=unprocessed)
                 existing.update(_extract_key_values(resp.get("Responses", {}).get(table_name, []), hash_key))
+                unprocessed = resp.get("UnprocessedKeys") or {}
+        return existing
+
+    def _fetch_excluded_ids(self, ids: Iterable[str]) -> Set[str]:
+        table_name = self.t_excluded.name
+        existing: Set[str] = set()
+        id_list = [str(i) for i in ids if i]
+        for chunk in _chunks(id_list, 100):
+            keys = [{"osf_id": i} for i in chunk]
+            request = {table_name: {"Keys": keys, "ProjectionExpression": "osf_id"}}
+            resp = self.ddb.batch_get_item(RequestItems=request)
+            existing.update(_extract_key_values(resp.get("Responses", {}).get(table_name, []), "osf_id"))
+            unprocessed = resp.get("UnprocessedKeys") or {}
+            while unprocessed:
+                resp = self.ddb.batch_get_item(RequestItems=unprocessed)
+                existing.update(_extract_key_values(resp.get("Responses", {}).get(table_name, []), "osf_id"))
                 unprocessed = resp.get("UnprocessedKeys") or {}
         return existing
 
@@ -462,7 +598,10 @@ class PreprintsRepo:
             resp = self.t_preprints.query(
                 IndexName="by_queue_pdf",
                 KeyConditionExpression="queue_pdf = :q",
-                FilterExpression="attribute_not_exists(pdf_downloaded) OR pdf_downloaded = :false",
+                FilterExpression=(
+                    "(attribute_not_exists(pdf_downloaded) OR pdf_downloaded = :false) AND "
+                    "(attribute_not_exists(excluded) OR excluded = :false)"
+                ),
                 ExpressionAttributeValues={":q": "pending", ":false": False},
                 Limit=limit,
                 ScanIndexForward=True,
@@ -470,7 +609,10 @@ class PreprintsRepo:
             return [it["osf_id"] for it in resp.get("Items", [])]
         except Exception:
             resp = self.t_preprints.scan(
-                FilterExpression="is_published = :true AND (pdf_downloaded = :false OR attribute_not_exists(pdf_downloaded))",
+                FilterExpression=(
+                    "is_published = :true AND (pdf_downloaded = :false OR attribute_not_exists(pdf_downloaded)) AND "
+                    "(attribute_not_exists(excluded) OR excluded = :false)"
+                ),
                 ExpressionAttributeValues={":true": True, ":false": False},
                 Limit=limit,
             )
@@ -482,7 +624,8 @@ class PreprintsRepo:
                 IndexName="by_queue_grobid",
                 KeyConditionExpression="queue_grobid = :q",
                 FilterExpression=(
-                    "pdf_downloaded = :true AND (attribute_not_exists(tei_generated) OR tei_generated = :false)"
+                    "pdf_downloaded = :true AND (attribute_not_exists(tei_generated) OR tei_generated = :false) AND "
+                    "(attribute_not_exists(excluded) OR excluded = :false)"
                 ),
                 ExpressionAttributeValues={":q": "pending", ":true": True, ":false": False},
                 Limit=limit,
@@ -491,7 +634,10 @@ class PreprintsRepo:
             return [it["osf_id"] for it in resp.get("Items", [])]
         except Exception:
             resp = self.t_preprints.scan(
-                FilterExpression="pdf_downloaded = :true AND (tei_generated = :false OR attribute_not_exists(tei_generated))",
+                FilterExpression=(
+                    "pdf_downloaded = :true AND (tei_generated = :false OR attribute_not_exists(tei_generated)) AND "
+                    "(attribute_not_exists(excluded) OR excluded = :false)"
+                ),
                 ExpressionAttributeValues={":true": True, ":false": False},
                 Limit=limit,
             )
@@ -504,7 +650,8 @@ class PreprintsRepo:
                 KeyConditionExpression="queue_extract = :q",
                 FilterExpression=(
                     "pdf_downloaded = :true AND tei_generated = :true AND "
-                    "(attribute_not_exists(tei_extracted) OR tei_extracted = :false)"
+                    "(attribute_not_exists(tei_extracted) OR tei_extracted = :false) AND "
+                    "(attribute_not_exists(excluded) OR excluded = :false)"
                 ),
                 ExpressionAttributeValues={":q": "pending", ":true": True, ":false": False},
                 Limit=limit,
@@ -514,7 +661,9 @@ class PreprintsRepo:
         except Exception:
             resp = self.t_preprints.scan(
                 FilterExpression=(
-                    "pdf_downloaded = :t AND tei_generated = :t AND (attribute_not_exists(tei_extracted) OR tei_extracted = :f)"
+                    "pdf_downloaded = :t AND tei_generated = :t AND "
+                    "(attribute_not_exists(tei_extracted) OR tei_extracted = :f) AND "
+                    "(attribute_not_exists(excluded) OR excluded = :f)"
                 ),
                 ExpressionAttributeValues={":t": True, ":f": False},
                 Limit=limit,

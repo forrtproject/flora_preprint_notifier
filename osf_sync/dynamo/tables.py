@@ -7,6 +7,7 @@ import time
 log = logging.getLogger(__name__)
 
 API_CACHE_TABLE = os.environ.get("DDB_TABLE_API_CACHE", "api_cache")
+EXCLUDED_PREPRINTS_TABLE = os.environ.get("DDB_TABLE_EXCLUDED_PREPRINTS", "excluded_preprints")
 TRIAL_AUTHOR_NODES_TABLE = os.environ.get("DDB_TABLE_TRIAL_AUTHOR_NODES", "trial_author_nodes")
 TRIAL_AUTHOR_TOKENS_TABLE = os.environ.get("DDB_TABLE_TRIAL_AUTHOR_TOKENS", "trial_author_tokens")
 TRIAL_CLUSTERS_TABLE = os.environ.get("DDB_TABLE_TRIAL_CLUSTERS", "trial_clusters")
@@ -83,6 +84,25 @@ TABLES = {
   "sync_state": {
     "KeySchema":[{"AttributeName":"source_key","KeyType":"HASH"}],
     "AttributeDefinitions":[{"AttributeName":"source_key","AttributeType":"S"}],
+    "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+  },
+  EXCLUDED_PREPRINTS_TABLE: {
+    "KeySchema":[{"AttributeName":"osf_id","KeyType":"HASH"}],
+    "AttributeDefinitions":[
+        {"AttributeName":"osf_id","AttributeType":"S"},
+        {"AttributeName":"excluded_at","AttributeType":"S"},
+        {"AttributeName":"exclusion_reason","AttributeType":"S"}
+    ],
+    "GlobalSecondaryIndexes":[
+        { "IndexName":"by_reason",
+          "KeySchema":[
+              {"AttributeName":"exclusion_reason","KeyType":"HASH"},
+              {"AttributeName":"excluded_at","KeyType":"RANGE"}
+          ],
+          "Projection":{"ProjectionType":"ALL"},
+          "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+        }
+    ],
     "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
   },
   API_CACHE_TABLE: {

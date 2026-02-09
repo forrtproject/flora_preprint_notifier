@@ -5,6 +5,7 @@ import datetime as dt
 import logging
 
 from .dynamo.preprints_repo import PreprintsRepo
+from .exclusion_logging import log_preprint_exclusion
 from .runtime_config import RUNTIME_CONFIG
 
 _WINDOW_MONTHS = RUNTIME_CONFIG.ingest.window_months
@@ -152,6 +153,18 @@ def upsert_batch(objs: Iterable[Dict]) -> int:
             osf_id = rec.get("osf_id")
             reason = rec.get("reason")
             log.info("ingest filter skip osf_id=%s reason=%s", osf_id, reason, extra=rec)
+            if reason == "date_window":
+                exclusion_reason = "ingest_date_window"
+            elif reason == "links_doi_not_osf_or_zenodo":
+                exclusion_reason = "ingest_links_doi_not_osf_or_zenodo"
+            else:
+                exclusion_reason = f"ingest_{reason}"
+            log_preprint_exclusion(
+                reason=exclusion_reason,
+                osf_id=osf_id,
+                stage="sync",
+                details={"raw_reason": reason},
+            )
     if not filtered:
         return 0
     repo = PreprintsRepo()

@@ -60,3 +60,8 @@ Set `OSF_INGEST_SKIP_EXISTING=true` to avoid upserting records already present i
 
 `ensure_tables()` creates `api_cache` (or `DDB_TABLE_API_CACHE`) with TTL on `expires_at`.
 Default TTL horizon is 6 months (`API_CACHE_TTL_MONTHS`).
+
+## Exclusion counters
+
+`ensure_tables()` also creates `excluded_preprints` (or `DDB_TABLE_EXCLUDED_PREPRINTS`), with one row per excluded `osf_id`.
+Pipeline selectors skip preprints with `excluded=true`, and ingestion skips `osf_id`s present in `excluded_preprints`, so excluded preprints do not re-enter later stages.

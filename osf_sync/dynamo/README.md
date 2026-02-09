@@ -17,6 +17,7 @@ DynamoDB access layer for the OSF pipeline.
 - `preprints` (GSIs: `by_published`, `by_queue_pdf`, `by_queue_grobid`, `by_queue_extract`)
 - `preprint_references`
 - `preprint_tei`
+- `excluded_preprints`
 - `sync_state`
 - `api_cache` (TTL on `expires_at`)
 
@@ -28,6 +29,8 @@ DynamoDB access layer for the OSF pipeline.
 - `claim_stage_item(stage, osf_id, owner, lease_seconds)`
 - `release_stage_claim(stage, osf_id)`
 - `record_stage_error(stage, osf_id, message)`
+- `mark_preprint_excluded(osf_id, reason, stage, details)`
+- `summarize_excluded_preprints()`
 
 Queue flow:
 1. `queue_pdf=pending`

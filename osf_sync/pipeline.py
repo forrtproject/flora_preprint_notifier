@@ -21,6 +21,7 @@ from .dynamo.preprints_repo import PreprintsRepo
 from .fetch_one import fetch_preprint_by_doi, fetch_preprint_by_id, upsert_one_preprint
 from .grobid import mark_tei, process_pdf_to_tei
 from .iter_preprints import iter_preprints_batches, iter_preprints_range
+from .exclusion_logging import log_preprint_exclusion
 from .pdf import ensure_pdf_available_or_delete, mark_downloaded
 from .upsert import upsert_batch
 from .extraction.extract_author_list import run_author_extract
@@ -105,6 +106,15 @@ def _deadline(max_seconds: Optional[int]) -> Optional[float]:
 
 def _time_up(deadline: Optional[float]) -> bool:
     return deadline is not None and time.monotonic() >= deadline
+
+
+def _excluded_summary() -> Dict[str, Any]:
+    repo = PreprintsRepo()
+    try:
+        return repo.summarize_excluded_preprints()
+    except Exception:
+        logger.warning("failed to summarize excluded preprints", exc_info=True)
+        return {"total_excluded_preprints": None, "by_reason": {}}
 
 
 def sync_from_osf(
@@ -230,7 +240,7 @@ def download_single_pdf(osf_id: str) -> Dict[str, Any]:
 
     provider_id = row["provider_id"] or "unknown"
 
-    kind, path = ensure_pdf_available_or_delete(
+    kind, path, exclusion_reason = ensure_pdf_available_or_delete(
         osf_id=row["osf_id"],
         provider_id=provider_id,
         raw=row["raw"],
@@ -238,7 +248,14 @@ def download_single_pdf(osf_id: str) -> Dict[str, Any]:
     )
 
     if kind == "deleted":
-        return {"osf_id": osf_id, "deleted": True, "reason": "unsupported file type"}
+        if exclusion_reason:
+            log_preprint_exclusion(
+                reason=exclusion_reason,
+                osf_id=osf_id,
+                stage="pdf",
+                details={"provider_id": provider_id},
+            )
+        return {"osf_id": osf_id, "deleted": True, "reason": exclusion_reason or "unsupported file type"}
 
     mark_downloaded(osf_id=row["osf_id"], local_path=path, ok=True)
     logger.info("PDF saved", extra={"osf_id": osf_id, "path": path})
@@ -423,6 +440,13 @@ def process_extract_batch(
         try:
             result = extract_from_tei(provider_id, osf_id)
             if result.get("written_ok"):
+                if int(result.get("references_upserted") or 0) == 0:
+                    log_preprint_exclusion(
+                        reason="no_references_extracted",
+                        osf_id=osf_id,
+                        stage="extract",
+                        details={"provider_id": provider_id},
+                    )
                 processed += 1
             else:
                 failed += 1
@@ -737,6 +761,9 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
             write_debug_csv=args.write_debug_csv,
             dry_run=args.dry_run,
         )
+
+    if not args.dry_run:
+        out["excluded_preprints_summary"] = _excluded_summary()
 
     return out
 
