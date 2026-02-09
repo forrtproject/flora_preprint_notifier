@@ -50,7 +50,7 @@ Error/retry bookkeeping:
 
 ## Ingestion filters
 
-When `OSF_INGEST_ANCHOR_DATE` is set (ISO date/timestamp), ingestion keeps only preprints whose `original_publication_date` (or fallback `date_published`) is within the 6-month window ending on the anchor date.
+When `ingest.anchor_date` is set in `config/runtime.toml` (ISO date/timestamp), ingestion keeps only preprints whose `original_publication_date` (or fallback `date_published`) is within the configured window ending on the anchor date.
 
 If a preprint has `links.doi` and that DOI is not OSF/Zenodo (`osf.io`, `zenodo.org`, or `10.5281/zenodo...`), it is skipped.
 

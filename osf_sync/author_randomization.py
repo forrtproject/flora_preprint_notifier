@@ -248,6 +248,12 @@ def _name_from_parts(given: Optional[str], surname: Optional[str], fallback: Opt
     return fb, " ".join(parts[:-1]), parts[-1]
 
 
+def _is_initials_only(given: str) -> bool:
+    """Return True if the given name appears to be just initials (e.g. 'J', 'J A', 'JA')."""
+    parts = given.replace(".", " ").split()
+    return bool(parts) and all(len(p) <= 1 for p in parts)
+
+
 def _build_name_keys(given: str, surname: str, full_name: str) -> Tuple[Optional[str], Optional[str]]:
     n_surname = _to_ascii_lower(surname)
     n_given = _to_ascii_lower(given)
@@ -263,7 +269,7 @@ def _build_name_keys(given: str, surname: str, full_name: str) -> Tuple[Optional
     if n_surname:
         full_key = f"namefull:{n_surname}|{n_given}"
         initials = "".join(part[0] for part in n_given.split() if part)
-        if initials:
+        if initials and _is_initials_only(n_given):
             init_key = f"nameinit:{n_surname}|{initials}"
     return full_key, init_key
 
@@ -521,17 +527,67 @@ def select_author_positions(author_count: int, threshold: int) -> List[int]:
     return out
 
 
+def _initials_of(given: str) -> str:
+    """Extract leading-letter initials from a given name, e.g. 'john andrew' -> 'ja'."""
+    return "".join(p[0] for p in given.split() if p)
+
+
+def _find_namefull_matches_for_initials(
+    surname: str,
+    initials: str,
+    namefull_by_surname: Dict[str, List[Tuple[str, str]]],
+) -> List[str]:
+    """Return namefull tokens whose surname matches and whose initials match."""
+    out: List[str] = []
+    for token, given in namefull_by_surname.get(surname, []):
+        if _initials_of(given) == initials:
+            out.append(token)
+    return out
+
+
 def resolve_author_nodes_from_tokens(token_groups: Sequence[Sequence[str]]) -> List[str]:
     uf = UnionFind()
+
+    # Phase 1: union-find on all non-nameinit tokens.
+    # Also collect namefull index and nameinit tokens for phase 2.
+    namefull_by_surname: Dict[str, List[Tuple[str, str]]] = defaultdict(list)
+    nameinit_tokens: List[str] = []
+
     for tokens in token_groups:
         clean = [t for t in tokens if t]
         if not clean:
             continue
+
         for token in clean:
             uf.add(token)
+
+        # Union all tokens within the same mention
         head = clean[0]
         for token in clean[1:]:
             uf.union(head, token)
+
+        # Index namefull tokens by surname for phase 2 lookup
+        for token in clean:
+            if token.startswith("namefull:"):
+                rest = token[len("namefull:"):]
+                parts = rest.split("|", 1)
+                if len(parts) == 2:
+                    namefull_by_surname[parts[0]].append((token, parts[1]))
+            elif token.startswith("nameinit:"):
+                nameinit_tokens.append(token)
+
+    # Phase 2: match nameinit tokens to compatible namefull tokens.
+    # This bridges clusters only when an actual initials-only record exists.
+    for init_token in nameinit_tokens:
+        rest = init_token[len("nameinit:"):]
+        parts = rest.split("|", 1)
+        if len(parts) != 2:
+            continue
+        surname, initials = parts
+        for full_token in _find_namefull_matches_for_initials(
+            surname, initials, namefull_by_surname
+        ):
+            uf.union(init_token, full_token)
 
     roots = sorted({uf.find(token) for token in uf.parent.keys()})
     node_by_root = {root: f"N{idx:06d}" for idx, root in enumerate(roots, start=1)}
@@ -973,6 +1029,40 @@ def _initialize_network(
     return assignments, touched_nodes, touched_clusters
 
 
+def _resolve_mention_nodes(
+    tokens: List[str],
+    token_map: Dict[str, str],
+    nodes: Dict[str, NodeRecord],
+) -> Set[str]:
+    """Map a mention's tokens to existing node IDs, including initials-compatible matches.
+
+    Direct token matches are checked first.  For any ``nameinit:`` token, we
+    also scan the token_map for ``namefull:`` entries with the same surname
+    whose given-name initials match.  This ensures that an initials-only
+    mention (e.g. "J Smith") finds existing full-name nodes ("John Smith",
+    "Jane Smith") even though they did not emit a ``nameinit`` token.
+    """
+    matched: Set[str] = set()
+    for token in tokens:
+        if token in token_map and token_map[token] in nodes:
+            matched.add(token_map[token])
+
+        if token.startswith("nameinit:"):
+            rest = token[len("nameinit:"):]
+            parts = rest.split("|", 1)
+            if len(parts) == 2:
+                surname, initials = parts
+                prefix = f"namefull:{surname}|"
+                for existing_token, node_id in token_map.items():
+                    if (
+                        existing_token.startswith(prefix)
+                        and node_id in nodes
+                        and _initials_of(existing_token[len(prefix):]) == initials
+                    ):
+                        matched.add(node_id)
+    return matched
+
+
 def _augment_network(
     *,
     candidates: List[PreprintEntry],
@@ -998,7 +1088,9 @@ def _augment_network(
         existing_arms: Set[str] = set()
 
         for mention in preprint.selected_mentions:
-            mapped_nodes = sorted({token_map[token] for token in mention.tokens if token in token_map and token_map[token] in nodes})
+            mapped_nodes = sorted(
+                _resolve_mention_nodes(mention.tokens, token_map, nodes)
+            )
             if mapped_nodes:
                 mention.node_id = mapped_nodes[0]
                 mention.mapped_existing = True

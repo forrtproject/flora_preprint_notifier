@@ -67,6 +67,7 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
         doi_r: Optional[str],
         apa_ref_o: Optional[str],
         apa_ref_r: Optional[str],
+        replication_outcome: Optional[str] = None,
     ) -> None:
         out.append(
             {
@@ -74,6 +75,7 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
                 "doi_r": normalize_doi(doi_r) if doi_r else None,
                 "apa_ref_o": apa_ref_o,
                 "apa_ref_r": apa_ref_r,
+                "replication_outcome": replication_outcome,
             }
         )
 
@@ -97,6 +99,7 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
                         replication.get("doi"),
                         original.get("apa_ref"),
                         replication.get("apa_ref"),
+                        replication.get("outcome") or replication.get("replication_outcome"),
                     )
         else:
             for original in originals_list:
@@ -124,6 +127,7 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
                     obj.get("doi_r"),
                     obj.get("apa_ref_o"),
                     obj.get("apa_ref_r"),
+                    obj.get("replication_outcome") or obj.get("outcome_r") or obj.get("outcome"),
                 )
             for v in obj.values():
                 _walk(v)
@@ -133,13 +137,17 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
 
     _walk(payload)
 
-    seen = set()
+    seen: Dict[tuple, int] = {}
     uniq_out: List[Dict[str, Optional[str]]] = []
     for rec in out:
         key = (rec.get("doi_o"), rec.get("doi_r"), rec.get("apa_ref_o"), rec.get("apa_ref_r"))
         if key in seen:
+            # Replace earlier record if this one has a non-empty outcome and the earlier didn't
+            idx = seen[key]
+            if rec.get("replication_outcome") and not uniq_out[idx].get("replication_outcome"):
+                uniq_out[idx] = rec
             continue
-        seen.add(key)
+        seen[key] = len(uniq_out)
         uniq_out.append(rec)
     return uniq_out
 

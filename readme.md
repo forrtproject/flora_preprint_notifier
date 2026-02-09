@@ -27,15 +27,16 @@ pip install -r requirements.txt
 ```bash
 cp .env.example .env
 ```
-4. Start local infrastructure services (optional if you use AWS DynamoDB and/or a remote GROBID):
+4. Review committed runtime rules in `config/runtime.toml` (for example `ingest.anchor_date` and FLORA endpoint).
+5. Start local infrastructure services (optional if you use AWS DynamoDB and/or a remote GROBID):
 ```bash
 docker compose up -d dynamodb-local grobid
 ```
-5. Initialize DynamoDB tables:
+6. Initialize DynamoDB tables:
 ```bash
 python -c "from osf_sync.db import init_db; init_db(); print('Dynamo tables ready')"
 ```
-6. Run pipeline stages:
+7. Run pipeline stages:
 ```bash
 python -m osf_sync.pipeline run --stage sync --limit 1000
 python -m osf_sync.pipeline run --stage pdf --limit 100
@@ -120,11 +121,24 @@ DDB_TABLE_API_CACHE=api_cache
 OPENALEX_EMAIL=<PERSONAL_EMAIL_ID>
 PDF_DEST_ROOT=./data/preprints
 LOG_LEVEL=INFO
-OSF_INGEST_ANCHOR_DATE=YYYY-MM-DD
 OSF_INGEST_SKIP_EXISTING=false
 API_CACHE_TTL_MONTHS=6
 FLORA_CSV_PATH=./data/flora.csv
 PIPELINE_CLAIM_LEASE_SECONDS=1800
+```
+
+## Runtime Rules (`config/runtime.toml`)
+
+These non-secret operational rules are committed in git:
+
+```toml
+[ingest]
+anchor_date = "2026-02-20" # ISO date/timestamp; empty disables date-window filter
+window_months = 6
+
+[flora]
+original_lookup_url = "https://rep-api.forrt.org/v1/original-lookup"
+cache_ttl_hours = 48
 ```
 
 ## Scheduling
