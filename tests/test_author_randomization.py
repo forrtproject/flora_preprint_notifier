@@ -18,17 +18,32 @@ class AuthorRandomizationTests(unittest.TestCase):
         self.assertEqual(select_author_positions(8, 4), [0, 1, 7])
         self.assertEqual(select_author_positions(3, 4), [0, 1, 2])
 
-    def test_resolve_nodes_aggressive_collapse(self) -> None:
+    def test_resolve_nodes_no_phantom_initials_bridging(self) -> None:
+        """Full-name records should NOT merge via computed initials alone."""
         token_groups = [
-            ["orcid:0000-0000-0000-0001", "nameinit:smith|j"],
-            ["osf:abc123", "namefull:smith|john", "nameinit:smith|j"],
-            ["namefull:smith|jane", "nameinit:smith|j"],
-            ["orcid:0000-0000-0000-0002", "nameinit:smith|m"],
+            ["namefull:smith|john"],
+            ["namefull:smith|jane"],
+            ["orcid:0000-0000-0000-0002", "namefull:smith|mary"],
         ]
         node_ids = resolve_author_nodes_from_tokens(token_groups)
+        # John and Jane share initials but no initials-only record bridges them
+        self.assertNotEqual(node_ids[0], node_ids[1])
+        self.assertNotEqual(node_ids[0], node_ids[2])
+        self.assertNotEqual(node_ids[1], node_ids[2])
 
+    def test_resolve_nodes_initials_record_bridges_full_names(self) -> None:
+        """An actual initials-only record should bridge compatible full-name records."""
+        token_groups = [
+            ["orcid:0000-0000-0000-0001", "nameinit:smith|j"],  # "J Smith"
+            ["osf:abc123", "namefull:smith|john"],               # "John Smith"
+            ["namefull:smith|jane"],                              # "Jane Smith"
+            ["orcid:0000-0000-0000-0002", "namefull:smith|mary"],  # unrelated
+        ]
+        node_ids = resolve_author_nodes_from_tokens(token_groups)
+        # J Smith bridges John and Jane
         self.assertEqual(node_ids[0], node_ids[1])
         self.assertEqual(node_ids[1], node_ids[2])
+        # Mary is separate
         self.assertNotEqual(node_ids[0], node_ids[3])
 
     def test_assign_balances_contactable_preprints(self) -> None:
