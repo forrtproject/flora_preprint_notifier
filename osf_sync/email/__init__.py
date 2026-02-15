@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
+import random
 import time
 from collections import deque
 from typing import Any, Dict, Optional
@@ -68,10 +69,18 @@ def process_email_batch(
     *,
     limit: int = 50,
     max_seconds: Optional[int] = None,
+    spread_seconds: Optional[int] = None,
     dry_run: bool = False,
     osf_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Process a batch of eligible preprints for email sending.
+
+    Each preprint maps to exactly one recipient, so *limit* caps the
+    number of recipients contacted.
+
+    When *spread_seconds* is set the batch sleeps a randomised interval
+    between sends so that emails are spread over roughly that many
+    seconds rather than fired in a burst.
 
     Returns a summary dict with counts of sent, failed, skipped, etc.
     """
@@ -86,6 +95,11 @@ def process_email_batch(
         candidates = [item] if item else []
     else:
         candidates = repo.select_for_email(limit=limit)
+
+    # Pre-compute average inter-send delay when spreading is requested.
+    avg_delay = 0.0
+    if spread_seconds and spread_seconds > 0 and len(candidates) > 1:
+        avg_delay = spread_seconds / len(candidates)
 
     sent = 0
     failed = 0
@@ -127,7 +141,7 @@ def process_email_batch(
 
         # Render email
         try:
-            subject, html_body = render_email(context)
+            subject, html_body, plain_body = render_email(context)
         except Exception as exc:
             failed += 1
             repo.mark_email_error(pid, f"template render: {exc}")
@@ -142,6 +156,17 @@ def process_email_batch(
             )
             continue
 
+        # Random inter-send delay to spread emails over time
+        if avg_delay > 0 and sent > 0:
+            delay = random.uniform(0.5 * avg_delay, 1.5 * avg_delay)
+            remaining = (deadline - time.monotonic()) if deadline else float("inf")
+            delay = min(delay, max(remaining - 5, 0))  # keep 5s headroom
+            if delay > 0:
+                logger.info("Spread delay: sleeping %.1fs", delay)
+                time.sleep(delay)
+                if deadline and time.monotonic() >= deadline:
+                    break
+
         # Rate limiting
         if not rate_limiter.wait_if_needed():
             logger.warning("Daily rate limit reached, stopping batch")
@@ -149,7 +174,7 @@ def process_email_batch(
 
         # Send
         try:
-            result = send_email(to=email_addr, subject=subject, html_body=html_body)
+            result = send_email(to=email_addr, subject=subject, html_body=html_body, plain_body=plain_body)
             message_id = result.get("id", "")
             repo.mark_email_sent(pid, recipient=email_addr, message_id=message_id)
             rate_limiter.record_send()

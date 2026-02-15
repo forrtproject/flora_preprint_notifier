@@ -31,6 +31,7 @@ from .extraction.extract_author_list import run_author_extract
 OPENALEX_EMAIL = os.environ.get("OPENALEX_EMAIL", "you@example.com")
 PDF_DEST_ROOT = os.environ.get("PDF_DEST_ROOT", "/data/preprints")
 SLACK_WEBHOOK = os.environ.get("SLACK_WEBHOOK_URL")
+PIPELINE_NOTIFY_EMAIL = os.environ.get("PIPELINE_NOTIFY_EMAIL")
 SOURCE_KEY_ALL = "osf:all"
 DEFAULT_LEASE_SECONDS = int(os.environ.get("PIPELINE_CLAIM_LEASE_SECONDS", "1800"))
 
@@ -728,14 +729,65 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
         return process_email_batch(
             limit=args.limit or 50,
             max_seconds=args.max_seconds,
+            spread_seconds=getattr(args, "spread_seconds", None),
             dry_run=args.dry_run,
             osf_id=args.osf_id,
         )
     raise ValueError(f"Unsupported stage: {stage}")
 
 
+def _merge_email_results(accumulated: Dict[str, Any], batch: Dict[str, Any]) -> Dict[str, Any]:
+    """Merge a new email batch result into the accumulated totals."""
+    if not accumulated:
+        accumulated = dict(batch)
+    else:
+        for key in ("sent", "failed", "skipped_suppressed", "skipped_invalid", "skipped_no_context"):
+            accumulated[key] = accumulated.get(key, 0) + batch.get(key, 0)
+        accumulated["stopped_due_to_time"] = batch.get("stopped_due_to_time", False)
+    # Alias so _notify_pipeline_summary picks up the count
+    accumulated["processed"] = accumulated.get("sent", 0)
+    return accumulated
+
+
 def run_all(args: argparse.Namespace) -> Dict[str, Any]:
     out: Dict[str, Any] = {"stages": {}}
+
+    include_email = getattr(args, "include_email", False)
+    email_limit = getattr(args, "email_limit", 50)
+
+    # When email is enabled, split the limit: small mini-batches run
+    # between stages, then a final batch gets the remainder with a
+    # longer spread window.
+    _INTERLEAVE_STAGES = 6  # sync, pdf, grobid, extract, enrich, flora
+    if include_email and email_limit > 0:
+        interleave_per = max(1, email_limit // (_INTERLEAVE_STAGES + 1))
+        final_email_limit = email_limit - interleave_per * _INTERLEAVE_STAGES
+        if final_email_limit < 0:
+            final_email_limit = 0
+    else:
+        interleave_per = 0
+        final_email_limit = 0
+
+    email_result: Dict[str, Any] = {}
+    email_sent_total = 0
+
+    def _interleave_emails() -> None:
+        nonlocal email_result, email_sent_total
+        if not include_email or interleave_per <= 0:
+            return
+        remaining = email_limit - email_sent_total
+        batch_limit = min(interleave_per, remaining)
+        if batch_limit <= 0:
+            return
+        # Short spread: ~60s per email for interleaved batches
+        spread = batch_limit * 60
+        batch = process_email_batch(
+            limit=batch_limit,
+            spread_seconds=spread,
+            dry_run=args.dry_run,
+        )
+        email_sent_total += batch.get("sent", 0) + batch.get("failed", 0)
+        email_result = _merge_email_results(email_result, batch)
 
     out["stages"]["sync"] = sync_from_osf(
         subject_text=args.subject,
@@ -744,6 +796,8 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         max_seconds=args.max_seconds_per_stage,
         dry_run=args.dry_run,
     )
+    _interleave_emails()
+
     out["stages"]["pdf"] = process_pdf_batch(
         limit=args.pdf_limit,
         owner=args.owner,
@@ -752,6 +806,8 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         workers=getattr(args, "download_workers", 1),
         dry_run=args.dry_run,
     )
+    _interleave_emails()
+
     out["stages"]["grobid"] = process_grobid_batch(
         limit=args.grobid_limit,
         owner=args.owner,
@@ -759,6 +815,8 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         max_seconds=args.max_seconds_per_stage,
         dry_run=args.dry_run,
     )
+    _interleave_emails()
+
     out["stages"]["extract"] = process_extract_batch(
         limit=args.extract_limit,
         owner=args.owner,
@@ -766,6 +824,8 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         max_seconds=args.max_seconds_per_stage,
         dry_run=args.dry_run,
     )
+    _interleave_emails()
+
     out["stages"]["enrich"] = process_enrich_batch(
         limit=args.enrich_limit,
         threshold=args.threshold,
@@ -776,6 +836,8 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         workers=getattr(args, "enrich_workers", 1),
         dry_run=args.dry_run,
     )
+    _interleave_emails()
+
     out["stages"]["flora"] = process_flora_batch(
         limit_lookup=args.limit_lookup,
         limit_screen=args.limit_screen,
@@ -787,6 +849,7 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         debug=args.debug,
         dry_run=args.dry_run,
     )
+    _interleave_emails()
 
     if not args.skip_author:
         out["stages"]["author"] = process_author_batch(
@@ -806,17 +869,63 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
             dry_run=args.dry_run,
         )
 
-    if getattr(args, "include_email", False):
-        out["stages"]["email"] = process_email_batch(
-            limit=getattr(args, "email_limit", 50),
-            max_seconds=args.max_seconds_per_stage,
-            dry_run=args.dry_run,
-        )
+    # Final email batch with longer spread window (45 min per 10 messages)
+    if include_email and final_email_limit > 0:
+        remaining = email_limit - email_sent_total
+        batch_limit = min(final_email_limit, remaining)
+        if batch_limit > 0:
+            spread = int(batch_limit * 270)  # 45 min / 10 = 4.5 min = 270s per msg
+            batch = process_email_batch(
+                limit=batch_limit,
+                max_seconds=spread + 60,  # small headroom beyond spread
+                spread_seconds=spread,
+                dry_run=args.dry_run,
+            )
+            email_result = _merge_email_results(email_result, batch)
+
+    if email_result:
+        out["stages"]["email"] = email_result
 
     if not args.dry_run:
         out["excluded_preprints_summary"] = _excluded_summary()
 
+    _notify_pipeline_summary(out)
     return out
+
+
+def _notify_pipeline_summary(result: Dict[str, Any]) -> None:
+    """Send a short email summary of the pipeline run."""
+    if not PIPELINE_NOTIFY_EMAIL:
+        return
+    try:
+        from .email.gmail import send_email
+
+        stages = result.get("stages", {})
+        rows = []
+        any_failed = False
+        for name, data in stages.items():
+            p = data.get("processed", 0)
+            f = data.get("failed", 0)
+            timed = " (timed out)" if data.get("stopped_due_to_time") else ""
+            if f:
+                any_failed = True
+            rows.append(f"<tr><td>{name}</td><td>{p}</td><td>{f}</td><td>{timed.strip()}</td></tr>")
+
+        status = "with errors" if any_failed else "OK"
+        table = (
+            '<table style="border-collapse:collapse;font-family:monospace;font-size:14px">'
+            '<tr style="border-bottom:2px solid #333"><th style="text-align:left;padding:4px 12px">Stage</th>'
+            '<th style="padding:4px 12px">Processed</th><th style="padding:4px 12px">Failed</th>'
+            '<th style="padding:4px 12px">Note</th></tr>'
+            + "".join(rows)
+            + "</table>"
+        )
+
+        html = f"<p>Pipeline run completed <strong>{status}</strong>.</p>{table}"
+        send_email(PIPELINE_NOTIFY_EMAIL, f"FLoRA pipeline: {status}", html)
+        logger.info("Pipeline summary email sent", extra={"to": PIPELINE_NOTIFY_EMAIL})
+    except Exception:
+        logger.warning("Failed to send pipeline summary email", exc_info=True)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -855,6 +964,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--cache-ttl-hours", type=int, default=None)
     p_run.add_argument("--no-persist", action="store_true")
     p_run.add_argument("--include-checked", action="store_true")
+    p_run.add_argument("--spread-seconds", type=int, default=None, help="Spread email sends over this many seconds (email stage only)")
     p_run.set_defaults(func=run_stage)
 
     p_all = sub.add_parser("run-all", help="Run the full pipeline (bounded per stage)")

@@ -9,6 +9,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import Any, Dict
 
+from ..runtime_config import RUNTIME_CONFIG
+
 logger = logging.getLogger(__name__)
 
 _MAX_RETRIES = 3
@@ -19,6 +21,7 @@ def send_email(
     subject: str,
     html_body: str,
     *,
+    plain_body: str = "",
     sender: str | None = None,
 ) -> Dict[str, Any]:
     """Send an email via Gmail SMTP with an app password.
@@ -31,13 +34,17 @@ def send_email(
         raise RuntimeError("GMAIL_APP_PASSWORD env var is not set")
 
     msg = MIMEMultipart("alternative")
-    msg["From"] = sender_addr
+    display_name = RUNTIME_CONFIG.email.sender_display_name
+    msg["From"] = f"{display_name} <{sender_addr}>"
     msg["To"] = to
     msg["Subject"] = subject
     msg["Reply-To"] = sender_addr
     msg["List-Unsubscribe"] = f"<mailto:{sender_addr}?subject=Unsubscribe>"
     msg["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click"
 
+    # Plain text first (fallback), then HTML (preferred) — per MIME convention
+    if plain_body:
+        msg.attach(MIMEText(plain_body, "plain"))
     msg.attach(MIMEText(html_body, "html"))
 
     message_id = uuid.uuid4().hex[:16]

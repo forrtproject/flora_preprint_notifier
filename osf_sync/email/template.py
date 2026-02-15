@@ -31,10 +31,26 @@ def load_template(path: Path | None = None) -> jinja2.Template:
     return env.from_string(text)
 
 
-def render_email(context: Dict[str, Any], *, template_path: Path | None = None) -> Tuple[str, str]:
+def _md_to_plain(md: str) -> str:
+    """Convert rendered markdown to plain text for the text/plain MIME part."""
+    text = md
+    # Convert markdown links [text](url) to "text (url)"
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1 (\2)", text)
+    # Strip bold/italic markers
+    text = re.sub(r"\*{1,3}(.+?)\*{1,3}", r"\1", text)
+    # Replace <br> / <br/> / <br /> with newlines
+    text = re.sub(r"<br\s*/?>", "\n", text, flags=re.IGNORECASE)
+    # Strip remaining HTML tags
+    text = re.sub(r"<[^>]+>", "", text)
+    # Collapse multiple blank lines
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
+def render_email(context: Dict[str, Any], *, template_path: Path | None = None) -> Tuple[str, str, str]:
     """Render the email template with the given context.
 
-    Returns (subject, html_body).
+    Returns (subject, html_body, plain_text_body).
     """
     tmpl = load_template(template_path)
     rendered_md = tmpl.render(context)
@@ -53,4 +69,7 @@ def render_email(context: Dict[str, Any], *, template_path: Path | None = None) 
     # Convert markdown to HTML
     html_body = markdown.markdown(body_md.strip(), extensions=["extra"])
 
-    return subject, _HTML_WRAPPER.format(body=html_body)
+    # Plain text version
+    plain_body = _md_to_plain(body_md.strip())
+
+    return subject, _HTML_WRAPPER.format(body=html_body), plain_body
