@@ -1,8 +1,8 @@
 name: Pipeline Run
 
 on:
-  schedule:
-    - cron: '0 3 * * *'
+  # schedule:
+  #   - cron: '0 3 * * *'
   workflow_dispatch:
     inputs:
       stage:
