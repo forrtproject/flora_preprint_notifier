@@ -34,6 +34,7 @@ class PreprintsRepo:
         self.t_trial_tokens = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_AUTHOR_TOKENS", "trial_author_tokens"))
         self.t_trial_clusters = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_CLUSTERS", "trial_clusters"))
         self.t_trial_assignments = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_ASSIGNMENTS", "trial_preprint_assignments"))
+        self.t_suppression = ddb.Table(os.environ.get("DDB_TABLE_EMAIL_SUPPRESSION", "email_suppression"))
 
     # --- cursors (sync_state) ---
     def get_cursor(self, source_key: str) -> Optional[str]:
@@ -933,6 +934,74 @@ class PreprintsRepo:
             Key={"osf_id": osf_id},
             UpdateExpression="SET author_email_candidates=:c, updated_at=:t",
             ExpressionAttributeValues={":c": candidates, ":t": now},
+        )
+
+    # --- email stage ---
+    def select_for_email(self, limit: int = 50) -> List[Dict[str, Any]]:
+        out: List[Dict[str, Any]] = []
+        last_key = None
+        while True:
+            kwargs: Dict[str, Any] = {
+                "FilterExpression": (
+                    Attr("author_email_candidates").exists()
+                    & Attr("trial_arm").eq("treatment")
+                    & (Attr("email_sent").not_exists() | Attr("email_sent").eq(False))
+                    & (Attr("excluded").not_exists() | Attr("excluded").eq(False))
+                ),
+            }
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_preprints.scan(**kwargs)
+            out.extend(resp.get("Items", []))
+            if limit and len(out) >= limit:
+                return out[:limit]
+            last_key = resp.get("LastEvaluatedKey")
+            if not last_key:
+                return out
+
+    def mark_email_sent(
+        self,
+        osf_id: str,
+        *,
+        recipient: str,
+        message_id: str,
+    ) -> None:
+        now = dt.datetime.utcnow().isoformat()
+        self.t_preprints.update_item(
+            Key={"osf_id": osf_id},
+            UpdateExpression=(
+                "SET email_sent=:true, email_sent_at=:t, "
+                "email_recipient=:r, email_message_id=:mid, updated_at=:t "
+                "REMOVE email_error"
+            ),
+            ExpressionAttributeValues={
+                ":true": True,
+                ":t": now,
+                ":r": recipient,
+                ":mid": message_id,
+            },
+        )
+
+    def mark_email_error(self, osf_id: str, error: str) -> None:
+        now = dt.datetime.utcnow().isoformat()
+        self.t_preprints.update_item(
+            Key={"osf_id": osf_id},
+            UpdateExpression=(
+                "SET email_error=:err, email_sent=:false, updated_at=:t"
+            ),
+            ExpressionAttributeValues={
+                ":err": str(error)[:2000],
+                ":false": False,
+                ":t": now,
+            },
+        )
+
+    def mark_email_validated(self, osf_id: str, status: str) -> None:
+        now = dt.datetime.utcnow().isoformat()
+        self.t_preprints.update_item(
+            Key={"osf_id": osf_id},
+            UpdateExpression="SET email_validation_status=:s, updated_at=:t",
+            ExpressionAttributeValues={":s": status, ":t": now},
         )
 
 

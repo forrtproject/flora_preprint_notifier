@@ -53,6 +53,7 @@ jobs:
       ORCID_CLIENT_SECRET: ${{ secrets.ORCID_CLIENT_SECRET }}
       CROSSREF_MAILTO: ${{ secrets.CROSSREF_MAILTO }}
       OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
+      TEI_S3_BUCKET: flora-preprint-tei-cache
 
     steps:
       - uses: actions/checkout@v4

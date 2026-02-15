@@ -10,3 +10,9 @@ window_months = 6
 original_lookup_url = "https://rep-api.forrt.org/v1/original-lookup"
 # Cache freshness horizon for FLORA lookup results.
 cache_ttl_hours = 48
+
+[email]
+sender_address = "flora@replications.forrt.org"
+feedback_base_url = "https://forrt.org/flora-notify/feedback"
+report_base_url = "https://forrt.org/flora-notify/report"
+flora_learn_more_url = "https://forrt.org/flora/"

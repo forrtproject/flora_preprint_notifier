@@ -12,6 +12,7 @@ TRIAL_AUTHOR_NODES_TABLE = os.environ.get("DDB_TABLE_TRIAL_AUTHOR_NODES", "trial
 TRIAL_AUTHOR_TOKENS_TABLE = os.environ.get("DDB_TABLE_TRIAL_AUTHOR_TOKENS", "trial_author_tokens")
 TRIAL_CLUSTERS_TABLE = os.environ.get("DDB_TABLE_TRIAL_CLUSTERS", "trial_clusters")
 TRIAL_ASSIGNMENTS_TABLE = os.environ.get("DDB_TABLE_TRIAL_ASSIGNMENTS", "trial_preprint_assignments")
+EMAIL_SUPPRESSION_TABLE = os.environ.get("DDB_TABLE_EMAIL_SUPPRESSION", "email_suppression")
 
 TABLES = {
   "preprints": {
@@ -181,6 +182,11 @@ TABLES = {
           "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
         }
     ],
+    "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+  },
+  EMAIL_SUPPRESSION_TABLE: {
+    "KeySchema":[{"AttributeName":"email","KeyType":"HASH"}],
+    "AttributeDefinitions":[{"AttributeName":"email","AttributeType":"S"}],
     "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
   }
 }

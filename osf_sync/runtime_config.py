@@ -24,9 +24,18 @@ class FloraConfig:
 
 
 @dataclass(frozen=True)
+class EmailConfig:
+    sender_address: str
+    feedback_base_url: str
+    report_base_url: str
+    flora_learn_more_url: str
+
+
+@dataclass(frozen=True)
 class RuntimeConfig:
     ingest: IngestConfig
     flora: FloraConfig
+    email: EmailConfig
 
 
 def _default_config() -> RuntimeConfig:
@@ -35,6 +44,12 @@ def _default_config() -> RuntimeConfig:
         flora=FloraConfig(
             original_lookup_url="https://rep-api.forrt.org/v1/original-lookup",
             cache_ttl_hours=48,
+        ),
+        email=EmailConfig(
+            sender_address="flora@replications.forrt.org",
+            feedback_base_url="https://forrt.org/flora-notify/feedback",
+            report_base_url="https://forrt.org/flora-notify/report",
+            flora_learn_more_url="https://forrt.org/flora/",
         ),
     )
 
@@ -88,11 +103,32 @@ def load_runtime_config(config_path: Optional[Path] = None) -> RuntimeConfig:
 
     cache_ttl_hours = _safe_int(flora_raw.get("cache_ttl_hours", cfg.flora.cache_ttl_hours), cfg.flora.cache_ttl_hours)
 
+    email_raw = raw.get("email") if isinstance(raw, dict) else {}
+    if not isinstance(email_raw, dict):
+        email_raw = {}
+
+    def _str_field(d: dict, key: str, default: str) -> str:
+        val = d.get(key, default)
+        if not isinstance(val, str) or not val.strip():
+            return default
+        return val.strip()
+
+    email_sender = _str_field(email_raw, "sender_address", cfg.email.sender_address)
+    email_feedback = _str_field(email_raw, "feedback_base_url", cfg.email.feedback_base_url)
+    email_report = _str_field(email_raw, "report_base_url", cfg.email.report_base_url)
+    email_learn_more = _str_field(email_raw, "flora_learn_more_url", cfg.email.flora_learn_more_url)
+
     return RuntimeConfig(
         ingest=IngestConfig(anchor_date=anchor_date, window_months=window_months),
         flora=FloraConfig(
             original_lookup_url=original_lookup_url,
             cache_ttl_hours=cache_ttl_hours,
+        ),
+        email=EmailConfig(
+            sender_address=email_sender,
+            feedback_base_url=email_feedback,
+            report_base_url=email_report,
+            flora_learn_more_url=email_learn_more,
         ),
     )
 

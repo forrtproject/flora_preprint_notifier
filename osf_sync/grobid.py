@@ -6,6 +6,7 @@ from typing import Optional, Tuple
 from requests.exceptions import RequestException, Timeout, ConnectionError
 from .dynamo.preprints_repo import PreprintsRepo
 from .iter_preprints import SESSION
+from .tei_cache import upload_tei
 
 GROBID_URL = os.environ.get("GROBID_URL")
 DATA_ROOT   = os.environ.get("PDF_DEST_ROOT", "/data/preprints")
@@ -54,6 +55,7 @@ def process_pdf_to_tei(provider_id: str, osf_id: str) -> Tuple[bool, Optional[st
             tmp = tei_path.with_suffix(".xml.tmp")
             tmp.write_text(r.text, encoding="utf-8")
             tmp.replace(tei_path)
+            upload_tei(provider_id, osf_id, str(tei_path))
             return (True, str(tei_path), None)
     except (RequestException, Timeout, ConnectionError) as e:
         return (False, None, str(e))

@@ -48,31 +48,36 @@ def extract_for_osf_id(provider_id: str, osf_id: str, base_dir: str, *, raise_on
     try:
         # --- Check TEI existence, with ephemeral storage fallback ---
         if not os.path.exists(tei_path):
-            logger.info(
-                "TEI file missing on disk, attempting regeneration via GROBID",
-                extra={"osf_id": osf_id, "provider": provider_id},
-            )
-            try:
-                from ..pipeline import download_single_pdf
-                from ..grobid import _pdf_path, process_pdf_to_tei
+            # Try S3 cache first (much faster than GROBID regeneration)
+            from ..tei_cache import download_tei
+            if download_tei(provider_id, osf_id, tei_path):
+                logger.info("TEI restored from S3 cache", extra={"osf_id": osf_id})
+            else:
+                logger.info(
+                    "TEI file missing on disk and S3, attempting regeneration via GROBID",
+                    extra={"osf_id": osf_id, "provider": provider_id},
+                )
+                try:
+                    from ..pipeline import download_single_pdf
+                    from ..grobid import _pdf_path, process_pdf_to_tei
 
-                if _pdf_path(provider_id, osf_id) is None:
-                    download_single_pdf(osf_id)
-                ok, generated_path, err = process_pdf_to_tei(provider_id, osf_id)
-                if ok and generated_path:
-                    tei_path = generated_path
-                    summary["tei_path"] = tei_path
-                    logger.info("TEI regenerated successfully", extra={"osf_id": osf_id})
-                else:
-                    msg = f"TEI regeneration failed: {err}"
+                    if _pdf_path(provider_id, osf_id) is None:
+                        download_single_pdf(osf_id)
+                    ok, generated_path, err = process_pdf_to_tei(provider_id, osf_id)
+                    if ok and generated_path:
+                        tei_path = generated_path
+                        summary["tei_path"] = tei_path
+                        logger.info("TEI regenerated successfully", extra={"osf_id": osf_id})
+                    else:
+                        msg = f"TEI regeneration failed: {err}"
+                        logger.warning(msg, extra={"osf_id": osf_id, "provider": provider_id})
+                        summary["error"] = msg
+                        return summary
+                except Exception as regen_err:
+                    msg = f"TEI regeneration error: {regen_err}"
                     logger.warning(msg, extra={"osf_id": osf_id, "provider": provider_id})
                     summary["error"] = msg
                     return summary
-            except Exception as regen_err:
-                msg = f"TEI regeneration error: {regen_err}"
-                logger.warning(msg, extra={"osf_id": osf_id, "provider": provider_id})
-                summary["error"] = msg
-                return summary
 
         logger.info("Starting TEI parse", extra={"osf_id": osf_id, "provider": provider_id})
 
