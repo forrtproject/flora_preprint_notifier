@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, Optional
 
 from ..dynamo.preprints_repo import PreprintsRepo
@@ -50,6 +51,7 @@ def enrich_missing_with_multi_method(
     include_existing: bool = False,
     screen_raw: bool = True,
     debug: bool = False,
+    workers: int = 1,
 ) -> Dict[str, int]:
     """
     Run the multi-method DOI pipeline for refs missing DOIs (or specific ref_id),
@@ -68,31 +70,65 @@ def enrich_missing_with_multi_method(
         include_existing=include_existing or bool(ref_id and osf_id),
     )
 
-    for ref in rows:
-        checked += 1
-        try:
-            row = process_reference(
-                ref,
-                threshold=use_threshold,
-                mailto=use_mailto,
-                screen_raw=screen_raw,
-                debug=debug,
-            )
-            doi = _resolve_final_doi(row)
-            status = row.get("status")
-            if not doi or status != "matched":
-                continue
-            source = _resolve_source(row.get("final_method"))
-            ok = repo.update_reference_doi(
-                ref.get("osf_id"), ref.get("ref_id"), doi, source=source)
-            if ok:
-                updated += 1
-        except Exception:
-            failed += 1
-            logger.exception(
-                "Multi-method enrichment failed",
-                extra={"osf_id": ref.get(
-                    "osf_id"), "ref_id": ref.get("ref_id")},
-            )
+    def _process_one(ref: Dict) -> Dict:
+        row = process_reference(
+            ref,
+            threshold=use_threshold,
+            mailto=use_mailto,
+            screen_raw=screen_raw,
+            debug=debug,
+        )
+        return {"ref": ref, "row": row}
+
+    if workers > 1 and len(rows) > 1:
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            futures = {executor.submit(_process_one, ref): ref for ref in rows}
+            for future in as_completed(futures):
+                checked += 1
+                ref = futures[future]
+                try:
+                    result = future.result()
+                    row = result["row"]
+                    doi = _resolve_final_doi(row)
+                    status = row.get("status")
+                    if not doi or status != "matched":
+                        continue
+                    source = _resolve_source(row.get("final_method"))
+                    ok = repo.update_reference_doi(
+                        ref.get("osf_id"), ref.get("ref_id"), doi, source=source)
+                    if ok:
+                        updated += 1
+                except Exception:
+                    failed += 1
+                    logger.exception(
+                        "Multi-method enrichment failed",
+                        extra={"osf_id": ref.get("osf_id"), "ref_id": ref.get("ref_id")},
+                    )
+    else:
+        for ref in rows:
+            checked += 1
+            try:
+                row = process_reference(
+                    ref,
+                    threshold=use_threshold,
+                    mailto=use_mailto,
+                    screen_raw=screen_raw,
+                    debug=debug,
+                )
+                doi = _resolve_final_doi(row)
+                status = row.get("status")
+                if not doi or status != "matched":
+                    continue
+                source = _resolve_source(row.get("final_method"))
+                ok = repo.update_reference_doi(
+                    ref.get("osf_id"), ref.get("ref_id"), doi, source=source)
+                if ok:
+                    updated += 1
+            except Exception:
+                failed += 1
+                logger.exception(
+                    "Multi-method enrichment failed",
+                    extra={"osf_id": ref.get("osf_id"), "ref_id": ref.get("ref_id")},
+                )
 
     return {"checked": checked, "updated": updated, "failed": failed}

@@ -8,6 +8,7 @@ import re
 import sys
 import time
 import unicodedata
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
@@ -1432,6 +1433,7 @@ def run_author_extract(
     match_emails_threshold: float = 0.90,
     include_existing: bool = False,
     write_debug_csv: bool = False,
+    orcid_workers: int = 1,
 ) -> int:
     global _LOG_FH, DEBUG
     if debug_log:
@@ -1484,53 +1486,107 @@ def run_author_extract(
     count_rows = 0
     count_preprints = 0
     stats: Dict[str, int] = {}
-    try:
-        for item in items:
-            osf_id = item.get("osf_id")
-            _inc(stats, "preprints_total")
-            try:
-                if not include_existing and item.get("author_email_candidates"):
-                    _dbg(f"[{osf_id}] skip: author_email_candidates already present")
-                    continue
-                rows = _process_preprint(
-                    item,
-                    pdf_root,
-                    osf_user_cache,
-                    orcid_cache,
-                    orcid_name_cache,
-                    orcid_affil_cache,
-                    delete_files=delete_files,
-                    stats=stats,
+
+    def _handle_result(osf_id: str, item: dict, rows: Optional[List[Dict[str, Any]]]) -> None:
+        nonlocal count_rows, count_preprints
+        if rows:
+            candidates = _score_group_email_matches(rows, match_emails_threshold)
+            if _count_contactable_candidates(candidates) == 0:
+                log_preprint_exclusion(
+                    reason="no_author_contacts_extracted",
+                    osf_id=osf_id,
+                    stage="author",
+                    details={"provider_id": item.get("provider_id"), "rows": len(rows)},
                 )
-                if rows:
-                    candidates = _score_group_email_matches(rows, match_emails_threshold)
-                    if _count_contactable_candidates(candidates) == 0:
-                        log_preprint_exclusion(
-                            reason="no_author_contacts_extracted",
-                            osf_id=osf_id,
-                            stage="author",
-                            details={"provider_id": item.get("provider_id"), "rows": len(rows)},
-                        )
-                    try:
-                        repo.update_preprint_author_email_candidates(osf_id, candidates)
-                    except Exception as exc:
-                        _log(f"[warn] {osf_id}: author_email_candidates update failed ({exc})")
-                    if writer:
-                        for row in rows:
-                            writer.writerow(_row_for_csv(row))
-                    count_rows += len(rows)
-                else:
-                    log_preprint_exclusion(
-                        reason="no_author_contacts_extracted",
-                        osf_id=osf_id,
-                        stage="author",
-                        details={"provider_id": item.get("provider_id"), "rows": 0},
-                    )
-                count_preprints += 1
-                if count_preprints % 50 == 0:
-                    _log(f"Processed {count_preprints} preprints")
+            try:
+                repo.update_preprint_author_email_candidates(osf_id, candidates)
             except Exception as exc:
-                _log(f"[warn] {osf_id}: {exc}")
+                _log(f"[warn] {osf_id}: author_email_candidates update failed ({exc})")
+            if writer:
+                for row in rows:
+                    writer.writerow(_row_for_csv(row))
+            count_rows += len(rows)
+        else:
+            log_preprint_exclusion(
+                reason="no_author_contacts_extracted",
+                osf_id=osf_id,
+                stage="author",
+                details={"provider_id": item.get("provider_id"), "rows": 0},
+            )
+        count_preprints += 1
+        if count_preprints % 50 == 0:
+            _log(f"Processed {count_preprints} preprints")
+
+    try:
+        if orcid_workers > 1:
+            # Process preprints in parallel; ORCID/OSF caches are shared dicts
+            # (thread-safe for simple get/set under GIL).
+            # Submit batches to keep memory bounded, handle results as they complete.
+            BATCH_SIZE = orcid_workers * 4
+            pending: Dict[Any, dict] = {}  # future -> item
+            executor = ThreadPoolExecutor(max_workers=orcid_workers)
+            try:
+                for item in items:
+                    osf_id = item.get("osf_id")
+                    _inc(stats, "preprints_total")
+                    if not include_existing and item.get("author_email_candidates"):
+                        _dbg(f"[{osf_id}] skip: author_email_candidates already present")
+                        continue
+                    future = executor.submit(
+                        _process_preprint,
+                        item,
+                        pdf_root,
+                        osf_user_cache,
+                        orcid_cache,
+                        orcid_name_cache,
+                        orcid_affil_cache,
+                        delete_files=delete_files,
+                        stats=stats,
+                    )
+                    pending[future] = item
+                    # Drain completed futures when batch is full
+                    if len(pending) >= BATCH_SIZE:
+                        for done in as_completed(pending):
+                            it = pending[done]
+                            oid = it.get("osf_id")
+                            try:
+                                rows = done.result()
+                                _handle_result(oid, it, rows)
+                            except Exception as exc:
+                                _log(f"[warn] {oid}: {exc}")
+                        pending.clear()
+                # Drain remaining
+                for done in as_completed(pending):
+                    it = pending[done]
+                    oid = it.get("osf_id")
+                    try:
+                        rows = done.result()
+                        _handle_result(oid, it, rows)
+                    except Exception as exc:
+                        _log(f"[warn] {oid}: {exc}")
+            finally:
+                executor.shutdown(wait=True)
+        else:
+            for item in items:
+                osf_id = item.get("osf_id")
+                _inc(stats, "preprints_total")
+                try:
+                    if not include_existing and item.get("author_email_candidates"):
+                        _dbg(f"[{osf_id}] skip: author_email_candidates already present")
+                        continue
+                    rows = _process_preprint(
+                        item,
+                        pdf_root,
+                        osf_user_cache,
+                        orcid_cache,
+                        orcid_name_cache,
+                        orcid_affil_cache,
+                        delete_files=delete_files,
+                        stats=stats,
+                    )
+                    _handle_result(osf_id, item, rows)
+                except Exception as exc:
+                    _log(f"[warn] {osf_id}: {exc}")
     finally:
         if csv_fh:
             csv_fh.close()

@@ -8,6 +8,7 @@ import os
 import socket
 import time
 import uuid
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, Optional
 
 import requests
@@ -24,6 +25,7 @@ from .iter_preprints import iter_preprints_batches, iter_preprints_range
 from .exclusion_logging import log_preprint_exclusion
 from .pdf import ensure_pdf_available_or_delete, mark_downloaded
 from .upsert import upsert_batch
+from .email import process_email_batch
 from .extraction.extract_author_list import run_author_extract
 
 OPENALEX_EMAIL = os.environ.get("OPENALEX_EMAIL", "you@example.com")
@@ -275,6 +277,13 @@ def grobid_single(osf_id: str) -> Dict[str, Any]:
         return {"osf_id": osf_id, "skipped": "already processed"}
 
     provider_id = row["provider_id"] or "unknown"
+
+    # Ephemeral storage fallback: re-download PDF if missing on disk
+    from .grobid import _pdf_path
+    if _pdf_path(provider_id, osf_id) is None:
+        logger.info("PDF missing on disk, re-downloading", extra={"osf_id": osf_id})
+        download_single_pdf(osf_id)
+
     ok, tei_path, err = process_pdf_to_tei(provider_id, osf_id)
     if ok:
         mark_tei(osf_id, ok=True, tei_path=tei_path)
@@ -300,6 +309,7 @@ def process_pdf_batch(
     owner: Optional[str] = None,
     lease_seconds: int = DEFAULT_LEASE_SECONDS,
     max_seconds: Optional[int] = None,
+    workers: int = 1,
     dry_run: bool = False,
 ) -> Dict[str, Any]:
     repo = PreprintsRepo()
@@ -309,26 +319,43 @@ def process_pdf_batch(
     candidates = repo.select_for_pdf(limit=max(limit * 3, limit))
     claimed = processed = failed = skipped_claimed = 0
 
+    # Claim items sequentially (DynamoDB conditional writes are the sync point)
+    claimed_ids = []
     for osf_id in candidates:
-        if processed + failed >= limit or _time_up(deadline):
+        if len(claimed_ids) + failed >= limit or _time_up(deadline):
             break
         if not repo.claim_stage_item("pdf", osf_id, owner=owner_id, lease_seconds=lease_seconds):
             skipped_claimed += 1
             continue
-
         claimed += 1
         if dry_run:
             repo.release_stage_claim("pdf", osf_id)
             processed += 1
             continue
+        claimed_ids.append(osf_id)
 
-        try:
-            download_single_pdf(osf_id)
-            processed += 1
-        except Exception as exc:
-            failed += 1
-            repo.record_stage_error("pdf", osf_id, str(exc))
-            logger.exception("PDF stage failed", extra={"osf_id": osf_id})
+    # Process claimed items in parallel
+    if claimed_ids and workers > 1:
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            futures = {executor.submit(download_single_pdf, oid): oid for oid in claimed_ids}
+            for future in as_completed(futures):
+                osf_id = futures[future]
+                try:
+                    future.result()
+                    processed += 1
+                except Exception as exc:
+                    failed += 1
+                    repo.record_stage_error("pdf", osf_id, str(exc))
+                    logger.exception("PDF stage failed", extra={"osf_id": osf_id})
+    else:
+        for osf_id in claimed_ids:
+            try:
+                download_single_pdf(osf_id)
+                processed += 1
+            except Exception as exc:
+                failed += 1
+                repo.record_stage_error("pdf", osf_id, str(exc))
+                logger.exception("PDF stage failed", extra={"osf_id": osf_id})
 
     out = {
         "stage": "pdf",
@@ -479,6 +506,7 @@ def process_enrich_batch(
     osf_id: Optional[str] = None,
     ref_id: Optional[str] = None,
     debug: bool = False,
+    workers: int = 1,
     dry_run: bool = False,
 ) -> Dict[str, Any]:
     if dry_run:
@@ -496,6 +524,7 @@ def process_enrich_batch(
         osf_id=osf_id,
         ref_id=ref_id,
         debug=debug,
+        workers=workers,
     )
     out = {"stage": "enrich", **stats, "dry_run": False}
     _slack("Reference enrichment finished", extra=out)
@@ -553,6 +582,7 @@ def process_author_batch(
     match_emails_threshold: float = 0.90,
     include_existing: bool = False,
     write_debug_csv: bool = False,
+    orcid_workers: int = 1,
     dry_run: bool = False,
 ) -> Dict[str, Any]:
     if dry_run:
@@ -570,6 +600,7 @@ def process_author_batch(
         match_emails_threshold=match_emails_threshold,
         include_existing=include_existing,
         write_debug_csv=write_debug_csv,
+        orcid_workers=orcid_workers,
     )
     out = {"stage": "author", "exit_code": code, "dry_run": False}
     _slack("Author extraction finished", extra=out)
@@ -634,6 +665,7 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
             owner=args.owner,
             lease_seconds=args.lease_seconds,
             max_seconds=args.max_seconds,
+            workers=getattr(args, "download_workers", 1),
             dry_run=args.dry_run,
         )
     if stage == "grobid":
@@ -660,6 +692,7 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
             osf_id=args.osf_id,
             ref_id=args.ref_id,
             debug=args.debug,
+            workers=getattr(args, "enrich_workers", 1),
             dry_run=args.dry_run,
         )
     if stage == "flora":
@@ -688,7 +721,15 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
             match_emails_threshold=args.match_emails_threshold,
             include_existing=args.include_existing,
             write_debug_csv=args.write_debug_csv,
+            orcid_workers=getattr(args, "orcid_workers", 1),
             dry_run=args.dry_run,
+        )
+    if stage == "email":
+        return process_email_batch(
+            limit=args.limit or 50,
+            max_seconds=args.max_seconds,
+            dry_run=args.dry_run,
+            osf_id=args.osf_id,
         )
     raise ValueError(f"Unsupported stage: {stage}")
 
@@ -708,6 +749,7 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         owner=args.owner,
         lease_seconds=args.lease_seconds,
         max_seconds=args.max_seconds_per_stage,
+        workers=getattr(args, "download_workers", 1),
         dry_run=args.dry_run,
     )
     out["stages"]["grobid"] = process_grobid_batch(
@@ -731,6 +773,7 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         osf_id=args.osf_id,
         ref_id=args.ref_id,
         debug=args.debug,
+        workers=getattr(args, "enrich_workers", 1),
         dry_run=args.dry_run,
     )
     out["stages"]["flora"] = process_flora_batch(
@@ -759,6 +802,14 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
             match_emails_threshold=args.match_emails_threshold,
             include_existing=args.include_existing,
             write_debug_csv=args.write_debug_csv,
+            orcid_workers=getattr(args, "orcid_workers", 1),
+            dry_run=args.dry_run,
+        )
+
+    if getattr(args, "include_email", False):
+        out["stages"]["email"] = process_email_batch(
+            limit=getattr(args, "email_limit", 50),
+            max_seconds=args.max_seconds_per_stage,
             dry_run=args.dry_run,
         )
 
@@ -773,10 +824,13 @@ def build_parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="cmd", required=True)
 
     p_run = sub.add_parser("run", help="Run a single pipeline stage")
-    p_run.add_argument("--stage", required=True, choices=["sync", "pdf", "grobid", "extract", "enrich", "flora", "author"])
+    p_run.add_argument("--stage", required=True, choices=["sync", "pdf", "grobid", "extract", "enrich", "flora", "author", "email"])
     p_run.add_argument("--limit", type=int, default=None)
     p_run.add_argument("--max-seconds", type=int, default=None)
     p_run.add_argument("--dry-run", action="store_true")
+    p_run.add_argument("--download-workers", type=int, default=1, help="Parallel workers for PDF downloads")
+    p_run.add_argument("--enrich-workers", type=int, default=1, help="Parallel workers for Crossref/OpenAlex enrichment")
+    p_run.add_argument("--orcid-workers", type=int, default=3, help="Parallel workers for ORCID lookups")
     p_run.add_argument("--debug", action="store_true")
     p_run.add_argument("--batch-size", type=int, default=1000)
     p_run.add_argument("--subject", default=None)
@@ -813,7 +867,12 @@ def build_parser() -> argparse.ArgumentParser:
     p_all.add_argument("--limit-lookup", type=int, default=200)
     p_all.add_argument("--limit-screen", type=int, default=500)
     p_all.add_argument("--max-seconds-per-stage", type=int, default=None)
+    p_all.add_argument("--download-workers", type=int, default=1, help="Parallel workers for PDF downloads")
+    p_all.add_argument("--enrich-workers", type=int, default=1, help="Parallel workers for Crossref/OpenAlex enrichment")
+    p_all.add_argument("--orcid-workers", type=int, default=3, help="Parallel workers for ORCID lookups")
     p_all.add_argument("--skip-author", action="store_true", help="Skip author extraction stage")
+    p_all.add_argument("--include-email", action="store_true", help="Include email sending stage (off by default)")
+    p_all.add_argument("--email-limit", type=int, default=50, help="Max emails to send in run-all")
     p_all.add_argument("--subject", default=None)
     p_all.add_argument("--batch-size", type=int, default=1000)
     p_all.add_argument("--threshold", type=int, default=None)

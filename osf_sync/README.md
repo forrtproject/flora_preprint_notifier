@@ -32,6 +32,29 @@ Use `python -m osf_sync.pipeline <command>`.
 
 All commands support bounded execution (`--limit`, `--max-seconds`) and `--dry-run` where applicable.
 
+## GitHub Actions orchestration
+
+The pipeline runs automatically via `.github/workflows/pipeline.yml` on GH Actions hosted runners (`ubuntu-latest`).
+
+**Schedule:** Daily at 03:00 UTC via cron, plus manual `workflow_dispatch`.
+
+**Architecture:**
+- GROBID runs as a GH Actions service container (`grobid/grobid:0.8.2.1-full` on port 8070)
+- LibreOffice installed for DOCX-to-PDF conversion
+- Filesystem is ephemeral; PDFs/TEI are re-downloaded or regenerated when missing on disk
+- DynamoDB claim/lease system provides crash-safe resumption across runs
+- Credentials are passed via GH Actions secrets as environment variables
+
+**Parallelism** (separate worker counts per API destination):
+- `--download-workers` (default 4): parallel PDF downloads from OSF
+- `--enrich-workers` (default 6): parallel Crossref/OpenAlex DOI lookups
+- `--orcid-workers` (default 3): parallel preprint processing for author/ORCID extraction
+- GROBID is always sequential (single service container)
+
+**Backlog handling:** After each run, if any stage was time-limited, the workflow re-triggers itself (up to `backlog_depth` times, default 5) to drain the queue. This requires a `WORKFLOW_DISPATCH_TOKEN` secret containing a PAT with `actions:write` scope, since `GITHUB_TOKEN` cannot trigger new workflow runs.
+
+**Timeouts:** Job timeout is 330 minutes (within the 6-hour GH Actions limit). Per-stage limit defaults to 3600s for `run-all`.
+
 ## Queue/claim flow
 
 `PreprintsRepo` queue status fields:

@@ -22,6 +22,9 @@ def extract_for_osf_id(provider_id: str, osf_id: str, base_dir: str, *, raise_on
     Locate TEI at: {base}/{provider}/{osf_id}/tei.xml,
     parse it with TEIExtractor, then write results to DB.
 
+    If the TEI file is missing on disk (e.g. ephemeral GH Actions runner),
+    attempts to regenerate it by re-downloading the PDF and running GROBID.
+
     Returns:
         {
           "osf_id": str,
@@ -43,12 +46,33 @@ def extract_for_osf_id(provider_id: str, osf_id: str, base_dir: str, *, raise_on
     }
 
     try:
-        # --- Check TEI existence ---
+        # --- Check TEI existence, with ephemeral storage fallback ---
         if not os.path.exists(tei_path):
-            msg = f"TEI file not found: {tei_path}"
-            logger.warning(msg, extra={"osf_id": osf_id, "provider": provider_id})
-            summary["error"] = msg
-            return summary
+            logger.info(
+                "TEI file missing on disk, attempting regeneration via GROBID",
+                extra={"osf_id": osf_id, "provider": provider_id},
+            )
+            try:
+                from ..pipeline import download_single_pdf
+                from ..grobid import _pdf_path, process_pdf_to_tei
+
+                if _pdf_path(provider_id, osf_id) is None:
+                    download_single_pdf(osf_id)
+                ok, generated_path, err = process_pdf_to_tei(provider_id, osf_id)
+                if ok and generated_path:
+                    tei_path = generated_path
+                    summary["tei_path"] = tei_path
+                    logger.info("TEI regenerated successfully", extra={"osf_id": osf_id})
+                else:
+                    msg = f"TEI regeneration failed: {err}"
+                    logger.warning(msg, extra={"osf_id": osf_id, "provider": provider_id})
+                    summary["error"] = msg
+                    return summary
+            except Exception as regen_err:
+                msg = f"TEI regeneration error: {regen_err}"
+                logger.warning(msg, extra={"osf_id": osf_id, "provider": provider_id})
+                summary["error"] = msg
+                return summary
 
         logger.info("Starting TEI parse", extra={"osf_id": osf_id, "provider": provider_id})
 
