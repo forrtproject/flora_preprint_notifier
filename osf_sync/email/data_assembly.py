@@ -58,17 +58,27 @@ def assemble_email_context(osf_id: str, repo: PreprintsRepo | None = None) -> Op
         logger.info("No email candidates", extra={"osf_id": osf_id})
         return None
 
-    # Pick the first candidate
-    candidate = candidates[0]
-    email_addr = candidate.get("email")
-    if not email_addr:
+    # Collect all candidates with valid-looking emails
+    recipients: List[Dict[str, str]] = []
+    for cand in candidates:
+        email = (cand.get("email") or "").strip()
+        if not email:
+            continue
+        full_name = cand.get("name", "")
+        parts = full_name.rsplit(" ", 1) if full_name else ["", ""]
+        recipients.append({
+            "email": email,
+            "first_name": parts[0] if len(parts) > 1 else full_name,
+            "last_name": parts[1] if len(parts) > 1 else "",
+        })
+
+    if not recipients:
+        logger.info("No email candidates with addresses", extra={"osf_id": osf_id})
         return None
 
-    # Parse name
-    full_name = candidate.get("name", "")
-    parts = full_name.rsplit(" ", 1) if full_name else ["", ""]
-    first_name = parts[0] if len(parts) > 1 else full_name
-    last_name = parts[1] if len(parts) > 1 else ""
+    # Use the first candidate's name for the greeting
+    first_name = recipients[0]["first_name"]
+    last_name = recipients[0]["last_name"]
 
     # Fetch all references for this preprint
     all_refs = _fetch_all_refs(osf_id, repo)
@@ -126,7 +136,7 @@ def assemble_email_context(osf_id: str, repo: PreprintsRepo | None = None) -> Op
         "feedback_already_aware_url": f"{feedback_base}?osf_id={osf_id}&response=already_aware",
         "feedback_report_error_url": f"{feedback_base}?osf_id={osf_id}&response=report_error",
         "unsubscribe_mailto": unsubscribe_mailto,
-        "_email_address": email_addr,
+        "_recipients": recipients,
         "_osf_id": osf_id,
     }
 

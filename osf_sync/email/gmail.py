@@ -7,7 +7,7 @@ import time
 import uuid
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from typing import Any, Dict
+from typing import Any, Dict, List, Union
 
 from ..runtime_config import RUNTIME_CONFIG
 
@@ -17,7 +17,7 @@ _MAX_RETRIES = 3
 
 
 def send_email(
-    to: str,
+    to: Union[str, List[str]],
     subject: str,
     html_body: str,
     *,
@@ -26,6 +26,9 @@ def send_email(
 ) -> Dict[str, Any]:
     """Send an email via Gmail SMTP with an app password.
 
+    *to* may be a single address or a list of addresses.  When a list is
+    given all recipients appear in the To header and the SMTP envelope.
+
     Returns a dict with 'id' (a generated message reference).
     """
     sender_addr = sender or os.environ.get("GMAIL_SENDER_ADDRESS", "flora@replications.forrt.org")
@@ -33,10 +36,12 @@ def send_email(
     if not app_password:
         raise RuntimeError("GMAIL_APP_PASSWORD env var is not set")
 
+    recipients = [to] if isinstance(to, str) else list(to)
+
     msg = MIMEMultipart("alternative")
     display_name = RUNTIME_CONFIG.email.sender_display_name
     msg["From"] = f"{display_name} <{sender_addr}>"
-    msg["To"] = to
+    msg["To"] = ", ".join(recipients)
     msg["Subject"] = subject
     msg["Reply-To"] = sender_addr
     msg["List-Unsubscribe"] = f"<mailto:{sender_addr}?subject=Unsubscribe>"
@@ -54,8 +59,8 @@ def send_email(
         try:
             with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
                 server.login(sender_addr, app_password)
-                server.sendmail(sender_addr, to, msg.as_string())
-            logger.info("Email sent", extra={"to": to, "message_id": message_id})
+                server.sendmail(sender_addr, recipients, msg.as_string())
+            logger.info("Email sent", extra={"to": recipients, "message_id": message_id})
             return {"id": message_id}
         except smtplib.SMTPAuthenticationError:
             raise
