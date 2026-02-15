@@ -26,6 +26,7 @@ class FloraConfig:
 @dataclass(frozen=True)
 class EmailConfig:
     sender_address: str
+    sender_display_name: str
     feedback_base_url: str
     report_base_url: str
     flora_learn_more_url: str
@@ -47,6 +48,7 @@ def _default_config() -> RuntimeConfig:
         ),
         email=EmailConfig(
             sender_address="flora@replications.forrt.org",
+            sender_display_name="FLoRA at FORRT",
             feedback_base_url="https://forrt.org/flora-notify/feedback",
             report_base_url="https://forrt.org/flora-notify/report",
             flora_learn_more_url="https://forrt.org/flora/",
@@ -114,6 +116,7 @@ def load_runtime_config(config_path: Optional[Path] = None) -> RuntimeConfig:
         return val.strip()
 
     email_sender = _str_field(email_raw, "sender_address", cfg.email.sender_address)
+    email_display_name = _str_field(email_raw, "sender_display_name", cfg.email.sender_display_name)
     email_feedback = _str_field(email_raw, "feedback_base_url", cfg.email.feedback_base_url)
     email_report = _str_field(email_raw, "report_base_url", cfg.email.report_base_url)
     email_learn_more = _str_field(email_raw, "flora_learn_more_url", cfg.email.flora_learn_more_url)
@@ -126,6 +129,7 @@ def load_runtime_config(config_path: Optional[Path] = None) -> RuntimeConfig:
         ),
         email=EmailConfig(
             sender_address=email_sender,
+            sender_display_name=email_display_name,
             feedback_base_url=email_feedback,
             report_base_url=email_report,
             flora_learn_more_url=email_learn_more,

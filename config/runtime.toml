@@ -13,6 +13,7 @@ cache_ttl_hours = 48
 
 [email]
 sender_address = "flora@replications.forrt.org"
+sender_display_name = "FLoRA at FORRT"
 feedback_base_url = "https://forrt.org/flora-notify/feedback"
 report_base_url = "https://forrt.org/flora-notify/report"
 flora_learn_more_url = "https://forrt.org/flora/"

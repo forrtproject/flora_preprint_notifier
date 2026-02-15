@@ -173,6 +173,7 @@ def _build_original_entry(ref: Dict[str, Any], ref_pairs: List[Dict[str, Any]]) 
 
         replications.append({
             "full_reference": rep_ref,
+            "doi": rep_doi,
             "doi_url": f"https://doi.org/{rep_doi}" if rep_doi else "",
             "oa_url": rep_oa_url,
             "outcome": rep_outcome,
@@ -183,6 +184,7 @@ def _build_original_entry(ref: Dict[str, Any], ref_pairs: List[Dict[str, Any]]) 
 
     return {
         "full_reference": original_citation,
+        "doi": original_doi,
         "doi_url": original_doi_url,
         "replications": replications,
     }

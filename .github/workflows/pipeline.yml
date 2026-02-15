@@ -6,10 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: 'Run specific stage (sync, pdf, grobid, extract, enrich, flora, author) or all'
+        description: 'Run specific stage (sync, pdf, grobid, extract, enrich, flora, author, email) or all'
         default: 'all'
       limit:
         description: 'Max items per stage (0 = unlimited)'
+        default: '0'
+      email_limit:
+        description: 'Max emails (recipients) to send per run (0 = skip email)'
         default: '0'
       download_workers:
         description: 'Parallel workers for PDF downloads'
@@ -47,13 +50,15 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       OPENALEX_EMAIL: ${{ secrets.OPENALEX_EMAIL }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       OSF_API_TOKEN: ${{ secrets.OSF_API_TOKEN }}
       ORCID_CLIENT_ID: ${{ secrets.ORCID_CLIENT_ID }}
       ORCID_CLIENT_SECRET: ${{ secrets.ORCID_CLIENT_SECRET }}
       CROSSREF_MAILTO: ${{ secrets.CROSSREF_MAILTO }}
       OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
       TEI_S3_BUCKET: flora-preprint-tei-cache
+      GMAIL_SENDER_ADDRESS: flora@replications.forrt.org
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+      PIPELINE_NOTIFY_EMAIL: ${{ secrets.PIPELINE_NOTIFY_EMAIL }}
 
     steps:
       - uses: actions/checkout@v4
@@ -84,6 +89,13 @@ jobs:
             LIMIT="100000"
           fi
 
+          EMAIL_LIMIT="${{ inputs.email_limit || '20' }}"
+
+          EMAIL_ARGS=""
+          if [ "$EMAIL_LIMIT" != "0" ]; then
+            EMAIL_ARGS="--include-email --email-limit $EMAIL_LIMIT"
+          fi
+
           if [ "$STAGE" = "all" ]; then
             python -m osf_sync.pipeline run-all \
               --pdf-limit "$LIMIT" \
@@ -94,15 +106,25 @@ jobs:
               --enrich-workers "$ENRICH_WORKERS" \
               --orcid-workers "$ORCID_WORKERS" \
               --max-seconds-per-stage 3600 \
+              $EMAIL_ARGS \
               | tee /tmp/pipeline_output.json
           else
+            EXTRA_ARGS=""
+            STAGE_LIMIT="$LIMIT"
+            if [ "$STAGE" = "email" ]; then
+              STAGE_LIMIT="$EMAIL_LIMIT"
+              # Spread emails: 45 min per 10 messages = 270s per message
+              SPREAD=$(( STAGE_LIMIT * 270 ))
+              EXTRA_ARGS="--spread-seconds $SPREAD"
+            fi
             python -m osf_sync.pipeline run \
               --stage "$STAGE" \
-              --limit "$LIMIT" \
+              --limit "$STAGE_LIMIT" \
               --download-workers "$DL_WORKERS" \
               --enrich-workers "$ENRICH_WORKERS" \
               --orcid-workers "$ORCID_WORKERS" \
               --max-seconds 18000 \
+              $EXTRA_ARGS \
               | tee /tmp/pipeline_output.json
           fi
 
@@ -147,6 +169,7 @@ jobs:
               --ref "${{ github.ref_name }}" \
               -f stage="${{ inputs.stage || 'all' }}" \
               -f limit="${{ inputs.limit || '0' }}" \
+              -f email_limit="${{ inputs.email_limit || '20' }}" \
               -f download_workers="${{ inputs.download_workers || '4' }}" \
               -f enrich_workers="${{ inputs.enrich_workers || '6' }}" \
               -f orcid_workers="${{ inputs.orcid_workers || '3' }}" \
