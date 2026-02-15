@@ -75,8 +75,8 @@ def process_email_batch(
 ) -> Dict[str, Any]:
     """Process a batch of eligible preprints for email sending.
 
-    Each preprint maps to exactly one recipient, so *limit* caps the
-    number of recipients contacted.
+    Each preprint may have multiple author recipients.  *limit* caps the
+    total number of **recipients** contacted (not preprints).
 
     When *spread_seconds* is set the batch sleeps a randomised interval
     between sends so that emails are spread over roughly that many
@@ -92,25 +92,25 @@ def process_email_batch(
     # Select eligible preprints
     if osf_id:
         item = repo.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item")
-        candidates = [item] if item else []
+        preprints = [item] if item else []
     else:
-        candidates = repo.select_for_email(limit=limit)
+        preprints = repo.select_for_email(limit=limit)
 
     # Pre-compute average inter-send delay when spreading is requested.
     avg_delay = 0.0
-    if spread_seconds and spread_seconds > 0 and len(candidates) > 1:
-        avg_delay = spread_seconds / len(candidates)
+    if spread_seconds and spread_seconds > 0 and len(preprints) > 1:
+        avg_delay = spread_seconds / len(preprints)
 
-    sent = 0
+    recipients_sent = 0
     failed = 0
     skipped_suppressed = 0
     skipped_invalid = 0
     skipped_no_context = 0
 
-    for preprint in candidates:
+    for preprint in preprints:
         if deadline and time.monotonic() >= deadline:
             break
-        if sent + failed >= limit:
+        if recipients_sent >= limit:
             break
 
         pid = preprint.get("osf_id")
@@ -123,41 +123,53 @@ def process_email_batch(
             skipped_no_context += 1
             continue
 
-        email_addr = context.get("_email_address", "")
+        all_recipients = context.get("_recipients", [])
 
-        # Check suppression
-        if is_suppressed(email_addr, repo=repo):
-            skipped_suppressed += 1
-            logger.info("Skipped suppressed email", extra={"osf_id": pid, "email": email_addr})
+        # Filter recipients: remove suppressed and invalid per-address
+        valid_addresses = []
+        for recip in all_recipients:
+            addr = recip["email"]
+            if is_suppressed(addr, repo=repo):
+                skipped_suppressed += 1
+                logger.info("Skipped suppressed email", extra={"osf_id": pid, "email": addr})
+                continue
+            valid, err_msg = validate_recipient(addr)
+            if not valid:
+                skipped_invalid += 1
+                logger.info("Skipped invalid email", extra={"osf_id": pid, "email": addr, "error": err_msg})
+                continue
+            valid_addresses.append(addr)
+
+        if not valid_addresses:
+            repo.mark_email_validated(pid, "no valid recipients")
             continue
 
-        # Validate email
-        valid, err_msg = validate_recipient(email_addr)
-        repo.mark_email_validated(pid, "valid" if valid else f"invalid: {err_msg}")
-        if not valid:
-            skipped_invalid += 1
-            logger.info("Skipped invalid email", extra={"osf_id": pid, "email": email_addr, "error": err_msg})
-            continue
+        repo.mark_email_validated(pid, "valid")
+
+        # Cap to stay within the recipient limit
+        remaining_budget = limit - recipients_sent
+        if len(valid_addresses) > remaining_budget:
+            valid_addresses = valid_addresses[:remaining_budget]
 
         # Render email
         try:
             subject, html_body, plain_body = render_email(context)
         except Exception as exc:
-            failed += 1
+            failed += len(valid_addresses)
             repo.mark_email_error(pid, f"template render: {exc}")
             logger.exception("Template render failed", extra={"osf_id": pid})
             continue
 
         if dry_run:
-            sent += 1
+            recipients_sent += len(valid_addresses)
             logger.info(
                 "DRY RUN: would send email",
-                extra={"osf_id": pid, "to": email_addr, "subject": subject},
+                extra={"osf_id": pid, "to": valid_addresses, "subject": subject},
             )
             continue
 
         # Random inter-send delay to spread emails over time
-        if avg_delay > 0 and sent > 0:
+        if avg_delay > 0 and recipients_sent > 0:
             delay = random.uniform(0.5 * avg_delay, 1.5 * avg_delay)
             remaining = (deadline - time.monotonic()) if deadline else float("inf")
             delay = min(delay, max(remaining - 5, 0))  # keep 5s headroom
@@ -172,21 +184,21 @@ def process_email_batch(
             logger.warning("Daily rate limit reached, stopping batch")
             break
 
-        # Send
+        # Send single email to all valid recipients
         try:
-            result = send_email(to=email_addr, subject=subject, html_body=html_body, plain_body=plain_body)
+            result = send_email(to=valid_addresses, subject=subject, html_body=html_body, plain_body=plain_body)
             message_id = result.get("id", "")
-            repo.mark_email_sent(pid, recipient=email_addr, message_id=message_id)
+            repo.mark_email_sent(pid, recipient=", ".join(valid_addresses), message_id=message_id)
             rate_limiter.record_send()
-            sent += 1
+            recipients_sent += len(valid_addresses)
         except Exception as exc:
-            failed += 1
+            failed += len(valid_addresses)
             repo.mark_email_error(pid, str(exc))
-            logger.exception("Email send failed", extra={"osf_id": pid, "to": email_addr})
+            logger.exception("Email send failed", extra={"osf_id": pid, "to": valid_addresses})
 
     return {
         "stage": "email",
-        "sent": sent,
+        "sent": recipients_sent,
         "failed": failed,
         "skipped_suppressed": skipped_suppressed,
         "skipped_invalid": skipped_invalid,
