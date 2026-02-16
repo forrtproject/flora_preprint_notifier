@@ -14,7 +14,7 @@ DynamoDB access layer for the OSF pipeline.
 ## Tables
 
 `ensure_tables()` manages:
-- `preprints` (GSIs: `by_published`, `by_queue_pdf`, `by_queue_grobid`, `by_queue_extract`)
+- `preprints` (GSIs: `by_published`, `by_queue_pdf`, `by_queue_grobid`, `by_queue_extract`, `by_queue_email`)
 - `preprint_references`
 - `preprint_tei`
 - `excluded_preprints`
@@ -36,7 +36,8 @@ Queue flow:
 1. `queue_pdf=pending`
 2. `queue_grobid=pending`
 3. `queue_extract=pending`
-4. done
+4. `queue_email=pending` (set when author_email_candidates are written)
+5. `queue_email=done` (set on email sent)
 
 Claim fields (`claim_*_owner`, `claim_*_until`) support safe concurrent schedulers.
 
