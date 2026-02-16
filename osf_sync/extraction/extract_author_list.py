@@ -26,6 +26,7 @@ if str(EXTRACTION_DIR) not in sys.path:
     sys.path.insert(0, str(EXTRACTION_DIR))
 
 from osf_sync.dynamo.preprints_repo import PreprintsRepo
+from osf_sync.dynamo.api_cache_repo import ApiCacheRepo
 from osf_sync.exclusion_logging import log_preprint_exclusion
 from osf_sync.iter_preprints import SESSION, OSF_API
 from osf_sync.pdf import ensure_pdf_available_or_skip
@@ -73,6 +74,13 @@ CSV_COLUMNS = [
 ]
 DEFAULT_DEBUG_CSV = EXTRACTION_DIR / "authorList_ext.debug.csv"
 PDF_EMAIL_MATCH_THRESHOLD = float(os.environ.get("PDF_EMAIL_MATCH_THRESHOLD", "0.75"))
+
+# Persistent ORCID cache (DynamoDB api_cache table)
+_api_cache = ApiCacheRepo()
+_ORCID_PERSON_TTL = 30 * 24 * 3600  # 30 days
+_ORCID_EMPLOYMENT_TTL = 30 * 24 * 3600  # 30 days
+_ORCID_NAME_SEARCH_TTL = 7 * 24 * 3600  # 7 days
+_OSF_CONTRIBUTORS_TTL = 7 * 24 * 3600  # 7 days
 
 
 def _log(msg: str):
@@ -503,6 +511,15 @@ def _extract_authors_from_tei(tei_path: Path) -> List[TeiAuthor]:
 
 
 def _fetch_contributors(osf_id: str) -> List[dict]:
+    # Check DynamoDB persistent cache first
+    db_key = f"osf_contributors::{osf_id}"
+    db_item = _api_cache.get(db_key)
+    if db_item and _api_cache.is_fresh(db_item, ttl_seconds=_OSF_CONTRIBUTORS_TTL):
+        payload = db_item.get("payload")
+        if isinstance(payload, list):
+            _dbg(f"[{osf_id}] osf contributors from cache total={len(payload)}")
+            return payload
+    # Fetch from API
     out: List[dict] = []
     url = f"{OSF_API}/preprints/{osf_id}/contributors/"
     page = 0
@@ -515,6 +532,8 @@ def _fetch_contributors(osf_id: str) -> List[dict]:
         out.extend(data.get("data", []))
         url = (data.get("links") or {}).get("next")
     _dbg(f"[{osf_id}] osf contributors total={len(out)}")
+    # Persist to DynamoDB cache
+    _api_cache.put(db_key, out, source="osf", ttl_seconds=_OSF_CONTRIBUTORS_TTL)
     return out
 
 
@@ -664,24 +683,48 @@ def _format_affiliations(values: List[str]) -> Optional[str]:
 def _fetch_orcid_person(orcid: str, cache: Dict[str, dict]) -> Optional[dict]:
     if orcid in cache:
         return cache[orcid]
+    # L2: check DynamoDB persistent cache
+    db_key = f"orcid_person::{orcid}"
+    db_item = _api_cache.get(db_key)
+    if db_item and _api_cache.is_fresh(db_item, ttl_seconds=_ORCID_PERSON_TTL):
+        payload = db_item.get("payload")
+        if isinstance(payload, dict) and payload.get("_none") is True:
+            cache[orcid] = None
+            return None
+        cache[orcid] = payload
+        return payload
+    # L3: call API
     url = f"{ORCID_API}/{orcid}/person"
     r = _orcid_request("GET", url, headers=_orcid_headers())
     _dbg(f"[orcid] person {orcid} status={r.status_code}")
     if r.status_code >= 400:
         cache[orcid] = None
+        _api_cache.put(db_key, {"_none": True}, source="orcid", ttl_seconds=_ORCID_PERSON_TTL)
         return None
-    cache[orcid] = r.json()
-    return cache[orcid]
+    data = r.json()
+    cache[orcid] = data
+    _api_cache.put(db_key, data, source="orcid", ttl_seconds=_ORCID_PERSON_TTL)
+    return data
 
 
 def _fetch_orcid_employments(orcid: str, cache: Dict[str, List[str]]) -> List[str]:
     if orcid in cache:
         return cache[orcid]
+    # L2: check DynamoDB persistent cache
+    db_key = f"orcid_employments::{orcid}"
+    db_item = _api_cache.get(db_key)
+    if db_item and _api_cache.is_fresh(db_item, ttl_seconds=_ORCID_EMPLOYMENT_TTL):
+        payload = db_item.get("payload")
+        if isinstance(payload, list):
+            cache[orcid] = payload
+            return payload
+    # L3: call API
     url = f"{ORCID_API}/{orcid}/employments"
     r = _orcid_request("GET", url, headers=_orcid_headers())
     _dbg(f"[orcid] employments {orcid} status={r.status_code}")
     if r.status_code >= 400:
         cache[orcid] = []
+        _api_cache.put(db_key, [], source="orcid", ttl_seconds=_ORCID_EMPLOYMENT_TTL)
         return []
     data = r.json()
     insts: List[str] = []
@@ -696,8 +739,10 @@ def _fetch_orcid_employments(orcid: str, cache: Dict[str, List[str]]) -> List[st
             name = (org.get("name") or "").strip()
             if name:
                 insts.append(name)
-    cache[orcid] = list(dict.fromkeys(insts))
-    return cache[orcid]
+    result = list(dict.fromkeys(insts))
+    cache[orcid] = result
+    _api_cache.put(db_key, result, source="orcid", ttl_seconds=_ORCID_EMPLOYMENT_TTL)
+    return result
 
 
 def _search_orcid_by_name(
@@ -713,21 +758,39 @@ def _search_orcid_by_name(
     if not fam or not giv:
         cache[key] = None
         return None
+    # L2: check DynamoDB persistent cache
+    db_key = f"orcid_name_search::{fam}::{giv}"
+    db_item = _api_cache.get(db_key)
+    if db_item and _api_cache.is_fresh(db_item, ttl_seconds=_ORCID_NAME_SEARCH_TTL):
+        payload = db_item.get("payload")
+        if isinstance(payload, dict) and payload.get("_none") is True:
+            cache[key] = None
+            return None
+        if isinstance(payload, str):
+            cache[key] = payload
+            return payload
+    # L3: call API
     q = f"family-name:{fam} AND given-names:{giv}"
     url = f"{ORCID_API}/search/"
     r = _orcid_request("GET", url, headers=_orcid_headers(), params={"q": q})
     _dbg(f"[orcid] search family={fam} given={giv} status={r.status_code}")
     if r.status_code >= 400:
         cache[key] = None
+        _api_cache.put(db_key, {"_none": True}, source="orcid", ttl_seconds=_ORCID_NAME_SEARCH_TTL)
         return None
     data = r.json()
     results = data.get("result") or []
     if len(results) != 1:
         cache[key] = None
+        _api_cache.put(db_key, {"_none": True}, source="orcid", ttl_seconds=_ORCID_NAME_SEARCH_TTL)
         return None
     identifier = results[0].get("orcid-identifier") or {}
     orcid = _normalize_orcid(identifier.get("path"))
     cache[key] = orcid
+    if orcid:
+        _api_cache.put(db_key, orcid, source="orcid", ttl_seconds=_ORCID_NAME_SEARCH_TTL)
+    else:
+        _api_cache.put(db_key, {"_none": True}, source="orcid", ttl_seconds=_ORCID_NAME_SEARCH_TTL)
     return orcid
 
 

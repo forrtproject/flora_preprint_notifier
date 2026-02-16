@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import logging
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, Optional
 
 from ..dynamo.preprints_repo import PreprintsRepo
 from .doi_multi_method_lookup import (
+    DOI_MULTI_METHOD_CACHE_TTL_SECS,
     OPENALEX_MAILTO,
     STRUCTURED_THRESHOLD_DEFAULT,
     process_reference,
@@ -63,11 +65,13 @@ def enrich_missing_with_multi_method(
         STRUCTURED_THRESHOLD_DEFAULT)
     use_mailto = mailto or OPENALEX_MAILTO
 
+    skip_checked = int(DOI_MULTI_METHOD_CACHE_TTL_SECS) if not (include_existing or bool(ref_id and osf_id)) else None
     rows = repo.select_refs_missing_doi(
         limit=limit,
         osf_id=osf_id,
         ref_id=ref_id,
         include_existing=include_existing or bool(ref_id and osf_id),
+        skip_checked_within_seconds=skip_checked,
     )
 
     def _process_one(ref: Dict) -> Dict:
@@ -92,6 +96,7 @@ def enrich_missing_with_multi_method(
                     doi = _resolve_final_doi(row)
                     status = row.get("status")
                     if not doi or status != "matched":
+                        repo.mark_reference_doi_checked(ref.get("osf_id"), ref.get("ref_id"))
                         continue
                     source = _resolve_source(row.get("final_method"))
                     ok = repo.update_reference_doi(
@@ -118,6 +123,7 @@ def enrich_missing_with_multi_method(
                 doi = _resolve_final_doi(row)
                 status = row.get("status")
                 if not doi or status != "matched":
+                    repo.mark_reference_doi_checked(ref.get("osf_id"), ref.get("ref_id"))
                     continue
                 source = _resolve_source(row.get("final_method"))
                 ok = repo.update_reference_doi(
