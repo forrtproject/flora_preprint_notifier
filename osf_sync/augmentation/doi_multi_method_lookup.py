@@ -90,6 +90,8 @@ METADATA_PRIORITY = ["crossref_title", "crossref_raw", "openalex_title"]
 
 
 _api_cache = ApiCacheRepo()
+_mem_cache: Dict[str, Any] = {}  # in-memory L1 cache for the current run
+_MEM_CACHE_SENTINEL = object()  # distinguishes cached None from cache miss
 
 
 def _cache_key(prefix: str, payload: Any) -> str:
@@ -105,16 +107,24 @@ def _cache_key(prefix: str, payload: Any) -> str:
 
 
 def _cache_get(key: str) -> Tuple[bool, Optional[Any]]:
+    # L1: in-memory
+    mem_val = _mem_cache.get(key, _MEM_CACHE_SENTINEL)
+    if mem_val is not _MEM_CACHE_SENTINEL:
+        return True, mem_val
+    # L2: DynamoDB
     item = _api_cache.get(key)
     if not item or not _api_cache.is_fresh(item, ttl_seconds=int(DOI_MULTI_METHOD_CACHE_TTL_SECS)):
         return False, None
     payload = item.get("payload")
     if isinstance(payload, dict) and payload.get("_none") is True:
+        _mem_cache[key] = None
         return True, None
+    _mem_cache[key] = payload
     return True, payload
 
 
 def _cache_set(key: str, value: Optional[Any]) -> None:
+    _mem_cache[key] = value
     payload = {"_none": True} if value is None else value
     _api_cache.put(
         key,

@@ -123,7 +123,7 @@ class PreprintsRepo:
                 ConditionExpression="attribute_exists(osf_id)",
                 UpdateExpression=(
                     "SET " + ", ".join(set_exprs) + " "
-                    "REMOVE queue_pdf, queue_grobid, queue_extract, "
+                    "REMOVE queue_pdf, queue_grobid, queue_extract, queue_email, "
                     "claim_pdf_owner, claim_pdf_until, "
                     "claim_grobid_owner, claim_grobid_until, "
                     "claim_extract_owner, claim_extract_until"
@@ -710,6 +710,7 @@ class PreprintsRepo:
         *,
         ref_id: Optional[str] = None,
         include_existing: bool = False,
+        skip_checked_within_seconds: Optional[int] = None,
     ) -> List[Dict[str, Any]]:
         items: List[Dict[str, Any]] = []
 
@@ -746,6 +747,14 @@ class PreprintsRepo:
                 if not doi_val:
                     filtered.append(it)
             items = filtered
+
+        # Skip refs that were recently checked and found no match
+        if skip_checked_within_seconds and not include_existing:
+            cutoff = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=skip_checked_within_seconds)).isoformat()
+            items = [
+                it for it in items
+                if not it.get("doi_checked_at") or it["doi_checked_at"] < cutoff
+            ]
 
         if limit:
             items = items[:limit]
@@ -871,6 +880,15 @@ class PreprintsRepo:
                 return False
             raise
 
+    def mark_reference_doi_checked(self, osf_id: str, ref_id: str) -> None:
+        """Record that a reference was checked for DOI but no match was found."""
+        now = dt.datetime.utcnow().isoformat()
+        self.t_refs.update_item(
+            Key={"osf_id": osf_id, "ref_id": ref_id},
+            UpdateExpression="SET doi_checked_at=:t, updated_at=:t",
+            ExpressionAttributeValues={":t": now},
+        )
+
     def update_reference_raw_citation_validity(self, osf_id: str, ref_id: str, validity: str) -> None:
         now = dt.datetime.utcnow().isoformat()
         self.t_refs.update_item(
@@ -930,34 +948,70 @@ class PreprintsRepo:
         candidates: List[Dict[str, Any]],
     ) -> None:
         now = dt.datetime.utcnow().isoformat()
-        self.t_preprints.update_item(
-            Key={"osf_id": osf_id},
-            UpdateExpression="SET author_email_candidates=:c, updated_at=:t",
-            ExpressionAttributeValues={":c": candidates, ":t": now},
-        )
+        # Set queue_email if there are contactable candidates and email not already sent
+        has_contactable = any(
+            (c or {}).get("email") for c in candidates
+        ) if candidates else False
+        if has_contactable:
+            try:
+                self.t_preprints.update_item(
+                    Key={"osf_id": osf_id},
+                    UpdateExpression="SET author_email_candidates=:c, updated_at=:t, queue_email=:pending",
+                    ConditionExpression="attribute_not_exists(email_sent) OR email_sent = :false",
+                    ExpressionAttributeValues={":c": candidates, ":t": now, ":pending": "pending", ":false": False},
+                )
+            except ClientError as e:
+                if e.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
+                    # Email already sent; just update candidates without queue_email
+                    self.t_preprints.update_item(
+                        Key={"osf_id": osf_id},
+                        UpdateExpression="SET author_email_candidates=:c, updated_at=:t",
+                        ExpressionAttributeValues={":c": candidates, ":t": now},
+                    )
+                else:
+                    raise
+        else:
+            self.t_preprints.update_item(
+                Key={"osf_id": osf_id},
+                UpdateExpression="SET author_email_candidates=:c, updated_at=:t",
+                ExpressionAttributeValues={":c": candidates, ":t": now},
+            )
 
     # --- email stage ---
     def select_for_email(self, limit: int = 50) -> List[Dict[str, Any]]:
-        out: List[Dict[str, Any]] = []
-        last_key = None
-        while True:
-            kwargs: Dict[str, Any] = {
-                "FilterExpression": (
-                    Attr("author_email_candidates").exists()
-                    & Attr("trial_arm").eq("treatment")
-                    & (Attr("email_sent").not_exists() | Attr("email_sent").eq(False))
-                    & (Attr("excluded").not_exists() | Attr("excluded").eq(False))
+        resp = self.t_preprints.query(
+            IndexName="by_queue_email",
+            KeyConditionExpression="queue_email = :q",
+            FilterExpression=(
+                "attribute_exists(author_email_candidates)"
+                " AND trial_arm = :treatment"
+                " AND (attribute_not_exists(excluded) OR excluded = :false)"
+            ),
+            ExpressionAttributeValues={
+                ":q": "pending",
+                ":treatment": "treatment",
+                ":false": False,
+            },
+            Limit=limit,
+            ScanIndexForward=True,
+        )
+        return resp.get("Items", [])
+
+    def set_queue_email(self, osf_id: str) -> None:
+        """Mark a preprint as ready for email sending via queue_email GSI."""
+        now = dt.datetime.utcnow().isoformat()
+        try:
+            self.t_preprints.update_item(
+                Key={"osf_id": osf_id},
+                UpdateExpression="SET queue_email=:pending, updated_at=:t",
+                ConditionExpression=(
+                    "attribute_not_exists(queue_email) OR queue_email <> :done"
                 ),
-            }
-            if last_key:
-                kwargs["ExclusiveStartKey"] = last_key
-            resp = self.t_preprints.scan(**kwargs)
-            out.extend(resp.get("Items", []))
-            if limit and len(out) >= limit:
-                return out[:limit]
-            last_key = resp.get("LastEvaluatedKey")
-            if not last_key:
-                return out
+                ExpressionAttributeValues={":pending": "pending", ":t": now, ":done": "done"},
+            )
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") != "ConditionalCheckFailedException":
+                raise
 
     def mark_email_sent(
         self,
@@ -971,7 +1025,8 @@ class PreprintsRepo:
             Key={"osf_id": osf_id},
             UpdateExpression=(
                 "SET email_sent=:true, email_sent_at=:t, "
-                "email_recipient=:r, email_message_id=:mid, updated_at=:t "
+                "email_recipient=:r, email_message_id=:mid, updated_at=:t, "
+                "queue_email=:done "
                 "REMOVE email_error"
             ),
             ExpressionAttributeValues={
@@ -979,6 +1034,7 @@ class PreprintsRepo:
                 ":t": now,
                 ":r": recipient,
                 ":mid": message_id,
+                ":done": "done",
             },
         )
 
