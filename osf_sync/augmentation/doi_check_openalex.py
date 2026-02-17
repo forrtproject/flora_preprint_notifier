@@ -315,34 +315,34 @@ def _sget(sess: requests.Session, url: str, params: Dict[str, str], timeout: int
 # -----------------------
 # Candidate fetchers
 # -----------------------
-def _fetch_candidates_strict(
+def _fetch_candidates(
     sess: requests.Session,
     title: str,
     year: Optional[int],
+    mailto: str,
+    per_page: int = 5,
     debug: bool = False,
 ) -> List[Dict[str, Any]]:
     """
-    Strict query using OpenAlex 'filter=' style:
-      filter=title.search:<title>,from_publication_date:YYYY-01-01,to_publication_date:YYYY-12-31
-    Title-only search by request; we rely on scoring (like Crossref) instead of adding author/source filters.
+    Query OpenAlex for works matching the title and optionally a year filter.
+    Returns up to `per_page` results sorted by relevance.
     """
-    # Start filter with title.search:
     filters: List[str] = [f"title.search:{title}"]
-
     if year:
         filters.append(f"from_publication_date:{year}-01-01")
         filters.append(f"to_publication_date:{year}-12-31")
 
     params: Dict[str, str] = {
         "filter": ",".join(filters),
-        "per_page": "25",
-        "mailto": OPENALEX_MAILTO,
+        "per_page": str(per_page),
+        "mailto": mailto,
         "sort": "relevance_score:desc",
     }
 
+    label = "with_year" if year else "no_year"
     try:
         r = _sget(sess, f"{OPENALEX_BASE}/works", params)
-        _log(logging.INFO, "OpenAlex strict request",
+        _log(logging.INFO, f"OpenAlex {label} request",
              url=(r.url if r else None), status=(r.status_code if r else None))
         if not r:
             return []
@@ -355,64 +355,16 @@ def _fetch_candidates_strict(
             body = r.text[:1000]
         except Exception:
             pass
-        _log(logging.WARNING, "OpenAlex HTTPError (strict)",
+        _log(logging.WARNING, f"OpenAlex HTTPError ({label})",
              status=getattr(e.response, "status_code", None),
              url=getattr(e.response, "url", None),
              body_snippet=body)
         return []
     except requests.RequestException as e:
-        _log(logging.WARNING, "OpenAlex network error (strict)", error=str(e))
+        _log(logging.WARNING, f"OpenAlex network error ({label})", error=str(e))
         return []
     except Exception as e:
-        _log(logging.WARNING, "OpenAlex unexpected error (strict)", error=str(e))
-        return []
-
-
-def _fetch_candidates_relaxed(
-    sess: requests.Session,
-    title: str,
-    year: Optional[int],
-    mailto: str,
-    keep_year: bool,
-) -> List[Dict[str, Any]]:
-    # Always start with title.search:
-    filters: List[str] = [f"title.search:{title}"]
-    if keep_year and year:
-        filters.append(f"from_publication_date:{year}-01-01")
-        filters.append(f"to_publication_date:{year}-12-31")
-
-    params = {
-        "filter": ",".join(filters),
-        "per_page": "50",
-        "mailto": mailto,
-        "sort": "relevance_score:desc",
-    }
-
-    try:
-        r = _sget(sess, f"{OPENALEX_BASE}/works", params)
-        _log(logging.INFO, "OpenAlex relaxed request",
-             url=(r.url if r else None), status=(r.status_code if r else None), keep_year=keep_year)
-        if not r:
-            return []
-        r.raise_for_status()
-        js = r.json() or {}
-        return js.get("results", []) or []
-    except requests.HTTPError as e:
-        body = ""
-        try:
-            body = r.text[:1000]
-        except Exception:
-            pass
-        _log(logging.WARNING, "OpenAlex HTTPError (relaxed)",
-             status=getattr(e.response, "status_code", None),
-             url=getattr(e.response, "url", None),
-             body_snippet=body, keep_year=keep_year)
-        return []
-    except requests.RequestException as e:
-        _log(logging.WARNING, "OpenAlex network error (relaxed)", error=str(e), keep_year=keep_year)
-        return []
-    except Exception as e:
-        _log(logging.WARNING, "OpenAlex unexpected error (relaxed)", error=str(e), keep_year=keep_year)
+        _log(logging.WARNING, f"OpenAlex unexpected error ({label})", error=str(e))
         return []
 
 
@@ -624,7 +576,7 @@ def enrich_missing_with_openalex(
 ) -> Dict[str, int]:
     """
     For references without a DOI:
-      - query OpenAlex (strict → relaxed keep-year → relaxed no-year)
+      - query OpenAlex (title+year → title only)
       - pick best candidate by score
       - update DB if DOI present
 
@@ -670,20 +622,16 @@ def enrich_missing_with_openalex(
             _log(logging.INFO, "OpenAlex debug search title",
                  osf_id=osfid, ref_id=refid, normalized_title=nt[:160], using_raw=False)
 
-        # Stage 1: strict
+        # Stage 1: title + year
         try:
-            cands = _fetch_candidates_strict(sess, nt, year, debug=debug)
+            cands = _fetch_candidates(sess, nt, year, active_mailto, debug=debug)
         except Exception as e:
-            _log(logging.WARNING, "OpenAlex error (strict)", osf_id=osfid, ref_id=refid, error=str(e))
+            _log(logging.WARNING, "OpenAlex error (with_year)", osf_id=osfid, ref_id=refid, error=str(e))
             cands = []
 
-        # Stage 2: relaxed keep-year (title + year window)
+        # Stage 2: title only (no year filter)
         if not cands:
-            cands = _fetch_candidates_relaxed(sess, nt, year, active_mailto, keep_year=True)
-
-        # Stage 3: relaxed no-year (title only)
-        if not cands:
-            cands = _fetch_candidates_relaxed(sess, nt, None, active_mailto, keep_year=False)
+            cands = _fetch_candidates(sess, nt, None, active_mailto)
 
         if not cands:
             _log(logging.INFO, "No good OpenAlex match", osf_id=osfid, ref_id=refid, candidates=0)

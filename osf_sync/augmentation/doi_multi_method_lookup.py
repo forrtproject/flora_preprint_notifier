@@ -8,8 +8,7 @@ from osf_sync.augmentation.matching_crossref import (
 )
 from osf_sync.augmentation.doi_check_openalex import (
     OPENALEX_MAILTO,
-    _fetch_candidates_relaxed,
-    _fetch_candidates_strict,
+    _fetch_candidates,
     _norm,
     _safe_publication_year as _oa_safe_publication_year,
 )
@@ -951,27 +950,26 @@ def _fetch_openalex_candidates(title: str, year: Optional[int], mailto: str, deb
 
     sess = requests.Session()
     nt = _norm(title)
-    strict_mailto = OPENALEX_MAILTO  # _fetch_candidates_strict uses this internally
+    use_mailto = mailto or OPENALEX_MAILTO
+
+    # Stage 1: title + year
     cands = []
-    strict_key = _cache_key(
-        "oa_strict", {"title": nt, "year": year, "mailto": strict_mailto})
+    year_key = _cache_key(
+        "oa_with_year", {"title": nt, "year": year, "mailto": use_mailto,
+                         "per_page": TOP_N_PER_STRATEGY})
     try:
-        cands = _cached(strict_key, _fetch_candidates_strict,
-                        sess, nt, year, debug)
+        cands = _cached(year_key, _fetch_candidates,
+                        sess, nt, year, use_mailto, TOP_N_PER_STRATEGY, debug)
     except Exception:
         cands = []
 
+    # Stage 2: title only (no year filter)
     if not cands:
-        keep_year_key = _cache_key("oa_relaxed_keep_year", {
-                                   "title": nt, "year": year, "mailto": mailto})
-        cands = _cached(keep_year_key, _fetch_candidates_relaxed,
-                        sess, nt, year, mailto, True)
-
-    if not cands:
-        no_year_key = _cache_key("oa_relaxed_no_year", {
-                                 "title": nt, "year": None, "mailto": mailto})
-        cands = _cached(no_year_key, _fetch_candidates_relaxed,
-                        sess, nt, None, mailto, False)
+        no_year_key = _cache_key(
+            "oa_no_year", {"title": nt, "year": None, "mailto": use_mailto,
+                           "per_page": TOP_N_PER_STRATEGY})
+        cands = _cached(no_year_key, _fetch_candidates,
+                        sess, nt, None, use_mailto, TOP_N_PER_STRATEGY)
 
     return cands or []
 
