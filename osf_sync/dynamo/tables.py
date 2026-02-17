@@ -23,7 +23,8 @@ TABLES = {
         {"AttributeName":"pdf_downloaded_at","AttributeType":"S"},
         {"AttributeName":"queue_pdf","AttributeType":"S"},
         {"AttributeName":"queue_grobid","AttributeType":"S"},
-        {"AttributeName":"queue_extract","AttributeType":"S"}
+        {"AttributeName":"queue_extract","AttributeType":"S"},
+        {"AttributeName":"queue_email","AttributeType":"S"}
     ],
     "GlobalSecondaryIndexes":[
         { "IndexName":"by_published",
@@ -50,6 +51,14 @@ TABLES = {
         { "IndexName":"by_queue_extract",
           "KeySchema":[
               {"AttributeName":"queue_extract","KeyType":"HASH"},
+              {"AttributeName":"date_published","KeyType":"RANGE"}
+          ],
+          "Projection":{"ProjectionType":"ALL"},
+          "ProvisionedThroughput":{"ReadCapacityUnits":5,"WriteCapacityUnits":5}
+        },
+        { "IndexName":"by_queue_email",
+          "KeySchema":[
+              {"AttributeName":"queue_email","KeyType":"HASH"},
               {"AttributeName":"date_published","KeyType":"RANGE"}
           ],
           "Projection":{"ProjectionType":"ALL"},
