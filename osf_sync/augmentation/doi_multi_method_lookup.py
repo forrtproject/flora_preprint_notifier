@@ -2,33 +2,16 @@ from __future__ import annotations
 from osf_sync.dynamo.preprints_repo import PreprintsRepo
 from osf_sync.dynamo.api_cache_repo import ApiCacheRepo
 from osf_sync.augmentation.matching_crossref import (
-    RAW_MIN_FUZZ,
-    RAW_MIN_JACCARD,
-    RAW_MIN_SOLR_SCORE,
-    STRUCTURED_MIN_SOLR_SCORE,
-    _title_matches as _cr_title_matches,
-    _journal_matches as _cr_journal_matches,
-    _authors_overlap as _cr_authors_overlap,
     _safe_get_issued_year as _cr_safe_get_issued_year,
-    _build_raw_candidate_doc as _cr_build_raw_candidate_doc,
     _query_crossref,
     _query_crossref_biblio,
-    _raw_candidate_valid,
-    _score_candidate_raw,
-    _score_candidate_structured,
-    _structured_candidate_valid as _cr_structured_valid,
 )
 from osf_sync.augmentation.doi_check_openalex import (
     OPENALEX_MAILTO,
     _fetch_candidates_relaxed,
     _fetch_candidates_strict,
     _norm,
-    _title_matches as _oa_title_matches,
-    _journal_matches as _oa_journal_matches,
     _safe_publication_year as _oa_safe_publication_year,
-    _authors_overlap as _oa_authors_overlap,
-    _score_candidate_sbmv as _oa_score_sbmv,
-    _structured_candidate_valid as _oa_structured_valid,
 )
 
 import argparse
@@ -72,7 +55,6 @@ logger.setLevel(logging.INFO)
 DOI_MULTI_METHOD_CACHE_TTL_SECS = float(os.environ.get(
     "DOI_MULTI_METHOD_CACHE_TTL_SECS", 7 * 24 * 3600))
 YEAR_MAX_DIFF = 1
-YEAR_RAW_PARTIAL_FACTOR = 0.9
 TOP_N_PER_STRATEGY = int(os.environ.get("DOI_MULTI_METHOD_TOP_N", 5))
 STRUCTURED_THRESHOLD_DEFAULT = float(os.environ.get(
     "DOI_MULTI_METHOD_STRUCTURED_THRESHOLD", 70.0))
@@ -360,28 +342,6 @@ def _tokenize_simple(text: str) -> List[str]:
     return re.findall(r"[a-z0-9]+", (text or "").lower())
 
 
-def _raw_score_reason_details(raw_citation: str, doc: str) -> Dict[str, Any]:
-    raw_tokens = set(_tokenize_simple(raw_citation))
-    doc_tokens = set(_tokenize_simple(doc))
-    overlap = raw_tokens & doc_tokens
-    raw_only = raw_tokens - doc_tokens
-    doc_only = doc_tokens - raw_tokens
-    denom = len(raw_tokens | doc_tokens) or 1
-    return {
-        "raw_token_count": len(raw_tokens),
-        "doc_token_count": len(doc_tokens),
-        "overlap_token_count": len(overlap),
-        "jaccard": round(len(overlap) / denom, 3),
-        "overlap_tokens": sorted(list(overlap))[:12],
-        "raw_only_tokens": sorted(list(raw_only))[:12],
-        "doc_only_tokens": sorted(list(doc_only))[:12],
-    }
-
-
-def _debug_print(enabled: bool, msg: str) -> None:
-    if enabled:
-        print(msg)
-
 
 def _subset_inflation_penalty_core(
     ref_text: str, cand_text: str, min_token_set_ratio: float
@@ -463,10 +423,6 @@ def _subset_inflation_penalty_core(
 def _subset_inflation_penalty(ref_text: str, cand_text: str) -> Tuple[float, Dict[str, Any]]:
     return _subset_inflation_penalty_core(ref_text, cand_text, min_token_set_ratio=99.0)
 
-
-def _subset_inflation_penalty_raw(ref_text: str, cand_text: str) -> Tuple[float, Dict[str, Any]]:
-    # Raw-citation matching is prone to subset inflation; be more aggressive by skipping the token_set gate.
-    return _subset_inflation_penalty_core(ref_text, cand_text, min_token_set_ratio=0.0)
 
 
 def _subset_title_hard_cap(ref_text: str, cand_text: str, max_score: float) -> Tuple[Optional[float], Dict[str, Any]]:
@@ -695,12 +651,6 @@ def _year_within_window(ref_year: Optional[int], cand_year: Optional[int], max_d
     return diff <= max_diff, diff
 
 
-def _crossref_candidate_title(cand: Optional[Dict[str, Any]]) -> str:
-    if not cand:
-        return ""
-    titles = cand.get("title") or []
-    return titles[0] if titles else ""
-
 
 def _fuzzy_ratio(a: str, b: str) -> float:
     if not a or not b:
@@ -791,38 +741,6 @@ def _asymmetric_subsequence_score(raw: str, citation: str) -> float:
             j += 1
     return 100.0 * matched / max(1, len(raw_tokens))
 
-
-def _generic_title_penalty(cand_title: str, ref_title: str) -> Tuple[float, Dict[str, Any]]:
-    generic_titles = {
-        "index",
-        "contents",
-        "table of contents",
-        "front matter",
-        "preface",
-        "introduction",
-        "cover",
-    }
-    ct = (cand_title or "").strip()
-    if not ct:
-        return 0.0, {"reason": "empty_title"}
-    norm = _normalize_simple(ct)
-    if not norm:
-        return 0.0, {"reason": "no_norm"}
-    title_tokens = _tokenize_simple(ct)
-    is_generic = norm in {_normalize_simple(t) for t in generic_titles}
-    title_match = _cr_title_matches(ct, ref_title) if ref_title else False
-    penalty = 0.0
-    if is_generic and not title_match:
-        penalty += 12.0
-    elif not title_match and len(title_tokens) <= 3:
-        penalty += 6.0
-    meta = {
-        "cand_title": ct,
-        "title_tokens": len(title_tokens),
-        "is_generic": is_generic,
-        "title_match": title_match,
-    }
-    return penalty, meta
 
 
 def _candidate_scoring_fields(cand: Dict[str, Any], method: str) -> Dict[str, Any]:
@@ -997,84 +915,6 @@ def _dedupe_candidates(entries: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return merged
 
 
-def _match_details(
-    *,
-    method: str,
-    ref_title: str,
-    ref_journal: Optional[str],
-    ref_year: Optional[int],
-    ref_volume: Optional[str],
-    ref_issue: Optional[str],
-    ref_page: Optional[str],
-    ref_authors: List[Any],
-    cand: Dict[str, Any],
-) -> Dict[str, Any]:
-    cand_fields = _candidate_core_fields(cand, method)
-    cand_title = cand_fields.get("title") or ""
-    cand_journal = cand_fields.get("journal") or ""
-    cand_year = cand_fields.get("year")
-    cand_volume = cand_fields.get("volume")
-    cand_issue = cand_fields.get("issue")
-    cand_page = cand_fields.get("page")
-
-    if method.startswith("crossref"):
-        title_match = _cr_title_matches(
-            cand_title, ref_title) if ref_title else None
-        journal_match = _cr_journal_matches(
-            cand_journal, ref_journal) if ref_journal and cand_journal else None
-        authors_match = _cr_authors_overlap(
-            cand, ref_authors) if ref_authors else None
-    elif method.startswith("openalex"):
-        title_match = _oa_title_matches(
-            cand_title, ref_title) if ref_title else None
-        journal_match = _oa_journal_matches(
-            cand_journal, ref_journal) if ref_journal and cand_journal else None
-        authors_match = _oa_authors_overlap(
-            cand, ref_authors) if ref_authors else None
-    else:
-        title_match = None
-        journal_match = None
-        authors_match = None
-
-    year_match = None
-    if ref_year is not None and cand_year is not None:
-        year_match = int(ref_year) == int(cand_year)
-
-    volume_match = None
-    if ref_volume and cand_volume:
-        volume_match = _normalize_simple(
-            ref_volume) == _normalize_simple(cand_volume)
-    issue_match = None
-    if ref_issue and cand_issue:
-        issue_match = _normalize_simple(
-            ref_issue) == _normalize_simple(cand_issue)
-    page_match = None
-    if ref_page and cand_page:
-        page_match = _normalize_simple(
-            ref_page) == _normalize_simple(cand_page)
-
-    return {
-        "ref_title": ref_title,
-        "cand_title": cand_title,
-        "title_match": title_match,
-        "ref_journal": ref_journal,
-        "cand_journal": cand_journal,
-        "journal_match": journal_match,
-        "ref_year": ref_year,
-        "cand_year": cand_year,
-        "year_match": year_match,
-        "ref_volume": ref_volume,
-        "cand_volume": cand_volume,
-        "volume_match": volume_match,
-        "ref_issue": ref_issue,
-        "cand_issue": cand_issue,
-        "issue_match": issue_match,
-        "ref_page": ref_page,
-        "cand_page": cand_page,
-        "page_match": page_match,
-        "authors_match": authors_match,
-    }
-
 
 @functools.lru_cache(maxsize=256)
 def _fetch_citation_for_doi(doi: Optional[str], style: str = "apa") -> Optional[str]:
@@ -1103,311 +943,6 @@ def _fetch_citation_for_doi(doi: Optional[str], style: str = "apa") -> Optional[
         pass
     return None
 
-
-def _score_crossref_raw(
-    raw_citation: str,
-    ref_title: Optional[str],
-    authors: List[str],
-    journal: Optional[str],
-    year: Optional[int],
-    items: List[Dict[str, Any]],
-    threshold: int,
-    debug: bool = False,
-) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
-    scored: List[Dict[str, Any]] = []
-    for idx, cand in enumerate(items, 1):
-        doi = _normalize_doi(cand.get("DOI"))
-        if not doi:
-            if debug:
-                logger.info("Crossref raw candidate skipped: missing DOI")
-                _debug_print(
-                    debug, "Crossref raw candidate skipped: missing DOI")
-            continue
-        cyear = _cr_safe_get_issued_year(cand)
-        year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
-        if not year_ok:
-            if debug:
-                logger.info(
-                    "Crossref raw candidate skipped: year_out_of_range doi=%s ref_year=%s cand_year=%s diff=%s",
-                    doi,
-                    year,
-                    cyear,
-                    year_diff,
-                )
-                _debug_print(
-                    debug,
-                    f"Crossref raw candidate skipped: year_out_of_range doi={doi} ref_year={year} cand_year={cyear} diff={year_diff}",
-                )
-            continue
-        solr = cand.get("score")
-        if solr is not None and solr < RAW_MIN_SOLR_SCORE:
-            if debug:
-                logger.info(
-                    "Crossref raw candidate skipped: solr_score_below_min doi=%s solr=%s", doi, solr)
-                _debug_print(
-                    debug, f"Crossref raw candidate skipped: solr_score_below_min doi={doi} solr={solr}")
-            continue
-        calc_score = _score_candidate_raw(cand, raw_citation, authors)
-        if debug:
-            doc = _cr_build_raw_candidate_doc(cand, authors)
-            cjour = (cand.get("container-title") or [""])[0]
-            raw_score_ok = calc_score >= RAW_MIN_FUZZ
-            year_ok = True if year_diff is None else year_diff <= YEAR_MAX_DIFF
-            journal_ok = True if (
-                not journal or not cjour) else _cr_journal_matches(cjour, journal)
-            authors_ok = True if not authors else _cr_authors_overlap(
-                cand, authors)
-            reason = _raw_score_reason_details(raw_citation, doc)
-            jaccard_ok = reason["jaccard"] >= RAW_MIN_JACCARD
-            logger.info(
-                "Crossref raw candidate validation doi=%s raw_ok=%s jaccard_ok=%s year_ok=%s journal_ok=%s authors_ok=%s ref_year=%s cand_year=%s ref_journal=%s cand_journal=%s",
-                doi,
-                raw_score_ok,
-                jaccard_ok,
-                year_ok,
-                journal_ok,
-                authors_ok,
-                year,
-                cyear,
-                journal,
-                cjour,
-            )
-            _debug_print(
-                debug,
-                f"Crossref raw candidate validation doi={doi} raw_ok={raw_score_ok} jaccard_ok={jaccard_ok} "
-                f"jaccard={reason['jaccard']} "
-                f"year_ok={year_ok} "
-                f"journal_ok={journal_ok} authors_ok={authors_ok} ref_year={year} cand_year={cyear} "
-                f"ref_journal={journal} cand_journal={cjour}",
-            )
-            logger.info(
-                "Crossref raw candidate score doi=%s raw_score=%s solr=%s doc_excerpt=%s raw_tokens=%s doc_tokens=%s overlap=%s jaccard=%s overlap_tokens=%s raw_only=%s doc_only=%s",
-                doi,
-                calc_score,
-                solr,
-                doc[:200],
-                reason["raw_token_count"],
-                reason["doc_token_count"],
-                reason["overlap_token_count"],
-                reason["jaccard"],
-                reason["overlap_tokens"],
-                reason["raw_only_tokens"],
-                reason["doc_only_tokens"],
-            )
-            _debug_print(
-                debug,
-                f"Crossref raw candidate score doi={doi} raw_score={calc_score} solr={solr} "
-                f"jaccard={reason['jaccard']} overlap_tokens={reason['overlap_tokens']} "
-                f"raw_only={reason['raw_only_tokens']} doc_only={reason['doc_only_tokens']}",
-            )
-        doc = _cr_build_raw_candidate_doc(cand, authors)
-        penalty, meta = _subset_inflation_penalty_raw(raw_citation, doc)
-        if penalty:
-            penalty = min(10.0, penalty)
-            calc_score = float(calc_score) - penalty
-            if debug:
-                logger.info(
-                    "Crossref raw candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
-                _debug_print(
-                    debug, f"Crossref raw candidate penalty doi={doi} penalty={penalty} meta={meta}")
-        cand_title = _crossref_candidate_title(cand)
-        title_penalty, title_meta = _generic_title_penalty(
-            cand_title, ref_title or "")
-        if title_penalty:
-            calc_score = float(calc_score) - title_penalty
-            if debug:
-                logger.info(
-                    "Crossref raw candidate title penalty doi=%s penalty=%s meta=%s",
-                    doi,
-                    title_penalty,
-                    title_meta,
-                )
-                _debug_print(
-                    debug,
-                    f"Crossref raw candidate title penalty doi={doi} penalty={title_penalty} meta={title_meta}",
-                )
-        if year_diff == 1:
-            calc_score = float(calc_score) * YEAR_RAW_PARTIAL_FACTOR
-            if debug:
-                logger.info(
-                    "Crossref raw candidate year adjustment doi=%s factor=%s ref_year=%s cand_year=%s",
-                    doi,
-                    YEAR_RAW_PARTIAL_FACTOR,
-                    year,
-                    cyear,
-                )
-                _debug_print(
-                    debug,
-                    f"Crossref raw candidate year adjustment doi={doi} factor={YEAR_RAW_PARTIAL_FACTOR} ref_year={year} cand_year={cyear}",
-                )
-        if not _raw_candidate_valid(cand, raw_citation, authors, journal, None):
-            if debug:
-                logger.info(
-                    "Crossref raw candidate rejected by validation doi=%s", doi)
-                _debug_print(
-                    debug, f"Crossref raw candidate rejected by validation doi={doi}")
-            continue
-        scored.append(
-            {
-                "doi": doi,
-                # Only the calculated score is used for ranking/thresholding/final choice.
-                "score": float(calc_score),
-                # Keep the Crossref response score for CSV/auditing only.
-                "query_score": float(solr) if solr is not None else None,
-                "candidate": cand,
-                "candidate_number": idx,
-            }
-        )
-        if debug:
-            logger.info(
-                "Crossref raw candidate accepted doi=%s raw_score=%s", doi, calc_score)
-            _debug_print(
-                debug, f"Crossref raw candidate accepted doi={doi} raw_score={calc_score}")
-
-    scored.sort(key=lambda x: x["score"], reverse=True)
-    for idx, entry in enumerate(scored, 1):
-        entry["rank"] = idx  # rank within this method by score
-
-    eff_threshold = max(15, threshold // 2)
-    best = scored[0] if scored and scored[0]["score"] >= eff_threshold else None
-    return best, scored
-
-
-def _score_crossref_title(
-    title: str,
-    year: Optional[int],
-    journal: Optional[str],
-    authors: List[str],
-    volume: Optional[str],
-    issue: Optional[str],
-    page: Optional[str],
-    items: List[Dict[str, Any]],
-    threshold: int,
-    debug: bool = False,
-) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
-    scored: List[Dict[str, Any]] = []
-    for idx, cand in enumerate(items, 1):
-        doi = _normalize_doi(cand.get("DOI"))
-        if not doi:
-            if debug:
-                logger.info("Crossref title candidate skipped: missing DOI")
-                _debug_print(
-                    debug, "Crossref title candidate skipped: missing DOI")
-            continue
-        cyear = _cr_safe_get_issued_year(cand)
-        year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
-        if not year_ok:
-            if debug:
-                logger.info(
-                    "Crossref title candidate skipped: year_out_of_range doi=%s ref_year=%s cand_year=%s diff=%s",
-                    doi,
-                    year,
-                    cyear,
-                    year_diff,
-                )
-                _debug_print(
-                    debug,
-                    f"Crossref title candidate skipped: year_out_of_range doi={doi} ref_year={year} cand_year={cyear} diff={year_diff}",
-                )
-            continue
-        solr = cand.get("score")
-        if solr is not None and solr < STRUCTURED_MIN_SOLR_SCORE:
-            if debug:
-                logger.info(
-                    "Crossref title candidate skipped: solr_score_below_min doi=%s solr=%s", doi, solr)
-                _debug_print(
-                    debug, f"Crossref title candidate skipped: solr_score_below_min doi={doi} solr={solr}")
-            continue
-        if debug:
-            ctitles = cand.get("title") or []
-            ctitle = ctitles[0] if ctitles else ""
-            cjour = (cand.get("container-title") or [""])[0]
-            title_ok = _cr_title_matches(ctitle, title) if title else True
-            journal_ok = True if (
-                not journal or not cjour) else _cr_journal_matches(cjour, journal)
-            year_ok = True if year_diff is None else year_diff <= YEAR_MAX_DIFF
-            authors_ok = True if not authors else _cr_authors_overlap(
-                cand, authors)
-            logger.info(
-                "Crossref title candidate validation doi=%s title_ok=%s journal_ok=%s year_ok=%s authors_ok=%s ref_year=%s cand_year=%s ref_journal=%s cand_journal=%s",
-                doi,
-                title_ok,
-                journal_ok,
-                year_ok,
-                authors_ok,
-                year,
-                cyear,
-                journal,
-                cjour,
-            )
-            _debug_print(
-                debug,
-                f"Crossref title candidate validation doi={doi} title_ok={title_ok} journal_ok={journal_ok} "
-                f"year_ok={year_ok} authors_ok={authors_ok} ref_year={year} cand_year={cyear} "
-                f"ref_journal={journal} cand_journal={cjour}",
-            )
-        if not _cr_structured_valid(cand, title, journal, None, authors):
-            if debug:
-                logger.info(
-                    "Crossref title candidate rejected by validation doi=%s", doi)
-                _debug_print(
-                    debug, f"Crossref title candidate rejected by validation doi={doi}")
-            continue
-        calc_score = _score_candidate_structured(
-            cand,
-            title,
-            year,
-            journal,
-            authors,
-            volume,
-            issue,
-            page,
-        )
-        ctitle = (cand.get("title") or [""])[0]
-        penalty, meta = _subset_inflation_penalty(title, ctitle)
-        if penalty:
-            calc_score = float(calc_score) - penalty
-            if debug:
-                logger.info(
-                    "Crossref title candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
-                _debug_print(
-                    debug, f"Crossref title candidate penalty doi={doi} penalty={penalty} meta={meta}")
-        cap, cap_meta = _subset_title_hard_cap(title, ctitle, max_score=88.0)
-        if cap is not None and calc_score > cap:
-            calc_score = float(cap)
-            if debug:
-                logger.info(
-                    "Crossref title candidate hard cap doi=%s cap=%s meta=%s", doi, cap, cap_meta)
-                _debug_print(
-                    debug, f"Crossref title candidate hard cap doi={doi} cap={cap} meta={cap_meta}")
-        if debug:
-            logger.info(
-                "Crossref title candidate score doi=%s calc_score=%s solr=%s", doi, calc_score, solr)
-            _debug_print(
-                debug, f"Crossref title candidate score doi={doi} calc_score={calc_score} solr={solr}")
-        scored.append(
-            {
-                "doi": doi,
-                # Only the calculated score is used for ranking/thresholding/final choice.
-                "score": float(calc_score),
-                # Keep the Crossref response score for CSV/auditing only.
-                "query_score": float(solr) if solr is not None else None,
-                "candidate": cand,
-                "candidate_number": idx,
-            }
-        )
-        if debug:
-            logger.info(
-                "Crossref title candidate accepted doi=%s calc_score=%s", doi, calc_score)
-            _debug_print(
-                debug, f"Crossref title candidate accepted doi={doi} calc_score={calc_score}")
-
-    scored.sort(key=lambda x: x["score"], reverse=True)
-    for idx, entry in enumerate(scored, 1):
-        entry["rank"] = idx
-
-    best = scored[0] if scored and scored[0]["score"] >= threshold else None
-    return best, scored
 
 
 def _fetch_openalex_candidates(title: str, year: Optional[int], mailto: str, debug: bool) -> List[Dict[str, Any]]:
@@ -1440,165 +975,6 @@ def _fetch_openalex_candidates(title: str, year: Optional[int], mailto: str, deb
 
     return cands or []
 
-
-def _score_openalex_title(
-    title: str,
-    year: Optional[int],
-    journal: Optional[str],
-    authors: List[str],
-    mailto: str,
-    threshold: int,
-    debug: bool,
-) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
-    if not title:
-        return None, []
-
-    sess = requests.Session()
-    nt = _norm(title)
-    strict_mailto = OPENALEX_MAILTO  # _fetch_candidates_strict uses this internally
-    cands = []
-    strict_key = _cache_key(
-        "oa_strict", {"title": nt, "year": year, "mailto": strict_mailto})
-    try:
-        cands = _cached(strict_key, _fetch_candidates_strict,
-                        sess, nt, year, debug)
-    except Exception:
-        cands = []
-
-    if not cands:
-        keep_year_key = _cache_key("oa_relaxed_keep_year", {
-                                   "title": nt, "year": year, "mailto": mailto})
-        cands = _cached(keep_year_key, _fetch_candidates_relaxed,
-                        sess, nt, year, mailto, True)
-
-    if not cands:
-        no_year_key = _cache_key("oa_relaxed_no_year", {
-                                 "title": nt, "year": None, "mailto": mailto})
-        cands = _cached(no_year_key, _fetch_candidates_relaxed,
-                        sess, nt, None, mailto, False)
-
-    scored: List[Dict[str, Any]] = []
-    for idx, cand in enumerate(cands or [], 1):
-        doi = _normalize_doi(cand.get("doi"))
-        if not doi:
-            if debug:
-                logger.info("OpenAlex candidate skipped: missing DOI")
-                _debug_print(debug, "OpenAlex candidate skipped: missing DOI")
-            continue
-        cyear = _oa_safe_publication_year(cand)
-        year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
-        if not year_ok:
-            if debug:
-                logger.info(
-                    "OpenAlex candidate skipped: year_out_of_range doi=%s ref_year=%s cand_year=%s diff=%s",
-                    doi,
-                    year,
-                    cyear,
-                    year_diff,
-                )
-                _debug_print(
-                    debug,
-                    f"OpenAlex candidate skipped: year_out_of_range doi={doi} ref_year={year} cand_year={cyear} diff={year_diff}",
-                )
-            continue
-        if debug:
-            ctitle = cand.get("title") or ""
-            cjour = ""
-            try:
-                pl = cand.get("primary_location") or {}
-                src = pl.get("source") or {}
-                cjour = src.get("display_name") or ""
-            except Exception:
-                cjour = ""
-            title_ok = _oa_title_matches(ctitle, title) if title else True
-            journal_ok = True if (
-                not journal or not cjour) else _oa_journal_matches(cjour, journal)
-            year_ok = True if year_diff is None else year_diff <= YEAR_MAX_DIFF
-            authors_ok = True if not authors else _oa_authors_overlap(
-                cand, authors)
-            logger.info(
-                "OpenAlex candidate validation doi=%s title_ok=%s journal_ok=%s year_ok=%s authors_ok=%s ref_year=%s cand_year=%s ref_journal=%s cand_journal=%s",
-                doi,
-                title_ok,
-                journal_ok,
-                year_ok,
-                authors_ok,
-                year,
-                cyear,
-                journal,
-                cjour,
-            )
-            _debug_print(
-                debug,
-                f"OpenAlex candidate validation doi={doi} title_ok={title_ok} journal_ok={journal_ok} "
-                f"year_ok={year_ok} authors_ok={authors_ok} ref_year={year} cand_year={cyear} "
-                f"ref_journal={journal} cand_journal={cjour}",
-            )
-        if not _oa_structured_valid(cand, title, journal, None, authors):
-            if debug:
-                logger.info(
-                    "OpenAlex candidate rejected by validation doi=%s", doi)
-                _debug_print(
-                    debug, f"OpenAlex candidate rejected by validation doi={doi}")
-            continue
-        score = _oa_score_sbmv(cand, title, journal,
-                               year, authors, debug=debug)
-        ctitle = cand.get("title") or ""
-        penalty, meta = _subset_inflation_penalty(title, ctitle)
-        if penalty:
-            score = float(score) - penalty
-            if debug:
-                logger.info(
-                    "OpenAlex candidate penalty doi=%s penalty=%s meta=%s", doi, penalty, meta)
-                _debug_print(
-                    debug, f"OpenAlex candidate penalty doi={doi} penalty={penalty} meta={meta}")
-        cap, cap_meta = _subset_title_hard_cap(title, ctitle, max_score=88.0)
-        if cap is not None and score > cap:
-            score = float(cap)
-            if debug:
-                logger.info(
-                    "OpenAlex candidate hard cap doi=%s cap=%s meta=%s", doi, cap, cap_meta)
-                _debug_print(
-                    debug, f"OpenAlex candidate hard cap doi={doi} cap={cap} meta={cap_meta}")
-        if debug:
-            logger.info(
-                "OpenAlex candidate score doi=%s calc_score=%s", doi, score)
-            _debug_print(
-                debug, f"OpenAlex candidate score doi={doi} calc_score={score}")
-        scored.append({"doi": doi, "score": float(score),
-                      "candidate": cand, "candidate_number": idx})
-        if debug:
-            logger.info(
-                "OpenAlex candidate accepted doi=%s calc_score=%s", doi, score)
-            _debug_print(
-                debug, f"OpenAlex candidate accepted doi={doi} calc_score={score}")
-
-    scored.sort(key=lambda x: x["score"], reverse=True)
-    for idx, entry in enumerate(scored, 1):
-        entry["rank"] = idx
-
-    best = scored[0] if scored and scored[0]["score"] >= threshold else None
-    return best, scored
-
-
-def _resolve_final_choice(candidates: List[Dict[str, Any]]) -> Tuple[Optional[Dict[str, Any]], str, Optional[str]]:
-    active = [c for c in candidates if c]
-    if not active:
-        return None, "no_match", None
-
-    max_score = max(c["score"] for c in active)
-    top = [c for c in active if abs(c["score"] - max_score) < 1e-6]
-    doi_set = {c.get("doi") for c in top if c.get("doi")}
-
-    if len(top) > 1 and len(doi_set) > 1:
-        return None, "conflict", "multiple-dois-same-score"
-
-    if len(top) == 1:
-        return top[0], "matched", None
-
-    # Same DOI across methods with equal score: pick by method priority.
-    top_sorted = sorted(top, key=lambda c: METHOD_PRIORITY.index(c["method"]))
-    return top_sorted[0], "matched", None
 
 
 def process_reference(
@@ -1953,17 +1329,35 @@ def process_reference(
             cand = final_choice.get("candidate") or {}
             author_detail = _author_overlap_details(
                 authors, cand, final_choice.get("method") or "")
-            match_detail = _match_details(
-                method=final_choice.get("method") or "",
-                ref_title=title,
-                ref_journal=journal,
-                ref_year=match_year,
-                ref_volume=volume,
-                ref_issue=issue,
-                ref_page=page,
-                ref_authors=authors,
-                cand=cand,
-            )
+            _method = final_choice.get("method") or ""
+            _cf = _candidate_core_fields(cand, _method)
+            _cand_title = _cf.get("title") or ""
+            _cand_journal = _cf.get("journal") or ""
+            _cand_year = _cf.get("year")
+            _cand_volume = _cf.get("volume")
+            _cand_issue = _cf.get("issue")
+            _cand_page = _cf.get("page")
+            match_detail = {
+                "ref_title": title,
+                "cand_title": _cand_title,
+                "title_match": _fuzzy_ratio(_cand_title, title) >= TITLE_FUZZ_THRESHOLD if title else None,
+                "ref_journal": journal,
+                "cand_journal": _cand_journal,
+                "journal_match": _fuzzy_ratio(_cand_journal, journal) >= TITLE_FUZZ_THRESHOLD if journal and _cand_journal else None,
+                "ref_year": match_year,
+                "cand_year": _cand_year,
+                "year_match": int(match_year) == int(_cand_year) if match_year is not None and _cand_year is not None else None,
+                "ref_volume": volume,
+                "cand_volume": _cand_volume,
+                "volume_match": _normalize_simple(volume) == _normalize_simple(_cand_volume) if volume and _cand_volume else None,
+                "ref_issue": issue,
+                "cand_issue": _cand_issue,
+                "issue_match": _normalize_simple(issue) == _normalize_simple(_cand_issue) if issue and _cand_issue else None,
+                "ref_page": page,
+                "cand_page": _cand_page,
+                "page_match": _normalize_simple(page) == _normalize_simple(_cand_page) if page and _cand_page else None,
+                "authors_match": author_detail.get("author_overlap_pct") is not None and author_detail["author_overlap_pct"] > 0,
+            }
         else:
             author_detail = {
                 "ref_authors": authors,
