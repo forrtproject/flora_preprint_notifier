@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import Dict, List, Optional, Any
 from ..dynamo.preprints_repo import PreprintsRepo
+from .doi_multi_method_lookup import doi_resolves
 import logging, traceback, json
 
 logger = logging.getLogger(__name__)
@@ -64,19 +65,24 @@ def write_extraction(
         # References
         for idx, ref in enumerate(references):
             ref_id = ref.get("ref_id") or f"r{idx}"
+            ref_doi = _safe_str(ref.get("doi"))
+            if ref_doi and doi_resolves(ref_doi) is False:
+                _log.info("GROBID DOI does not resolve, discarding",
+                          extra={"osf_id": osf_id, "ref_id": ref_id, "doi": ref_doi})
+                ref_doi = None
             item = {
                 "ref_id": ref_id,
                 "title": _safe_str(ref.get("title")),
                 "authors": _ensure_list(ref.get("authors")),
                 "journal": _safe_str(ref.get("journal")),
                 "year": _to_int_or_none(ref.get("year")),
-                "doi": _safe_str(ref.get("doi")),
-                "has_doi": bool(ref.get("has_doi")),
+                "doi": ref_doi,
+                "has_doi": bool(ref_doi),
                 "has_title": bool(ref.get("has_title")),
                 "has_authors": bool(ref.get("has_authors")),
                 "has_journal": bool(ref.get("has_journal")),
                 "has_year": bool(ref.get("has_year")),
-                "doi_source": "tei" if ref.get("doi") else None,
+                "doi_source": "tei" if ref_doi else None,
                 "raw_citation": _safe_str(ref.get("raw_citation")),
             }
             try:

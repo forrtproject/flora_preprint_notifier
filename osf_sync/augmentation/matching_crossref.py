@@ -203,10 +203,10 @@ def _score_candidate_sbmv(
     if ctitle and rtitle:
         scores["title"] = fuzz.token_set_ratio(ctitle, rtitle)
 
-    # Authors (overlap ratio of last names)
+    # Authors (overlap ratio of name tokens)
     if authors:
-        ref_tokens = set(_last_name_tokens_from_strings(authors))
-        cand_tokens = set(_candidate_author_last_names(cand))
+        ref_tokens = set(_all_name_tokens_from_strings(authors))
+        cand_tokens = set(_candidate_author_name_tokens(cand))
         if ref_tokens and cand_tokens:
             overlap = len(ref_tokens & cand_tokens)
             scores["authors"] = 100.0 * overlap / max(1, len(ref_tokens))
@@ -500,7 +500,7 @@ def _coerce_author_string(author) -> str:
     return str(author or "")
 
 
-def _last_name_tokens_from_strings(authors: List) -> List[str]:
+def _all_name_tokens_from_strings(authors: List) -> List[str]:
     tokens: List[str] = []
     for raw in authors:
         value = _coerce_author_string(raw)
@@ -508,46 +508,44 @@ def _last_name_tokens_from_strings(authors: List) -> List[str]:
             continue
         cleaned = re.sub(r"[,\.;]", " ", value)
         parts = [p for p in cleaned.split() if p]
-        if parts:
-            tokens.append(_normalize_text(parts[-1]))
-    return [t for t in tokens if t]
+        for p in parts:
+            norm = _normalize_text(p)
+            if norm:
+                tokens.append(norm)
+    return tokens
 
 
-def _candidate_author_last_names(cand: dict) -> List[str]:
-    cands = []
+def _candidate_author_name_tokens(cand: dict) -> List[str]:
+    tokens: List[str] = []
     for a in cand.get("author") or []:
         if not isinstance(a, dict):
-            cands.append(_normalize_text(str(a)))
+            norm = _normalize_text(str(a))
+            if norm:
+                tokens.append(norm)
             continue
-        fam = a.get("family")
-        if fam:
-            norm = _normalize_text(fam)
-            cands.append(norm)
-            # Also consider the last token of a multi-word family name (e.g., "Maneesha ... Rajan")
-            parts = [p for p in re.sub(r"[,\.;]", " ", fam).split() if p]
-            if parts:
-                cands.append(_normalize_text(parts[-1]))
-            continue
-        literal = a.get("name") or a.get("literal")
-        if literal:
-            cleaned = re.sub(r"[,\.;]", " ", literal)
-            parts = [p for p in cleaned.split() if p]
-            if parts:
-                cands.append(_normalize_text(parts[-1]))
-    return [c for c in cands if c]
+        for key in ("given", "family"):
+            val = a.get(key)
+            if val:
+                for p in re.sub(r"[,\.;]", " ", val).split():
+                    norm = _normalize_text(p)
+                    if norm:
+                        tokens.append(norm)
+        if not a.get("given") and not a.get("family"):
+            literal = a.get("name") or a.get("literal")
+            if literal:
+                for p in re.sub(r"[,\.;]", " ", literal).split():
+                    norm = _normalize_text(p)
+                    if norm:
+                        tokens.append(norm)
+    return tokens
 
 
 def _authors_overlap(cand: dict, ref_authors: List) -> bool:
-    ref_tokens = _last_name_tokens_from_strings(ref_authors)
-    cand_tokens = _candidate_author_last_names(cand)
+    ref_tokens = _all_name_tokens_from_strings(ref_authors)
+    cand_tokens = _candidate_author_name_tokens(cand)
     if not ref_tokens or not cand_tokens:
         return True
-    ref_set = set(ref_tokens)
-    cand_set = set(cand_tokens)
-    overlap = ref_set & cand_set
-    if len(ref_set) >= 3:
-        return bool(overlap)
-    return True
+    return bool(set(ref_tokens) & set(cand_tokens))
 
 
 def _raw_candidate_valid(

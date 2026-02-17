@@ -112,7 +112,7 @@ def _title_matches(cand_title: Optional[str], ref_title: Optional[str]) -> bool:
     return ratio >= TITLE_MIN_RATIO
 
 
-def _last_name_tokens_from_strings(authors: List[Any]) -> List[str]:
+def _all_name_tokens_from_strings(authors: List[Any]) -> List[str]:
     tokens: List[str] = []
     for raw in authors:
         value = str(raw or "")
@@ -120,9 +120,11 @@ def _last_name_tokens_from_strings(authors: List[Any]) -> List[str]:
             continue
         cleaned = re.sub(r"[,.;]", " ", value)
         parts = [p for p in cleaned.split() if p]
-        if parts:
-            tokens.append(_normalize_text(parts[-1]))
-    return [t for t in tokens if t]
+        for p in parts:
+            norm = _normalize_text(p)
+            if norm:
+                tokens.append(norm)
+    return tokens
 
 
 def _tokenize_simple(text: str) -> List[str]:
@@ -276,32 +278,29 @@ def _clean_title_text(text: str) -> str:
     return " ".join(cleaned.split()).strip()
 
 
-def _candidate_author_last_names(cand: Dict[str, Any]) -> List[str]:
-    cands: List[str] = []
+def _candidate_author_name_tokens(cand: Dict[str, Any]) -> List[str]:
+    tokens: List[str] = []
     for au in cand.get("authorships") or []:
         try:
             dn = (au.get("author") or {}).get("display_name") or ""
             if dn:
                 cleaned = re.sub(r"[,.;]", " ", dn)
                 parts = [p for p in cleaned.split() if p]
-                if parts:
-                    cands.append(_normalize_text(parts[-1]))
+                for p in parts:
+                    norm = _normalize_text(p)
+                    if norm:
+                        tokens.append(norm)
         except Exception:
             continue
-    return [c for c in cands if c]
+    return tokens
 
 
 def _authors_overlap(cand: Dict[str, Any], ref_authors: List[Any]) -> bool:
-    ref_tokens = _last_name_tokens_from_strings(ref_authors)
-    cand_tokens = _candidate_author_last_names(cand)
+    ref_tokens = _all_name_tokens_from_strings(ref_authors)
+    cand_tokens = _candidate_author_name_tokens(cand)
     if not ref_tokens or not cand_tokens:
         return True
-    ref_set = set(ref_tokens)
-    cand_set = set(cand_tokens)
-    overlap = ref_set & cand_set
-    if len(ref_set) >= 3:
-        return bool(overlap)
-    return True
+    return bool(set(ref_tokens) & set(cand_tokens))
 
 
 # -----------------------
@@ -438,11 +437,11 @@ def _score_candidate_sbmv(
         title_ratio = float(fuzz.token_set_ratio(ctitle, nt))
         scores["title"] = title_ratio
 
-    # Authors (overlap ratio of last names)
+    # Authors (overlap ratio of name tokens)
     author_overlap: Optional[float] = None
     if authors:
-        ref_tokens = set(_last_name_tokens_from_strings(authors))
-        cand_tokens = set(_candidate_author_last_names(cand))
+        ref_tokens = set(_all_name_tokens_from_strings(authors))
+        cand_tokens = set(_candidate_author_name_tokens(cand))
         if ref_tokens and cand_tokens:
             overlap = len(ref_tokens & cand_tokens)
             author_overlap = 100.0 * overlap / max(1, len(ref_tokens))

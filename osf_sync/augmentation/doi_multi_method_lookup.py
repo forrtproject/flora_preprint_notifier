@@ -217,6 +217,53 @@ def _normalize_doi(doi: Optional[str]) -> Optional[str]:
     return d or None
 
 
+def doi_resolves(doi: str, timeout: int = 10) -> Optional[bool]:
+    """Check whether a DOI resolves via the doi.org Handle API.
+
+    Returns True if the handle exists and has a URL, False if the handle is
+    not found or has no URL, and None on network/parse errors.
+    """
+    doi = _normalize_doi(doi)
+    if not doi or not doi.startswith("10."):
+        return None
+
+    key = _cache_key("doi_resolve", {"doi": doi})
+    found, hit = _cache_get(key)
+    if found:
+        return hit
+
+    import urllib.parse
+    url = f"https://doi.org/api/handles/{urllib.parse.quote(doi, safe='')}?type=URL"
+    try:
+        r = requests.get(url, timeout=timeout)
+    except Exception:
+        return None
+
+    try:
+        body = r.json()
+    except Exception:
+        return None
+
+    code = body.get("responseCode")
+    if code is None:
+        return None
+
+    if code == 1:
+        result: Optional[bool] = True
+    elif code in (100, 200):
+        result = False
+    elif code == 2:
+        result = None
+    else:
+        result = None
+
+    # Only cache definitive results (True/False), not transient errors (None)
+    if result is not None:
+        _cache_set(key, result)
+
+    return result
+
+
 def _ascii_sanitize(val: Optional[str]) -> Optional[str]:
     if val is None:
         return None
@@ -537,7 +584,7 @@ def _raw_citation_validity(raw: str) -> Tuple[bool, List[str]]:
     return (len(reasons) == 0), reasons
 
 
-def _last_name_tokens_from_strings(authors: List[Any]) -> List[str]:
+def _all_name_tokens_from_strings(authors: List[Any]) -> List[str]:
     tokens: List[str] = []
     for raw in authors:
         value = str(raw or "")
@@ -545,9 +592,11 @@ def _last_name_tokens_from_strings(authors: List[Any]) -> List[str]:
             continue
         cleaned = re.sub(r"[,.;]", " ", value)
         parts = [p for p in cleaned.split() if p]
-        if parts:
-            tokens.append(parts[-1].lower())
-    return [t for t in tokens if t]
+        for p in parts:
+            norm = p.lower()
+            if norm:
+                tokens.append(norm)
+    return tokens
 
 
 def _candidate_author_names(cand: Dict[str, Any], method: str) -> List[str]:
@@ -579,9 +628,9 @@ def _candidate_author_names(cand: Dict[str, Any], method: str) -> List[str]:
 
 
 def _author_overlap_details(ref_authors: List[Any], cand: Dict[str, Any], method: str) -> Dict[str, Any]:
-    ref_tokens = _last_name_tokens_from_strings(ref_authors)
+    ref_tokens = _all_name_tokens_from_strings(ref_authors)
     cand_names = _candidate_author_names(cand, method)
-    cand_tokens = _last_name_tokens_from_strings(cand_names)
+    cand_tokens = _all_name_tokens_from_strings(cand_names)
     overlap_tokens = sorted(set(ref_tokens) & set(cand_tokens))
     if not ref_tokens:
         overlap_pct = None
@@ -591,9 +640,9 @@ def _author_overlap_details(ref_authors: List[Any], cand: Dict[str, Any], method
     return {
         "ref_authors": ref_authors,
         "cand_authors": cand_names,
-        "ref_last_names": ref_tokens,
-        "cand_last_names": cand_tokens,
-        "overlap_last_names": overlap_tokens,
+        "ref_name_tokens": ref_tokens,
+        "cand_name_tokens": cand_tokens,
+        "overlap_name_tokens": overlap_tokens,
         "author_overlap_pct": overlap_pct,
     }
 
@@ -717,8 +766,8 @@ def _journal_score(ref_journal: Optional[str], cand_journal: Optional[str]) -> O
 def _author_score(ref_authors: List[Any], cand_authors: List[str]) -> Optional[float]:
     if not ref_authors:
         return None
-    ref_tokens = set(_last_name_tokens_from_strings(ref_authors))
-    cand_tokens = set(_last_name_tokens_from_strings(cand_authors))
+    ref_tokens = set(_all_name_tokens_from_strings(ref_authors))
+    cand_tokens = set(_all_name_tokens_from_strings(cand_authors))
     if not ref_tokens or not cand_tokens:
         return None
     overlap = len(ref_tokens & cand_tokens)
@@ -1360,9 +1409,9 @@ def process_reference(
             author_detail = {
                 "ref_authors": authors,
                 "cand_authors": [],
-                "ref_last_names": _last_name_tokens_from_strings(authors),
-                "cand_last_names": [],
-                "overlap_last_names": [],
+                "ref_name_tokens": _all_name_tokens_from_strings(authors),
+                "cand_name_tokens": [],
+                "overlap_name_tokens": [],
                 "author_overlap_pct": None,
             }
             match_detail = {
@@ -1410,8 +1459,8 @@ def process_reference(
                 "ref_page": page,
                 "ref_authors": author_detail["ref_authors"],
                 "cand_authors": author_detail["cand_authors"],
-                "ref_last_names": author_detail["ref_last_names"],
-                "cand_last_names": author_detail["cand_last_names"],
+                "ref_name_tokens": author_detail["ref_name_tokens"],
+                "cand_name_tokens": author_detail["cand_name_tokens"],
                 "author_overlap_pct": author_detail["author_overlap_pct"],
                 "title_match": match_detail["title_match"],
                 "journal_match": match_detail["journal_match"],
@@ -1431,12 +1480,12 @@ def process_reference(
             author_detail["author_overlap_pct"],
         )
         logger.info(
-            "Author overlap details ref_authors=%s cand_authors=%s ref_last=%s cand_last=%s overlap_last=%s",
+            "Author overlap details ref_authors=%s cand_authors=%s ref_tokens=%s cand_tokens=%s overlap_tokens=%s",
             author_detail["ref_authors"],
             author_detail["cand_authors"],
-            author_detail["ref_last_names"],
-            author_detail["cand_last_names"],
-            author_detail["overlap_last_names"],
+            author_detail["ref_name_tokens"],
+            author_detail["cand_name_tokens"],
+            author_detail["overlap_name_tokens"],
         )
         logger.info(
             "Match details title(ref=%s cand=%s match=%s) journal(ref=%s cand=%s match=%s) "
