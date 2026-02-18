@@ -1118,21 +1118,23 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
     small batches: download N → GROBID N → download N → ... so that on
     ephemeral storage (GitHub Actions) we don't waste downloads that GROBID
     can't reach before the job ends.
+
+    The interleaved loop runs without its own time limit — the GitHub Actions
+    job timeout (timeout-minutes) is the overall safety net.
     """
     out: Dict[str, Any] = {"stages": {}}
 
+    sync_budget = getattr(args, "max_seconds_sync", 1200)
     out["stages"]["sync"] = sync_from_osf(
         subject_text=args.subject,
         batch_size=args.batch_size,
         limit=args.sync_limit,
-        max_seconds=args.max_seconds_per_stage,
+        max_seconds=sync_budget,
         dry_run=args.dry_run,
     )
 
-    # Interleave pdf + grobid in small batches under a shared time budget.
-    # Use the per-stage budget as the overall budget for the interleaved loop.
-    interleave_budget = args.max_seconds_per_stage
-    interleave_deadline = _deadline(interleave_budget)
+    # Interleave pdf + grobid in small batches.
+    # No time deadline — bounded by item limits and the job-level timeout.
     batch_size = getattr(args, "interleave_batch", 50)
     workers = getattr(args, "download_workers", 1)
 
@@ -1141,7 +1143,7 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
     pdf_result: Dict[str, Any] = {}
     grobid_result: Dict[str, Any] = {}
 
-    while not _time_up(interleave_deadline):
+    while True:
         pdf_remaining = args.pdf_limit - pdf_total
         grobid_remaining = args.grobid_limit - grobid_total
         if pdf_remaining <= 0 and grobid_remaining <= 0:
@@ -1150,14 +1152,10 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
         # -- download a small batch of PDFs --
         if pdf_remaining > 0:
             chunk = min(batch_size, pdf_remaining)
-            # Give this chunk a fraction of remaining time, but at least 120s
-            remaining_secs = int((interleave_deadline or 0) - time.monotonic())
-            chunk_budget = max(120, remaining_secs // 2) if interleave_budget else None
             batch_result = process_pdf_batch(
                 limit=chunk,
                 owner=args.owner,
                 lease_seconds=args.lease_seconds,
-                max_seconds=chunk_budget,
                 workers=workers,
                 dry_run=args.dry_run,
             )
@@ -1167,19 +1165,13 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
             if batch_result.get("processed", 0) + batch_result.get("failed", 0) == 0:
                 pdf_total = args.pdf_limit  # exhaust the limit
 
-        if _time_up(interleave_deadline):
-            break
-
         # -- GROBID-process a small batch --
         if grobid_remaining > 0:
             chunk = min(batch_size, grobid_remaining)
-            remaining_secs = int((interleave_deadline or 0) - time.monotonic())
-            chunk_budget = max(120, remaining_secs) if interleave_budget else None
             batch_result = process_grobid_batch(
                 limit=chunk,
                 owner=args.owner,
                 lease_seconds=args.lease_seconds,
-                max_seconds=chunk_budget,
                 dry_run=args.dry_run,
             )
             grobid_total += batch_result.get("processed", 0) + batch_result.get("failed", 0)
@@ -1368,6 +1360,7 @@ def _add_grobid_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--grobid-limit", type=int, default=50)
     parser.add_argument("--download-workers", type=int, default=1, help="Parallel workers for PDF downloads")
     parser.add_argument("--interleave-batch", type=int, default=50, help="PDF+GROBID batch size per interleave round")
+    parser.add_argument("--max-seconds-sync", type=int, default=1200, help="Timeout for OSF sync stage (default 20min)")
     parser.add_argument("--subject", default=None)
     parser.add_argument("--batch-size", type=int, default=1000)
 

@@ -101,7 +101,6 @@ jobs:
             --pdf-limit "$LIMIT" \
             --grobid-limit "$LIMIT" \
             --download-workers "$DL_WORKERS" \
-            --max-seconds-per-stage 3600 \
             | tee /tmp/pipeline_output.json
 
           # Check if any stage was cut short by time or had items processed
