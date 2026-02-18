@@ -65,6 +65,8 @@ jobs:
       OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
       OPENALEX_EMAIL: ${{ secrets.OPENALEX_EMAIL }}
       TEI_S3_BUCKET: flora-preprint-tei-cache
+      GMAIL_SENDER_ADDRESS: flora@replications.forrt.org
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
       PIPELINE_NOTIFY_EMAIL: ${{ secrets.PIPELINE_NOTIFY_EMAIL }}
 
     steps:
@@ -85,14 +87,17 @@ jobs:
       - name: Run GROBID stages
         id: run
         run: |
+          set -o pipefail
           LIMIT="${{ inputs.limit || '0' }}"
           DL_WORKERS="${{ inputs.download_workers || '4' }}"
+          CURRENT_DEPTH="${{ inputs.backlog_depth || '5' }}"
 
           if [ "$LIMIT" = "0" ]; then
             LIMIT="100000"
           fi
 
-          python -m osf_sync.pipeline run-grobid-stages \
+          # Suppress per-run summary emails; send one final summary only when recursion is exhausted.
+          PIPELINE_NOTIFY_EMAIL="" python -m osf_sync.pipeline run-grobid-stages \
             --pdf-limit "$LIMIT" \
             --grobid-limit "$LIMIT" \
             --download-workers "$DL_WORKERS" \
@@ -114,9 +119,16 @@ jobs:
               pass
           sys.exit(1)
           "; then
-            echo "has_backlog=true" >> "$GITHUB_OUTPUT"
+            HAS_BACKLOG=true
           else
-            echo "has_backlog=false" >> "$GITHUB_OUTPUT"
+            HAS_BACKLOG=false
+          fi
+
+          echo "has_backlog=$HAS_BACKLOG" >> "$GITHUB_OUTPUT"
+          if [ "$HAS_BACKLOG" = "false" ] || [ "$CURRENT_DEPTH" = "0" ] || [ "$CURRENT_DEPTH" = "1" ]; then
+            echo "recursion_exhausted=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "recursion_exhausted=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Re-trigger if backlog remains
@@ -140,3 +152,14 @@ jobs:
           else
             echo "Backlog depth exhausted, not re-triggering"
           fi
+
+      - name: Send completion summary email
+        if: steps.run.outputs.recursion_exhausted == 'true'
+        run: |
+          python -c "
+          import json
+          from osf_sync.pipeline import _notify_pipeline_summary
+          with open('/tmp/pipeline_output.json', 'r', encoding='utf-8') as fh:
+              result = json.load(fh)
+          _notify_pipeline_summary(result)
+          "

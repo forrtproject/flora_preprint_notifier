@@ -8,6 +8,7 @@ import os
 import socket
 import time
 import uuid
+import calendar
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, Optional
 
@@ -27,6 +28,7 @@ from .pdf import ensure_pdf_available_or_delete, mark_downloaded
 from .upsert import upsert_batch
 from .email import process_email_batch
 from .extraction.extract_author_list import run_author_extract
+from .runtime_config import RUNTIME_CONFIG
 
 OPENALEX_EMAIL = os.environ.get("OPENALEX_EMAIL", "you@example.com")
 PDF_DEST_ROOT = os.environ.get("PDF_DEST_ROOT", "/data/preprints")
@@ -42,6 +44,7 @@ if not logger.handlers:
         format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
     )
 logger.setLevel(logging.INFO)
+_TRUE_VALUES = {"1", "true", "yes", "on"}
 
 
 def _slack(msg: str, *, level: str = "info", extra: Optional[Dict[str, Any]] = None) -> None:
@@ -120,6 +123,180 @@ def _excluded_summary() -> Dict[str, Any]:
         return {"total_excluded_preprints": None, "by_reason": {}}
 
 
+def _subtract_months(d: dt.date, months: int) -> dt.date:
+    year = d.year
+    month = d.month - months
+    while month <= 0:
+        month += 12
+        year -= 1
+    day = min(d.day, calendar.monthrange(year, month)[1])
+    return dt.date(year, month, day)
+
+
+def _parse_iso_date(value: str) -> Optional[dt.date]:
+    raw = (value or "").strip()
+    if not raw:
+        return None
+    if len(raw) == 10:
+        try:
+            return dt.date.fromisoformat(raw)
+        except Exception:
+            return None
+    parsed = _parse_iso_dt(raw)
+    return parsed.date() if parsed else None
+
+
+def _env_true(name: str, default: bool = False) -> bool:
+    raw = os.environ.get(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in _TRUE_VALUES
+
+
+def _parse_config_anchor_date() -> Optional[dt.date]:
+    anchor_raw = (RUNTIME_CONFIG.ingest.anchor_date or "").strip()
+    if not anchor_raw:
+        return None
+    anchor_dt = _parse_iso_dt(anchor_raw)
+    if anchor_dt is None:
+        raise RuntimeError(f"Invalid ingest.anchor_date value: {RUNTIME_CONFIG.ingest.anchor_date!r}")
+    return anchor_dt.date()
+
+
+def _should_write_cursor(window_mode: str) -> bool:
+    if _env_true("SYNC_DISABLE_CURSOR_WRITE", default=False):
+        return False
+    if "override" in window_mode and not _env_true("SYNC_OVERRIDE_WRITES_CURSOR", default=False):
+        return False
+    return True
+
+
+def _sync_ingest_meta_key(source_key: str) -> str:
+    return f"{source_key}:ingest_meta"
+
+
+def _read_ingest_meta(source_key: str) -> Dict[str, Any]:
+    repo = PreprintsRepo()
+    return repo.get_sync_item(_sync_ingest_meta_key(source_key)) or {}
+
+
+def _write_ingest_meta(source_key: str) -> None:
+    repo = PreprintsRepo()
+    repo.put_sync_item(
+        {
+            "source_key": _sync_ingest_meta_key(source_key),
+            "anchor_date": (RUNTIME_CONFIG.ingest.anchor_date or "").strip(),
+            "window_months": int(RUNTIME_CONFIG.ingest.window_months),
+            "updated_at": dt.datetime.utcnow().isoformat(),
+        }
+    )
+
+
+def _ingest_config_changed(meta: Dict[str, Any]) -> bool:
+    if not getattr(RUNTIME_CONFIG.ingest, "backfill_on_config_change", True):
+        return False
+    if not meta:
+        return False
+    prev_anchor = str(meta.get("anchor_date") or "").strip()
+    prev_window_raw = meta.get("window_months")
+    try:
+        prev_window = int(prev_window_raw) if prev_window_raw is not None and str(prev_window_raw).strip() else None
+    except Exception:
+        prev_window = None
+    if not prev_anchor and prev_window is None:
+        return False
+    curr_anchor = (RUNTIME_CONFIG.ingest.anchor_date or "").strip()
+    curr_window = int(RUNTIME_CONFIG.ingest.window_months)
+    return prev_anchor != curr_anchor or prev_window != curr_window
+
+
+def _resolve_config_change_backfill(source_key: str) -> Optional[tuple[str, str, str]]:
+    env_mode = (os.environ.get("PIPELINE_ENV", "dev") or "dev").strip().lower()
+    if env_mode != "prod":
+        return None
+    if (os.environ.get("SYNC_START_DATE_OVERRIDE") or "").strip():
+        return None
+    meta = _read_ingest_meta(source_key)
+    if not _ingest_config_changed(meta):
+        return None
+
+    anchor_date = _parse_config_anchor_date()
+    if anchor_date is None:
+        return None
+    window_start = _subtract_months(anchor_date, RUNTIME_CONFIG.ingest.window_months)
+    return window_start.isoformat(), anchor_date.isoformat(), "prod_anchor_config_change_backfill"
+
+
+def _resolve_sync_window(
+    cursor_dt: Optional[dt.datetime],
+    *,
+    now_utc: Optional[dt.datetime] = None,
+) -> tuple[str, Optional[str], str]:
+    """
+    Resolve sync lower/upper bounds.
+
+    If ingest.anchor_date is configured, always sync within that fixed window.
+    Otherwise, preserve legacy incremental behavior (cursor or last-7-days bootstrap).
+    """
+    env_mode = (os.environ.get("PIPELINE_ENV", "dev") or "dev").strip().lower()
+    if env_mode not in {"dev", "prod"}:
+        env_mode = "dev"
+
+    override_raw = (os.environ.get("SYNC_START_DATE_OVERRIDE") or "").strip()
+    override_end_raw = (os.environ.get("SYNC_END_DATE_OVERRIDE") or "").strip()
+    if override_raw:
+        override_date = _parse_iso_date(override_raw)
+        if override_date is None:
+            raise RuntimeError(f"Invalid SYNC_START_DATE_OVERRIDE value: {override_raw!r}")
+
+        until_date: Optional[dt.date]
+        if override_end_raw:
+            until_date = _parse_iso_date(override_end_raw)
+            if until_date is None:
+                raise RuntimeError(f"Invalid SYNC_END_DATE_OVERRIDE value: {override_end_raw!r}")
+        elif env_mode == "prod":
+            until_date = _parse_config_anchor_date()
+            if until_date is None:
+                raise RuntimeError("PIPELINE_ENV=prod with override requires ingest.anchor_date to be set")
+        else:
+            until_date = None
+
+        if until_date and override_date > until_date:
+            raise RuntimeError(
+                f"SYNC_START_DATE_OVERRIDE ({override_date.isoformat()}) cannot be after "
+                f"SYNC_END_DATE_OVERRIDE/anchor ({until_date.isoformat()})"
+            )
+        return override_date.isoformat(), (until_date.isoformat() if until_date else None), f"{env_mode}_override"
+
+    if env_mode == "prod":
+        anchor_date = _parse_config_anchor_date()
+        if anchor_date is None:
+            raise RuntimeError("PIPELINE_ENV=prod requires ingest.anchor_date to be set")
+        window_start = _subtract_months(anchor_date, RUNTIME_CONFIG.ingest.window_months)
+        if cursor_dt is None:
+            start_date = window_start
+        else:
+            cursor_date = cursor_dt.astimezone(dt.timezone.utc).date()
+            start_date = max(cursor_date, window_start)
+        return start_date.isoformat(), anchor_date.isoformat(), "prod_anchor_window"
+
+    try:
+        lookback_days = int(os.environ.get("DEV_SYNC_LOOKBACK_DAYS", "7"))
+        if lookback_days < 1:
+            lookback_days = 7
+    except Exception:
+        lookback_days = 7
+
+    now_dt = now_utc or dt.datetime.now(dt.timezone.utc)
+    window_start = (now_dt - dt.timedelta(days=lookback_days)).date()
+    if cursor_dt is None:
+        start_date = window_start
+    else:
+        cursor_date = cursor_dt.astimezone(dt.timezone.utc).date()
+        start_date = max(cursor_date, window_start)
+    return start_date.isoformat(), None, "dev_recent"
+
+
 def sync_from_osf(
     *,
     subject_text: Optional[str] = None,
@@ -131,23 +308,45 @@ def sync_from_osf(
     init_db()
     source_key = f"osf:{subject_text}" if subject_text else SOURCE_KEY_ALL
     since_dt = _get_cursor(source_key)
-    if since_dt is None:
-        since_dt = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=7)
-    since_iso_date = since_dt.astimezone(dt.timezone.utc).date().isoformat()
+    auto_backfill = _resolve_config_change_backfill(source_key)
+    if auto_backfill:
+        since_iso_date, until_iso_date, window_mode = auto_backfill
+    else:
+        since_iso_date, until_iso_date, window_mode = _resolve_sync_window(since_dt)
 
     total_upserted = 0
     processed = 0
     max_published_seen: Optional[dt.datetime] = None
     deadline = _deadline(max_seconds)
 
-    logger.info("sync_from_osf start", extra={"since": since_iso_date, "subject": subject_text})
+    logger.info(
+        "sync_from_osf start",
+        extra={
+            "since": since_iso_date,
+            "until": until_iso_date,
+            "subject": subject_text,
+            "window_mode": window_mode,
+        },
+    )
 
-    for batch in iter_preprints_batches(
-        since_date=since_iso_date,
-        subject_text=subject_text,
-        batch_size=batch_size,
-        sort="date_published",
-    ):
+    iterator = (
+        iter_preprints_range(
+            start_date=since_iso_date,
+            until_date=until_iso_date,
+            subject_text=subject_text,
+            batch_size=batch_size,
+            sort="date_published",
+        )
+        if until_iso_date
+        else iter_preprints_batches(
+            since_date=since_iso_date,
+            subject_text=subject_text,
+            batch_size=batch_size,
+            sort="date_published",
+        )
+    )
+
+    for batch in iterator:
         if _time_up(deadline):
             break
 
@@ -172,9 +371,16 @@ def sync_from_osf(
         logger.info("upserted batch", extra={"batch_size": len(effective_batch), "total": total_upserted})
         time.sleep(0.2)
 
-    cursor_out = (max_published_seen or since_dt).isoformat()
-    if max_published_seen and not dry_run:
-        _set_cursor(source_key, max_published_seen)
+    cursor_fallback = since_dt or _parse_iso_dt(since_iso_date)
+    cursor_out = (max_published_seen or cursor_fallback).isoformat() if (max_published_seen or cursor_fallback) else since_iso_date
+    if max_published_seen and not dry_run and _should_write_cursor(window_mode):
+        if since_dt and max_published_seen < since_dt:
+            logger.info(
+                "sync cursor not rewound",
+                extra={"source_key": source_key, "existing_cursor": since_dt.isoformat(), "candidate": max_published_seen.isoformat()},
+            )
+        else:
+            _set_cursor(source_key, max_published_seen)
 
     out = {
         "upserted": total_upserted,
@@ -182,6 +388,8 @@ def sync_from_osf(
         "dry_run": dry_run,
         "stopped_due_to_time": _time_up(deadline),
     }
+    if not dry_run:
+        _write_ingest_meta(source_key)
     _slack("OSF sync finished", extra=out)
     return out
 
@@ -893,9 +1101,158 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
     return out
 
 
+def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
+    """Run sync + pdf + grobid sequentially (used by the GROBID workflow)."""
+    out: Dict[str, Any] = {"stages": {}}
+
+    out["stages"]["sync"] = sync_from_osf(
+        subject_text=args.subject,
+        batch_size=args.batch_size,
+        limit=args.sync_limit,
+        max_seconds=args.max_seconds_per_stage,
+        dry_run=args.dry_run,
+    )
+
+    out["stages"]["pdf"] = process_pdf_batch(
+        limit=args.pdf_limit,
+        owner=args.owner,
+        lease_seconds=args.lease_seconds,
+        max_seconds=args.max_seconds_per_stage,
+        workers=getattr(args, "download_workers", 1),
+        dry_run=args.dry_run,
+    )
+
+    out["stages"]["grobid"] = process_grobid_batch(
+        limit=args.grobid_limit,
+        owner=args.owner,
+        lease_seconds=args.lease_seconds,
+        max_seconds=args.max_seconds_per_stage,
+        dry_run=args.dry_run,
+    )
+
+    _notify_pipeline_summary(out)
+    return out
+
+
+def run_post_grobid(args: argparse.Namespace) -> Dict[str, Any]:
+    """Run extract + enrich + flora + author + email (used by the post-GROBID workflow)."""
+    out: Dict[str, Any] = {"stages": {}}
+
+    include_email = getattr(args, "include_email", False)
+    email_limit = getattr(args, "email_limit", 50)
+
+    # Email interleaving: 3 stages before author (extract, enrich, flora)
+    _INTERLEAVE_STAGES = 3
+    if include_email and email_limit > 0:
+        interleave_per = max(1, email_limit // (_INTERLEAVE_STAGES + 1))
+        final_email_limit = email_limit - interleave_per * _INTERLEAVE_STAGES
+        if final_email_limit < 0:
+            final_email_limit = 0
+    else:
+        interleave_per = 0
+        final_email_limit = 0
+
+    email_result: Dict[str, Any] = {}
+    email_sent_total = 0
+
+    def _interleave_emails() -> None:
+        nonlocal email_result, email_sent_total
+        if not include_email or interleave_per <= 0:
+            return
+        remaining = email_limit - email_sent_total
+        batch_limit = min(interleave_per, remaining)
+        if batch_limit <= 0:
+            return
+        spread = batch_limit * 60
+        batch = process_email_batch(
+            limit=batch_limit,
+            spread_seconds=spread,
+            dry_run=args.dry_run,
+        )
+        email_sent_total += batch.get("sent", 0) + batch.get("failed", 0)
+        email_result = _merge_email_results(email_result, batch)
+
+    out["stages"]["extract"] = process_extract_batch(
+        limit=args.extract_limit,
+        owner=args.owner,
+        lease_seconds=args.lease_seconds,
+        max_seconds=args.max_seconds_per_stage,
+        dry_run=args.dry_run,
+    )
+    _interleave_emails()
+
+    out["stages"]["enrich"] = process_enrich_batch(
+        limit=args.enrich_limit,
+        threshold=args.threshold,
+        mailto=args.mailto,
+        osf_id=args.osf_id,
+        ref_id=args.ref_id,
+        debug=args.debug,
+        workers=getattr(args, "enrich_workers", 1),
+        dry_run=args.dry_run,
+    )
+    _interleave_emails()
+
+    out["stages"]["flora"] = process_flora_batch(
+        limit_lookup=args.limit_lookup,
+        limit_screen=args.limit_screen,
+        osf_id=args.osf_id,
+        ref_id=args.ref_id,
+        cache_ttl_hours=args.cache_ttl_hours,
+        persist_flags=not args.no_persist,
+        only_unchecked=not args.include_checked,
+        debug=args.debug,
+        dry_run=args.dry_run,
+    )
+    _interleave_emails()
+
+    if not args.skip_author:
+        out["stages"]["author"] = process_author_batch(
+            osf_ids=args.author_osf_ids,
+            ids_file=args.ids_file,
+            limit=args.author_limit,
+            out=args.out,
+            pdf_root=args.pdf_root,
+            keep_files=not args.cleanup_author_files,
+            debug=args.debug,
+            debug_log=args.debug_log,
+            match_emails_file=args.match_emails_file,
+            match_emails_threshold=args.match_emails_threshold,
+            include_existing=args.include_existing,
+            write_debug_csv=args.write_debug_csv,
+            orcid_workers=getattr(args, "orcid_workers", 1),
+            dry_run=args.dry_run,
+        )
+
+    # Final email batch with longer spread window
+    if include_email and final_email_limit > 0:
+        remaining = email_limit - email_sent_total
+        batch_limit = min(final_email_limit, remaining)
+        if batch_limit > 0:
+            spread = int(batch_limit * 270)
+            batch = process_email_batch(
+                limit=batch_limit,
+                max_seconds=spread + 60,
+                spread_seconds=spread,
+                dry_run=args.dry_run,
+            )
+            email_result = _merge_email_results(email_result, batch)
+
+    if email_result:
+        out["stages"]["email"] = email_result
+
+    if not args.dry_run:
+        out["excluded_preprints_summary"] = _excluded_summary()
+
+    _notify_pipeline_summary(out)
+    return out
+
+
 def _notify_pipeline_summary(result: Dict[str, Any]) -> None:
     """Send a short email summary of the pipeline run."""
     if not PIPELINE_NOTIFY_EMAIL:
+        return
+    if not getattr(RUNTIME_CONFIG.email, "progress_emails", True):
         return
     try:
         from .email.gmail import send_email
@@ -911,7 +1268,8 @@ def _notify_pipeline_summary(result: Dict[str, Any]) -> None:
                 any_failed = True
             rows.append(f"<tr><td>{name}</td><td>{p}</td><td>{f}</td><td>{timed.strip()}</td></tr>")
 
-        status = "with errors" if any_failed else "OK"
+        is_dry_run = any(data.get("dry_run") for data in stages.values())
+        status = "DRY RUN" if is_dry_run else ("with errors" if any_failed else "OK")
         table = (
             '<table style="border-collapse:collapse;font-family:monospace;font-size:14px">'
             '<tr style="border-bottom:2px solid #333"><th style="text-align:left;padding:4px 12px">Stage</th>'
@@ -921,11 +1279,66 @@ def _notify_pipeline_summary(result: Dict[str, Any]) -> None:
             + "</table>"
         )
 
-        html = f"<p>Pipeline run completed <strong>{status}</strong>.</p>{table}"
+        dry_note = "<p><em>This was a dry run — no data was written.</em></p>" if is_dry_run else ""
+        html = f"<p>Pipeline run completed <strong>{status}</strong>.</p>{dry_note}{table}"
         send_email(PIPELINE_NOTIFY_EMAIL, f"FLoRA pipeline: {status}", html)
         logger.info("Pipeline summary email sent", extra={"to": PIPELINE_NOTIFY_EMAIL})
     except Exception:
         logger.warning("Failed to send pipeline summary email", exc_info=True)
+
+
+def _add_common_args(parser: argparse.ArgumentParser) -> None:
+    """Arguments shared by all multi-stage subcommands."""
+    parser.add_argument("--max-seconds-per-stage", type=int, default=None)
+    parser.add_argument("--owner", default=None)
+    parser.add_argument("--lease-seconds", type=int, default=DEFAULT_LEASE_SECONDS)
+    parser.add_argument("--debug", action="store_true")
+    parser.add_argument("--dry-run", action="store_true")
+
+
+def _add_grobid_args(parser: argparse.ArgumentParser) -> None:
+    """Arguments for sync/pdf/grobid stages."""
+    parser.add_argument("--sync-limit", type=int, default=1000)
+    parser.add_argument("--pdf-limit", type=int, default=100)
+    parser.add_argument("--grobid-limit", type=int, default=50)
+    parser.add_argument("--download-workers", type=int, default=1, help="Parallel workers for PDF downloads")
+    parser.add_argument("--subject", default=None)
+    parser.add_argument("--batch-size", type=int, default=1000)
+
+
+def _add_downstream_args(parser: argparse.ArgumentParser) -> None:
+    """Arguments for extract/enrich/flora/author/email stages."""
+    parser.add_argument("--extract-limit", type=int, default=200)
+    parser.add_argument("--enrich-limit", type=int, default=300)
+    parser.add_argument("--author-limit", type=int, default=None)
+    parser.add_argument("--limit-lookup", type=int, default=200)
+    parser.add_argument("--limit-screen", type=int, default=500)
+    parser.add_argument("--enrich-workers", type=int, default=1, help="Parallel workers for Crossref/OpenAlex enrichment")
+    parser.add_argument("--orcid-workers", type=int, default=3, help="Parallel workers for ORCID lookups")
+    parser.add_argument("--skip-author", action="store_true", help="Skip author extraction stage")
+    parser.add_argument("--include-email", action="store_true", help="Include email sending stage (off by default)")
+    parser.add_argument("--email-limit", type=int, default=50, help="Max emails to send")
+    parser.add_argument("--threshold", type=int, default=None)
+    parser.add_argument("--mailto", default=OPENALEX_EMAIL)
+    parser.add_argument("--osf-id", default=None, help="Restrict enrich/FLORA to a specific OSF id")
+    parser.add_argument("--author-osf-id", action="append", dest="author_osf_ids", default=[])
+    parser.add_argument("--ids-file", default=None)
+    parser.add_argument("--out", default=None)
+    parser.add_argument("--pdf-root", default=None)
+    parser.add_argument(
+        "--cleanup-author-files",
+        action="store_true",
+        help="Allow author stage to delete local PDF/TEI files after processing (default is keep files)",
+    )
+    parser.add_argument("--debug-log", default=None)
+    parser.add_argument("--match-emails-file", default=None)
+    parser.add_argument("--match-emails-threshold", type=float, default=0.90)
+    parser.add_argument("--include-existing", action="store_true")
+    parser.add_argument("--write-debug-csv", action="store_true")
+    parser.add_argument("--ref-id", default=None)
+    parser.add_argument("--cache-ttl-hours", type=int, default=None)
+    parser.add_argument("--no-persist", action="store_true")
+    parser.add_argument("--include-checked", action="store_true")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -967,50 +1380,24 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--spread-seconds", type=int, default=None, help="Spread email sends over this many seconds (email stage only)")
     p_run.set_defaults(func=run_stage)
 
+    # -- run-all: full pipeline (sync → pdf → grobid → extract → enrich → flora → author → email)
     p_all = sub.add_parser("run-all", help="Run the full pipeline (bounded per stage)")
-    p_all.add_argument("--sync-limit", type=int, default=1000)
-    p_all.add_argument("--pdf-limit", type=int, default=100)
-    p_all.add_argument("--grobid-limit", type=int, default=50)
-    p_all.add_argument("--extract-limit", type=int, default=200)
-    p_all.add_argument("--enrich-limit", type=int, default=300)
-    p_all.add_argument("--author-limit", type=int, default=None)
-    p_all.add_argument("--limit-lookup", type=int, default=200)
-    p_all.add_argument("--limit-screen", type=int, default=500)
-    p_all.add_argument("--max-seconds-per-stage", type=int, default=None)
-    p_all.add_argument("--download-workers", type=int, default=1, help="Parallel workers for PDF downloads")
-    p_all.add_argument("--enrich-workers", type=int, default=1, help="Parallel workers for Crossref/OpenAlex enrichment")
-    p_all.add_argument("--orcid-workers", type=int, default=3, help="Parallel workers for ORCID lookups")
-    p_all.add_argument("--skip-author", action="store_true", help="Skip author extraction stage")
-    p_all.add_argument("--include-email", action="store_true", help="Include email sending stage (off by default)")
-    p_all.add_argument("--email-limit", type=int, default=50, help="Max emails to send in run-all")
-    p_all.add_argument("--subject", default=None)
-    p_all.add_argument("--batch-size", type=int, default=1000)
-    p_all.add_argument("--threshold", type=int, default=None)
-    p_all.add_argument("--mailto", default=OPENALEX_EMAIL)
-    p_all.add_argument("--owner", default=None)
-    p_all.add_argument("--lease-seconds", type=int, default=DEFAULT_LEASE_SECONDS)
-    p_all.add_argument("--osf-id", default=None, help="Restrict enrich/FLORA to a specific OSF id")
-    p_all.add_argument("--author-osf-id", action="append", dest="author_osf_ids", default=[])
-    p_all.add_argument("--ids-file", default=None)
-    p_all.add_argument("--out", default=None)
-    p_all.add_argument("--pdf-root", default=None)
-    p_all.add_argument(
-        "--cleanup-author-files",
-        action="store_true",
-        help="Allow author stage to delete local PDF/TEI files after processing (default is keep files)",
-    )
-    p_all.add_argument("--debug", action="store_true")
-    p_all.add_argument("--debug-log", default=None)
-    p_all.add_argument("--match-emails-file", default=None)
-    p_all.add_argument("--match-emails-threshold", type=float, default=0.90)
-    p_all.add_argument("--include-existing", action="store_true")
-    p_all.add_argument("--write-debug-csv", action="store_true")
-    p_all.add_argument("--ref-id", default=None)
-    p_all.add_argument("--cache-ttl-hours", type=int, default=None)
-    p_all.add_argument("--no-persist", action="store_true")
-    p_all.add_argument("--include-checked", action="store_true")
-    p_all.add_argument("--dry-run", action="store_true")
+    _add_common_args(p_all)
+    _add_grobid_args(p_all)
+    _add_downstream_args(p_all)
     p_all.set_defaults(func=run_all)
+
+    # -- run-grobid-stages: sync + pdf + grobid only
+    p_grobid = sub.add_parser("run-grobid-stages", help="Run sync + pdf + grobid stages (GROBID workflow)")
+    _add_common_args(p_grobid)
+    _add_grobid_args(p_grobid)
+    p_grobid.set_defaults(func=run_grobid_stages)
+
+    # -- run-post-grobid: extract + enrich + flora + author + email
+    p_post = sub.add_parser("run-post-grobid", help="Run extract + enrich + flora + author + email (post-GROBID workflow)")
+    _add_common_args(p_post)
+    _add_downstream_args(p_post)
+    p_post.set_defaults(func=run_post_grobid)
 
     p_sync_date = sub.add_parser("sync-from-date", help="Ad-hoc ingestion from a specific date")
     p_sync_date.add_argument("--start", required=True)
