@@ -44,6 +44,9 @@ def screen_flora_replications(
         ref_id=ref_id,
         include_missing_original=True,
     )
+    candidate_ids = sorted({(r or {}).get("osf_id") for r in rows if (r or {}).get("osf_id")})
+    allowed_ids = repo.filter_osf_ids_without_sent_email(candidate_ids)
+    rows = [r for r in rows if (r or {}).get("osf_id") in allowed_ids]
 
     grouped: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     for r in rows:

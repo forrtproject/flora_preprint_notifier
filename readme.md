@@ -123,7 +123,6 @@ PDF_DEST_ROOT=./data/preprints
 LOG_LEVEL=INFO
 OSF_INGEST_SKIP_EXISTING=false
 API_CACHE_TTL_MONTHS=6
-FLORA_CSV_PATH=./data/flora.csv
 PIPELINE_CLAIM_LEASE_SECONDS=1800
 ```
 
@@ -139,6 +138,8 @@ window_months = 6
 [flora]
 original_lookup_url = "https://rep-api.forrt.org/v1/original-lookup"
 cache_ttl_hours = 48
+csv_url = "https://raw.githubusercontent.com/forrtproject/FReD-data/refs/heads/main/output/flora.csv"
+csv_path = "data/flora.csv"
 ```
 
 ## Scheduling

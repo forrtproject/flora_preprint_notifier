@@ -47,4 +47,4 @@ python -m osf_sync.augmentation.run_extract --osf_id <OSF_ID> --provider-id <PRO
 ## Notes
 
 - All writes happen through `PreprintsRepo`.
-- FLoRA lookup uses a local CSV file (`FLORA_CSV_PATH`) refreshed daily from FReD-data.
+- FLoRA lookup uses the local CSV settings in `config/runtime.toml` (`flora.csv_url`, `flora.csv_path`) and refreshes daily from FReD-data.

@@ -21,6 +21,8 @@ class IngestConfig:
 class FloraConfig:
     original_lookup_url: str
     cache_ttl_hours: int
+    csv_url: str
+    csv_path: str
 
 
 @dataclass(frozen=True)
@@ -45,6 +47,8 @@ def _default_config() -> RuntimeConfig:
         flora=FloraConfig(
             original_lookup_url="https://rep-api.forrt.org/v1/original-lookup",
             cache_ttl_hours=48,
+            csv_url="https://raw.githubusercontent.com/forrtproject/FReD-data/refs/heads/main/output/flora.csv",
+            csv_path="data/flora.csv",
         ),
         email=EmailConfig(
             sender_address="flora@replications.forrt.org",
@@ -104,6 +108,17 @@ def load_runtime_config(config_path: Optional[Path] = None) -> RuntimeConfig:
         original_lookup_url = original_lookup_url.strip()
 
     cache_ttl_hours = _safe_int(flora_raw.get("cache_ttl_hours", cfg.flora.cache_ttl_hours), cfg.flora.cache_ttl_hours)
+    csv_url = flora_raw.get("csv_url", cfg.flora.csv_url)
+    if not isinstance(csv_url, str) or not csv_url.strip():
+        csv_url = cfg.flora.csv_url
+    else:
+        csv_url = csv_url.strip()
+
+    csv_path = flora_raw.get("csv_path", cfg.flora.csv_path)
+    if not isinstance(csv_path, str) or not csv_path.strip():
+        csv_path = cfg.flora.csv_path
+    else:
+        csv_path = csv_path.strip()
 
     email_raw = raw.get("email") if isinstance(raw, dict) else {}
     if not isinstance(email_raw, dict):
@@ -126,6 +141,8 @@ def load_runtime_config(config_path: Optional[Path] = None) -> RuntimeConfig:
         flora=FloraConfig(
             original_lookup_url=original_lookup_url,
             cache_ttl_hours=cache_ttl_hours,
+            csv_url=csv_url,
+            csv_path=csv_path,
         ),
         email=EmailConfig(
             sender_address=email_sender,

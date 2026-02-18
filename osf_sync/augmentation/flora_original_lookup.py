@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import csv
 import datetime as dt
-import os
 import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -11,12 +10,12 @@ import requests
 
 from ..dynamo.preprints_repo import PreprintsRepo
 from ..logging_setup import get_logger, with_extras
+from ..runtime_config import RUNTIME_CONFIG
 
 logger = get_logger(__name__)
 
-FLORA_CSV_URL = "https://raw.githubusercontent.com/forrtproject/FReD-data/refs/heads/main/output/flora.csv"
-FLORA_CSV_PATH_ENV = "FLORA_CSV_PATH"
-FLORA_CSV_PATH_DEFAULT = "data/flora.csv"
+FLORA_CSV_URL = RUNTIME_CONFIG.flora.csv_url
+FLORA_CSV_PATH_DEFAULT = RUNTIME_CONFIG.flora.csv_path
 
 
 def _info(msg: str, **extras: Any) -> None:
@@ -166,7 +165,7 @@ def _clean_text(value: Any) -> Optional[str]:
 
 
 def _resolve_flora_csv_path(cache_path: Optional[str]) -> Path:
-    raw = cache_path or os.environ.get(FLORA_CSV_PATH_ENV) or FLORA_CSV_PATH_DEFAULT
+    raw = cache_path or FLORA_CSV_PATH_DEFAULT
     return Path(raw).expanduser()
 
 
@@ -273,6 +272,12 @@ def lookup_originals_with_flora(
         # Treat status=False as terminal for local CSV mode; only process never-checked rows.
         rows = [r for r in rows if r and r.get("flora_lookup_status") is None]
 
+    candidate_ids = sorted({(r or {}).get("osf_id") for r in rows if (r or {}).get("osf_id")})
+    allowed_ids = repo.filter_osf_ids_without_sent_email(candidate_ids)
+    filtered_rows = [r for r in rows if (r or {}).get("osf_id") in allowed_ids]
+    skipped_sent_preprint = len(rows) - len(filtered_rows)
+    rows = filtered_rows
+
     if cache_ttl_hours is not None:
         _warn("cache_ttl_hours is ignored for local FLORA CSV lookup", cache_ttl_hours=cache_ttl_hours)
     if ignore_cache:
@@ -286,6 +291,7 @@ def lookup_originals_with_flora(
         "checked": 0,
         "updated": 0,
         "failed": 0,
+        "skipped_sent_preprint": skipped_sent_preprint,
         "cache_hits": 0,
         "csv_downloaded": 1 if refresh_meta.get("downloaded") else 0,
     }
@@ -333,7 +339,7 @@ if __name__ == "__main__":
     ap.add_argument(
         "--cache-path",
         default=None,
-        help="Override FLORA CSV path (defaults to FLORA_CSV_PATH or data/flora.csv).",
+        help="Override FLORA CSV path (defaults to flora.csv_path in config/runtime.toml).",
     )
     ap.add_argument(
         "--cache-ttl-hours",

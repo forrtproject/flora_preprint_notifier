@@ -7,12 +7,18 @@ from osf_sync.augmentation import flora_original_lookup as fol
 
 
 class _FakeRepo:
-    def __init__(self, rows):
+    def __init__(self, rows, *, unsent_ids=None):
         self.rows = rows
         self.updates = []
+        self.unsent_ids = set(unsent_ids or [])
 
     def select_refs_with_doi(self, *, limit, osf_id, ref_id, only_unchecked):
         return self.rows[:limit] if limit else list(self.rows)
+
+    def filter_osf_ids_without_sent_email(self, osf_ids):
+        if not self.unsent_ids:
+            return set(osf_ids)
+        return {oid for oid in osf_ids if oid in self.unsent_ids}
 
     def update_reference_flora(self, osf_id, ref_id, *, status, ref_pairs=None):
         self.updates.append(
@@ -69,6 +75,35 @@ class FloraOriginalLookupCsvTests(unittest.TestCase):
             self.assertEqual(len(repo.updates), 2)
             self.assertEqual(repo.updates[0]["status"], True)
             self.assertEqual(repo.updates[1]["status"], False)
+
+    def test_lookup_skips_preprints_with_sent_email(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            csv_path = Path(tmpdir) / "flora.csv"
+            csv_path.write_text(
+                "\ufeff\"doi_o\",\"doi_r\",\"apa_ref_o\",\"apa_ref_r\"\n"
+                "\"10.1000/abc\",\"10.2000/rep\",\"O1\",\"R1\"\n",
+                encoding="utf-8",
+            )
+            repo = _FakeRepo(
+                [
+                    {"osf_id": "p_unsent", "ref_id": "r1", "doi": "10.1000/abc"},
+                    {"osf_id": "p_sent", "ref_id": "r2", "doi": "10.1000/abc"},
+                ],
+                unsent_ids={"p_unsent"},
+            )
+
+            with patch("osf_sync.augmentation.flora_original_lookup.PreprintsRepo", return_value=repo):
+                with patch(
+                    "osf_sync.augmentation.flora_original_lookup._ensure_fresh_flora_csv",
+                    return_value={"downloaded": False, "used_stale": False},
+                ):
+                    out = fol.lookup_originals_with_flora(limit=10, cache_path=str(csv_path))
+
+            self.assertEqual(out["checked"], 1)
+            self.assertEqual(out["updated"], 1)
+            self.assertEqual(out["skipped_sent_preprint"], 1)
+            self.assertEqual(len(repo.updates), 1)
+            self.assertEqual(repo.updates[0]["osf_id"], "p_unsent")
 
 
 if __name__ == "__main__":
