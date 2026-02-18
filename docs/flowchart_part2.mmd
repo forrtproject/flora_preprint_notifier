@@ -1,0 +1,28 @@
+%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%
+flowchart TD
+    L["Eligible preprint<br/>(baseline snapshot taken)"] --> M["Build / update author<br/>co-authorship graph"]
+
+    M --> N{"Connected to<br/>existing cluster?"}
+    N -- "Joins BOTH treatment<br/>& control clusters" --> X2(["Excluded<br/>(cross-arm conflict;<br/>prospective only)"])
+    N -- "Unconnected or<br/>single-arm cluster" --> O["Assign cluster<br/>(stratified sequential<br/>balancing by server)"]
+    O --> P{Allocation}
+
+    P -- Treatment --> Q["Send notification email<br/>(flagged originals + replications)"]
+    P -- Control --> R["No contact"]
+
+    Q --> Q1["Track bounce<br/>& survey feedback"]
+
+    Q1 --> S["Follow-up (6 months after trial end):<br/>retrieve latest version or version of record,<br/>re-extract & augment reference list"]
+    R --> S
+
+    S --> V{"Any baseline-flagged<br/>original improved?<br/>(replication cited<br/>or original dropped)"}
+
+    V -- Yes --> W1["Primary outcome:<br/>Improved ✓"]
+    V -- No --> W2["Primary outcome:<br/>Not improved ✗"]
+
+    style L fill:#d4efdf,stroke:#1e8449
+    style X2 fill:#f9d6d6,stroke:#c44,color:#900
+    style Q fill:#d6eaf8,stroke:#2980b9
+    style R fill:#fdebd0,stroke:#e67e22
+    style W1 fill:#d5f5e3,stroke:#27ae60
+    style W2 fill:#fadbd8,stroke:#e74c3c

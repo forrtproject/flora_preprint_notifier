@@ -1,0 +1,23 @@
+%%{init: {'theme': 'default', 'themeVariables': {'fontSize': '24px'}}}%%
+flowchart TD
+    A["OSF API harvest<br/>(all OSF-hosted preprint servers)"]
+    A --> B{"Ingest eligible?<br/>(date window, not post-print,<br/>PDF/DOCX available)"}
+    B -- No --> X1(["Excluded:<br/>outside window / post-print /<br/>no file or unsupported format"])
+    B -- Yes --> E["GROBID: PDF → TEI XML"]
+
+    E --> F{"Content eligible?<br/>(≥ 5 pages, ≥ 1,000 words,<br/>reference section parseable)"}
+    F -- No --> X2(["Excluded:<br/>content criteria"])
+    F -- Yes --> H["Extract & augment<br/>reference DOIs<br/>(multi-source pipeline)"]
+
+    H --> I{"≥ 1 cited original in FLoRA<br/>with unreferenced replication? *"}
+    I -- No --> X3(["Excluded:<br/>no FLoRA match"])
+    I -- Yes --> J["Extract contact emails<br/>(TEI / PDF + ORCID fallback)"]
+    J --> K{"≥ 1 valid<br/>email?"}
+    K -- No --> X4(["Excluded:<br/>no contact email"])
+    K -- Yes --> L["Eligible preprint<br/>(baseline snapshot taken)"]
+
+    style X1 fill:#f9d6d6,stroke:#c44,color:#900
+    style X2 fill:#f9d6d6,stroke:#c44,color:#900
+    style X3 fill:#f9d6d6,stroke:#c44,color:#900
+    style X4 fill:#f9d6d6,stroke:#c44,color:#900
+    style L fill:#d4efdf,stroke:#1e8449

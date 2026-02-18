@@ -14,6 +14,8 @@ Pipeline stages:
 All stages run as normal Python commands and exit. Scheduling is external (cron or GitHub Actions).
 The `flora` stage checks whether originals have replications cited in the FLoRA database (the FORRT Library of Replication Attempts).
 
+See the [trial flowchart](docs/protocol_flowchart.md) for a visual overview of how a preprint flows through the pipeline.
+
 ## Quick Start (Local)
 
 1. Create a virtual environment and install Python dependencies:
@@ -109,15 +111,31 @@ GROBID_URL=http://localhost:8070
 # remote GROBID example:
 # GROBID_URL=https://grobid.example.org
 GROBID_INCLUDE_RAW_CITATIONS=true
+PIPELINE_ENV=dev
+DDB_BILLING_MODE=PAY_PER_REQUEST
+DEV_SYNC_LOOKBACK_DAYS=7
+# Optional explicit override for sync start date:
+# SYNC_START_DATE_OVERRIDE=2026-01-01
+# Optional explicit override for sync end date:
+# SYNC_END_DATE_OVERRIDE=2026-03-15
+# Safety default: override runs do not rewrite sync cursor.
+SYNC_OVERRIDE_WRITES_CURSOR=false
+# Optional global cursor-write disable.
+SYNC_DISABLE_CURSOR_WRITE=false
 DYNAMO_LOCAL_URL=http://localhost:8000
 AWS_REGION=eu-north-1
 AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
 AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
-DDB_TABLE_PREPRINTS=preprints
-DDB_TABLE_REFERENCES=preprint_references
-DDB_TABLE_EXCLUDED_PREPRINTS=excluded_preprints
-DDB_TABLE_SYNCSTATE=sync_state
-DDB_TABLE_API_CACHE=api_cache
+DDB_TABLE_PREPRINTS=dev_preprints
+DDB_TABLE_REFERENCES=dev_preprint_references
+DDB_TABLE_TEI=dev_preprint_tei
+DDB_TABLE_EXCLUDED_PREPRINTS=dev_excluded_preprints
+DDB_TABLE_SYNCSTATE=dev_sync_state
+DDB_TABLE_API_CACHE=dev_api_cache
+DDB_TABLE_TRIAL_AUTHOR_NODES=dev_trial_author_nodes
+DDB_TABLE_TRIAL_AUTHOR_TOKENS=dev_trial_author_tokens
+DDB_TABLE_TRIAL_CLUSTERS=dev_trial_clusters
+DDB_TABLE_TRIAL_ASSIGNMENTS=dev_trial_preprint_assignments
 OPENALEX_EMAIL=<PERSONAL_EMAIL_ID>
 PDF_DEST_ROOT=./data/preprints
 LOG_LEVEL=INFO
@@ -125,6 +143,21 @@ OSF_INGEST_SKIP_EXISTING=false
 API_CACHE_TTL_MONTHS=6
 PIPELINE_CLAIM_LEASE_SECONDS=1800
 ```
+
+`sync` window behavior:
+- `PIPELINE_ENV=dev`: sync uses a rolling `DEV_SYNC_LOOKBACK_DAYS` window (default 7).
+- `PIPELINE_ENV=prod`: sync uses `ingest.anchor_date`/`ingest.window_months` from `config/runtime.toml`.
+- In prod, changing `ingest.anchor_date` or `ingest.window_months` triggers an automatic bounded backfill (controlled by `ingest.backfill_on_config_change`).
+- `SYNC_START_DATE_OVERRIDE` (optional): forces an explicit start date in either mode.
+- `SYNC_END_DATE_OVERRIDE` (optional): explicit end date; in prod override mode, omitted end defaults to `ingest.anchor_date`.
+- Recommended naming: keep local `.env` on `dev_*` tables; GH Actions prod workflows are set to `prod_*`.
+- `SYNC_OVERRIDE_WRITES_CURSOR=false` (default) keeps continuation cursor unchanged during override/backfill runs.
+
+Backfill without breaking continuation:
+1. In GROBID workflow dispatch, set `sync_start_date_override` (and optionally `sync_end_date_override`).
+2. Leave `sync_override_writes_cursor` as `false` (default).
+3. Run backfill as needed; normal continuation cursor is preserved.
+4. Clear override inputs for subsequent normal runs.
 
 ## Runtime Rules (`config/runtime.toml`)
 
