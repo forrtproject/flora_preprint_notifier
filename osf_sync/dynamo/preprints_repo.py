@@ -809,6 +809,42 @@ class PreprintsRepo:
             items = items[:limit]
         return items
 
+    def filter_osf_ids_without_sent_email(self, osf_ids: Iterable[str]) -> Set[str]:
+        """
+        Return the subset of OSF ids that do not have email_sent=True.
+
+        Missing preprint rows are treated as unsent so callers do not
+        accidentally drop work because of incomplete denormalized state.
+        """
+        wanted = [oid for oid in osf_ids if oid]
+        if not wanted:
+            return set()
+
+        sent_ids: Set[str] = set()
+        for chunk in _chunks(wanted, 100):
+            keys = [{"osf_id": oid} for oid in chunk]
+            request = {
+                self.t_preprints.name: {
+                    "Keys": keys,
+                    "ProjectionExpression": "osf_id, email_sent",
+                }
+            }
+            resp = self.ddb.batch_get_item(RequestItems=request)
+            for item in resp.get("Responses", {}).get(self.t_preprints.name, []):
+                osf_id_val = item.get("osf_id")
+                if osf_id_val and item.get("email_sent") is True:
+                    sent_ids.add(osf_id_val)
+            unprocessed = resp.get("UnprocessedKeys") or {}
+            while unprocessed:
+                resp = self.ddb.batch_get_item(RequestItems=unprocessed)
+                for item in resp.get("Responses", {}).get(self.t_preprints.name, []):
+                    osf_id_val = item.get("osf_id")
+                    if osf_id_val and item.get("email_sent") is True:
+                        sent_ids.add(osf_id_val)
+                unprocessed = resp.get("UnprocessedKeys") or {}
+
+        return {oid for oid in wanted if oid not in sent_ids}
+
     def select_refs_with_flora_original(
         self,
         limit: int,

@@ -13,6 +13,10 @@ backfill_on_config_change = true
 original_lookup_url = "https://rep-api.forrt.org/v1/original-lookup"
 # Cache freshness horizon for FLORA lookup results.
 cache_ttl_hours = 48
+# Local CSV source used by FLORA local lookup.
+csv_url = "https://raw.githubusercontent.com/forrtproject/FReD-data/refs/heads/main/output/flora.csv"
+# Local cache path for the downloaded CSV.
+csv_path = "data/flora.csv"
 
 [email]
 sender_address = "flora@replications.forrt.org"
