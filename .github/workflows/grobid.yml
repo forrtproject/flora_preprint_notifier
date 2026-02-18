@@ -1,0 +1,142 @@
+name: GROBID Processing
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Max items per stage (0 = unlimited)'
+        default: '0'
+      download_workers:
+        description: 'Parallel workers for PDF downloads'
+        default: '4'
+      backlog_depth:
+        description: 'How many follow-up runs remain (0 = no re-trigger)'
+        default: '5'
+      sync_start_date_override:
+        description: 'Optional sync start override (YYYY-MM-DD or ISO datetime) for backfill'
+        default: ''
+      sync_end_date_override:
+        description: 'Optional sync end override (YYYY-MM-DD or ISO datetime); defaults to anchor_date in prod'
+        default: ''
+      sync_override_writes_cursor:
+        description: 'If true, allow override runs to update sync cursor (default false)'
+        default: 'false'
+
+jobs:
+  grobid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+
+    services:
+      grobid:
+        image: grobid/grobid:0.8.2.1-full
+        ports:
+          - 8070:8070
+        options: >-
+          --health-cmd "curl -f http://localhost:8070/api/isalive || exit 1"
+          --health-interval 15s
+          --health-timeout 10s
+          --health-retries 20
+
+    env:
+      PIPELINE_ENV: prod
+      DDB_BILLING_MODE: PAY_PER_REQUEST
+      DDB_TABLE_PREPRINTS: prod_preprints
+      DDB_TABLE_REFERENCES: prod_preprint_references
+      DDB_TABLE_TEI: prod_preprint_tei
+      DDB_TABLE_SYNCSTATE: prod_sync_state
+      DDB_TABLE_EXCLUDED_PREPRINTS: prod_excluded_preprints
+      DDB_TABLE_API_CACHE: prod_api_cache
+      DDB_TABLE_TRIAL_AUTHOR_NODES: prod_trial_author_nodes
+      DDB_TABLE_TRIAL_AUTHOR_TOKENS: prod_trial_author_tokens
+      DDB_TABLE_TRIAL_CLUSTERS: prod_trial_clusters
+      DDB_TABLE_TRIAL_ASSIGNMENTS: prod_trial_preprint_assignments
+      DDB_TABLE_EMAIL_SUPPRESSION: prod_email_suppression
+      SYNC_START_DATE_OVERRIDE: ${{ inputs.sync_start_date_override }}
+      SYNC_END_DATE_OVERRIDE: ${{ inputs.sync_end_date_override }}
+      SYNC_OVERRIDE_WRITES_CURSOR: ${{ inputs.sync_override_writes_cursor }}
+      GROBID_URL: http://localhost:8070
+      PDF_DEST_ROOT: /tmp/preprints
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      OSF_API_TOKEN: ${{ secrets.OSF_API_TOKEN }}
+      CROSSREF_MAILTO: ${{ secrets.CROSSREF_MAILTO }}
+      OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
+      OPENALEX_EMAIL: ${{ secrets.OPENALEX_EMAIL }}
+      TEI_S3_BUCKET: flora-preprint-tei-cache
+      PIPELINE_NOTIFY_EMAIL: ${{ secrets.PIPELINE_NOTIFY_EMAIL }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libreoffice-core
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run GROBID stages
+        id: run
+        run: |
+          LIMIT="${{ inputs.limit || '0' }}"
+          DL_WORKERS="${{ inputs.download_workers || '4' }}"
+
+          if [ "$LIMIT" = "0" ]; then
+            LIMIT="100000"
+          fi
+
+          python -m osf_sync.pipeline run-grobid-stages \
+            --pdf-limit "$LIMIT" \
+            --grobid-limit "$LIMIT" \
+            --download-workers "$DL_WORKERS" \
+            --max-seconds-per-stage 3600 \
+            | tee /tmp/pipeline_output.json
+
+          # Check if any stage was cut short by time or had items processed
+          if python -c "
+          import json, sys
+          try:
+              data = json.load(open('/tmp/pipeline_output.json'))
+              stages = data.get('stages', {})
+              if any(s.get('stopped_due_to_time') for s in stages.values()):
+                  sys.exit(0)
+              total = sum(s.get('processed', 0) + s.get('failed', 0) for s in stages.values())
+              if total > 0:
+                  sys.exit(0)
+          except Exception:
+              pass
+          sys.exit(1)
+          "; then
+            echo "has_backlog=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_backlog=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Re-trigger if backlog remains
+        if: steps.run.outputs.has_backlog == 'true' && (inputs.backlog_depth || '5') != '0'
+        env:
+          GH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::WORKFLOW_DISPATCH_TOKEN secret not set - cannot re-trigger."
+            exit 0
+          fi
+          CURRENT_DEPTH="${{ inputs.backlog_depth || '5' }}"
+          NEXT_DEPTH=$((CURRENT_DEPTH - 1))
+          if [ "$NEXT_DEPTH" -gt 0 ]; then
+            echo "Backlog detected, re-triggering with depth=$NEXT_DEPTH"
+            gh workflow run grobid.yml \
+              --ref "${{ github.ref_name }}" \
+              -f limit="${{ inputs.limit || '0' }}" \
+              -f download_workers="${{ inputs.download_workers || '4' }}" \
+              -f backlog_depth="$NEXT_DEPTH"
+          else
+            echo "Backlog depth exhausted, not re-triggering"
+          fi

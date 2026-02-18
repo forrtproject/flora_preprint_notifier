@@ -4,6 +4,9 @@
 anchor_date = "2026-02-20"
 # Keep preprints whose publication date is within this many months from anchor_date.
 window_months = 6
+# When true (recommended), changing anchor_date/window_months triggers
+# an automatic bounded backfill window in prod sync.
+backfill_on_config_change = true
 
 [flora]
 # FLORA original lookup endpoint.
