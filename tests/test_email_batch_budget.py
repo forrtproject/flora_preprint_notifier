@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, call, patch
+from unittest.mock import ANY, Mock, call, patch
 
 from osf_sync.email import process_email_batch
 
@@ -50,8 +50,8 @@ class EmailBatchBudgetTests(unittest.TestCase):
 
         repo.mark_email_sent.assert_has_calls(
             [
-                call("p1", recipient="a1@uni.edu", message_id="msg-1"),
-                call("p3", recipient="c1@uni.edu", message_id="msg-1"),
+                call("p1", recipient="a1@uni.edu", message_id="msg-1", owner=ANY),
+                call("p3", recipient="c1@uni.edu", message_id="msg-1", owner=ANY),
             ]
         )
         sent_ids = [c.args[0] for c in repo.mark_email_sent.call_args_list]

@@ -55,6 +55,16 @@ class FloraOutcomeExtractionTests(unittest.TestCase):
         self.assertEqual(len(out), 1)
         self.assertEqual(out[0]["replication_outcome"], "failed")
 
+    def test_missing_outcome_is_retained_for_legacy_payloads(self) -> None:
+        payload = [
+            {"doi_o": "10.1234/example", "doi_r": "10.9999/rep1", "apa_ref_o": "O", "apa_ref_r": "R"},
+        ]
+
+        out = _extract_ref_objects(payload)
+
+        self.assertEqual(len(out), 1)
+        self.assertEqual(out[0]["replication_outcome"], "unknown")
+
 
 if __name__ == "__main__":
     unittest.main()

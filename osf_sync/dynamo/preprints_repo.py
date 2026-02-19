@@ -1087,11 +1087,21 @@ class PreprintsRepo:
                 return False
             raise
 
-    def release_email_claim(self, osf_id: str) -> None:
-        self.t_preprints.update_item(
-            Key={"osf_id": osf_id},
-            UpdateExpression="REMOVE claim_email_owner, claim_email_until",
-        )
+    def release_email_claim(self, osf_id: str, *, owner: Optional[str] = None) -> bool:
+        kwargs: Dict[str, Any] = {
+            "Key": {"osf_id": osf_id},
+            "UpdateExpression": "REMOVE claim_email_owner, claim_email_until",
+        }
+        if owner:
+            kwargs["ConditionExpression"] = "claim_email_owner = :owner"
+            kwargs["ExpressionAttributeValues"] = {":owner": owner}
+        try:
+            self.t_preprints.update_item(**kwargs)
+            return True
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
+                return False
+            raise
 
     def set_queue_email(self, osf_id: str) -> None:
         """Mark a preprint as ready for email sending via queue_email GSI."""
@@ -1123,39 +1133,62 @@ class PreprintsRepo:
         *,
         recipient: str,
         message_id: str,
-    ) -> None:
+        owner: Optional[str] = None,
+    ) -> bool:
         now = dt.datetime.utcnow().isoformat()
-        self.t_preprints.update_item(
-            Key={"osf_id": osf_id},
-            UpdateExpression=(
+        expr_values: Dict[str, Any] = {
+            ":true": True,
+            ":t": now,
+            ":r": recipient,
+            ":mid": message_id,
+            ":done": "done",
+        }
+        kwargs: Dict[str, Any] = {
+            "Key": {"osf_id": osf_id},
+            "UpdateExpression": (
                 "SET email_sent=:true, email_sent_at=:t, "
                 "email_recipient=:r, email_message_id=:mid, updated_at=:t, "
                 "queue_email=:done "
                 "REMOVE email_error, claim_email_owner, claim_email_until"
             ),
-            ExpressionAttributeValues={
-                ":true": True,
-                ":t": now,
-                ":r": recipient,
-                ":mid": message_id,
-                ":done": "done",
-            },
-        )
+            "ExpressionAttributeValues": expr_values,
+        }
+        if owner:
+            kwargs["ConditionExpression"] = "claim_email_owner = :owner"
+            expr_values[":owner"] = owner
+        try:
+            self.t_preprints.update_item(**kwargs)
+            return True
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
+                return False
+            raise
 
-    def mark_email_error(self, osf_id: str, error: str) -> None:
+    def mark_email_error(self, osf_id: str, error: str, *, owner: Optional[str] = None) -> bool:
         now = dt.datetime.utcnow().isoformat()
-        self.t_preprints.update_item(
-            Key={"osf_id": osf_id},
-            UpdateExpression=(
+        expr_values: Dict[str, Any] = {
+            ":err": str(error)[:2000],
+            ":false": False,
+            ":t": now,
+        }
+        kwargs: Dict[str, Any] = {
+            "Key": {"osf_id": osf_id},
+            "UpdateExpression": (
                 "SET email_error=:err, email_sent=:false, updated_at=:t "
                 "REMOVE claim_email_owner, claim_email_until"
             ),
-            ExpressionAttributeValues={
-                ":err": str(error)[:2000],
-                ":false": False,
-                ":t": now,
-            },
-        )
+            "ExpressionAttributeValues": expr_values,
+        }
+        if owner:
+            kwargs["ConditionExpression"] = "claim_email_owner = :owner"
+            expr_values[":owner"] = owner
+        try:
+            self.t_preprints.update_item(**kwargs)
+            return True
+        except ClientError as e:
+            if e.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
+                return False
+            raise
 
     def mark_email_validated(self, osf_id: str, status: str) -> None:
         now = dt.datetime.utcnow().isoformat()

@@ -8,8 +8,6 @@ from .dynamo.preprints_repo import PreprintsRepo
 from .exclusion_logging import log_preprint_exclusion
 from .runtime_config import RUNTIME_CONFIG
 
-_WINDOW_MONTHS = RUNTIME_CONFIG.ingest.window_months
-
 log = logging.getLogger(__name__)
 
 
@@ -77,9 +75,14 @@ def _within_anchor_window(ts_dt: Optional[dt.datetime], anchor_dt: Optional[dt.d
         return True
     if ts_dt is None:
         return False
+    raw_window_months = getattr(RUNTIME_CONFIG.ingest, "window_months", 6)
+    try:
+        window_months = int(raw_window_months)
+    except Exception:
+        window_months = 6
     anchor_date = anchor_dt.date()
-    window_start = _subtract_months(anchor_date, _WINDOW_MONTHS)
-    window_end = _add_months(anchor_date, _WINDOW_MONTHS)
+    window_start = _subtract_months(anchor_date, window_months)
+    window_end = _add_months(anchor_date, window_months)
     ts_date = ts_dt.date()
     return window_start <= ts_date <= window_end
 

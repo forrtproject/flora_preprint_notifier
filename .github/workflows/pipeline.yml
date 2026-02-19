@@ -5,7 +5,16 @@ on:
     inputs:
       stage:
         description: 'Run specific stage (extract, enrich, flora, author, author-randomize, email) or all'
+        type: choice
         default: 'all'
+        options:
+          - all
+          - extract
+          - enrich
+          - flora
+          - author
+          - author-randomize
+          - email
       limit:
         description: 'Max items per stage (0 = unlimited)'
         default: '0'

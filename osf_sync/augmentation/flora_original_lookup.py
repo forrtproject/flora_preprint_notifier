@@ -77,7 +77,9 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
         replication_outcome: Optional[str] = None,
     ) -> None:
         normalized_outcome = _normalize_outcome(replication_outcome)
-        if normalized_outcome is None:
+        # Backward-compatibility: legacy payloads may not include outcome fields.
+        # Keep such rows with unknown outcome; only drop explicitly invalid outcomes.
+        if replication_outcome and normalized_outcome is None:
             return
         out.append(
             {
@@ -85,7 +87,7 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
                 "doi_r": normalize_doi(doi_r) if doi_r else None,
                 "apa_ref_o": apa_ref_o,
                 "apa_ref_r": apa_ref_r,
-                "replication_outcome": normalized_outcome,
+                "replication_outcome": normalized_outcome or "unknown",
             }
         )
 
@@ -149,12 +151,17 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
 
     seen: Dict[tuple, int] = {}
     uniq_out: List[Dict[str, Optional[str]]] = []
+
+    def _has_specific_outcome(rec: Dict[str, Optional[str]]) -> bool:
+        val = (rec.get("replication_outcome") or "").strip().lower()
+        return bool(val and val != "unknown")
+
     for rec in out:
         key = (rec.get("doi_o"), rec.get("doi_r"), rec.get("apa_ref_o"), rec.get("apa_ref_r"))
         if key in seen:
             # Replace earlier record if this one has a non-empty outcome and the earlier didn't
             idx = seen[key]
-            if rec.get("replication_outcome") and not uniq_out[idx].get("replication_outcome"):
+            if _has_specific_outcome(rec) and not _has_specific_outcome(uniq_out[idx]):
                 uniq_out[idx] = rec
             continue
         seen[key] = len(uniq_out)

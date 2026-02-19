@@ -112,7 +112,7 @@ def process_email_batch(
         if not preprint_id:
             return
         try:
-            repo.release_email_claim(preprint_id)
+            repo.release_email_claim(preprint_id, owner=claim_owner)
         except Exception:
             logger.debug("Failed to release email claim", exc_info=True)
 
@@ -189,7 +189,7 @@ def process_email_batch(
             subject, html_body, plain_body = render_email(context)
         except Exception as exc:
             failed += len(valid_addresses)
-            repo.mark_email_error(pid, f"template render: {exc}")
+            repo.mark_email_error(pid, f"template render: {exc}", owner=claim_owner)
             logger.exception("Template render failed", extra={"osf_id": pid})
             continue
 
@@ -224,12 +224,27 @@ def process_email_batch(
         try:
             result = send_email(to=valid_addresses, subject=subject, html_body=html_body, plain_body=plain_body)
             message_id = result.get("id", "")
-            repo.mark_email_sent(pid, recipient=", ".join(valid_addresses), message_id=message_id)
+            marked = repo.mark_email_sent(
+                pid,
+                recipient=", ".join(valid_addresses),
+                message_id=message_id,
+                owner=claim_owner,
+            )
+            if not marked:
+                logger.warning(
+                    "Email sent but claim ownership changed before marking state",
+                    extra={"osf_id": pid},
+                )
             rate_limiter.record_send()
             recipients_sent += len(valid_addresses)
         except Exception as exc:
             failed += len(valid_addresses)
-            repo.mark_email_error(pid, str(exc))
+            marked = repo.mark_email_error(pid, str(exc), owner=claim_owner)
+            if not marked:
+                logger.warning(
+                    "Email send failed but claim ownership changed before marking error",
+                    extra={"osf_id": pid},
+                )
             logger.exception("Email send failed", extra={"osf_id": pid, "to": valid_addresses})
 
     result = {

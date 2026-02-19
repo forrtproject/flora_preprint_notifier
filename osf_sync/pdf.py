@@ -64,15 +64,15 @@ def _download_to(path: Path, url: str):
     tmp.replace(path)
 
 
-def _pdf_meets_minimum_length(path: Path) -> bool:
+def _pdf_length_status(path: Path) -> str:
     try:
         doc = PdfReader(str(path))
     except Exception:
-        return False
+        return "unreadable"
 
     page_count = len(doc.pages)
     if page_count < MIN_PDF_PAGES:
-        return False
+        return "too_short"
 
     word_count = 0
     for page in doc.pages:
@@ -80,7 +80,7 @@ def _pdf_meets_minimum_length(path: Path) -> bool:
         word_count += len(WORD_RE.findall(text))
         if word_count >= MIN_PDF_WORDS:
             break
-    return word_count >= MIN_PDF_WORDS
+    return "ok" if word_count >= MIN_PDF_WORDS else "too_short"
 
 def _convert_docx_to_pdf(in_docx: Path, out_pdf: Path) -> bool:
     cmd = [
@@ -131,7 +131,10 @@ def ensure_pdf_available_or_delete(
 
     if is_pdf:
         _download_to(pdf_path, url)
-        if not _pdf_meets_minimum_length(pdf_path):
+        length_status = _pdf_length_status(pdf_path)
+        if length_status == "unreadable":
+            raise RuntimeError("pdf_length_check_unreadable")
+        if length_status == "too_short":
             delete_preprint(osf_id)
             try:
                 pdf_path.unlink()
@@ -150,7 +153,10 @@ def ensure_pdf_available_or_delete(
         except Exception:
             pass
         if ok:
-            if not _pdf_meets_minimum_length(pdf_path):
+            length_status = _pdf_length_status(pdf_path)
+            if length_status == "unreadable":
+                raise RuntimeError("pdf_length_check_unreadable")
+            if length_status == "too_short":
                 delete_preprint(osf_id)
                 try:
                     pdf_path.unlink()
@@ -194,7 +200,10 @@ def ensure_pdf_available_or_skip(
 
     if is_pdf:
         _download_to(pdf_path, url)
-        if not _pdf_meets_minimum_length(pdf_path):
+        length_status = _pdf_length_status(pdf_path)
+        if length_status == "unreadable":
+            return "skipped", None, "pdf_length_check_unreadable"
+        if length_status == "too_short":
             try:
                 pdf_path.unlink()
             except Exception:
@@ -212,7 +221,10 @@ def ensure_pdf_available_or_skip(
         except Exception:
             pass
         if ok:
-            if not _pdf_meets_minimum_length(pdf_path):
+            length_status = _pdf_length_status(pdf_path)
+            if length_status == "unreadable":
+                return "skipped", None, "pdf_length_check_unreadable"
+            if length_status == "too_short":
                 try:
                     pdf_path.unlink()
                 except Exception:
