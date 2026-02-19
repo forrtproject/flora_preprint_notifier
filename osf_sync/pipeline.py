@@ -1118,11 +1118,12 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
     small batches: download N → GROBID N → download N → ... so that on
     ephemeral storage (GitHub Actions) we don't waste downloads that GROBID
     can't reach before the job ends.
-
-    The interleaved loop runs without its own time limit — the GitHub Actions
-    job timeout (timeout-minutes) is the overall safety net.
     """
     out: Dict[str, Any] = {"stages": {}}
+
+    # Overall deadline so we exit gracefully before the GH Actions job timeout.
+    overall_max = getattr(args, "max_seconds", None)
+    overall_deadline = _deadline(overall_max)
 
     sync_budget = getattr(args, "max_seconds_sync", 1200)
     out["stages"]["sync"] = sync_from_osf(
@@ -1134,7 +1135,6 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
     )
 
     # Interleave pdf + grobid in small batches.
-    # No time deadline — bounded by item limits and the job-level timeout.
     batch_size = getattr(args, "interleave_batch", 50)
     workers = getattr(args, "download_workers", 1)
 
@@ -1144,6 +1144,10 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
     grobid_result: Dict[str, Any] = {}
 
     while True:
+        if _time_up(overall_deadline):
+            logger.info("interleave loop: overall deadline reached")
+            break
+
         pdf_remaining = args.pdf_limit - pdf_total
         grobid_remaining = args.grobid_limit - grobid_total
         if pdf_remaining <= 0 and grobid_remaining <= 0:
@@ -1180,12 +1184,17 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
             if batch_result.get("processed", 0) + batch_result.get("failed", 0) == 0:
                 break
 
+    timed_out = _time_up(overall_deadline)
+
     out["stages"]["pdf"] = pdf_result or {
         "stage": "pdf", "processed": 0, "failed": 0, "dry_run": args.dry_run,
     }
     out["stages"]["grobid"] = grobid_result or {
         "stage": "grobid", "processed": 0, "failed": 0, "dry_run": args.dry_run,
     }
+    if timed_out:
+        for stage_data in out["stages"].values():
+            stage_data["stopped_due_to_time"] = True
 
     _notify_pipeline_summary(out)
     return out
@@ -1362,7 +1371,7 @@ def _add_grobid_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--interleave-batch", type=int, default=50, help="PDF+GROBID batch size per interleave round")
     parser.add_argument("--max-seconds-sync", type=int, default=1200, help="Timeout for OSF sync stage (default 20min)")
     parser.add_argument("--subject", default=None)
-    parser.add_argument("--batch-size", type=int, default=1000)
+    parser.add_argument("--batch-size", type=int, default=100)
 
 
 def _add_downstream_args(parser: argparse.ArgumentParser) -> None:
@@ -1450,6 +1459,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_grobid = sub.add_parser("run-grobid-stages", help="Run sync + pdf + grobid stages (GROBID workflow)")
     _add_common_args(p_grobid)
     _add_grobid_args(p_grobid)
+    p_grobid.add_argument("--max-seconds", type=int, default=None, help="Overall time limit (exits gracefully before GH Actions timeout)")
     p_grobid.set_defaults(func=run_grobid_stages)
 
     # -- run-post-grobid: extract + enrich + flora + author + email

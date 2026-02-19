@@ -97,10 +97,12 @@ jobs:
           fi
 
           # Suppress per-run summary emails; send one final summary only when recursion is exhausted.
+          # --max-seconds: exit gracefully before the GH Actions timeout-minutes (330).
           PIPELINE_NOTIFY_EMAIL="" python -m osf_sync.pipeline run-grobid-stages \
             --pdf-limit "$LIMIT" \
             --grobid-limit "$LIMIT" \
             --download-workers "$DL_WORKERS" \
+            --max-seconds 18000 \
             | tee /tmp/pipeline_output.json
 
           # Check if any stage was cut short by time or had items processed
