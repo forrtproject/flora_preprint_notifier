@@ -3,7 +3,7 @@ from collections import defaultdict
 from typing import Any, Dict, List, Optional, Set
 
 from ..dynamo.preprints_repo import PreprintsRepo
-from .flora_original_lookup import normalize_doi, lookup_originals_with_flora, _extract_ref_objects
+from .flora_original_lookup import normalize_doi, lookup_originals_with_flora
 from ..logging_setup import get_logger, with_extras
 
 logger = get_logger(__name__)
@@ -84,10 +84,6 @@ def screen_flora_replications(
 
             # Keep only FLORA pairs where the current cited reference is an original DOI.
             ref_objs = r.get("flora_ref_pairs") or []
-            if not ref_objs:
-                payload = r.get("flora_lookup_payload")
-                if payload:
-                    ref_objs = _extract_ref_objects(payload)
             matching_pairs = []
             for obj in ref_objs:
                 doi_o = normalize_doi(obj.get("doi_o"))

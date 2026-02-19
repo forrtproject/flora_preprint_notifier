@@ -870,18 +870,16 @@ class PreprintsRepo:
         include_missing_original: bool = False,
     ) -> List[Dict[str, Any]]:
         """
-        Return references that have been processed by FLORA lookup.
+        Return references processed by FLORA CSV lookup.
         If include_missing_original is True, include rows with status=False.
         """
         items: List[Dict[str, Any]] = []
 
         def _has_flora(it: Dict[str, Any]) -> bool:
             status = it.get("flora_lookup_status")
-            has_payload = it.get("flora_lookup_payload") is not None
-            has_refs = bool(it.get("flora_refs"))
             if include_missing_original:
-                return (status is not None) or has_payload or has_refs
-            return (status is True) or has_payload or has_refs
+                return status is not None
+            return status is True
 
         if osf_id:
             last_key = None
@@ -897,10 +895,10 @@ class PreprintsRepo:
                     break
         else:
             if include_missing_original:
-                fe = "attribute_exists(flora_lookup_status) OR attribute_exists(flora_lookup_payload) OR attribute_exists(flora_refs)"
+                fe = "attribute_exists(flora_lookup_status)"
                 eav = None
             else:
-                fe = "flora_lookup_status = :true OR attribute_exists(flora_lookup_payload) OR attribute_exists(flora_refs)"
+                fe = "flora_lookup_status = :true"
                 eav = {":true": True}
             scan_kwargs = {"FilterExpression": fe, "Limit": limit}
             if eav is not None:
