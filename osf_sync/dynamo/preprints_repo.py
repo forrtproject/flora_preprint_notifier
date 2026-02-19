@@ -34,7 +34,6 @@ class PreprintsRepo:
         self.t_trial_tokens = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_AUTHOR_TOKENS", "trial_author_tokens"))
         self.t_trial_clusters = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_CLUSTERS", "trial_clusters"))
         self.t_trial_assignments = ddb.Table(os.environ.get("DDB_TABLE_TRIAL_ASSIGNMENTS", "trial_preprint_assignments"))
-        self.t_suppression = ddb.Table(os.environ.get("DDB_TABLE_EMAIL_SUPPRESSION", "email_suppression"))
 
     # --- cursors (sync_state) ---
     def get_cursor(self, source_key: str) -> Optional[str]:
@@ -349,8 +348,16 @@ class PreprintsRepo:
         skip_existing = os.environ.get("OSF_INGEST_SKIP_EXISTING", "false").lower() in {"1", "true", "yes"}
         if rows:
             ids = [r.get("id") for r in rows if r.get("id")]
-            excluded_ids = self._fetch_excluded_ids(ids)
-            if excluded_ids:
+            excluded = self._fetch_excluded_reasons(ids)
+            if excluded:
+                # Certain exclusions are intentionally re-admittable:
+                # - ingest_date_window: anchor/window changes can backfill
+                # - docx_to_pdf_conversion_failed: transient (e.g. missing LibreOffice)
+                _READMITTABLE = {"ingest_date_window", "docx_to_pdf_conversion_failed"}
+                excluded_ids = {
+                    osf_id for osf_id, reason in excluded.items()
+                    if str(reason or "") not in _READMITTABLE
+                }
                 before = len(rows)
                 rows = [r for r in rows if r.get("id") not in excluded_ids]
                 skipped = before - len(rows)
@@ -445,19 +452,25 @@ class PreprintsRepo:
                 unprocessed = resp.get("UnprocessedKeys") or {}
         return existing
 
-    def _fetch_excluded_ids(self, ids: Iterable[str]) -> Set[str]:
+    def _fetch_excluded_reasons(self, ids: Iterable[str]) -> Dict[str, Optional[str]]:
         table_name = self.t_excluded.name
-        existing: Set[str] = set()
+        existing: Dict[str, Optional[str]] = {}
         id_list = [str(i) for i in ids if i]
         for chunk in _chunks(id_list, 100):
             keys = [{"osf_id": i} for i in chunk]
-            request = {table_name: {"Keys": keys, "ProjectionExpression": "osf_id"}}
+            request = {table_name: {"Keys": keys, "ProjectionExpression": "osf_id, exclusion_reason"}}
             resp = self.ddb.batch_get_item(RequestItems=request)
-            existing.update(_extract_key_values(resp.get("Responses", {}).get(table_name, []), "osf_id"))
+            for item in resp.get("Responses", {}).get(table_name, []):
+                osf_id = item.get("osf_id")
+                if osf_id:
+                    existing[str(osf_id)] = item.get("exclusion_reason")
             unprocessed = resp.get("UnprocessedKeys") or {}
             while unprocessed:
                 resp = self.ddb.batch_get_item(RequestItems=unprocessed)
-                existing.update(_extract_key_values(resp.get("Responses", {}).get(table_name, []), "osf_id"))
+                for item in resp.get("Responses", {}).get(table_name, []):
+                    osf_id = item.get("osf_id")
+                    if osf_id:
+                        existing[str(osf_id)] = item.get("exclusion_reason")
                 unprocessed = resp.get("UnprocessedKeys") or {}
         return existing
 

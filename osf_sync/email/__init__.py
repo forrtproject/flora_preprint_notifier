@@ -8,8 +8,10 @@ from collections import deque
 from typing import Any, Dict, Optional
 
 from ..dynamo.preprints_repo import PreprintsRepo
+from ..dynamo.suppression_repo import SuppressionRepo
 from .data_assembly import assemble_email_context
 from .gmail import send_email
+from .inbox import process_inbox
 from .suppression import is_suppressed
 from .template import render_email
 from .validation import validate_recipient
@@ -84,7 +86,15 @@ def process_email_batch(
 
     Returns a summary dict with counts of sent, failed, skipped, etc.
     """
+    # Process inbox for bounces/unsubscribes before sending
+    inbox_stats = {}
+    try:
+        inbox_stats = process_inbox(dry_run=dry_run)
+    except Exception:
+        logger.warning("Inbox processing failed (non-fatal)", exc_info=True)
+
     repo = PreprintsRepo()
+    suppression_repo = SuppressionRepo()
     rate_limiter = _RateLimiter()
 
     deadline = (time.monotonic() + max_seconds) if max_seconds and max_seconds > 0 else None
@@ -129,7 +139,7 @@ def process_email_batch(
         valid_addresses = []
         for recip in all_recipients:
             addr = recip["email"]
-            if is_suppressed(addr, repo=repo):
+            if is_suppressed(addr, repo=suppression_repo):
                 skipped_suppressed += 1
                 logger.info("Skipped suppressed email", extra={"osf_id": pid, "email": addr})
                 continue
@@ -146,10 +156,18 @@ def process_email_batch(
 
         repo.mark_email_validated(pid, "valid")
 
-        # Cap to stay within the recipient limit
+        # Enforce all-or-none per preprint under recipient budget.
         remaining_budget = limit - recipients_sent
         if len(valid_addresses) > remaining_budget:
-            valid_addresses = valid_addresses[:remaining_budget]
+            logger.info(
+                "Skipping preprint due to recipient budget",
+                extra={
+                    "osf_id": pid,
+                    "recipient_count": len(valid_addresses),
+                    "remaining_budget": remaining_budget,
+                },
+            )
+            continue
 
         # Render email
         try:
@@ -196,7 +214,7 @@ def process_email_batch(
             repo.mark_email_error(pid, str(exc))
             logger.exception("Email send failed", extra={"osf_id": pid, "to": valid_addresses})
 
-    return {
+    result = {
         "stage": "email",
         "sent": recipients_sent,
         "failed": failed,
@@ -206,3 +224,6 @@ def process_email_batch(
         "dry_run": dry_run,
         "stopped_due_to_time": bool(deadline and time.monotonic() >= deadline),
     }
+    if inbox_stats:
+        result["inbox"] = inbox_stats
+    return result

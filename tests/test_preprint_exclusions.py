@@ -71,7 +71,7 @@ class PreprintExclusionTests(unittest.TestCase):
         self.assertTrue(first)
         self.assertFalse(second)
 
-        excluded_table = fake._tables["excluded_preprints"]
+        excluded_table = fake._tables[repo.t_excluded.name]
         self.assertEqual(len(excluded_table.put_calls), 1)
         self.assertEqual(len(excluded_table.items), 1)
 
