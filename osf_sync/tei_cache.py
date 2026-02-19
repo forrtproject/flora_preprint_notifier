@@ -28,16 +28,12 @@ def _key(provider_id: str, osf_id: str) -> str:
 
 
 def upload_tei(provider_id: str, osf_id: str, local_path: str) -> bool:
-    """Upload a TEI file to S3. Returns True on success, False if disabled or failed."""
+    """Upload a TEI file to S3. Returns True if disabled (no-op), raises on failure."""
     if not _BUCKET:
         return False
-    try:
-        _s3_client().upload_file(local_path, _BUCKET, _key(provider_id, osf_id))
-        logger.info("Uploaded TEI to S3", extra={"osf_id": osf_id, "bucket": _BUCKET})
-        return True
-    except ClientError:
-        logger.warning("Failed to upload TEI to S3", extra={"osf_id": osf_id}, exc_info=True)
-        return False
+    _s3_client().upload_file(local_path, _BUCKET, _key(provider_id, osf_id))
+    logger.info("Uploaded TEI to S3 [%s]", osf_id)
+    return True
 
 
 def download_tei(provider_id: str, osf_id: str, local_path: str) -> bool:

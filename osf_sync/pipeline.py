@@ -496,7 +496,7 @@ def grobid_single(osf_id: str) -> Dict[str, Any]:
     ok, tei_path, err = process_pdf_to_tei(provider_id, osf_id)
     if ok:
         mark_tei(osf_id, ok=True, tei_path=tei_path)
-    logger.info("GROBID done", extra={"osf_id": osf_id, "ok": ok, "tei": tei_path})
+    logger.info("GROBID done [%s] ok=%s", osf_id, ok)
     return {"osf_id": osf_id, "ok": ok, "tei_path": tei_path, "error": err}
 
 
