@@ -1,0 +1,38 @@
+name: Update Dashboard
+
+on:
+  schedule:
+    - cron: '0 8 * * *'   # Daily at 08:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  dashboard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      DDB_TABLE_PREPRINTS: prod_preprints
+      DDB_TABLE_EXCLUDED_PREPRINTS: prod_excluded_preprints
+      DDB_TABLE_TRIAL_ASSIGNMENTS: prod_trial_preprint_assignments
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install boto3
+
+      - run: python scripts/generate_dashboard.py dashboard.md
+
+      - name: Update Gist
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_ID: ${{ vars.GIST_ID }}
+        run: |
+          echo "$GIST_TOKEN" | gh auth login --with-token
+          gh gist edit "$GIST_ID" -f dashboard.md dashboard.md
