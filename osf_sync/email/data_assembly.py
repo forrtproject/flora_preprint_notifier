@@ -176,9 +176,25 @@ def _build_original_entry(ref: Dict[str, Any], ref_pairs: List[Dict[str, Any]]) 
     replications: List[Dict[str, Any]] = []
     for pair in ref_pairs:
         rep = pair.get("replication") or pair
-        rep_doi = rep.get("doi") or pair.get("replication_doi") or ""
-        rep_ref = rep.get("reference") or rep.get("title") or rep_doi or "(unknown)"
-        rep_outcome = pair.get("replication_outcome") or rep.get("outcome") or "unknown"
+        rep_doi = (
+            pair.get("doi_r")
+            or rep.get("doi")
+            or pair.get("replication_doi")
+            or ""
+        )
+        rep_ref = (
+            pair.get("apa_ref_r")
+            or rep.get("reference")
+            or rep.get("title")
+            or rep_doi
+            or "(unknown)"
+        )
+        rep_outcome = (
+            pair.get("replication_outcome")
+            or pair.get("outcome")
+            or rep.get("outcome")
+            or "unknown"
+        )
         rep_oa_url = rep.get("oa_url") or ""
 
         replications.append({

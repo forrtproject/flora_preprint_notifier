@@ -40,6 +40,14 @@ def _exception(msg: str, **extras: Any) -> None:
 
 
 _DOI_PATTERN = re.compile(r"10\.\S+", re.IGNORECASE)
+_ALLOWED_OUTCOMES = {"successful", "failed", "mixed"}
+_OUTCOME_ALIASES = {
+    "success": "successful",
+    "successful": "successful",
+    "failure": "failed",
+    "failed": "failed",
+    "mixed": "mixed",
+}
 
 
 def normalize_doi(doi: Optional[str]) -> Optional[str]:
@@ -54,103 +62,6 @@ def normalize_doi(doi: Optional[str]) -> Optional[str]:
     return m.group(0) if m else None
 
 
-def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
-    """
-    Extract array of {doi_o, doi_r, apa_ref_o, apa_ref_r} objects from a payload.
-    Used for backwards compatibility with legacy persisted payload rows.
-    """
-    out: List[Dict[str, Optional[str]]] = []
-
-    def _append_pair(
-        doi_o: Optional[str],
-        doi_r: Optional[str],
-        apa_ref_o: Optional[str],
-        apa_ref_r: Optional[str],
-        replication_outcome: Optional[str] = None,
-    ) -> None:
-        out.append(
-            {
-                "doi_o": normalize_doi(doi_o) if doi_o else None,
-                "doi_r": normalize_doi(doi_r) if doi_r else None,
-                "apa_ref_o": apa_ref_o,
-                "apa_ref_r": apa_ref_r,
-                "replication_outcome": replication_outcome,
-            }
-        )
-
-    def _ensure_list(value: Any) -> List[Dict[str, Any]]:
-        if value is None:
-            return []
-        if isinstance(value, list):
-            return [v for v in value if isinstance(v, dict)]
-        if isinstance(value, dict):
-            return [value]
-        return []
-
-    def _from_record_lists(originals: Any, replications: Any) -> None:
-        originals_list = _ensure_list(originals)
-        replications_list = _ensure_list(replications)
-        if originals_list and replications_list:
-            for original in originals_list:
-                for replication in replications_list:
-                    _append_pair(
-                        original.get("doi"),
-                        replication.get("doi"),
-                        original.get("apa_ref"),
-                        replication.get("apa_ref"),
-                        replication.get("outcome") or replication.get("replication_outcome"),
-                    )
-        else:
-            for original in originals_list:
-                _append_pair(
-                    original.get("doi"),
-                    None,
-                    original.get("apa_ref"),
-                    None,
-                )
-            for replication in replications_list:
-                _append_pair(
-                    None,
-                    replication.get("doi"),
-                    None,
-                    replication.get("apa_ref"),
-                )
-
-    def _walk(obj: Any) -> None:
-        if isinstance(obj, dict):
-            if any(k in obj for k in ("originals", "replications")):
-                _from_record_lists(obj.get("originals"), obj.get("replications"))
-            if any(k in obj for k in ("doi_o", "doi_r", "apa_ref_o", "apa_ref_r")):
-                _append_pair(
-                    obj.get("doi_o"),
-                    obj.get("doi_r"),
-                    obj.get("apa_ref_o"),
-                    obj.get("apa_ref_r"),
-                    obj.get("replication_outcome") or obj.get("outcome_r") or obj.get("outcome"),
-                )
-            for v in obj.values():
-                _walk(v)
-        elif isinstance(obj, list):
-            for item in obj:
-                _walk(item)
-
-    _walk(payload)
-
-    seen: Dict[tuple, int] = {}
-    uniq_out: List[Dict[str, Optional[str]]] = []
-    for rec in out:
-        key = (rec.get("doi_o"), rec.get("doi_r"), rec.get("apa_ref_o"), rec.get("apa_ref_r"))
-        if key in seen:
-            # Replace earlier record if this one has a non-empty outcome and the earlier didn't
-            idx = seen[key]
-            if rec.get("replication_outcome") and not uniq_out[idx].get("replication_outcome"):
-                uniq_out[idx] = rec
-            continue
-        seen[key] = len(uniq_out)
-        uniq_out.append(rec)
-    return uniq_out
-
-
 def _normalize_field_name(name: Optional[str]) -> str:
     return (name or "").replace("\ufeff", "").strip().strip('"').strip()
 
@@ -162,6 +73,16 @@ def _clean_text(value: Any) -> Optional[str]:
         value = str(value)
     value = value.strip()
     return value or None
+
+
+def _normalize_outcome(value: Any) -> Optional[str]:
+    txt = _clean_text(value)
+    if not txt:
+        return None
+    normalized = _OUTCOME_ALIASES.get(txt.lower())
+    if normalized in _ALLOWED_OUTCOMES:
+        return normalized
+    return None
 
 
 def _resolve_flora_csv_path(cache_path: Optional[str]) -> Path:
@@ -235,13 +156,28 @@ def _load_flora_pairs_by_original(path: Path) -> Dict[str, List[Dict[str, Option
             doi_o = normalize_doi(_row_value(row, "doi_o"))
             if not doi_o:
                 continue
+            outcome = _normalize_outcome(
+                _row_value(row, "outcome")
+                or _row_value(row, "outcome_r")
+                or _row_value(row, "replication_outcome")
+            )
+            # Protocol-aligned outcomes are mandatory for replication rows.
+            if outcome is None:
+                continue
             rec = {
                 "doi_o": doi_o,
                 "doi_r": normalize_doi(_row_value(row, "doi_r")),
                 "apa_ref_o": _row_value(row, "apa_ref_o"),
                 "apa_ref_r": _row_value(row, "apa_ref_r"),
+                "replication_outcome": outcome,
             }
-            key = (rec["doi_o"], rec["doi_r"], rec["apa_ref_o"], rec["apa_ref_r"])
+            key = (
+                rec["doi_o"],
+                rec["doi_r"],
+                rec["apa_ref_o"],
+                rec["apa_ref_r"],
+                rec["replication_outcome"],
+            )
             seen = seen_by_original.setdefault(doi_o, set())
             if key in seen:
                 continue

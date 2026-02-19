@@ -12,6 +12,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
+from urllib.parse import urlparse
 
 import requests
 from lxml import etree
@@ -27,6 +28,9 @@ if str(EXTRACTION_DIR) not in sys.path:
 
 from osf_sync.dynamo.preprints_repo import PreprintsRepo
 from osf_sync.dynamo.api_cache_repo import ApiCacheRepo
+from osf_sync.email.blacklist import load_blacklist
+from osf_sync.email.validation import validate_recipient
+from osf_sync.email.suppression import is_suppressed
 from osf_sync.exclusion_logging import log_preprint_exclusion
 from osf_sync.iter_preprints import SESSION, OSF_API
 from osf_sync.pdf import ensure_pdf_available_or_skip
@@ -44,6 +48,12 @@ GROBID_BACKOFF = float(os.environ.get("GROBID_BACKOFF", "2.0"))
 ORCID_CLIENT_ID = os.environ.get("ORCID_CLIENT_ID")
 ORCID_CLIENT_SECRET = os.environ.get("ORCID_CLIENT_SECRET")
 ORCID_HEADERS = {"Accept": "application/json"}
+OPENALEX_API = os.environ.get("OPENALEX_API", "https://api.openalex.org")
+OPENALEX_MAILTO = os.environ.get("OPENALEX_MAILTO") or os.environ.get("OPENALEX_EMAIL")
+OPENALEX_TIMEOUT = float(os.environ.get("OPENALEX_TIMEOUT", "20"))
+OPENALEX_MAX_RETRIES = int(os.environ.get("OPENALEX_MAX_RETRIES", "2"))
+OPENALEX_BACKOFF = float(os.environ.get("OPENALEX_BACKOFF", "1.5"))
+AFFILIATION_DOMAIN_BONUS = float(os.environ.get("AFFILIATION_DOMAIN_BONUS", "0.20"))
 
 TEI_NS = {"tei": "http://www.tei-c.org/ns/1.0"}
 
@@ -74,6 +84,7 @@ CSV_COLUMNS = [
 ]
 DEFAULT_DEBUG_CSV = EXTRACTION_DIR / "authorList_ext.debug.csv"
 PDF_EMAIL_MATCH_THRESHOLD = float(os.environ.get("PDF_EMAIL_MATCH_THRESHOLD", "0.75"))
+PDF_ORCID_MATCH_THRESHOLD = float(os.environ.get("PDF_ORCID_MATCH_THRESHOLD", "0.75"))
 
 # Persistent ORCID cache (DynamoDB api_cache table)
 _api_cache = ApiCacheRepo()
@@ -81,6 +92,7 @@ _ORCID_PERSON_TTL = 30 * 24 * 3600  # 30 days
 _ORCID_EMPLOYMENT_TTL = 30 * 24 * 3600  # 30 days
 _ORCID_NAME_SEARCH_TTL = 7 * 24 * 3600  # 7 days
 _OSF_CONTRIBUTORS_TTL = 7 * 24 * 3600  # 7 days
+_OPENALEX_INSTITUTION_TTL = 30 * 24 * 3600  # 30 days
 
 
 def _log(msg: str):
@@ -108,38 +120,6 @@ def _normalize_ws(text: str) -> str:
 
 
 EMAIL_RE = re.compile(r"^[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,15}$", re.IGNORECASE)
-EMAIL_BLACKLIST_DOMAINS = {
-    "example.com",
-    "example.org",
-    "example.net",
-    "test.com",
-    "test.org",
-    "test.net",
-    "invalid",
-    "localhost",
-}
-EMAIL_BLACKLIST_LOCAL = {
-    "noreply",
-    "no-reply",
-    "donotreply",
-    "do-not-reply",
-    "test",
-    "example",
-    "invalid",
-    "dummy",
-    "admin",
-    "info",
-    "contact",
-    "support",
-    "help",
-    "webmaster",
-    "sales",
-    "office",
-    "postmaster",
-    "mailer-daemon",
-}
-
-
 def _clean_email(raw: Optional[str], *, allow_blacklist: bool = False) -> Optional[str]:
     if not raw:
         return None
@@ -156,11 +136,12 @@ def _clean_email(raw: Optional[str], *, allow_blacklist: bool = False) -> Option
     local_l = local.lower()
     domain_l = domain.lower()
     if not allow_blacklist:
-        if domain_l in EMAIL_BLACKLIST_DOMAINS:
+        blacklist = load_blacklist()
+        if domain_l in blacklist["domains"]:
             return None
-        if local_l in EMAIL_BLACKLIST_LOCAL:
+        if local_l in blacklist["locals"]:
             return None
-        if local_l.startswith("no-reply") or local_l.startswith("noreply"):
+        if txt.lower() in blacklist["emails"]:
             return None
     return txt
 
@@ -184,6 +165,21 @@ def _orcid_request(method: str, url: str, **kwargs) -> requests.Response:
             if attempt >= ORCID_MAX_RETRIES:
                 raise
             _dbg(f"[orcid] retry {attempt} error={exc}")
+            time.sleep(backoff)
+            backoff *= 2
+
+
+def _openalex_request(url: str, *, params: Dict[str, Any]) -> requests.Response:
+    attempt = 0
+    backoff = OPENALEX_BACKOFF
+    while True:
+        attempt += 1
+        try:
+            return requests.get(url, params=params, timeout=OPENALEX_TIMEOUT)
+        except requests.RequestException as exc:
+            if attempt >= OPENALEX_MAX_RETRIES:
+                raise
+            _dbg(f"[openalex] retry {attempt} error={exc}")
             time.sleep(backoff)
             backoff *= 2
 
@@ -798,9 +794,22 @@ def _assign_orcid_from_pdf(
     rows: List[Dict[str, Any]],
     pdf_orcids: List[str],
     orcid_cache: Dict[str, dict],
+    email_validation_cache: Optional[Dict[str, bool]] = None,
+    *,
+    threshold: float = PDF_ORCID_MATCH_THRESHOLD,
 ) -> int:
+    email_validation_cache = email_validation_cache or {}
     assigned = 0
     if not pdf_orcids:
+        return 0
+    # Skip ORCID PDF enrichment if there are no rows that still need email enrichment.
+    if not any(
+        (not _row_has_contactable_email(row, email_validation_cache))
+        and (not row.get("orcid.osf"))
+        and (not row.get("orcid.xml"))
+        and (not row.get("orcid.pdf"))
+        for row in rows
+    ):
         return 0
     infos = []
     for raw in pdf_orcids:
@@ -823,6 +832,8 @@ def _assign_orcid_from_pdf(
         best_idx = None
         best_sim = -1.0
         for idx, row in enumerate(rows):
+            if _row_has_contactable_email(row, email_validation_cache):
+                continue
             if row.get("orcid.osf") or row.get("orcid.xml") or row.get("orcid.pdf"):
                 continue
             osf_surname = row.get("osf.name.surname") or ""
@@ -837,7 +848,7 @@ def _assign_orcid_from_pdf(
             if sim > best_sim:
                 best_sim = sim
                 best_idx = idx
-        if best_idx is not None and best_sim > 0:
+        if best_idx is not None and best_sim >= threshold:
             rows[best_idx]["orcid.pdf"] = info["orcid"]
             rows[best_idx]["name.given.orcid"] = info["given"]
             rows[best_idx]["name.surname.orcid"] = info["family"]
@@ -848,9 +859,13 @@ def _assign_orcid_from_pdf(
 def _assign_orcid_by_name(
     rows: List[Dict[str, Any]],
     name_cache: Dict[Tuple[str, str], Optional[str]],
+    email_validation_cache: Optional[Dict[str, bool]] = None,
 ) -> int:
+    email_validation_cache = email_validation_cache or {}
     assigned = 0
     for row in rows:
+        if _row_has_contactable_email(row, email_validation_cache):
+            continue
         if row.get("orcid.osf") or row.get("orcid.xml") or row.get("orcid.pdf"):
             continue
         family = row.get("osf.name.surname") or ""
@@ -903,13 +918,18 @@ def _merge_orcids(rows: List[Dict[str, Any]]) -> Dict[str, int]:
 def _fill_orcid_details(
     rows: List[Dict[str, Any]],
     orcid_cache: Dict[str, dict],
+    email_validation_cache: Optional[Dict[str, bool]] = None,
 ) -> Tuple[int, int, int]:
+    email_validation_cache = email_validation_cache or {}
     emails_added = 0
     names_added = 0
     emails_invalid = 0
     for row in rows:
         orcid = row.get("orcid")
         if not orcid:
+            continue
+        # Keep existing matched emails (TEI/PDF) as authoritative and skip ORCID person lookup.
+        if _row_has_contactable_email(row, email_validation_cache):
             continue
         person = _fetch_orcid_person(orcid, orcid_cache)
         if not person:
@@ -924,7 +944,7 @@ def _fill_orcid_details(
             row["name.surname.orcid"] = family
             names_added += 1
         emails = (person.get("emails") or {}).get("email") or []
-        if emails and (not row.get("email") or (row.get("email.source") == "pdf")):
+        if emails and (not _row_has_contactable_email(row, email_validation_cache)):
             first = emails[0]
             val = (first or {}).get("email")
             clean = _clean_email(val, allow_blacklist=True)
@@ -940,9 +960,13 @@ def _fill_orcid_details(
 def _fill_orcid_affiliations(
     rows: List[Dict[str, Any]],
     affil_cache: Dict[str, List[str]],
+    email_validation_cache: Optional[Dict[str, bool]] = None,
 ) -> int:
+    email_validation_cache = email_validation_cache or {}
     filled = 0
     for row in rows:
+        if _row_has_contactable_email(row, email_validation_cache):
+            continue
         orcid = row.get("orcid")
         if not orcid:
             continue
@@ -1042,15 +1066,31 @@ def _process_preprint(
         if assigned_pdf_emails:
             _inc(stats, "pdf_emails_assigned", assigned_pdf_emails)
 
-        assigned_pdf = _assign_orcid_from_pdf(rows, pdf_orcids, orcid_cache)
-        assigned_name = _assign_orcid_by_name(rows, orcid_name_cache)
+        email_validation_cache: Dict[str, bool] = {}
+        has_preprint_contacts = _has_contactable_preprint_email(rows, email_validation_cache)
+        if has_preprint_contacts:
+            _dbg(f"[{osf_id}] step orcid gate: skipped (preprint-extracted contactable email present)")
+        assigned_pdf = 0
+        assigned_name = 0
+        emails_added = 0
+        names_added = 0
+        emails_invalid = 0
+        affil_filled = 0
+        if not has_preprint_contacts:
+            assigned_pdf = _assign_orcid_from_pdf(rows, pdf_orcids, orcid_cache, email_validation_cache)
+            assigned_name = _assign_orcid_by_name(rows, orcid_name_cache, email_validation_cache)
         source_counts = _merge_orcids(rows)
-        emails_added, names_added, emails_invalid = _fill_orcid_details(rows, orcid_cache)
-        if emails_added:
-            _inc(stats, "orcid_emails_added", emails_added)
-        if emails_invalid:
-            _inc(stats, "orcid_emails_invalid", emails_invalid)
-        affil_filled = _fill_orcid_affiliations(rows, orcid_affil_cache)
+        if not has_preprint_contacts:
+            emails_added, names_added, emails_invalid = _fill_orcid_details(
+                rows,
+                orcid_cache,
+                email_validation_cache,
+            )
+            if emails_added:
+                _inc(stats, "orcid_emails_added", emails_added)
+            if emails_invalid:
+                _inc(stats, "orcid_emails_invalid", emails_invalid)
+            affil_filled = _fill_orcid_affiliations(rows, orcid_affil_cache, email_validation_cache)
         _dbg(f"[{osf_id}] step orcid from pdf: {'used' if assigned_pdf else 'skipped'} ({assigned_pdf})")
         _dbg(f"[{osf_id}] step orcid by name: {'used' if assigned_name else 'skipped'} ({assigned_name})")
         _dbg(f"[{osf_id}] step orcid merge: sources={source_counts}")
@@ -1130,6 +1170,101 @@ def _extract_emails_from_value(val: Optional[str]) -> List[str]:
     return list(dict.fromkeys(EMAIL_EXTRACT_RE.findall(str(val))))
 
 
+def _extract_domain_from_url(url: str) -> Optional[str]:
+    if not url:
+        return None
+    try:
+        host = (urlparse(url).hostname or "").strip().lower()
+    except Exception:
+        return None
+    if host.startswith("www."):
+        host = host[4:]
+    return host or None
+
+
+def _affiliation_values_from_row(row: Dict[str, Any]) -> List[str]:
+    values: List[str] = []
+    for key in ["affiliation", "osf.affiliation", "affiliation.orcid"]:
+        raw = row.get(key)
+        if not raw:
+            continue
+        txt = str(raw).strip()
+        if not txt or txt.upper() == "NA":
+            continue
+        # Parse R-style c("a","b") from ORCID affiliation export.
+        quoted = re.findall(r"\"([^\"]+)\"", txt)
+        if quoted:
+            values.extend([_normalize_ws(v).strip() for v in quoted if _normalize_ws(v).strip()])
+            continue
+        values.extend([_normalize_ws(v).strip() for v in txt.split(";") if _normalize_ws(v).strip()])
+    return list(dict.fromkeys(values))
+
+
+def _openalex_domain_for_affiliation(
+    affiliation: str,
+    cache: Dict[str, Optional[str]],
+) -> Optional[str]:
+    norm = _normalize_ws(affiliation).strip()
+    if not norm:
+        return None
+    key = norm.lower()
+    if key in cache:
+        return cache[key]
+
+    db_key = f"openalex_institution_domain::{key}"
+    db_item = _api_cache.get(db_key)
+    if db_item and _api_cache.is_fresh(db_item, ttl_seconds=_OPENALEX_INSTITUTION_TTL):
+        payload = db_item.get("payload")
+        if isinstance(payload, dict) and payload.get("_none") is True:
+            cache[key] = None
+            return None
+        if isinstance(payload, str):
+            cache[key] = payload
+            return payload
+
+    params: Dict[str, Any] = {"search": norm, "per-page": 3}
+    if OPENALEX_MAILTO:
+        params["mailto"] = OPENALEX_MAILTO
+    try:
+        r = _openalex_request(f"{OPENALEX_API.rstrip('/')}/institutions", params=params)
+    except Exception as exc:
+        _dbg(f"[openalex] institutions lookup error={exc}")
+        cache[key] = None
+        return None
+    if r.status_code >= 400:
+        _dbg(f"[openalex] institutions status={r.status_code} q={norm}")
+        cache[key] = None
+        _api_cache.put(db_key, {"_none": True}, source="openalex", ttl_seconds=_OPENALEX_INSTITUTION_TTL)
+        return None
+
+    data = r.json()
+    results = data.get("results") or []
+    domain = None
+    for inst in results:
+        domain = _extract_domain_from_url((inst or {}).get("homepage_url") or "")
+        if domain:
+            break
+
+    cache[key] = domain
+    if domain:
+        _api_cache.put(db_key, domain, source="openalex", ttl_seconds=_OPENALEX_INSTITUTION_TTL)
+    else:
+        _api_cache.put(db_key, {"_none": True}, source="openalex", ttl_seconds=_OPENALEX_INSTITUTION_TTL)
+    return domain
+
+
+def _affiliation_domains_for_row(
+    row: Dict[str, Any],
+    domain_cache: Dict[str, Optional[str]],
+) -> List[str]:
+    domains: List[str] = []
+    for affiliation in _affiliation_values_from_row(row):
+        domain = _openalex_domain_for_affiliation(affiliation, domain_cache)
+        if domain:
+            domains.append(domain)
+    return list(dict.fromkeys(domains))
+
+
 def _email_candidates_from_row(row: Dict[str, Any]) -> List[str]:
     emails: List[str] = []
     for key, val in row.items():
@@ -1155,6 +1290,50 @@ def _has_row_email(row: Dict[str, Any]) -> bool:
     if val.upper() == "NA" or val.lower() == "false":
         return False
     return True
+
+
+def _clear_row_email(row: Dict[str, Any]) -> None:
+    row["email"] = None
+    row["email.source"] = None
+
+
+def _row_has_contactable_email(
+    row: Dict[str, Any],
+    validation_cache: Dict[str, bool],
+) -> bool:
+    source = (row.get("email.source") or "").strip().lower()
+    allow_blacklist = source == "orcid"
+    cleaned = _clean_email((row.get("email") or "").strip(), allow_blacklist=allow_blacklist)
+    if not cleaned:
+        if _has_row_email(row):
+            _clear_row_email(row)
+        return False
+    key = cleaned.lower()
+    if key not in validation_cache:
+        try:
+            ok, _err = validate_recipient(cleaned)
+            validation_cache[key] = bool(ok)
+        except Exception:
+            # Fail-open on transient validation failures to avoid dropping valid contacts.
+            validation_cache[key] = True
+    if not validation_cache[key]:
+        _clear_row_email(row)
+        return False
+    row["email"] = cleaned
+    return True
+
+
+def _has_contactable_preprint_email(
+    rows: List[Dict[str, Any]],
+    validation_cache: Dict[str, bool],
+) -> bool:
+    for row in rows:
+        source = (row.get("email.source") or "").strip().lower()
+        if source not in {"xml", "pdf"}:
+            continue
+        if _row_has_contactable_email(row, validation_cache):
+            return True
+    return False
 
 
 def _author_position(row: Dict[str, Any], fallback_index: int) -> int:
@@ -1194,6 +1373,9 @@ def _best_email_for_author(
     given: str,
     surname: str,
     emails: List[str],
+    *,
+    preferred_domains: Optional[List[str]] = None,
+    domain_bonus: float = AFFILIATION_DOMAIN_BONUS,
 ) -> Tuple[Optional[str], float]:
     if not emails:
         return None, 0.0
@@ -1212,7 +1394,14 @@ def _best_email_for_author(
     initials_norm = _normalize_name(initials_raw)
     initials_raw_full = _initials_only(f"{given} {surname}".strip())
     initials_norm_full = _normalize_name(initials_raw_full)
+    preferred_domain_set = set()
+    for dom in preferred_domains or []:
+        clean = (dom or "").strip().lower()
+        if clean:
+            preferred_domain_set.add(clean)
     for email in emails:
+        _, _, domain_raw = email.rpartition("@")
+        domain = domain_raw.lower()
         local_raw = email.split("@", 1)[0].lower()
         local = _normalize_name(local_raw)
         if not local:
@@ -1248,6 +1437,13 @@ def _best_email_for_author(
                 if init in local_alpha:
                     sim = max(sim, 0.65)
                     break
+        if (
+            preferred_domain_set
+            and domain
+            and domain_bonus > 0
+            and any(domain == pref or domain.endswith("." + pref) for pref in preferred_domain_set)
+        ):
+            sim += domain_bonus
         if sim > 1.0:
             sim = 1.0
         if sim > best_sim:
@@ -1259,7 +1455,14 @@ def _best_email_for_author(
 def _score_group_email_matches(
     group: List[Dict[str, Any]],
     threshold: float,
+    *,
+    repo: Optional[PreprintsRepo] = None,
+    enforce_contactability: bool = False,
 ) -> List[Dict[str, Any]]:
+    openalex_domain_cache: Dict[str, Optional[str]] = {}
+    validation_cache: Dict[str, bool] = {}
+    suppression_cache: Dict[str, bool] = {}
+
     def _pick(row: Dict[str, Any], keys: List[str]) -> str:
         for k in keys:
             val = row.get(k)
@@ -1285,10 +1488,16 @@ def _score_group_email_matches(
         given: str,
         surname: str,
         candidates: List[str],
+        preferred_domains: List[str],
     ) -> Tuple[Optional[str], float]:
         if not given or not surname:
             return None, 0.0
-        return _best_email_for_author(given, surname, candidates)
+        return _best_email_for_author(
+            given,
+            surname,
+            candidates,
+            preferred_domains=preferred_domains,
+        )
 
     candidates: List[str] = []
     for row in group:
@@ -1297,21 +1506,22 @@ def _score_group_email_matches(
 
     for row in group:
         scores: List[Tuple[Optional[str], float]] = []
+        preferred_domains = _affiliation_domains_for_row(row, openalex_domain_cache)
 
         # OSF names
         osf_given = _pick(row, ["osf.name.given"])
         osf_surname = _pick(row, ["osf.name.surname"])
-        scores.append(_score_with_names(osf_given, osf_surname, candidates))
+        scores.append(_score_with_names(osf_given, osf_surname, candidates, preferred_domains))
 
         # ORCID names
         orcid_given = _pick(row, ["name.given.orcid"])
         orcid_surname = _pick(row, ["name.surname.orcid"])
-        scores.append(_score_with_names(orcid_given, orcid_surname, candidates))
+        scores.append(_score_with_names(orcid_given, orcid_surname, candidates, preferred_domains))
 
         # PDF/TEI names
         tei_given = _pick(row, ["name.given"] + given_keys)
         tei_surname = _pick(row, ["name.surname"] + surname_keys)
-        scores.append(_score_with_names(tei_given, tei_surname, candidates))
+        scores.append(_score_with_names(tei_given, tei_surname, candidates, preferred_domains))
 
         # Fallback to any full name if all sources missing
         if not any(sim > 0 for _, sim in scores):
@@ -1321,7 +1531,9 @@ def _score_group_email_matches(
                 if len(parts) >= 2:
                     fallback_given = " ".join(parts[:-1])
                     fallback_surname = parts[-1]
-                    scores.append(_score_with_names(fallback_given, fallback_surname, candidates))
+                    scores.append(
+                        _score_with_names(fallback_given, fallback_surname, candidates, preferred_domains)
+                    )
 
         best_email, best_sim = max(scores, key=lambda s: s[1]) if scores else (None, 0.0)
         row["email.possible"] = best_email or "NA"
@@ -1340,55 +1552,70 @@ def _score_group_email_matches(
         list(enumerate(group)),
         key=lambda item: _author_position(item[1], item[0]),
     )
-    author_candidates: List[Dict[str, Any]] = []
-    seen_emails: Set[str] = set()
+    declared_candidates: List[Dict[str, Any]] = []
+    fallback_candidates: List[Dict[str, Any]] = []
+    seen_declared: Set[str] = set()
+    seen_fallback: Set[str] = set()
 
-    def _append_candidate(idx: int, row: Dict[str, Any]) -> bool:
+    def _append_candidate(
+        rank: int,
+        row: Dict[str, Any],
+        target: List[Dict[str, Any]],
+        seen: Set[str],
+    ) -> bool:
         email = _row_email_for_selection(row)
         if not email:
             return False
         key = email.lower()
-        if key in seen_emails:
+        if enforce_contactability:
+            if key not in validation_cache:
+                try:
+                    ok, _err = validate_recipient(email)
+                    validation_cache[key] = bool(ok)
+                except Exception:
+                    validation_cache[key] = False
+            if not validation_cache[key]:
+                return False
+            if key not in suppression_cache:
+                suppression_cache[key] = is_suppressed(email, repo=repo)
+            if suppression_cache[key]:
+                return False
+        if key in seen:
             return False
-        author_candidates.append({"name": _full_name_from_row(row), "email": email})
-        seen_emails.add(key)
+        target.append({"name": _full_name_from_row(row), "email": email, "position": rank})
+        seen.add(key)
         return True
 
-    # Rule 1: use TEI-associated emails.
-    for idx, row in ranked_rows:
+    for rank, (_idx, row) in enumerate(ranked_rows):
         source = (row.get("email.source") or "").strip().lower()
-        if source == "xml" and (row.get("name.given") or row.get("name.surname")):
-            _append_candidate(idx, row)
+        if source in {"xml", "pdf"}:
+            _append_candidate(rank, row, declared_candidates, seen_declared)
+        else:
+            _append_candidate(rank, row, fallback_candidates, seen_fallback)
 
-    # Rule 2: use plausibly matched PDF emails linked to TEI authors.
-    for idx, row in ranked_rows:
-        source = (row.get("email.source") or "").strip().lower()
-        if source == "pdf" and (row.get("name.given") or row.get("name.surname")):
-            _append_candidate(idx, row)
+    author_count = len(ranked_rows)
 
-    if author_candidates:
-        return author_candidates
+    # Prefer declared corresponding-contact emails from TEI/PDF regardless of author position.
+    if declared_candidates:
+        if len(declared_candidates) <= 5:
+            return declared_candidates
+        last_author_position = author_count - 1
+        last_author_candidate = next(
+            (cand for cand in declared_candidates if cand.get("position") == last_author_position),
+            None,
+        )
+        if last_author_candidate:
+            return declared_candidates[:4] + [last_author_candidate]
+        return declared_candidates[:5]
 
-    # Rule 3 fallback: use OSF/ORCID-derived emails and prefer first+last author.
-    if not ranked_rows:
-        return author_candidates
+    # Fallback contacts (ORCID/other inferred sources) are restricted to first four + last author.
+    if author_count <= 0 or not fallback_candidates:
+        return []
 
-    first_idx, first_row = ranked_rows[0]
-    last_idx, last_row = ranked_rows[-1]
-    first_added = _append_candidate(first_idx, first_row)
-    last_added = False
-    if last_idx != first_idx:
-        last_added = _append_candidate(last_idx, last_row)
-
-    # If first+last are not both available, use first available up to three authors.
-    if not (first_added and last_added):
-        author_candidates = []
-        seen_emails = set()
-        for idx, row in ranked_rows:
-            if _append_candidate(idx, row) and len(author_candidates) >= 3:
-                break
-
-    return author_candidates
+    allowed_positions: Set[int] = set(range(min(4, author_count)))
+    allowed_positions.add(author_count - 1)
+    selected_fallback = [cand for cand in fallback_candidates if cand.get("position") in allowed_positions]
+    return selected_fallback[:5]
 
 
 def _count_contactable_candidates(candidates: List[Dict[str, Any]]) -> int:
@@ -1455,6 +1682,11 @@ def _assign_pdf_emails(
         return 0
 
     assigned = 0
+    openalex_domain_cache: Dict[str, Optional[str]] = {}
+    preferred_domains_by_row = {
+        idx: _affiliation_domains_for_row(rows[idx], openalex_domain_cache)
+        for idx in candidate_rows
+    }
     remaining_rows: Set[int] = set(candidate_rows)
     while remaining_rows and remaining_emails:
         best_idx = None
@@ -1464,7 +1696,12 @@ def _assign_pdf_emails(
             row = rows[idx]
             given = (row.get("name.given") or "").strip()
             surname = (row.get("name.surname") or "").strip()
-            candidate_email, sim = _best_email_for_author(given, surname, remaining_emails)
+            candidate_email, sim = _best_email_for_author(
+                given,
+                surname,
+                remaining_emails,
+                preferred_domains=preferred_domains_by_row.get(idx),
+            )
             if candidate_email and sim > best_sim:
                 best_idx = idx
                 best_email = candidate_email
@@ -1553,7 +1790,12 @@ def run_author_extract(
     def _handle_result(osf_id: str, item: dict, rows: Optional[List[Dict[str, Any]]]) -> None:
         nonlocal count_rows, count_preprints
         if rows:
-            candidates = _score_group_email_matches(rows, match_emails_threshold)
+            candidates = _score_group_email_matches(
+                rows,
+                match_emails_threshold,
+                repo=repo,
+                enforce_contactability=True,
+            )
             if _count_contactable_candidates(candidates) == 0:
                 log_preprint_exclusion(
                     reason="no_author_contacts_extracted",

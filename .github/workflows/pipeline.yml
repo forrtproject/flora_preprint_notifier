@@ -1,22 +1,26 @@
 name: Pipeline Run
 
 on:
-  # schedule:
-  #   - cron: '0 3 * * *'
   workflow_dispatch:
     inputs:
       stage:
-        description: 'Run specific stage (sync, pdf, grobid, extract, enrich, flora, author, email) or all'
+        description: 'Run specific stage (extract, enrich, flora, author, author-randomize, email) or all'
+        type: choice
         default: 'all'
+        options:
+          - all
+          - extract
+          - enrich
+          - flora
+          - author
+          - author-randomize
+          - email
       limit:
         description: 'Max items per stage (0 = unlimited)'
         default: '0'
       email_limit:
         description: 'Max emails (recipients) to send per run (0 = skip email)'
         default: '0'
-      download_workers:
-        description: 'Parallel workers for PDF downloads'
-        default: '4'
       enrich_workers:
         description: 'Parallel workers for Crossref/OpenAlex enrichment'
         default: '6'
@@ -32,19 +36,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 330
 
-    services:
-      grobid:
-        image: grobid/grobid:0.8.2.1-full
-        ports:
-          - 8070:8070
-        options: >-
-          --health-cmd "curl -f http://localhost:8070/api/isalive || exit 1"
-          --health-interval 15s
-          --health-timeout 10s
-          --health-retries 20
-
     env:
-      GROBID_URL: http://localhost:8070
+      PIPELINE_ENV: prod
+      DDB_BILLING_MODE: PAY_PER_REQUEST
+      DDB_TABLE_PREPRINTS: prod_preprints
+      DDB_TABLE_REFERENCES: prod_preprint_references
+      DDB_TABLE_TEI: prod_preprint_tei
+      DDB_TABLE_SYNCSTATE: prod_sync_state
+      DDB_TABLE_EXCLUDED_PREPRINTS: prod_excluded_preprints
+      DDB_TABLE_API_CACHE: prod_api_cache
+      DDB_TABLE_TRIAL_AUTHOR_NODES: prod_trial_author_nodes
+      DDB_TABLE_TRIAL_AUTHOR_TOKENS: prod_trial_author_tokens
+      DDB_TABLE_TRIAL_CLUSTERS: prod_trial_clusters
+      DDB_TABLE_TRIAL_ASSIGNMENTS: prod_trial_preprint_assignments
+      DDB_TABLE_EMAIL_SUPPRESSION: prod_email_suppression
       PDF_DEST_ROOT: /tmp/preprints
       AWS_REGION: ${{ secrets.AWS_REGION }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -67,11 +72,6 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libreoffice-core
-
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
@@ -80,7 +80,6 @@ jobs:
         run: |
           STAGE="${{ inputs.stage || 'all' }}"
           LIMIT="${{ inputs.limit || '0' }}"
-          DL_WORKERS="${{ inputs.download_workers || '4' }}"
           ENRICH_WORKERS="${{ inputs.enrich_workers || '6' }}"
           ORCID_WORKERS="${{ inputs.orcid_workers || '3' }}"
 
@@ -97,12 +96,9 @@ jobs:
           fi
 
           if [ "$STAGE" = "all" ]; then
-            python -m osf_sync.pipeline run-all \
-              --pdf-limit "$LIMIT" \
-              --grobid-limit "$LIMIT" \
+            python -m osf_sync.pipeline run-post-grobid \
               --extract-limit "$LIMIT" \
               --enrich-limit "$LIMIT" \
-              --download-workers "$DL_WORKERS" \
               --enrich-workers "$ENRICH_WORKERS" \
               --orcid-workers "$ORCID_WORKERS" \
               --max-seconds-per-stage 3600 \
@@ -120,7 +116,6 @@ jobs:
             python -m osf_sync.pipeline run \
               --stage "$STAGE" \
               --limit "$STAGE_LIMIT" \
-              --download-workers "$DL_WORKERS" \
               --enrich-workers "$ENRICH_WORKERS" \
               --orcid-workers "$ORCID_WORKERS" \
               --max-seconds 18000 \
@@ -152,9 +147,6 @@ jobs:
       - name: Re-trigger if backlog remains
         if: steps.run.outputs.has_backlog == 'true' && (inputs.backlog_depth || '5') != '0'
         env:
-          # GITHUB_TOKEN cannot trigger new workflow runs (anti-loop protection).
-          # Use a PAT or GitHub App token stored as WORKFLOW_DISPATCH_TOKEN secret.
-          # If the secret is not set, this step will fail gracefully.
           GH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
@@ -170,7 +162,6 @@ jobs:
               -f stage="${{ inputs.stage || 'all' }}" \
               -f limit="${{ inputs.limit || '0' }}" \
               -f email_limit="${{ inputs.email_limit || '20' }}" \
-              -f download_workers="${{ inputs.download_workers || '4' }}" \
               -f enrich_workers="${{ inputs.enrich_workers || '6' }}" \
               -f orcid_workers="${{ inputs.orcid_workers || '3' }}" \
               -f backlog_depth="$NEXT_DEPTH"

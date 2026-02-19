@@ -2,7 +2,7 @@
 # ISO date/timestamp (e.g. 2026-02-20 or 2026-02-20T00:00:00Z).
 # Leave empty to disable date-window filtering on ingest.
 anchor_date = "2026-02-20"
-# Keep preprints whose publication date is within this many months from anchor_date.
+# Keep preprints whose creation date is within +/- this many months from anchor_date.
 window_months = 6
 # When true (recommended), changing anchor_date/window_months triggers
 # an automatic bounded backfill window in prod sync.
@@ -14,7 +14,7 @@ original_lookup_url = "https://rep-api.forrt.org/v1/original-lookup"
 # Cache freshness horizon for FLORA lookup results.
 cache_ttl_hours = 48
 # Local CSV source used by FLORA local lookup.
-csv_url = "https://raw.githubusercontent.com/forrtproject/FReD-data/refs/heads/main/output/flora.csv"
+csv_url = "https://github.com/forrtproject/FReD-data/raw/refs/heads/main/output/flora_filtered.csv"
 # Local cache path for the downloaded CSV.
 csv_path = "data/flora.csv"
 
@@ -24,3 +24,5 @@ sender_display_name = "FLoRA at FORRT"
 feedback_base_url = "https://forrt.org/flora-notify/feedback"
 report_base_url = "https://forrt.org/flora-notify/report"
 flora_learn_more_url = "https://forrt.org/flora/"
+# Send pipeline progress/completion summary emails.
+progress_emails = true

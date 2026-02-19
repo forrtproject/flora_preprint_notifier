@@ -26,6 +26,9 @@ def _normalize_pdf_text_for_email_extraction(text: str) -> str:
     # Remove invisible separators and rejoin hyphenated line wraps.
     txt = text.replace("\u00ad", "").replace("\u200b", "")
     txt = re.sub(r"(?<=\w)-\s*\n\s*(?=\w)", "", txt)
+    # De-obfuscate common anti-spam tokens.
+    txt = re.sub(r"\s*(?:\[\s*at\s*\]|\(\s*at\s*\)|\{\s*at\s*\})\s*", "@", txt, flags=re.IGNORECASE)
+    txt = re.sub(r"\s*(?:\[\s*dot\s*\]|\(\s*dot\s*\)|\{\s*dot\s*\})\s*", ".", txt, flags=re.IGNORECASE)
     # Repair common spacing artifacts around email separators.
     txt = re.sub(r"\s*@\s*", "@", txt)
     txt = re.sub(r"\s*\.\s*", ".", txt)

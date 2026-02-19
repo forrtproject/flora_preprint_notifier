@@ -1,15 +1,20 @@
 from __future__ import annotations
 import os
+import re
 import subprocess
 from pathlib import Path
 from typing import Optional, Tuple
 
+from pypdf import PdfReader
 from requests.exceptions import RequestException, Timeout, ConnectionError
 from .dynamo.preprints_repo import PreprintsRepo
 from .iter_preprints import SESSION, OSF_API  # reuse resilient session
 
 ACCEPT_PDF = {"application/pdf"}
 ACCEPT_DOCX = {"application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
+MIN_PDF_PAGES = int(os.environ.get("MIN_PDF_PAGES", "5"))
+MIN_PDF_WORDS = int(os.environ.get("MIN_PDF_WORDS", "1000"))
+WORD_RE = re.compile(r"\b\w+\b", flags=re.UNICODE)
 
 def _safe_dir(root: str, provider_id: str, osf_id: str) -> Path:
     p = Path(root) / provider_id / osf_id
@@ -57,6 +62,25 @@ def _download_to(path: Path, url: str):
                 if chunk:
                     fh.write(chunk)
     tmp.replace(path)
+
+
+def _pdf_length_status(path: Path) -> str:
+    try:
+        doc = PdfReader(str(path))
+    except Exception:
+        return "unreadable"
+
+    page_count = len(doc.pages)
+    if page_count < MIN_PDF_PAGES:
+        return "too_short"
+
+    word_count = 0
+    for page in doc.pages:
+        text = page.extract_text() or ""
+        word_count += len(WORD_RE.findall(text))
+        if word_count >= MIN_PDF_WORDS:
+            break
+    return "ok" if word_count >= MIN_PDF_WORDS else "too_short"
 
 def _convert_docx_to_pdf(in_docx: Path, out_pdf: Path) -> bool:
     cmd = [
@@ -107,6 +131,16 @@ def ensure_pdf_available_or_delete(
 
     if is_pdf:
         _download_to(pdf_path, url)
+        length_status = _pdf_length_status(pdf_path)
+        if length_status == "unreadable":
+            raise RuntimeError("pdf_length_check_unreadable")
+        if length_status == "too_short":
+            delete_preprint(osf_id)
+            try:
+                pdf_path.unlink()
+            except Exception:
+                pass
+            return "deleted", None, "pdf_below_minimum_length"
         return "pdf", str(pdf_path), None
 
     if is_docx:
@@ -119,6 +153,16 @@ def ensure_pdf_available_or_delete(
         except Exception:
             pass
         if ok:
+            length_status = _pdf_length_status(pdf_path)
+            if length_status == "unreadable":
+                raise RuntimeError("pdf_length_check_unreadable")
+            if length_status == "too_short":
+                delete_preprint(osf_id)
+                try:
+                    pdf_path.unlink()
+                except Exception:
+                    pass
+                return "deleted", None, "pdf_below_minimum_length"
             return "docx->pdf", str(pdf_path), None
         delete_preprint(osf_id)
         try:
@@ -156,6 +200,15 @@ def ensure_pdf_available_or_skip(
 
     if is_pdf:
         _download_to(pdf_path, url)
+        length_status = _pdf_length_status(pdf_path)
+        if length_status == "unreadable":
+            return "skipped", None, "pdf_length_check_unreadable"
+        if length_status == "too_short":
+            try:
+                pdf_path.unlink()
+            except Exception:
+                pass
+            return "skipped", None, "pdf_below_minimum_length"
         return "pdf", str(pdf_path), None
 
     if is_docx:
@@ -168,6 +221,15 @@ def ensure_pdf_available_or_skip(
         except Exception:
             pass
         if ok:
+            length_status = _pdf_length_status(pdf_path)
+            if length_status == "unreadable":
+                return "skipped", None, "pdf_length_check_unreadable"
+            if length_status == "too_short":
+                try:
+                    pdf_path.unlink()
+                except Exception:
+                    pass
+                return "skipped", None, "pdf_below_minimum_length"
             return "docx->pdf", str(pdf_path), None
         try:
             if pdf_path.exists():

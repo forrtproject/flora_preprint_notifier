@@ -52,6 +52,7 @@ class PreprintEntry:
     arm: str = ""
     status: str = ""
     reason: Optional[str] = None
+    email_candidate_positions: List[int] = field(default_factory=list)
     matched_cluster_ids: List[str] = field(default_factory=list)
 
 
@@ -512,12 +513,17 @@ def compute_large_author_threshold(author_counts: Sequence[int], percentile: flo
     return max(1, values[idx])
 
 
-def select_author_positions(author_count: int, threshold: int) -> List[int]:
+def select_author_positions(
+    author_count: int,
+    threshold: int,
+    email_candidate_positions: Sequence[int],
+) -> List[int]:
     if author_count <= 0:
         return []
     if author_count <= threshold:
         return list(range(author_count))
-    picks = [0, 1, author_count - 1]
+    picks = [0, 1, 2, 3, author_count - 1]
+    picks.extend(email_candidate_positions)
     out: List[int] = []
     seen: Set[int] = set()
     for pos in picks:
@@ -635,18 +641,11 @@ def assign_components_balanced(components: Dict[str, ComponentSummary], *, seed:
         rng.shuffle(order)
 
         t_pre = c_pre = 0
-        t_email = c_email = 0
 
         for cluster_id in order:
             comp = components[cluster_id]
-            score_t = (
-                abs((t_pre + comp.contactable_preprints) - c_pre),
-                abs((t_email + comp.contactable_emails) - c_email),
-            )
-            score_c = (
-                abs(t_pre - (c_pre + comp.contactable_preprints)),
-                abs(t_email - (c_email + comp.contactable_emails)),
-            )
+            score_t = abs((t_pre + comp.contactable_preprints) - c_pre)
+            score_c = abs(t_pre - (c_pre + comp.contactable_preprints))
 
             if score_t < score_c:
                 chosen = "treatment"
@@ -658,10 +657,8 @@ def assign_components_balanced(components: Dict[str, ComponentSummary], *, seed:
             assignments[cluster_id] = chosen
             if chosen == "treatment":
                 t_pre += comp.contactable_preprints
-                t_email += comp.contactable_emails
             else:
                 c_pre += comp.contactable_preprints
-                c_email += comp.contactable_emails
 
     return assignments
 
@@ -755,17 +752,30 @@ def _load_unassigned_preprints(
                 tei_cache=tei_cache,
             )
 
+        candidates_raw = item.get("author_email_candidates") or []
+        email_positions: List[int] = []
+        for cand in candidates_raw:
+            pos = (cand or {}).get("position")
+            if pos is not None:
+                email_positions.append(int(pos))
+
         provider_source = {
             "provider_id": provider_id or item.get("provider_id"),
             "raw": raw_preprint if raw_preprint else (basic_item or {}).get("raw"),
         }
+        contactable_count = _contactable_count(item, csv_rows)
+        if contactable_count <= 0:
+            continue
+        if not bool(item.get("flora_eligible")):
+            continue
         out.append(
             PreprintEntry(
                 preprint_id=preprint_id,
                 provider_id=_choose_provider(provider_source),
                 date_created=_parse_iso_to_date(item.get("date_created") or item.get("date_published")),
                 mentions=mentions,
-                contactable_email_count=_contactable_count(item, csv_rows),
+                contactable_email_count=contactable_count,
+                email_candidate_positions=email_positions,
             )
         )
 
@@ -784,21 +794,18 @@ def _apply_mention_to_node(node: NodeRecord, mention: AuthorMention) -> None:
     node.mention_count += 1
 
 
-def _cluster_totals_by_stratum(clusters: Dict[str, Dict[str, Any]], stratum: str) -> Tuple[int, int, int, int]:
+def _cluster_totals_by_stratum(clusters: Dict[str, Dict[str, Any]], stratum: str) -> Tuple[int, int]:
     t_pre = c_pre = 0
-    t_email = c_email = 0
     for cluster in clusters.values():
         if str(cluster.get("stratum") or "unknown") != stratum:
             continue
         arm = str(cluster.get("arm") or "")
-        _, cp, ce = _coerce_cluster_counts(cluster)
+        _, cp, _ce = _coerce_cluster_counts(cluster)
         if arm == "treatment":
             t_pre += cp
-            t_email += ce
         elif arm == "control":
             c_pre += cp
-            c_email += ce
-    return t_pre, c_pre, t_email, c_email
+    return t_pre, c_pre
 
 
 def _choose_arm_for_new_cluster(
@@ -809,16 +816,10 @@ def _choose_arm_for_new_cluster(
     contactable_emails: int,
     rng: random.Random,
 ) -> str:
-    t_pre, c_pre, t_email, c_email = _cluster_totals_by_stratum(clusters, stratum)
+    t_pre, c_pre = _cluster_totals_by_stratum(clusters, stratum)
 
-    score_t = (
-        abs((t_pre + contactable_preprints) - c_pre),
-        abs((t_email + contactable_emails) - c_email),
-    )
-    score_c = (
-        abs(t_pre - (c_pre + contactable_preprints)),
-        abs(t_email - (c_email + contactable_emails)),
-    )
+    score_t = abs((t_pre + contactable_preprints) - c_pre)
+    score_c = abs(t_pre - (c_pre + contactable_preprints))
 
     if score_t < score_c:
         return "treatment"
@@ -862,6 +863,14 @@ def _persist_run(
         )
         if ok:
             accepted_assignments.append(row)
+            preprint_id = str(row.get("preprint_id") or "")
+            if not preprint_id:
+                continue
+            if str(row.get("status") or "") == "assigned" and str(row.get("arm") or "") == "treatment":
+                if int(row.get("contactable_email_count") or 0) > 0:
+                    repo.set_queue_email(preprint_id)
+            else:
+                repo.clear_queue_email(preprint_id)
 
     repo.put_trial_nodes(node_items)
     repo.put_trial_token_map(token_map_updates)
@@ -884,7 +893,7 @@ def _initialize_network(
     mentions_flat: List[AuthorMention] = []
 
     for preprint in candidates:
-        picks = select_author_positions(len(preprint.mentions), x_threshold)
+        picks = select_author_positions(len(preprint.mentions), x_threshold, preprint.email_candidate_positions)
         preprint.selected_mentions = [preprint.mentions[pos] for pos in picks]
         for mention in preprint.selected_mentions:
             token_groups.append(mention.tokens)
@@ -1081,7 +1090,7 @@ def _augment_network(
     touched_clusters: Set[str] = set()
 
     for preprint in candidates:
-        picks = select_author_positions(len(preprint.mentions), x_threshold)
+        picks = select_author_positions(len(preprint.mentions), x_threshold, preprint.email_candidate_positions)
         preprint.selected_mentions = [preprint.mentions[pos] for pos in picks]
 
         existing_cluster_ids: Set[str] = set()
@@ -1248,7 +1257,7 @@ def run_author_randomization(
     if network_initialized:
         all_tokens: Set[str] = set()
         for preprint in candidates:
-            picks = select_author_positions(len(preprint.mentions), x_threshold)
+            picks = select_author_positions(len(preprint.mentions), x_threshold, preprint.email_candidate_positions)
             for pos in picks:
                 all_tokens.update(preprint.mentions[pos].tokens)
         raw_token_map = repo.get_trial_token_map(all_tokens)

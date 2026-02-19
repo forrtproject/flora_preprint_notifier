@@ -89,6 +89,21 @@ def _scan_all(table, projection_expression):
     return items
 
 
+def _scan_count_with_filter(table, filter_expression):
+    """Count table items matching a filter using paginated scans."""
+    total = 0
+    resp = table.scan(FilterExpression=filter_expression, Select="COUNT")
+    total += resp.get("Count", 0)
+    while resp.get("LastEvaluatedKey"):
+        resp = table.scan(
+            FilterExpression=filter_expression,
+            Select="COUNT",
+            ExclusiveStartKey=resp["LastEvaluatedKey"],
+        )
+        total += resp.get("Count", 0)
+    return total
+
+
 # ---------------------------------------------------------------------------
 # Data collection
 # ---------------------------------------------------------------------------
@@ -99,10 +114,12 @@ def collect_stats():
     preprints_name = os.environ.get("DDB_TABLE_PREPRINTS", "preprints")
     excluded_name = os.environ.get("DDB_TABLE_EXCLUDED_PREPRINTS", "excluded_preprints")
     assignments_name = os.environ.get("DDB_TABLE_TRIAL_ASSIGNMENTS", "trial_preprint_assignments")
+    suppression_name = os.environ.get("DDB_TABLE_EMAIL_SUPPRESSION", "email_suppression")
 
     preprints = ddb.Table(preprints_name)
     excluded = ddb.Table(excluded_name)
     assignments = ddb.Table(assignments_name)
+    suppression = ddb.Table(suppression_name)
 
     # Pipeline funnel — 8 GSI count queries
     queues = ["queue_pdf", "queue_grobid", "queue_extract", "queue_email"]
@@ -128,6 +145,15 @@ def collect_stats():
     # Randomization-excluded count
     randomization_excluded = _count_by_gsi(assignments, "by_status", "status", "excluded")
 
+    # Email suppression and current send-error backlog
+    suppression_items = _scan_all(suppression, "reason")
+    suppression_counts = Counter(item.get("reason", "unknown") for item in suppression_items)
+    total_suppressed = sum(suppression_counts.values())
+    email_error_open = _scan_count_with_filter(
+        preprints,
+        boto3.dynamodb.conditions.Attr("email_error").exists(),
+    )
+
     return {
         "funnel": funnel,
         "total_preprints": total_preprints,
@@ -136,6 +162,9 @@ def collect_stats():
         "arm_counts": arm_counts,
         "total_assigned": total_assigned,
         "randomization_excluded": randomization_excluded,
+        "suppression_counts": suppression_counts,
+        "total_suppressed": total_suppressed,
+        "email_error_open": email_error_open,
     }
 
 
@@ -192,6 +221,17 @@ def render_markdown(stats):
         f"| Sent (queue done) | {email['done']} |",
         f"| Pending | {email['pending']} |",
     ])
+
+    lines.extend([
+        "",
+        "## Email Health",
+        "| Metric | Count |",
+        "|--------|-------|",
+        f"| Open send errors | {stats['email_error_open']} |",
+        f"| Total suppressions | {stats['total_suppressed']} |",
+    ])
+    for reason in sorted(stats["suppression_counts"]):
+        lines.append(f"| Suppressed ({reason}) | {stats['suppression_counts'][reason]} |")
 
     lines.append("")
     return "\n".join(lines)

@@ -171,7 +171,7 @@ window_months = 6
 [flora]
 original_lookup_url = "https://rep-api.forrt.org/v1/original-lookup"
 cache_ttl_hours = 48
-csv_url = "https://raw.githubusercontent.com/forrtproject/FReD-data/refs/heads/main/output/flora.csv"
+csv_url = "https://github.com/forrtproject/FReD-data/raw/refs/heads/main/output/flora_filtered.csv"
 csv_path = "data/flora.csv"
 ```
 
