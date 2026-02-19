@@ -616,11 +616,13 @@ def process_grobid_batch(
                 processed += 1
             elif not result.get("ok"):
                 failed += 1
+                mark_tei(osf_id, ok=False, tei_path=None)
                 repo.record_stage_error("grobid", osf_id, str(result.get("error") or "unknown error"))
             else:
                 processed += 1
         except Exception as exc:
             failed += 1
+            mark_tei(osf_id, ok=False, tei_path=None)
             repo.record_stage_error("grobid", osf_id, str(exc))
             logger.exception("GROBID stage failed", extra={"osf_id": osf_id})
 
