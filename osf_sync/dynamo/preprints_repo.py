@@ -578,14 +578,15 @@ class PreprintsRepo:
             ExpressionAttributeValues={":t": dt.datetime.utcnow().isoformat()},
         )
 
-    def record_stage_error(self, stage: str, osf_id: str, message: str) -> None:
+    def record_stage_error(self, stage: str, osf_id: str, message: str) -> int:
+        """Record a stage error, release the claim, and return the new retry count."""
         fields = _STAGE_CLAIM_FIELDS.get(stage)
         if not fields:
             raise ValueError(f"Unsupported claim stage: {stage}")
         _, owner_field, until_field = fields
         now = dt.datetime.utcnow().isoformat()
         retry_field = f"retry_count_{stage}"
-        self.t_preprints.update_item(
+        resp = self.t_preprints.update_item(
             Key={"osf_id": osf_id},
             UpdateExpression=(
                 "SET last_error_stage=:stage, last_error_message=:msg, last_error_at=:t, updated_at=:t "
@@ -603,7 +604,9 @@ class PreprintsRepo:
                 ":t": now,
                 ":inc": 1,
             },
+            ReturnValues="UPDATED_NEW",
         )
+        return int(resp.get("Attributes", {}).get(retry_field, 1))
 
     # --- select queues ---
     def select_for_pdf(self, limit: int) -> List[str]:

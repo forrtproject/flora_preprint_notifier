@@ -581,6 +581,8 @@ def process_pdf_batch(
     return out
 
 
+GROBID_MAX_RETRIES = 3
+
 def process_grobid_batch(
     *,
     limit: int = 50,
@@ -616,15 +618,23 @@ def process_grobid_batch(
                 processed += 1
             elif not result.get("ok"):
                 failed += 1
-                mark_tei(osf_id, ok=False, tei_path=None)
-                repo.record_stage_error("grobid", osf_id, str(result.get("error") or "unknown error"))
+                error_msg = str(result.get("error") or "unknown error")
+                retries = repo.record_stage_error("grobid", osf_id, error_msg)
+                if retries >= GROBID_MAX_RETRIES:
+                    mark_tei(osf_id, ok=False, tei_path=None)
+                    logger.warning("GROBID permanently failed [%s] after %d retries: %s", osf_id, retries, error_msg)
+                else:
+                    logger.info("GROBID failed [%s] (retry %d/%d): %s", osf_id, retries, GROBID_MAX_RETRIES, error_msg)
             else:
                 processed += 1
         except Exception as exc:
             failed += 1
-            mark_tei(osf_id, ok=False, tei_path=None)
-            repo.record_stage_error("grobid", osf_id, str(exc))
-            logger.exception("GROBID stage failed", extra={"osf_id": osf_id})
+            retries = repo.record_stage_error("grobid", osf_id, str(exc))
+            if retries >= GROBID_MAX_RETRIES:
+                mark_tei(osf_id, ok=False, tei_path=None)
+                logger.warning("GROBID permanently failed [%s] after %d retries: %s", osf_id, retries, exc)
+            else:
+                logger.warning("GROBID error [%s] (retry %d/%d): %s", osf_id, retries, GROBID_MAX_RETRIES, exc)
 
     out = {
         "stage": "grobid",
