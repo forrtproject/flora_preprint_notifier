@@ -1,35 +1,47 @@
 from __future__ import annotations
 
-import datetime as dt
 import logging
 
-from ..dynamo.preprints_repo import PreprintsRepo
+from .blacklist import is_blacklisted_email
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
-def is_suppressed(email: str, repo: PreprintsRepo | None = None) -> bool:
-    """Check if an email address is on the suppression list.
+def is_suppressed(email: str, repo=None) -> bool:
+    """Check if an email address is suppressed.
 
-    Fail-safe: if the lookup fails, treat as suppressed (don't send if unsure).
+    Checks the file-based blacklist first (fast, in-memory LRU cache),
+    then checks the DynamoDB suppression table for personal addresses
+    (bounces, unsubscribes).
+
+    Accepts an optional ``SuppressionRepo`` instance to avoid
+    re-creating one per call.  Falls back to a lazy import if not passed.
+    Fails open on DynamoDB errors so transient DB issues don't block sending.
     """
     if not email or not email.strip():
         return True
-    repo = repo or PreprintsRepo()
-    try:
-        item = repo.t_suppression.get_item(Key={"email": email.lower().strip()}).get("Item")
-        return bool(item)
-    except Exception:
-        logger.exception("Suppression check failed; treating as suppressed", extra={"email": email})
+
+    # Fast path: file-based blacklist (generic patterns)
+    if is_blacklisted_email(email):
         return True
 
+    # DynamoDB suppression table (personal addresses)
+    try:
+        if repo is None:
+            from ..dynamo.suppression_repo import SuppressionRepo
+            repo = SuppressionRepo()
+        return repo.is_suppressed(email)
+    except Exception:
+        log.warning("DynamoDB suppression check failed (fail-open)", exc_info=True)
+        return False
 
-def add_suppression(email: str, reason: str, repo: PreprintsRepo | None = None) -> None:
-    """Add an email address to the suppression list."""
-    repo = repo or PreprintsRepo()
-    now = dt.datetime.utcnow().isoformat()
-    repo.t_suppression.put_item(Item={
-        "email": email.lower().strip(),
-        "reason": reason,
-        "suppressed_at": now,
-    })
+
+def add_suppression(email: str, reason: str, repo=None) -> None:
+    """Add an email address to the DynamoDB suppression table."""
+    try:
+        if repo is None:
+            from ..dynamo.suppression_repo import SuppressionRepo
+            repo = SuppressionRepo()
+        repo.add_suppression(email, reason)
+    except Exception:
+        log.warning("DynamoDB suppression add failed", exc_info=True)

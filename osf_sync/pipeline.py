@@ -941,6 +941,12 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
             dry_run=args.dry_run,
             osf_id=args.osf_id,
         )
+    if stage == "inbox":
+        from .email.inbox import process_inbox
+        return process_inbox(
+            max_messages=args.limit or 200,
+            dry_run=args.dry_run,
+        )
     raise ValueError(f"Unsupported stage: {stage}")
 
 
@@ -1414,7 +1420,7 @@ def build_parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="cmd", required=True)
 
     p_run = sub.add_parser("run", help="Run a single pipeline stage")
-    p_run.add_argument("--stage", required=True, choices=["sync", "pdf", "grobid", "extract", "enrich", "flora", "author", "email"])
+    p_run.add_argument("--stage", required=True, choices=["sync", "pdf", "grobid", "extract", "enrich", "flora", "author", "email", "inbox"])
     p_run.add_argument("--limit", type=int, default=None)
     p_run.add_argument("--max-seconds", type=int, default=None)
     p_run.add_argument("--dry-run", action="store_true")

@@ -1,0 +1,35 @@
+# Email blacklist entries
+# Formats:
+#   local:<local-part>
+#   domain:<domain>
+#   email:<full email>
+# If no prefix is provided:
+#   - values containing '@' are treated as full emails
+#   - others are treated as local parts
+
+# Local-part denylist (generic/non-contact)
+local:noreply
+local:no-reply
+local:donotreply
+local:do-not-reply
+local:test
+local:example
+local:admin
+local:info
+local:contact
+local:support
+local:help
+local:webmaster
+local:sales
+local:office
+local:postmaster
+local:mailer-daemon
+local:irb
+
+# Domain denylist (test/non-routable)
+domain:example.com
+domain:example.org
+domain:example.net
+domain:test.com
+domain:test.org
+domain:test.net
