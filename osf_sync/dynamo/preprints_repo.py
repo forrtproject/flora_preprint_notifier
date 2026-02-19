@@ -612,80 +612,234 @@ class PreprintsRepo:
     def select_for_pdf(self, limit: int) -> List[str]:
         # Prefer GSI, fallback to scan
         try:
-            resp = self.t_preprints.query(
-                IndexName="by_queue_pdf",
-                KeyConditionExpression="queue_pdf = :q",
-                FilterExpression=(
+            return self._paginated_queue_query(
+                index_name="by_queue_pdf",
+                queue_field="queue_pdf",
+                queue_value="pending",
+                filter_expr=(
                     "(attribute_not_exists(pdf_downloaded) OR pdf_downloaded = :false) AND "
                     "(attribute_not_exists(excluded) OR excluded = :false)"
                 ),
-                ExpressionAttributeValues={":q": "pending", ":false": False},
-                Limit=limit,
-                ScanIndexForward=True,
+                eav={":false": False},
+                limit=limit,
             )
-            return [it["osf_id"] for it in resp.get("Items", [])]
         except Exception:
-            resp = self.t_preprints.scan(
-                FilterExpression=(
+            with_extras(log, index="by_queue_pdf").warning("GSI query failed, falling back to scan")
+            return self._paginated_scan(
+                filter_expr=(
                     "is_published = :true AND (pdf_downloaded = :false OR attribute_not_exists(pdf_downloaded)) AND "
                     "(attribute_not_exists(excluded) OR excluded = :false)"
                 ),
-                ExpressionAttributeValues={":true": True, ":false": False},
-                Limit=limit,
+                eav={":true": True, ":false": False},
+                limit=limit,
             )
-            return [it["osf_id"] for it in resp.get("Items", [])]
 
     def select_for_grobid(self, limit: int) -> List[str]:
         try:
-            resp = self.t_preprints.query(
-                IndexName="by_queue_grobid",
-                KeyConditionExpression="queue_grobid = :q",
-                FilterExpression=(
+            return self._paginated_queue_query(
+                index_name="by_queue_grobid",
+                queue_field="queue_grobid",
+                queue_value="pending",
+                filter_expr=(
                     "pdf_downloaded = :true AND (attribute_not_exists(tei_generated) OR tei_generated = :false) AND "
                     "(attribute_not_exists(excluded) OR excluded = :false)"
                 ),
-                ExpressionAttributeValues={":q": "pending", ":true": True, ":false": False},
-                Limit=limit,
-                ScanIndexForward=True,
+                eav={":true": True, ":false": False},
+                limit=limit,
             )
-            return [it["osf_id"] for it in resp.get("Items", [])]
         except Exception:
-            resp = self.t_preprints.scan(
-                FilterExpression=(
+            with_extras(log, index="by_queue_grobid").warning("GSI query failed, falling back to scan")
+            return self._paginated_scan(
+                filter_expr=(
                     "pdf_downloaded = :true AND (tei_generated = :false OR attribute_not_exists(tei_generated)) AND "
                     "(attribute_not_exists(excluded) OR excluded = :false)"
                 ),
-                ExpressionAttributeValues={":true": True, ":false": False},
-                Limit=limit,
+                eav={":true": True, ":false": False},
+                limit=limit,
             )
-            return [it["osf_id"] for it in resp.get("Items", [])]
 
     def select_for_extraction(self, limit: int) -> List[Dict[str, Any]]:
         try:
-            resp = self.t_preprints.query(
-                IndexName="by_queue_extract",
-                KeyConditionExpression="queue_extract = :q",
-                FilterExpression=(
+            return self._paginated_queue_query_items(
+                index_name="by_queue_extract",
+                queue_field="queue_extract",
+                queue_value="pending",
+                filter_expr=(
                     "pdf_downloaded = :true AND tei_generated = :true AND "
                     "(attribute_not_exists(tei_extracted) OR tei_extracted = :false) AND "
                     "(attribute_not_exists(excluded) OR excluded = :false)"
                 ),
-                ExpressionAttributeValues={":q": "pending", ":true": True, ":false": False},
-                Limit=limit,
-                ScanIndexForward=True,
+                eav={":true": True, ":false": False},
+                limit=limit,
             )
-            return resp.get("Items", [])
         except Exception:
-            resp = self.t_preprints.scan(
-                FilterExpression=(
+            with_extras(log, index="by_queue_extract").warning("GSI query failed, falling back to scan")
+            return self._paginated_scan_items(
+                filter_expr=(
                     "pdf_downloaded = :t AND tei_generated = :t AND "
                     "(attribute_not_exists(tei_extracted) OR tei_extracted = :f) AND "
                     "(attribute_not_exists(excluded) OR excluded = :f)"
                 ),
-                ExpressionAttributeValues={":t": True, ":f": False},
-                Limit=limit,
+                eav={":t": True, ":f": False},
+                limit=limit,
             )
-            return resp.get("Items", [])
+
+    def _paginated_queue_query(
+        self,
+        *,
+        index_name: str,
+        queue_field: str,
+        queue_value: str,
+        filter_expr: str,
+        eav: Dict[str, Any],
+        limit: int,
+        page_size: int = 500,
+    ) -> List[str]:
+        """Query a queue GSI with pagination to collect enough results after filtering."""
+        if limit <= 0:
+            return []
+        full_eav = {":q": queue_value, **eav}
+        results: List[str] = []
+        last_key = None
+        while True:
+            kwargs: Dict[str, Any] = {
+                "IndexName": index_name,
+                "KeyConditionExpression": f"{queue_field} = :q",
+                "FilterExpression": filter_expr,
+                "ExpressionAttributeValues": full_eav,
+                "Limit": page_size,
+                "ScanIndexForward": True,
+            }
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_preprints.query(**kwargs)
+            for item in resp.get("Items", []):
+                val = item.get("osf_id")
+                if val:
+                    results.append(val)
+            if len(results) >= limit:
+                return results[:limit]
+            next_key = resp.get("LastEvaluatedKey")
+            if not next_key:
+                break
+            # Defensive guard against pathological pagination loops.
+            if next_key == last_key:
+                with_extras(log, index=index_name).warning("queue query pagination key did not advance; stopping")
+                break
+            last_key = next_key
+        return results[:limit]
+
+    def _paginated_queue_query_items(
+        self,
+        *,
+        index_name: str,
+        queue_field: str,
+        queue_value: str,
+        filter_expr: str,
+        eav: Dict[str, Any],
+        limit: int,
+        page_size: int = 500,
+    ) -> List[Dict[str, Any]]:
+        """Like _paginated_queue_query but returns full items."""
+        if limit <= 0:
+            return []
+        full_eav = {":q": queue_value, **eav}
+        results: List[Dict[str, Any]] = []
+        last_key = None
+        while True:
+            kwargs: Dict[str, Any] = {
+                "IndexName": index_name,
+                "KeyConditionExpression": f"{queue_field} = :q",
+                "FilterExpression": filter_expr,
+                "ExpressionAttributeValues": full_eav,
+                "Limit": page_size,
+                "ScanIndexForward": True,
+            }
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_preprints.query(**kwargs)
+            results.extend(resp.get("Items", []))
+            if len(results) >= limit:
+                return results[:limit]
+            next_key = resp.get("LastEvaluatedKey")
+            if not next_key:
+                break
+            if next_key == last_key:
+                with_extras(log, index=index_name).warning("queue query pagination key did not advance; stopping")
+                break
+            last_key = next_key
+        return results[:limit]
+
+    def _paginated_scan(
+        self,
+        *,
+        filter_expr: str,
+        eav: Dict[str, Any],
+        limit: int,
+        page_size: int = 500,
+    ) -> List[str]:
+        """Scan with pagination to collect enough results after filtering."""
+        if limit <= 0:
+            return []
+        results: List[str] = []
+        last_key = None
+        while True:
+            kwargs: Dict[str, Any] = {
+                "FilterExpression": filter_expr,
+                "ExpressionAttributeValues": eav,
+                "Limit": page_size,
+            }
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_preprints.scan(**kwargs)
+            for item in resp.get("Items", []):
+                val = item.get("osf_id")
+                if val:
+                    results.append(val)
+            if len(results) >= limit:
+                return results[:limit]
+            next_key = resp.get("LastEvaluatedKey")
+            if not next_key:
+                break
+            if next_key == last_key:
+                with_extras(log).warning("scan pagination key did not advance; stopping")
+                break
+            last_key = next_key
+        return results[:limit]
+
+    def _paginated_scan_items(
+        self,
+        *,
+        filter_expr: str,
+        eav: Dict[str, Any],
+        limit: int,
+        page_size: int = 500,
+    ) -> List[Dict[str, Any]]:
+        """Like _paginated_scan but returns full items."""
+        if limit <= 0:
+            return []
+        results: List[Dict[str, Any]] = []
+        last_key = None
+        while True:
+            kwargs: Dict[str, Any] = {
+                "FilterExpression": filter_expr,
+                "ExpressionAttributeValues": eav,
+                "Limit": page_size,
+            }
+            if last_key:
+                kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_preprints.scan(**kwargs)
+            results.extend(resp.get("Items", []))
+            if len(results) >= limit:
+                return results[:limit]
+            next_key = resp.get("LastEvaluatedKey")
+            if not next_key:
+                break
+            if next_key == last_key:
+                with_extras(log).warning("scan pagination key did not advance; stopping")
+                break
+            last_key = next_key
+        return results[:limit]
 
     # --- TEI / references writes ---
     def upsert_tei(self, osf_id: str, preprint: Dict) -> None:
