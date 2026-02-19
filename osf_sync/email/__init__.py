@@ -4,6 +4,7 @@ import logging
 import os
 import random
 import time
+import uuid
 from collections import deque
 from typing import Any, Dict, Optional
 
@@ -105,6 +106,15 @@ def process_email_batch(
         preprints = [item] if item else []
     else:
         preprints = repo.select_for_email(limit=limit)
+    claim_owner = f"email-batch:{uuid.uuid4().hex[:10]}"
+
+    def _release_claim_safe(preprint_id: str) -> None:
+        if not preprint_id:
+            return
+        try:
+            repo.release_email_claim(preprint_id)
+        except Exception:
+            logger.debug("Failed to release email claim", exc_info=True)
 
     # Pre-compute average inter-send delay when spreading is requested.
     avg_delay = 0.0
@@ -126,11 +136,14 @@ def process_email_batch(
         pid = preprint.get("osf_id")
         if not pid:
             continue
+        if not repo.claim_email_item(pid, owner=claim_owner):
+            continue
 
         # Assemble context
         context = assemble_email_context(pid, repo=repo)
         if not context:
             skipped_no_context += 1
+            _release_claim_safe(pid)
             continue
 
         all_recipients = context.get("_recipients", [])
@@ -152,6 +165,7 @@ def process_email_batch(
 
         if not valid_addresses:
             repo.mark_email_validated(pid, "no valid recipients")
+            _release_claim_safe(pid)
             continue
 
         repo.mark_email_validated(pid, "valid")
@@ -167,6 +181,7 @@ def process_email_batch(
                     "remaining_budget": remaining_budget,
                 },
             )
+            _release_claim_safe(pid)
             continue
 
         # Render email
@@ -184,6 +199,7 @@ def process_email_batch(
                 "DRY RUN: would send email",
                 extra={"osf_id": pid, "to": valid_addresses, "subject": subject},
             )
+            _release_claim_safe(pid)
             continue
 
         # Random inter-send delay to spread emails over time
@@ -195,11 +211,13 @@ def process_email_batch(
                 logger.info("Spread delay: sleeping %.1fs", delay)
                 time.sleep(delay)
                 if deadline and time.monotonic() >= deadline:
+                    _release_claim_safe(pid)
                     break
 
         # Rate limiting
         if not rate_limiter.wait_if_needed():
             logger.warning("Daily rate limit reached, stopping batch")
+            _release_claim_safe(pid)
             break
 
         # Send single email to all valid recipients

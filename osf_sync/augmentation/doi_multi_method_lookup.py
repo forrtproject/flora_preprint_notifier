@@ -832,6 +832,11 @@ def _score_candidate_parsed(
     if not title_match:
         return None, {"reason": "title_mismatch", "title_meta": title_meta}
 
+    ref_author_tokens = set(_all_name_tokens_from_strings(ref_authors or []))
+    cand_author_tokens = set(_all_name_tokens_from_strings(cand_authors or []))
+    if ref_author_tokens and cand_author_tokens and not (ref_author_tokens & cand_author_tokens):
+        return None, {"reason": "author_mismatch"}
+
     scores: Dict[str, float] = {"title": float(title_score)}
     if ref_year is not None and cand_year is not None:
         if year_diff == 0:

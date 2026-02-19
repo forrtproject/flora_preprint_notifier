@@ -158,6 +158,16 @@ def screen_flora_replications(
                 "replication_refs": retained_refs,
             })
 
+        if persist_flags and hasattr(repo, "update_preprint_flora_eligibility"):
+            try:
+                repo.update_preprint_flora_eligibility(
+                    pid,
+                    eligible=bool(eligible_refs),
+                    eligible_count=len(eligible_refs),
+                )
+            except Exception as e:
+                _warn("Failed to persist preprint FLORA eligibility", osf_id=pid, error=str(e))
+
         if debug:
             _info("FLORA screening", osf_id=pid, eligible_count=len(
                 eligible_refs), total=len(retained_refs))

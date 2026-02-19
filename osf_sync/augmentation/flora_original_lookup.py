@@ -40,6 +40,14 @@ def _exception(msg: str, **extras: Any) -> None:
 
 
 _DOI_PATTERN = re.compile(r"10\.\S+", re.IGNORECASE)
+_ALLOWED_OUTCOMES = {"successful", "failed", "mixed"}
+_OUTCOME_ALIASES = {
+    "success": "successful",
+    "successful": "successful",
+    "failure": "failed",
+    "failed": "failed",
+    "mixed": "mixed",
+}
 
 
 def normalize_doi(doi: Optional[str]) -> Optional[str]:
@@ -68,13 +76,16 @@ def _extract_ref_objects(payload: Any) -> List[Dict[str, Optional[str]]]:
         apa_ref_r: Optional[str],
         replication_outcome: Optional[str] = None,
     ) -> None:
+        normalized_outcome = _normalize_outcome(replication_outcome)
+        if normalized_outcome is None:
+            return
         out.append(
             {
                 "doi_o": normalize_doi(doi_o) if doi_o else None,
                 "doi_r": normalize_doi(doi_r) if doi_r else None,
                 "apa_ref_o": apa_ref_o,
                 "apa_ref_r": apa_ref_r,
-                "replication_outcome": replication_outcome,
+                "replication_outcome": normalized_outcome,
             }
         )
 
@@ -164,6 +175,16 @@ def _clean_text(value: Any) -> Optional[str]:
     return value or None
 
 
+def _normalize_outcome(value: Any) -> Optional[str]:
+    txt = _clean_text(value)
+    if not txt:
+        return None
+    normalized = _OUTCOME_ALIASES.get(txt.lower())
+    if normalized in _ALLOWED_OUTCOMES:
+        return normalized
+    return None
+
+
 def _resolve_flora_csv_path(cache_path: Optional[str]) -> Path:
     raw = cache_path or FLORA_CSV_PATH_DEFAULT
     return Path(raw).expanduser()
@@ -235,13 +256,28 @@ def _load_flora_pairs_by_original(path: Path) -> Dict[str, List[Dict[str, Option
             doi_o = normalize_doi(_row_value(row, "doi_o"))
             if not doi_o:
                 continue
+            outcome = _normalize_outcome(
+                _row_value(row, "outcome")
+                or _row_value(row, "outcome_r")
+                or _row_value(row, "replication_outcome")
+            )
+            # Protocol-aligned outcomes are mandatory for replication rows.
+            if outcome is None:
+                continue
             rec = {
                 "doi_o": doi_o,
                 "doi_r": normalize_doi(_row_value(row, "doi_r")),
                 "apa_ref_o": _row_value(row, "apa_ref_o"),
                 "apa_ref_r": _row_value(row, "apa_ref_r"),
+                "replication_outcome": outcome,
             }
-            key = (rec["doi_o"], rec["doi_r"], rec["apa_ref_o"], rec["apa_ref_r"])
+            key = (
+                rec["doi_o"],
+                rec["doi_r"],
+                rec["apa_ref_o"],
+                rec["apa_ref_r"],
+                rec["replication_outcome"],
+            )
             seen = seen_by_original.setdefault(doi_o, set())
             if key in seen:
                 continue

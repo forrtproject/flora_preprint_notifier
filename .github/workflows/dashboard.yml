@@ -17,6 +17,7 @@ jobs:
       DDB_TABLE_PREPRINTS: prod_preprints
       DDB_TABLE_EXCLUDED_PREPRINTS: prod_excluded_preprints
       DDB_TABLE_TRIAL_ASSIGNMENTS: prod_trial_preprint_assignments
+      DDB_TABLE_EMAIL_SUPPRESSION: prod_email_suppression
 
     steps:
       - uses: actions/checkout@v4

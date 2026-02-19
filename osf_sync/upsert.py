@@ -58,21 +58,30 @@ def _subtract_months(d: dt.date, months: int) -> dt.date:
     return dt.date(year, month, day)
 
 
-def _effective_pub_dt(attrs: Dict[str, Any]) -> Optional[dt.datetime]:
-    if attrs.get("original_publication_date"):
-        return _parse_iso_dt(attrs.get("original_publication_date"))
-    return _parse_iso_dt(attrs.get("date_published"))
+def _add_months(d: dt.date, months: int) -> dt.date:
+    year = d.year
+    month = d.month + months
+    while month > 12:
+        month -= 12
+        year += 1
+    day = min(d.day, calendar.monthrange(year, month)[1])
+    return dt.date(year, month, day)
 
 
-def _within_anchor_window(pub_dt: Optional[dt.datetime], anchor_dt: Optional[dt.datetime]) -> bool:
+def _effective_created_dt(attrs: Dict[str, Any]) -> Optional[dt.datetime]:
+    return _parse_iso_dt(attrs.get("date_created") or attrs.get("date_published"))
+
+
+def _within_anchor_window(ts_dt: Optional[dt.datetime], anchor_dt: Optional[dt.datetime]) -> bool:
     if anchor_dt is None:
         return True
-    if pub_dt is None:
+    if ts_dt is None:
         return False
     anchor_date = anchor_dt.date()
     window_start = _subtract_months(anchor_date, _WINDOW_MONTHS)
-    pub_date = pub_dt.date()
-    return window_start <= pub_date <= anchor_date
+    window_end = _add_months(anchor_date, _WINDOW_MONTHS)
+    ts_date = ts_dt.date()
+    return window_start <= ts_date <= window_end
 
 
 def _contains_osf_link(value: Any) -> bool:
@@ -116,11 +125,11 @@ def _filter_ingest_rows(
     skipped_links = 0
     for obj in rows:
         attrs = obj.get("attributes") or {}
-        pub_dt = _effective_pub_dt(attrs)
-        if not _within_anchor_window(pub_dt, anchor_dt):
+        created_dt = _effective_created_dt(attrs)
+        if not _within_anchor_window(created_dt, anchor_dt):
             skipped_date += 1
             skipped_records.append(
-                {"osf_id": obj.get("id"), "reason": "date_window", "pub_dt": attrs.get("date_published")}
+                {"osf_id": obj.get("id"), "reason": "date_window", "created_dt": attrs.get("date_created")}
             )
             continue
         if not _passes_link_rule(obj.get("links") or {}):

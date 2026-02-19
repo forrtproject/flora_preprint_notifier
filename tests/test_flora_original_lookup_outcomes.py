@@ -22,7 +22,7 @@ class FloraOutcomeExtractionTests(unittest.TestCase):
         self.assertEqual(len(out), 2)
         self.assertEqual(out[0]["doi_o"], "10.1234/example")
         self.assertEqual(out[0]["doi_r"], "10.9999/rep1")
-        self.assertEqual(out[0]["replication_outcome"], "success")
+        self.assertEqual(out[0]["replication_outcome"], "successful")
         self.assertEqual(out[1]["doi_r"], "10.9999/rep2")
         self.assertEqual(out[1]["replication_outcome"], "failed")
 
@@ -36,7 +36,7 @@ class FloraOutcomeExtractionTests(unittest.TestCase):
 
         self.assertEqual(len(out), 2)
         self.assertEqual(out[0]["replication_outcome"], "mixed")
-        self.assertEqual(out[1]["replication_outcome"], "success")
+        self.assertEqual(out[1]["replication_outcome"], "successful")
 
     def test_dedup_prefers_non_empty_outcome(self) -> None:
         payload = [

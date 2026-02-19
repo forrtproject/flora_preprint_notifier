@@ -15,6 +15,7 @@ _DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[1] / "config" / "runtime
 class IngestConfig:
     anchor_date: Optional[str]
     window_months: int
+    backfill_on_config_change: bool
 
 
 @dataclass(frozen=True)
@@ -32,6 +33,7 @@ class EmailConfig:
     feedback_base_url: str
     report_base_url: str
     flora_learn_more_url: str
+    progress_emails: bool
 
 
 @dataclass(frozen=True)
@@ -43,11 +45,11 @@ class RuntimeConfig:
 
 def _default_config() -> RuntimeConfig:
     return RuntimeConfig(
-        ingest=IngestConfig(anchor_date=None, window_months=6),
+        ingest=IngestConfig(anchor_date=None, window_months=6, backfill_on_config_change=True),
         flora=FloraConfig(
             original_lookup_url="https://rep-api.forrt.org/v1/original-lookup",
             cache_ttl_hours=48,
-            csv_url="https://raw.githubusercontent.com/forrtproject/FReD-data/refs/heads/main/output/flora.csv",
+            csv_url="https://github.com/forrtproject/FReD-data/raw/refs/heads/main/output/flora_filtered.csv",
             csv_path="data/flora.csv",
         ),
         email=EmailConfig(
@@ -56,6 +58,7 @@ def _default_config() -> RuntimeConfig:
             feedback_base_url="https://forrt.org/flora-notify/feedback",
             report_base_url="https://forrt.org/flora-notify/report",
             flora_learn_more_url="https://forrt.org/flora/",
+            progress_emails=True,
         ),
     )
 
@@ -66,6 +69,20 @@ def _safe_int(value: Any, fallback: int) -> int:
         return parsed if parsed > 0 else fallback
     except Exception:
         return fallback
+
+
+def _safe_bool(value: Any, fallback: bool) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        v = value.strip().lower()
+        if v in {"1", "true", "yes", "on"}:
+            return True
+        if v in {"0", "false", "no", "off"}:
+            return False
+    if isinstance(value, (int, float)):
+        return bool(value)
+    return fallback
 
 
 def load_runtime_config(config_path: Optional[Path] = None) -> RuntimeConfig:
@@ -100,6 +117,10 @@ def load_runtime_config(config_path: Optional[Path] = None) -> RuntimeConfig:
         anchor_date = str(anchor_date).strip() or None
 
     window_months = _safe_int(ingest_raw.get("window_months", cfg.ingest.window_months), cfg.ingest.window_months)
+    backfill_on_config_change = _safe_bool(
+        ingest_raw.get("backfill_on_config_change", cfg.ingest.backfill_on_config_change),
+        cfg.ingest.backfill_on_config_change,
+    )
 
     original_lookup_url = flora_raw.get("original_lookup_url", cfg.flora.original_lookup_url)
     if not isinstance(original_lookup_url, str) or not original_lookup_url.strip():
@@ -135,9 +156,14 @@ def load_runtime_config(config_path: Optional[Path] = None) -> RuntimeConfig:
     email_feedback = _str_field(email_raw, "feedback_base_url", cfg.email.feedback_base_url)
     email_report = _str_field(email_raw, "report_base_url", cfg.email.report_base_url)
     email_learn_more = _str_field(email_raw, "flora_learn_more_url", cfg.email.flora_learn_more_url)
+    email_progress_emails = _safe_bool(email_raw.get("progress_emails", cfg.email.progress_emails), cfg.email.progress_emails)
 
     return RuntimeConfig(
-        ingest=IngestConfig(anchor_date=anchor_date, window_months=window_months),
+        ingest=IngestConfig(
+            anchor_date=anchor_date,
+            window_months=window_months,
+            backfill_on_config_change=backfill_on_config_change,
+        ),
         flora=FloraConfig(
             original_lookup_url=original_lookup_url,
             cache_ttl_hours=cache_ttl_hours,
@@ -150,6 +176,7 @@ def load_runtime_config(config_path: Optional[Path] = None) -> RuntimeConfig:
             feedback_base_url=email_feedback,
             report_base_url=email_report,
             flora_learn_more_url=email_learn_more,
+            progress_emails=email_progress_emails,
         ),
     )
 

@@ -75,11 +75,13 @@ def iter_preprints_batches(
     subject_text: Optional[str] = None,
     only_published: bool = True,
     batch_size: int = DEFAULT_BATCH,
-    sort: str = "date_published"
+    sort: str = "date_published",
+    date_field: str = "date_published",
 ) -> Iterable[List[Dict]]:
     datetime.date.fromisoformat(since_date)
+    field = (date_field or "date_published").strip()
     params = {
-        "filter[date_published][gte]": since_date,
+        f"filter[{field}][gte]": since_date,
         "page[size]": MAX_PAGE,
         "sort": sort,
     }
@@ -116,7 +118,8 @@ def iter_preprints_range(
     subject_text: Optional[str] = None,
     only_published: bool = True,
     batch_size: int = DEFAULT_BATCH,
-    sort: str = "date_published"               # oldest → newest
+    sort: str = "date_published",              # oldest → newest
+    date_field: str = "date_published",
 ) -> Iterable[List[Dict]]:
     """
     Stream OSF preprints between start_date and until_date (inclusive) in batches.
@@ -131,9 +134,10 @@ def iter_preprints_range(
         datetime.date.fromisoformat(until_date)
 
     # base filters
+    field = (date_field or "date_published").strip()
     params = {
-        "filter[date_published][gte]": start_date,
-        "filter[date_published][lte]": until_date,   # upper bound
+        f"filter[{field}][gte]": start_date,
+        f"filter[{field}][lte]": until_date,   # upper bound
         "page[size]": MAX_PAGE,
         "sort": sort,
     }

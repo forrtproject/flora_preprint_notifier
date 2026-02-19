@@ -1,7 +1,10 @@
 import unittest
+import random
 
 from osf_sync.author_randomization import (
     ComponentSummary,
+    _load_unassigned_preprints,
+    _choose_arm_for_new_cluster,
     assign_components_balanced,
     compute_large_author_threshold,
     resolve_author_nodes_from_tokens,
@@ -14,9 +17,25 @@ class AuthorRandomizationTests(unittest.TestCase):
         counts = [1, 2, 3, 4, 20]
         self.assertEqual(compute_large_author_threshold(counts, percentile=0.95), 20)
 
-    def test_select_author_positions_first_two_last_over_threshold(self) -> None:
-        self.assertEqual(select_author_positions(8, 4), [0, 1, 7])
-        self.assertEqual(select_author_positions(3, 4), [0, 1, 2])
+    def test_select_author_positions_base_rule(self) -> None:
+        # Above threshold: first 4 + last
+        self.assertEqual(select_author_positions(20, 4, []), [0, 1, 2, 3, 19])
+
+    def test_select_author_positions_below_threshold_returns_all(self) -> None:
+        self.assertEqual(select_author_positions(3, 4, [5]), [0, 1, 2])
+
+    def test_select_author_positions_extra_positions_included(self) -> None:
+        self.assertEqual(select_author_positions(20, 4, [7, 12]), [0, 1, 2, 3, 19, 7, 12])
+
+    def test_select_author_positions_duplicates_deduped(self) -> None:
+        self.assertEqual(select_author_positions(20, 4, [0, 19]), [0, 1, 2, 3, 19])
+
+    def test_select_author_positions_out_of_bounds_filtered(self) -> None:
+        self.assertEqual(select_author_positions(10, 4, [15]), [0, 1, 2, 3, 9])
+
+    def test_select_author_positions_small_paper_overlap(self) -> None:
+        # 5 authors, threshold 4: first 4 + last overlaps at pos 4
+        self.assertEqual(select_author_positions(5, 4, []), [0, 1, 2, 3, 4])
 
     def test_resolve_nodes_no_phantom_initials_bridging(self) -> None:
         """Full-name records should NOT merge via computed initials alone."""
@@ -93,6 +112,78 @@ class AuthorRandomizationTests(unittest.TestCase):
                 control_preprints += components[cluster_id].contactable_preprints
 
         self.assertLessEqual(abs(treatment_preprints - control_preprints), 1)
+
+    def test_new_cluster_tie_break_ignores_email_imbalance(self) -> None:
+        clusters = {
+            "C000001": {
+                "cluster_id": "C000001",
+                "stratum": "psyarxiv",
+                "arm": "treatment",
+                "preprints_total": 1,
+                "contactable_preprints": 1,
+                "contactable_emails": 10,
+            },
+            "C000002": {
+                "cluster_id": "C000002",
+                "stratum": "psyarxiv",
+                "arm": "control",
+                "preprints_total": 1,
+                "contactable_preprints": 1,
+                "contactable_emails": 1,
+            },
+        }
+
+        # Preprint counts are tied (1 vs 1), so assignment should be random.
+        # With seed=1, rng.choice(["treatment", "control"]) yields "treatment".
+        arm = _choose_arm_for_new_cluster(
+            clusters=clusters,
+            stratum="psyarxiv",
+            contactable_preprints=1,
+            contactable_emails=1,
+            rng=random.Random(1),
+        )
+        self.assertEqual(arm, "treatment")
+
+    def test_load_unassigned_preprints_requires_flora_and_contactable_email(self) -> None:
+        class _FakeRepo:
+            def select_unassigned_preprints(self, limit=None):
+                return [
+                    {
+                        "osf_id": "eligible",
+                        "provider_id": "psyarxiv",
+                        "date_created": "2026-02-01",
+                        "flora_eligible": True,
+                        "author_email_candidates": [{"email": "a@uni.edu", "position": 0}],
+                    },
+                    {
+                        "osf_id": "no_flora",
+                        "provider_id": "psyarxiv",
+                        "date_created": "2026-02-01",
+                        "flora_eligible": False,
+                        "author_email_candidates": [{"email": "b@uni.edu", "position": 0}],
+                    },
+                    {
+                        "osf_id": "no_email",
+                        "provider_id": "psyarxiv",
+                        "date_created": "2026-02-01",
+                        "flora_eligible": True,
+                        "author_email_candidates": [],
+                    },
+                ]
+
+        author_rows = {
+            "eligible": [{"osf.name": "Alice Example", "n": "1", "email.possible": "a@uni.edu"}],
+            "no_flora": [{"osf.name": "Bob Example", "n": "1", "email.possible": "b@uni.edu"}],
+            "no_email": [{"osf.name": "Cara Example", "n": "1"}],
+        }
+
+        out = _load_unassigned_preprints(
+            _FakeRepo(),
+            author_rows=author_rows,
+            limit_preprints=None,
+        )
+
+        self.assertEqual([p.preprint_id for p in out], ["eligible"])
 
 
 if __name__ == "__main__":

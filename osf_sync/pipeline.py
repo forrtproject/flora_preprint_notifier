@@ -133,6 +133,16 @@ def _subtract_months(d: dt.date, months: int) -> dt.date:
     return dt.date(year, month, day)
 
 
+def _add_months(d: dt.date, months: int) -> dt.date:
+    year = d.year
+    month = d.month + months
+    while month > 12:
+        month -= 12
+        year += 1
+    day = min(d.day, calendar.monthrange(year, month)[1])
+    return dt.date(year, month, day)
+
+
 def _parse_iso_date(value: str) -> Optional[dt.date]:
     raw = (value or "").strip()
     if not raw:
@@ -187,7 +197,7 @@ def _write_ingest_meta(source_key: str) -> None:
             "source_key": _sync_ingest_meta_key(source_key),
             "anchor_date": (RUNTIME_CONFIG.ingest.anchor_date or "").strip(),
             "window_months": int(RUNTIME_CONFIG.ingest.window_months),
-            "updated_at": dt.datetime.utcnow().isoformat(),
+            "updated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         }
     )
 
@@ -224,7 +234,12 @@ def _resolve_config_change_backfill(source_key: str) -> Optional[tuple[str, str,
     if anchor_date is None:
         return None
     window_start = _subtract_months(anchor_date, RUNTIME_CONFIG.ingest.window_months)
-    return window_start.isoformat(), anchor_date.isoformat(), "prod_anchor_config_change_backfill"
+    window_end = _add_months(anchor_date, RUNTIME_CONFIG.ingest.window_months)
+    today = dt.datetime.now(dt.timezone.utc).date()
+    effective_end = min(window_end, today)
+    if effective_end < window_start:
+        return None
+    return window_start.isoformat(), effective_end.isoformat(), "prod_anchor_config_change_backfill"
 
 
 def _resolve_sync_window(
@@ -255,7 +270,12 @@ def _resolve_sync_window(
             if until_date is None:
                 raise RuntimeError(f"Invalid SYNC_END_DATE_OVERRIDE value: {override_end_raw!r}")
         elif env_mode == "prod":
-            until_date = _parse_config_anchor_date()
+            anchor = _parse_config_anchor_date()
+            if anchor is None:
+                raise RuntimeError("PIPELINE_ENV=prod with override requires ingest.anchor_date to be set")
+            until_date = _add_months(anchor, RUNTIME_CONFIG.ingest.window_months)
+            today = (now_utc or dt.datetime.now(dt.timezone.utc)).date()
+            until_date = min(until_date, today)
             if until_date is None:
                 raise RuntimeError("PIPELINE_ENV=prod with override requires ingest.anchor_date to be set")
         else:
@@ -273,12 +293,19 @@ def _resolve_sync_window(
         if anchor_date is None:
             raise RuntimeError("PIPELINE_ENV=prod requires ingest.anchor_date to be set")
         window_start = _subtract_months(anchor_date, RUNTIME_CONFIG.ingest.window_months)
+        window_end = _add_months(anchor_date, RUNTIME_CONFIG.ingest.window_months)
+        today = (now_utc or dt.datetime.now(dt.timezone.utc)).date()
+        effective_end = min(window_end, today)
+        if effective_end < window_start:
+            raise RuntimeError(
+                f"Resolved prod window is empty ({window_start.isoformat()}..{effective_end.isoformat()})"
+            )
         if cursor_dt is None:
             start_date = window_start
         else:
             cursor_date = cursor_dt.astimezone(dt.timezone.utc).date()
-            start_date = max(cursor_date, window_start)
-        return start_date.isoformat(), anchor_date.isoformat(), "prod_anchor_window"
+            start_date = min(max(cursor_date, window_start), effective_end)
+        return start_date.isoformat(), effective_end.isoformat(), "prod_anchor_window"
 
     try:
         lookback_days = int(os.environ.get("DEV_SYNC_LOOKBACK_DAYS", "7"))
@@ -316,7 +343,7 @@ def sync_from_osf(
 
     total_upserted = 0
     processed = 0
-    max_published_seen: Optional[dt.datetime] = None
+    max_created_seen: Optional[dt.datetime] = None
     deadline = _deadline(max_seconds)
 
     logger.info(
@@ -335,14 +362,16 @@ def sync_from_osf(
             until_date=until_iso_date,
             subject_text=subject_text,
             batch_size=batch_size,
-            sort="date_published",
+            sort="date_created",
+            date_field="date_created",
         )
         if until_iso_date
         else iter_preprints_batches(
             since_date=since_iso_date,
             subject_text=subject_text,
             batch_size=batch_size,
-            sort="date_published",
+            sort="date_created",
+            date_field="date_created",
         )
     )
 
@@ -358,9 +387,10 @@ def sync_from_osf(
             effective_batch = batch[:remaining]
 
         for obj in effective_batch:
-            pub = _parse_iso_dt((obj.get("attributes") or {}).get("date_published"))
-            if pub and (max_published_seen is None or pub > max_published_seen):
-                max_published_seen = pub
+            attrs = obj.get("attributes") or {}
+            created = _parse_iso_dt(attrs.get("date_created") or attrs.get("date_published"))
+            if created and (max_created_seen is None or created > max_created_seen):
+                max_created_seen = created
 
         processed += len(effective_batch)
         if not dry_run:
@@ -372,15 +402,15 @@ def sync_from_osf(
         time.sleep(0.2)
 
     cursor_fallback = since_dt or _parse_iso_dt(since_iso_date)
-    cursor_out = (max_published_seen or cursor_fallback).isoformat() if (max_published_seen or cursor_fallback) else since_iso_date
-    if max_published_seen and not dry_run and _should_write_cursor(window_mode):
-        if since_dt and max_published_seen < since_dt:
+    cursor_out = (max_created_seen or cursor_fallback).isoformat() if (max_created_seen or cursor_fallback) else since_iso_date
+    if max_created_seen and not dry_run and _should_write_cursor(window_mode):
+        if since_dt and max_created_seen < since_dt:
             logger.info(
                 "sync cursor not rewound",
-                extra={"source_key": source_key, "existing_cursor": since_dt.isoformat(), "candidate": max_published_seen.isoformat()},
+                extra={"source_key": source_key, "existing_cursor": since_dt.isoformat(), "candidate": max_created_seen.isoformat()},
             )
         else:
-            _set_cursor(source_key, max_published_seen)
+            _set_cursor(source_key, max_created_seen)
 
     out = {
         "upserted": total_upserted,
@@ -828,6 +858,26 @@ def process_author_batch(
     return out
 
 
+def process_author_randomization_batch(
+    *,
+    authors_csv: Optional[str] = "osf_sync/extraction/authorList_ext.csv",
+    limit_preprints: Optional[int] = None,
+    seed: Optional[int] = None,
+    network_state_key: str = "trial:author_network_state",
+    dry_run: bool = False,
+) -> Dict[str, Any]:
+    out = run_author_randomization(
+        authors_csv=authors_csv,
+        limit_preprints=limit_preprints,
+        seed=seed,
+        network_state_key=network_state_key,
+        dry_run=dry_run,
+    )
+    result = {"stage": "author-randomize", **out}
+    _slack("Author randomization finished", extra=result)
+    return result
+
+
 def sync_one_by_id(*, osf_id: str, run_pdf_and_grobid: bool = True, run_extract: bool = True) -> Dict[str, Any]:
     data = fetch_preprint_by_id(osf_id)
     if not data:
@@ -945,6 +995,14 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
             orcid_workers=getattr(args, "orcid_workers", 1),
             dry_run=args.dry_run,
         )
+    if stage == "author-randomize":
+        return process_author_randomization_batch(
+            authors_csv=getattr(args, "authors_csv", "osf_sync/extraction/authorList_ext.csv"),
+            limit_preprints=getattr(args, "limit_preprints", None) or getattr(args, "limit", None),
+            seed=getattr(args, "seed", None),
+            network_state_key=getattr(args, "network_state_key", "trial:author_network_state"),
+            dry_run=args.dry_run,
+        )
     if stage == "email":
         return process_email_batch(
             limit=args.limit or 50,
@@ -981,40 +1039,6 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
     include_email = getattr(args, "include_email", False)
     email_limit = getattr(args, "email_limit", 50)
 
-    # When email is enabled, split the limit: small mini-batches run
-    # between stages, then a final batch gets the remainder with a
-    # longer spread window.
-    _INTERLEAVE_STAGES = 6  # sync, pdf, grobid, extract, enrich, flora
-    if include_email and email_limit > 0:
-        interleave_per = max(1, email_limit // (_INTERLEAVE_STAGES + 1))
-        final_email_limit = email_limit - interleave_per * _INTERLEAVE_STAGES
-        if final_email_limit < 0:
-            final_email_limit = 0
-    else:
-        interleave_per = 0
-        final_email_limit = 0
-
-    email_result: Dict[str, Any] = {}
-    email_sent_total = 0
-
-    def _interleave_emails() -> None:
-        nonlocal email_result, email_sent_total
-        if not include_email or interleave_per <= 0:
-            return
-        remaining = email_limit - email_sent_total
-        batch_limit = min(interleave_per, remaining)
-        if batch_limit <= 0:
-            return
-        # Short spread: ~60s per email for interleaved batches
-        spread = batch_limit * 60
-        batch = process_email_batch(
-            limit=batch_limit,
-            spread_seconds=spread,
-            dry_run=args.dry_run,
-        )
-        email_sent_total += batch.get("sent", 0) + batch.get("failed", 0)
-        email_result = _merge_email_results(email_result, batch)
-
     out["stages"]["sync"] = sync_from_osf(
         subject_text=args.subject,
         batch_size=args.batch_size,
@@ -1022,7 +1046,6 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         max_seconds=args.max_seconds_per_stage,
         dry_run=args.dry_run,
     )
-    _interleave_emails()
 
     out["stages"]["pdf"] = process_pdf_batch(
         limit=args.pdf_limit,
@@ -1032,7 +1055,6 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         workers=getattr(args, "download_workers", 1),
         dry_run=args.dry_run,
     )
-    _interleave_emails()
 
     out["stages"]["grobid"] = process_grobid_batch(
         limit=args.grobid_limit,
@@ -1041,7 +1063,6 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         max_seconds=args.max_seconds_per_stage,
         dry_run=args.dry_run,
     )
-    _interleave_emails()
 
     out["stages"]["extract"] = process_extract_batch(
         limit=args.extract_limit,
@@ -1050,7 +1071,6 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         max_seconds=args.max_seconds_per_stage,
         dry_run=args.dry_run,
     )
-    _interleave_emails()
 
     out["stages"]["enrich"] = process_enrich_batch(
         limit=args.enrich_limit,
@@ -1062,7 +1082,6 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         workers=getattr(args, "enrich_workers", 1),
         dry_run=args.dry_run,
     )
-    _interleave_emails()
 
     out["stages"]["flora"] = process_flora_batch(
         limit_lookup=args.limit_lookup,
@@ -1075,7 +1094,6 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
         debug=args.debug,
         dry_run=args.dry_run,
     )
-    _interleave_emails()
 
     if not args.skip_author:
         out["stages"]["author"] = process_author_batch(
@@ -1095,22 +1113,23 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
             dry_run=args.dry_run,
         )
 
-    # Final email batch with longer spread window (45 min per 10 messages)
-    if include_email and final_email_limit > 0:
-        remaining = email_limit - email_sent_total
-        batch_limit = min(final_email_limit, remaining)
-        if batch_limit > 0:
-            spread = int(batch_limit * 270)  # 45 min / 10 = 4.5 min = 270s per msg
-            batch = process_email_batch(
-                limit=batch_limit,
-                max_seconds=spread + 60,  # small headroom beyond spread
-                spread_seconds=spread,
-                dry_run=args.dry_run,
-            )
-            email_result = _merge_email_results(email_result, batch)
+    if not args.skip_randomization:
+        out["stages"]["author-randomize"] = process_author_randomization_batch(
+            authors_csv=getattr(args, "authors_csv", "osf_sync/extraction/authorList_ext.csv"),
+            limit_preprints=args.randomize_limit,
+            seed=getattr(args, "seed", None),
+            network_state_key=getattr(args, "network_state_key", "trial:author_network_state"),
+            dry_run=args.dry_run,
+        )
 
-    if email_result:
-        out["stages"]["email"] = email_result
+    if include_email and email_limit > 0:
+        spread = int(email_limit * 270)  # 45 min / 10 = 4.5 min = 270s per msg
+        out["stages"]["email"] = process_email_batch(
+            limit=email_limit,
+            max_seconds=spread + 60,
+            spread_seconds=spread,
+            dry_run=args.dry_run,
+        )
 
     if not args.dry_run:
         out["excluded_preprints_summary"] = _excluded_summary()
@@ -1219,42 +1238,11 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
 
 
 def run_post_grobid(args: argparse.Namespace) -> Dict[str, Any]:
-    """Run extract + enrich + flora + author + email (used by the post-GROBID workflow)."""
+    """Run extract + enrich + flora + author + randomize + email."""
     out: Dict[str, Any] = {"stages": {}}
 
     include_email = getattr(args, "include_email", False)
     email_limit = getattr(args, "email_limit", 50)
-
-    # Email interleaving: 3 stages before author (extract, enrich, flora)
-    _INTERLEAVE_STAGES = 3
-    if include_email and email_limit > 0:
-        interleave_per = max(1, email_limit // (_INTERLEAVE_STAGES + 1))
-        final_email_limit = email_limit - interleave_per * _INTERLEAVE_STAGES
-        if final_email_limit < 0:
-            final_email_limit = 0
-    else:
-        interleave_per = 0
-        final_email_limit = 0
-
-    email_result: Dict[str, Any] = {}
-    email_sent_total = 0
-
-    def _interleave_emails() -> None:
-        nonlocal email_result, email_sent_total
-        if not include_email or interleave_per <= 0:
-            return
-        remaining = email_limit - email_sent_total
-        batch_limit = min(interleave_per, remaining)
-        if batch_limit <= 0:
-            return
-        spread = batch_limit * 60
-        batch = process_email_batch(
-            limit=batch_limit,
-            spread_seconds=spread,
-            dry_run=args.dry_run,
-        )
-        email_sent_total += batch.get("sent", 0) + batch.get("failed", 0)
-        email_result = _merge_email_results(email_result, batch)
 
     out["stages"]["extract"] = process_extract_batch(
         limit=args.extract_limit,
@@ -1263,7 +1251,6 @@ def run_post_grobid(args: argparse.Namespace) -> Dict[str, Any]:
         max_seconds=args.max_seconds_per_stage,
         dry_run=args.dry_run,
     )
-    _interleave_emails()
 
     out["stages"]["enrich"] = process_enrich_batch(
         limit=args.enrich_limit,
@@ -1275,7 +1262,6 @@ def run_post_grobid(args: argparse.Namespace) -> Dict[str, Any]:
         workers=getattr(args, "enrich_workers", 1),
         dry_run=args.dry_run,
     )
-    _interleave_emails()
 
     out["stages"]["flora"] = process_flora_batch(
         limit_lookup=args.limit_lookup,
@@ -1288,7 +1274,6 @@ def run_post_grobid(args: argparse.Namespace) -> Dict[str, Any]:
         debug=args.debug,
         dry_run=args.dry_run,
     )
-    _interleave_emails()
 
     if not args.skip_author:
         out["stages"]["author"] = process_author_batch(
@@ -1308,22 +1293,23 @@ def run_post_grobid(args: argparse.Namespace) -> Dict[str, Any]:
             dry_run=args.dry_run,
         )
 
-    # Final email batch with longer spread window
-    if include_email and final_email_limit > 0:
-        remaining = email_limit - email_sent_total
-        batch_limit = min(final_email_limit, remaining)
-        if batch_limit > 0:
-            spread = int(batch_limit * 270)
-            batch = process_email_batch(
-                limit=batch_limit,
-                max_seconds=spread + 60,
-                spread_seconds=spread,
-                dry_run=args.dry_run,
-            )
-            email_result = _merge_email_results(email_result, batch)
+    if not args.skip_randomization:
+        out["stages"]["author-randomize"] = process_author_randomization_batch(
+            authors_csv=getattr(args, "authors_csv", "osf_sync/extraction/authorList_ext.csv"),
+            limit_preprints=args.randomize_limit,
+            seed=getattr(args, "seed", None),
+            network_state_key=getattr(args, "network_state_key", "trial:author_network_state"),
+            dry_run=args.dry_run,
+        )
 
-    if email_result:
-        out["stages"]["email"] = email_result
+    if include_email and email_limit > 0:
+        spread = int(email_limit * 270)
+        out["stages"]["email"] = process_email_batch(
+            limit=email_limit,
+            max_seconds=spread + 60,
+            spread_seconds=spread,
+            dry_run=args.dry_run,
+        )
 
     if not args.dry_run:
         out["excluded_preprints_summary"] = _excluded_summary()
@@ -1397,11 +1383,13 @@ def _add_downstream_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--extract-limit", type=int, default=200)
     parser.add_argument("--enrich-limit", type=int, default=300)
     parser.add_argument("--author-limit", type=int, default=None)
+    parser.add_argument("--randomize-limit", type=int, default=None, help="Optional cap for author randomization")
     parser.add_argument("--limit-lookup", type=int, default=200)
     parser.add_argument("--limit-screen", type=int, default=500)
     parser.add_argument("--enrich-workers", type=int, default=1, help="Parallel workers for Crossref/OpenAlex enrichment")
     parser.add_argument("--orcid-workers", type=int, default=3, help="Parallel workers for ORCID lookups")
     parser.add_argument("--skip-author", action="store_true", help="Skip author extraction stage")
+    parser.add_argument("--skip-randomization", action="store_true", help="Skip author randomization stage")
     parser.add_argument("--include-email", action="store_true", help="Include email sending stage (off by default)")
     parser.add_argument("--email-limit", type=int, default=50, help="Max emails to send")
     parser.add_argument("--threshold", type=int, default=None)
@@ -1421,6 +1409,9 @@ def _add_downstream_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--match-emails-threshold", type=float, default=0.90)
     parser.add_argument("--include-existing", action="store_true")
     parser.add_argument("--write-debug-csv", action="store_true")
+    parser.add_argument("--authors-csv", default="osf_sync/extraction/authorList_ext.csv")
+    parser.add_argument("--network-state-key", default="trial:author_network_state")
+    parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--ref-id", default=None)
     parser.add_argument("--cache-ttl-hours", type=int, default=None)
     parser.add_argument("--no-persist", action="store_true")
@@ -1432,7 +1423,7 @@ def build_parser() -> argparse.ArgumentParser:
     sub = p.add_subparsers(dest="cmd", required=True)
 
     p_run = sub.add_parser("run", help="Run a single pipeline stage")
-    p_run.add_argument("--stage", required=True, choices=["sync", "pdf", "grobid", "extract", "enrich", "flora", "author", "email", "inbox"])
+    p_run.add_argument("--stage", required=True, choices=["sync", "pdf", "grobid", "extract", "enrich", "flora", "author", "author-randomize", "email", "inbox"])
     p_run.add_argument("--limit", type=int, default=None)
     p_run.add_argument("--max-seconds", type=int, default=None)
     p_run.add_argument("--dry-run", action="store_true")
@@ -1448,6 +1439,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--mailto", default=OPENALEX_EMAIL)
     p_run.add_argument("--osf-id", default=None, help="Restrict enrich/FLORA to a specific OSF id")
     p_run.add_argument("--author-osf-id", action="append", dest="author_osf_ids", default=[])
+    p_run.add_argument("--authors-csv", default="osf_sync/extraction/authorList_ext.csv")
+    p_run.add_argument("--network-state-key", default="trial:author_network_state")
+    p_run.add_argument("--seed", type=int, default=None)
     p_run.add_argument("--ids-file", default=None)
     p_run.add_argument("--out", default=None)
     p_run.add_argument("--pdf-root", default=None)
@@ -1466,7 +1460,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_run.add_argument("--spread-seconds", type=int, default=None, help="Spread email sends over this many seconds (email stage only)")
     p_run.set_defaults(func=run_stage)
 
-    # -- run-all: full pipeline (sync → pdf → grobid → extract → enrich → flora → author → email)
+    # -- run-all: full pipeline (sync → pdf → grobid → extract → enrich → flora → author → randomize → email)
     p_all = sub.add_parser("run-all", help="Run the full pipeline (bounded per stage)")
     _add_common_args(p_all)
     _add_grobid_args(p_all)
@@ -1480,8 +1474,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_grobid.add_argument("--max-seconds", type=int, default=None, help="Overall time limit (exits gracefully before GH Actions timeout)")
     p_grobid.set_defaults(func=run_grobid_stages)
 
-    # -- run-post-grobid: extract + enrich + flora + author + email
-    p_post = sub.add_parser("run-post-grobid", help="Run extract + enrich + flora + author + email (post-GROBID workflow)")
+    # -- run-post-grobid: extract + enrich + flora + author + randomize + email
+    p_post = sub.add_parser("run-post-grobid", help="Run extract + enrich + flora + author + randomize + email")
     _add_common_args(p_post)
     _add_downstream_args(p_post)
     p_post.set_defaults(func=run_post_grobid)

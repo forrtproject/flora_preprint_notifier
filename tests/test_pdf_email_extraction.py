@@ -7,6 +7,18 @@ from osf_sync.extraction.get_mail_from_pdf import (
 
 
 class PdfEmailExtractionTests(unittest.TestCase):
+    def test_recovers_email_with_bracketed_at_dot_tokens(self) -> None:
+        text = "Contact: jane [at] uni [dot] edu"
+        normalized = _normalize_pdf_text_for_email_extraction(text)
+        emails = _extract_emails_from_text(normalized)
+        self.assertIn("jane@uni.edu", [e.lower() for e in emails])
+
+    def test_recovers_email_with_parenthesized_tokens(self) -> None:
+        text = "Reach me at john (at) ed (dot) ac (dot) uk"
+        normalized = _normalize_pdf_text_for_email_extraction(text)
+        emails = _extract_emails_from_text(normalized)
+        self.assertIn("john@ed.ac.uk", [e.lower() for e in emails])
+
     def test_recovers_email_with_spaces_around_symbols(self) -> None:
         text = "Contact: jane . doe @ uni . edu"
         normalized = _normalize_pdf_text_for_email_extraction(text)

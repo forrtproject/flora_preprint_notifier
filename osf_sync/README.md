@@ -73,7 +73,18 @@ Error/retry bookkeeping:
 
 ## Ingestion filters
 
-When `ingest.anchor_date` is set in `config/runtime.toml` (ISO date/timestamp), ingestion keeps only preprints whose `original_publication_date` (or fallback `date_published`) is within the configured window ending on the anchor date.
+When `ingest.anchor_date` is set in `config/runtime.toml` (ISO date/timestamp), ingestion keeps only preprints whose `date_created` (fallback `date_published`) falls within the configured symmetric window (`anchor_date` +/- `window_months`).
+
+`sync` stage window selection depends on `PIPELINE_ENV`:
+- `prod`: uses full `ingest.anchor_date` + `ingest.window_months` window.
+- `dev`: uses rolling `DEV_SYNC_LOOKBACK_DAYS` (default 7 days).
+- Optional `SYNC_START_DATE_OVERRIDE` forces an explicit start date in either mode.
+- Optional `SYNC_END_DATE_OVERRIDE` sets an explicit end date; in prod override mode, omitted end defaults to `anchor_date + window_months` (capped at today).
+- `DDB_BILLING_MODE=PAY_PER_REQUEST` keeps auto-created tables in on-demand mode (recommended).
+- Keep table names isolated by env (for example `dev_*` for local runs and `prod_*` in GH Actions).
+- Cursor safety for backfills:
+  - `SYNC_OVERRIDE_WRITES_CURSOR=false` (default): override runs do not mutate continuation cursor.
+  - `SYNC_DISABLE_CURSOR_WRITE=true`: disable all sync cursor writes.
 
 If a preprint has `links.doi` and that DOI is not OSF/Zenodo (`osf.io`, `zenodo.org`, or `10.5281/zenodo...`), it is skipped.
 
