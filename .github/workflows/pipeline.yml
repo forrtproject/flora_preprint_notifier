@@ -4,13 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: 'Run specific stage (extract, enrich, flora, author, author-randomize, email) or all'
+        description: 'Run specific stage (extract, enrich, extract-enrich, flora, author, author-randomize, email) or all'
         type: choice
         default: 'all'
         options:
           - all
           - extract
           - enrich
+          - extract-enrich
           - flora
           - author
           - author-randomize
@@ -110,6 +111,47 @@ jobs:
               --max-seconds-per-stage 3600 \
               $EMAIL_ARGS \
               | tee /tmp/pipeline_output.json
+          elif [ "$STAGE" = "extract-enrich" ]; then
+            python -m osf_sync.pipeline run \
+              --stage extract \
+              --limit "$LIMIT" \
+              --max-seconds 18000 \
+              | tee /tmp/pipeline_output_extract.json
+
+            python -m osf_sync.pipeline run \
+              --stage enrich \
+              --limit "$LIMIT" \
+              --enrich-workers "$ENRICH_WORKERS" \
+              --max-seconds 18000 \
+              | tee /tmp/pipeline_output_enrich.json
+
+            python -c "
+            import json
+
+            def _load(path):
+                try:
+                    with open(path, 'r', encoding='utf-8') as f:
+                        return json.load(f)
+                except Exception:
+                    return {}
+
+            extract = _load('/tmp/pipeline_output_extract.json')
+            enrich = _load('/tmp/pipeline_output_enrich.json')
+            out = {'stages': {}}
+            if isinstance(extract, dict):
+                if extract.get('stage') == 'extract':
+                    out['stages']['extract'] = extract
+                elif isinstance(extract.get('stages'), dict):
+                    out['stages']['extract'] = extract['stages'].get('extract', {})
+            if isinstance(enrich, dict):
+                if enrich.get('stage') == 'enrich':
+                    out['stages']['enrich'] = enrich
+                elif isinstance(enrich.get('stages'), dict):
+                    out['stages']['enrich'] = enrich['stages'].get('enrich', {})
+            with open('/tmp/pipeline_output.json', 'w', encoding='utf-8') as f:
+                json.dump(out, f)
+            print(json.dumps(out, indent=2))
+            "
           else
             EXTRA_ARGS=""
             STAGE_LIMIT="$LIMIT"
