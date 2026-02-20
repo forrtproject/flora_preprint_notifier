@@ -5,7 +5,6 @@ from pypdf import PdfReader
 # Input is a path to a specific PDF file, output is a list of all orcids found in a specific PDF
 # (returns an empty list if no emails are found)
 
-# Logs saying "ignoring wrong pointing object x y (offset 0) are a byproduct of using pypdf and can be safely ignored"
 
 def get_orcid_from_pdf(path):
     doc = PdfReader(path)

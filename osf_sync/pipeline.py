@@ -44,6 +44,13 @@ if not logger.handlers:
         format="%(asctime)s %(levelname)s [%(name)s] %(message)s",
     )
 logger.setLevel(logging.INFO)
+class _PypdfNoiseFilter(logging.Filter):
+    """Suppress repetitive 'wrong pointing object' warnings from pypdf."""
+    def filter(self, record: logging.LogRecord) -> bool:
+        return not (record.name.startswith("pypdf") and "wrong pointing object" in record.getMessage())
+
+for _h in logging.getLogger().handlers:
+    _h.addFilter(_PypdfNoiseFilter())
 _TRUE_VALUES = {"1", "true", "yes", "on"}
 
 
@@ -499,7 +506,7 @@ def download_single_pdf(osf_id: str) -> Dict[str, Any]:
         return {"osf_id": osf_id, "deleted": True, "reason": exclusion_reason or "unsupported file type"}
 
     mark_downloaded(osf_id=row["osf_id"], local_path=path, ok=True)
-    logger.info("PDF saved", extra={"osf_id": osf_id, "path": path})
+    logger.info("PDF saved [%s] path=%s", osf_id, path)
     return {"osf_id": osf_id, "downloaded": True, "source": kind, "path": path}
 
 
@@ -520,7 +527,7 @@ def grobid_single(osf_id: str) -> Dict[str, Any]:
     # Ephemeral storage fallback: re-download PDF if missing on disk
     from .grobid import _pdf_path
     if _pdf_path(provider_id, osf_id) is None:
-        logger.info("PDF missing on disk, re-downloading", extra={"osf_id": osf_id})
+        logger.info("PDF missing on disk, re-downloading [%s]", osf_id)
         download_single_pdf(osf_id)
 
     ok, tei_path, err = process_pdf_to_tei(provider_id, osf_id)
