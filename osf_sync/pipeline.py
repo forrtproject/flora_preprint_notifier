@@ -512,17 +512,18 @@ def download_single_pdf(osf_id: str) -> Dict[str, Any]:
 
 def grobid_single(osf_id: str) -> Dict[str, Any]:
     repo = PreprintsRepo()
-    row = repo.get_preprint_basic(osf_id)
-    if not row:
+    full = repo.t_preprints.get_item(
+        Key={"osf_id": osf_id},
+        ProjectionExpression="osf_id, provider_id, pdf_downloaded, tei_generated",
+    ).get("Item")
+    if not full:
         return {"osf_id": osf_id, "skipped": "not found"}
-
-    full = repo.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item") or {}
     if not full.get("pdf_downloaded"):
         return {"osf_id": osf_id, "skipped": "pdf not downloaded"}
     if full.get("tei_generated"):
         return {"osf_id": osf_id, "skipped": "already processed"}
 
-    provider_id = row["provider_id"] or "unknown"
+    provider_id = full.get("provider_id") or "unknown"
 
     # Ephemeral storage fallback: re-download PDF if missing on disk
     from .grobid import _pdf_path
