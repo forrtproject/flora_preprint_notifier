@@ -1186,6 +1186,8 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
     grobid_total = 0
     pdf_result: Dict[str, Any] = {}
     grobid_result: Dict[str, Any] = {}
+    pdf_exhausted = False
+    grobid_idle_rounds = 0
 
     while True:
         if _time_up(overall_deadline):
@@ -1194,10 +1196,13 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
 
         pdf_remaining = args.pdf_limit - pdf_total
         grobid_remaining = args.grobid_limit - grobid_total
+        if pdf_exhausted:
+            pdf_remaining = 0
         if pdf_remaining <= 0 and grobid_remaining <= 0:
             break
 
         # -- download a small batch of PDFs --
+        pdf_did_work = False
         if pdf_remaining > 0:
             chunk = min(batch_size, pdf_remaining)
             batch_result = process_pdf_batch(
@@ -1209,11 +1214,13 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
             )
             pdf_total += batch_result.get("processed", 0) + batch_result.get("failed", 0)
             pdf_result = _merge_stage_results(pdf_result, batch_result)
+            pdf_did_work = (batch_result.get("processed", 0) + batch_result.get("failed", 0)) > 0
             # Nothing left to download — stop downloading in future iterations
-            if batch_result.get("processed", 0) + batch_result.get("failed", 0) == 0:
-                pdf_total = args.pdf_limit  # exhaust the limit
+            if not pdf_did_work and batch_result.get("skipped_claimed", 0) == 0:
+                pdf_exhausted = True
 
         # -- GROBID-process a small batch --
+        grobid_did_work = False
         if grobid_remaining > 0:
             chunk = min(batch_size, grobid_remaining)
             batch_result = process_grobid_batch(
@@ -1224,9 +1231,20 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
             )
             grobid_total += batch_result.get("processed", 0) + batch_result.get("failed", 0)
             grobid_result = _merge_stage_results(grobid_result, batch_result)
-            # Nothing left to process — stop
-            if batch_result.get("processed", 0) + batch_result.get("failed", 0) == 0:
-                break
+            grobid_did_work = (batch_result.get("processed", 0) + batch_result.get("failed", 0)) > 0
+            if grobid_did_work:
+                grobid_idle_rounds = 0
+            else:
+                grobid_idle_rounds += 1
+
+        # Stop only when both stages have no work.
+        # Allow a few idle GROBID rounds for GSI eventual consistency after PDF downloads.
+        if pdf_exhausted and not grobid_did_work and grobid_idle_rounds > 2:
+            logger.info("interleave loop: both PDF and GROBID exhausted")
+            break
+        if not pdf_did_work and not grobid_did_work and pdf_exhausted:
+            logger.info("interleave loop: no progress in this round, stopping")
+            break
 
     timed_out = _time_up(overall_deadline)
 
