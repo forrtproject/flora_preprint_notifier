@@ -856,10 +856,15 @@ class PreprintsRepo:
         self.t_preprints.delete_item(Key={"osf_id": osf_id})
 
     def exists_preprint(self, osf_id: str) -> bool:
-        return bool(self.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item"))
+        return bool(self.t_preprints.get_item(
+            Key={"osf_id": osf_id}, ProjectionExpression="osf_id",
+        ).get("Item"))
 
     def get_preprint_basic(self, osf_id: str) -> Optional[Dict[str, Any]]:
-        it = self.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item")
+        it = self.t_preprints.get_item(
+            Key={"osf_id": osf_id},
+            ProjectionExpression="osf_id, provider_id, raw",
+        ).get("Item")
         if not it:
             return None
         return {"osf_id": it.get("osf_id"), "provider_id": it.get("provider_id"), "raw": it.get("raw")}
@@ -868,7 +873,9 @@ class PreprintsRepo:
         """
         Return the DOI stored on the preprint record (if any).
         """
-        it = self.t_preprints.get_item(Key={"osf_id": osf_id}).get("Item")
+        it = self.t_preprints.get_item(
+            Key={"osf_id": osf_id}, ProjectionExpression="doi",
+        ).get("Item")
         if not it:
             return None
         return it.get("doi")
@@ -899,8 +906,19 @@ class PreprintsRepo:
         else:
             fe = "(attribute_not_exists(doi) OR doi = :empty)"
             eav = {":empty": ""}
-            resp = self.t_refs.scan(FilterExpression=fe, ExpressionAttributeValues=eav, Limit=limit)
-            items = resp.get("Items", [])
+            last_key = None
+            while len(items) < limit:
+                scan_kwargs: Dict[str, Any] = {
+                    "FilterExpression": fe,
+                    "ExpressionAttributeValues": eav,
+                }
+                if last_key:
+                    scan_kwargs["ExclusiveStartKey"] = last_key
+                resp = self.t_refs.scan(**scan_kwargs)
+                items.extend(resp.get("Items", []))
+                last_key = resp.get("LastEvaluatedKey")
+                if not last_key:
+                    break
 
         if ref_id:
             items = [it for it in items if it and it.get("ref_id") == ref_id]
@@ -1054,11 +1072,18 @@ class PreprintsRepo:
             else:
                 fe = "flora_lookup_status = :true"
                 eav = {":true": True}
-            scan_kwargs = {"FilterExpression": fe, "Limit": limit}
-            if eav is not None:
-                scan_kwargs["ExpressionAttributeValues"] = eav
-            resp = self.t_refs.scan(**scan_kwargs)
-            items = resp.get("Items", [])
+            last_key = None
+            while len(items) < limit:
+                scan_kwargs: Dict[str, Any] = {"FilterExpression": fe}
+                if eav is not None:
+                    scan_kwargs["ExpressionAttributeValues"] = eav
+                if last_key:
+                    scan_kwargs["ExclusiveStartKey"] = last_key
+                resp = self.t_refs.scan(**scan_kwargs)
+                items.extend([it for it in resp.get("Items", []) if it and _has_flora(it)])
+                last_key = resp.get("LastEvaluatedKey")
+                if not last_key:
+                    break
 
         if ref_id:
             items = [it for it in items if it and it.get("ref_id") == ref_id]
