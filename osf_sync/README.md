@@ -22,9 +22,10 @@ Use `python -m osf_sync.pipeline <command>`.
 | `run --stage pdf` | Process `queue_pdf=pending` with claim/lease semantics. |
 | `run --stage grobid` | Process `queue_grobid=pending` and generate TEI XML. |
 | `run --stage extract` | Process `queue_extract=pending` and write TEI/references. |
-| `run --stage enrich` | Multi-method DOI enrichment. |
+| `run --stage enrich` | Multi-method DOI enrichment (limit is in preprints, not references). |
 | `run --stage flora` | FLoRA lookup + screening. |
 | `run --stage author` | Author extraction and `author_email_candidates` updates. |
+| `run --stage email` | Email stage (disabled by default; enable with `PIPELINE_ENABLE_EMAIL_STAGE=true`). |
 | `run-all` | Bounded sequential run across major stages, including `author` by default (`--skip-author` to disable). Author keeps files by default (`--cleanup-author-files` to delete) and is DynamoDB-only unless `--write-debug-csv` is set. |
 | `sync-from-date` | Ad-hoc ingestion from a given start date. |
 | `fetch-one` | Fetch one preprint by OSF id or DOI. |
@@ -50,8 +51,9 @@ The pipeline runs automatically via `.github/workflows/pipeline.yml` on GH Actio
 - `--enrich-workers` (default 6): parallel Crossref/OpenAlex DOI lookups
 - `--orcid-workers` (default 3): parallel preprint processing for author/ORCID extraction
 - GROBID is always sequential (single service container)
+- Email stage is safety-disabled by default (`PIPELINE_ENABLE_EMAIL_STAGE=false`).
 
-**Backlog handling:** After each run, if any stage was time-limited, the workflow re-triggers itself (up to `backlog_depth` times, default 5) to drain the queue. This requires a `WORKFLOW_DISPATCH_TOKEN` secret containing a PAT with `actions:write` scope, since `GITHUB_TOKEN` cannot trigger new workflow runs.
+**Backlog handling:** After each run, the workflow re-triggers itself only when an explicit backlog signal is present (`stopped_due_to_time` or `limit_reached`), up to `backlog_depth` times (default 5). This requires a `WORKFLOW_DISPATCH_TOKEN` secret containing a PAT with `actions:write` scope, since `GITHUB_TOKEN` cannot trigger new workflow runs.
 
 **Timeouts:** Job timeout is 330 minutes (within the 6-hour GH Actions limit). Per-stage limit defaults to 3600s for `run-all`.
 

@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import calendar
 import datetime as dt
+import math
 import os
+from decimal import Decimal
 from typing import Any, Dict, Optional
 
 from .client import get_dynamo_resource
@@ -14,6 +16,21 @@ CACHE_TTL_MONTHS_DEFAULT = int(os.environ.get("API_CACHE_TTL_MONTHS", "6"))
 def _strip_nones(d: Dict[str, Any]) -> Dict[str, Any]:
     """Return a shallow copy of dict without None values (DynamoDB rejects None)."""
     return {k: v for k, v in d.items() if v is not None}
+
+
+def _to_dynamo_value(value: Any) -> Any:
+    """Recursively convert Python values to DynamoDB-safe types."""
+    if isinstance(value, float):
+        if not math.isfinite(value):
+            return None
+        return Decimal(str(value))
+    if isinstance(value, dict):
+        return {k: _to_dynamo_value(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_to_dynamo_value(v) for v in value]
+    if isinstance(value, tuple):
+        return [_to_dynamo_value(v) for v in value]
+    return value
 
 
 def _add_months(ts: dt.datetime, months: int) -> dt.datetime:
@@ -80,7 +97,7 @@ class ApiCacheRepo:
         item = {
             "cache_key": cache_key,
             "source": source,
-            "payload": payload,
+            "payload": _to_dynamo_value(payload),
             "status": status,
             "cached_at": now,
             "checked_at": checked_at or now,

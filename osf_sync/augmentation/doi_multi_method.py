@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 from ..dynamo.preprints_repo import PreprintsRepo
 from .doi_multi_method_lookup import (
@@ -54,7 +54,7 @@ def enrich_missing_with_multi_method(
     screen_raw: bool = True,
     debug: bool = False,
     workers: int = 1,
-) -> Dict[str, int]:
+) -> Dict[str, Any]:
     """
     Run the multi-method DOI pipeline for refs missing DOIs (or specific ref_id),
     and update Dynamo with the final match.
@@ -66,13 +66,37 @@ def enrich_missing_with_multi_method(
     use_mailto = mailto or OPENALEX_MAILTO
 
     skip_checked = int(DOI_MULTI_METHOD_CACHE_TTL_SECS) if not (include_existing or bool(ref_id and osf_id)) else None
-    rows = repo.select_refs_missing_doi(
-        limit=limit,
-        osf_id=osf_id,
-        ref_id=ref_id,
-        include_existing=include_existing or bool(ref_id and osf_id),
-        skip_checked_within_seconds=skip_checked,
-    )
+    include_existing_effective = include_existing or bool(ref_id and osf_id)
+    rows: list[Dict[str, Any]]
+    preprints_selected: Optional[int] = None
+    limit_reached = False
+    if osf_id or ref_id:
+        rows = repo.select_refs_missing_doi(
+            limit=limit,
+            osf_id=osf_id,
+            ref_id=ref_id,
+            include_existing=include_existing_effective,
+            skip_checked_within_seconds=skip_checked,
+        )
+    else:
+        preprint_limit = max(1, int(limit))
+        selected_osf_ids_all = repo.select_osf_ids_with_refs_missing_doi(
+            limit_preprints=preprint_limit + 1,
+            skip_checked_within_seconds=skip_checked,
+        )
+        selected_osf_ids = selected_osf_ids_all[:preprint_limit]
+        preprints_selected = len(selected_osf_ids)
+        limit_reached = len(selected_osf_ids_all) > preprint_limit
+        rows = []
+        for selected_osf_id in selected_osf_ids:
+            rows.extend(
+                repo.select_refs_missing_doi(
+                    limit=None,
+                    osf_id=selected_osf_id,
+                    include_existing=include_existing_effective,
+                    skip_checked_within_seconds=skip_checked,
+                )
+            )
 
     def _process_one(ref: Dict) -> Dict:
         row = process_reference(
@@ -137,4 +161,8 @@ def enrich_missing_with_multi_method(
                     extra={"osf_id": ref.get("osf_id"), "ref_id": ref.get("ref_id")},
                 )
 
-    return {"checked": checked, "updated": updated, "failed": failed}
+    out: Dict[str, Any] = {"checked": checked, "updated": updated, "failed": failed}
+    if preprints_selected is not None:
+        out["preprints_selected"] = preprints_selected
+    out["limit_reached"] = limit_reached
+    return out

@@ -16,7 +16,7 @@ on:
           - author-randomize
           - email
       limit:
-        description: 'Max items per stage (0 = unlimited)'
+        description: 'Max preprints per stage (0 = unlimited)'
         default: '0'
       email_limit:
         description: 'Max emails (recipients) to send per run (0 = skip email)'
@@ -37,6 +37,12 @@ jobs:
     timeout-minutes: 330
 
     env:
+      INPUT_STAGE: ${{ github.event.inputs.stage || inputs.stage || 'all' }}
+      INPUT_LIMIT: ${{ github.event.inputs.limit || inputs.limit || '0' }}
+      INPUT_EMAIL_LIMIT: ${{ github.event.inputs.email_limit || inputs.email_limit || '0' }}
+      INPUT_ENRICH_WORKERS: ${{ github.event.inputs.enrich_workers || inputs.enrich_workers || '6' }}
+      INPUT_ORCID_WORKERS: ${{ github.event.inputs.orcid_workers || inputs.orcid_workers || '3' }}
+      INPUT_BACKLOG_DEPTH: ${{ github.event.inputs.backlog_depth || inputs.backlog_depth || '5' }}
       PIPELINE_ENV: prod
       DDB_BILLING_MODE: PAY_PER_REQUEST
       DDB_TABLE_PREPRINTS: prod_preprints
@@ -78,17 +84,17 @@ jobs:
       - name: Run pipeline
         id: run
         run: |
-          STAGE="${{ inputs.stage || 'all' }}"
-          LIMIT="${{ inputs.limit || '0' }}"
-          ENRICH_WORKERS="${{ inputs.enrich_workers || '6' }}"
-          ORCID_WORKERS="${{ inputs.orcid_workers || '3' }}"
+          STAGE="$INPUT_STAGE"
+          LIMIT="$INPUT_LIMIT"
+          ENRICH_WORKERS="$INPUT_ENRICH_WORKERS"
+          ORCID_WORKERS="$INPUT_ORCID_WORKERS"
 
           # Convert limit 0 to a large number (effectively unlimited)
           if [ "$LIMIT" = "0" ]; then
             LIMIT="100000"
           fi
 
-          EMAIL_LIMIT="${{ inputs.email_limit || '20' }}"
+          EMAIL_LIMIT="$INPUT_EMAIL_LIMIT"
 
           EMAIL_ARGS=""
           if [ "$EMAIL_LIMIT" != "0" ]; then
@@ -123,17 +129,18 @@ jobs:
               | tee /tmp/pipeline_output.json
           fi
 
-          # Check if any stage was cut short by time
+          # Re-trigger only on explicit backlog signals.
           if python -c "
           import json, sys
           try:
               data = json.load(open('/tmp/pipeline_output.json'))
-              stages = data.get('stages', {})
-              if any(s.get('stopped_due_to_time') for s in stages.values()):
-                  sys.exit(0)
-              # Also check if there were items processed (backlog existed)
-              total = sum(s.get('processed', 0) + s.get('failed', 0) for s in stages.values())
-              if total > 0:
+              stages = data.get('stages')
+              if isinstance(stages, dict):
+                  if any(bool(s.get('stopped_due_to_time')) for s in stages.values() if isinstance(s, dict)):
+                      sys.exit(0)
+                  if any(bool(s.get('limit_reached')) for s in stages.values() if isinstance(s, dict)):
+                      sys.exit(0)
+              elif bool(data.get('stopped_due_to_time')) or bool(data.get('limit_reached')):
                   sys.exit(0)
           except Exception:
               pass
@@ -145,7 +152,7 @@ jobs:
           fi
 
       - name: Re-trigger if backlog remains
-        if: steps.run.outputs.has_backlog == 'true' && (inputs.backlog_depth || '5') != '0'
+        if: steps.run.outputs.has_backlog == 'true' && env.INPUT_BACKLOG_DEPTH != '0'
         env:
           GH_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_TOKEN }}
         run: |
@@ -153,17 +160,17 @@ jobs:
             echo "::warning::WORKFLOW_DISPATCH_TOKEN secret not set - cannot re-trigger. Set a PAT with 'actions:write' scope."
             exit 0
           fi
-          CURRENT_DEPTH="${{ inputs.backlog_depth || '5' }}"
+          CURRENT_DEPTH="$INPUT_BACKLOG_DEPTH"
           NEXT_DEPTH=$((CURRENT_DEPTH - 1))
           if [ "$NEXT_DEPTH" -gt 0 ]; then
             echo "Backlog detected, re-triggering with depth=$NEXT_DEPTH"
             gh workflow run pipeline.yml \
               --ref "${{ github.ref_name }}" \
-              -f stage="${{ inputs.stage || 'all' }}" \
-              -f limit="${{ inputs.limit || '0' }}" \
-              -f email_limit="${{ inputs.email_limit || '20' }}" \
-              -f enrich_workers="${{ inputs.enrich_workers || '6' }}" \
-              -f orcid_workers="${{ inputs.orcid_workers || '3' }}" \
+              -f stage="$INPUT_STAGE" \
+              -f limit="$INPUT_LIMIT" \
+              -f email_limit="$INPUT_EMAIL_LIMIT" \
+              -f enrich_workers="$INPUT_ENRICH_WORKERS" \
+              -f orcid_workers="$INPUT_ORCID_WORKERS" \
               -f backlog_depth="$NEXT_DEPTH"
           else
             echo "Backlog depth exhausted, not re-triggering"

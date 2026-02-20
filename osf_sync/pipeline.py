@@ -24,7 +24,7 @@ from .fetch_one import fetch_preprint_by_doi, fetch_preprint_by_id, upsert_one_p
 from .grobid import mark_tei, process_pdf_to_tei
 from .iter_preprints import iter_preprints_batches, iter_preprints_range
 from .exclusion_logging import log_preprint_exclusion
-from .pdf import ensure_pdf_available_or_delete, mark_downloaded
+from .pdf import ensure_pdf_available_or_delete, mark_downloaded, resolve_primary_file_info_from_raw
 from .upsert import upsert_batch
 from .email import process_email_batch
 from .extraction.extract_author_list import run_author_extract
@@ -168,6 +168,24 @@ def _env_true(name: str, default: bool = False) -> bool:
     if raw is None:
         return default
     return raw.strip().lower() in _TRUE_VALUES
+
+
+def _email_stage_enabled() -> bool:
+    # Safety default: email sending is OFF unless explicitly enabled.
+    return _env_true("PIPELINE_ENABLE_EMAIL_STAGE", default=False)
+
+
+def _disabled_email_result(*, dry_run: bool) -> Dict[str, Any]:
+    return {
+        "stage": "email",
+        "sent": 0,
+        "processed": 0,
+        "failed": 0,
+        "skipped_disabled": True,
+        "limit_reached": False,
+        "stopped_due_to_time": False,
+        "dry_run": dry_run,
+    }
 
 
 def _parse_config_anchor_date() -> Optional[dt.date]:
@@ -497,11 +515,20 @@ def download_single_pdf(osf_id: str) -> Dict[str, Any]:
 
     if kind == "deleted":
         if exclusion_reason:
+            details = {"provider_id": provider_id}
+            try:
+                _url, ctype, name = resolve_primary_file_info_from_raw(row["raw"])
+                if ctype:
+                    details["primary_file_content_type"] = ctype
+                if name:
+                    details["primary_file_name"] = name
+            except Exception:
+                logger.debug("failed to resolve primary file metadata for exclusion logging", exc_info=True)
             log_preprint_exclusion(
                 reason=exclusion_reason,
                 osf_id=osf_id,
                 stage="pdf",
-                details={"provider_id": provider_id},
+                details=details,
             )
         return {"osf_id": osf_id, "deleted": True, "reason": exclusion_reason or "unsupported file type"}
 
@@ -613,6 +640,7 @@ def process_pdf_batch(
         "failed": failed,
         "skipped_claimed": skipped_claimed,
         "dry_run": dry_run,
+        "limit_reached": (processed + failed) >= limit,
         "stopped_due_to_time": _time_up(deadline),
     }
     _slack("PDF stage finished", extra=out)
@@ -683,6 +711,7 @@ def process_grobid_batch(
         "failed": failed,
         "skipped_claimed": skipped_claimed,
         "dry_run": dry_run,
+        "limit_reached": (processed + failed) >= limit,
         "stopped_due_to_time": _time_up(deadline),
     }
     _slack("GROBID stage finished", extra=out)
@@ -751,6 +780,7 @@ def process_extract_batch(
         "failed": failed,
         "skipped_claimed": skipped_claimed,
         "dry_run": dry_run,
+        "limit_reached": (processed + failed) >= limit,
         "stopped_due_to_time": _time_up(deadline),
     }
     _slack("TEI extract stage finished", extra=out)
@@ -774,6 +804,8 @@ def process_enrich_batch(
             "checked": 0,
             "updated": 0,
             "failed": 0,
+            "preprints_selected": 0,
+            "limit_reached": False,
             "dry_run": True,
         }
     stats = enrich_missing_with_multi_method(
@@ -1012,6 +1044,9 @@ def run_stage(args: argparse.Namespace) -> Dict[str, Any]:
             dry_run=args.dry_run,
         )
     if stage == "email":
+        if not _email_stage_enabled():
+            logger.warning("Email stage requested but disabled (PIPELINE_ENABLE_EMAIL_STAGE is false)")
+            return _disabled_email_result(dry_run=args.dry_run)
         return process_email_batch(
             limit=args.limit or 50,
             max_seconds=args.max_seconds,
@@ -1046,6 +1081,7 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
 
     include_email = getattr(args, "include_email", False)
     email_limit = getattr(args, "email_limit", 50)
+    email_enabled = _email_stage_enabled()
 
     out["stages"]["sync"] = sync_from_osf(
         subject_text=args.subject,
@@ -1130,7 +1166,7 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
             dry_run=args.dry_run,
         )
 
-    if include_email and email_limit > 0:
+    if include_email and email_limit > 0 and email_enabled:
         spread = int(email_limit * 270)  # 45 min / 10 = 4.5 min = 270s per msg
         out["stages"]["email"] = process_email_batch(
             limit=email_limit,
@@ -1138,6 +1174,9 @@ def run_all(args: argparse.Namespace) -> Dict[str, Any]:
             spread_seconds=spread,
             dry_run=args.dry_run,
         )
+    elif include_email and email_limit > 0 and not email_enabled:
+        logger.warning("Email stage requested in run-all but disabled (PIPELINE_ENABLE_EMAIL_STAGE is false)")
+        out["stages"]["email"] = _disabled_email_result(dry_run=args.dry_run)
 
     if not args.dry_run:
         out["excluded_preprints_summary"] = _excluded_summary()
@@ -1152,6 +1191,7 @@ def _merge_stage_results(accumulated: Dict[str, Any], batch: Dict[str, Any]) -> 
         return dict(batch)
     for key in ("selected", "claimed", "processed", "failed", "skipped_claimed"):
         accumulated[key] = accumulated.get(key, 0) + batch.get(key, 0)
+    accumulated["limit_reached"] = bool(accumulated.get("limit_reached", False) or batch.get("limit_reached", False))
     accumulated["stopped_due_to_time"] = batch.get("stopped_due_to_time", False)
     return accumulated
 
@@ -1250,10 +1290,10 @@ def run_grobid_stages(args: argparse.Namespace) -> Dict[str, Any]:
     timed_out = _time_up(overall_deadline)
 
     out["stages"]["pdf"] = pdf_result or {
-        "stage": "pdf", "processed": 0, "failed": 0, "dry_run": args.dry_run,
+        "stage": "pdf", "processed": 0, "failed": 0, "limit_reached": False, "dry_run": args.dry_run,
     }
     out["stages"]["grobid"] = grobid_result or {
-        "stage": "grobid", "processed": 0, "failed": 0, "dry_run": args.dry_run,
+        "stage": "grobid", "processed": 0, "failed": 0, "limit_reached": False, "dry_run": args.dry_run,
     }
     if timed_out:
         for stage_data in out["stages"].values():
@@ -1269,6 +1309,7 @@ def run_post_grobid(args: argparse.Namespace) -> Dict[str, Any]:
 
     include_email = getattr(args, "include_email", False)
     email_limit = getattr(args, "email_limit", 50)
+    email_enabled = _email_stage_enabled()
 
     out["stages"]["extract"] = process_extract_batch(
         limit=args.extract_limit,
@@ -1328,7 +1369,7 @@ def run_post_grobid(args: argparse.Namespace) -> Dict[str, Any]:
             dry_run=args.dry_run,
         )
 
-    if include_email and email_limit > 0:
+    if include_email and email_limit > 0 and email_enabled:
         spread = int(email_limit * 270)
         out["stages"]["email"] = process_email_batch(
             limit=email_limit,
@@ -1336,6 +1377,9 @@ def run_post_grobid(args: argparse.Namespace) -> Dict[str, Any]:
             spread_seconds=spread,
             dry_run=args.dry_run,
         )
+    elif include_email and email_limit > 0 and not email_enabled:
+        logger.warning("Email stage requested in run-post-grobid but disabled (PIPELINE_ENABLE_EMAIL_STAGE is false)")
+        out["stages"]["email"] = _disabled_email_result(dry_run=args.dry_run)
 
     if not args.dry_run:
         out["excluded_preprints_summary"] = _excluded_summary()
@@ -1407,7 +1451,7 @@ def _add_grobid_args(parser: argparse.ArgumentParser) -> None:
 def _add_downstream_args(parser: argparse.ArgumentParser) -> None:
     """Arguments for extract/enrich/flora/author/email stages."""
     parser.add_argument("--extract-limit", type=int, default=200)
-    parser.add_argument("--enrich-limit", type=int, default=300)
+    parser.add_argument("--enrich-limit", type=int, default=300, help="Max preprints for DOI enrichment")
     parser.add_argument("--author-limit", type=int, default=None)
     parser.add_argument("--randomize-limit", type=int, default=None, help="Optional cap for author randomization")
     parser.add_argument("--limit-lookup", type=int, default=200)
@@ -1450,7 +1494,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_run = sub.add_parser("run", help="Run a single pipeline stage")
     p_run.add_argument("--stage", required=True, choices=["sync", "pdf", "grobid", "extract", "enrich", "flora", "author", "author-randomize", "email", "inbox"])
-    p_run.add_argument("--limit", type=int, default=None)
+    p_run.add_argument("--limit", type=int, default=None, help="Stage limit (for enrich: max preprints)")
     p_run.add_argument("--max-seconds", type=int, default=None)
     p_run.add_argument("--dry-run", action="store_true")
     p_run.add_argument("--download-workers", type=int, default=1, help="Parallel workers for PDF downloads")

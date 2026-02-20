@@ -352,8 +352,12 @@ class PreprintsRepo:
             if excluded:
                 # Certain exclusions are intentionally re-admittable:
                 # - ingest_date_window: anchor/window changes can backfill
-                # - docx_to_pdf_conversion_failed: transient (e.g. missing LibreOffice)
-                _READMITTABLE = {"ingest_date_window", "docx_to_pdf_conversion_failed"}
+                # - *_to_pdf_conversion_failed: transient (e.g. missing/locked LibreOffice)
+                _READMITTABLE = {
+                    "ingest_date_window",
+                    "docx_to_pdf_conversion_failed",
+                    "office_to_pdf_conversion_failed",
+                }
                 excluded_ids = {
                     osf_id for osf_id, reason in excluded.items()
                     if str(reason or "") not in _READMITTABLE
@@ -882,13 +886,16 @@ class PreprintsRepo:
 
     def select_refs_missing_doi(
         self,
-        limit: int,
+        limit: Optional[int],
         osf_id: Optional[str] = None,
         *,
         ref_id: Optional[str] = None,
         include_existing: bool = False,
         skip_checked_within_seconds: Optional[int] = None,
     ) -> List[Dict[str, Any]]:
+        limit_val: Optional[int] = None if limit is None else int(limit)
+        if limit_val is not None and limit_val <= 0:
+            limit_val = None
         items: List[Dict[str, Any]] = []
 
         if osf_id:
@@ -901,13 +908,13 @@ class PreprintsRepo:
                 chunk = resp.get("Items", [])
                 items.extend(chunk)
                 last_key = resp.get("LastEvaluatedKey")
-                if not last_key or (limit and len(items) >= limit):
+                if not last_key or (limit_val and len(items) >= limit_val):
                     break
         else:
             fe = "(attribute_not_exists(doi) OR doi = :empty)"
             eav = {":empty": ""}
             last_key = None
-            while len(items) < limit:
+            while True:
                 scan_kwargs: Dict[str, Any] = {
                     "FilterExpression": fe,
                     "ExpressionAttributeValues": eav,
@@ -916,6 +923,8 @@ class PreprintsRepo:
                     scan_kwargs["ExclusiveStartKey"] = last_key
                 resp = self.t_refs.scan(**scan_kwargs)
                 items.extend(resp.get("Items", []))
+                if limit_val and len(items) >= limit_val:
+                    break
                 last_key = resp.get("LastEvaluatedKey")
                 if not last_key:
                     break
@@ -944,9 +953,55 @@ class PreprintsRepo:
                 if not it.get("doi_checked_at") or it["doi_checked_at"] < cutoff
             ]
 
-        if limit:
-            items = items[:limit]
+        if limit_val:
+            items = items[:limit_val]
         return items
+
+    def select_osf_ids_with_refs_missing_doi(
+        self,
+        limit_preprints: int,
+        *,
+        skip_checked_within_seconds: Optional[int] = None,
+    ) -> List[str]:
+        if limit_preprints <= 0:
+            return []
+
+        cutoff: Optional[str] = None
+        if skip_checked_within_seconds:
+            cutoff = (
+                dt.datetime.now(dt.timezone.utc) - dt.timedelta(seconds=skip_checked_within_seconds)
+            ).isoformat()
+
+        out: List[str] = []
+        seen: Set[str] = set()
+        last_key = None
+        fe = "(attribute_not_exists(doi) OR doi = :empty)"
+        eav = {":empty": ""}
+        while len(out) < limit_preprints:
+            scan_kwargs: Dict[str, Any] = {
+                "FilterExpression": fe,
+                "ExpressionAttributeValues": eav,
+                "ProjectionExpression": "osf_id,doi_checked_at",
+            }
+            if last_key:
+                scan_kwargs["ExclusiveStartKey"] = last_key
+            resp = self.t_refs.scan(**scan_kwargs)
+            for item in resp.get("Items", []):
+                osf_id = (item or {}).get("osf_id")
+                if not osf_id or osf_id in seen:
+                    continue
+                if cutoff:
+                    checked_at = item.get("doi_checked_at")
+                    if checked_at and checked_at >= cutoff:
+                        continue
+                seen.add(osf_id)
+                out.append(osf_id)
+                if len(out) >= limit_preprints:
+                    break
+            last_key = resp.get("LastEvaluatedKey")
+            if not last_key:
+                break
+        return out
 
     def select_refs_with_doi(
         self,
