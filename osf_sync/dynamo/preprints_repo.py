@@ -867,7 +867,8 @@ class PreprintsRepo:
     def get_preprint_basic(self, osf_id: str) -> Optional[Dict[str, Any]]:
         it = self.t_preprints.get_item(
             Key={"osf_id": osf_id},
-            ProjectionExpression="osf_id, provider_id, raw",
+            ProjectionExpression="osf_id, provider_id, #raw",
+            ExpressionAttributeNames={"#raw": "raw"},
         ).get("Item")
         if not it:
             return None
