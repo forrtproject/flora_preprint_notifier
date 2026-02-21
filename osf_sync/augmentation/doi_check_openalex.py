@@ -341,7 +341,7 @@ def _fetch_candidates(
     label = "with_year" if year else "no_year"
     try:
         r = _sget(sess, f"{OPENALEX_BASE}/works", params)
-        _log(logging.INFO, f"OpenAlex {label} request",
+        _log(logging.DEBUG, f"OpenAlex {label} request",
              url=(r.url if r else None), status=(r.status_code if r else None))
         if not r:
             return []

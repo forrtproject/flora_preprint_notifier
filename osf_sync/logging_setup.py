@@ -11,6 +11,8 @@ def get_logger(name: str) -> logging.Logger:
     )
     handler.setFormatter(formatter)
     logger.addHandler(handler)
+    # Prevent duplicate emission via the root logger.
+    logger.propagate = False
     logger.setLevel(level)
     # default extras
     logger = logging.LoggerAdapter(logger, extra={"extras": "{}"})

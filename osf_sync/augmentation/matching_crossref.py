@@ -37,6 +37,13 @@ def _exception(msg: str, **extras):
     else:
         logger.exception(msg)
 
+
+def _debug(msg: str, **extras):
+    if extras:
+        with_extras(logger, **extras).debug(msg)
+    else:
+        logger.debug(msg)
+
 CROSSREF_BASE = "https://api.crossref.org/works"
 RAW_MIN_FUZZ = 70
 RAW_MIN_JACCARD = float(os.environ.get("RAW_MIN_JACCARD", 0.12))
@@ -723,12 +730,14 @@ def _crossref_request(params: Dict[str, str],
     GET Crossref with retries. Log detailed errors.
     """
     url = CROSSREF_BASE
-    _info("Crossref request start", params=params)
+    if debug:
+        _debug("Crossref request start", params=params)
     for attempt in range(1, max_attempts + 1):
         try:
             r = requests.get(url, params=params, timeout=25)
             if r.status_code == 200:
-                _info("Crossref request success", url=r.url, attempt=attempt)
+                if debug:
+                    _debug("Crossref request success", url=r.url, attempt=attempt)
                 return r.json()
             else:
                 body = r.text[:600]
@@ -776,7 +785,8 @@ def _query_crossref_biblio(blob: str, rows: int, debug: bool) -> List[dict]:
         # "select": ",".join(["DOI", "title", "issued", "author", "container-title"]),
         "mailto": _mailto(),
     }
-    _info("Crossref bibliographic query", blob_excerpt=blob[:200], rows=rows, debug_mode=debug)
+    if debug:
+        _debug("Crossref bibliographic query", blob_excerpt=blob[:200], rows=rows)
     res = _crossref_request(params, debug=debug)
     if not res:
         return []
