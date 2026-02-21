@@ -565,7 +565,7 @@ def _raw_candidate_valid(
     raw_score = _score_candidate_raw(cand, raw_blob, authors)
     if raw_score < RAW_MIN_FUZZ:
         doc = _build_raw_candidate_doc(cand, authors)
-        _info(
+        _debug(
             "Raw score too low",
             raw_score=raw_score,
             doi=cand.get("DOI"),
@@ -578,7 +578,7 @@ def _raw_candidate_valid(
     doc = _build_raw_candidate_doc(cand, authors)
     jacc = _jaccard_similarity(doc, raw_blob)
     if jacc < RAW_MIN_JACCARD:
-        _info(
+        _debug(
             "Raw jaccard too low",
             jaccard=jacc,
             doi=cand.get("DOI"),
@@ -589,7 +589,7 @@ def _raw_candidate_valid(
     cyear = _safe_get_issued_year(cand)
     year_ok, year_diff = _year_within_window(year, cyear, YEAR_MAX_DIFF)
     if not year_ok:
-        _info(
+        _debug(
             "Year mismatch in raw candidate",
             candidate_year=cyear,
             ref_year=year,
@@ -600,11 +600,11 @@ def _raw_candidate_valid(
     cjour = (cand.get("container-title") or [""])[0]
     if journal and cjour:
         if not _journal_matches(cjour, journal):
-            _info("Journal mismatch in raw candidate", doi=cand.get("DOI"), candidate_journal=cjour, ref_journal=journal)
+            _debug("Journal mismatch in raw candidate", doi=cand.get("DOI"), candidate_journal=cjour, ref_journal=journal)
             return False
     if authors:
         if not _authors_overlap(cand, authors):
-            _info("Author mismatch in raw candidate", doi=cand.get("DOI"), authors=authors, candidate_authors=cand.get("author"))
+            _debug("Author mismatch in raw candidate", doi=cand.get("DOI"), authors=authors, candidate_authors=cand.get("author"))
             return False
     return True
 
@@ -835,9 +835,9 @@ def enrich_missing_with_crossref(limit: int = 300,
         use_raw_only = False
         if not title and raw_citation:
             use_raw_only = True
-            _info("Crossref search using raw citation only", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
+            _debug("Crossref search using raw citation only", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
         if not title and not raw_citation:
-            _info("Skipping Crossref search: missing title and raw citation", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
+            _debug("Skipping Crossref search: missing title and raw citation", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
             misses.append({
                 "osf_id": r.get("osf_id"),
                 "ref_id": r.get("ref_id"),
@@ -846,7 +846,8 @@ def enrich_missing_with_crossref(limit: int = 300,
             })
             continue
         raw_year = _extract_year_from_raw(raw_citation)
-        _info(raw_citation)
+        if debug and raw_citation:
+            _debug("Crossref raw citation", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"), raw_excerpt=raw_citation[:240])
         if raw_year is not None:
             year = raw_year
         else:
@@ -869,17 +870,17 @@ def enrich_missing_with_crossref(limit: int = 300,
         }
         raw_mode = use_raw_only
         if use_raw_only:
-            _info("Crossref raw-only search", **meta)
+            _debug("Crossref raw-only search", **meta)
             items = _query_crossref_biblio(raw_citation, rows=30, debug=debug)
         else:
-            _info("Crossref structured search", **meta)
+            _debug("Crossref structured search", **meta)
             items = _query_crossref(title, year, journal, authors, rows=30, debug=debug)
             if not items and raw_citation:
-                _info("Crossref fallback to raw citation", **meta)
+                _debug("Crossref fallback to raw citation", **meta)
                 items = _query_crossref_biblio(raw_citation, rows=30, debug=debug)
                 raw_mode = True
         if not items:
-            _info("No Crossref candidates", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
+            _debug("No Crossref candidates", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
             misses.append({
                 "osf_id": r.get("osf_id"),
                 "ref_id": r.get("ref_id"),
@@ -903,7 +904,7 @@ def enrich_missing_with_crossref(limit: int = 300,
             raw_search=raw_mode,
         )
         if not best:
-            _info("No good Crossref match", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"), candidates=len(items))
+            _debug("No good Crossref match", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"), candidates=len(items))
             misses.append({
                 "osf_id": r.get("osf_id"),
                 "ref_id": r.get("ref_id"),
@@ -914,7 +915,7 @@ def enrich_missing_with_crossref(limit: int = 300,
 
         doi = best.get("DOI")
         if not doi:
-            _info("Best Crossref candidate missing DOI", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
+            _debug("Best Crossref candidate missing DOI", osf_id=r.get("osf_id"), ref_id=r.get("ref_id"))
             continue
 
         # Update DB

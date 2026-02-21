@@ -125,33 +125,34 @@ jobs:
               --max-seconds 18000 \
               | tee /tmp/pipeline_output_enrich.json
 
-            python - <<'PY'
-            import json
+            cat > /tmp/merge_pipeline_outputs.py <<'PY'
+          import json
 
-            def _load(path):
-                try:
-                    with open(path, 'r', encoding='utf-8') as f:
-                        return json.load(f)
-                except Exception:
-                    return {}
+          def _load(path: str):
+              try:
+                  with open(path, "r", encoding="utf-8") as f:
+                      return json.load(f)
+              except Exception:
+                  return {}
 
-            extract = _load('/tmp/pipeline_output_extract.json')
-            enrich = _load('/tmp/pipeline_output_enrich.json')
-            out = {'stages': {}}
-            if isinstance(extract, dict):
-                if extract.get('stage') == 'extract':
-                    out['stages']['extract'] = extract
-                elif isinstance(extract.get('stages'), dict):
-                    out['stages']['extract'] = extract['stages'].get('extract', {})
-            if isinstance(enrich, dict):
-                if enrich.get('stage') == 'enrich':
-                    out['stages']['enrich'] = enrich
-                elif isinstance(enrich.get('stages'), dict):
-                    out['stages']['enrich'] = enrich['stages'].get('enrich', {})
-            with open('/tmp/pipeline_output.json', 'w', encoding='utf-8') as f:
-                json.dump(out, f)
-            print(json.dumps(out, indent=2))
-            PY
+          extract = _load("/tmp/pipeline_output_extract.json")
+          enrich = _load("/tmp/pipeline_output_enrich.json")
+          out = {"stages": {}}
+          if isinstance(extract, dict):
+              if extract.get("stage") == "extract":
+                  out["stages"]["extract"] = extract
+              elif isinstance(extract.get("stages"), dict):
+                  out["stages"]["extract"] = extract["stages"].get("extract", {})
+          if isinstance(enrich, dict):
+              if enrich.get("stage") == "enrich":
+                  out["stages"]["enrich"] = enrich
+              elif isinstance(enrich.get("stages"), dict):
+                  out["stages"]["enrich"] = enrich["stages"].get("enrich", {})
+          with open("/tmp/pipeline_output.json", "w", encoding="utf-8") as f:
+              json.dump(out, f)
+          print(json.dumps(out, indent=2))
+          PY
+            python /tmp/merge_pipeline_outputs.py
           else
             EXTRA_ARGS=""
             STAGE_LIMIT="$LIMIT"
@@ -171,23 +172,31 @@ jobs:
               | tee /tmp/pipeline_output.json
           fi
 
-          # Re-trigger only on explicit backlog signals.
-          if python -c "
-          import json, sys
+          cat > /tmp/has_pipeline_backlog.py <<'PY'
+          import json
+          import sys
+
           try:
-              data = json.load(open('/tmp/pipeline_output.json'))
-              stages = data.get('stages')
-              if isinstance(stages, dict):
-                  if any(bool(s.get('stopped_due_to_time')) for s in stages.values() if isinstance(s, dict)):
-                      sys.exit(0)
-                  if any(bool(s.get('limit_reached')) for s in stages.values() if isinstance(s, dict)):
-                      sys.exit(0)
-              elif bool(data.get('stopped_due_to_time')) or bool(data.get('limit_reached')):
-                  sys.exit(0)
+              with open("/tmp/pipeline_output.json", "r", encoding="utf-8") as f:
+                  data = json.load(f)
           except Exception:
-              pass
-          sys.exit(1)
-          "; then
+              sys.exit(1)
+
+          stages = data.get("stages")
+          if isinstance(stages, dict):
+              has_backlog = any(
+                  bool(s.get("stopped_due_to_time")) or bool(s.get("limit_reached"))
+                  for s in stages.values()
+                  if isinstance(s, dict)
+              )
+          else:
+              has_backlog = bool(data.get("stopped_due_to_time")) or bool(data.get("limit_reached"))
+
+          sys.exit(0 if has_backlog else 1)
+          PY
+
+          # Re-trigger only on explicit backlog signals.
+          if python /tmp/has_pipeline_backlog.py; then
             echo "has_backlog=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_backlog=false" >> "$GITHUB_OUTPUT"

@@ -596,7 +596,7 @@ def enrich_missing_with_openalex(
         title = (r.get("title") or "").strip()
         raw_citation = (r.get("raw_citation") or "").strip()
         if not title:
-            _log(logging.INFO, "Skipping OpenAlex search: missing title", osf_id=osfid, ref_id=refid)
+            _log(logging.DEBUG, "Skipping OpenAlex search: missing title", osf_id=osfid, ref_id=refid)
             checked += 1
             continue
         authors = r.get("authors") or []  # array in DB
@@ -611,14 +611,14 @@ def enrich_missing_with_openalex(
         except Exception:
             year = None
 
-        _log(logging.INFO, "OpenAlex lookup start",
+        _log(logging.DEBUG, "OpenAlex lookup start",
              osf_id=osfid, ref_id=refid, title=title, year=year, journal=journal, authors=authors)
 
         # Normalize once
         nt = _norm(title)
 
         if debug:
-            _log(logging.INFO, "OpenAlex debug search title",
+            _log(logging.DEBUG, "OpenAlex debug search title",
                  osf_id=osfid, ref_id=refid, normalized_title=nt[:160], using_raw=False)
 
         # Stage 1: title + year
@@ -633,20 +633,20 @@ def enrich_missing_with_openalex(
             cands = _fetch_candidates(sess, nt, None, active_mailto)
 
         if not cands:
-            _log(logging.INFO, "No good OpenAlex match", osf_id=osfid, ref_id=refid, candidates=0)
+            _log(logging.DEBUG, "No good OpenAlex match", osf_id=osfid, ref_id=refid, candidates=0)
             checked += 1
             continue
 
         best = _pick_best(title, year, journal, authors, cands, threshold=threshold, debug=debug)
         if not best:
-            _log(logging.INFO, "No candidate passed threshold",
+            _log(logging.DEBUG, "No candidate passed threshold",
                  osf_id=osfid, ref_id=refid, cand_count=len(cands))
             checked += 1
             continue
 
         doi = best.get("doi")
         if not doi:
-            _log(logging.INFO, "Best candidate has no DOI", osf_id=osfid, ref_id=refid)
+            _log(logging.DEBUG, "Best candidate has no DOI", osf_id=osfid, ref_id=refid)
             checked += 1
             continue
 
@@ -657,7 +657,7 @@ def enrich_missing_with_openalex(
                 updated += 1
                 _log(logging.INFO, "DOI updated via OpenAlex", osf_id=osfid, ref_id=refid, doi=doi)
             else:
-                _log(logging.INFO, "DOI already present, skipped", osf_id=osfid, ref_id=refid)
+                _log(logging.DEBUG, "DOI already present, skipped", osf_id=osfid, ref_id=refid)
             checked += 1
         except Exception as e:
             failed += 1
