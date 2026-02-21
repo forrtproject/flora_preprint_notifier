@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Dict, List, Optional, Any
 from ..dynamo.preprints_repo import PreprintsRepo
-from .doi_multi_method_lookup import doi_resolves
+from .doi_multi_method_lookup import doi_resolves, normalize_doi
 import logging, traceback, json
 
 logger = logging.getLogger(__name__)
@@ -19,6 +19,26 @@ def _safe_str(v: Any, maxlen: int | None = None):
 def _to_int_or_none(v: Any):
     if v is None: return None
     s = str(v).strip();  return int(s) if s.isdigit() else None
+
+
+def _repair_doi_suffix_if_needed(doi: str, *, max_trim: int = 8) -> Optional[str]:
+    """
+    Try to recover DOIs contaminated by trailing digits (common TEI parsing artifact),
+    e.g. 10.xxxx/abc12345 -> 10.xxxx/abc123.
+    """
+    candidate = str(doi or "").strip().lower()
+    if not candidate:
+        return None
+    trimmed = candidate
+    for _ in range(max_trim):
+        if not trimmed or not trimmed[-1].isdigit():
+            break
+        trimmed = trimmed[:-1]
+        if len(trimmed) < 8:
+            break
+        if doi_resolves(trimmed) is True:
+            return trimmed
+    return None
 
 def write_extraction(
     osf_id: str,
@@ -65,11 +85,29 @@ def write_extraction(
         # References
         for idx, ref in enumerate(references):
             ref_id = ref.get("ref_id") or f"r{idx}"
-            ref_doi = _safe_str(ref.get("doi"))
-            if ref_doi and doi_resolves(ref_doi) is False:
-                _log.info("GROBID DOI does not resolve, discarding",
-                          extra={"osf_id": osf_id, "ref_id": ref_id, "doi": ref_doi})
-                ref_doi = None
+            raw_ref_doi = _safe_str(ref.get("doi"))
+            ref_doi = normalize_doi(raw_ref_doi)
+            if raw_ref_doi and not ref_doi:
+                _log.info(
+                    "Malformed GROBID DOI, discarding",
+                    extra={"osf_id": osf_id, "ref_id": ref_id, "doi": raw_ref_doi},
+                )
+            if ref_doi:
+                resolve_state = doi_resolves(ref_doi)
+                if resolve_state is False:
+                    repaired = _repair_doi_suffix_if_needed(ref_doi)
+                    if repaired:
+                        _log.info(
+                            "Repaired malformed DOI before validation",
+                            extra={"osf_id": osf_id, "ref_id": ref_id, "doi_old": ref_doi, "doi_new": repaired},
+                        )
+                        ref_doi = repaired
+                    else:
+                        _log.info(
+                            "GROBID DOI does not resolve, discarding",
+                            extra={"osf_id": osf_id, "ref_id": ref_id, "doi": ref_doi},
+                        )
+                        ref_doi = None
             item = {
                 "ref_id": ref_id,
                 "title": _safe_str(ref.get("title")),

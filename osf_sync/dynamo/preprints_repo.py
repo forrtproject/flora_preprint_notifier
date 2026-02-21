@@ -5,11 +5,47 @@ from boto3.dynamodb.conditions import Attr, Key
 from typing import List, Dict, Optional, Any, Iterable, Set
 import datetime as dt
 import os
+import re
 
 
 def _strip_nones(d: Dict[str, Any]) -> Dict[str, Any]:
     """Return a shallow copy of dict without None values (DynamoDB rejects None)."""
     return {k: v for k, v in d.items() if v is not None}
+
+
+_DOI_RE = re.compile(r"10\.[0-9]{4,9}/\S+", re.IGNORECASE)
+
+
+def _normalize_reference_doi(value: Any) -> Optional[str]:
+    raw = str(value or "").strip().lower()
+    if not raw:
+        return None
+    for pref in (
+        "https://doi.org/",
+        "http://doi.org/",
+        "https://dx.doi.org/",
+        "http://dx.doi.org/",
+        "dx.doi.org/",
+        "doi.org/",
+        "doi:",
+    ):
+        if raw.startswith(pref):
+            raw = raw[len(pref):]
+            break
+    first_doi = raw.find("10.")
+    if first_doi == -1:
+        return None
+    raw = raw[first_doi:]
+    m = _DOI_RE.search(raw)
+    if m:
+        raw = m.group(0)
+    raw = raw.split("?", 1)[0].split("#", 1)[0].strip()
+    raw = raw.strip(" \t\r\n\"'<>[]{}(),.;:")
+    if not raw or not raw.startswith("10."):
+        return None
+    if not _DOI_RE.fullmatch(raw):
+        return None
+    return raw
 
 log = get_logger(__name__)
 
@@ -851,7 +887,16 @@ class PreprintsRepo:
         self.t_tei.put_item(Item=_strip_nones(item_full))
 
     def upsert_reference(self, osf_id: str, ref: Dict) -> None:
-        item_full = {"osf_id": osf_id, "ref_id": ref["ref_id"], **ref,
+        ref_clean = dict(ref)
+        doi_norm = _normalize_reference_doi(ref_clean.get("doi"))
+        if doi_norm:
+            ref_clean["doi"] = doi_norm
+            ref_clean["has_doi"] = True
+        elif ref_clean.get("doi"):
+            ref_clean["doi"] = None
+            ref_clean["has_doi"] = False
+            ref_clean.pop("doi_source", None)
+        item_full = {"osf_id": osf_id, "ref_id": ref["ref_id"], **ref_clean,
                      "updated_at": dt.datetime.utcnow().isoformat()}
         self.t_refs.put_item(Item=_strip_nones(item_full))
 
@@ -1149,12 +1194,18 @@ class PreprintsRepo:
 
     def update_reference_doi(self, osf_id: str, ref_id: str, doi: str, *, source: str) -> bool:
         # Only set if not already set
+        doi_norm = _normalize_reference_doi(doi)
+        if not doi_norm:
+            with_extras(log, osf_id=osf_id, ref_id=ref_id, doi=doi, source=source).warning(
+                "Rejected malformed DOI update"
+            )
+            return False
         now = dt.datetime.utcnow().isoformat()
         try:
             self.t_refs.update_item(
                 Key={"osf_id": osf_id, "ref_id": ref_id},
                 UpdateExpression="SET doi=:d, has_doi=:hd, doi_source=:src, updated_at=:t",
-                ExpressionAttributeValues={":d": doi, ":hd": True, ":src": source, ":t": now, ":empty": ""},
+                ExpressionAttributeValues={":d": doi_norm, ":hd": True, ":src": source, ":t": now, ":empty": ""},
                 ConditionExpression="attribute_not_exists(doi) OR doi = :empty",
                 ReturnValues="NONE",
             )

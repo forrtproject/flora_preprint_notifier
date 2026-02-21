@@ -210,11 +210,43 @@ def _maybe_log_progress(processed: int, log_every: int, out_file) -> None:
 def _normalize_doi(doi: Optional[str]) -> Optional[str]:
     if not doi:
         return None
-    d = doi.strip().lower()
-    for pref in ("https://doi.org/", "http://doi.org/", "doi:"):
+    d = html.unescape(str(doi)).strip().lower()
+    if not d:
+        return None
+    d = d.replace("\u200b", "").replace("\ufeff", "")
+    for pref in (
+        "https://doi.org/",
+        "http://doi.org/",
+        "https://dx.doi.org/",
+        "http://dx.doi.org/",
+        "dx.doi.org/",
+        "doi.org/",
+        "doi:",
+    ):
         if d.startswith(pref):
             d = d[len(pref):]
-    return d or None
+            break
+    first_doi = d.find("10.")
+    if first_doi == -1:
+        return None
+    d = d[first_doi:]
+    m = _DOI_RE.search(d)
+    if m:
+        d = m.group(0)
+    d = d.split("?", 1)[0].split("#", 1)[0].strip()
+    d = d.strip(" \t\r\n\"'<>[]{}(),.;:")
+    if not d:
+        return None
+    if not d.startswith("10."):
+        return None
+    if not _DOI_RE.fullmatch(d):
+        return None
+    return d
+
+
+def normalize_doi(doi: Optional[str]) -> Optional[str]:
+    """Public DOI normalizer for ingestion/update code paths."""
+    return _normalize_doi(doi)
 
 
 def doi_resolves(doi: str, timeout: int = 10) -> Optional[bool]:
@@ -225,7 +257,7 @@ def doi_resolves(doi: str, timeout: int = 10) -> Optional[bool]:
     """
     doi = _normalize_doi(doi)
     if not doi or not doi.startswith("10."):
-        return None
+        return False
 
     key = _cache_key("doi_resolve", {"doi": doi})
     found, hit = _cache_get(key)
@@ -274,6 +306,7 @@ def _ascii_sanitize(val: Optional[str]) -> Optional[str]:
 
 
 _URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
+_DOI_RE = re.compile(r"10\.[0-9]{4,9}/\S+", re.IGNORECASE)
 _YEAR_RE = re.compile(r"\b(18|19|20)\d{2}\b")
 _TAG_RE = re.compile(r"<[^>]+>")
 _RAW_SCREEN_RE = re.compile(
