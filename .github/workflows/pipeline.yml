@@ -126,32 +126,32 @@ jobs:
               | tee /tmp/pipeline_output_enrich.json
 
             python - <<'PY'
-import json
+            import json
 
-def _load(path):
-    try:
-        with open(path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except Exception:
-        return {}
+            def _load(path):
+                try:
+                    with open(path, 'r', encoding='utf-8') as f:
+                        return json.load(f)
+                except Exception:
+                    return {}
 
-extract = _load('/tmp/pipeline_output_extract.json')
-enrich = _load('/tmp/pipeline_output_enrich.json')
-out = {'stages': {}}
-if isinstance(extract, dict):
-    if extract.get('stage') == 'extract':
-        out['stages']['extract'] = extract
-    elif isinstance(extract.get('stages'), dict):
-        out['stages']['extract'] = extract['stages'].get('extract', {})
-if isinstance(enrich, dict):
-    if enrich.get('stage') == 'enrich':
-        out['stages']['enrich'] = enrich
-    elif isinstance(enrich.get('stages'), dict):
-        out['stages']['enrich'] = enrich['stages'].get('enrich', {})
-with open('/tmp/pipeline_output.json', 'w', encoding='utf-8') as f:
-    json.dump(out, f)
-print(json.dumps(out, indent=2))
-PY
+            extract = _load('/tmp/pipeline_output_extract.json')
+            enrich = _load('/tmp/pipeline_output_enrich.json')
+            out = {'stages': {}}
+            if isinstance(extract, dict):
+                if extract.get('stage') == 'extract':
+                    out['stages']['extract'] = extract
+                elif isinstance(extract.get('stages'), dict):
+                    out['stages']['extract'] = extract['stages'].get('extract', {})
+            if isinstance(enrich, dict):
+                if enrich.get('stage') == 'enrich':
+                    out['stages']['enrich'] = enrich
+                elif isinstance(enrich.get('stages'), dict):
+                    out['stages']['enrich'] = enrich['stages'].get('enrich', {})
+            with open('/tmp/pipeline_output.json', 'w', encoding='utf-8') as f:
+                json.dump(out, f)
+            print(json.dumps(out, indent=2))
+            PY
           else
             EXTRA_ARGS=""
             STAGE_LIMIT="$LIMIT"
